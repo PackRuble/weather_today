@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:open_weather_api/open_weather_api.dart';
 import 'package:weather_today/core/controllers/saved_places_provider.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/core/models/place/place_model.dart';
@@ -13,45 +14,50 @@ class SavedPlacesPageController {
   final Reader _reader;
 
   /// экземпляр.
-  static final pr = Provider.autoDispose<SavedPlacesPageController>((ref) {
-    ref.onDispose(() => print('**dispose $SavedPlacesPageController'));
-    return SavedPlacesPageController(ref.read);
-  });
+  static final pr = Provider.autoDispose<SavedPlacesPageController>(
+      (ref) => SavedPlacesPageController(ref.read),
+      name: '$SavedPlacesPageController');
 
-  // -----------------------------------------------
+  // ---------------------------------------------------------------------------
   // работа с сохраненными местами
-
-  /// сохраненные места
-  static final currentPlace = Provider.autoDispose<Place>(
-      (ref) => ref.watch(WeatherServices.currentPlace));
 
   /// сохраненные места
   static final savedPlaces = Provider.autoDispose<List<Place>>(
       (ref) => ref.watch(savedPlacesController));
 
-  /// Является ли место сохраненным.
-  bool isSavedPlace(Place place) =>
-      _reader(savedPlacesController.notifier).isSavedPlace(place);
-
   /// Является ли место текущим.
   bool isCurrentPlace(Place place) =>
       _reader(savedPlacesController.notifier).isCurrentPlace(place);
 
-  /// Сохранить местоположение в список сохраненных.
-  Future<void> savePlace(Place place) async =>
-      _reader(savedPlacesController.notifier).addPlaceToSavedPlaces(place);
-
   /// Удалить местоположение из списка сохраненных.
-  Future<void> deletePlace(Place deletedPlace) async =>
+  Future<void> _deletePlace(Place deletedPlace) async =>
       _reader(savedPlacesController.notifier).deletePlace(deletedPlace);
 
   /// Обновляем местоположение не изменяя его положение в списке.
-  Future<void> updatePlace(Place updatedPlace) async =>
+  Future<void> _updatePlace(Place updatedPlace) async =>
       _reader(savedPlacesController.notifier).updatePlace(updatedPlace);
 
   /// Выбрать местоположение текущим.
   void selectPlace(Place newPlace) =>
       _reader(WeatherServices.pr).setCurrentPlace(newPlace);
+
+  // ---------------------------------------------------------------------------
+  // ui текст
+
+  /// Вернуть правильное название места.
+  String getTitle(Place place) =>
+      ((place.countryCode != null) ? '${place.countryCode}' : '') +
+      ((place.state != null) ? ', ${place.state}' : '');
+
+  /// Вернуть правильное название места.
+  String getSubtitle(Place place, String codeLang) =>
+      ((place.name != null) ? '${place.name}' : '') +
+      ((place.localNames != null)
+          ? ', ${place.localNames![languageCodeReverse[codeLang]]}'
+          : '');
+
+  // ---------------------------------------------------------------------------
+  // диалоги
 
   /// Диалог отмены удаления.
   Future<void> dialogAfterDeletingPlace(
@@ -59,7 +65,7 @@ class SavedPlacesPageController {
     Place place,
   ) async {
     if (await showDialogAfterDeletingPlace(context)) {
-      deletePlace(place);
+      await _deletePlace(place);
     }
   }
 
@@ -76,8 +82,6 @@ class SavedPlacesPageController {
     );
   }
 
-  /// todo expandable tile controller
-
   /// Показать окно создания заметки.
   Future<void> dialogMakeNote(
     BuildContext context,
@@ -88,7 +92,7 @@ class SavedPlacesPageController {
     final String? newNote = await showDialogMakeNote(context, place.note);
 
     if (newNote != null && newNote != oldNote) {
-      await updatePlace(place.copyWith(note: newNote));
+      await _updatePlace(place.copyWith(note: newNote));
     }
   }
 }
