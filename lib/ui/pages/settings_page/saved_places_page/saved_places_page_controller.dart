@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
 import 'package:weather_today/core/controllers/saved_places_provider.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/core/models/place/place_model.dart';
 import 'package:weather_today/ui/const/dialogs.dart';
-import 'package:weather_today/ui/shared/constant_todo.dart';
+
+import '../../../utils/image_helper.dart';
 
 /// Контроллер страницы [SavedPlacesPage].
 class SavedPlacesPageController {
-  SavedPlacesPageController(this._reader);
+  SavedPlacesPageController(this._ref);
 
-  final Reader _reader;
+  final Ref _ref;
+
+  Reader get _reader => _ref.read;
 
   /// экземпляр.
   static final pr = Provider.autoDispose<SavedPlacesPageController>(
-      (ref) => SavedPlacesPageController(ref.read),
+      (ref) => SavedPlacesPageController(ref),
       name: '$SavedPlacesPageController');
 
   // ---------------------------------------------------------------------------
@@ -24,10 +26,6 @@ class SavedPlacesPageController {
   /// сохраненные места
   static final savedPlaces = Provider.autoDispose<List<Place>>(
       (ref) => ref.watch(savedPlacesController));
-
-  /// Является ли место текущим.
-  bool isCurrentPlace(Place place) =>
-      _reader(savedPlacesController.notifier).isCurrentPlace(place);
 
   /// Удалить местоположение из списка сохраненных.
   Future<void> _deletePlace(Place deletedPlace) async =>
@@ -38,23 +36,8 @@ class SavedPlacesPageController {
       _reader(savedPlacesController.notifier).updatePlace(updatedPlace);
 
   /// Выбрать местоположение текущим.
-  void selectPlace(Place newPlace) =>
+  Future<void> selectPlace(Place newPlace) async =>
       _reader(WeatherServices.pr).setCurrentPlace(newPlace);
-
-  // ---------------------------------------------------------------------------
-  // ui текст
-
-  /// Вернуть правильное название места.
-  String getTitle(Place place) =>
-      ((place.countryCode != null) ? '${place.countryCode}' : '') +
-      ((place.state != null) ? ', ${place.state}' : '');
-
-  /// Вернуть правильное название места.
-  String getSubtitle(Place place, String codeLang) =>
-      ((place.name != null) ? '${place.name}' : '') +
-      ((place.localNames != null)
-          ? ', ${place.localNames![languageCodeReverse[codeLang]]}'
-          : '');
 
   // ---------------------------------------------------------------------------
   // диалоги
@@ -78,7 +61,7 @@ class SavedPlacesPageController {
     await showDialogSeeFlag(
       context,
       place.countryCode!,
-      AppImages.getFlagIcon(place.countryCode!.toLowerCase()),
+      ImageHelper.getFlagIcon(place.countryCode ?? ''),
     );
   }
 

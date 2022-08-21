@@ -2,12 +2,18 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
+import 'package:weather_today/const/app_colors.dart';
+import 'package:weather_today/const/app_icons.dart';
+import 'package:weather_today/const/app_insets.dart';
 import 'package:weather_today/core/models/place/place_model.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'package:weather_today/ui/feature/search_widget_feature/search_widget_controller.dart';
 import 'package:weather_today/ui/pages/settings_page/saved_places_page/saved_places_page_controller.dart';
-import 'package:weather_today/ui/shared/constant_todo.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
 import 'package:weather_today/ui/shared/wrap_body_with_search_bar.dart';
+import 'package:weather_today/ui/utils/image_helper.dart';
+
+import '../../../utils/correct_show_place.dart';
 
 // todo tr
 
@@ -33,27 +39,28 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
       body: WrapperBodyWithFSBar(
         body: listPlaces.isEmpty
             ? const Center(child: Text('Сохраненных местоположений не найдено'))
-            : Column(
-                children: [
-                  const TipRWidget(
-                    text: Text('ℹ️ Нажмите, чтобы узнать больше.\n'
-                        '📌 Удерживайте, чтобы установить.'),
-                  ),
-                  Expanded(
-                    child: ListView.separated(
-                      physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const Divider(
-                          height: 5.0,
-                        );
-                      },
-                      itemBuilder: (BuildContext context, int index) {
-                        return _TileFoundedWidget(listPlaces[index]);
-                      },
-                      itemCount: listPlaces.length,
-                    ),
-                  ),
-                ],
+            : ListView.separated(
+                physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider(
+                    height: 5.0,
+                  );
+                },
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: [
+                      if (index == 0)
+                        const TipRWidget(
+                          text: Text('${AppSmiles.info} ' +
+                              'Нажмите, чтобы узнать больше.\n'
+                                  '${AppSmiles.pinned} ' +
+                              'Удерживайте, чтобы установить.'),
+                        ),
+                      _TileFoundedWidget(listPlaces[index]),
+                    ],
+                  );
+                },
+                itemCount: listPlaces.length,
               ),
       ),
     );
@@ -63,36 +70,27 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
 class _TileFoundedWidget extends ConsumerWidget {
   const _TileFoundedWidget(this.place);
 
-  // this.index);
-
   final Place place;
-
-  // final int index;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final SavedPlace sPlace =
-    //     ref.watch(model.savedPlaces.select((list) => list[index]));
+    final Place curPlace = ref.watch(SearchWidgetController.currentPlace);
 
-    final bool isSelected =
-        ref.watch(SavedPlacesPageController.pr).isCurrentPlace(place);
+    final bool isSelected = curPlace == place;
 
-    // final ValueNotifier<bool> isExpanded = useState(false);
-
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
+    final AppColors colors = AppColors.of(context);
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(AppInsets.allPadding),
       child: GestureDetector(
         onLongPress: () async =>
             ref.read(SavedPlacesPageController.pr).selectPlace(place),
         child: Card(
-          color: isSelected ? colorScheme.primaryContainer : theme.cardColor,
+          color: isSelected ? colors.selectedCard : colors.card,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),
             side: BorderSide(
-              color: colorScheme.onPrimaryContainer,
+              color: isSelected ? colors.selectedBorder : colors.border,
             ),
           ),
           margin: EdgeInsets.zero,
@@ -124,12 +122,12 @@ class _HeaderWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String title =
-        ref.watch(SavedPlacesPageController.pr).getTitle(place);
+    final String title = CorrectShowPlace.getCountryCodeAndState(place) ?? '';
 
-    final String code = Localizations.localeOf(context).languageCode;
+    final String languageCode = Localizations.localeOf(context).languageCode;
+
     final String subtitle =
-        ref.watch(SavedPlacesPageController.pr).getSubtitle(place, code);
+        CorrectShowPlace.getLocalNameOrName(place, languageCode) ?? '';
 
     return ListTile(
       title: Text(title),
@@ -137,12 +135,10 @@ class _HeaderWidget extends ConsumerWidget {
       leading: place.countryCode == null
           ? null
           : IconButton(
-              icon: AppImages.getFlagIcon(place.countryCode!.toLowerCase()),
-              onPressed: () {
-                ref
-                    .read(SavedPlacesPageController.pr)
-                    .dialogSeeFlag(context, place);
-              },
+              icon: ImageHelper.getFlagIcon(place.countryCode ?? ''),
+              onPressed: () => ref
+                  .read(SavedPlacesPageController.pr)
+                  .dialogSeeFlag(context, place),
             ),
       trailing: IconButton(
         icon: const Icon(Icons.delete),
@@ -161,14 +157,21 @@ class _ExpandedWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final Place curPlace = ref.watch(SearchWidgetController.currentPlace);
+
+    final bool isSelected = curPlace == place;
+
+    final AppColors colors = AppColors.of(context);
+
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(AppInsets.allPadding),
       child: DecoratedBox(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.0),
-            border: Border.all(color: Colors.black12)),
+            borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),
+            border: Border.all(
+                color: isSelected ? colors.selectedBorder : colors.border)),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(AppInsets.allPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
