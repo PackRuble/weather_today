@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/saved_places_provider.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/core/models/place/place_model.dart';
-import 'package:weather_today/ui/const/dialogs.dart';
+import 'package:weather_today/i18n/translations.g.dart';
+import 'package:weather_today/ui/const/app_dialogs.dart';
 
 import '../../../utils/image_helper.dart';
 
@@ -19,6 +21,10 @@ class SavedPlacesPageController {
   static final pr = Provider.autoDispose<SavedPlacesPageController>(
       (ref) => SavedPlacesPageController(ref),
       name: '$SavedPlacesPageController');
+
+  /// Провайдер возвращает translate.
+  static final tr = Provider.autoDispose<TranslationsRu>(
+      (ref) => ref.watch(AppLocalize.currentTranslation));
 
   // ---------------------------------------------------------------------------
   // работа с сохраненными местами
@@ -47,7 +53,7 @@ class SavedPlacesPageController {
     BuildContext context,
     Place place,
   ) async {
-    if (await showDialogAfterDeletingPlace(context)) {
+    if (await AppDialogs.confirmDeletionPlace(context)) {
       await _deletePlace(place);
     }
   }
@@ -58,10 +64,12 @@ class SavedPlacesPageController {
     Place place,
   ) async {
     if (place.countryCode == null) return;
-    await showDialogSeeFlag(
+    await AppDialogs.seeFlag(
       context,
       place.countryCode!,
-      ImageHelper.getFlagIcon(place.countryCode ?? ''),
+      FittedBox(
+          fit: BoxFit.contain,
+          child: ImageHelper.getFlagIcon(place.countryCode)),
     );
   }
 
@@ -72,7 +80,7 @@ class SavedPlacesPageController {
   ) async {
     final String? oldNote = place.note;
 
-    final String? newNote = await showDialogMakeNote(context, place.note);
+    final String? newNote = await AppDialogs.makeNote(context, place.note);
 
     if (newNote != null && newNote != oldNote) {
       await _updatePlace(place.copyWith(note: newNote));
