@@ -23,7 +23,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
   Widget build(BuildContext context, WidgetRef ref) {
     loggy.debug('build');
 
-    final t = ref.read(SearchWidgetNotifier.tr);
+    final t = ref.watch(SearchWidgetNotifier.tr);
 
     final widthScreen = MediaQuery.of(context).size.width;
 
@@ -167,7 +167,7 @@ class _SearchBodyWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.read(SearchWidgetNotifier.tr);
+    final t = ref.watch(SearchWidgetNotifier.tr);
 
     final searchBody = ref.watch(searchWidgetProvider);
 
