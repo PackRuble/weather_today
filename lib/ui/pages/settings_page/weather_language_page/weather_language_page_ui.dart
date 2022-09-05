@@ -9,6 +9,7 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 
 import '../../../shared/custom_appbar.dart';
 import '../../../shared/tips_widget.dart';
+import '../../../shared/wrapper_page.dart';
 import 'weather_language_page_controller.dart';
 
 /// Страница для выбора языка запроса некоторых параметров сервиса погоды.
@@ -19,32 +20,32 @@ class WeatherLanguagePage extends ConsumerWidget with UiLoggy {
   Widget build(BuildContext context, WidgetRef ref) {
     loggy.info('build');
 
-    return Scaffold(
-      appBar: RAppBar('Язык погодных условий'),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(AppInsets.allPadding),
-          child: ListView.separated(
-            physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
-            separatorBuilder: (BuildContext context, int index) {
-              return const Divider(
-                height: 5.0,
-              );
-            },
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  if (index == 0)
-                    const TipRWidget(
-                      padding: EdgeInsets.only(bottom: AppInsets.allPadding),
-                      text: Text('${AppSmiles.set} ' +
-                          'Некоторые погодные условия будут предоставляться на выбранном языке.'),
-                    ),
-                  _TileWidget(WeatherLanguage.values[index]),
-                ],
-              );
-            },
-            itemCount: WeatherLanguage.values.length,
+    final t = ref.watch(WeatherLanguagePageController.tr);
+
+    return WrapperPage(
+      child: Scaffold(
+        appBar: RAppBar(t.weatherLangPage.appbarTitle),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(AppInsets.allPadding),
+            child: ListView.builder(
+              physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  children: [
+                    if (index == 0)
+                      TipRWidget(
+                        padding:
+                            const EdgeInsets.only(bottom: AppInsets.allPadding),
+                        text: Text(
+                            '${AppSmiles.set} ${t.weatherLangPage.tips.info}'),
+                      ),
+                    _TileWidget(WeatherLanguage.values[index]),
+                  ],
+                );
+              },
+              itemCount: WeatherLanguage.values.length,
+            ),
           ),
         ),
       ),
@@ -68,8 +69,9 @@ class _TileWidget extends ConsumerWidget {
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          onPrimary: AppColors.of(context).theme.textTheme.bodyMedium?.color,
-          primary: isCurrent
+          foregroundColor:
+              AppColors.of(context).theme.textTheme.bodyMedium?.color,
+          backgroundColor: isCurrent
               ? AppColors.of(context).cardSelectedColor
               : AppColors.of(context).cardColor,
           side: BorderSide(
@@ -80,26 +82,6 @@ class _TileWidget extends ConsumerWidget {
         ),
         onPressed: () async =>
             ref.read(WeatherLanguagePageController.pr).setWeatherLanguage(lang),
-        child: Text(lang.name),
-      ),
-    );
-
-    return OutlinedButton(
-      style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.resolveWith<Color?>((_) {
-        return current == lang
-            ? Theme.of(context).colorScheme.onPrimaryContainer
-            : null;
-      }), backgroundColor: MaterialStateProperty.resolveWith<Color?>((_) {
-        return current == lang
-            ? Theme.of(context).colorScheme.primaryContainer
-            : null;
-      })),
-      onPressed: () {
-        ref.read(WeatherLanguagePageController.pr).setWeatherLanguage(lang);
-        // context.router.pop();
-      },
-      child: Center(
         child: Text(lang.name),
       ),
     );
