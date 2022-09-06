@@ -2,30 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/link.dart';
+import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
 import 'package:weather_today/ui/shared/wrapper_page.dart';
 
+import '../../../shared/custom_appbar.dart';
 import 'user_api_page_controller.dart';
 
-// todo translate
-
+/// Страница по управлению пользовательским апи ключом.
 class UserApiPage extends ConsumerWidget {
   const UserApiPage();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ScrollController viewController =
-        ref.read(UserApiPageController.pr).listViewController;
+        ref.watch(UserApiPageController.pr).listViewController;
+
+    final t = ref.watch(UserApiPageController.tr);
 
     return WrapperPage(
       child: Scaffold(
-        appBar: AppBar(
-          titleSpacing: 0.0,
-          title: const Text('Ваш ключ Api'),
-        ),
+        appBar: RAppBar(t.apiWeatherPage.appbarTitle),
         body: ListView(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           controller: viewController,
           physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
           children: const [
@@ -47,11 +47,14 @@ class _AboutApiWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(UserApiPageController.tr);
+
     return Column(
       children: [
         TipRWidget(
-          text: Text('Чтобы делать запросы чаще, нужно иметь свой ключик Api.\n'
-              'Он бесплатный, получить его можно по ссылке ниже.'),
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          text: Text('${AppSmiles.info} ${t.apiWeatherPage.tips.info}\n'
+              '${AppSmiles.free} ${t.apiWeatherPage.tips.free}'),
         ),
         Link(
           target: LinkTarget.defaultTarget,
@@ -59,7 +62,8 @@ class _AboutApiWidget extends ConsumerWidget {
           builder: (BuildContext context, Future<void> Function()? followLink) {
             return TextButton(
               onPressed: followLink,
-              child: Text('Перейти на сайт openweathermap.org'),
+              child: Text(t.apiWeatherPage.goToSite,
+                  style: const TextStyle(color: Colors.blue)),
             );
           },
         ),
@@ -73,54 +77,71 @@ class _StatusTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(UserApiPageController.tr);
+
     final bool isSetUserApi =
         ref.watch(UserApiPageController.isUserApiKeyWeather);
 
     final ThemeData theme = Theme.of(context);
 
     final String title = isSetUserApi
-        ? 'Установлен пользовательский Api'
-        : 'Используется Api по умолчанию';
+        ? t.apiWeatherPage.userApi.usingApi
+        : t.apiWeatherPage.defaultApi.usingApi;
 
     final String subtitle = isSetUserApi
-        ? 'Количество вызовов ограничено вашим тарифом WeatherOpenApi'
-        : 'Количество вызовов ограничено авторским тарифом WeatherOpenApi';
+        ? t.apiWeatherPage.userApi.numbOfCalls
+        : t.apiWeatherPage.defaultApi.numbOfCalls;
 
     final Color color = isSetUserApi ? Colors.green : Colors.red;
 
-    return ListTile(
-      title: Text(title),
-      subtitle: Text(subtitle),
-      leading: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DecoratedBox(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: theme.colorScheme.primary),
-            ),
-            child: Icon(
-              Icons.circle_rounded,
-              color: color,
-            ),
-          ),
-        ],
-      ),
-      horizontalTitleGap: 0.0,
-      trailing: isSetUserApi
-          ? Column(
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(
+          child: ListTile(
+            title: Text(title),
+            subtitle: Text(subtitle),
+            contentPadding: const EdgeInsets.all(8.0),
+            leading: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(
-                  tooltip: 'Удалить Api-ключ',
-                  icon: const Icon(Icons.delete),
-                  onPressed: () async => ref
-                      .watch(UserApiPageController.pr)
-                      .deleteUserApi(context),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: theme.colorScheme.primary),
+                  ),
+                  child: Icon(
+                    Icons.circle_rounded,
+                    color: color,
+                  ),
                 ),
               ],
-            )
-          : null,
+            ),
+            horizontalTitleGap: 0.0,
+          ),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (isSetUserApi)
+              IconButton(
+                padding: EdgeInsets.zero,
+                tooltip: t.apiWeatherPage.tooltips.delApiKey,
+                icon: const Icon(Icons.delete),
+                onPressed: () async =>
+                    ref.watch(UserApiPageController.pr).deleteUserApi(context),
+              ),
+            Tooltip(
+              message: t.apiWeatherPage.tooltips.checkApiKey,
+              child: TextButton(
+                child: const Text('Check'),
+                onPressed: () async =>
+                    ref.watch(UserApiPageController.pr).checkApi(),
+              ),
+            ),
+          ],
+        )
+      ],
     );
   }
 }
@@ -130,12 +151,16 @@ class _TextFieldApiWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(UserApiPageController.tr);
+
     final bool isSetUserApi =
         ref.watch(UserApiPageController.isUserApiKeyWeather);
 
     final bool isLoading = ref.watch(UserApiPageController.isTestingApiKey);
 
-    final String hint = isSetUserApi ? 'Используется...' : 'Введите Api...';
+    final String hint = isSetUserApi
+        ? t.apiWeatherPage.userApi.fieldTip
+        : t.apiWeatherPage.defaultApi.fieldTip;
 
     final controller = ref.watch(UserApiPageController.pr).apiTextController;
 
@@ -170,7 +195,7 @@ class _TextFieldApiWidget extends ConsumerWidget {
         decoration: InputDecoration(
           prefixIcon: IconButton(
             icon: const Icon(Icons.content_paste_rounded),
-            tooltip: 'Вставить из буфера обмена',
+            tooltip: t.apiWeatherPage.tooltips.clipboardButton,
             onPressed: () async {
               final String? clipboardData =
                   (await Clipboard.getData('text/plain'))?.text;
@@ -185,7 +210,7 @@ class _TextFieldApiWidget extends ConsumerWidget {
           hintText: hint,
           border: const OutlineInputBorder(),
         ),
-        keyboardType: TextInputType.visiblePassword,
+        keyboardType: TextInputType.text,
         onSubmitted: (_) => ref.read(UserApiPageController.pr).setUserApi(),
       ),
     );
@@ -197,17 +222,19 @@ class _DoneAndLoadingWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(UserApiPageController.tr);
+
     final bool isLoading = ref.watch(UserApiPageController.isTestingApiKey);
     return isLoading
         ? IconButton(
-            tooltip: 'Ожидаем...',
+            tooltip: t.apiWeatherPage.tooltips.awaiting,
             icon: const CircularProgressIndicator(strokeWidth: 2.0),
             onPressed: () => ref
                 .read(UserApiPageController.isTestingApiKey.notifier)
                 .update((_) => true),
           )
         : IconButton(
-            tooltip: 'Установить',
+            tooltip: t.apiWeatherPage.tooltips.set,
             icon: const Icon(Icons.check_circle_outline_rounded),
             onPressed: () => ref.read(UserApiPageController.pr).setUserApi(),
           );
