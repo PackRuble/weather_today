@@ -9,11 +9,11 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/feature/alerts_widget_feature/alerts_widget.dart';
 import 'package:weather_today/ui/pages/current_page/current_page_controller.dart';
-import 'package:weather_today/ui/utils/correct_show_place.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
 import '../../../shared/rowtile_table_widget.dart';
 import '../../../shared/shared_widget.dart';
+import '../../../utils/metrics_helper.dart';
 
 /// Страница с CURRENT-погодой, дизайн ByRuble.
 class CurrentWeatherPageByRuble extends ConsumerWidget {
@@ -23,6 +23,8 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(CurrentPageController.tr);
+
     return ListView(
       physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       children: [
@@ -41,19 +43,19 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
           ),
         ),
         const Divider(thickness: 1.0),
-        const _TitleWidget('Восход и закат'),
+        _TitleWidget(t.mainPageDRuble.currentPage.headers.sun),
         _CustomPadding(child: const _SunriseInfoWidget()),
         const Divider(thickness: 1.0),
-        const _TitleWidget('Ветер'),
+        _TitleWidget(t.mainPageDRuble.currentPage.headers.wind),
         _CustomPadding(child: const _WindWidget()),
         const Divider(thickness: 1.0),
-        const _TitleWidget('Облачность'),
+        _TitleWidget(t.mainPageDRuble.currentPage.headers.clouds),
         _CustomPadding(child: const CloudinessWidget()),
         const Divider(thickness: 1.0),
-        const _TitleWidget('Показатели'),
+        _TitleWidget(t.mainPageDRuble.currentPage.headers.more),
         _CustomPadding(child: const _ExtendedInfoWidget()),
         const Divider(thickness: 1.0),
-        const _TitleWidget('Предупреждения'),
+        _TitleWidget(t.mainPageDRuble.currentPage.headers.alerts),
         _CustomPadding(child: const _AlertsWeatherWidget()),
         // const Divider(thickness: 3.0),
       ],
@@ -80,7 +82,7 @@ class _TitleWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return HeaderRWidget(
       title,
-      fontStyle: FontStyle.italic,
+      // fontStyle: FontStyle.italic,
     );
   }
 }
@@ -93,11 +95,10 @@ class _DateWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
 
-    final DateTime? dateW =
-        ref.watch(CurrentPageController.current).value!.date;
+    final t = ref.watch(CurrentPageController.tr);
 
-    DateTime? date;
-    dateW == null ? date = DateTime.now() : date = dateW;
+    final DateTime? _date =
+        ref.watch(CurrentPageController.current).value!.date;
 
     return Padding(
       padding: const EdgeInsets.only(top: 10.0, right: 15.0, left: 15.0),
@@ -105,11 +106,10 @@ class _DateWidget extends ConsumerWidget {
         TextSpan(
           style: styles.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
           children: <TextSpan>[
-            TextSpan(text: 'Актуально на'),
-            TextSpan(text: ' '),
-            TextSpan(
-                text: '${DateFormat('EEE, d MMMM, HH:mm').format(date)}',
-                style: styles.bodyLarge?.copyWith(fontStyle: FontStyle.italic)),
+            TextSpan(text: '${t.mainPageDRuble.currentPage.currentAsOf} '),
+            _date != null
+                ? TextSpan(text: DateFormat('EEE, d MMMM, HH:mm').format(_date))
+                : const TextSpan(text: '–')
           ],
         ),
       ),
@@ -124,6 +124,8 @@ class _MainInfoWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
 
+    final t = ref.watch(CurrentPageController.tr);
+
     final WeatherCurrent weather =
         ref.watch(CurrentPageController.current).value!;
 
@@ -136,6 +138,7 @@ class _MainInfoWidget extends ConsumerWidget {
         withUnits: false, withFiller: true)!;
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
           height: 130.0,
@@ -161,7 +164,10 @@ class _MainInfoWidget extends ConsumerWidget {
               ),
               SizedBox(
                 width: 150.0,
-                child: ImageHelper.getWeatherIcon(weather.weatherIcon!),
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: ImageHelper.getWeatherIcon(weather.weatherIcon),
+                ),
               ),
             ],
           ),
@@ -177,13 +183,10 @@ class _MainInfoWidget extends ConsumerWidget {
                   TextSpan(
                     style: styles.bodyMedium,
                     children: <TextSpan>[
-                      TextSpan(text: 'Ощущается как'), //todo tr
+                      TextSpan(text: t.mainPageDRuble.currentPage.feelsTemp),
                       TextSpan(
                           text: ' $_tempFeelsLike', style: styles.bodyLarge),
-                      TextSpan(
-                        text: _tempUnits,
-                        style: styles.bodySmall,
-                      )
+                      TextSpan(text: _tempUnits)
                     ],
                   ),
                 ),
@@ -233,44 +236,48 @@ class _SunriseInfoWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(CurrentPageController.tr);
+
     final WeatherCurrent wCur = ref.watch(CurrentPageController.current).value!;
 
     final DateTime? sunriseD = wCur.sunrise;
     final DateTime? sunsetD = wCur.sunset;
 
-    // todo transl
-    String sunrise = 'Восход - ';
-    String sunset = 'Закат - ';
-    String dayLength = 'Продолжительность дня - ';
-    String timeBeforeSunset = 'Время до захода - ';
+    String sunrise = '${t.mainPageDRuble.currentPage.sunrise} - ';
+    String sunset = '${t.mainPageDRuble.currentPage.sunset} - ';
+    String dayLength = '${t.mainPageDRuble.currentPage.dayLength} - ';
+    String timeBeforeSunset =
+        '${t.mainPageDRuble.currentPage.timeBeforeSunset} - ';
 
     if (sunriseD != null && sunsetD != null) {
-      Duration diff = sunsetD.difference(sunriseD);
+      final Duration diff = sunsetD.difference(sunriseD);
 
       if (diff.inHours == 0) {
-        dayLength += '${diff.inMinutes - (diff.inHours * 60)} мин';
+        dayLength += t.mainPageDRuble.currentPage
+            .timeToMinute(minute: diff.inMinutes - (diff.inHours * 60));
       } else {
-        dayLength +=
-            '${diff.inHours} ч ${diff.inMinutes - (diff.inHours * 60)} мин';
+        dayLength += t.mainPageDRuble.currentPage.timeToHourMinute(
+            hour: diff.inHours, minute: diff.inMinutes - (diff.inHours * 60));
       }
 
       final Duration diffSunset =
           sunsetD.difference(wCur.date ?? DateTime.now());
 
       if (diffSunset.isNegative) {
-        timeBeforeSunset += 'солнце уже зашло';
+        timeBeforeSunset += t.mainPageDRuble.currentPage.timeBeforeSunset;
       } else {
-        timeBeforeSunset +=
-            '${diffSunset.inHours} ч ${diffSunset.inMinutes - (diffSunset.inHours * 60)} мин';
+        timeBeforeSunset += t.mainPageDRuble.currentPage.timeToHourMinute(
+            hour: diffSunset.inHours,
+            minute: diffSunset.inMinutes - (diffSunset.inHours * 60));
       }
       sunrise += DateFormat.Hm().format(sunriseD);
 
       sunset += DateFormat.Hm().format(sunsetD);
     } else {
-      sunrise += '-';
-      sunset += '- ';
-      dayLength += '-';
-      timeBeforeSunset += '-';
+      sunrise += '–';
+      sunset += '–';
+      dayLength += '–';
+      timeBeforeSunset += '–';
     }
 
     return Column(
@@ -300,6 +307,8 @@ class _WindWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(CurrentPageController.tr);
+
     final WeatherCurrent weather =
         ref.watch(CurrentPageController.current).value!;
 
@@ -361,7 +370,7 @@ class _WindWidget extends ConsumerWidget {
                 TextSpan(
                   style: styles.bodyMedium,
                   children: <TextSpan>[
-                    TextSpan(text: 'Порывы до'),
+                    TextSpan(text: t.mainPageDRuble.currentPage.windGust),
                     TextSpan(text: ' $_windGust', style: styles.bodyLarge),
                     TextSpan(text: ' $_speedUnits'),
                   ],
@@ -424,7 +433,7 @@ class _ExtendedInfoWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TextTheme styles = Theme.of(context).textTheme;
+    final t = ref.watch(CurrentPageController.tr);
 
     final WeatherCurrent weather =
         ref.watch(CurrentPageController.current).value!;
@@ -440,11 +449,12 @@ class _ExtendedInfoWidget extends ConsumerWidget {
     return Column(
       children: [
         if (_humidity != null)
-          RowItem(AppIcons.humidity, 'Влажность', '$_humidity %'),
+          RowItem(AppIcons.humidity, t.weatherArg.humidity, '$_humidity %'),
         if (_pressure != null)
-          RowItem(AppIcons.pressure, 'Давление', _pressure),
+          RowItem(AppIcons.pressure, t.weatherArg.pressure, _pressure),
         if (_visibility != null)
-          RowItem(AppIcons.visibility, 'Видимость', '$_visibility %'),
+          RowItem(
+              AppIcons.visibility, t.weatherArg.visibility, '$_visibility %'),
       ],
     );
   }

@@ -18,14 +18,13 @@ class CurrentWeatherPage extends ConsumerWidget {
     return RefreshWrapper<WeatherCurrent>(
       asyncValue: ref.watch(CurrentPageController.current),
       onRefresh: () => ref.read(CurrentPageController.pr).updateWeather(),
+      physicsListView: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       child: (WeatherCurrent weatherCur) {
         switch (ref.watch(AppTheme.visualDesign)) {
           case AppVisualDesign.byRuble:
             return CurrentWeatherPageByRuble(weatherCur);
           case AppVisualDesign.byTolskaya:
             return CurrentWeatherPageByTolskaya(weatherCur);
-          default:
-            return CurrentWeatherPageByRuble(weatherCur);
         }
       },
     );
