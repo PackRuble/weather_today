@@ -1,5 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'package:weather_today/i18n/translations.g.dart';
 
 class ThemePageController {
   ThemePageController(this._ref);
@@ -12,6 +14,10 @@ class ThemePageController {
 
   static final cr =
       Provider<ThemePageController>((ref) => ThemePageController(ref));
+
+  /// Провайдер возвращает translate.
+  static final tr = Provider.autoDispose<TranslationsRu>(
+      (ref) => ref.watch(AppLocalize.currentTranslation));
 
   static final darkLevel =
       StateProvider.autoDispose<int>((ref) => ref.watch(AppTheme.darkLevel));

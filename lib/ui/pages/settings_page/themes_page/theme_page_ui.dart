@@ -4,6 +4,7 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 import 'package:weather_today/ui/pages/settings_page/themes_page/theme_page_controller.dart';
 
 import '../../../shared/custom_appbar.dart';
+import '../../../shared/wrapper_page.dart';
 import 'theme_selector.dart';
 
 const double inset = 2.0;
@@ -14,6 +15,8 @@ class ThemePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(ThemePageController.tr);
+
     final ThemeData currentTheme = Theme.of(context);
 
     final ThemeData testedDarkLevelTheme = ref
@@ -21,27 +24,29 @@ class ThemePage extends ConsumerWidget {
             ref.watch(ThemePageController.darkLevel)))
         .toTheme;
 
-    return Theme(
-      data: currentTheme.brightness == Brightness.light
-          ? currentTheme
-          : testedDarkLevelTheme,
-      child: Scaffold(
-        appBar: RAppBar('Цветовое решение'),
-        body: ListView(
-          physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
-          children: const [
-            Divider(),
-            ShowThemeColors(),
-            Divider(),
-            ThemeSelector(),
-            _SwapColorsThemeWidget(),
-            _UseMaterial3Widget(),
-            Divider(),
-            _DarkModeTileWidget(),
-            _SwapComputeDarkWidget(),
-            _DarkLevelWidget(),
-            _SwapTrueBlackWidget(),
-          ],
+    return WrapperPage(
+      child: Theme(
+        data: currentTheme.brightness == Brightness.light
+            ? currentTheme
+            : testedDarkLevelTheme,
+        child: Scaffold(
+          appBar: RAppBar(t.themesPage.appbarTitle),
+          body: ListView(
+            physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
+            children: const [
+              Divider(),
+              ShowThemeColors(),
+              Divider(),
+              ThemeSelector(),
+              _SwapColorsThemeWidget(),
+              _UseMaterial3Widget(),
+              Divider(),
+              _DarkModeTileWidget(),
+              _SwapComputeDarkWidget(),
+              _DarkLevelWidget(),
+              _SwapTrueBlackWidget(),
+            ],
+          ),
         ),
       ),
     );
@@ -53,11 +58,13 @@ class _SwapColorsThemeWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(ThemePageController.tr);
+
     final bool isSwapColors = ref.watch(AppTheme.swapColors);
 
     return SwitchListTile(
       value: isSwapColors,
-      title: Text('Поменять Primary и Secondary'),
+      title: Text(t.themesPage.swapColorsLight),
       onChanged: (bool value) => ref.read(AppTheme.pr).toggleSwapColors(value),
     );
   }
@@ -68,12 +75,14 @@ class _UseMaterial3Widget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(ThemePageController.tr);
+
     final bool useMaterial3 = ref.watch(AppTheme.useMaterial3);
 
     return SwitchListTile(
       value: useMaterial3,
-      title: Text('Использовать Material Design 3'),
-      subtitle: Text('Новые спецэффекты и цвета'),
+      title: Text(t.themesPage.useMaterial3),
+      subtitle: Text(t.themesPage.useMaterial3Sub),
       onChanged: (bool value) =>
           ref.read(AppTheme.pr).toggleUseMaterial3(value),
     );
@@ -85,6 +94,8 @@ class _SwapComputeDarkWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(ThemePageController.tr);
+
     final bool isLight = Brightness.light == Theme.of(context).brightness;
     final bool swapDark = ref.watch(AppTheme.swapDarkMainAndContainerColors);
 
@@ -92,7 +103,7 @@ class _SwapComputeDarkWidget extends ConsumerWidget {
         ? const SizedBox.shrink()
         : SwitchListTile(
             value: swapDark,
-            title: Text('Поменять Main и Container цвета'),
+            title: Text(t.themesPage.swapColorsDark),
             onChanged: (bool value) =>
                 ref.read(AppTheme.pr).toggleDarkSwapColors(value),
           );
@@ -104,13 +115,15 @@ class _DarkLevelWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(ThemePageController.tr);
+
     final bool isLight = Brightness.light == Theme.of(context).brightness;
     final int darkLevel = ref.watch(ThemePageController.darkLevel);
 
     return isLight
         ? const SizedBox.shrink()
         : ListTile(
-            title: Text('Оттенки черного'),
+            title: Text(t.themesPage.darkLevel),
             subtitle: Slider(
               value: darkLevel.toDouble(),
               divisions: 100,
@@ -139,6 +152,8 @@ class _SwapTrueBlackWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(ThemePageController.tr);
+
     final bool isLight = Brightness.light == Theme.of(context).brightness;
     final bool darkIsTrueBlack = ref.watch(AppTheme.darkIsTrueBlack);
 
@@ -146,8 +161,8 @@ class _SwapTrueBlackWidget extends ConsumerWidget {
         ? const SizedBox.shrink()
         : SwitchListTile(
             value: darkIsTrueBlack,
-            title: Text('Ослепительно черный'),
-            subtitle: Text('Save power on OLED '),
+            title: Text(t.themesPage.darkIsTrueBlack),
+            subtitle: Text(t.themesPage.darkIsTrueBlackSub),
             onChanged: (bool value) =>
                 ref.read(AppTheme.pr).toggleDarkIsTrueBlack(value),
           );
@@ -271,6 +286,8 @@ class _DarkModeTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(ThemePageController.tr);
+
     final ThemeMode themeMode = ref.watch(AppTheme.themeMode);
 
     return ListTile(
@@ -279,8 +296,8 @@ class _DarkModeTileWidget extends ConsumerWidget {
         onChanged: (ThemeMode value) =>
             ref.read(AppTheme.pr).setThemeMode(value),
       ),
-      title: const Text('Цветовой режим'),
-      subtitle: Text('Mode ${themeMode.name}'),
+      title: Text(t.themesPage.darkMode),
+      subtitle: Text('${t.themesPage.darkModeSub} ${themeMode.name}'),
     );
   }
 }
