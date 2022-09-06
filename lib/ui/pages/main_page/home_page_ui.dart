@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/const/app_icons.dart';
+import 'package:weather_today/const/app_insets.dart';
 import 'package:weather_today/core/controllers/global_key.dart';
+import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
-import 'package:weather_today/ui/pages/home_page_controller.dart';
-import 'package:weather_today/ui/pages/hourly_page/hourly_page_main.dart';
-import 'package:weather_today/ui/pages/settings_page/settings_page_ui.dart';
-import 'package:weather_today/ui/shared/wrapper_page.dart';
 
-import '../../const/app_insets.dart';
-import '../shared/listen_message_widget.dart';
-import '../shared/wrap_body_with_search_bar.dart';
-import 'current_page/current_page_main.dart';
-import 'daily_page/daily_page_main.dart';
+import '../../shared/listen_message_widget.dart';
+import '../../shared/wrap_body_with_search_bar.dart';
+import '../../shared/wrapper_page.dart';
+import '../current_page/current_page_main.dart';
+import '../daily_page/daily_page_main.dart';
+import '../hourly_page/hourly_page_main.dart';
+import '../settings_page/settings_page_ui.dart';
+import 'home_page_controller.dart';
 
 /// Главная страница приложения. Содержит 4 вкладки.
 class HomePage extends ConsumerWidget {
@@ -62,10 +63,10 @@ class _BottomBarWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme theme = Theme.of(context).textTheme;
 
-    // позволяет обновлять ui
-    ref.watch(HomePageController.pageController);
+    final t = ref.watch(AppLocalize.currentTranslation);
 
-    final int curIndex = ref.watch(HomePageController.pr).currentIndex;
+    // получаем текущий индекс
+    final int curIndex = ref.watch(HomePageController.currentIndex);
 
     final double textScaleFactor = ref.watch(AppTheme.textScaleFactor);
 
@@ -87,12 +88,18 @@ class _BottomBarWidget extends ConsumerWidget {
             ref.read(HomePageController.pr).setIndexPageFromBar(index),
         items: [
           BottomNavigationBarItem(
-              tooltip: 'Настройки', // todo tr
-              icon: Icon(AppIcons.settingsIcon),
+              tooltip: t.mainPageDRuble.mainPage.bottomBar.settings,
+              icon: const Icon(AppIcons.settingsIcon),
               label: ''),
-          BottomNavigationBarItem(icon: SizedBox.shrink(), label: 'Почасовая'),
-          BottomNavigationBarItem(icon: SizedBox.shrink(), label: 'Сегодня'),
-          BottomNavigationBarItem(icon: SizedBox.shrink(), label: '7 дней'),
+          BottomNavigationBarItem(
+              icon: const SizedBox.shrink(),
+              label: t.mainPageDRuble.mainPage.bottomBar.hourly),
+          BottomNavigationBarItem(
+              icon: const SizedBox.shrink(),
+              label: t.mainPageDRuble.mainPage.bottomBar.today),
+          BottomNavigationBarItem(
+              icon: const SizedBox.shrink(),
+              label: t.mainPageDRuble.mainPage.bottomBar.daily),
         ],
       ),
     );
