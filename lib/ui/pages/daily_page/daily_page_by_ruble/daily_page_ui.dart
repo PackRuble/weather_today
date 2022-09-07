@@ -1,17 +1,11 @@
-import 'package:expandable/expandable.dart';
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
-import 'package:open_weather_api/open_weather_api.dart';
-import 'package:weather_today/core/controllers/theme_provider.dart';
-import 'package:weather_today/extension/double_extension.dart';
-import 'package:weather_today/ui/shared/constant_todo.dart';
+import 'package:weather_today/core/controllers/weather_service_controllers.dart';
+import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'package:weather_today/shared_libs.dart';
 import 'package:weather_today/ui/shared/label_weather_widget.dart';
 import 'package:weather_today/ui/shared/shared_widget.dart';
-import 'package:weather_today/utils/const/app_icons.dart';
-import 'package:weather_today/utils/const/app_insets.dart';
-import 'package:weather_today/utils/conversion_manager.dart';
 
+import '../../../utils/image_helper.dart';
+import '../../../utils/metrics_helper.dart';
 import '../daily_page_controller.dart';
 
 /// Страница погоды на 7 дней.
@@ -23,7 +17,7 @@ class DailyWeatherPageByRuble extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListView.separated(
-      physics: ref.watch(AppDesignController.scrollPhysics).scrollPhysics,
+      physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       itemBuilder: (BuildContext context, int index) {
         if (index + 1 == daily.length) {
           return const LabelWeatherWidget();
@@ -75,23 +69,29 @@ class TileDailyWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Temp tempUnits = ref.watch(DailyPageController.tempUnits);
-
     final ThemeData theme = Theme.of(context);
+    final t = ref.watch(AppLocalization.currentTranslation);
 
     final TextTheme styles = theme.textTheme;
 
     final double textScaleFactor = MediaQuery.textScaleFactorOf(context);
 
-    final String tempMin =
-        (weather.tempMin != null) ? Temp.fromKelvinToString(tempUnits, weather.tempMin!) : '-';
+    final Temp tempUnits = ref.watch(DailyPageController.tempUnits);
+    final String _tempUnits = MetricsHelper.getTempUnits(tempUnits);
+    final String _tempMin = MetricsHelper.getTemp(weather.tempMin, tempUnits,
+        withUnits: false, withFiller: true)!;
+    final String _tempMax = MetricsHelper.getTemp(weather.tempMax, tempUnits,
+        withUnits: false, withFiller: true)!;
 
-    final String tempMax =
-        (weather.tempMax != null) ? Temp.fromKelvinToString(tempUnits, weather.tempMax!) : '-';
+    final String? _pop = MetricsHelper.withPrecision(
+        MetricsHelper.getPercentage(
+            weather.pop == 0.0 ? null : weather.pop, 1.0));
 
-    final String? pop = (weather.pop != null && weather.pop != 0.0)
-        ? (weather.pop! * 100).toStringAsFixed(0)
-        : null;
+    final Speed speedUnits = ref.watch(DailyPageController.speedUnits);
+    final String? _windSpeed = MetricsHelper.getSpeed(
+        weather.windSpeed, speedUnits,
+        withUnits: false, precision: 0);
+    final String _speedUnits = MetricsHelper.getSpeedUnits(speedUnits);
 
     return ListTile(
       minLeadingWidth: 0.0,
@@ -106,8 +106,10 @@ class TileDailyWidget extends ConsumerWidget {
               Transform.scale(
                 scale: textScaleFactor * AppInsets.scaleFactorIcon,
                 child: Transform.rotate(
-                  angle: ConversionManager.fromRadiansToDegrees(weather.windDegree ?? 0),
-                  child: Icon(AppIcons.dailyDirectWind, color: theme.iconTheme.color),
+                  angle: MetricsHelper.fromRadiansToDegrees(
+                      weather.windDegree ?? 0),
+                  child:
+                      Icon(AppIcons.directWind, color: theme.iconTheme.color),
                 ),
               ),
               const SizedBox(height: 3.0),
@@ -115,8 +117,9 @@ class TileDailyWidget extends ConsumerWidget {
                 TextSpan(
                   style: styles.bodyMedium,
                   children: <TextSpan>[
-                    TextSpan(text: weather.windSpeed.toStringMaybe()),
-                    TextSpan(text: ' м/с', style: styles.bodySmall),
+                    // TextSpan(text: _windSpeed),
+                    TextSpan(text: _windSpeed),
+                    TextSpan(text: ' $_speedUnits', style: styles.bodySmall),
                   ],
                 ),
               ),
@@ -125,63 +128,71 @@ class TileDailyWidget extends ConsumerWidget {
         ),
       ),
       title: weather.date?.day == DateTime.now().day
-          ? const Text('сегодня') //todo tr
+          ? Text(t.global.time.today.toLowerCase())
           : Text(DateFormat.MMMEd().format(weather.date ?? DateTime.now())),
       subtitle: Text('${weather.weatherDescription}'),
       trailing: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        // mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text.rich(
-            TextSpan(
-              style: styles.bodyMedium?.copyWith(color: Colors.blue),
-              children: <TextSpan>[
-                TextSpan(text: pop ?? ''),
-                TextSpan(
-                    text: pop == null ? '' : '%',
-                    style: styles.bodySmall?.copyWith(color: Colors.blue)),
-              ],
+          Flexible(
+            child: Text.rich(
+              TextSpan(
+                style: styles.bodyMedium?.copyWith(color: Colors.blue),
+                children: <TextSpan>[
+                  if (_pop != null) ...[
+                    TextSpan(text: _pop),
+                    TextSpan(
+                        text: '%',
+                        style: styles.bodySmall?.copyWith(color: Colors.blue)),
+                  ]
+                ],
+              ),
             ),
           ),
-          SizedBox.square(
-            dimension: 50,
+          Flexible(
             child: Transform.scale(
-                scale: textScaleFactor * AppInsets.scaleFactorIcon,
-                child: AppImages.getWeatherIcon(weather.weatherIcon!)),
+              scale: textScaleFactor * AppInsets.scaleFactorIcon,
+              child: SizedBox.square(
+                dimension: 40,
+                child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: ImageHelper.getWeatherIcon(weather.weatherIcon)),
+              ),
+            ),
           ),
-          SizedBox(
-            width: 50.0,
-            child: Align(
+          Flexible(
+            flex: 0,
+            child: SizedOverflowBox(
+              size: const Size(40.0, 0.0),
               alignment: Alignment.centerRight,
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text.rich(
-                      TextSpan(
-                        style: styles.bodyMedium,
-                        children: <TextSpan>[
-                          TextSpan(text: tempMax),
-                          TextSpan(text: tempUnits.abbr, style: styles.bodySmall),
-                        ],
-                      ),
-                      textAlign: TextAlign.right,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text.rich(
+                    TextSpan(
+                      style: styles.bodyMedium,
+                      children: <TextSpan>[
+                        TextSpan(text: _tempMax),
+                        TextSpan(text: _tempUnits, style: styles.bodySmall),
+                      ],
                     ),
-                    const SizedBox(height: 2.0),
-                    Text.rich(
-                      TextSpan(
-                        style: styles.bodyMedium,
-                        children: <TextSpan>[
-                          TextSpan(text: tempMin),
-                          TextSpan(text: tempUnits.abbr, style: styles.bodySmall),
-                        ],
-                      ),
-                      textAlign: TextAlign.right,
+                    textAlign: TextAlign.right,
+                  ),
+                  const SizedBox(height: 2.0),
+                  Text.rich(
+                    TextSpan(
+                      style: styles.bodyMedium,
+                      children: <TextSpan>[
+                        TextSpan(text: _tempMin),
+                        TextSpan(text: _tempUnits, style: styles.bodySmall),
+                      ],
                     ),
-                  ],
-                ),
+                    overflow: TextOverflow.visible,
+                    textAlign: TextAlign.right,
+                  ),
+                ],
               ),
             ),
           ),
@@ -192,7 +203,14 @@ class TileDailyWidget extends ConsumerWidget {
 }
 
 /// Высота одного тайла с показателем погоды.
-const double _minHeightRowTile = 25.0;
+const double _minHeightRowTile = 24.0;
+const Widget _hDivider = Divider(height: 8.0, thickness: 1.0);
+const Widget _vDivider = VerticalDivider(
+  indent: 4.0,
+  endIndent: 4.0,
+  thickness: 1.0,
+  width: 20.0,
+);
 
 /// Информация в расширяющемся боксе. Все погодные характеристики здесь.
 class _ExpandedWidget extends ConsumerWidget {
@@ -203,26 +221,18 @@ class _ExpandedWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme stylesText = Theme.of(context).textTheme;
+    final t = ref.watch(AppLocalization.currentTranslation);
+
     final Temp tempUnits = ref.watch(DailyPageController.tempUnits);
 
-    String getTemp(double? value) {
-      if (value == null) return '-';
-      return Temp.fromKelvinToString(tempUnits, value);
-    }
+    String getTemp(double? value) => MetricsHelper.getTemp(value, tempUnits,
+        withUnits: false, withFiller: true)!;
 
-    String getPressure(double? value) {
-      if (value == null) return '-';
-      return Pressure.fromHectoPaToString(Pressure.mmHg, value);
-    }
-
-    const Widget HDivider = Divider(height: 1.0);
-
-    const VerticalDivider VDivider = VerticalDivider(
-      indent: 5.0,
-      endIndent: 5.0,
-      thickness: 1.0,
-      width: 14.0,
-    );
+    final Pressure pressureUnits = ref.watch(WeatherServices.pressureUnits);
+    final String? _pressure = MetricsHelper.getPressure(
+        weather.pressure, pressureUnits,
+        withUnits: false, precision: 0);
+    final String _pressureUnits = MetricsHelper.getPressureUnits(pressureUnits);
 
     /// Одна тайл-строка.
     Row _buildTile(String title, [String? value, String? unit]) {
@@ -249,39 +259,6 @@ class _ExpandedWidget extends ConsumerWidget {
       );
     }
 
-    Row _buildRow({
-      required double height,
-      required List<Widget> left,
-      required List<Widget> right,
-    }) {
-      return Row(
-        children: [
-          Expanded(
-            child: SizedBox(
-              height: height,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: left,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: height,
-            child: VDivider,
-          ),
-          Expanded(
-            child: SizedBox(
-              height: height,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: right,
-              ),
-            ),
-          ),
-        ],
-      );
-    }
-
     return Column(
       children: [
         const Divider(height: 0.0),
@@ -289,59 +266,115 @@ class _ExpandedWidget extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              _buildTitleRow('Восходы и закаты'),
+              _buildTitleRow(t.weatherArg.riseAndSetPl),
               _buildRow(
                 height: _minHeightRowTile * 3,
                 left: [
-                  _buildTile('Восход солнца', DateFormat.Hm().format(weather.sunrise!)),
-                  _buildTile('Закат солнца', DateFormat.Hm().format(weather.sunset!)),
+                  _buildTile(t.weatherArg.sunrise,
+                      DateFormat.Hm().format(weather.sunrise!)),
+                  _buildTile(t.weatherArg.sunset,
+                      DateFormat.Hm().format(weather.sunset!)),
                 ],
                 right: [
-                  _buildTile('Восход луны', DateFormat.Hm().format(weather.moonrise!)),
-                  _buildTile('Закат луны', DateFormat.Hm().format(weather.moonset!)),
-                  _buildTile('Фаза луны', weather.moonPhase.toString()),
+                  _buildTile(t.weatherArg.moonrise,
+                      DateFormat.Hm().format(weather.moonrise!)),
+                  _buildTile(t.weatherArg.moonset,
+                      DateFormat.Hm().format(weather.moonset!)),
+                  _buildTile(
+                      t.weatherArg.moonPhase, weather.moonPhase.toString()),
                 ],
               ),
-              HDivider,
-              _buildTitleRow('Температура'),
+              _hDivider,
+              _buildTitleRow(t.weatherArg.temp),
               _buildRow(
                 height: _minHeightRowTile * 1,
-                left: [_buildTile('Минимум', getTemp(weather.tempMin), tempUnits.abbr)],
-                right: [_buildTile('Максимум', getTemp(weather.tempMax), tempUnits.abbr)],
+                left: [
+                  _buildTile(t.weatherArg.minimum, getTemp(weather.tempMin),
+                      tempUnits.abbr)
+                ],
+                right: [
+                  _buildTile(t.weatherArg.maximum, getTemp(weather.tempMax),
+                      tempUnits.abbr)
+                ],
               ),
-              HDivider,
+              _hDivider,
               _buildRow(
                 height: _minHeightRowTile * 5,
                 left: [
-                  _buildTile(' Реальная'),
-                  _buildTile('Утром', getTemp(weather.tempMorning), tempUnits.abbr),
-                  _buildTile('Днём', getTemp(weather.tempDay), tempUnits.abbr),
-                  _buildTile('Вечером', getTemp(weather.tempEvening), tempUnits.abbr),
-                  _buildTile('Ночью', getTemp(weather.tempNight), tempUnits.abbr),
+                  _buildTile(t.weatherArg.real),
+                  _buildTile(t.weatherArg.atMorning,
+                      getTemp(weather.tempMorning), tempUnits.abbr),
+                  _buildTile(t.weatherArg.atDay, getTemp(weather.tempDay),
+                      tempUnits.abbr),
+                  _buildTile(t.weatherArg.atEvening,
+                      getTemp(weather.tempEvening), tempUnits.abbr),
+                  _buildTile(t.weatherArg.atNight, getTemp(weather.tempNight),
+                      tempUnits.abbr),
                 ],
                 right: [
-                  _buildTile(' Ощущается'),
-                  _buildTile('Утром', getTemp(weather.tempFeelsLikeMorning), tempUnits.abbr),
-                  _buildTile('Днём', getTemp(weather.tempFeelsLikeDay), tempUnits.abbr),
-                  _buildTile('Вечером', getTemp(weather.tempFeelsLikeEvening), tempUnits.abbr),
-                  _buildTile('Ночью', getTemp(weather.tempFeelsLikeNight), tempUnits.abbr),
+                  _buildTile(t.weatherArg.feelsLike),
+                  _buildTile(t.weatherArg.atMorning,
+                      getTemp(weather.tempFeelsLikeMorning), tempUnits.abbr),
+                  _buildTile(t.weatherArg.atDay,
+                      getTemp(weather.tempFeelsLikeDay), tempUnits.abbr),
+                  _buildTile(t.weatherArg.atEvening,
+                      getTemp(weather.tempFeelsLikeEvening), tempUnits.abbr),
+                  _buildTile(t.weatherArg.atNight,
+                      getTemp(weather.tempFeelsLikeNight), tempUnits.abbr),
                 ],
               ),
-              HDivider,
-              _buildTitleRow('Показатели'),
+              _hDivider,
+              _buildTitleRow(t.weatherArg.indicators),
               _buildRow(
                 height: _minHeightRowTile * 3,
                 left: [
-                  _buildTile('Давление', getPressure(weather.pressure), ' ${Pressure.mmHg.abbr}'),
-                  _buildTile('Облачность', weather.cloudiness.toStringMaybe(), '%'),
-                  _buildTile('УФ', weather.uvi.toStringMaybe()),
+                  if (_pressure != null)
+                    _buildTile(
+                        t.weatherArg.pressure, _pressure, ' $_pressureUnits'),
+                  _buildTile(t.weatherArg.cloudiness,
+                      weather.cloudiness.toStringMaybe(), '%'),
+                  _buildTile(t.weatherArg.uvi, weather.uvi.toStringMaybe()),
                 ],
                 right: [
-                  _buildTile('Влажность', weather.humidity.toStringMaybe(), '%'),
-                  _buildTile('Точка росы', getTemp(weather.dewPoint), tempUnits.abbr),
+                  _buildTile(t.weatherArg.humidity,
+                      weather.humidity.toStringMaybe(), '%'),
+                  _buildTile(t.weatherArg.dewPoint, getTemp(weather.dewPoint),
+                      tempUnits.abbr),
                 ],
               ),
             ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row _buildRow(
+      {required double height,
+      required List<Widget> left,
+      required List<Widget> right}) {
+    return Row(
+      children: [
+        Expanded(
+          child: SizedBox(
+            height: height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: left,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: height,
+          child: _vDivider,
+        ),
+        Expanded(
+          child: SizedBox(
+            height: height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: right,
+            ),
           ),
         ),
       ],
