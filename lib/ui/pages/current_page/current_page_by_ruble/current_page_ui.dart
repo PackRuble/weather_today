@@ -7,8 +7,8 @@ import 'package:weather_today/const/app_info.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/extension/string_extension.dart';
-import 'package:weather_today/ui/feature/alerts_widget_feature/alerts_widget.dart';
 import 'package:weather_today/ui/pages/current_page/current_page_controller.dart';
+import 'package:weather_today/ui/shared/alerts_wrapper.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
 import '../../../shared/rowtile_table_widget.dart';
@@ -24,6 +24,8 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(CurrentPageController.tr);
+
+    const Divider _divider = Divider(thickness: 1.0);
 
     return ListView(
       physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
@@ -42,21 +44,21 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
                 ?.copyWith(fontStyle: FontStyle.italic),
           ),
         ),
-        const Divider(thickness: 1.0),
+        _divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.sun),
         _CustomPadding(child: const _SunriseInfoWidget()),
-        const Divider(thickness: 1.0),
+        _divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.wind),
         _CustomPadding(child: const _WindWidget()),
-        const Divider(thickness: 1.0),
+        _divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.clouds),
         _CustomPadding(child: const CloudinessWidget()),
-        const Divider(thickness: 1.0),
+        _divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.more),
         _CustomPadding(child: const _ExtendedInfoWidget()),
-        const Divider(thickness: 1.0),
+        _divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.alerts),
-        _CustomPadding(child: const _AlertsWeatherWidget()),
+        const _AlertsWidget(),
         // const Divider(thickness: 3.0),
       ],
     );
@@ -106,7 +108,7 @@ class _DateWidget extends ConsumerWidget {
         TextSpan(
           style: styles.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
           children: <TextSpan>[
-            TextSpan(text: '${t.mainPageDRuble.currentPage.currentAsOf} '),
+            TextSpan(text: '${t.weather.currentAsOf} '),
             _date != null
                 ? TextSpan(text: DateFormat('EEE, d MMMM, HH:mm').format(_date))
                 : const TextSpan(text: '–')
@@ -136,6 +138,9 @@ class _MainInfoWidget extends ConsumerWidget {
     final String _tempFeelsLike = MetricsHelper.getTemp(
         weather.tempFeelsLike, tempUnits,
         withUnits: false, withFiller: true)!;
+
+    final String _weatherMain =
+        MetricsHelper.getWeatherMainTr(weather.weatherMain, t) ?? r'¯\_(ツ)_/¯';
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -183,7 +188,7 @@ class _MainInfoWidget extends ConsumerWidget {
                   TextSpan(
                     style: styles.bodyMedium,
                     children: <TextSpan>[
-                      TextSpan(text: t.mainPageDRuble.currentPage.feelsTemp),
+                      TextSpan(text: t.weather.feelsLikeAs),
                       TextSpan(
                           text: ' $_tempFeelsLike', style: styles.bodyLarge),
                       TextSpan(text: _tempUnits)
@@ -195,7 +200,7 @@ class _MainInfoWidget extends ConsumerWidget {
             SizedBox(
               width: 150.0,
               child: Text(
-                weather.weatherMain?.toCapitalized() ?? r'¯\_(ツ)_/¯',
+                _weatherMain,
                 style: styles.bodyMedium,
                 textAlign: TextAlign.center,
               ),
@@ -253,10 +258,10 @@ class _SunriseInfoWidget extends ConsumerWidget {
       final Duration diff = sunsetD.difference(sunriseD);
 
       if (diff.inHours == 0) {
-        dayLength += t.mainPageDRuble.currentPage
+        dayLength += t.global.time
             .timeToMinute(minute: diff.inMinutes - (diff.inHours * 60));
       } else {
-        dayLength += t.mainPageDRuble.currentPage.timeToHourMinute(
+        dayLength += t.global.time.timeToHourMinute(
             hour: diff.inHours, minute: diff.inMinutes - (diff.inHours * 60));
       }
 
@@ -264,9 +269,9 @@ class _SunriseInfoWidget extends ConsumerWidget {
           sunsetD.difference(wCur.date ?? DateTime.now());
 
       if (diffSunset.isNegative) {
-        timeBeforeSunset += t.mainPageDRuble.currentPage.timeBeforeSunset;
+        timeBeforeSunset += t.weather.sunAlreadySet;
       } else {
-        timeBeforeSunset += t.mainPageDRuble.currentPage.timeToHourMinute(
+        timeBeforeSunset += t.global.time.timeToHourMinute(
             hour: diffSunset.inHours,
             minute: diffSunset.inMinutes - (diffSunset.inHours * 60));
       }
@@ -324,15 +329,11 @@ class _WindWidget extends ConsumerWidget {
     final String? _windSide =
         MetricsHelper.getSideOfTheWorldAdjective(weather.windDegree);
 
-    String? _windGust = (weather.windGust != null &&
+    final String? _windGust = (weather.windGust != null &&
             weather.windSpeed != null &&
             weather.windGust! > weather.windSpeed!)
         ? MetricsHelper.getSpeed(weather.windGust, speedUnits, withUnits: false)
         : null;
-
-    if (_windGust == _windSpeed) {
-      _windGust = null;
-    }
 
     final TextTheme styles = Theme.of(context).textTheme;
 
@@ -370,7 +371,7 @@ class _WindWidget extends ConsumerWidget {
                 TextSpan(
                   style: styles.bodyMedium,
                   children: <TextSpan>[
-                    TextSpan(text: t.mainPageDRuble.currentPage.windGust),
+                    TextSpan(text: t.weather.gustUp),
                     TextSpan(text: ' $_windGust', style: styles.bodyLarge),
                     TextSpan(text: ' $_speedUnits'),
                   ],
@@ -449,27 +450,73 @@ class _ExtendedInfoWidget extends ConsumerWidget {
     return Column(
       children: [
         if (_humidity != null)
-          RowItem(AppIcons.humidity, t.weatherArg.humidity, '$_humidity %'),
+          RowItem(AppIcons.humidity, t.weather.humidity, '$_humidity %'),
         if (_pressure != null)
-          RowItem(AppIcons.pressure, t.weatherArg.pressure, _pressure),
+          RowItem(AppIcons.pressure, t.weather.pressure, _pressure),
         if (_visibility != null)
-          RowItem(
-              AppIcons.visibility, t.weatherArg.visibility, '$_visibility %'),
+          RowItem(AppIcons.visibility, t.weather.visibility, '$_visibility %'),
       ],
     );
   }
 }
 
-class _AlertsWeatherWidget extends ConsumerWidget {
-  const _AlertsWeatherWidget();
+class _AlertsWidget extends ConsumerWidget {
+  const _AlertsWidget({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        AlertsWidget(),
-      ],
+    final t = ref.watch(CurrentPageController.tr);
+
+    return AlertsWrapper(
+        asyncAlerts: ref.watch(CurrentPageController.alerts),
+        data: (List<WeatherAlert> alerts) {
+          return Column(
+            children: [
+              for (final alert in alerts) ...[
+                _AlertTileWidget(alert),
+                if (alert != alerts.last) const Divider(height: 1.0),
+              ]
+            ],
+          );
+        },
+        valueIsEmpty: Text(t.weather.quietlyOnTheHorizon));
+  }
+}
+
+class _AlertTileWidget extends ConsumerWidget {
+  const _AlertTileWidget(this.alert);
+
+  final WeatherAlert alert;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(CurrentPageController.tr);
+
+    final String date = alert.start!.day == alert.end!.day
+        ? t.global.time.timeFromTimeSToTimeEnl(
+            time: DateFormat('dd.MM').format(alert.start!),
+            timeStart: DateFormat.H().format(alert.start!),
+            timeEnd: DateFormat.H().format(alert.end!))
+        : t.global.time.fromTimeToTimeNl(
+            timeStart: DateFormat('dd.MM').format(alert.start!),
+            timeEnd: DateFormat('dd.MM').format(alert.end!));
+
+    // coldfix Когда-нибудь я узнаю, как решать эти проблемы с переполнением
+    // в leading и trailing в ListTile
+    return ListTile(
+      leading: UnconstrainedBox(
+        alignment: Alignment.topCenter,
+        constrainedAxis: Axis.horizontal,
+        child: SizedBox(
+          width: 90.0,
+          child: Text(date, textAlign: TextAlign.center),
+        ),
+      ),
+      title: Text(alert.event!),
+      subtitle: Text(alert.description!),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
     );
   }
 }

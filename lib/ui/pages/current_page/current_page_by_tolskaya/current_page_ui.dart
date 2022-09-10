@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/const/app_info.dart';
+import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/core/models/place/place_model.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
-import '../../../utils/correct_show_place.dart';
+import '../../../shared/alerts_wrapper.dart';
+import '../../../utils/metrics_helper.dart';
 import '../current_page_controller.dart';
 
 const double _indent = 5.0;
@@ -23,20 +26,19 @@ class CurrentWeatherPageByTolskaya extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
       child: ListView(
         physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
         children: [
           _DateWidget(currently.date),
           _MainInfoWidget(
-              weatherDescription: currently.weatherMain,
-              weatherMain: currently.weatherDescription,
+              weatherMain: currently.weatherMain,
+              weatherDescription: currently.weatherDescription,
               weatherIcon: currently.weatherIcon,
               temp: currently.temp,
               tempFeelsLike: currently.tempFeelsLike),
           const SizedBox(height: _indent),
-          // const _AlertsWidget(),
-          const Divider(),
+          const _AlertsWidget(),
           _WindWidget(
             windSpeed: currently.windSpeed,
             windGust: currently.windGust,
@@ -49,7 +51,6 @@ class CurrentWeatherPageByTolskaya extends ConsumerWidget {
             sunrise: currently.sunrise,
             sunset: currently.sunset,
           ),
-
           Text(
             AppInfo.weatherService,
             textAlign: TextAlign.center,
@@ -73,14 +74,14 @@ class _DateWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
+    final t = ref.watch(AppLocalization.currentTranslation);
 
     final Place place = ref.watch(WeatherServices.currentPlace);
 
     final String languageCode = Localizations.localeOf(context).languageCode;
 
     final String countryName =
-        CorrectShowPlace.getLocalNameOrName(place, languageCode) ??
-            'Ghost-town';
+        MetricsHelper.getLocalNameOrName(place, languageCode) ?? 'Ghost-town';
 
     final DateTime date = this.date ?? DateTime.now();
 
@@ -95,7 +96,7 @@ class _DateWidget extends ConsumerWidget {
             )),
             Expanded(
                 child: Center(
-                    child: Text('сегодня', // todo tr
+                    child: Text(t.global.time.today.toLowerCase(),
                         style: styles.titleMedium))),
             Expanded(
                 child: Align(
@@ -132,21 +133,21 @@ class _MainInfoWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
 
-    final String weatherMain = this.weatherMain?.toCapitalized() ?? '';
+    final t = ref.watch(CurrentPageController.tr);
 
-    final String weatherDescription =
-        this.weatherDescription?.toCapitalized() ?? '';
+    final String _weatherMain =
+        MetricsHelper.getWeatherMainTr(weatherMain, t) ?? r'¯\_(ツ)_/¯';
+
+    final String _weatherDescription =
+        weatherDescription?.toCapitalized() ?? '';
 
     final Temp tempUnits = ref.watch(CurrentPageController.tempUnits);
-
-    final String temp = this.temp != null
-        ? CorrectShowPlace.getTempWithSign(this.temp!, tempUnits) +
-            tempUnits.abbr
-        : '';
-
-    final String tempFeelsLike = this.tempFeelsLike != null
-        ? 'Ощущается как ${CorrectShowPlace.getTempWithSign(this.tempFeelsLike!, tempUnits)}${tempUnits.abbr}'
-        : '';
+    final String _temp = MetricsHelper.getTemp(temp, tempUnits,
+        withUnits: false, withSign: true, withFiller: true)!;
+    final String _tempUnits = MetricsHelper.getTempUnits(tempUnits);
+    final String _tempFeelsLike = MetricsHelper.getTemp(
+        tempFeelsLike, tempUnits,
+        withUnits: false, withFiller: true, withSign: true)!;
 
     return Column(
       children: [
@@ -155,7 +156,7 @@ class _MainInfoWidget extends ConsumerWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  weatherMain,
+                  _weatherMain,
                   style: styles.bodyMedium,
                   textAlign: TextAlign.center,
                 ),
@@ -165,31 +166,48 @@ class _MainInfoWidget extends ConsumerWidget {
               child: Center(
                 child: SizedBox.square(
                   dimension: 75.0,
-                  child: weatherIcon == null
-                      ? const SizedBox.shrink()
-                      : ImageHelper.getWeatherIcon(weatherIcon!),
+                  child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: ImageHelper.getWeatherIcon(weatherIcon)),
                 ),
               ),
             ),
             Expanded(
               child: Center(
-                child: Text(
-                  temp,
-                  style: styles.bodyMedium,
+                child: SizedBox(
+                  width: 150.0,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text.rich(
+                      TextSpan(
+                        style: styles.bodyMedium?.copyWith(fontSize: 36.0),
+                        children: <TextSpan>[
+                          TextSpan(text: _temp),
+                          TextSpan(
+                              text: _tempUnits,
+                              style:
+                                  styles.bodyMedium?.copyWith(fontSize: 28.0)),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
           ],
         ),
         const SizedBox(height: _indent),
-        Text(
-          weatherDescription,
-          style: styles.bodyMedium,
-        ),
+        Text(_weatherDescription, style: styles.bodyMedium),
         const SizedBox(height: _indent),
-        Text(
-          tempFeelsLike,
-          style: styles.bodyMedium,
+        Text.rich(
+          TextSpan(
+            style: styles.bodyMedium,
+            children: <TextSpan>[
+              TextSpan(text: t.weather.feelsLikeAs),
+              TextSpan(text: ' $_tempFeelsLike', style: styles.bodyLarge),
+              TextSpan(text: _tempUnits)
+            ],
+          ),
         ),
         const SizedBox(height: _indent),
       ],
@@ -197,63 +215,71 @@ class _MainInfoWidget extends ConsumerWidget {
   }
 }
 
-// final json =
-//     '[ { "sender_name": "", "event": "freezing rain, icing", "start": 1645005600, "end": 1645120800, "description": "", "tags": [ "extreme temperature value", "rain", "black ice" ] }, { "sender_name": "", "event": "гололедно - изморозевое отложение", "start": 1645005600, "end": 1645120800, "description": "местами гололед", "tags": [ "black ice" ] }, { "sender_name": "", "event": "fog", "start": 1645002000, "end": 1645034400, "description": "", "tags": [ "fog" ] }, { "sender_name": "", "event": "туман", "start": 1645002000, "end": 1645034400, "description": "местами туман", "tags": [ "fog" ] }, { "sender_name": "", "event": "wind", "start": 1645077600, "end": 1645164000, "description": "", "tags": [ "wind" ] }, { "sender_name": "", "event": "ветер", "start": 1645077600, "end": 1645164000, "description": "порывы ветра 15-20 м/с", "tags": [ "wind" ] }, { "sender_name": "", "event": "other dangers", "start": 1645034400, "end": 1645120800, "description": "", "tags": [] }, { "sender_name": "", "event": "прочие опасности", "start": 1645034400, "end": 1645120800, "description": "местами гололедица", "tags": [] } ]';
+class _AlertsWidget extends ConsumerWidget {
+  const _AlertsWidget({
+    Key? key,
+  }) : super(key: key);
 
-// class _AlertsWidget extends ConsumerWidget {
-//   const _AlertsWidget();
-//
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     // final AsyncValue<List<WeatherAlert>> alerts =
-//     //     ref.watch(AlertWidgetController.alerts);
-//
-//     final AsyncValue<List<WeatherAlert>> alerts =
-//         AsyncValue.data((jsonDecode(json) as List).map((value) {
-//       return WeatherAlert.fromJson(value as Map<String, dynamic>);
-//     }).toList());
-//
-//     return alerts.maybeWhen(
-//         orElse: () => const SizedBox.shrink(),
-//         data: (List<WeatherAlert> alerts) {
-//           if (alerts.isEmpty) {
-//             return const SizedBox.shrink();
-//           }
-//
-//           alerts =
-//               ref.watch(AlertWidgetController.pr).handleAlertWeather(alerts);
-//
-//           return Column(
-//             children: alerts.map((WeatherAlert alert) {
-//               String date = alert.start!.day == alert.end!.day
-//                   ? '${DateFormat('dd.MM').format(alert.start!)} с ${DateFormat.Hm().format(alert.start!)} по ${DateFormat.Hm().format(alert.end!)}'
-//                   : 'с ${DateFormat('dd.MM').format(alert.start!)} по ${DateFormat('dd.MM').format(alert.end!)}';
-//
-//               return Padding(
-//                 padding: const EdgeInsets.symmetric(vertical: 2.0),
-//                 child: ListTile(
-//                   // contentPadding: EdgeInsets.zero,
-//                   horizontalTitleGap: 0.0,
-//                   minVerticalPadding: 0.0,
-//                   tileColor: Colors.red.shade200,
-//                   leading: Column(
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: [
-//                       const Icon(
-//                         Icons.priority_high_rounded,
-//                         color: Colors.black,
-//                       ),
-//                     ],
-//                   ),
-//                   title: Text(date),
-//                   subtitle: Text(alert.description!),
-//                 ),
-//               );
-//             }).toList(),
-//           );
-//         });
-//   }
-// }
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(CurrentPageController.tr);
+
+    return AlertsWrapper(
+      asyncAlerts: ref.watch(CurrentPageController.alerts),
+      valueIsEmpty: const Divider(),
+      data: (List<WeatherAlert> alerts) {
+        return Column(
+          children: [
+            for (final alert in alerts) ...[
+              if (alerts.first == alert) const Divider(height: 1.0),
+              _AlertTileWidget(alert),
+              const Divider(height: 1.0),
+            ]
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _AlertTileWidget extends ConsumerWidget {
+  const _AlertTileWidget(this.alert);
+
+  final WeatherAlert alert;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(CurrentPageController.tr);
+
+    final String date = alert.start!.day == alert.end!.day
+        ? t.global.time.timeFromTimeSToTimeEnl(
+            time: DateFormat('dd.MM').format(alert.start!),
+            timeStart: DateFormat.H().format(alert.start!),
+            timeEnd: DateFormat.H().format(alert.end!))
+        : t.global.time.fromTimeToTimeNl(
+            timeStart: DateFormat('dd.MM').format(alert.start!),
+            timeEnd: DateFormat('dd.MM').format(alert.end!));
+
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+      horizontalTitleGap: 0.0,
+      tileColor: Theme.of(context).errorColor.withOpacity(0.2),
+      leading: UnconstrainedBox(
+        alignment: Alignment.topCenter,
+        constrainedAxis: Axis.horizontal,
+        child: SizedBox(
+          width: 90.0,
+          child: Text(date, textAlign: TextAlign.center),
+        ),
+      ),
+      title: Text(
+        alert.description!,
+        style: Theme.of(context).textTheme.bodyMedium,
+      ),
+      // subtitle: Text(alert.description!),
+    );
+  }
+}
 
 class _WindWidget extends ConsumerWidget {
   const _WindWidget({
@@ -269,29 +295,30 @@ class _WindWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
 
-    final String _speedUnits =
-        ref.watch(CurrentPageController.speedUnits).abbrTr;
+    final t = ref.watch(CurrentPageController.tr);
 
-    final String? _windSide;
-    if (windDegree != null) {
-      _windSide = SideOfTheWorld.fromDegrees(windDegree!).nameAdjectiveTr;
-    } else {
-      _windSide = null;
+    if (windSpeed == null) return const SizedBox.shrink();
+
+    final Speed speedUnits = ref.watch(CurrentPageController.speedUnits);
+    String? _windSpeed = MetricsHelper.getSpeed(windSpeed, speedUnits);
+    _windSpeed = '${t.weather.wind} $_windSpeed';
+
+    final String? _windSide =
+        MetricsHelper.getSideOfTheWorldAdjective(windDegree);
+    if (_windSide != null) {
+      _windSpeed += ', $_windSide';
     }
 
-    final String? _windSpeed = (windSpeed != null)
-        ? 'Ветер ${windSpeed!.toInt()} $_speedUnits${(_windSide != null) ? ', $_windSide' : ''}'
-        : null;
-
-    if (_windSpeed == null) return const SizedBox.shrink();
-
-    final String? _windGust = (windGust != null)
-        ? 'Порывы до ${windGust!.toInt()} $_speedUnits'
+    final String? _windGust = (windGust != null &&
+            windSpeed != null &&
+            windGust! > windSpeed!)
+        ? '${t.weather.gustUp} ${MetricsHelper.getSpeed(windGust, speedUnits)}'
         : null;
 
     return Row(
       children: [
-        const Icon(Icons.air_rounded),
+        const SizedBox(width: _indent),
+        const Icon(AppIcons.wind),
         const SizedBox(width: _indent),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -333,28 +360,41 @@ class _OtherInfoWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
 
+    final t = ref.watch(CurrentPageController.tr);
+
+    final Pressure pressureUnits = ref.watch(WeatherServices.pressureUnits);
+    final String _pressure = MetricsHelper.getPressure(
+        currently.pressure, pressureUnits,
+        withFiller: true)!;
+
+    final String _humidity =
+        MetricsHelper.withPrecision(currently.humidity, withFiller: true)!;
+
+    final String _visibility = MetricsHelper.withPrecision(
+        MetricsHelper.getPercentage(currently.visibility, 10000.0),
+        withFiller: true)!;
+
+    final String _cloudiness =
+        MetricsHelper.withPrecision(100.0, withFiller: true)!;
+
     return Column(
       children: [
         Row(
           children: [
             Expanded(
-                child: buildTile(Icons.cloud_rounded,
-                    '${currently.cloudiness ?? '-'}%', 'Облачность')),
-            Expanded(
-                child: buildTile(Icons.thermostat_rounded,
-                    '${currently.pressure ?? '-'} мм.рт.ст.', '')),
+                child: buildTile(Icons.cloud_rounded, '$_cloudiness%',
+                    t.weather.cloudiness)),
+            Expanded(child: buildTile(AppIcons.pressure, _pressure, '')),
           ],
         ),
         Row(
           children: [
             Expanded(
-                child: buildTile(Icons.water_drop,
-                    '${currently.humidity ?? '-'}%', 'Влажность')),
+                child: buildTile(
+                    Icons.water_drop, '$_humidity%', t.weather.humidity)),
             Expanded(
                 child: buildTile(
-                    Icons.water,
-                    '${(currently.visibility != null) ? currently.visibility! / 100 : ''}%',
-                    'Видимость')),
+                    Icons.water, '$_visibility%', t.weather.visibility)),
           ],
         ),
         const SizedBox(height: _indent),
@@ -376,18 +416,27 @@ class _SunriseInfoWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
 
-    final String? sunrise =
-        this.sunrise != null ? DateFormat.Hm().format(this.sunrise!) : null;
+    final t = ref.watch(CurrentPageController.tr);
 
-    final String? sunset =
-        this.sunset != null ? DateFormat.Hm().format(this.sunset!) : null;
+    String _sunrise = '–';
+    String _sunset = '–';
+    String _dayLength = '–';
 
-    if (sunrise == null || sunset == null) return const SizedBox.shrink();
+    if (sunrise != null && sunset != null) {
+      final Duration diff = sunset!.difference(sunrise!);
 
-    final Duration df = this.sunset!.difference(this.sunrise!);
+      if (diff.inHours == 0) {
+        _dayLength = t.global.time
+            .timeToMinute(minute: diff.inMinutes - (diff.inHours * 60));
+      } else {
+        _dayLength = t.global.time.timeToHourMinute(
+            hour: diff.inHours, minute: diff.inMinutes - (diff.inHours * 60));
+      }
 
-    final String daylight =
-        '${df.inHours} ч ${df.inMinutes - (df.inHours * 60)} мин';
+      _sunrise = DateFormat.Hm().format(sunrise!);
+
+      _sunset = DateFormat.Hm().format(sunset!);
+    }
 
     return Row(
       children: <Widget>[
@@ -396,9 +445,9 @@ class _SunriseInfoWidget extends ConsumerWidget {
             alignment: Alignment.center,
             child: Column(
               children: <Widget>[
-                Text('восход'),
-                Text(sunrise),
-                Icon(
+                Text(t.weather.rise),
+                Text(_sunrise),
+                const Icon(
                   Icons.wb_twilight_rounded,
                   color: Colors.yellow,
                   size: 50.0,
@@ -411,9 +460,11 @@ class _SunriseInfoWidget extends ConsumerWidget {
           child: Center(
             child: Column(
               children: <Widget>[
-                Text('световой'),
-                Text('день'),
-                Text(daylight)
+                Text(
+                  t.weather.daylightHoursNl,
+                  textAlign: TextAlign.center,
+                ),
+                Text(_dayLength)
               ],
             ),
           ),
@@ -423,9 +474,9 @@ class _SunriseInfoWidget extends ConsumerWidget {
             alignment: Alignment.center,
             child: Column(
               children: <Widget>[
-                Text('закат'),
-                Text(sunset),
-                Icon(
+                Text(t.weather.set),
+                Text(_sunset),
+                const Icon(
                   Icons.wb_twilight_rounded,
                   color: Colors.orange,
                   size: 50.0,
