@@ -4,17 +4,25 @@ extension StringCasingExtension on String {
   ///
   /// 'hello world' => 'Hello world'
   String toCapitalized() {
-    return length > 0
-        ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}'
-        : '';
+    if (length > 1) {
+      return '${this[0].toUpperCase()}${substring(1)}';
+    } else if (length == 1) {
+      return toUpperCase();
+    } else {
+      return '';
+    }
   }
 
   /// Change the first letter to a lowercase letter.
   ///
-  /// 'Hello world' => 'hello world'
-  String toStartWithLowercase() {
-    return length > 0
-        ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}'
-        : '';
+  /// 'Hello World' => 'hello World'
+  String toLowerCased() {
+    if (length > 1) {
+      return '${this[0].toLowerCase()}${substring(1)}';
+    } else if (length == 1) {
+      return toLowerCase();
+    } else {
+      return '';
+    }
   }
 }
