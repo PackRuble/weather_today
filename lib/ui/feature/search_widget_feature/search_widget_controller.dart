@@ -62,7 +62,7 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalize.currentTranslation));
+      (ref) => ref.watch(AppLocalization.currentTranslation));
 
   /// Список найденных мест
   static final _foundedPlaces = StateProvider<List<Place>>((ref) => []);

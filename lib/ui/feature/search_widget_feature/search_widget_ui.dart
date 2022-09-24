@@ -86,8 +86,10 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
         FloatingSearchBarAction.icon(
           showIfClosed: true,
           showIfOpened: false,
-          icon:
-              Icon(isLight ? Icons.light_mode_rounded : Icons.nightlight_round),
+          icon: Icon(
+            isLight ? Icons.light_mode_rounded : Icons.nightlight_round,
+            color: colors.scheme.primary,
+          ),
           onTap: () => ref
               .read(AppTheme.pr)
               .setThemeMode(isLight ? ThemeMode.dark : ThemeMode.light),
@@ -294,6 +296,7 @@ class _TileSearchWidget extends ConsumerWidget {
               ),
             ),
       title: Text(title),
+      horizontalTitleGap: 0.0,
       tileColor: isCurrent ? AppColors.of(context).cardSelectedColor : null,
       trailing: isSaved
           ? Icon(
