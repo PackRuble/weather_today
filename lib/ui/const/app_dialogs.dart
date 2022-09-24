@@ -142,10 +142,9 @@ class AppDialogs {
         context,
         applicationName: AppInfo.appName,
         // applicationIcon: const Icon(Icons.self_improvement_rounded),
-        applicationIcon: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
-          child: ColoredBox(
-            color: Theme.of(context).colorScheme.tertiaryContainer,
+        applicationIcon: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
             child: Image.asset(
               ImagePaths.iconAbout,
               fit: BoxFit.cover,
