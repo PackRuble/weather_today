@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/const/app_insets.dart';
+import 'package:weather_today/core/controllers/general_settings_controller.dart';
 import 'package:weather_today/core/controllers/global_key.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
@@ -12,6 +13,7 @@ import '../../shared/wrapper_page.dart';
 import '../current_page/current_page_main.dart';
 import '../daily_page/daily_page_main.dart';
 import '../hourly_page/hourly_page_main.dart';
+import '../intro/intro_page.dart';
 import '../settings_page/settings_page_ui.dart';
 import 'home_page_controller.dart';
 
@@ -21,11 +23,18 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final bool showIntro = ref.watch(AppGeneralSettings.showIntro);
+
+    if (showIntro) {
+      return const WrapperPage(child: IntroPage());
+    }
+
     return WrapperPage(
       child: Scaffold(
         key: materialKeyProvider,
         bottomNavigationBar: const _BottomBarWidget(),
-        resizeToAvoidBottomInset: false, // этим занимается сама панель-поиск
+        resizeToAvoidBottomInset: false,
+        // этим занимается сама панель-поиск
         extendBodyBehindAppBar: false,
         extendBody: false,
         body: const WrapperBodyWithFSBar(
@@ -63,7 +72,7 @@ class _BottomBarWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme theme = Theme.of(context).textTheme;
 
-    final t = ref.watch(AppLocalize.currentTranslation);
+    final t = ref.watch(AppLocalization.currentTranslation);
 
     // получаем текущий индекс
     final int curIndex = ref.watch(HomePageController.currentIndex);
