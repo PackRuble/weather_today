@@ -1,0 +1,430 @@
+{
+  "main_page_d_ruble": {
+    "main_page": {
+      "bottom_bar": {
+        "settings": "Settings",
+        "hourly": "Hourly",
+        "today": "Today",
+        "daily": "7 days"
+      }
+    },
+    "hourly_page": {
+      "forecast": {
+        "title": "Weather",
+        "uvi": "UV",
+        "legend": {
+          "real_temp": "real",
+          "feel_temp": "feels",
+          "dew_point": "dew point"
+        }
+      },
+      "pop": {
+        "title": "Precipitation",
+        "subtitle": "Total precipitation",
+        "no_pop_expected": "No precipitation expected",
+        "pop_expected": "Precipitation from {startDate} to {endDate} is not expected",
+        "units": "mm",
+        "legend": {
+          "rain": "rain",
+          "snow": "snow"
+        }
+      },
+      "wind": {
+        "title": "Wind",
+        "subtitle": "Maximum wind",
+        "units": "m/s",
+        "no_wind_expected": "Doldrums pending",
+        "wind_expected": "From {startDate} to {endDate} doldrums",
+        "legend": {
+          "wind": "wind",
+          "gust": "gust"
+        }
+      },
+      "more": {
+        "title": "More",
+        "@@units_right": "No more than 4 characters per line",
+        "units_right": "mmHg",
+        "no_data": "No other data",
+        "legend": {
+          "clouds": "cloudiness",
+          "humidity": "humidity",
+          "pressure": "pressure"
+        }
+      }
+    },
+    "current_page": {
+      "sunrise": "Sunrise",
+      "sunset": "Sunset",
+      "day_length": "Length of day",
+      "time_before_sunset": "Time before sunset",
+      "sun_already_set": "the sun has already set",
+      "wind_gust": "Gusts to",
+      "headers": {
+        "sun": "Sunrise and sunset",
+        "wind": "Wind",
+        "clouds": "Cloudiness",
+        "more": "Indicators",
+        "alerts": "Alerts"
+      }
+    }
+  },
+  "settings_page": {
+    "headers": {
+      "weather": "Weather",
+      "design": "Design",
+      "general": "General"
+    },
+    "saved_places_tile": {
+      "tile_title": "My Places"
+    },
+    "temp_tile": {
+      "tile_title": "Temperature units",
+      "tile_sub": "{units}",
+      "dialog_title": "Temperature units",
+      "dialog_sub": "The selected parameter will be applied in all measurements."
+    },
+    "pressure_tile": {
+      "tile_title": "Pressure units",
+      "tile_sub": "{units}",
+      "dialog_title": "Pressure units",
+      "dialog_sub": "The selected parameter will be applied in all measurements."
+    },
+    "speed_tile": {
+      "tile_title": "Speed units",
+      "tile_sub": "{units}",
+      "dialog_title": "Speed units",
+      "dialog_sub": "The selected parameter will be applied in all measurements."
+    },
+    "weather_lang_tile": {
+      "tile_title": "Language of weather conditions"
+    },
+    "user_api_tile": {
+      "tile_title": "Custom API"
+    },
+    "visual_design_tile": {
+      "tile_title": "Visual design"
+    },
+    "theme_tile": {
+      "tile_title": "Application color scheme"
+    },
+    "country_flags_tile": {
+      "tile_title": "Flags of different countries"
+    },
+    "homepage_tile": {
+      "tile_title": "Start Page",
+      "tile_sub": "{homepage}",
+      "dialog_title": "Start Page",
+      "dialog_sub": "The desired page will open immediately when the application loads."
+    },
+    "locale_tile": {
+      "tile_title": "Application language",
+      "tile_sub": "{locale}",
+      "dialog_title": "Application language",
+      "dialog_sub": "The selected language will be applied to the entire application."
+    },
+    "gratitude_tile": {
+      "tile_title": "Gratitude"
+    },
+    "about_app_tile": {
+      "tile_title": "About the app"
+    }
+  },
+  "visual_design_page": {
+    "appbar_title": "Visual design",
+    "headers": {
+      "design": "Weather main page design",
+      "font_size": "Font size",
+      "scroll": "Scroll",
+      "typography": "Typography",
+      "font": "Font"
+    }
+  },
+  "themes_page": {
+    "appbar_title": "Application color scheme",
+    "swap_colors_light": "Swap Primary and Secondary colors",
+    "swap_colors_dark": "Swap Main and Container colors",
+    "use_material_3": "Use Material Design 3",
+    "use_material_3_sub": "New special effects and colors",
+    "dark_mode": "Night mode",
+    "dark_mode_sub": "Mode",
+    "dark_level": "Shades of black",
+    "dark_is_true_black": "Dazzling black",
+    "dark_is_true_black_sub": "Save power on OLED"
+  },
+  "saved_places_page": {
+    "tips": {
+      "click_to_more": "Click to learn more.",
+      "hold_to_set": "Hold to set."
+    },
+    "places_not_found": "No saved places found.",
+    "longitude": "Longitude",
+    "latitude": "Latitude",
+    "empty_note": "Note..."
+  },
+  "search_bar": {
+    "hint_text_field": "Enter place name",
+    "tips": {
+      "click_to_set": "Click to select a place.",
+      "hold_to_action": "Hold to save/delete place.",
+      "not_saved_places": "There are no saved places.",
+      "show_saved_places": "Saved places are shown.",
+      "not_founded_places": "No places found.",
+      "show_founded_places": "The found places are shown.",
+      "search_error": "An error has occurred."
+    }
+  },
+  "flags_page": {
+    "appbar_title": "Flags of different countries"
+  },
+  "gratitude_page": {
+    "appbar_title": "I want to say thank you...",
+    "text": "\tA year earlier I was fascinated by the new programming language dart, having learned flutter at the same time. To sharpen my skills in the substance of the new, I realized that I wanted to create a simple (it seemed to me at the time, hoho) application - a weather aggregator. And after half a year there appeared an application called Weather Today - Everyday Weather.\n\tDuring the developing process I had a lot of people (and their solutions) helping and supporting me.\n\tI am eternally grateful to my girlfriend Ekaterina for her patience, understanding and acceptance of the fact that I spent rare evening hours working on the app instead of spending them with my family.\n\tAlso I would like to pay tribute to my fellow developers who put up interesting and, importantly, useful developments. In particular I want to mention the dart team, Remi Rousselet for their wonderful Riverpod and freezed packages, Tien Do Nam for their beautiful slang, RydMike for their charming FlexColorScheme package.\n\tI am always open to communication and would appreciate if, after using my application, you could write a few lines about its practicality and competence, and share your opinion on possible features that would be worth doing.\n"
+  },
+  "weather_lang_page": {
+    "appbar_title": "Language of weather conditions",
+    "tips": {
+      "info": "Some weather conditions will be provided in the selected language."
+    }
+  },
+  "api_weather_page": {
+    "appbar_title": "Your api key",
+    "go_to_site": "Go to openweathermap.org",
+    "tips": {
+      "info": "To make requests more often, you need to have your Api key.",
+      "free": "It's free, you can get it from the link below."
+    },
+    "default_api": {
+      "using_api": "The default Api is used.",
+      "numb_of_calls": "The number of calls is limited to the author's WeatherOpenApi rate",
+      "field_tip": "Enter Api..."
+    },
+    "user_api": {
+      "using_api": "User Api installed",
+      "numb_of_calls": "The number of calls is limited to your WeatherOpenApi rate.",
+      "field_tip": "Used..."
+    },
+    "tooltips": {
+      "del_api_key": "Remove Api key",
+      "check_api_key": "Check Api key",
+      "clipboard_button": "Paste from clipboard",
+      "awaiting": "Awaiting...",
+      "set": "Set"
+    }
+  },
+  "weather": {
+    "condition": {
+      "thunderstorm": "Thunderstorm",
+      "drizzle": "Drizzle",
+      "rain": "Rain",
+      "snow": "Snow",
+      "mist": "Mist",
+      "smoke": "Smoke",
+      "haze": "Haze",
+      "dust": "Dust",
+      "fog": "Fog",
+      "sand": "Sand",
+      "ash": "Ash",
+      "squall": "Squall",
+      "tornado": "Tornado",
+      "clear": "Clear",
+      "clouds": "Clouds"
+    },
+    "quietly_on_the_horizon": "On the horizon quietly",
+    "no_data_provided": "No data provided",
+    "indicators": "Indicators",
+    "minimum": "Minimum",
+    "maximum": "Maximum",
+    "real": "Real",
+    "feels": "Feels",
+    "feels_like_as": "Feels like",
+    "current_as_of": "Actual on",
+    "rise_and_set": "Sunrise and sunset",
+    "rise_and_set_pl": "Sunrises and sunsets",
+    "sun": "Sun",
+    "moon": "Moon",
+    "@rise": "It is correct?",
+    "rise": "Sunrise",
+    "set": "Sunset",
+    "sunrise": "Sunrise",
+    "sunset": "Sunset",
+    "moonrise": "Moonrise",
+    "moonset": "Moonset",
+    "moonPhase": "Moon phase",
+    "sun_already_set": "the sun has already set",
+    "daylight_hours": "Daylight hours",
+    "daylight_hours_nl": "Daylight\nhours",
+    "at_morning": "At morning",
+    "at_day": "At day",
+    "at_evening": "At evening",
+    "at_night": "At night",
+    "morning": "Morning",
+    "day": "Day",
+    "evening": "Evening",
+    "night": "Night",
+    "pressure": "Pressure",
+    "humidity": "Humidity",
+    "dewPoint": "DewPoint",
+    "cloudiness": "Cloudiness",
+    "visibility": "Visibility",
+    "uvi": "UV",
+    "rain": "Rain",
+    "snow": "Snow",
+    "pop": "Probability of precipitation",
+    "precipitation": "Precipitation",
+    "description": "Description",
+    "side_of_the_world": "Side of the world",
+    "speed": "Speed",
+    "wind": "Wind",
+    "wind_speed": "Wind speed",
+    "wind_gust": "Wind gust",
+    "gust": "Gust",
+    "gusts": "Gusts",
+    "gust_up": "Gusts up",
+    "wind_side": "Wind direction",
+    "degree": "Degree",
+    "degrees": "Degrees",
+    "temp": "Temperature",
+    "temp_morning": "Temperature in the morning",
+    "temp_day": "Temperature in the day",
+    "temp_evening": "Temperature in the evening",
+    "temp_night": "Temperature in the night",
+    "temp_min": "Minimum daytime temperature",
+    "temp_max": "Maximum daytime temperature"
+  },
+  "global": {
+    "time": {
+      "the_day_before_yesterday": "The day before yesterday",
+      "yesterday": "Yesterday",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "theDayAfterTomorrow": "The day after tomorrow",
+      "time_to_hour_minute": "{hour} h {minute} min",
+      "time_to_minute": "{minute} min",
+      "time_from_timeS_to_timeE": "{time} from {time_start} to {time_end}",
+      "from_time_to_time": "from {time_start} to {time_end}",
+      "time_from_timeS_to_timeEnl": "{time} \nfrom {time_start} to {time_end}",
+      "from_time_to_time_nl": "from {time_start} \nto {time_end}"
+    }
+  },
+  "dialogs": {
+    "messages": {
+      "socket_exception": "No internet connection or weather service not available",
+      "api_key_weather_set_true": "Api weather key installed!",
+      "api_key_weather_set_false": "Api key installation failed...",
+      "api_key_OWM_verification_success": "Api key active!",
+      "api_key_OWM_verification_fail": "Api key is invalid!",
+      "weather_update_fail": "Not available right now..."
+    },
+    "buttons": {
+      "ok": "Ok",
+      "okay": "Okay",
+      "know": "Know",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "place_search_info": {
+      "title": "Did you know that...",
+      "subtitle": "There are several ways to find a place",
+      "way1": "1 way - by city name. For example:",
+      "@@city": "you can suggest your city. Don't forget to correct the coordinates below.",
+      "city": "Moscow",
+      "way2": "2 way - by coordinates, like this:",
+      "coord": "55.75199, 37.61773"
+    },
+    "confirm_del_place": {
+      "title": "Warning",
+      "subtitle": "Delete place?",
+      "content": "The place will be removed from the list of saved places"
+    },
+    "see_flag": {
+      "title": "Information",
+      "subtitle": "You can see the full name of the country and its flag"
+    },
+    "confirm_del_user_apikey": {
+      "title": "Warning",
+      "subtitle": "Your user api key will be deleted."
+    },
+    "confirm_save_changes": {
+      "title": "Warning",
+      "subtitle": "Save changes?"
+    },
+    "make_note": {
+      "title": "Note",
+      "subtitle": "Your note about this place"
+    }
+  },
+  "enums": {
+    "homepage": {
+      "settings": "Settings",
+      "hourly": "Hourly",
+      "today": "Today",
+      "daily": "7 days"
+    }
+  },
+  "units": {
+    "temp": {
+      "full_name": {
+        "celsius": "On the Celsius scale",
+        "kelvin": "On the Kelvin scale",
+        "fahrenheit": "On the Fahrenheit scale"
+      }
+    },
+    "speed": {
+      "abbr": {
+        "ms": "m/s",
+        "mph": "mph",
+        "kph": "km/h"
+      }
+    },
+    "pressure": {
+      "abbr": {
+        "hecto_pa": "hPa",
+        "mbar": "mbar",
+        "mm_hg": "mmHg",
+        "k_pa": "kPa",
+        "atm": "atm",
+        "in_hg": "inHg"
+      },
+      "name": {
+        "hecto_pa": "Hectopascal",
+        "mbar": "Millibar",
+        "mm_hg": "Millimetre of mercury",
+        "k_pa": "Kilopascal",
+        "atm": "Atmosphere",
+        "in_hg": "Inch of mercury"
+      }
+    },
+    "side_of_the_world": {
+      "abbr": {
+        "north": "N",
+        "north_east": "NE",
+        "east": "E",
+        "south_east": "SE",
+        "south": "S",
+        "south_west": "SW",
+        "west": "W",
+        "north_west": "NW"
+      },
+      "name_adj": {
+        "north": "Northern",
+        "north_east": "Northeastern",
+        "east": "Eastern",
+        "south_east": "Southeastern",
+        "south": "Southern",
+        "south_west": "Southwestern",
+        "west": "Western",
+        "north_west": "Northwestern"
+      },
+      "name": {
+        "north": "North",
+        "north_east": "North-East",
+        "east": "East",
+        "south_east": "South-East",
+        "south": "South",
+        "south_west": "South-West",
+        "west": "West",
+        "north_west": "North-West"
+      }
+    }
+  }
+}

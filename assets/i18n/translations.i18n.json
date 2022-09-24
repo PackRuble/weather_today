@@ -1,0 +1,429 @@
+{
+  "main_page_d_ruble": {
+    "main_page": {
+      "bottom_bar": {
+        "settings": "Настройки",
+        "hourly": "Почасовая",
+        "today": "Сегодня",
+        "daily": "7 дней"
+      }
+    },
+    "hourly_page": {
+      "forecast": {
+        "title": "Погода",
+        "uvi": "УФ",
+        "legend": {
+          "real_temp": "реальная",
+          "feel_temp": "ощущается",
+          "dew_point": "точка росы"
+        }
+      },
+      "pop": {
+        "title": "Осадки",
+        "subtitle": "Общий объем осадков",
+        "no_pop_expected": "Осадки не ожидаются",
+        "pop_expected": "Осадки с {startDate} по {endDate} не ожидаются",
+        "units": "мм",
+        "legend": {
+          "rain": "дождь",
+          "snow": "снег"
+        }
+      },
+      "wind": {
+        "title": "Ветер",
+        "subtitle": "Максимальный ветер",
+        "units": "м/с",
+        "no_wind_expected": "Ожидается штиль",
+        "wind_expected": "С {startDate} по {endDate} штиль",
+        "legend": {
+          "wind": "ветер",
+          "gust": "порывы"
+        }
+      },
+      "more": {
+        "title": "Ещё",
+        "@@units_right": "Не допускать более 4 символов в строке",
+        "units_right": "мм.\nрт.\nст.",
+        "no_data": "Нет других данных",
+        "legend": {
+          "clouds": "облачность",
+          "humidity": "влажность",
+          "pressure": "давление"
+        }
+      }
+    },
+    "current_page": {
+      "sunrise": "Восход",
+      "sunset": "Закат",
+      "day_length": "Продолжительность дня",
+      "time_before_sunset": "Время до захода",
+      "sun_already_set": "солнце уже зашло",
+      "wind_gust": "Порывы до",
+      "headers": {
+        "sun": "Восход и закат",
+        "wind": "Ветер",
+        "clouds": "Облачность",
+        "more": "Показатели",
+        "alerts": "Предупреждения"
+      }
+    }
+  },
+  "settings_page": {
+    "headers": {
+      "weather": "Погода",
+      "design": "Дизайн",
+      "general": "Общее"
+    },
+    "saved_places_tile": {
+      "tile_title": "Мои места"
+    },
+    "temp_tile": {
+      "tile_title": "Единицы измерения температуры",
+      "tile_sub": "{units}",
+      "dialog_title": "Единицы измерения температуры",
+      "dialog_sub": "Выбранный параметр будет применен во всех измерениях."
+    },
+    "pressure_tile": {
+      "tile_title": "Единицы измерения давления",
+      "tile_sub": "{units}",
+      "dialog_title": "Единицы измерения давления",
+      "dialog_sub": "Выбранный параметр будет применен во всех измерениях."
+    },
+    "speed_tile": {
+      "tile_title": "Единицы измерения скорости",
+      "tile_sub": "{units}",
+      "dialog_title": "Единицы измерения скорости",
+      "dialog_sub": "Выбранный параметр будет применен во всех измерениях."
+    },
+    "weather_lang_tile": {
+      "tile_title": "Язык погодных условий"
+    },
+    "user_api_tile": {
+      "tile_title": "Пользовательское Api"
+    },
+    "visual_design_tile": {
+      "tile_title": "Визуальное оформление"
+    },
+    "theme_tile": {
+      "tile_title": "Цветовое решение приложения"
+    },
+    "country_flags_tile": {
+      "tile_title": "Флаги разных стран"
+    },
+    "homepage_tile": {
+      "tile_title": "Стартовая страница",
+      "tile_sub": "{homepage}",
+      "dialog_title": "Стартовая страница",
+      "dialog_sub": "Нужная страница откроется сразу при загрузке приложения."
+    },
+    "locale_tile": {
+      "tile_title": "Язык приложения",
+      "tile_sub": "{locale}",
+      "dialog_title": "Язык приложения",
+      "dialog_sub": "Выбранный язык будет применен ко всему приложению."
+    },
+    "gratitude_tile": {
+      "tile_title": "Благодарности"
+    },
+    "about_app_tile": {
+      "tile_title": "О приложении"
+    }
+  },
+  "visual_design_page": {
+    "appbar_title": "Визуальное оформление",
+    "headers": {
+      "design": "Оформление главных страниц погоды",
+      "font_size": "Размер шрифта",
+      "scroll": "Скролл",
+      "typography": "Типографика",
+      "font": "Шрифт"
+    }
+  },
+  "themes_page": {
+    "appbar_title": "Цветовое решение",
+    "swap_colors_light": "Поменять Primary и Secondary цвета",
+    "swap_colors_dark": "Поменять Main и Container цвета",
+    "use_material_3": "Использовать Material Design 3",
+    "use_material_3_sub": "Новые спецэффекты и цвета",
+    "dark_mode": "Цветовой режим",
+    "dark_mode_sub": "Режим",
+    "dark_level": "Оттенки черного",
+    "dark_is_true_black": "Ослепительно черный",
+    "dark_is_true_black_sub": "Энергосберегающий для OLED"
+  },
+  "saved_places_page": {
+    "tips": {
+      "click_to_more": "Нажмите, чтобы узнать больше.",
+      "hold_to_set": "Удерживайте, чтобы установить."
+    },
+    "places_not_found": "Сохраненных местоположений не найдено.",
+    "longitude": "Долгота",
+    "latitude": "Широта",
+    "empty_note": "Заметка..."
+  },
+  "search_bar": {
+    "hint_text_field": "Введите название места",
+    "tips": {
+      "click_to_set": "Кликните, чтобы выбрать место.",
+      "hold_to_action": "Удерживайте, чтобы сохранить/удалить место.",
+      "not_saved_places": "Нет сохраненых мест.",
+      "show_saved_places": "Показаны сохраненные места.",
+      "not_founded_places": "Нет найденных мест.",
+      "show_founded_places": "Показаны найденные места.",
+      "search_error": "Произошла ошибка"
+    }
+  },
+  "flags_page": {
+    "appbar_title": "Флаги разных стран"
+  },
+  "gratitude_page": {
+    "appbar_title": "Хочу сказать спасибо...",
+    "text": "\tГодом ранее я увлекся новым языком программирования dart, попутно изучив flutter. Для оттачивания своих навыков в субстанции нового я понял, что хочу создать простенькое (казалось мне тогда, хохо) приложение – агрегатор погоды. И вот, минуя полгода, на свет появилось приложение под названием – Weather Today – Погода на каждый день.\n\tЗа время разработки со мной были рядом люди (и их решения), оказывающие большую помощь и поддержку.\n\tЯ бесконечно благодарен своей девушке Екатерине за её терпение, понимание и принятие того, что редкие вечерние часы я тратил на работу над приложением, вместо того, чтобы провести их с семьёй.\n\tТакже я хотел бы отдать должное коллегам-разработчикам, кто выкладывает интересные и, немаловажно, полезные разработки. В особенности я хочу отметить команду dart, Remi Rousselet за восхитительные пакеты Riverpod и freezed, Tien Do Nam за прекрасный slang, RydMike за очаровательный пакет FlexColorScheme.\n\tЯ всегда открыт для общения и буду благодарен, если, попользовавшись моим приложением, вы напишите пару строк о его практичности и компетентности, а также поделитесь мнением о возможных функциях, которые стоило бы сделать.\n"
+  },
+  "weather_lang_page": {
+    "appbar_title": "Язык погодных условий",
+    "tips": {
+      "info": "Некоторые погодные условия будут предоставляться на выбранном языке."
+    }
+  },
+  "api_weather_page": {
+    "appbar_title": "Ваш ключ Api",
+    "go_to_site": "Перейти на сайт openweathermap.org",
+    "tips": {
+      "info": "Чтобы делать запросы чаще, нужно иметь свой ключик Api.",
+      "free": "Он бесплатный, получить его можно по ссылке ниже."
+    },
+    "default_api": {
+      "using_api": "Используется Api по умолчанию",
+      "numb_of_calls": "Количество вызовов ограничено авторским тарифом WeatherOpenApi",
+      "field_tip": "Введите Api..."
+    },
+    "user_api": {
+      "using_api": "Установлен пользовательский Api",
+      "numb_of_calls": "Количество вызовов ограничено вашим тарифом WeatherOpenApi",
+      "field_tip": "Используется..."
+    },
+    "tooltips": {
+      "del_api_key": "Удалить Api-ключ",
+      "check_api_key": "Проверить Api-ключ",
+      "clipboard_button": "Вставить из буфера обмена",
+      "awaiting": "Ожидаем...",
+      "set": "Установить"
+    }
+  },
+  "weather": {
+    "@@condition": "Это будет Map<String, String>",
+    "condition": {
+      "thunderstorm": "Гроза",
+      "drizzle": "Морось",
+      "rain": "Дождь",
+      "snow": "Снег",
+      "mist": "Туман",
+      "smoke": "Дым",
+      "haze": "Дымка",
+      "dust": "Пыльно",
+      "fog": "Мгла",
+      "sand": "Песок",
+      "ash": "Пепел",
+      "squall": "Шквал",
+      "tornado": "Торнадо",
+      "clear": "Ясно",
+      "clouds": "Пасмурно"
+    },
+    "quietly_on_the_horizon": "На горизонте спокойно",
+    "no_data_provided": "Данные не предоставлены",
+    "indicators": "Показатели",
+    "minimum": "Минимум",
+    "maximum": "Максимум",
+    "real": "Реальная",
+    "feels": "Ощущается",
+    "feels_like_as": "Ощущается как",
+    "current_as_of": "Актуально на",
+    "rise_and_set": "Восход и закат",
+    "rise_and_set_pl": "Восходы и закаты",
+    "sun": "Солнце",
+    "moon": "Луна",
+    "rise": "Восход",
+    "set": "Закат",
+    "sunrise": "Восход солнца",
+    "sunset": "Закат солнца",
+    "moonrise": "Восход луны",
+    "moonset": "Закат луны",
+    "moonPhase": "Фаза луны",
+    "sun_already_set": "солнце уже зашло",
+    "daylight_hours": "Световой день",
+    "daylight_hours_nl": "Световой\nдень",
+    "at_morning": "Утром",
+    "at_day": "Днём",
+    "at_evening": "Вечером",
+    "at_night": "Ночью",
+    "morning": "Утро",
+    "day": "День",
+    "evening": "Вечер",
+    "night": "Ночь",
+    "pressure": "Давление",
+    "humidity": "Влажность",
+    "dewPoint": "Точка росы",
+    "cloudiness": "Облачность",
+    "visibility": "Видимость",
+    "uvi": "УФ",
+    "rain": "Дождь",
+    "snow": "Снег",
+    "pop": "Вероятность осадков",
+    "precipitation": "Осадки",
+    "description": "Описание",
+    "side_of_the_world": "Сторона света",
+    "speed": "Скорость",
+    "wind": "Ветер",
+    "wind_speed": "Скорость ветра",
+    "wind_gust": "Порывы ветра",
+    "gust": "Порыв",
+    "gusts": "Порывы",
+    "gust_up": "Порывы до",
+    "wind_side": "Направление ветра",
+    "degree": "Градус",
+    "degrees": "Градусы",
+    "temp": "Температура",
+    "temp_morning": "Температура утром",
+    "temp_day": "Температура днём",
+    "temp_evening": "Температура вечером",
+    "temp_night": "Температура ночью",
+    "temp_min": "Минимальная дневная температура",
+    "temp_max": "Максимальная дневная температура"
+  },
+  "global": {
+    "time": {
+      "the_day_before_yesterday": "Позавчера",
+      "yesterday": "Вчера",
+      "today": "Сегодня",
+      "tomorrow": "Завтра",
+      "theDayAfterTomorrow": "Послезавтра",
+      "time_to_hour_minute": "{hour} ч {minute} мин",
+      "time_to_minute": "{minute} мин",
+      "time_from_timeS_to_timeE": "{time} с {time_start} по {time_end}",
+      "from_time_to_time": "с {time_start} по {time_end}",
+      "time_from_timeS_to_timeEnl": "{time} \nс {time_start} по {time_end}",
+      "from_time_to_time_nl": "с {time_start} \nпо {time_end}"
+    }
+  },
+  "dialogs": {
+    "messages": {
+      "socket_exception": "Отсутствует подключение к интернету или сервис погоды не доступен",
+      "api_key_weather_set_true": "Api ключ погоды установлен!",
+      "api_key_weather_set_false": "Неудачная установка Api ключа...",
+      "api_key_OWM_verification_success": "Api ключ активен!",
+      "api_key_OWM_verification_fail": "Api ключ недействителен!",
+      "weather_update_fail": "Сейчас недоступно..."
+    },
+    "buttons": {
+      "ok": "Ок",
+      "okay": "Понятно",
+      "know": "Узнать",
+      "save": "Сохранить",
+      "cancel": "Отмена"
+    },
+    "place_search_info": {
+      "title": "А вы знали, что...",
+      "subtitle": "Есть несколько способов найти местоположение",
+      "way1": "1 способ – по названию города. Например:",
+      "city": "Москва",
+      "way2": "2 способ – по координатам, вот так:",
+      "coord": "55.75199, 37.61773"
+    },
+    "confirm_del_place": {
+      "title": "Предупреждение",
+      "subtitle": "Удалить местоположение?",
+      "content": "Местоположение будет удалено из списка сохраненных"
+    },
+    "see_flag": {
+      "title": "Информация",
+      "subtitle": "Вы можете увидеть полное наименование страны и её флаг"
+    },
+    "confirm_del_user_apikey": {
+      "title": "Предупреждение",
+      "subtitle": "Ваш пользовательский ключ api будет удален"
+    },
+    "confirm_save_changes": {
+      "title": "Предупреждение",
+      "subtitle": "Сохранить изменения?"
+    },
+    "make_note": {
+      "title": "Заметка",
+      "subtitle": "Ваша заметка об этом местоположении"
+    }
+  },
+  "enums": {
+    "homepage": {
+      "settings": "Настройки",
+      "hourly": "Почасовая",
+      "today": "Сегодня",
+      "daily": "7 дней"
+    }
+  },
+  "units": {
+    "temp": {
+      "full_name": {
+        "celsius": "По шкале Цельсия",
+        "kelvin": "По шкале Кельвина",
+        "fahrenheit": "По шкале Фаренгейта"
+      }
+    },
+    "speed": {
+      "abbr": {
+        "ms": "м/с",
+        "mph": "миль/ч",
+        "kph": "км/ч"
+      }
+    },
+    "pressure": {
+      "abbr": {
+        "hecto_pa": "гПа",
+        "mbar": "мБар",
+        "mm_hg": "мм. рт. ст.",
+        "k_pa": "кПа",
+        "atm": "атм",
+        "in_hg": "дюйм рт. ст."
+      },
+      "name": {
+        "hecto_pa": "ГектоПаскали",
+        "mbar": "МиллиБары",
+        "mm_hg": "Миллиметры ртутного столба",
+        "k_pa": "КилоПаскали",
+        "atm": "Атмосферы",
+        "in_hg": "Дюймы ртутного столба"
+      }
+    },
+    "side_of_the_world": {
+      "abbr": {
+        "north": "С",
+        "north_east": "СВ",
+        "east": "В",
+        "south_east": "ЮВ",
+        "south": "Ю",
+        "south_west": "ЮЗ",
+        "west": "З",
+        "north_west": "СЗ"
+      },
+      "name_adj": {
+        "north": "Северный",
+        "north_east": "Северо-Восточный",
+        "east": "Восточный",
+        "south_east": "Юго-Восточный",
+        "south": "Южный",
+        "south_west": "Юго-Западный",
+        "west": "Западный",
+        "north_west": "Северо-Западный"
+      },
+      "name": {
+        "north": "Север",
+        "north_east": "Северо-Восток",
+        "east": "Восток",
+        "south_east": "Юго-Восток",
+        "south": "Юг",
+        "south_west": "Юго-Запад",
+        "west": "Запад",
+        "north_west": "Северо-Запад"
+      }
+    }
+  }
+}
