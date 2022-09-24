@@ -27,7 +27,7 @@ class UserApiPageController {
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalize.currentTranslation));
+      (ref) => ref.watch(AppLocalization.currentTranslation));
 
   /// Установить пользовательский api.
   Future<void> setUserApi() async {

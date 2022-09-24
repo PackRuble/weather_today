@@ -36,12 +36,11 @@ class VisualDPageController {
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalize.currentTranslation));
+      (ref) => ref.watch(AppLocalization.currentTranslation));
 
   /// Погода берется из заранее сохраненного json, который всегда доступен.
-  static final weatherDailyProvider = FutureProvider.autoDispose<WeatherDaily>(
-      (ref) async =>
-          (await TestWeatherJson.getOneCallWeatherToTest()).daily!.first);
+  static final weatherMock = FutureProvider.autoDispose<WeatherOneCall>(
+      (ref) async => TestWeatherJson.getOneCallWeatherToTest());
 
   /// Применить значения по завершению редактирования опций.
   ///
@@ -181,8 +180,8 @@ class VisualDPageController {
   /// Добавить действие в [changesProvider], которое подлежит
   /// дальнейшему вызову [saveAllChanges].
   ///
-  void _saveNewAction(_SavedChanges change) =>
-      _reader(changesProvider.notifier).update((state) => {...state, change});
+  void _saveNewAction(_SavedChanges change) => _reader(changesProvider.notifier)
+      .update((state) => Set.of({...state, change}));
 
   /// Вызвать все функции сохранения. Могут быть следующими:
   ///
@@ -214,9 +213,6 @@ class VisualDPageController {
       }
     }
 
-    // сбрасываем состояние. Можно через invalidate
-    _refresh(
-        changesProvider); // hotfix изменил, нужно проверить работоспособность
-    // _reader(changesProvider.notifier).update((_) => {});
+    _refresh(changesProvider);
   }
 }

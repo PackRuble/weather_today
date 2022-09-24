@@ -115,7 +115,7 @@ class _TileTempUnitsWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(SettingPageController.tr);
 
-    final String units = ref.watch(SettingPageController.tempUnits).fullNameTr;
+    final String units = ref.watch(SettingPageController.tempUnits).abbr;
 
     return _TileSetting(
       leading: AppIcons.tempUnitsTile,

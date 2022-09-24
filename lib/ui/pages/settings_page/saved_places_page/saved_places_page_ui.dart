@@ -58,6 +58,8 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
                                 '${AppSmiles.pinned} ${t.savedPlacesPage.tips.holdToSet}'),
                           ),
                         _TileFoundedWidget(listPlaces[index]),
+                        if (index == listPlaces.length - 1)
+                          const SizedBox(height: 50.0)
                       ],
                     );
                   },
@@ -98,20 +100,21 @@ class _TileFoundedWidget extends ConsumerWidget {
             ),
           ),
           margin: EdgeInsets.zero,
-          child: ExpandablePanel(
-            theme: const ExpandableThemeData(
-              headerAlignment: ExpandablePanelHeaderAlignment.center,
-              tapHeaderToExpand: true,
-              tapBodyToExpand: false,
-              tapBodyToCollapse: false,
-              hasIcon: false,
-            ),
-            controller: ExpandableController(
-                // initialExpanded: isExpanded.value
+          child: ExpandableNotifier(
+            child: ScrollOnExpand(
+              child: ExpandablePanel(
+                theme: const ExpandableThemeData(
+                  headerAlignment: ExpandablePanelHeaderAlignment.center,
+                  tapHeaderToExpand: true,
+                  tapBodyToExpand: false,
+                  tapBodyToCollapse: false,
+                  hasIcon: false,
                 ),
-            header: _HeaderWidget(place),
-            collapsed: const SizedBox.shrink(),
-            expanded: _ExpandedWidget(place),
+                header: _HeaderWidget(place),
+                collapsed: const SizedBox.shrink(),
+                expanded: _ExpandedWidget(place),
+              ),
+            ),
           ),
         ),
       ),

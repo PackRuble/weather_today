@@ -24,7 +24,7 @@ class SettingPageController {
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalize.currentTranslation));
+      (ref) => ref.watch(AppLocalization.currentTranslation));
 
   //============================================================================
   // текущий язык погодных условий
@@ -123,7 +123,7 @@ class SettingPageController {
 
   /// текущая локаль
   static final currentLocale = Provider.autoDispose<AppLocale>(
-      (ref) => ref.watch(AppLocalize.currentLocale));
+      (ref) => ref.watch(AppLocalization.currentLocale));
 
   /// Диалог - Установить новую locale.
   Future<void> dialogSetLocale(BuildContext context) async {
@@ -144,7 +144,7 @@ class SettingPageController {
     );
 
     if (_newLocale != null) {
-      await _reader(AppLocalize.pr).setLocale(_newLocale);
+      await _reader(AppLocalization.pr).setLocale(_newLocale);
     }
   }
 

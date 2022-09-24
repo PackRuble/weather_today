@@ -10,7 +10,9 @@ import 'package:weather_today/extension/enum_extension.dart';
 import '../../../shared/custom_appbar.dart';
 import '../../../shared/shared_widget.dart';
 import '../../../shared/wrapper_page.dart';
-import '../../daily_page/daily_page_by_ruble/daily_page_ui.dart';
+import '../../daily_page/daily_page_by_ruble/daily_page_ui.dart' as ruble_daily;
+import '../../hourly_page/hourly_page_by_tolskaya/hourly_page_ui.dart'
+    as tolskaya_hourly;
 import 'visual_design_page_controller.dart';
 
 /// Страница из настроек визуального оформления.
@@ -35,23 +37,30 @@ class VisualDesignPage extends ConsumerWidget {
             t.visualDesignPage.appbarTitle,
             actions: const [_SaveButtonWidget()],
           ),
-          body: ListView(
-            physics: AlwaysScrollableScrollPhysics(parent: scrollPhysic),
+          body: Column(
             children: [
               _divider,
               const _ExampleTileDesign(),
               _divider,
-              HeaderRWidget(t.visualDesignPage.headers.design),
-              const _DesignWidgetChip(),
-              HeaderRWidget(t.visualDesignPage.headers.fontSize),
-              const _ChangerTextScaleWidget(),
-              HeaderRWidget(t.visualDesignPage.headers.font),
-              const _FamilyFontsWidget(),
-              HeaderRWidget(t.visualDesignPage.headers.typography),
-              const _TypographyWidget(),
-              HeaderRWidget(t.visualDesignPage.headers.scroll),
-              const _ScrollPhysicsWidget(),
-              const SizedBox(height: 20.0),
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  physics: AlwaysScrollableScrollPhysics(parent: scrollPhysic),
+                  children: [
+                    HeaderRWidget(t.visualDesignPage.headers.design),
+                    const _DesignWidgetChip(),
+                    HeaderRWidget(t.visualDesignPage.headers.font),
+                    const _FamilyFontsWidget(),
+                    HeaderRWidget(t.visualDesignPage.headers.fontSize),
+                    const _ChangerTextScaleWidget(),
+                    HeaderRWidget(t.visualDesignPage.headers.typography),
+                    const _TypographyWidget(),
+                    HeaderRWidget(t.visualDesignPage.headers.scroll),
+                    const _ScrollPhysicsWidget(),
+                    const SizedBox(height: 20.0),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -66,11 +75,28 @@ class _ExampleTileDesign extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final WeatherOneCall? weatherMock =
+        ref.watch(VisualDPageController.weatherMock).valueOrNull;
+
+    final AppVisualDesign visualDesign =
+        ref.watch(VisualDPageController.selectedDesignProvider);
+
+    Widget? _testedWidget;
+
+    if (weatherMock != null) {
+      switch (visualDesign) {
+        case AppVisualDesign.byRuble:
+          _testedWidget = ruble_daily.TileDailyWidget(weatherMock.daily!.first);
+          break;
+        case AppVisualDesign.byTolskaya:
+          _testedWidget =
+              tolskaya_hourly.TileHourlyWidget(weatherMock.hourly![10]);
+          break;
+      }
+    }
+
     final double textScaleFactor =
         ref.watch(VisualDPageController.textScaleFactorProvider);
-
-    final WeatherDaily? daily =
-        ref.watch(VisualDPageController.weatherDailyProvider).value;
 
     final Typography typography =
         ref.watch(VisualDPageController.selectedTypography).typography;
@@ -81,12 +107,11 @@ class _ExampleTileDesign extends ConsumerWidget {
     final bool isDark = Brightness.dark == Theme.of(context).brightness;
 
     final FlexColorScheme nowFlexTheme =
-        ref.watch(AppTheme.usingThemeNow(isDark)).copyWith(
-              typography: typography,
-              fontFamily: fontFamily,
-            );
+    ref.watch(AppTheme.usingThemeNow(isDark)).copyWith(
+      typography: typography,
+      fontFamily: fontFamily,
+    );
 
-    // буду тестировать в 12 сборке
     // не работает типографика, ждем решения этой проблемы
     // todo https://github.com/flutter/flutter/issues/103864
 
@@ -97,8 +122,8 @@ class _ExampleTileDesign extends ConsumerWidget {
       data: nowFlexTheme.toTheme,
       child: MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: textScaleFactor),
-        child: daily == null ? const SizedBox.shrink() : TileDailyWidget(daily),
-      ), // todo исходя из выбранного стиля визуального дизайна выбрать соотв тайл
+        child: _testedWidget ?? const SizedBox.shrink(),
+      ),
     );
   }
 }

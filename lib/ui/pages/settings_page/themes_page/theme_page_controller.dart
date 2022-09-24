@@ -17,7 +17,7 @@ class ThemePageController {
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalize.currentTranslation));
+      (ref) => ref.watch(AppLocalization.currentTranslation));
 
   static final darkLevel =
       StateProvider.autoDispose<int>((ref) => ref.watch(AppTheme.darkLevel));

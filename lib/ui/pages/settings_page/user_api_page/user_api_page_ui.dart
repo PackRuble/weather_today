@@ -151,6 +151,8 @@ class _TextFieldApiWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+
     final t = ref.watch(UserApiPageController.tr);
 
     final bool isSetUserApi =
@@ -189,6 +191,7 @@ class _TextFieldApiWidget extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextField(
+        enabled: !isSetUserApi,
         focusNode: focusNode,
         obscureText: isSetUserApi,
         controller: controller,
@@ -196,14 +199,16 @@ class _TextFieldApiWidget extends ConsumerWidget {
           prefixIcon: IconButton(
             icon: const Icon(Icons.content_paste_rounded),
             tooltip: t.apiWeatherPage.tooltips.clipboardButton,
-            onPressed: () async {
-              final String? clipboardData =
-                  (await Clipboard.getData('text/plain'))?.text;
+            onPressed: !isSetUserApi
+                ? () async {
+                    final String? clipboardData =
+                        (await Clipboard.getData('text/plain'))?.text;
 
-              ref
-                  .read(UserApiPageController.pr)
-                  .setTextFromClipboard(clipboardData);
-            },
+                    ref
+                        .read(UserApiPageController.pr)
+                        .setTextFromClipboard(clipboardData);
+                  }
+                : null,
           ),
           suffixIcon: const _DoneAndLoadingWidget(),
           enabled: !isSetUserApi && !isLoading,
@@ -224,6 +229,9 @@ class _DoneAndLoadingWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(UserApiPageController.tr);
 
+    final bool isEnabled =
+        !ref.watch(UserApiPageController.isUserApiKeyWeather);
+
     final bool isLoading = ref.watch(UserApiPageController.isTestingApiKey);
     return isLoading
         ? IconButton(
@@ -234,9 +242,11 @@ class _DoneAndLoadingWidget extends ConsumerWidget {
                 .update((_) => true),
           )
         : IconButton(
-            tooltip: t.apiWeatherPage.tooltips.set,
+      tooltip: t.apiWeatherPage.tooltips.set,
             icon: const Icon(Icons.check_circle_outline_rounded),
-            onPressed: () => ref.read(UserApiPageController.pr).setUserApi(),
+            onPressed: isEnabled
+                ? () => ref.read(UserApiPageController.pr).setUserApi()
+                : null,
           );
   }
 }

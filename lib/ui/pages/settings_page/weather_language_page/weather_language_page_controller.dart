@@ -17,7 +17,7 @@ class WeatherLanguagePageController {
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalize.currentTranslation));
+      (ref) => ref.watch(AppLocalization.currentTranslation));
 
   static final currentLanguage = Provider.autoDispose<WeatherLanguage>(
       (ref) => ref.watch(WeatherServices.currentLanguage));
