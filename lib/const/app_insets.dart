@@ -3,7 +3,13 @@ class AppInsets {
   AppInsets._();
 
   /// Скругление кнопок
-  static const double cornerRadius = 14;
+  static const double cornerRadiusButton = 14;
+
+  /// Скргуление карточек.
+  static const double cornerRadiusCard = 8.0;
+
+  /// Отступы везде.
+  static const double allPadding = 8.0;
 
   /// Толщина рамки кнопок
   static const double outlineThickness = 1.5;

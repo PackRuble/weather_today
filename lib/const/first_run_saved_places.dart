@@ -17,5 +17,5 @@ Place get initialPlace => const Place(
       note: 'Любимое место?',
     );
 
-/// Изначально список мест включает в себя текущее местоположение.
+/// Изначально список мест включает в себя первоначальное местоположение.
 List<Place> get initialSavedPlaces => [initialPlace];
