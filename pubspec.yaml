@@ -1,0 +1,188 @@
+name: weather_today
+description: Weather for every day.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 2.26.112+17
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  open_weather_api:
+    path: C:/Users/Ruble/Documents/Programming/Projects/FlutterProjects/open_weather_api
+
+  intro_slider: ^3.0.10
+  flutter_dotenv: ^5.0.2
+  weather: ^2.0.1
+  shared_preferences: ^2.0.15
+  expandable: ^5.0.1
+  country_icons: ^2.0.2
+  animate_icons: ^2.0.0
+  material_floating_search_bar: ^0.3.7
+
+  flex_color_scheme: ^6.0.0
+
+  #  flutter_speed_dial: ^5.0.0+1
+
+  json_annotation: ^4.6.0
+
+  auto_route: ^5.0.1
+  freezed_annotation: ^2.1.0
+
+  #  flutter_portal: ^1.0.0-dev.2
+
+  # Пакет предназначен для показа уведомлений
+  fluttertoast: ^8.0.9
+  #  shimmer: ^2.0.0
+  #  equatable: ^2.0.3
+  #  expandable: ^5.0.1
+  #  nanoid: ^1.0.0
+  intl: ^0.17.0
+  hooks_riverpod: ^2.0.0-dev.9
+  flutter_hooks: ^0.18.5+1
+
+  # amazing charts
+  fl_chart: ^0.55.1
+  loggy: ^2.0.1+1
+  url_launcher: ^6.1.5
+
+  # This is a cool localization and internationalization package
+  slang: 2.7.0
+  slang_flutter: 2.7.0
+  flutter_localizations:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  json_serializable: ^6.3.1
+  auto_route_generator: ^5.0.2
+  build_runner: ^2.2.0
+  icons_launcher: ^2.0.4
+
+  #  You can let the library rebuild automatically for you.
+  #
+  #  command -> flutter pub run slang:watch
+  slang_build_runner: 2.7.0
+
+  freezed: ^2.1.0+1
+
+  lint: ^1.10.0
+
+flutter:
+
+  uses-material-design: true
+
+  # https://flutter.dev/assets-and-images
+  assets:
+    - .env
+    - assets/icons/icon.png
+    - assets/images/
+    - assets/images/intro/
+
+  fonts:
+    #    - family: Caveat
+    #      fonts:
+    #        - asset: assets/fonts/Caveat-Bold.ttf
+    #          weight: 400
+    #        - asset: assets/fonts/Caveat-Medium.ttf
+    #          weight: 500
+    #        - asset: assets/fonts/Caveat-Regular.ttf
+    #          weight: 600
+    #        - asset: assets/fonts/Caveat-SemiBold.ttf
+    #          weight: 700
+    #        - asset: assets/fonts/Caveat-VariableFont_wght.ttf
+    #    - family: MarckScript
+    #      fonts:
+    #        - asset: assets/fonts/MarckScript-Regular.ttf
+    #          weight: 400
+
+    # see https://flutter.dev/custom-fonts/#from-packages
+    - family: Anonymous Pro
+      fonts:
+        - asset: assets/fonts/Anonymous_Pro/AnonymousPro-Regular.ttf
+        - asset: assets/fonts/Anonymous_Pro/AnonymousPro-Italic.ttf
+          style: italic
+
+    - family: Caveat
+      fonts:
+        - asset: assets/fonts/Caveat/Caveat-Medium.ttf
+        - asset: assets/fonts/Caveat/Caveat-Regular.ttf
+
+    - family: Lobster
+      fonts:
+        - asset: assets/fonts/Lobster/Lobster-Regular.ttf
+
+    - family: Marck Script
+      fonts:
+        - asset: assets/fonts/Marck_Script/MarckScript-Regular.ttf
+
+    - family: Merriweather
+      fonts:
+        - asset: assets/fonts/Merriweather/Merriweather-Bold.ttf
+        - asset: assets/fonts/Merriweather/Merriweather-Regular.ttf
+        - asset: assets/fonts/Merriweather/Merriweather-Regular.ttf
+        - asset: assets/fonts/Merriweather/Merriweather-Italic.ttf
+          style: italic
+
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Medium.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Italic.ttf
+          style: italic
+
+    - family: Neucha
+      fonts:
+        - asset: assets/fonts/Neucha/Neucha-Regular.ttf
+
+    - family: Noto Sans
+      fonts:
+        - asset: assets/fonts/Noto_Sans/NotoSans-Medium.ttf
+        - asset: assets/fonts/Noto_Sans/NotoSans-Italic.ttf
+          style: italic
+
+    - family: Noto Sans Mono
+      fonts:
+        - asset: assets/fonts/Noto_Sans_Mono/NotoSansMono-Regular.ttf
+
+    - family: Noto Serif
+      fonts:
+        - asset: assets/fonts/Noto_Serif/NotoSerif-Regular.ttf
+        - asset: assets/fonts/Noto_Serif/NotoSerif-Italic.ttf
+          style: italic
+
+    - family: Open Sans
+      fonts:
+        - asset: assets/fonts/Open_Sans/OpenSans-Regular.ttf
+
+    - family: Oswald
+      fonts:
+        - asset: assets/fonts/Oswald/Oswald-Regular.ttf
+
+    - family: Pacifico
+      fonts:
+        - asset: assets/fonts/Pacifico/Pacifico-Regular.ttf
+
+    - family: Press Start 2P
+      fonts:
+        - asset: assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf
+
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway/Raleway-Regular.ttf
+
+
+flutter_icons:
+  image_path: "assets/icons/icon.png"
+  #  image_path_android: "assets/images/icon-710x599-android.png"
+  #  image_path_ios: "assets/images/icon-1024x1024.png"
+  android: true # can specify file name here e.g. "ic_launcher"
+#  ios: true # can specify file name here e.g. "My-Launcher-Icon"
+#  adaptive_icon_background: "assets/images/christmas-background.png" # only available for Android 8.0 devices and above
+#  adaptive_icon_foreground: "assets/images/icon-foreground-432x432.png" # only available for Android 8.0 devices and above
