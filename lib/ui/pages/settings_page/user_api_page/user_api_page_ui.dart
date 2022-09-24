@@ -242,7 +242,7 @@ class _DoneAndLoadingWidget extends ConsumerWidget {
                 .update((_) => true),
           )
         : IconButton(
-      tooltip: t.apiWeatherPage.tooltips.set,
+            tooltip: t.apiWeatherPage.tooltips.set,
             icon: const Icon(Icons.check_circle_outline_rounded),
             onPressed: isEnabled
                 ? () => ref.read(UserApiPageController.pr).setUserApi()

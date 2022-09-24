@@ -107,10 +107,10 @@ class _ExampleTileDesign extends ConsumerWidget {
     final bool isDark = Brightness.dark == Theme.of(context).brightness;
 
     final FlexColorScheme nowFlexTheme =
-    ref.watch(AppTheme.usingThemeNow(isDark)).copyWith(
-      typography: typography,
-      fontFamily: fontFamily,
-    );
+        ref.watch(AppTheme.usingThemeNow(isDark)).copyWith(
+              typography: typography,
+              fontFamily: fontFamily,
+            );
 
     // не работает типографика, ждем решения этой проблемы
     // todo https://github.com/flutter/flutter/issues/103864
