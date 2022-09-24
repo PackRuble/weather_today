@@ -59,9 +59,10 @@ class ChartOtherWidget extends ConsumerWidget {
     final Widget unitsRight = Align(
       alignment: Alignment.topCenter,
       child: OverflowBox(
-        maxWidth: 30.0,
+        maxWidth: 40.0,
         maxHeight: 100.0,
         child: Text(t.mainPageDRuble.hourlyPage.more.unitsRight,
+            textAlign: TextAlign.center,
             style:
                 styles.bodySmall?.copyWith(color: ChartTheme.oColorPressure)),
       ),
@@ -134,8 +135,7 @@ class ChartOtherWidget extends ConsumerWidget {
           weather.pressure != null) {
         return Center(
           child: Text(
-            Pressure.fromHectoPaTo(Pressure.mmHg, weather.pressure!)
-                .toStringAsFixed(0),
+            Pressure.mmHg.valueToString(weather.pressure!, 0),
             textAlign: TextAlign.center,
             style: styles.bodySmall?.copyWith(
               color: ChartTheme.oColorPressure,

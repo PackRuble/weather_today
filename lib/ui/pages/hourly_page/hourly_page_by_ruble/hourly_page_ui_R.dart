@@ -20,16 +20,18 @@ class HourlyPageByRuble extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
 
+    const Divider _divider = Divider(height: 6.0, thickness: 1.0);
+
     return ListView(
       physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       children: [
         _DateWidget(hourly.first.date),
         const ChartForecastWidget(),
-        const Divider(height: 5.0),
+        _divider,
         const ChartPopWidget(),
-        const Divider(height: 5.0),
+        _divider,
         const ChartWindWidget(),
-        const Divider(height: 5.0),
+        _divider,
         const ChartOtherWidget(),
         Padding(
           padding: const EdgeInsets.only(right: 8.0, top: 5.0, bottom: 5.0),
@@ -64,7 +66,7 @@ class _DateWidget extends ConsumerWidget {
             TextSpan(
               style: styles.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
               children: <TextSpan>[
-                TextSpan(text: t.mainPageDRuble.hourlyPage.currentAsOf),
+                TextSpan(text: t.weather.currentAsOf),
                 if (actualData != null)
                   TextSpan(
                       text:

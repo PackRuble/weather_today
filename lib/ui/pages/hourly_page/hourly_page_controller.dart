@@ -18,7 +18,7 @@ class HourlyPageController {
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalize.currentTranslation));
+      (ref) => ref.watch(AppLocalization.currentTranslation));
 
   /// Погода ONE_CALL на 2 дня почасовая [WeatherHourly].
   static final hourly = Provider<AsyncValue<List<WeatherHourly>>>((ref) {

@@ -39,8 +39,8 @@ class ChartForecastWidget extends ConsumerWidget {
         generateData: [],
         generateLabelsData: FlTitlesData(),
         titleWidget: titleWidget,
-        ifEmptyDataWidget: Text(t.mainPageDRuble.hourlyPage.noDataProvided,
-            style: styles.bodyMedium),
+        ifEmptyDataWidget:
+            Text(t.weather.noDataProvided, style: styles.bodyMedium),
       );
     }
 

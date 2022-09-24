@@ -28,7 +28,7 @@ class DailyWeatherPageByRuble extends ConsumerWidget {
         if (index + 2 == daily.length) {
           return const SizedBox.shrink();
         }
-        return const Divider(height: 4.0);
+        return const Divider(height: 4.0, thickness: 1.0);
       },
       itemCount: daily.length,
     );
@@ -98,22 +98,19 @@ class TileDailyWidget extends ConsumerWidget {
       horizontalTitleGap: 5.0,
       leading: SizedBox(
         width: 50.0,
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Transform.scale(
-                scale: textScaleFactor * AppInsets.scaleFactorIcon,
-                child: Transform.rotate(
-                  angle: MetricsHelper.fromRadiansToDegrees(
-                      weather.windDegree ?? 0),
-                  child:
-                      Icon(AppIcons.directWind, color: theme.iconTheme.color),
-                ),
-              ),
-              const SizedBox(height: 3.0),
-              Text.rich(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Transform.rotate(
+              angle:
+                  MetricsHelper.fromRadiansToDegrees(weather.windDegree ?? 0),
+              child: Icon(AppIcons.directWind,
+                  color: theme.iconTheme.color, size: 28.0),
+            ),
+            const SizedBox(height: 3.0),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text.rich(
                 TextSpan(
                   style: styles.bodyMedium,
                   children: <TextSpan>[
@@ -123,8 +120,8 @@ class TileDailyWidget extends ConsumerWidget {
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       title: weather.date?.day == DateTime.now().day
@@ -151,14 +148,11 @@ class TileDailyWidget extends ConsumerWidget {
             ),
           ),
           Flexible(
-            child: Transform.scale(
-              scale: textScaleFactor * AppInsets.scaleFactorIcon,
-              child: SizedBox.square(
-                dimension: 40,
-                child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: ImageHelper.getWeatherIcon(weather.weatherIcon)),
-              ),
+            child: SizedBox.square(
+              dimension: 60.0,
+              child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: ImageHelper.getWeatherIcon(weather.weatherIcon)),
             ),
           ),
           Flexible(
@@ -266,34 +260,33 @@ class _ExpandedWidget extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              _buildTitleRow(t.weatherArg.riseAndSetPl),
+              _buildTitleRow(t.weather.riseAndSetPl),
               _buildRow(
                 height: _minHeightRowTile * 3,
                 left: [
-                  _buildTile(t.weatherArg.sunrise,
+                  _buildTile(t.weather.sunrise,
                       DateFormat.Hm().format(weather.sunrise!)),
-                  _buildTile(t.weatherArg.sunset,
+                  _buildTile(t.weather.sunset,
                       DateFormat.Hm().format(weather.sunset!)),
                 ],
                 right: [
-                  _buildTile(t.weatherArg.moonrise,
+                  _buildTile(t.weather.moonrise,
                       DateFormat.Hm().format(weather.moonrise!)),
-                  _buildTile(t.weatherArg.moonset,
+                  _buildTile(t.weather.moonset,
                       DateFormat.Hm().format(weather.moonset!)),
-                  _buildTile(
-                      t.weatherArg.moonPhase, weather.moonPhase.toString()),
+                  _buildTile(t.weather.moonPhase, weather.moonPhase.toString()),
                 ],
               ),
               _hDivider,
-              _buildTitleRow(t.weatherArg.temp),
+              _buildTitleRow(t.weather.temp),
               _buildRow(
                 height: _minHeightRowTile * 1,
                 left: [
-                  _buildTile(t.weatherArg.minimum, getTemp(weather.tempMin),
+                  _buildTile(t.weather.minimum, getTemp(weather.tempMin),
                       tempUnits.abbr)
                 ],
                 right: [
-                  _buildTile(t.weatherArg.maximum, getTemp(weather.tempMax),
+                  _buildTile(t.weather.maximum, getTemp(weather.tempMax),
                       tempUnits.abbr)
                 ],
               ),
@@ -301,44 +294,44 @@ class _ExpandedWidget extends ConsumerWidget {
               _buildRow(
                 height: _minHeightRowTile * 5,
                 left: [
-                  _buildTile(t.weatherArg.real),
-                  _buildTile(t.weatherArg.atMorning,
-                      getTemp(weather.tempMorning), tempUnits.abbr),
-                  _buildTile(t.weatherArg.atDay, getTemp(weather.tempDay),
+                  _buildTile(t.weather.real),
+                  _buildTile(t.weather.atMorning, getTemp(weather.tempMorning),
                       tempUnits.abbr),
-                  _buildTile(t.weatherArg.atEvening,
-                      getTemp(weather.tempEvening), tempUnits.abbr),
-                  _buildTile(t.weatherArg.atNight, getTemp(weather.tempNight),
+                  _buildTile(t.weather.atDay, getTemp(weather.tempDay),
+                      tempUnits.abbr),
+                  _buildTile(t.weather.atEvening, getTemp(weather.tempEvening),
+                      tempUnits.abbr),
+                  _buildTile(t.weather.atNight, getTemp(weather.tempNight),
                       tempUnits.abbr),
                 ],
                 right: [
-                  _buildTile(t.weatherArg.feelsLike),
-                  _buildTile(t.weatherArg.atMorning,
+                  _buildTile(t.weather.feels),
+                  _buildTile(t.weather.atMorning,
                       getTemp(weather.tempFeelsLikeMorning), tempUnits.abbr),
-                  _buildTile(t.weatherArg.atDay,
-                      getTemp(weather.tempFeelsLikeDay), tempUnits.abbr),
-                  _buildTile(t.weatherArg.atEvening,
+                  _buildTile(t.weather.atDay, getTemp(weather.tempFeelsLikeDay),
+                      tempUnits.abbr),
+                  _buildTile(t.weather.atEvening,
                       getTemp(weather.tempFeelsLikeEvening), tempUnits.abbr),
-                  _buildTile(t.weatherArg.atNight,
+                  _buildTile(t.weather.atNight,
                       getTemp(weather.tempFeelsLikeNight), tempUnits.abbr),
                 ],
               ),
               _hDivider,
-              _buildTitleRow(t.weatherArg.indicators),
+              _buildTitleRow(t.weather.indicators),
               _buildRow(
                 height: _minHeightRowTile * 3,
                 left: [
                   if (_pressure != null)
                     _buildTile(
-                        t.weatherArg.pressure, _pressure, ' $_pressureUnits'),
-                  _buildTile(t.weatherArg.cloudiness,
+                        t.weather.pressure, _pressure, ' $_pressureUnits'),
+                  _buildTile(t.weather.cloudiness,
                       weather.cloudiness.toStringMaybe(), '%'),
-                  _buildTile(t.weatherArg.uvi, weather.uvi.toStringMaybe()),
+                  _buildTile(t.weather.uvi, weather.uvi.toStringMaybe()),
                 ],
                 right: [
-                  _buildTile(t.weatherArg.humidity,
+                  _buildTile(t.weather.humidity,
                       weather.humidity.toStringMaybe(), '%'),
-                  _buildTile(t.weatherArg.dewPoint, getTemp(weather.dewPoint),
+                  _buildTile(t.weather.dewPoint, getTemp(weather.dewPoint),
                       tempUnits.abbr),
                 ],
               ),
