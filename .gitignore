@@ -47,3 +47,6 @@ app.*.map.json
 
 # environment variables
 .env
+
+# fvm
+.fvm/flutter_sdk
