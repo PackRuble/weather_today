@@ -15,6 +15,8 @@ import '../../../shared/rowtile_table_widget.dart';
 import '../../../shared/shared_widget.dart';
 import '../../../utils/metrics_helper.dart';
 
+const double inset = 15.0;
+
 /// Страница с CURRENT-погодой, дизайн ByRuble.
 class CurrentWeatherPageByRuble extends ConsumerWidget {
   const CurrentWeatherPageByRuble(this.currently);
@@ -66,7 +68,7 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
 
   Padding _CustomPadding({required Widget child}) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(inset),
       child: child,
     );
   }
@@ -481,7 +483,10 @@ class _AlertsWidget extends ConsumerWidget {
             ],
           );
         },
-        valueIsEmpty: Text(t.weather.quietlyOnTheHorizon));
+        valueIsEmpty: Padding(
+          padding: const EdgeInsets.all(inset),
+          child: Text(t.weather.quietlyOnTheHorizon),
+        ));
   }
 }
 
