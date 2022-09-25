@@ -15,6 +15,7 @@ class ImageHelper {
       Image.asset(
         'assets/weather_icons/$weatherIcon.png',
         package: 'open_weather_api',
+        filterQuality: FilterQuality.high,
         errorBuilder: (_, e, s) {
           logWarning('*$weatherIcon* not found assets weatherIcon');
           return Padding(
@@ -31,6 +32,7 @@ class ImageHelper {
       Image.asset(
         'icons/flags/png/${flag?.toLowerCase()}.png',
         package: 'country_icons',
+        filterQuality: FilterQuality.medium,
         errorBuilder: (_, e, s) {
           logWarning('*$flag* not found assets flag');
           return Padding(
@@ -39,4 +41,11 @@ class ImageHelper {
           );
         },
       );
+}
+
+class ImagePaths {
+  static String root = 'assets/images';
+  static String icons = 'assets/icons';
+
+  static String iconAbout = '$icons/icon.png';
 }
