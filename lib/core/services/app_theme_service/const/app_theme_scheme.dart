@@ -21,7 +21,7 @@ class AppThemeScheme {
       appBarOpacity: 0.85,
       appBarElevation: 6.0,
       swapColors: swapColors,
-      // tabBarStyle: FlexTabBarStyle.forBackground,
+      appBarStyle: FlexAppBarStyle.primary,
       subThemesData: const FlexSubThemesData(
         blendOnLevel: 20,
         defaultRadius: 8.0,
@@ -124,16 +124,13 @@ class AppThemeScheme {
     final FlexColorScheme _flexScheme = FlexColorScheme.dark(
       colors: usedTheme.light.defaultError
           .toDark(darkLevel, swapDarkMainAndContainerColors),
-      // colors:
-      //     usedTheme.toDark(darkLevel, swapDarkMainAndContainerColors),
       surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
       blendLevel: 10,
-      appBarStyle: FlexAppBarStyle.background,
       appBarOpacity: 0.90,
       appBarElevation: 8.0,
+      // applyElevationOverlayColor: true,
       swapColors: swapColors,
       darkIsTrueBlack: darkIsTrueBlack,
-      // tabBarStyle: FlexTabBarStyle.forBackground,
       subThemesData: const FlexSubThemesData(
         blendOnLevel: 10,
         defaultRadius: 8.0,
