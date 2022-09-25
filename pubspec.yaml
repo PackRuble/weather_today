@@ -17,11 +17,9 @@ dependencies:
 
   intro_slider: ^3.0.10
   flutter_dotenv: ^5.0.2
-  weather: ^2.0.1
   shared_preferences: ^2.0.15
   expandable: ^5.0.1
   country_icons: ^2.0.2
-  animate_icons: ^2.0.0
   material_floating_search_bar: ^0.3.7
 
   flex_color_scheme: ^6.0.0
@@ -39,7 +37,6 @@ dependencies:
   fluttertoast: ^8.0.9
   #  shimmer: ^2.0.0
   #  equatable: ^2.0.3
-  #  expandable: ^5.0.1
   #  nanoid: ^1.0.0
   intl: ^0.17.0
   hooks_riverpod: ^2.0.0-dev.9
