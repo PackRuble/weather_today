@@ -14,7 +14,7 @@ class DataBasePrefs with DbLoggy implements IDataBase {
   @override
   Future<void> init() async => _prefs = await SharedPreferences.getInstance();
 
-  /// Загрузка значений из [SharedPreferences] используя key из [Store].
+  /// Загрузка значений из [SharedPreferences] используя key из [DbStore].
   @override
   Future<T> load<T>(String key, T defaultValue) async {
     Object? value;
