@@ -11,7 +11,8 @@ class RivLoggy extends ProviderObserver implements LoggyType {
     Object? value,
     ProviderContainer container,
   ) {
-    if (provider.name != null) {
+    if (provider.name != null &&
+        !(provider.name?.contains('.notifier') ?? false)) {
       return loggy.debug('INIT: ${provider.name}'
           '\n╔══'
           '\n║ value: $value'
@@ -26,7 +27,8 @@ class RivLoggy extends ProviderObserver implements LoggyType {
     Object? newValue,
     ProviderContainer container,
   ) {
-    if (provider.name != null) {
+    if (provider.name != null &&
+        !(provider.name?.contains('.notifier') ?? false)) {
       return loggy.debug('UPD: ${provider.name}'
           '\n╔══'
           '\n║ previousValue: $previousValue'
@@ -41,7 +43,8 @@ class RivLoggy extends ProviderObserver implements LoggyType {
     ProviderBase provider,
     ProviderContainer container,
   ) {
-    if (provider.name != null) {
+    if (provider.name != null &&
+        !(provider.name?.contains('.notifier') ?? false)) {
       return loggy.debug('Dispose: ${provider.name}');
     }
   }
@@ -54,8 +57,7 @@ class RivLoggy extends ProviderObserver implements LoggyType {
     ProviderContainer container,
   ) {
     if (provider.name != null) {
-      return loggy.debug(
-          'FAIL: ${provider.name}', [error, stackTrace]);
+      return loggy.debug('FAIL: ${provider.name}', [error, stackTrace]);
     }
   }
 }
