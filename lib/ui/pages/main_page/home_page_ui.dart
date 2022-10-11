@@ -53,8 +53,9 @@ class _BodyWidget extends ConsumerWidget {
     return PageView(
       physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       controller: ref.watch(HomePageController.pageController),
-      onPageChanged: (int index) =>
-          ref.read(HomePageController.pr).setIndexPageFromHandSlide(index),
+      onPageChanged: (int index) => ref
+          .read(HomePageController.instance)
+          .setIndexPageFromHandSlide(index),
       children: const [
         SettingsPage(),
         HourlyWeatherPage(),
@@ -94,7 +95,7 @@ class _BottomBarWidget extends ConsumerWidget {
             fontSize:
                 (unsFontSize == null) ? null : unsFontSize * textScaleFactor),
         onTap: (int index) =>
-            ref.read(HomePageController.pr).setIndexPageFromBar(index),
+            ref.read(HomePageController.instance).setIndexPageFromBar(index),
         items: [
           BottomNavigationBarItem(
               tooltip: t.mainPageDRuble.mainPage.bottomBar.settings,

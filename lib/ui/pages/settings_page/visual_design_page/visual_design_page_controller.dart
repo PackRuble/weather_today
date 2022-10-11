@@ -26,13 +26,11 @@ class VisualDPageController {
 
   final Ref _ref;
 
-  Reader get _reader => _ref.read;
-
-  Reader get _refresh => _ref.refresh;
-
   /// экземпляр [VisualDPageController].
-  static final cr = Provider.autoDispose<VisualDPageController>(
-      (ref) => VisualDPageController(ref));
+  static final instance = Provider.autoDispose(
+    VisualDPageController.new,
+    name: '$VisualDPageController',
+  );
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
@@ -58,13 +56,14 @@ class VisualDPageController {
 
   /// Установить новое значение [textScaleFactorProvider].
   void setTextScaleFactor(double newValue) {
-    _reader(textScaleFactorProvider.notifier).state = newValue;
+    _ref.read(textScaleFactorProvider.notifier).state = newValue;
     _saveNewAction(_SavedChanges.textScaleFactor);
   }
 
   /// Сохранить параметр увеличения шрифта.
-  Future<void> _saveTextScaleFactor() async =>
-      _reader(AppTheme.pr).setTextScaleFactor(_reader(textScaleFactorProvider));
+  Future<void> _saveTextScaleFactor() async => _ref
+      .read(AppTheme.instance)
+      .setTextScaleFactor(_ref.read(textScaleFactorProvider));
 
   // ---------------------------------------------------------------------------
   // VisualDesign
@@ -84,13 +83,14 @@ class VisualDPageController {
 
   /// Установить новое значение [textScaleFactorProvider].
   void setVisualDesign(AppVisualDesign design) {
-    _reader(selectedDesignProvider.notifier).state = design;
+    _ref.read(selectedDesignProvider.notifier).state = design;
     _saveNewAction(_SavedChanges.visualDesign);
   }
 
   /// Сохранить визуальный дизайн.
-  Future<void> _saveVisualDesign() async =>
-      _reader(AppTheme.pr).setVisualDesign(_reader(selectedDesignProvider));
+  Future<void> _saveVisualDesign() async => _ref
+      .read(AppTheme.instance)
+      .setVisualDesign(_ref.read(selectedDesignProvider));
 
   // ---------------------------------------------------------------------------
   // FontFamily
@@ -106,13 +106,13 @@ class VisualDPageController {
 
   /// Установить новое значение [selectedFontFamily].
   void setFontFamily(AppFontFamily font) {
-    _reader(selectedFontFamily.notifier).state = font;
+    _ref.read(selectedFontFamily.notifier).state = font;
     _saveNewAction(_SavedChanges.fontFamily);
   }
 
   /// Сохранить шрифт.
   Future<void> _saveFontFamily() async =>
-      _reader(AppTheme.pr).setFontFamily(_reader(selectedFontFamily));
+      _ref.read(AppTheme.instance).setFontFamily(_ref.read(selectedFontFamily));
 
   // ---------------------------------------------------------------------------
   // ScrollPhysics
@@ -130,13 +130,14 @@ class VisualDPageController {
 
   /// Установить новое значение [selectedScrollPhysic].
   void setScrollPhysic(AppScrollPhysics scrollPhysic) {
-    _reader(selectedScrollPhysic.notifier).state = scrollPhysic;
+    _ref.read(selectedScrollPhysic.notifier).state = scrollPhysic;
     _saveNewAction(_SavedChanges.scrollPhysics);
   }
 
   /// Сохранить скролл.
-  Future<void> _saveScrollPhysics() async =>
-      _reader(AppTheme.pr).setScrollPhysics(_reader(selectedScrollPhysic));
+  Future<void> _saveScrollPhysics() async => _ref
+      .read(AppTheme.instance)
+      .setScrollPhysics(_ref.read(selectedScrollPhysic));
 
   // ---------------------------------------------------------------------------
   // Typography
@@ -152,13 +153,13 @@ class VisualDPageController {
 
   /// Установить новое значение [selectedTypography].
   void setTypography(AppTypography typography) {
-    _reader(selectedTypography.notifier).state = typography;
+    _ref.read(selectedTypography.notifier).state = typography;
     _saveNewAction(_SavedChanges.typography);
   }
 
   /// Сохранить [selectedTypography].
   Future<void> _saveTypography() async =>
-      _reader(AppTheme.pr).setTypography(_reader(selectedTypography));
+      _ref.read(AppTheme.instance).setTypography(_ref.read(selectedTypography));
 
   // ---------------------------------------------------------------------------
   // Main
@@ -166,7 +167,7 @@ class VisualDPageController {
 
   /// Кнопка "Назад".
   Future<bool> onWillPop(BuildContext context) async {
-    if (_reader(changesProvider.notifier).state.isNotEmpty) {
+    if (_ref.read(changesProvider.notifier).state.isNotEmpty) {
       final bool isSave = await AppDialogs.confirmSaveChanges(context);
 
       if (isSave) {
@@ -180,7 +181,8 @@ class VisualDPageController {
   /// Добавить действие в [changesProvider], которое подлежит
   /// дальнейшему вызову [saveAllChanges].
   ///
-  void _saveNewAction(_SavedChanges change) => _reader(changesProvider.notifier)
+  void _saveNewAction(_SavedChanges change) => _ref
+      .read(changesProvider.notifier)
       .update((state) => Set.of({...state, change}));
 
   /// Вызвать все функции сохранения. Могут быть следующими:
@@ -193,7 +195,7 @@ class VisualDPageController {
   ///
   Future<void> saveAllChanges() async {
     for (final _SavedChanges change
-        in _reader(changesProvider.notifier).state) {
+        in _ref.read(changesProvider.notifier).state) {
       switch (change) {
         case _SavedChanges.visualDesign:
           await _saveVisualDesign();
@@ -213,6 +215,6 @@ class VisualDPageController {
       }
     }
 
-    _refresh(changesProvider);
+    _ref.refresh(changesProvider);
   }
 }

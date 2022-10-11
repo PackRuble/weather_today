@@ -26,7 +26,7 @@ class ThemeSelector extends ConsumerWidget {
     return PopupMenuButton<int>(
       padding: EdgeInsets.zero,
       onSelected: (int newTheme) =>
-          ref.read(AppTheme.pr).setThemeScheme(newTheme),
+          ref.read(AppTheme.instance).setThemeScheme(newTheme),
       itemBuilder: (BuildContext context) => <PopupMenuItem<int>>[
         for (int i = 0; i < AppThemeScheme.schemes.length; i++)
           PopupMenuItem<int>(

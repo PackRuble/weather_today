@@ -305,7 +305,7 @@ class _ExpandedWidget1 extends ConsumerWidget {
             endIndent: 10.0),
         const SizedBox(height: 3.0),
         Table(
-          columnWidths: {
+          columnWidths: const {
             0: FlexColumnWidth(2),
             1: FlexColumnWidth(4),
             2: FlexColumnWidth(3),

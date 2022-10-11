@@ -228,7 +228,7 @@ class _MainDescriptionWidget extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: Text(
-          description?.toCapitalized() ?? r'٩(｡•́‿•̀｡)۶',
+          description?.toCapitalized() ?? '٩(｡•́‿•̀｡)۶',
           textAlign: TextAlign.center,
           style: styles.bodyMedium,
         ),

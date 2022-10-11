@@ -5,6 +5,8 @@ import '../../../utils/logger/db_logger.dart';
 import '../../../utils/same_types.dart';
 import 'interface/i_data_base.dart';
 
+// coldfix: отдельный логгер для db с другими методами
+
 /// Модель для связи настроек компонентов приложения с SharedPreferences.
 class DataBasePrefs with DbLoggy implements IDataBase {
   DataBasePrefs();
@@ -20,7 +22,7 @@ class DataBasePrefs with DbLoggy implements IDataBase {
     Object? value;
     try {
       if (sameTypes<T, List<String>>()) {
-        value = _prefs.getStringList(key) as T;
+        value = _prefs.getStringList(key) as T?;
       } else {
         // простые типы не нуждаются в cast
         // coldfix: добавить проверку других типов, если необходимо

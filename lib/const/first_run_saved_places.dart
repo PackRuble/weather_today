@@ -6,8 +6,8 @@ import 'package:weather_today/core/models/place/place_model.dart';
 Place get initialPlace => const Place(
       name: 'Moscow',
       localNames: {
-        WeatherLanguage.Russian: 'Москва',
-        WeatherLanguage.English: 'Moscow',
+        WeatherLanguage.russian: 'Москва',
+        WeatherLanguage.english: 'Moscow',
       },
       country: 'Russian Federation',
       latitude: 55.751999,

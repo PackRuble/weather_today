@@ -17,7 +17,7 @@ class CurrentWeatherPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return RefreshWrapper<WeatherCurrent>(
       asyncValue: ref.watch(CurrentPageController.current),
-      onRefresh: () => ref.read(CurrentPageController.pr).updateWeather(),
+      onRefresh: () => ref.read(CurrentPageController.instance).updateWeather(),
       physicsListView: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       child: (WeatherCurrent weatherCur) {
         switch (ref.watch(AppTheme.visualDesign)) {

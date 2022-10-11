@@ -1,13 +1,13 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:open_weather_api/open_weather_api.dart';
-import 'package:weather_today/core/controllers/weather_onecall_controller.dart';
+import 'package:weather_today/core/controllers/weather/weather_onecall_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 
-/// Контроллер страницы погоды на каждый день
+/// Контроллер страницы погоды на каждый день.
 class DailyPageController {
-  DailyPageController(this._reader);
+  DailyPageController(this._ref);
 
-  final Reader _reader;
+  final Ref _ref;
 
   /// Погода ONE_CALL на 7 дней [WeatherDaily].
   static final daily = Provider<AsyncValue<List<WeatherDaily>>>((ref) {
@@ -30,10 +30,9 @@ class DailyPageController {
       Provider<Temp>((ref) => ref.watch(WeatherServices.tempUnits));
 
   /// экземпляр.
-  static final pr =
-      Provider<DailyPageController>((ref) => DailyPageController(ref.read));
+  static final instance = Provider(DailyPageController.new);
 
   /// Обновление погоды.
   Future<void> updateWeather() async =>
-      _reader(weatherOneCallController.notifier).updateWeather();
+      _ref.read(weatherOneCallController.notifier).updateWeather();
 }

@@ -88,7 +88,7 @@ class _TileFoundedWidget extends ConsumerWidget {
       padding: const EdgeInsets.all(AppInsets.allPadding),
       child: GestureDetector(
         onLongPress: () async =>
-            ref.read(SavedPlacesPageController.pr).selectPlace(place),
+            ref.read(SavedPlacesPageController.instance).selectPlace(place),
         child: Card(
           color: isSelected ? colors.cardSelectedColor : colors.cardColor,
           shape: RoundedRectangleBorder(
@@ -148,8 +148,9 @@ class _HeaderWidget extends ConsumerWidget {
                 fit: BoxFit.contain,
                 child: IconButton(
                   icon: ImageHelper.getFlagIcon(place.countryCode),
-                  onPressed: () => ref
-                      .read(SavedPlacesPageController.pr)
+                  onPressed: () =>
+                      ref
+                      .read(SavedPlacesPageController.instance)
                       .dialogSeeFlag(context, place),
                 ),
               ),
@@ -159,8 +160,9 @@ class _HeaderWidget extends ConsumerWidget {
           Icons.delete,
           color: IconTheme.of(context).color,
         ),
-        onPressed: () async => ref
-            .read(SavedPlacesPageController.pr)
+        onPressed: () async =>
+            ref
+            .read(SavedPlacesPageController.instance)
             .dialogAfterDeletingPlace(context, place),
       ),
     );
@@ -211,8 +213,9 @@ class _ExpandedWidget extends ConsumerWidget {
                   Center(
                     child: IconButton(
                       icon: const Icon(Icons.edit),
-                      onPressed: () async => ref
-                          .read(SavedPlacesPageController.pr)
+                      onPressed: () async =>
+                          ref
+                          .read(SavedPlacesPageController.instance)
                           .dialogMakeNote(context, place),
                     ),
                   ),

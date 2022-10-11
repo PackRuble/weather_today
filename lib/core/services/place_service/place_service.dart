@@ -7,5 +7,6 @@ import 'place_service_OWM.dart';
 
 /// Сервис по предоставлению места.
 final placeServiceOWMPr = Provider<IPlaceService>((ref) {
-  return PlaceServiceOWM(WeatherGeocoding(ref.watch(ApiServiceOwm.apiKey)));
+  final String apikey = ref.watch(ApiServiceOwm.apiKey);
+  return PlaceServiceOWM(GeocodingService(apikey));
 });

@@ -10,12 +10,11 @@ import 'controllers/general_settings_controller.dart';
 import 'controllers/localization_controller.dart';
 import 'controllers/weather_service_controllers.dart';
 
+/// Асинхронная инициализация всех сервисов приложения.
 class ServiceInit {
-  ServiceInit(ProviderContainer container) {
-    _container = container;
-  }
+  ServiceInit(ProviderContainer container) : _container = container;
 
-  late final ProviderContainer _container;
+  final ProviderContainer _container;
 
   /// Инициализация всех сервисов приложения.
   Future<void> init() async => _initServices();
@@ -33,16 +32,17 @@ class ServiceInit {
 
   Future<void> _initDBService() async => _container.read(dbService).init();
 
-  Future<void> _initAppTheme() async => _container.read(AppTheme.pr).init();
+  Future<void> _initAppTheme() async =>
+      _container.read(AppTheme.instance).init();
 
   Future<void> _initAppGeneralSettings() async =>
-      _container.read(AppGeneralSettings.pr).init();
+      _container.read(AppGeneralSettings.instance).init();
 
   Future<void> _initWeatherServices() async =>
-      _container.read(WeatherServices.pr).init();
+      _container.read(WeatherServices.instance).init();
 
   Future<void> _initApiOWMService() async =>
-      _container.read(ApiServiceOwm.pr).init();
+      _container.read(ApiServiceOwm.instance).init();
 
   Future<void> _initLogger() async {
     logInfo('Активируем логгер');
@@ -58,14 +58,12 @@ class ServiceInit {
     );
   }
 
-  /// Загрузка переменных окружения.
   Future<void> _initEnv() async {
     logInfo('Загрузка переменных окружения');
     await dotenv.load();
   }
 
-  /// Загрузка переменных окружения.
   Future<void> _initLocalization() async {
-    await _container.read(AppLocalization.pr).init();
+    await _container.read(AppLocalization.instance).init();
   }
 }

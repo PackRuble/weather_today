@@ -6,13 +6,12 @@ import '../hourly_page_controller.dart';
 
 /// The controller this [HourlyPageByRuble].
 class HPByRubleCtrl {
-  HPByRubleCtrl(this._reader);
+  HPByRubleCtrl(this._ref);
 
-  final Reader _reader;
+  final Ref _ref;
 
   /// экземпляр.
-  static final pr =
-      Provider.autoDispose<HPByRubleCtrl>((ref) => HPByRubleCtrl(ref.read));
+  static final instance = Provider.autoDispose(HPByRubleCtrl.new);
 
   /// экземпляр данных почасовой погоды.
   static final hourly = Provider<List<WeatherHourly>?>(

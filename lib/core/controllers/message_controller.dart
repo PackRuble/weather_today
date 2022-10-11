@@ -36,26 +36,25 @@ class MessageController {
 
   final Ref _ref;
 
-  Reader get _reader => _ref.read;
-
-  static final pr =
-      Provider<MessageController>((ref) => MessageController(ref));
+  static final instance = Provider(MessageController.new);
 
   /// Пассивное уведомление. Не интерактивный.
   static final toasts = ChangeNotifierProvider<ToastController>(
-      (ref) => ToastController(),
-      name: '$ToastController');
+    (ref) => ToastController(),
+    name: '$ToastController',
+  );
 
   /// Активное уведомление. Интерактивный, позволяет выбрать действия.
   static final snacks = ChangeNotifierProvider<SnackController>(
-      (ref) => SnackController(),
-      name: '$SnackController');
+    (ref) => SnackController(),
+    name: '$SnackController',
+  );
 
   /// показать Toast.
-  void _showToast(MessageToast toast) => _reader(toasts).showToast(toast);
+  void _showToast(MessageToast toast) => _ref.read(toasts).showToast(toast);
 
   /// показать Snack.
-  void _showSnack(MessageSnack snack) => _reader(snacks).showSnack(snack);
+  void _showSnack(MessageSnack snack) => _ref.read(snacks).showSnack(snack);
 
   /// Ошибка сети.
   void tSocketException() => _showToast(_StoreMessages.toastSocketException);
@@ -110,7 +109,7 @@ class _StoreMessages {
 
   /// Уведомление об успешной проверке api ключа погоды.
   ///
-  static final MessageToast toastApikeyOWMSuccess = MessageToast(
+  static MessageToast toastApikeyOWMSuccess = MessageToast(
     message: tr.dialogs.messages.apiKeyOWMVerificationSuccess,
     toastTime: Toast.LENGTH_SHORT,
     gravity: ToastGravity.BOTTOM,

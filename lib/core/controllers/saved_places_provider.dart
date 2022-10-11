@@ -10,45 +10,43 @@ import '../../const/first_run_saved_places.dart';
 
 /// Контроллер сервиса Сохраненных мест.
 final savedPlacesController =
-    StateNotifierProvider.autoDispose<SavedPlacesNotifier, List<Place>>((ref) {
-  // final Place currentPlace = ref.watch(WeatherServices.currentPlace);
-
-  return SavedPlacesNotifier(ref.read);
-  // return SavedPlacesNotifier(ref.read, currentPlace);
-}, name: '$SavedPlacesNotifier');
+    StateNotifierProvider.autoDispose<SavedPlacesNotifier, List<Place>>(
+  SavedPlacesNotifier.new,
+  name: '$SavedPlacesNotifier',
+);
 
 /// Контроллер сохраненных мест.
 class SavedPlacesNotifier extends StateNotifier<List<Place>> {
-  SavedPlacesNotifier(this._reader) : super([]) {
+  SavedPlacesNotifier(this._ref) : super([]) {
     _init(); // coldfix: при необходимости перевести на AsyncValue и await-инициализацию.
   }
 
-  final Reader _reader;
-
-  /// Текущее выбранное место, по которому выполняется запрос на погоду.
-  // late final Place _currentPlace;
+  final Ref _ref;
 
   /// Запустить при создании класса.
   Future<void> _init() async {
-    state = _conversionSavedPlacesDb(await _reader(dbService)
+    state = _conversionSavedPlacesDb(await _ref
+        .read(dbService)
         .load(DbStore.savedPlaces, DbStore.savedPlacesDefault));
   }
 
-  static List<
-      Place> _conversionSavedPlacesDb(List<String> listJsonStr) => listJsonStr
-              .contains(DbStore.firstRun) &&
-          listJsonStr.length == 1
-      ? initialSavedPlaces // coldfix - было бы правильно перевести на freezed state
-      : listJsonStr.map((String strJson) {
-          return Place.fromJson(json.decode(strJson) as Map<String, dynamic>);
-        }).toList();
+  // coldfix: create freezed states
+  static List<Place> _conversionSavedPlacesDb(List<String> listJsonStr) {
+    if (listJsonStr.contains(DbStore.firstRun) && listJsonStr.length == 1) {
+      return initialSavedPlaces;
+    } else {
+      return listJsonStr.map((String strJson) {
+        return Place.fromJson(json.decode(strJson) as Map<String, dynamic>);
+      }).toList();
+    }
+  }
 
   /// Является ли место сохраненным.
   bool isSavedPlace(Place place) => state.any((pl) => place.isSamePlace(pl));
 
   /// Является ли место текущим.
   bool isCurrentPlace(Place place) =>
-      place.isSamePlace(_reader(WeatherServices.currentPlace));
+      place.isSamePlace(_ref.read(WeatherServices.currentPlace));
 
   /// Добавить местоположение в список сохраненных.
   ///
@@ -102,6 +100,6 @@ class SavedPlacesNotifier extends StateNotifier<List<Place>> {
 
   /// Сохранить любимый список мест в бд.
   Future<void> _saveInDatabase(List<Place> places) async =>
-      _reader(dbService).save(DbStore.savedPlaces,
+      _ref.read(dbService).save(DbStore.savedPlaces,
           places.map((e) => jsonEncode(e.toJson())).toList());
 }

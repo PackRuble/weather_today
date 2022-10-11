@@ -20,7 +20,7 @@ class CountryFlagsPage extends ConsumerWidget with UiLoggy {
 
     // [[countryCode, countryName], ...]
     final List<List<String>> countries =
-        ref.watch(CountryFlagsPageController.cr).getCountries();
+        ref.watch(CountryFlagsPageController.instance).getCountries();
 
     final t = ref.watch(CountryFlagsPageController.tr);
 

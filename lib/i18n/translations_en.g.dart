@@ -5,14 +5,21 @@ class TranslationsEn implements TranslationsRu {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
   TranslationsEn.build(
-      {PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-      : _cardinalResolver = cardinalResolver,
-        _ordinalResolver = ordinalResolver;
+      {Map<String, Node>? overrides,
+      PluralResolver? cardinalResolver,
+      PluralResolver? ordinalResolver})
+      : assert(overrides == null,
+            'Set "translation_overrides: true" in order to enable this feature.'),
+        $meta = TranslationMetadata(
+          locale: AppLocale.en,
+          overrides: overrides ?? {},
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
 
+  /// Metadata for the translations of <en>.
   @override
-  final PluralResolver? _cardinalResolver; // ignore: unused_field
-  @override
-  final PluralResolver? _ordinalResolver; // ignore: unused_field
+  final TranslationMetadata<AppLocale, TranslationsRu> $meta;
 
   @override
   late final TranslationsEn _root = this; // ignore: unused_field
@@ -696,7 +703,7 @@ class TranslationsSettingsPageTempTileEn
   String get tileTitle => 'Temperature units';
 
   @override
-  String tileSub({required Object units}) => '$units';
+  String tileSub({required Object units}) => '${units}';
 
   @override
   String get dialogTitle => 'Temperature units';
@@ -719,7 +726,7 @@ class TranslationsSettingsPagePressureTileEn
   String get tileTitle => 'Pressure units';
 
   @override
-  String tileSub({required Object units}) => '$units';
+  String tileSub({required Object units}) => '${units}';
 
   @override
   String get dialogTitle => 'Pressure units';
@@ -742,7 +749,7 @@ class TranslationsSettingsPageSpeedTileEn
   String get tileTitle => 'Speed units';
 
   @override
-  String tileSub({required Object units}) => '$units';
+  String tileSub({required Object units}) => '${units}';
 
   @override
   String get dialogTitle => 'Speed units';
@@ -830,7 +837,7 @@ class TranslationsSettingsPageHomepageTileEn
   String get tileTitle => 'Start Page';
 
   @override
-  String tileSub({required Object homepage}) => '$homepage';
+  String tileSub({required Object homepage}) => '${homepage}';
 
   @override
   String get dialogTitle => 'Start Page';
@@ -853,7 +860,7 @@ class TranslationsSettingsPageLocaleTileEn
   String get tileTitle => 'Application language';
 
   @override
-  String tileSub({required Object locale}) => '$locale';
+  String tileSub({required Object locale}) => '${locale}';
 
   @override
   String get dialogTitle => 'Application language';
@@ -1081,33 +1088,33 @@ class TranslationsGlobalTimeEn implements TranslationsGlobalTimeRu {
 
   @override
   String timeToHourMinute({required Object hour, required Object minute}) =>
-      '$hour h $minute min';
+      '${hour} h ${minute} min';
 
   @override
-  String timeToMinute({required Object minute}) => '$minute min';
+  String timeToMinute({required Object minute}) => '${minute} min';
 
   @override
   String timeFromTimeSToTimeE(
           {required Object time,
           required Object timeStart,
           required Object timeEnd}) =>
-      '$time from $timeStart to $timeEnd';
+      '${time} from ${timeStart} to ${timeEnd}';
 
   @override
   String fromTimeToTime({required Object timeStart, required Object timeEnd}) =>
-      'from $timeStart to $timeEnd';
+      'from ${timeStart} to ${timeEnd}';
 
   @override
   String timeFromTimeSToTimeEnl(
           {required Object time,
           required Object timeStart,
           required Object timeEnd}) =>
-      '$time \nfrom $timeStart to $timeEnd';
+      '${time} \nfrom ${timeStart} to ${timeEnd}';
 
   @override
   String fromTimeToTimeNl(
           {required Object timeStart, required Object timeEnd}) =>
-      'from $timeStart \nto $timeEnd';
+      'from ${timeStart} \nto ${timeEnd}';
 }
 
 // Path: dialogs.messages
@@ -1417,7 +1424,7 @@ class TranslationsMainPageDRubleHourlyPagePopEn
 
   @override
   String popExpected({required Object startDate, required Object endDate}) =>
-      'Precipitation from $startDate to $endDate is not expected';
+      'Precipitation from ${startDate} to ${endDate} is not expected';
 
   @override
   String get units => 'mm';
@@ -1449,7 +1456,7 @@ class TranslationsMainPageDRubleHourlyPageWindEn
 
   @override
   String windExpected({required Object startDate, required Object endDate}) =>
-      'From $startDate to $endDate doldrums';
+      'From ${startDate} to ${endDate} doldrums';
   @override
   late final TranslationsMainPageDRubleHourlyPageWindLegendEn legend =
       TranslationsMainPageDRubleHourlyPageWindLegendEn._(_root);

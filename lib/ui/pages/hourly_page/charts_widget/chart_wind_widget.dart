@@ -39,7 +39,7 @@ class ChartWindWidget extends ConsumerWidget {
           hourly.length < 2 ? null : hourly[hourly.length - 1].date;
 
       return CustomChartWidget(
-        generateData: [],
+        generateData: const [],
         generateLabelsData: FlTitlesData(),
         titleWidget: titleWidget,
         ifEmptyDataWidget: (startDate == null || endDate == null)

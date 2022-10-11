@@ -1,6 +1,13 @@
+import 'package:expandable/expandable.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_today/const/app_icons.dart';
+import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
-import 'package:weather_today/shared_libs.dart';
+import 'package:weather_today/extension/double_extension.dart';
 import 'package:weather_today/ui/shared/label_weather_widget.dart';
 import 'package:weather_today/ui/shared/shared_widget.dart';
 
@@ -103,7 +110,7 @@ class TileDailyWidget extends ConsumerWidget {
           children: [
             Transform.rotate(
               angle:
-                  MetricsHelper.fromRadiansToDegrees(weather.windDegree ?? 0),
+              MetricsHelper.fromRadiansToDegrees(weather.windDegree ?? 0),
               child: Icon(AppIcons.directWind,
                   color: theme.iconTheme.color, size: 28.0),
             ),
@@ -342,10 +349,9 @@ class _ExpandedWidget extends ConsumerWidget {
     );
   }
 
-  Row _buildRow(
-      {required double height,
-      required List<Widget> left,
-      required List<Widget> right}) {
+  Row _buildRow({required double height,
+    required List<Widget> left,
+    required List<Widget> right}) {
     return Row(
       children: [
         Expanded(
@@ -376,10 +382,10 @@ class _ExpandedWidget extends ConsumerWidget {
 
   /// Заголовок показателей.
   Widget _buildTitleRow(String title) => Align(
-        alignment: Alignment.centerLeft,
-        child: HeaderRWidget(
-          title,
-          padding: const EdgeInsets.all(4.0),
-        ),
-      );
+    alignment: Alignment.centerLeft,
+    child: HeaderRWidget(
+      title,
+      padding: const EdgeInsets.all(4.0),
+    ),
+  );
 }

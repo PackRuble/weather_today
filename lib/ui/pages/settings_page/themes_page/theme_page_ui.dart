@@ -65,7 +65,8 @@ class _SwapColorsThemeWidget extends ConsumerWidget {
     return SwitchListTile(
       value: isSwapColors,
       title: Text(t.themesPage.swapColorsLight),
-      onChanged: (bool value) => ref.read(AppTheme.pr).toggleSwapColors(value),
+      onChanged: (bool value) =>
+          ref.read(AppTheme.instance).toggleSwapColors(value),
     );
   }
 }
@@ -84,7 +85,7 @@ class _UseMaterial3Widget extends ConsumerWidget {
       title: Text(t.themesPage.useMaterial3),
       subtitle: Text(t.themesPage.useMaterial3Sub),
       onChanged: (bool value) =>
-          ref.read(AppTheme.pr).toggleUseMaterial3(value),
+          ref.read(AppTheme.instance).toggleUseMaterial3(value),
     );
   }
 }
@@ -102,10 +103,10 @@ class _SwapComputeDarkWidget extends ConsumerWidget {
     return isLight
         ? const SizedBox.shrink()
         : SwitchListTile(
-            value: swapDark,
+      value: swapDark,
             title: Text(t.themesPage.swapColorsDark),
             onChanged: (bool value) =>
-                ref.read(AppTheme.pr).toggleDarkSwapColors(value),
+                ref.read(AppTheme.instance).toggleDarkSwapColors(value),
           );
   }
 }
@@ -130,7 +131,7 @@ class _DarkLevelWidget extends ConsumerWidget {
               min: 0.0,
               max: 100,
               onChangeEnd: (double value) =>
-                  ref.read(AppTheme.pr).setDarkLevel(value.toInt()),
+                  ref.read(AppTheme.instance).setDarkLevel(value.toInt()),
               onChanged: (double value) => ref
                   .read(ThemePageController.darkLevel.notifier)
                   .update((_) => value.toInt()),
@@ -160,11 +161,11 @@ class _SwapTrueBlackWidget extends ConsumerWidget {
     return isLight
         ? const SizedBox.shrink()
         : SwitchListTile(
-            value: darkIsTrueBlack,
+      value: darkIsTrueBlack,
             title: Text(t.themesPage.darkIsTrueBlack),
             subtitle: Text(t.themesPage.darkIsTrueBlackSub),
             onChanged: (bool value) =>
-                ref.read(AppTheme.pr).toggleDarkIsTrueBlack(value),
+                ref.read(AppTheme.instance).toggleDarkIsTrueBlack(value),
           );
   }
 }
@@ -294,7 +295,7 @@ class _DarkModeTileWidget extends ConsumerWidget {
       trailing: ThemeModeSwitch(
         themeMode: themeMode,
         onChanged: (ThemeMode value) =>
-            ref.read(AppTheme.pr).setThemeMode(value),
+            ref.read(AppTheme.instance).setThemeMode(value),
       ),
       title: Text(t.themesPage.darkMode),
       subtitle: Text('${t.themesPage.darkModeSub} ${themeMode.name}'),

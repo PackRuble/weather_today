@@ -8,14 +8,11 @@ class HomePageController {
 
   final Ref _ref;
 
-  Reader get _reader => _ref.read;
-
-  Reader get _refresher => _ref.refresh;
-
   /// экземпляр.
-  static final pr = Provider<HomePageController>(
-      (ref) => HomePageController(ref),
-      name: '$HomePageController');
+  static final instance = Provider(
+    HomePageController.new,
+    name: '$HomePageController',
+  );
 
   // ---------------------------------------
   // Работа с интерфейсом
@@ -45,16 +42,17 @@ class HomePageController {
   });
 
   /// Установить новую страницу, когда мы пролистываем.
-  void setIndexPageFromHandSlide(int index) => _reader(pageController)
+  void setIndexPageFromHandSlide(int index) => _ref
+      .read(pageController)
       .animateToPage(index, duration: _durationSlide, curve: Curves.ease);
 
   /// Установить новую страницу, когда мы щелкаем по bottom bar.
   void setIndexPageFromBar(int index) {
-    if ((_reader(currentIndex) - index).abs() == 1) {
+    if ((_ref.read(currentIndex) - index).abs() == 1) {
       setIndexPageFromHandSlide(index);
       return;
     }
 
-    _reader(pageController).jumpToPage(index);
+    _ref.read(pageController).jumpToPage(index);
   }
 }

@@ -9,12 +9,7 @@ class CountryFlagsPageController {
 
   final Ref _ref;
 
-  Reader get _reader => _ref.read;
-
-  Reader get _refresh => _ref.refresh;
-
-  static final cr = Provider.autoDispose<CountryFlagsPageController>(
-      (ref) => CountryFlagsPageController(ref));
+  static final instance = Provider.autoDispose(CountryFlagsPageController.new);
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(

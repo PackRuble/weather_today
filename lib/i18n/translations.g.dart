@@ -3,12 +3,14 @@
 /// Locales: 2
 /// Strings: 562 (281 per locale)
 ///
-/// Built on 2022-09-10 at 10:12 UTC
+/// Built on 2022-10-07 at 16:16 UTC
+import 'package:slang/builder/model/node.dart';
 import 'package:slang_flutter/slang_flutter.dart';
 
 export 'package:slang_flutter/slang_flutter.dart';
 
 part 'translations_en.g.dart';
+
 part 'translations_ru.g.dart';
 
 const AppLocale _baseLocale = AppLocale.ru;
@@ -19,7 +21,7 @@ const AppLocale _baseLocale = AppLocale.ru;
 /// - LocaleSettings.setLocale(AppLocale.ru) // set locale
 /// - Locale locale = AppLocale.ru.flutterLocale // get flutter locale from enum
 /// - if (LocaleSettings.currentLocale == AppLocale.ru) // locale check
-enum AppLocale with BaseAppLocale<TranslationsRu> {
+enum AppLocale with BaseAppLocale<AppLocale, TranslationsRu> {
   ru(languageCode: 'ru', build: TranslationsRu.build),
   en(languageCode: 'en', build: TranslationsEn.build);
 
@@ -36,7 +38,7 @@ enum AppLocale with BaseAppLocale<TranslationsRu> {
   @override
   final String? countryCode;
   @override
-  final TranslationBuilder<TranslationsRu> build;
+  final TranslationBuilder<AppLocale, TranslationsRu> build;
 }
 
 /// Provides utility functions without any side effects.
@@ -48,6 +50,15 @@ class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, TranslationsRu> {
 
   // static aliases (checkout base methods for documentation)
   static AppLocale parse(String rawLocale) => instance.parse(rawLocale);
+
+  static AppLocale parseLocaleParts(
+          {required String languageCode,
+          String? scriptCode,
+          String? countryCode}) =>
+      instance.parseLocaleParts(
+          languageCode: languageCode,
+          scriptCode: scriptCode,
+          countryCode: countryCode);
 
   static AppLocale findDeviceLocale() => instance.findDeviceLocale();
 }

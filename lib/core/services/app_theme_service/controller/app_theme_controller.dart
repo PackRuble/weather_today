@@ -11,13 +11,15 @@ import '../models/models.dart';
 
 /// Представляет контроллер темы приложения.
 class AppTheme with Updater {
-  AppTheme(this.reader);
+  AppTheme(this.ref);
 
   @override
-  final Reader reader;
+  final Ref ref;
 
   @override
-  IDataBase get db => reader(dbService);
+  IDataBase get db => ref.read(dbService);
+
+  static final instance = Provider(AppTheme.new);
 
   Future<void> init() async {
     await loadAndUpdate<AppVisualDesign, int>(
@@ -56,9 +58,6 @@ class AppTheme with Updater {
     await loadAndUpdate<bool, bool>(
         useMaterial3, DbStore.useMaterial3, DbStore.useMaterial3Default);
   }
-
-  /// Доступ к классу.
-  static final pr = Provider<AppTheme>((ref) => AppTheme(ref.read));
 
   // AppVisualDesign
   // ---------------------------------------------------------------------------

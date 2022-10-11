@@ -1,16 +1,25 @@
 part of 'translations.g.dart';
 
 // Path: <root>
-class TranslationsRu implements BaseTranslations {
+class TranslationsRu implements BaseTranslations<AppLocale, TranslationsRu> {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
   TranslationsRu.build(
-      {PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-      : _cardinalResolver = cardinalResolver,
-        _ordinalResolver = ordinalResolver;
+      {Map<String, Node>? overrides,
+      PluralResolver? cardinalResolver,
+      PluralResolver? ordinalResolver})
+      : assert(overrides == null,
+            'Set "translation_overrides: true" in order to enable this feature.'),
+        $meta = TranslationMetadata(
+          locale: AppLocale.ru,
+          overrides: overrides ?? {},
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
 
-  final PluralResolver? _cardinalResolver; // ignore: unused_field
-  final PluralResolver? _ordinalResolver; // ignore: unused_field
+  /// Metadata for the translations of <ru>.
+  @override
+  final TranslationMetadata<AppLocale, TranslationsRu> $meta;
 
   late final TranslationsRu _root = this; // ignore: unused_field
 
@@ -510,7 +519,7 @@ class TranslationsSettingsPageTempTileRu {
   // Translations
   String get tileTitle => 'Единицы измерения температуры';
 
-  String tileSub({required Object units}) => '$units';
+  String tileSub({required Object units}) => '${units}';
 
   String get dialogTitle => 'Единицы измерения температуры';
 
@@ -527,7 +536,7 @@ class TranslationsSettingsPagePressureTileRu {
   // Translations
   String get tileTitle => 'Единицы измерения давления';
 
-  String tileSub({required Object units}) => '$units';
+  String tileSub({required Object units}) => '${units}';
 
   String get dialogTitle => 'Единицы измерения давления';
 
@@ -544,7 +553,7 @@ class TranslationsSettingsPageSpeedTileRu {
   // Translations
   String get tileTitle => 'Единицы измерения скорости';
 
-  String tileSub({required Object units}) => '$units';
+  String tileSub({required Object units}) => '${units}';
 
   String get dialogTitle => 'Единицы измерения скорости';
 
@@ -611,7 +620,7 @@ class TranslationsSettingsPageHomepageTileRu {
   // Translations
   String get tileTitle => 'Стартовая страница';
 
-  String tileSub({required Object homepage}) => '$homepage';
+  String tileSub({required Object homepage}) => '${homepage}';
 
   String get dialogTitle => 'Стартовая страница';
 
@@ -628,7 +637,7 @@ class TranslationsSettingsPageLocaleTileRu {
   // Translations
   String get tileTitle => 'Язык приложения';
 
-  String tileSub({required Object locale}) => '$locale';
+  String tileSub({required Object locale}) => '${locale}';
 
   String get dialogTitle => 'Язык приложения';
 
@@ -796,28 +805,28 @@ class TranslationsGlobalTimeRu {
   String get theDayAfterTomorrow => 'Послезавтра';
 
   String timeToHourMinute({required Object hour, required Object minute}) =>
-      '$hour ч $minute мин';
+      '${hour} ч ${minute} мин';
 
-  String timeToMinute({required Object minute}) => '$minute мин';
+  String timeToMinute({required Object minute}) => '${minute} мин';
 
   String timeFromTimeSToTimeE(
           {required Object time,
           required Object timeStart,
           required Object timeEnd}) =>
-      '$time с $timeStart по $timeEnd';
+      '${time} с ${timeStart} по ${timeEnd}';
 
   String fromTimeToTime({required Object timeStart, required Object timeEnd}) =>
-      'с $timeStart по $timeEnd';
+      'с ${timeStart} по ${timeEnd}';
 
   String timeFromTimeSToTimeEnl(
           {required Object time,
           required Object timeStart,
           required Object timeEnd}) =>
-      '$time \nс $timeStart по $timeEnd';
+      '${time} \nс ${timeStart} по ${timeEnd}';
 
   String fromTimeToTimeNl(
           {required Object timeStart, required Object timeEnd}) =>
-      'с $timeStart \nпо $timeEnd';
+      'с ${timeStart} \nпо ${timeEnd}';
 }
 
 // Path: dialogs.messages
@@ -1052,7 +1061,7 @@ class TranslationsMainPageDRubleHourlyPagePopRu {
   String get noPopExpected => 'Осадки не ожидаются';
 
   String popExpected({required Object startDate, required Object endDate}) =>
-      'Осадки с $startDate по $endDate не ожидаются';
+      'Осадки с ${startDate} по ${endDate} не ожидаются';
 
   String get units => 'мм';
   late final TranslationsMainPageDRubleHourlyPagePopLegendRu legend =
@@ -1075,7 +1084,7 @@ class TranslationsMainPageDRubleHourlyPageWindRu {
   String get noWindExpected => 'Ожидается штиль';
 
   String windExpected({required Object startDate, required Object endDate}) =>
-      'С $startDate по $endDate штиль';
+      'С ${startDate} по ${endDate} штиль';
   late final TranslationsMainPageDRubleHourlyPageWindLegendRu legend =
       TranslationsMainPageDRubleHourlyPageWindLegendRu._(_root);
 }

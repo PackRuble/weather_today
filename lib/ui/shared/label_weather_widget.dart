@@ -29,6 +29,5 @@ class LabelWeatherWidget extends ConsumerWidget {
         ),
       ),
     );
-    ;
   }
 }

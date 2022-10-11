@@ -122,7 +122,7 @@ class _TileTempUnitsWidget extends ConsumerWidget {
       title: t.settingsPage.tempTile.tileTitle,
       subtitle: t.settingsPage.tempTile.tileSub(units: units),
       onTap: () async =>
-          ref.read(SettingPageController.pr).dialogSetTempUnits(context),
+          ref.read(SettingPageController.instance).dialogSetTempUnits(context),
     );
   }
 }
@@ -141,7 +141,7 @@ class _TileSpeedUnitsWidget extends ConsumerWidget {
       title: t.settingsPage.speedTile.tileTitle,
       subtitle: t.settingsPage.pressureTile.tileSub(units: units),
       onTap: () async =>
-          ref.read(SettingPageController.pr).dialogSetSpeedUnits(context),
+          ref.read(SettingPageController.instance).dialogSetSpeedUnits(context),
     );
   }
 }
@@ -159,8 +159,9 @@ class _TilePressureUnitsWidget extends ConsumerWidget {
       leading: AppIcons.pressureUnitsTile,
       title: t.settingsPage.pressureTile.tileTitle,
       subtitle: t.settingsPage.pressureTile.tileSub(units: units),
-      onTap: () async =>
-          ref.read(SettingPageController.pr).dialogSetPressureUnits(context),
+      onTap: () async => ref
+          .read(SettingPageController.instance)
+          .dialogSetPressureUnits(context),
     );
   }
 }
@@ -264,7 +265,7 @@ class _TileHomepageIndexWidget extends ConsumerWidget {
       title: t.settingsPage.homepageTile.tileTitle,
       subtitle: t.settingsPage.homepageTile.tileSub(homepage: pageName),
       onTap: () async =>
-          ref.read(SettingPageController.pr).dialogSetHomepage(context),
+          ref.read(SettingPageController.instance).dialogSetHomepage(context),
     );
   }
 }
@@ -283,7 +284,7 @@ class _TileLocaleAppWidget extends ConsumerWidget {
       title: t.settingsPage.localeTile.tileTitle,
       subtitle: t.settingsPage.localeTile.tileSub(locale: locale),
       onTap: () async =>
-          ref.read(SettingPageController.pr).dialogSetLocale(context),
+          ref.read(SettingPageController.instance).dialogSetLocale(context),
     );
   }
 }
@@ -314,7 +315,7 @@ class _TileAboutAppWidget extends ConsumerWidget {
       leading: AppIcons.aboutAppTile,
       title: t.settingsPage.aboutAppTile.tileTitle,
       onTap: () async =>
-          ref.read(SettingPageController.pr).dialogAboutApp(context),
+          ref.read(SettingPageController.instance).dialogAboutApp(context),
     );
   }
 }

@@ -1,9 +1,7 @@
 name: weather_today
 description: Weather for every day.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-version: 2.26.112+17
+version: 3.0.0-pre.0
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
@@ -13,61 +11,70 @@ dependencies:
     sdk: flutter
 
   open_weather_api:
-    path: C:/Users/Ruble/Documents/Programming/Projects/FlutterProjects/open_weather_api
+    path: '../open_weather_api'
 
-  intro_slider: ^3.0.10
-  flutter_dotenv: ^5.0.2
-  shared_preferences: ^2.0.15
-  expandable: ^5.0.1
-  country_icons: ^2.0.2
+  #    git:
+  #      url: file://C:/Users/Ruble/Documents/Programming/Projects/FlutterProjects/open_weather_api
+  #      ref: master
+
+  # Widgets
   material_floating_search_bar: ^0.3.7
-
-  flex_color_scheme: ^6.0.0
-
+  expandable: ^5.0.1
+  intro_slider: ^3.0.10 # replace with your own solution
+  country_icons: ^2.0.2
+  fluttertoast: ^8.0.9 # Пакет предназначен для показа системных уведомлений
+  #  flutter_portal: ^1.0.0-dev.2
   #  flutter_speed_dial: ^5.0.0+1
+  #  shimmer: ^2.0.0
+  fl_chart: ^0.55.2
 
-  json_annotation: ^4.6.0
+  # Theme
+  flex_color_scheme: ^6.0.1
 
-  auto_route: ^5.0.1
+  # Models and annotation
+  json_annotation: ^4.7.0
   freezed_annotation: ^2.1.0
 
-  #  flutter_portal: ^1.0.0-dev.2
+  # Routing
+  auto_route: ^5.0.1
 
-  # Пакет предназначен для показа уведомлений
-  fluttertoast: ^8.0.9
-  #  shimmer: ^2.0.0
-  #  equatable: ^2.0.3
-  #  nanoid: ^1.0.0
-  intl: ^0.17.0
-  hooks_riverpod: ^2.0.0-dev.9
-  flutter_hooks: ^0.18.5+1
+  # Database
+  shared_preferences: ^2.0.15
 
-  # amazing charts
-  fl_chart: ^0.55.1
-  loggy: ^2.0.1+1
-  url_launcher: ^6.1.5
+  # State manager
+  hooks_riverpod: ^2.0.2
 
-  # This is a cool localization and internationalization package
-  slang: 2.7.0
-  slang_flutter: 2.7.0
+  # Localization
+  slang: ^3.1.0
+  slang_flutter: ^3.1.0
   flutter_localizations:
     sdk: flutter
+
+  # Utility
+  flutter_dotenv: ^5.0.2
+  intl: ^0.17.0
+  loggy: ^2.0.1+1
+  url_launcher: ^6.1.6
+  #  equatable: ^2.0.3
+  #  nanoid: ^1.0.0
+  meta: ^1.8.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  json_serializable: ^6.3.1
+
+  json_serializable: ^6.5.0
   auto_route_generator: ^5.0.2
-  build_runner: ^2.2.0
-  icons_launcher: ^2.0.4
+  build_runner: ^2.2.1
+  icons_launcher: ^2.0.5
 
   #  You can let the library rebuild automatically for you.
   #
   #  command -> flutter pub run slang:watch
-  slang_build_runner: 2.7.0
+  slang_build_runner: ^3.1.0
 
-  freezed: ^2.1.0+1
+  freezed: ^2.1.0+1 # await updating auto_route
 
   lint: ^1.10.0
 
@@ -83,22 +90,6 @@ flutter:
     - assets/images/intro/
 
   fonts:
-    #    - family: Caveat
-    #      fonts:
-    #        - asset: assets/fonts/Caveat-Bold.ttf
-    #          weight: 400
-    #        - asset: assets/fonts/Caveat-Medium.ttf
-    #          weight: 500
-    #        - asset: assets/fonts/Caveat-Regular.ttf
-    #          weight: 600
-    #        - asset: assets/fonts/Caveat-SemiBold.ttf
-    #          weight: 700
-    #        - asset: assets/fonts/Caveat-VariableFont_wght.ttf
-    #    - family: MarckScript
-    #      fonts:
-    #        - asset: assets/fonts/MarckScript-Regular.ttf
-    #          weight: 400
-
     # see https://flutter.dev/custom-fonts/#from-packages
     - family: Anonymous Pro
       fonts:
@@ -165,10 +156,6 @@ flutter:
     - family: Pacifico
       fonts:
         - asset: assets/fonts/Pacifico/Pacifico-Regular.ttf
-
-    - family: Press Start 2P
-      fonts:
-        - asset: assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf
 
     - family: Raleway
       fonts:

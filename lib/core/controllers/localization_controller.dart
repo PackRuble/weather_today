@@ -32,7 +32,7 @@ class AppLocalization {
 
   IDataBase get _dbService => ref.read(dbService);
 
-  static final pr = Provider<AppLocalization>((ref) => AppLocalization(ref));
+  static final instance = Provider<AppLocalization>(AppLocalization.new);
 
   // static TranslationsRu get _t => AppLocale.ru.build();
   // static set _t(TranslationsRu translationsRu) => translationsRu;
@@ -59,6 +59,7 @@ class AppLocalization {
   /// Текущий translation.
   static final currentTranslation = StateProvider<TranslationsRu>((ref) {
     final AppLocale locale = ref.watch(currentLocale);
+    // ignore: join_return_with_assignment
     tr = locale.build(); // we need to assign
     return tr;
   });

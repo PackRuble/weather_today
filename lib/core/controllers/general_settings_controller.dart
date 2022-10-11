@@ -10,13 +10,13 @@ import '../../ui/pages/main_page/model/homepage_index_model.dart';
 ///
 /// Запустить [init] при использовании класса.
 class AppGeneralSettings with Updater {
-  AppGeneralSettings(this.reader);
+  AppGeneralSettings(this.ref);
 
   @override
-  final Reader reader;
+  final Ref ref;
 
   @override
-  IDataBase get db => reader(dbService);
+  IDataBase get db => ref.read(dbService);
 
   Future<void> init() async {
     await loadAndUpdate<HomepageIndex, int>(
@@ -29,9 +29,11 @@ class AppGeneralSettings with Updater {
         showIntro, DbStore.showIntro, DbStore.showIntroDefault);
   }
 
-  /// Доступ к классу.
-  static final pr =
-      Provider<AppGeneralSettings>((ref) => AppGeneralSettings(ref.read));
+  /// Access to an instance of a class.
+  static final instance = Provider(
+    AppGeneralSettings.new,
+    name: '$AppGeneralSettings',
+  );
 
   // Стартовая страница при запуске приложения.
   // ===========================================================================

@@ -14,13 +14,15 @@ import '../main_page/model/homepage_index_model.dart';
 
 /// Контроллер страницы настроек.
 class SettingPageController {
-  SettingPageController(this._reader);
+  SettingPageController(this._ref);
 
-  final Reader _reader;
+  final Ref _ref;
 
   /// экземпляр.
-  static final pr = Provider.autoDispose<SettingPageController>(
-      (ref) => SettingPageController(ref.read));
+  static final instance = Provider.autoDispose(
+    SettingPageController.new,
+    name: '$SettingPageController',
+  );
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
@@ -41,9 +43,9 @@ class SettingPageController {
 
   /// Диалог - Выбрать единицы измерения температуры.
   Future<void> dialogSetTempUnits(BuildContext context) async {
-    final t = _reader(tr);
+    final t = _ref.read(tr);
 
-    final Temp units = _reader(tempUnits);
+    final Temp units = _ref.read(tempUnits);
     final Temp? _newUnits = await showChoosingDialog<Temp>(
       context,
       icon: const Icon(AppIcons.tempUnitsTile),
@@ -57,7 +59,7 @@ class SettingPageController {
     );
 
     if (_newUnits != null) {
-      await _reader(WeatherServices.pr).setTempUnits(_newUnits);
+      await _ref.read(WeatherServices.instance).setTempUnits(_newUnits);
     }
   }
 
@@ -69,9 +71,9 @@ class SettingPageController {
 
   /// Диалог - Выбрать единицы измерения давления.
   Future<void> dialogSetPressureUnits(BuildContext context) async {
-    final t = _reader(tr);
+    final t = _ref.read(tr);
 
-    final Pressure units = _reader(pressureUnits);
+    final Pressure units = _ref.read(pressureUnits);
     final Pressure? _newUnits = await showChoosingDialog<Pressure>(
       context,
       icon: const Icon(AppIcons.pressure),
@@ -85,7 +87,7 @@ class SettingPageController {
     );
 
     if (_newUnits != null) {
-      await _reader(WeatherServices.pr).setPressureUnits(_newUnits);
+      await _ref.read(WeatherServices.instance).setPressureUnits(_newUnits);
     }
   }
 
@@ -97,9 +99,9 @@ class SettingPageController {
 
   /// Диалог - Выбрать единицы измерения скорости.
   Future<void> dialogSetSpeedUnits(BuildContext context) async {
-    final t = _reader(tr);
+    final t = _ref.read(tr);
 
-    final Speed units = _reader(speedUnits);
+    final Speed units = _ref.read(speedUnits);
 
     final Speed? _newUnits = await showChoosingDialog<Speed>(
       context,
@@ -114,7 +116,7 @@ class SettingPageController {
     );
 
     if (_newUnits != null) {
-      await _reader(WeatherServices.pr).setSpeedUnits(_newUnits);
+      await _ref.read(WeatherServices.instance).setSpeedUnits(_newUnits);
     }
   }
 
@@ -127,9 +129,9 @@ class SettingPageController {
 
   /// Диалог - Установить новую locale.
   Future<void> dialogSetLocale(BuildContext context) async {
-    final t = _reader(tr);
+    final t = _ref.read(tr);
 
-    final AppLocale locale = _reader(currentLocale);
+    final AppLocale locale = _ref.read(currentLocale);
 
     final AppLocale? _newLocale = await showChoosingDialog<AppLocale>(
       context,
@@ -144,7 +146,7 @@ class SettingPageController {
     );
 
     if (_newLocale != null) {
-      await _reader(AppLocalization.pr).setLocale(_newLocale);
+      await _ref.read(AppLocalization.instance).setLocale(_newLocale);
     }
   }
 
@@ -156,9 +158,9 @@ class SettingPageController {
 
   /// Диалог - Выбрать стартовую страницу.
   Future<void> dialogSetHomepage(BuildContext context) async {
-    final t = _reader(tr);
+    final t = _ref.read(tr);
 
-    final HomepageIndex page = _reader(startPageIndex);
+    final HomepageIndex page = _ref.read(startPageIndex);
 
     final HomepageIndex? _newPage = await showChoosingDialog<HomepageIndex>(
       context,
@@ -173,7 +175,7 @@ class SettingPageController {
     );
 
     if (_newPage != null) {
-      await _reader(AppGeneralSettings.pr).setStartPageIndex(_newPage);
+      await _ref.read(AppGeneralSettings.instance).setStartPageIndex(_newPage);
     }
   }
 

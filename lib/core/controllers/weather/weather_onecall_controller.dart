@@ -7,7 +7,7 @@ import 'package:weather_today/core/controllers/weather_service_controllers.dart'
 import 'package:weather_today/core/models/place/place_model.dart';
 import 'package:weather_today/core/services/api/api_OWM.dart';
 
-import 'interface/i_weather_controller.dart';
+import 'i_weather_controller.dart';
 
 /// Разрешенная частота запроса к сервису получения погоды Onecall с
 /// ключом API по умолчанию (ключ разработчика).
@@ -73,7 +73,7 @@ class WeatherOneCallController extends IWeatherOwmController<WeatherOneCall> {
   Future<WeatherOneCall?> getWeather(Place place) async {
     if (super.isPlaceCorrect(place)) return null;
 
-    return super.weatherDomain.oneCallWeatherByLocation(
+    return super.weatherService.oneCallWeatherByLocation(
         latitude: place.latitude!, longitude: place.longitude!);
   }
 

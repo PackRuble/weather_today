@@ -1,20 +1,21 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:open_weather_api/open_weather_api.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
-import 'package:weather_today/core/controllers/weather_onecall_controller.dart';
+import 'package:weather_today/core/controllers/weather/weather_onecall_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/i18n/translations.g.dart';
 
 /// Контроллер [HourlyPage].
 class HourlyPageController {
-  HourlyPageController(this._reader);
+  HourlyPageController(this._ref);
 
-  final Reader _reader;
+  final Ref _ref;
 
   /// экземпляр.
-  static final pr = Provider<HourlyPageController>(
-      (ref) => HourlyPageController(ref.read),
-      name: '$HourlyPageController');
+  static final instance = Provider(
+    HourlyPageController.new,
+    name: '$HourlyPageController',
+  );
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
@@ -54,5 +55,5 @@ class HourlyPageController {
 
   /// Обновление погоды.
   Future<void> updateWeather() async =>
-      _reader(weatherOneCallController.notifier).updateWeather();
+      _ref.read(weatherOneCallController.notifier).updateWeather();
 }

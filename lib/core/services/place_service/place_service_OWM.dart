@@ -9,7 +9,7 @@ class PlaceServiceOWM implements IPlaceService {
   PlaceServiceOWM(this._service);
 
   /// Сервис для подключения погоды.
-  final WeatherGeocoding _service;
+  final GeocodingService _service;
 
   // todo logger and exception
   @override
@@ -18,9 +18,7 @@ class PlaceServiceOWM implements IPlaceService {
     final List<PlaceGeocode> placesDirect = await _service
         .getLocationByCoordinates(latitude: latitude, longitude: longitude);
 
-    final List<Place> places = placesDirect.map((d) {
-      return _convertGeocodePlaces(d);
-    }).toList();
+    final List<Place> places = placesDirect.map(_convertGeocodePlaces).toList();
 
     return places;
   }
@@ -30,9 +28,7 @@ class PlaceServiceOWM implements IPlaceService {
     final List<PlaceGeocode> placesDirect =
         await _service.getLocationByCityName(queryCity);
 
-    final List<Place> places = placesDirect.map((d) {
-      return _convertGeocodePlaces(d);
-    }).toList();
+    final List<Place> places = placesDirect.map(_convertGeocodePlaces).toList();
 
     return places;
   }

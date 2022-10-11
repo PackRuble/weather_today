@@ -80,8 +80,9 @@ class _TileWidget extends ConsumerWidget {
                 : AppColors.of(context).cardBorderColor,
           ),
         ),
-        onPressed: () async =>
-            ref.read(WeatherLanguagePageController.pr).setWeatherLanguage(lang),
+        onPressed: () async => ref
+            .read(WeatherLanguagePageController.instance)
+            .setWeatherLanguage(lang),
         child: Text(lang.name),
       ),
     );

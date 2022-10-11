@@ -26,7 +26,7 @@ class RAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
     final Widget themeButton = IconButton(
       onPressed: () => ref
-          .read(AppTheme.pr)
+          .read(AppTheme.instance)
           .setThemeMode(isLight ? ThemeMode.dark : ThemeMode.light),
       icon: Icon(isLight ? Icons.light_mode_rounded : Icons.nightlight_round),
     );

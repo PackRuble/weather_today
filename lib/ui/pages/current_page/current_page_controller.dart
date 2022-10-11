@@ -1,16 +1,16 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:open_weather_api/open_weather_api.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
-import 'package:weather_today/core/controllers/weather_current_controller.dart';
-import 'package:weather_today/core/controllers/weather_onecall_controller.dart';
+import 'package:weather_today/core/controllers/weather/weather_current_controller.dart';
+import 'package:weather_today/core/controllers/weather/weather_onecall_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/i18n/translations.g.dart';
 
 /// Контроллер страницы CURRENT-погоды.
 class CurrentPageController {
-  CurrentPageController(this._reader);
+  CurrentPageController(this._ref);
 
-  final Reader _reader;
+  final Ref _ref;
 
   /// Актуальная Weather_CURRENT.
   static final current = Provider<AsyncValue<WeatherCurrent>>(
@@ -21,8 +21,7 @@ class CurrentPageController {
       (ref) => ref.watch(alertsAsync));
 
   /// экземляр контроллера.
-  static final pr = Provider.autoDispose<CurrentPageController>(
-      (ref) => CurrentPageController(ref.read));
+  static final instance = Provider.autoDispose(CurrentPageController.new);
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
@@ -38,5 +37,5 @@ class CurrentPageController {
 
   /// Обновление CURRENT-погоды.
   Future<void> updateWeather() async =>
-      _reader(weatherCurrentController.notifier).updateWeather();
+      _ref.read(weatherCurrentController.notifier).updateWeather();
 }

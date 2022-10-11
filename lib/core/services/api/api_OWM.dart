@@ -13,18 +13,16 @@ final String _apiWeather = dotenv.env['API_WEATHER'] ?? 'Api-key not found';
 ///
 /// Для инициализации класса должен быть запущен [init].
 class ApiServiceOwm with Updater {
-  ApiServiceOwm(this._ref) : reader = _ref.read;
-
-  final Ref _ref;
+  ApiServiceOwm(this.ref);
 
   @override
-  final Reader reader;
+  final Ref ref;
 
   @override
-  IDataBase get db => reader(dbService);
+  IDataBase get db => ref.read(dbService);
 
-  /// Доступ к методам данного класса.
-  static final pr = Provider<ApiServiceOwm>((ref) => ApiServiceOwm(ref));
+  /// экземпляр класса для доступа к методам данного класса.
+  static final instance = Provider(ApiServiceOwm.new, name: '$ApiServiceOwm');
 
   /// Apikey сервиса OWM.
   static final apiKey = StateProvider<String>((ref) => _apiWeather);
@@ -42,16 +40,19 @@ class ApiServiceOwm with Updater {
 
   /// Проверить корректность ключа установленного ключа.
   Future<bool> isCorrectInstalledApiKey() async =>
-      WeatherDomain.isCorrectApi(reader(apiKey));
+      _isCorrectApiKey(ref.read(apiKey));
 
   /// Проверить корректность ключа для запросов.
   Future<bool> isCorrectApiKey(String apiString) async =>
-      WeatherDomain.isCorrectApi(apiString);
+      _isCorrectApiKey(apiString);
+
+  Future<bool> _isCorrectApiKey(String apiString) async =>
+      OWMApiTest().isCorrectApiKey(apiString);
 
   /// Сбросить значение ключа к дефолтным.
   Future<void> resetUserApiKey() async {
     await saveDb(DbStore.userApiKeyOWM, DbStore.userApiKeyOWMDefault);
-    _ref.refresh(apiKey);
+    ref.refresh(apiKey);
   }
 
   /// Установить пользовательский ключ

@@ -31,7 +31,7 @@ class VisualDesignPage extends ConsumerWidget {
     return WrapperPage(
       child: WillPopScope(
         onWillPop: () async =>
-            ref.watch(VisualDPageController.cr).onWillPop(context),
+            ref.watch(VisualDPageController.instance).onWillPop(context),
         child: Scaffold(
           appBar: RAppBar(
             t.visualDesignPage.appbarTitle,
@@ -138,7 +138,7 @@ class _SaveButtonWidget extends ConsumerWidget {
 
     return isNeedSave
         ? IconButton(
-            onPressed: ref.read(VisualDPageController.cr).saveAllChanges,
+      onPressed: ref.read(VisualDPageController.instance).saveAllChanges,
             icon: const Icon(Icons.done),
           )
         : const SizedBox.shrink();
@@ -161,8 +161,9 @@ class _DesignWidgetChip extends ConsumerWidget {
         return ChipInCloud(
           selected: _selected == _designs[index],
           label: Text(_designs[index].toCamelCaseToWords()),
-          onSelected: (_) => ref
-              .read(VisualDPageController.cr)
+          onSelected: (_) =>
+              ref
+              .read(VisualDPageController.instance)
               .setVisualDesign(_designs[index]),
         );
       }),
@@ -191,7 +192,8 @@ class _ChangerTextScaleWidget extends ConsumerWidget {
                   ((maxTextScaleFactor - minTextScaleFactor) * 100).toInt(),
               min: minTextScaleFactor,
               max: maxTextScaleFactor,
-              onChanged: ref.read(VisualDPageController.cr).setTextScaleFactor,
+              onChanged:
+                  ref.read(VisualDPageController.instance).setTextScaleFactor,
             ),
           ),
         ),
@@ -229,8 +231,9 @@ class _FamilyFontsWidget extends ConsumerWidget {
         return ChipInCloud(
           selected: selected == items[index],
           label: Text(items[index].toCamelCaseToWords()),
-          onSelected: (_) =>
-              ref.read(VisualDPageController.cr).setFontFamily(items[index]),
+          onSelected: (_) => ref
+              .read(VisualDPageController.instance)
+              .setFontFamily(items[index]),
         );
       }),
     );
@@ -253,8 +256,9 @@ class _TypographyWidget extends ConsumerWidget {
         return ChipInCloud(
           selected: selected == items[index],
           label: Text(items[index].toCamelCaseToWords()),
-          onSelected: (_) =>
-              ref.read(VisualDPageController.cr).setTypography(items[index]),
+          onSelected: (_) => ref
+              .read(VisualDPageController.instance)
+              .setTypography(items[index]),
         );
       }),
     );
@@ -277,8 +281,9 @@ class _ScrollPhysicsWidget extends ConsumerWidget {
         return ChipInCloud(
           selected: selected == items[index],
           label: Text(items[index].toCamelCaseToWords()),
-          onSelected: (_) =>
-              ref.read(VisualDPageController.cr).setScrollPhysic(items[index]),
+          onSelected: (_) => ref
+              .read(VisualDPageController.instance)
+              .setScrollPhysic(items[index]),
         );
       }),
     );

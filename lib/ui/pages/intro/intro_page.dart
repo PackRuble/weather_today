@@ -3,6 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:weather_today/core/controllers/general_settings_controller.dart';
 
+// todo correcting
+
 const double _heightImage = 150.0;
 
 // tod перевести
@@ -58,7 +60,8 @@ class IntroPage extends ConsumerWidget {
       renderDoneBtn: UnconstrainedBox(
           child: Icon(Icons.check_circle_rounded,
               size: 48.0, color: theme.colorScheme.primary)),
-      onDonePress: () => ref.watch(AppGeneralSettings.pr).setIsIntro(false),
+      onDonePress: () =>
+          ref.watch(AppGeneralSettings.instance).setIsIntro(false),
       showPrevBtn: false,
       showSkipBtn: false,
       // colorDot: theme.primaryColor,

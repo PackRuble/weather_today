@@ -1,4 +1,6 @@
-import 'package:weather_today/shared_libs.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:open_weather_api/open_weather_api.dart';
 
 import '../utils/metrics_helper.dart';
 

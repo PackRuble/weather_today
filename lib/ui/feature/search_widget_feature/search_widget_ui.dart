@@ -91,7 +91,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
             color: colors.scheme.primary,
           ),
           onTap: () => ref
-              .read(AppTheme.pr)
+              .read(AppTheme.instance)
               .setThemeMode(isLight ? ThemeMode.dark : ThemeMode.light),
         ),
       ],

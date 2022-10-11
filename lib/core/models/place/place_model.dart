@@ -8,8 +8,6 @@ part 'place_model.g.dart';
 ///
 @freezed
 class Place with _$Place {
-  const Place._();
-
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Place({
     /// Название местоположения.
@@ -36,6 +34,7 @@ class Place with _$Place {
     /// Заметка об этом месте.
     String? note,
   }) = _SavedPlace;
+  const Place._();
 
   /// Внутренний метод десериализации json.
   factory Place.fromJson(Map<String, dynamic> map) => _$PlaceFromJson(map);

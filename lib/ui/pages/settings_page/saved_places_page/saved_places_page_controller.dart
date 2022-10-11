@@ -15,12 +15,11 @@ class SavedPlacesPageController {
 
   final Ref _ref;
 
-  Reader get _reader => _ref.read;
-
   /// экземпляр.
-  static final pr = Provider.autoDispose<SavedPlacesPageController>(
-      (ref) => SavedPlacesPageController(ref),
-      name: '$SavedPlacesPageController');
+  static final instance = Provider.autoDispose(
+    SavedPlacesPageController.new,
+    name: '$SavedPlacesPageController',
+  );
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
@@ -35,15 +34,15 @@ class SavedPlacesPageController {
 
   /// Удалить местоположение из списка сохраненных.
   Future<void> _deletePlace(Place deletedPlace) async =>
-      _reader(savedPlacesController.notifier).deletePlace(deletedPlace);
+      _ref.read(savedPlacesController.notifier).deletePlace(deletedPlace);
 
   /// Обновляем местоположение не изменяя его положение в списке.
   Future<void> _updatePlace(Place updatedPlace) async =>
-      _reader(savedPlacesController.notifier).updatePlace(updatedPlace);
+      _ref.read(savedPlacesController.notifier).updatePlace(updatedPlace);
 
   /// Выбрать местоположение текущим.
   Future<void> selectPlace(Place newPlace) async =>
-      _reader(WeatherServices.pr).setCurrentPlace(newPlace);
+      _ref.read(WeatherServices.instance).setCurrentPlace(newPlace);
 
   // ---------------------------------------------------------------------------
   // диалоги

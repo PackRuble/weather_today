@@ -12,9 +12,9 @@ import 'package:weather_today/ui/feature/search_widget_feature/models/search_bod
 final searchWidgetProvider =
     StateNotifierProvider.autoDispose<SearchWidgetNotifier, SearchBodyState>(
         (ref) {
-  final List<Place> _savedPlaces = ref.watch(savedPlacesController);
+  final List<Place> savedPlaces = ref.watch(savedPlacesController);
 
-  return SearchWidgetNotifier(ref, _savedPlaces);
+  return SearchWidgetNotifier(ref, savedPlaces);
 }, name: '$SearchWidgetNotifier');
 
 /// Контроллер предназначен для работы с отображением найденных и сохраненных
@@ -24,8 +24,6 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
       : super(const SearchBodyState.loading()) {
     _init();
   }
-
-  Reader get _reader => _ref.read;
 
   final Ref _ref;
 
@@ -46,14 +44,14 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
   /// Инициализация класса.
   Future<void> _init() async {
     // если запроса нет, автоматически пустой _foundedPlaces.
-    if (_reader(_query).isEmpty) {
+    if (_ref.read(_query).isEmpty) {
       state = SearchBodyState.saved(
           _savedPlaces.take(_countDisplayedPlaces).toList());
 
       // запрос есть
     } else {
       state = SearchBodyState.found(
-          _reader(_foundedPlaces).take(_countDisplayedPlaces).toList());
+          _ref.read(_foundedPlaces).take(_countDisplayedPlaces).toList());
     }
   }
 
@@ -85,7 +83,7 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
   /// Изменение фокуса виджета
   void changeFocus(bool isFocus) {
     if (!isFocus) {
-      _reader(controllerBarProvider).close();
+      _ref.read(controllerBarProvider).close();
     }
   }
 
@@ -102,7 +100,7 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
   Future<void> newRequest(String newQuery) async {
     state = const SearchBodyState.loading();
 
-    _reader(_query.notifier).update((_) => newQuery);
+    _ref.read(_query.notifier).update((_) => newQuery);
 
     // если запрос пуст - возвращаем список сохраненных мест
     if (newQuery.isEmpty) {
@@ -123,7 +121,7 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
         state = const SearchBodyState.error();
       }
 
-      _reader(_foundedPlaces.notifier).update((_) => founded);
+      _ref.read(_foundedPlaces.notifier).update((_) => founded);
       state = SearchBodyState.found(founded);
     }
   }
@@ -163,12 +161,13 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
 
   /// Получаем список мест по их предположительному наименованию.
   Future<List<Place>> _getPlacesByName(String name) async =>
-      _reader(placeServiceOWMPr).getPlacesByName(name);
+      _ref.read(placeServiceOWMPr).getPlacesByName(name);
 
   /// Получаем список мест по их координатам.
   Future<List<Place>> _getPlacesByCoordinates(
           {required double latitude, required double longitude}) async =>
-      _reader(placeServiceOWMPr)
+      _ref
+          .read(placeServiceOWMPr)
           .getPlacesByCoordinates(latitude: latitude, longitude: longitude);
 
   // Методы работы с местами.
@@ -176,8 +175,8 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
 
   /// Выбрать местоположение текущим.
   void selectCurrentPlace(Place place) {
-    _reader(controllerBarProvider).close();
-    _reader(WeatherServices.pr).setCurrentPlace(place);
+    _ref.read(controllerBarProvider).close();
+    _ref.read(WeatherServices.instance).setCurrentPlace(place);
   }
 
   /// Добавить/удалить место.
@@ -193,9 +192,9 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
 
   /// Сохранить местоположение в список сохраненных.
   Future<void> _addPlaceToSavedPlaces(Place place) async =>
-      _reader(savedPlacesController.notifier).addPlace(place);
+      _ref.read(savedPlacesController.notifier).addPlace(place);
 
   /// Удалить местоположение из списка сохраненных.
   Future<void> _deletePlace(Place deletedPlace) async =>
-      _reader(savedPlacesController.notifier).deletePlace(deletedPlace);
+      _ref.read(savedPlacesController.notifier).deletePlace(deletedPlace);
 }

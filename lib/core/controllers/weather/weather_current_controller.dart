@@ -4,10 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:open_weather_api/open_weather_api.dart';
 import 'package:weather_today/const/key_store.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
+import 'package:weather_today/core/models/place/place_model.dart';
 import 'package:weather_today/core/services/api/api_OWM.dart';
 
-import '../models/place/place_model.dart';
-import 'interface/i_weather_controller.dart';
+import 'i_weather_controller.dart';
 
 // todo переместить куда-то в константы?
 /// Разрешенная частота запроса к сервису получения CURRENT-погоды с
@@ -62,7 +62,7 @@ class WeatherCurrentController extends IWeatherOwmController<WeatherCurrent> {
   Future<WeatherCurrent?> getWeather(Place place) async {
     if (super.isPlaceCorrect(place)) return null;
 
-    return super.weatherDomain.currentWeatherByLocation(
+    return super.weatherService.currentWeatherByLocation(
         latitude: place.latitude!, longitude: place.longitude!);
   }
 

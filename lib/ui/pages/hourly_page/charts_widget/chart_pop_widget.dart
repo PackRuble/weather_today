@@ -35,7 +35,7 @@ class ChartPopWidget extends ConsumerWidget {
       final DateTime? endDate = chart.data[chart.data.length - 1].date;
 
       return CustomChartWidget(
-        generateData: [],
+        generateData: const [],
         generateLabelsData: FlTitlesData(),
         titleWidget: titleWidget,
         ifEmptyDataWidget: (startDate == null || endDate == null)

@@ -6,14 +6,15 @@ import 'package:weather_today/i18n/translations.g.dart';
 
 /// Модель страницы [WeatherLanguagePage].
 class WeatherLanguagePageController {
-  WeatherLanguagePageController(this._reader);
+  WeatherLanguagePageController(this._ref);
 
-  final Reader _reader;
+  final Ref _ref;
 
   /// экземпляр.
-  static final pr = Provider.autoDispose<WeatherLanguagePageController>((ref) {
-    return WeatherLanguagePageController(ref.read);
-  }, name: '$WeatherLanguagePageController');
+  static final instance = Provider.autoDispose(
+    WeatherLanguagePageController.new,
+    name: '$WeatherLanguagePageController',
+  );
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
@@ -24,5 +25,5 @@ class WeatherLanguagePageController {
 
   /// Установка языка погоды.
   Future<void> setWeatherLanguage(WeatherLanguage lang) async =>
-      _reader(WeatherServices.pr).setCurrentLanguage(lang);
+      _ref.read(WeatherServices.instance).setCurrentLanguage(lang);
 }

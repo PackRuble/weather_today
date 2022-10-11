@@ -17,7 +17,7 @@ class UserApiPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ScrollController viewController =
-        ref.watch(UserApiPageController.pr).listViewController;
+        ref.watch(UserApiPageController.instance).listViewController;
 
     final t = ref.watch(UserApiPageController.tr);
 
@@ -128,15 +128,16 @@ class _StatusTileWidget extends ConsumerWidget {
                 padding: EdgeInsets.zero,
                 tooltip: t.apiWeatherPage.tooltips.delApiKey,
                 icon: const Icon(Icons.delete),
-                onPressed: () async =>
-                    ref.watch(UserApiPageController.pr).deleteUserApi(context),
+                onPressed: () async => ref
+                    .watch(UserApiPageController.instance)
+                    .deleteUserApi(context),
               ),
             Tooltip(
               message: t.apiWeatherPage.tooltips.checkApiKey,
               child: TextButton(
                 child: const Text('Check'),
                 onPressed: () async =>
-                    ref.watch(UserApiPageController.pr).checkApi(),
+                    ref.watch(UserApiPageController.instance).checkApi(),
               ),
             ),
           ],
@@ -164,14 +165,16 @@ class _TextFieldApiWidget extends ConsumerWidget {
         ? t.apiWeatherPage.userApi.fieldTip
         : t.apiWeatherPage.defaultApi.fieldTip;
 
-    final controller = ref.watch(UserApiPageController.pr).apiTextController;
+    final controller =
+        ref.watch(UserApiPageController.instance).apiTextController;
 
-    final focusNode = ref.watch(UserApiPageController.pr).apiTextFocusNode;
+    final focusNode =
+        ref.watch(UserApiPageController.instance).apiTextFocusNode;
 
     focusNode.addListener(() {
       // coldfix хотелось плавно перемещать вверх поле, если вдруг оно не вмещалось
       final listController =
-          ref.read(UserApiPageController.pr).listViewController;
+          ref.read(UserApiPageController.instance).listViewController;
 
       double? offset;
 
@@ -205,7 +208,7 @@ class _TextFieldApiWidget extends ConsumerWidget {
                         (await Clipboard.getData('text/plain'))?.text;
 
                     ref
-                        .read(UserApiPageController.pr)
+                        .read(UserApiPageController.instance)
                         .setTextFromClipboard(clipboardData);
                   }
                 : null,
@@ -216,7 +219,8 @@ class _TextFieldApiWidget extends ConsumerWidget {
           border: const OutlineInputBorder(),
         ),
         keyboardType: TextInputType.text,
-        onSubmitted: (_) => ref.read(UserApiPageController.pr).setUserApi(),
+        onSubmitted: (_) =>
+            ref.read(UserApiPageController.instance).setUserApi(),
       ),
     );
   }
@@ -245,7 +249,7 @@ class _DoneAndLoadingWidget extends ConsumerWidget {
             tooltip: t.apiWeatherPage.tooltips.set,
             icon: const Icon(Icons.check_circle_outline_rounded),
             onPressed: isEnabled
-                ? () => ref.read(UserApiPageController.pr).setUserApi()
+                ? () => ref.read(UserApiPageController.instance).setUserApi()
                 : null,
           );
   }

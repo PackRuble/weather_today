@@ -11,6 +11,12 @@ import '../../services/local_db_service/data_base_controller.dart';
 import '../../services/local_db_service/interface/i_data_base.dart';
 import '../message_controller.dart';
 
+//coldfix: needs to be redesigned
+//  * correct try-catch
+//  * fix logging
+//  * fix dead code
+//  *
+
 /// Разрешено для OneCall API, пакет - Free:
 /// * 1,000 calls/day
 /// * 30,000 calls/month
@@ -32,12 +38,11 @@ abstract class IWeatherOwmController<T> extends StateNotifier<AsyncValue<T>> {
 
   final Ref _ref;
 
-  Reader get reader => _ref.read;
-
-  IDataBase get db => reader(dbService);
+  IDataBase get db => _ref.read(dbService);
 
   /// сервис запроса погоды
-  WeatherDomain get weatherDomain => reader(WeatherServices.weatherDomain);
+  WeatherService get weatherService =>
+      _ref.read(WeatherServices.weatherService);
 
   /// Разрешенная частота запроса к сервису получения погоды OWM.
   late final Duration _allowedRequestRate;
@@ -69,7 +74,7 @@ abstract class IWeatherOwmController<T> extends StateNotifier<AsyncValue<T>> {
 
   /// Время последнего запроса к сервису OWM для получения погоды.
   ///
-  /// See more https://openweathermap.org/api/one-call-api
+  /// See more [one-call-api](https://openweathermap.org/api/one-call-api)
   Future<DateTime> getLastRequestTime();
 
   /// Разрешение на запрос к сервису погоды.
@@ -112,7 +117,7 @@ abstract class IWeatherOwmController<T> extends StateNotifier<AsyncValue<T>> {
 
       state = AsyncData<T>(weather);
     } else {
-      reader(MessageController.pr).sUpdateWeatherFail();
+      _ref.read(MessageController.instance).sUpdateWeatherFail();
     }
   }
 
@@ -132,7 +137,7 @@ abstract class IWeatherOwmController<T> extends StateNotifier<AsyncValue<T>> {
     } on SocketException catch (e, s) {
       rlogDebug('Нет соединения с интернетом или с сервером погоды.', e, s);
 
-      reader(MessageController.pr).tSocketException();
+      _ref.read(MessageController.instance).tSocketException();
     } catch (e, s) {
       rlogError('Другая ошибка', e, s);
     } finally {

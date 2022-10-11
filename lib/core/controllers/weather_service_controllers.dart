@@ -13,13 +13,13 @@ import '../../utils/state_updater.dart';
 
 /// Общее состояние сервиса получения погоды для приложения.
 class WeatherServices with Updater {
-  WeatherServices(this.reader);
+  WeatherServices(this.ref);
 
   @override
-  final Reader reader;
+  final Ref ref;
 
   @override
-  IDataBase get db => reader(dbService);
+  IDataBase get db => ref.read(dbService);
 
   /// инициализировать. Переопределяем значения провайдеров на значения из дб.
   Future<void> init() async {
@@ -38,8 +38,8 @@ class WeatherServices with Updater {
   }
 
   /// экземпляр.
-  static final pr =
-      Provider<WeatherServices>((ref) => WeatherServices(ref.read));
+  static final instance =
+      Provider<WeatherServices>(WeatherServices.new, name: '$WeatherServices');
 
   // Текущее место по которому приходят данные о погоде
   //============================================================================
@@ -146,7 +146,7 @@ class WeatherServices with Updater {
   }
 
   /// Доступ к экземпляру сервиса погоды.
-  static final weatherDomain = Provider<WeatherDomain>((ref) {
+  static final weatherService = Provider<WeatherService>((ref) {
     // отслеживаем и устанавливаем apikey weather
     final String apiKey = ref.watch(ApiServiceOwm.apiKey);
 
@@ -154,6 +154,6 @@ class WeatherServices with Updater {
     final WeatherLanguage currentLanguage =
         ref.watch(WeatherServices.currentLanguage);
 
-    return WeatherDomain(apiKey, language: currentLanguage);
+    return WeatherService(apiKey, language: currentLanguage);
   });
 }
