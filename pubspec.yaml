@@ -1,5 +1,6 @@
 name: weather_today
 description: Weather for every day.
+publish_to: none
 
 version: 3.0.0-pre.0
 
@@ -64,9 +65,9 @@ dev_dependencies:
     sdk: flutter
 
 
-  json_serializable: ^6.5.0
+  json_serializable: ^6.5.1
   auto_route_generator: ^5.0.2
-  build_runner: ^2.2.1
+  build_runner: ^2.3.0
   icons_launcher: ^2.0.5
 
   #  You can let the library rebuild automatically for you.
