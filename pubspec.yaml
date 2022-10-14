@@ -1,8 +1,8 @@
 name: weather_today
 description: Weather for every day.
-publish_to: none
+publish_to: 'none'
 
-version: 3.0.0-pre.0
+version: 3.0.0-pre.1
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
@@ -11,11 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # service weather
   open_weather_api:
     path: '../open_weather_api'
 
   #    git:
-  #      url: file://C:/Users/Ruble/Documents/Programming/Projects/FlutterProjects/open_weather_api
+  #      url: file://C:/open_weather_api
   #      ref: master
 
   # Widgets
@@ -37,7 +38,7 @@ dependencies:
   freezed_annotation: ^2.1.0
 
   # Routing
-  auto_route: ^5.0.1
+  auto_route: ^5.0.2
 
   # Database
   shared_preferences: ^2.0.15
@@ -64,9 +65,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
   json_serializable: ^6.5.1
-  auto_route_generator: ^5.0.2
+  auto_route_generator: ^5.0.3
   build_runner: ^2.3.0
   icons_launcher: ^2.0.5
 
@@ -75,7 +75,7 @@ dev_dependencies:
   #  command -> flutter pub run slang:watch
   slang_build_runner: ^3.1.0
 
-  freezed: ^2.1.0+1 # await updating auto_route
+  freezed: ^2.1.1 # await updating auto_route
 
   lint: ^1.10.0
 
