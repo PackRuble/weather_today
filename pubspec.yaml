@@ -35,7 +35,7 @@ dependencies:
 
   # Models and annotation
   json_annotation: ^4.7.0
-  freezed_annotation: ^2.1.0
+  freezed_annotation: ^2.2.0
 
   # Routing
   auto_route: ^5.0.2
@@ -75,7 +75,7 @@ dev_dependencies:
   #  command -> flutter pub run slang:watch
   slang_build_runner: ^3.1.0
 
-  freezed: ^2.1.1 # await updating auto_route
+  freezed: ^2.2.0 # await updating auto_route
 
   lint: ^1.10.0
 
