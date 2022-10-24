@@ -53,8 +53,7 @@ abstract class IWeatherOwmController<T> extends StateNotifier<AsyncValue<T>> {
   /// Запустить при создании класса.
   Future<void> _init() async {
     if (kDebugMode) {
-      rlogDebug('initial');
-      state = AsyncValue<T>.data(await getTestedWeather());
+      state = AsyncValue<T>.data(await _getAnywayWeather());
       return;
     }
 
@@ -110,7 +109,7 @@ abstract class IWeatherOwmController<T> extends StateNotifier<AsyncValue<T>> {
     T weather;
 
     // доступно обновление сейчас?
-    if (await _isAllowedMakeRequest()) {
+    if (await _isAllowedMakeRequest() || kDebugMode) {
       state = AsyncLoading<T>();
 
       weather = await _getWeather(currentPlace);

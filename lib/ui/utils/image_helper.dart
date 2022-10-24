@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:loggy/loggy.dart';
+
+// todo: заменить на пакетные пути
 
 /// Менеджер получения всех изображений в приложении.
 ///

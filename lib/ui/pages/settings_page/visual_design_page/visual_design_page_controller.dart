@@ -38,7 +38,8 @@ class VisualDPageController {
 
   /// Погода берется из заранее сохраненного json, который всегда доступен.
   static final weatherMock = FutureProvider.autoDispose<WeatherOneCall>(
-      (ref) async => TestWeatherJson.getOneCallWeatherToTest());
+      (ref) async => TestWeatherJson
+          .getOneCallWeatherToTest()); //можно просто сделать модельку
 
   /// Применить значения по завершению редактирования опций.
   ///

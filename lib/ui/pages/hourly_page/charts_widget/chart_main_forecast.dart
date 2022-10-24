@@ -122,10 +122,9 @@ class ChartForecastWidget extends ConsumerWidget {
       dataList.addAll([
         _generateGroup(
           i,
-          Temp.fromKelvinTo(chart.tempUnits, chart.data[i].temp ?? 0.0),
-          Temp.fromKelvinTo(
-              chart.tempUnits, chart.data[i].tempFeelsLike ?? 0.0),
-          Temp.fromKelvinTo(chart.tempUnits, chart.data[i].dewPoint ?? 0.0),
+          chart.tempUnits.value(chart.data[i].temp ?? 0.0),
+          chart.tempUnits.value(chart.data[i].tempFeelsLike ?? 0.0),
+          chart.tempUnits.value(chart.data[i].dewPoint ?? 0.0),
         )
       ]);
     }

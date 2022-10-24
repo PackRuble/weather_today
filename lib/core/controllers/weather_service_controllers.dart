@@ -136,8 +136,8 @@ class WeatherServices with Updater {
       (ref) => _conversionCurrentLanguage(DbStore.userWeatherLanguageDefault));
 
   static WeatherLanguage _conversionCurrentLanguage(String code) =>
-      languageCodeReverse[code] ??
-      languageCodeReverse[DbStore.userWeatherLanguageDefault]!;
+      codeAndLangMatching[code] ??
+      codeAndLangMatching[DbStore.userWeatherLanguageDefault]!;
 
   /// Установить язык погодных условий.
   Future<void> setCurrentLanguage(WeatherLanguage newValue) async {

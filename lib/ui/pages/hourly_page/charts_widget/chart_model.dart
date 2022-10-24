@@ -168,8 +168,8 @@ class ChartModel<T> {
     }
 
     // определяем минимальное и максимальное значение лэйбла на графике
-    valueMinY = Temp.fromKelvinTo(Temp.celsius, _minValueY);
-    valueMaxY = Temp.fromKelvinTo(Temp.celsius, _maxValueY);
+    valueMinY = Temp.celsius.value(_minValueY);
+    valueMaxY = Temp.celsius.value(_maxValueY);
 
     // интервал между метками слева от графика
     scaleDivisionLeft = ChartUtils.getYIntervalBetweenLabel(

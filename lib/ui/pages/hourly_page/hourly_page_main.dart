@@ -20,6 +20,7 @@ class HourlyWeatherPage extends ConsumerWidget {
       onRefresh: () => ref.read(HourlyPageController.instance).updateWeather(),
       physicsListView: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       child: (List<WeatherHourly> hourly) {
+        // проверить список на пустоту
         switch (ref.watch(AppTheme.visualDesign)) {
           case AppVisualDesign.byRuble:
             return HourlyPageByRuble(hourly);
