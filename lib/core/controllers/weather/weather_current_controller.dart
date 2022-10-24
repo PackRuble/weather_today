@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:meta/meta.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/key_store.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/core/models/place/place_model.dart';
@@ -19,9 +20,8 @@ const Duration _allowedRequestRateCurrentWithDefaultApi = Duration(seconds: 30);
 const Duration _allowedRequestRateCurrentWithUserApi = Duration.zero;
 
 /// Контроллер сервиса CURRENT-погоды.
-final weatherCurrentController =
-    StateNotifierProvider<WeatherCurrentController, AsyncValue<WeatherCurrent>>(
-        (ref) {
+final weatherCurrentController = StateNotifierProvider<WeatherCurrentController,
+    AsyncValue<WeatherCurrent?>>((ref) {
   final Place currentPlace = ref.watch(WeatherServices.currentPlace);
   final Duration allowedRequestRate = ref.watch(ApiServiceOwm.isUserApiKey)
       ? _allowedRequestRateCurrentWithUserApi
@@ -32,9 +32,9 @@ final weatherCurrentController =
     currentPlace: currentPlace,
     allowedRequestRate: allowedRequestRate,
   );
-}, name: 'WeatherCurrent');
+}, name: '$WeatherCurrentController');
 
-class WeatherCurrentController extends IWeatherOwmController<WeatherCurrent> {
+class WeatherCurrentController extends IWeatherOwmController<WeatherCurrent?> {
   WeatherCurrentController(
     super._ref, {
     required super.currentPlace,
@@ -42,6 +42,7 @@ class WeatherCurrentController extends IWeatherOwmController<WeatherCurrent> {
   });
 
   @override
+  @protected
   Future<WeatherCurrent?> getStoredWeather() async {
     final String jsonStr = await super
         .db
@@ -55,11 +56,8 @@ class WeatherCurrentController extends IWeatherOwmController<WeatherCurrent> {
   }
 
   @override
-  Future<WeatherCurrent> getTestedWeather() async =>
-      TestWeatherJson.getCurrentWeatherToTest();
-
-  @override
-  Future<WeatherCurrent?> getWeather(Place place) async {
+  @protected
+  Future<WeatherCurrent?> getWeatherFromOWM(Place place) async {
     if (super.isPlaceCorrect(place)) return null;
 
     return super.weatherService.currentWeatherByLocation(
@@ -67,14 +65,17 @@ class WeatherCurrentController extends IWeatherOwmController<WeatherCurrent> {
   }
 
   @override
-  Future<void> saveWeatherInDb(WeatherCurrent weather) async =>
-      db.save(DbStore.weatherCurrent, jsonEncode(weather.toJson()));
+  @protected
+  Future<void> saveWeatherInDb(WeatherCurrent? weather) async =>
+      db.save(DbStore.weatherCurrent, jsonEncode(weather!.toJson()));
 
   @override
+  @protected
   Future<void> saveLastRequestTimeInDb(DateTime dateTime) async =>
       db.save(DbStore.lastRequestTimeCurrent, dateTime.millisecondsSinceEpoch);
 
   @override
+  @protected
   Future<DateTime> getLastRequestTime() async {
     final int timeInMilliseconds = await db.load(
         DbStore.lastRequestTimeCurrent, DbStore.lastRequestTimeCurrentDefault);

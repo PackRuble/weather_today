@@ -1,8 +1,10 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' as fl_service;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:loggy/loggy.dart';
+import 'package:meta/meta.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 
 import '../../../utils/logger/riverpod_logger.dart';
@@ -10,6 +12,8 @@ import '../../models/place/place_model.dart';
 import '../../services/local_db_service/data_base_controller.dart';
 import '../../services/local_db_service/interface/i_data_base.dart';
 import '../message_controller.dart';
+
+const bool _kDebugMode = fl_service.kDebugMode;
 
 //coldfix: needs to be redesigned
 //  * correct try-catch
@@ -25,60 +29,74 @@ import '../message_controller.dart';
 /// * 60 calls/minute
 /// * 1,000,000 calls/month
 ///
-abstract class IWeatherOwmController<T> extends StateNotifier<AsyncValue<T>> {
+abstract class IWeatherOwmController<T extends Object?>
+    extends StateNotifier<AsyncValue<T?>> {
   IWeatherOwmController(
     this._ref, {
-    required this.currentPlace,
+    required Place currentPlace,
     required Duration allowedRequestRate,
-  }) : super(AsyncValue<T>.loading()) {
-    _allowedRequestRate = allowedRequestRate;
-
+  })  : _currentPlace = currentPlace,
+        _allowedRequestRate = allowedRequestRate,
+        super(AsyncValue<T>.loading()) {
     _init();
   }
 
   final Ref _ref;
 
+  @protected
   IDataBase get db => _ref.read(dbService);
 
   /// сервис запроса погоды
+  @protected
   WeatherService get weatherService =>
       _ref.read(WeatherServices.weatherService);
 
   /// Разрешенная частота запроса к сервису получения погоды OWM.
-  late final Duration _allowedRequestRate;
+  final Duration _allowedRequestRate;
 
   /// Текущее выбранное место, по которому выполняется запрос на погоду.
-  final Place currentPlace;
+  final Place _currentPlace;
 
   /// Запустить при создании класса.
   Future<void> _init() async {
-    if (kDebugMode) {
-      state = AsyncValue<T>.data(await _getAnywayWeather());
+    logInfo('$T: initialization');
+
+    if (_kDebugMode) {
+      logInfo('init in the debug mode');
+      state = AsyncValue<T?>.data(await getStoredWeather());
       return;
     }
 
     T? weather;
 
-    // доступно обновление сейчас?
+    // если разрешено обновить сейчас
     if (await _isAllowedMakeRequest()) {
-      rlogDebug(
-          'Получено разрешение на запрос к сервису OWM'); //todo переименовать
+      logInfo('$T: Permission granted. Trying to get the weather.');
 
-      weather = await _getWeather(currentPlace);
+      weather = await _getWeather(_currentPlace);
+    }
+    // making a request to the db. If it's empty return null
+    else {
+      logInfo('$T: Permission NOT granted. Trying to get the weather in db.');
+
+      weather = await getStoredWeather();
     }
 
-    // обращаемся к бд или, если там пусто, к тестовому json.
-    state = AsyncValue<T>.data(weather ?? await _getAnywayWeather());
+    state = AsyncValue<T?>.data(weather);
   }
 
   /// Время последнего запроса к сервису OWM для получения погоды.
   ///
   /// See more [one-call-api](https://openweathermap.org/api/one-call-api)
+  @protected
   Future<DateTime> getLastRequestTime();
 
-  /// Разрешение на запрос к сервису погоды.
-  Future<bool> _isAllowedMakeRequest() async =>
-      await _timeWhenWillBeAllowedMakeRequest() < Duration.zero;
+  /// Permission to query the weather service.
+  Future<bool> _isAllowedMakeRequest() async {
+    final isGranted = await _timeWhenWillBeAllowedMakeRequest() < Duration.zero;
+    logInfo('$T: Getting permission to receive weather. Granted: <$isGranted>');
+    return isGranted;
+  }
 
   /// Метод определяет время, через которое можно совершить запрос к сервису OWM.
   Future<Duration> _timeWhenWillBeAllowedMakeRequest() async {
@@ -87,49 +105,42 @@ abstract class IWeatherOwmController<T> extends StateNotifier<AsyncValue<T>> {
     final Duration diffTime =
         _allowedRequestRate - nowTime.difference(lastRequestTime);
 
-    rlogDebug(
-        'Сейчас: $nowTime, Последний раз в: $lastRequestTime, Разрешено раз в: ${_allowedRequestRate.inMinutes} минут');
+    logInfo(
+        '$T: now: $nowTime, lastRequest: $lastRequestTime, diff: $diffTime, '
+        'Allowed once per:  ${_allowedRequestRate.inMinutes} minutes');
 
     return diffTime;
   }
 
-  // /// Через какое время можно будет сделать запрос сервису OWM.
-  // Future<Duration> _whenWillBeAllowedMakeRequest() async =>
-  //     _timeWhenWillBeAllowedMakeRequest();
-
   /// Обновить погоду.
   Future<void> updateWeather() async {
-    /*if (kDebugMode) {
-      state = AsyncLoading<T>();
-      state =
-          AsyncData<T>(await getStoredWeather() ?? await getTestedWeather());
-      return;
-    }*/
-
-    T weather;
+    logInfo('$T: Trying to update weather. DebugMode: $_kDebugMode');
 
     // доступно обновление сейчас?
-    if (await _isAllowedMakeRequest() || kDebugMode) {
+    if (await _isAllowedMakeRequest() || _kDebugMode) {
+      logInfo('$T: Permission granted. Trying to get the weather.');
+
       state = AsyncLoading<T>();
 
-      weather = await _getWeather(currentPlace);
+      final T? weather = await _getWeather(_currentPlace);
 
-      state = AsyncData<T>(weather);
+      state = AsyncData<T?>(weather);
     } else {
       _ref.read(MessageController.instance).sUpdateWeatherFail();
     }
   }
 
   /// Внутренний метод получения погоды. Включает обработку ошибок.
-  Future<T> _getWeather(Place place) async {
-    rlogDebug(
-        'Начинаем делать запрос для получения ${T.toString()} по place: $place');
+  ///
+  /// Если погоду получить не удается, получаем из бд. Иначе null.
+  Future<T?> _getWeather(Place place) async {
+    rlogDebug('Начинаем делать запрос для получения $T по place: $place');
 
     T? weather;
 
     try {
       // запрос к сервису погоды
-      weather = await getWeather(place);
+      weather = await getWeatherFromOWM(place);
 
       // если мы получили данные, фиксируем время получения
       await saveLastRequestTimeInDb(DateTime.now());
@@ -145,24 +156,17 @@ abstract class IWeatherOwmController<T> extends StateNotifier<AsyncValue<T>> {
         await saveWeatherInDb(weather);
       }
 
-      weather ??= await _getAnywayWeather();
+      weather ??= await getStoredWeather();
     }
 
-    return weather!;
+    return weather;
   }
-
-  /// Взять значение погоды из json-файла.
-  Future<T> getTestedWeather();
 
   /// Взять значение погоды из бд.
   Future<T?> getStoredWeather();
 
-  /// Получить модельку погоды несмотря ни на что ! :) .
-  Future<T> _getAnywayWeather() async =>
-      (await getStoredWeather()) ?? (await getTestedWeather());
-
   /// Получить погоду по местоположению из сервиса OWM.
-  Future<T?> getWeather(Place place);
+  Future<T?> getWeatherFromOWM(Place place);
 
   /// Сохранить полученную погоду в дб.
   Future<void> saveWeatherInDb(T weather);
@@ -170,6 +174,7 @@ abstract class IWeatherOwmController<T> extends StateNotifier<AsyncValue<T>> {
   /// Сохраняем время последнего получения данных погоды.
   Future<void> saveLastRequestTimeInDb(DateTime dateTime);
 
+  /// Корректно ли местоположение для получения по нему погоды?
   bool isPlaceCorrect(Place place) =>
       place.latitude == null || place.longitude == null;
 }
