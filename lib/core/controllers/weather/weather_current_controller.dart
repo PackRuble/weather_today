@@ -10,7 +10,6 @@ import 'package:weather_today/core/services/api/api_OWM.dart';
 
 import 'i_weather_controller.dart';
 
-// todo переместить куда-то в константы?
 /// Разрешенная частота запроса к сервису получения CURRENT-погоды с
 /// ключом API по умолчанию (ключ разработчика).
 const Duration _allowedRequestRateCurrentWithDefaultApi = Duration(seconds: 30);
@@ -20,22 +19,23 @@ const Duration _allowedRequestRateCurrentWithDefaultApi = Duration(seconds: 30);
 const Duration _allowedRequestRateCurrentWithUserApi = Duration.zero;
 
 /// Контроллер сервиса CURRENT-погоды.
-final weatherCurrentController = StateNotifierProvider<WeatherCurrentController,
-    AsyncValue<WeatherCurrent?>>((ref) {
+final weatherCurrentController =
+    StateNotifierProvider<WeatherCurrentNotifier, AsyncValue<WeatherCurrent?>>(
+        (ref) {
   final Place currentPlace = ref.watch(WeatherServices.currentPlace);
   final Duration allowedRequestRate = ref.watch(ApiServiceOwm.isUserApiKey)
       ? _allowedRequestRateCurrentWithUserApi
       : _allowedRequestRateCurrentWithDefaultApi;
 
-  return WeatherCurrentController(
+  return WeatherCurrentNotifier(
     ref,
     currentPlace: currentPlace,
     allowedRequestRate: allowedRequestRate,
   );
-}, name: '$WeatherCurrentController');
+}, name: '$WeatherCurrentNotifier');
 
-class WeatherCurrentController extends IWeatherOwmController<WeatherCurrent?> {
-  WeatherCurrentController(
+class WeatherCurrentNotifier extends IWeatherNotifier<WeatherCurrent> {
+  WeatherCurrentNotifier(
     super._ref, {
     required super.currentPlace,
     required super.allowedRequestRate,
@@ -57,17 +57,14 @@ class WeatherCurrentController extends IWeatherOwmController<WeatherCurrent?> {
 
   @override
   @protected
-  Future<WeatherCurrent?> getWeatherFromOWM(Place place) async {
-    if (super.isPlaceCorrect(place)) return null;
-
-    return super.weatherService.currentWeatherByLocation(
-        latitude: place.latitude!, longitude: place.longitude!);
-  }
+  Future<WeatherCurrent> getWeatherFromOWM(Place place) async =>
+      super.weatherService.currentWeatherByLocation(
+          latitude: place.latitude!, longitude: place.longitude!);
 
   @override
   @protected
-  Future<void> saveWeatherInDb(WeatherCurrent? weather) async =>
-      db.save(DbStore.weatherCurrent, jsonEncode(weather!.toJson()));
+  Future<void> saveWeatherInDb(WeatherCurrent weather) async =>
+      db.save(DbStore.weatherCurrent, jsonEncode(weather.toJson()));
 
   @override
   @protected

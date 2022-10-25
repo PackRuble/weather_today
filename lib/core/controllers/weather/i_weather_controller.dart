@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart' as fl_service;
@@ -15,6 +16,9 @@ import '../message_controller.dart';
 
 const bool _kDebugMode = fl_service.kDebugMode;
 
+/// Время ожидания вызова обновления погоды?
+const Duration _timeoutServiceOWM = Duration(seconds: 10);
+
 //coldfix: needs to be redesigned
 //  * correct try-catch
 //  * fix logging
@@ -29,15 +33,14 @@ const bool _kDebugMode = fl_service.kDebugMode;
 /// * 60 calls/minute
 /// * 1,000,000 calls/month
 ///
-abstract class IWeatherOwmController<T extends Object?>
-    extends StateNotifier<AsyncValue<T?>> {
-  IWeatherOwmController(
+abstract class IWeatherNotifier<T> extends StateNotifier<AsyncValue<T?>> {
+  IWeatherNotifier(
     this._ref, {
     required Place currentPlace,
     required Duration allowedRequestRate,
   })  : _currentPlace = currentPlace,
         _allowedRequestRate = allowedRequestRate,
-        super(AsyncValue<T>.loading()) {
+        super(const AsyncValue.loading()) {
     _init();
   }
 
@@ -61,9 +64,16 @@ abstract class IWeatherOwmController<T extends Object?>
   Future<void> _init() async {
     logInfo('$T: initialization');
 
+    if (_isPlaceCorrect(_currentPlace)) {
+      const contentError =
+          'The location is not correct. Choose a different location.';
+      logInfo(contentError);
+      state = const AsyncValue.error(contentError, StackTrace.empty);
+    }
+
     if (_kDebugMode) {
       logInfo('init in the debug mode');
-      state = AsyncValue<T?>.data(await getStoredWeather());
+      state = AsyncValue.data(await getStoredWeather());
       return;
     }
 
@@ -82,7 +92,7 @@ abstract class IWeatherOwmController<T extends Object?>
       weather = await getStoredWeather();
     }
 
-    state = AsyncValue<T?>.data(weather);
+    state = AsyncValue.data(weather);
   }
 
   /// Время последнего запроса к сервису OWM для получения погоды.
@@ -116,23 +126,37 @@ abstract class IWeatherOwmController<T extends Object?>
   Future<void> updateWeather() async {
     logInfo('$T: Trying to update weather. DebugMode: $_kDebugMode');
 
+    if (_isPlaceCorrect(_currentPlace)) {
+      const contentError =
+          'The location is not correct. Choose a different location.';
+      logInfo(contentError);
+      state = const AsyncValue.error(contentError, StackTrace.empty);
+    }
+
     // доступно обновление сейчас?
     if (await _isAllowedMakeRequest() || _kDebugMode) {
       logInfo('$T: Permission granted. Trying to get the weather.');
 
-      state = AsyncLoading<T>();
+      // coldfix: at this point the refresh indicator is running and that's enough
+      // state = const AsyncLoading();
 
-      final T? weather = await _getWeather(_currentPlace);
+      // получаем погоду с сервера
+      T? weather = await _getWeather(_currentPlace);
 
-      state = AsyncData<T?>(weather);
+      // если данные равны null, пытаемся получить данные из бд
+      weather ??= await getStoredWeather();
+
+      state = AsyncData(weather);
     } else {
       _ref.read(MessageController.instance).sUpdateWeatherFail();
     }
   }
 
-  /// Внутренний метод получения погоды. Включает обработку ошибок.
+  /// Внутренний метод получения погоды из сервиса OWM [weatherService].
   ///
-  /// Если погоду получить не удается, получаем из бд. Иначе null.
+  /// Включает:
+  /// * обработку ошибок.
+  /// * время возможного обновления.
   Future<T?> _getWeather(Place place) async {
     rlogDebug('Начинаем делать запрос для получения $T по place: $place');
 
@@ -140,23 +164,21 @@ abstract class IWeatherOwmController<T extends Object?>
 
     try {
       // запрос к сервису погоды
-      weather = await getWeatherFromOWM(place);
+      weather = await getWeatherFromOWM(place).timeout(_timeoutServiceOWM);
 
       // если мы получили данные, фиксируем время получения
       await saveLastRequestTimeInDb(DateTime.now());
+
+      // сохраняем полученные данные в бд
+      await saveWeatherInDb(weather as T);
     } on SocketException catch (e, s) {
       rlogDebug('Нет соединения с интернетом или с сервером погоды.', e, s);
-
       _ref.read(MessageController.instance).tSocketException();
+    } on TimeoutException catch (e, s) {
+      rlogDebug('Время ожидания сервиса истекло', e, s);
+      _ref.read(MessageController.instance).tTimeoutException();
     } catch (e, s) {
       rlogError('Другая ошибка', e, s);
-    } finally {
-      // сохраняем погоду в бд если она не равна null
-      if (weather != null) {
-        await saveWeatherInDb(weather);
-      }
-
-      weather ??= await getStoredWeather();
     }
 
     return weather;
@@ -166,7 +188,7 @@ abstract class IWeatherOwmController<T extends Object?>
   Future<T?> getStoredWeather();
 
   /// Получить погоду по местоположению из сервиса OWM.
-  Future<T?> getWeatherFromOWM(Place place);
+  Future<T> getWeatherFromOWM(Place place);
 
   /// Сохранить полученную погоду в дб.
   Future<void> saveWeatherInDb(T weather);
@@ -175,6 +197,6 @@ abstract class IWeatherOwmController<T extends Object?>
   Future<void> saveLastRequestTimeInDb(DateTime dateTime);
 
   /// Корректно ли местоположение для получения по нему погоды?
-  bool isPlaceCorrect(Place place) =>
+  bool _isPlaceCorrect(Place place) =>
       place.latitude == null || place.longitude == null;
 }

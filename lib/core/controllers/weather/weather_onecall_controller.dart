@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/key_store.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/core/models/place/place_model.dart';
@@ -17,36 +17,24 @@ const Duration _allowedRequestRateOnecallWithDefaultApi = Duration(days: 1);
 /// пользовательским ключом API.
 const Duration _allowedRequestRateOnecallWithUserApi = Duration.zero;
 
-/// Предупрежедения. Вынесено в отдельный провайдер для удобной работы.
-final alertsAsync = Provider<AsyncValue<List<WeatherAlert>>>((ref) {
-  final AsyncValue<WeatherOneCall?> asyncWeather =
-      ref.watch(weatherOneCallController);
-
-  if (asyncWeather.isRefreshing || asyncWeather.isLoading) {
-    return const AsyncValue.loading();
-  }
-
-  return AsyncValue.data(asyncWeather.value?.alerts ?? []);
-});
-
 /// Контроллер сервиса ONECALL-погоды.
 final weatherOneCallController =
-    StateNotifierProvider<WeatherOneCallController, AsyncValue<WeatherOneCall>>(
+    StateNotifierProvider<WeatherOnecallNotifier, AsyncValue<WeatherOneCall?>>(
         (ref) {
   final Place currentPlace = ref.watch(WeatherServices.currentPlace);
   final Duration _allowedRequestRate = ref.watch(ApiServiceOwm.isUserApiKey)
       ? _allowedRequestRateOnecallWithUserApi
       : _allowedRequestRateOnecallWithDefaultApi;
 
-  return WeatherOneCallController(
+  return WeatherOnecallNotifier(
     ref,
     currentPlace: currentPlace,
     allowedRequestRate: _allowedRequestRate,
   );
-}, name: '$WeatherOneCallController');
+}, name: '$WeatherOnecallNotifier');
 
-class WeatherOneCallController extends IWeatherOwmController<WeatherOneCall> {
-  WeatherOneCallController(
+class WeatherOnecallNotifier extends IWeatherNotifier<WeatherOneCall> {
+  WeatherOnecallNotifier(
     super._ref, {
     required super.currentPlace,
     required super.allowedRequestRate,
@@ -66,16 +54,9 @@ class WeatherOneCallController extends IWeatherOwmController<WeatherOneCall> {
   }
 
   @override
-  Future<WeatherOneCall> getTestedWeather() async =>
-      TestWeatherJson.getOneCallWeatherToTest();
-
-  @override
-  Future<WeatherOneCall?> getWeather(Place place) async {
-    if (super.isPlaceCorrect(place)) return null;
-
-    return super.weatherService.oneCallWeatherByLocation(
-        latitude: place.latitude!, longitude: place.longitude!);
-  }
+  Future<WeatherOneCall> getWeatherFromOWM(Place place) async =>
+      super.weatherService.oneCallWeatherByLocation(
+          latitude: place.latitude!, longitude: place.longitude!);
 
   @override
   Future<void> saveWeatherInDb(WeatherOneCall weather) async =>
