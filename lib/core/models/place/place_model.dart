@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 
 part 'place_model.freezed.dart';
 part 'place_model.g.dart';

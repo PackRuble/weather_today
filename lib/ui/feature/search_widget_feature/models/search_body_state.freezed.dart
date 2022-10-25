@@ -26,10 +26,10 @@ mixin _$SearchBodyState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<Place> places)? found,
-    TResult Function(List<Place> places)? saved,
-    TResult Function()? loading,
-    TResult Function()? error,
+    TResult? Function(List<Place> places)? found,
+    TResult? Function(List<Place> places)? saved,
+    TResult? Function()? loading,
+    TResult? Function()? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,10 +51,10 @@ mixin _$SearchBodyState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Found value)? found,
-    TResult Function(_Saved value)? saved,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Error value)? error,
+    TResult? Function(_Found value)? found,
+    TResult? Function(_Saved value)? saved,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,41 +72,44 @@ mixin _$SearchBodyState {
 abstract class $SearchBodyStateCopyWith<$Res> {
   factory $SearchBodyStateCopyWith(
           SearchBodyState value, $Res Function(SearchBodyState) then) =
-      _$SearchBodyStateCopyWithImpl<$Res>;
+      _$SearchBodyStateCopyWithImpl<$Res, SearchBodyState>;
 }
 
 /// @nodoc
-class _$SearchBodyStateCopyWithImpl<$Res>
+class _$SearchBodyStateCopyWithImpl<$Res, $Val extends SearchBodyState>
     implements $SearchBodyStateCopyWith<$Res> {
   _$SearchBodyStateCopyWithImpl(this._value, this._then);
 
-  final SearchBodyState _value;
   // ignore: unused_field
-  final $Res Function(SearchBodyState) _then;
+  final $Val _value;
+
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
 abstract class _$$_FoundCopyWith<$Res> {
   factory _$$_FoundCopyWith(_$_Found value, $Res Function(_$_Found) then) =
       __$$_FoundCopyWithImpl<$Res>;
+
+  @useResult
   $Res call({List<Place> places});
 }
 
 /// @nodoc
-class __$$_FoundCopyWithImpl<$Res> extends _$SearchBodyStateCopyWithImpl<$Res>
+class __$$_FoundCopyWithImpl<$Res>
+    extends _$SearchBodyStateCopyWithImpl<$Res, _$_Found>
     implements _$$_FoundCopyWith<$Res> {
   __$$_FoundCopyWithImpl(_$_Found _value, $Res Function(_$_Found) _then)
-      : super(_value, (v) => _then(v as _$_Found));
+      : super(_value, _then);
 
-  @override
-  _$_Found get _value => super._value as _$_Found;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? places = freezed,
+    Object? places = null,
   }) {
     return _then(_$_Found(
-      places == freezed
+      null == places
           ? _value._places
           : places // ignore: cast_nullable_to_non_nullable
               as List<Place>,
@@ -145,6 +148,7 @@ class _$_Found implements _Found {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FoundCopyWith<_$_Found> get copyWith =>
       __$$_FoundCopyWithImpl<_$_Found>(this, _$identity);
 
@@ -162,10 +166,10 @@ class _$_Found implements _Found {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<Place> places)? found,
-    TResult Function(List<Place> places)? saved,
-    TResult Function()? loading,
-    TResult Function()? error,
+    TResult? Function(List<Place> places)? found,
+    TResult? Function(List<Place> places)? saved,
+    TResult? Function()? loading,
+    TResult? Function()? error,
   }) {
     return found?.call(places);
   }
@@ -199,10 +203,10 @@ class _$_Found implements _Found {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Found value)? found,
-    TResult Function(_Saved value)? saved,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Error value)? error,
+    TResult? Function(_Found value)? found,
+    TResult? Function(_Saved value)? saved,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
   }) {
     return found?.call(this);
   }
@@ -236,24 +240,25 @@ abstract class _Found implements SearchBodyState {
 abstract class _$$_SavedCopyWith<$Res> {
   factory _$$_SavedCopyWith(_$_Saved value, $Res Function(_$_Saved) then) =
       __$$_SavedCopyWithImpl<$Res>;
+
+  @useResult
   $Res call({List<Place> places});
 }
 
 /// @nodoc
-class __$$_SavedCopyWithImpl<$Res> extends _$SearchBodyStateCopyWithImpl<$Res>
+class __$$_SavedCopyWithImpl<$Res>
+    extends _$SearchBodyStateCopyWithImpl<$Res, _$_Saved>
     implements _$$_SavedCopyWith<$Res> {
   __$$_SavedCopyWithImpl(_$_Saved _value, $Res Function(_$_Saved) _then)
-      : super(_value, (v) => _then(v as _$_Saved));
+      : super(_value, _then);
 
-  @override
-  _$_Saved get _value => super._value as _$_Saved;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? places = freezed,
+    Object? places = null,
   }) {
     return _then(_$_Saved(
-      places == freezed
+      null == places
           ? _value._places
           : places // ignore: cast_nullable_to_non_nullable
               as List<Place>,
@@ -292,6 +297,7 @@ class _$_Saved implements _Saved {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SavedCopyWith<_$_Saved> get copyWith =>
       __$$_SavedCopyWithImpl<_$_Saved>(this, _$identity);
 
@@ -309,10 +315,10 @@ class _$_Saved implements _Saved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<Place> places)? found,
-    TResult Function(List<Place> places)? saved,
-    TResult Function()? loading,
-    TResult Function()? error,
+    TResult? Function(List<Place> places)? found,
+    TResult? Function(List<Place> places)? saved,
+    TResult? Function()? loading,
+    TResult? Function()? error,
   }) {
     return saved?.call(places);
   }
@@ -346,10 +352,10 @@ class _$_Saved implements _Saved {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Found value)? found,
-    TResult Function(_Saved value)? saved,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Error value)? error,
+    TResult? Function(_Found value)? found,
+    TResult? Function(_Saved value)? saved,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
   }) {
     return saved?.call(this);
   }
@@ -387,13 +393,11 @@ abstract class _$$_LoadingCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_LoadingCopyWithImpl<$Res> extends _$SearchBodyStateCopyWithImpl<$Res>
+class __$$_LoadingCopyWithImpl<$Res>
+    extends _$SearchBodyStateCopyWithImpl<$Res, _$_Loading>
     implements _$$_LoadingCopyWith<$Res> {
   __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
-      : super(_value, (v) => _then(v as _$_Loading));
-
-  @override
-  _$_Loading get _value => super._value as _$_Loading;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -429,10 +433,10 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<Place> places)? found,
-    TResult Function(List<Place> places)? saved,
-    TResult Function()? loading,
-    TResult Function()? error,
+    TResult? Function(List<Place> places)? found,
+    TResult? Function(List<Place> places)? saved,
+    TResult? Function()? loading,
+    TResult? Function()? error,
   }) {
     return loading?.call();
   }
@@ -466,10 +470,10 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Found value)? found,
-    TResult Function(_Saved value)? saved,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Error value)? error,
+    TResult? Function(_Found value)? found,
+    TResult? Function(_Saved value)? saved,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
   }) {
     return loading?.call(this);
   }
@@ -501,13 +505,11 @@ abstract class _$$_ErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ErrorCopyWithImpl<$Res> extends _$SearchBodyStateCopyWithImpl<$Res>
+class __$$_ErrorCopyWithImpl<$Res>
+    extends _$SearchBodyStateCopyWithImpl<$Res, _$_Error>
     implements _$$_ErrorCopyWith<$Res> {
   __$$_ErrorCopyWithImpl(_$_Error _value, $Res Function(_$_Error) _then)
-      : super(_value, (v) => _then(v as _$_Error));
-
-  @override
-  _$_Error get _value => super._value as _$_Error;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -543,10 +545,10 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(List<Place> places)? found,
-    TResult Function(List<Place> places)? saved,
-    TResult Function()? loading,
-    TResult Function()? error,
+    TResult? Function(List<Place> places)? found,
+    TResult? Function(List<Place> places)? saved,
+    TResult? Function()? loading,
+    TResult? Function()? error,
   }) {
     return error?.call();
   }
@@ -580,10 +582,10 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Found value)? found,
-    TResult Function(_Saved value)? saved,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Error value)? error,
+    TResult? Function(_Found value)? found,
+    TResult? Function(_Saved value)? saved,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
   }) {
     return error?.call(this);
   }
