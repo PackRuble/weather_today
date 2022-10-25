@@ -1,4 +1,4 @@
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/i18n/translations.g.dart';
 

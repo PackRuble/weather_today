@@ -14,4 +14,7 @@ class AppInfo {
 
   /// название сервиса, который представляет погоду
   static const String weatherService = 'openweathermap.org';
+
+  static const String attributionOpenWeather =
+      'Weather data provided by OpenWeather';
 }

@@ -1,6 +1,6 @@
 name: weather_today
 description: Weather for every day.
-publish_to: 'none'
+publish_to: none
 
 version: 3.0.0-pre.1
 
@@ -12,8 +12,7 @@ dependencies:
     sdk: flutter
 
   # service weather
-  open_weather_api:
-    path: '../open_weather_api'
+  weather_pack: ^0.0.1
 
   #    git:
   #      url: file://C:/open_weather_api
@@ -67,7 +66,7 @@ dev_dependencies:
 
   json_serializable: ^6.5.1
   auto_route_generator: ^5.0.3
-  build_runner: ^2.3.0
+  build_runner: ^2.3.2
   icons_launcher: ^2.0.5
 
   #  You can let the library rebuild automatically for you.
@@ -88,6 +87,7 @@ flutter:
     - .env
     - assets/icons/icon.png
     - assets/images/
+    - assets/images/attribution/owm/
     - assets/images/intro/
 
   fonts:

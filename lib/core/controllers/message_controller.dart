@@ -59,6 +59,9 @@ class MessageController {
   /// Ошибка сети.
   void tSocketException() => _showToast(_StoreMessages.toastSocketException);
 
+  /// Время соединения истекло.
+  void tTimeoutException() => _showToast(_StoreMessages.toastTimeoutException);
+
   /// Успешная установка ApiKey-погоды.
   void tApiKeyWeatherSetTrue() =>
       _showToast(_StoreMessages.toastApiKeyWeatherSetTrue);
@@ -87,6 +90,16 @@ class _StoreMessages {
   /// - Нет соединения с интернетом.
   static final MessageToast toastSocketException = MessageToast(
     message: tr.dialogs.messages.socketException,
+    toastTime: Toast.LENGTH_LONG,
+    gravity: ToastGravity.TOP,
+  );
+
+  /// Уведомление о невозможности установить соединение с сервером.
+  ///
+  /// Возникает если:
+  /// - Нет удается установить соединение с сервером погоды;
+  static final MessageToast toastTimeoutException = MessageToast(
+    message: '🕐🕜🕑👈',
     toastTime: Toast.LENGTH_LONG,
     gravity: ToastGravity.TOP,
   );

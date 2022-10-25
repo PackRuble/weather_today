@@ -1,4 +1,4 @@
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/models/place/place_model.dart';
 
 import '../../../const/countries_code.dart';
