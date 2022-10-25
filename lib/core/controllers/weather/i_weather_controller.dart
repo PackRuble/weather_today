@@ -88,9 +88,9 @@ abstract class IWeatherNotifier<T> extends StateNotifier<AsyncValue<T?>> {
     // making a request to the db. If it's empty return null
     else {
       logInfo('$T: Permission NOT granted. Trying to get the weather in db.');
-
-      weather = await getStoredWeather();
     }
+
+    weather ??= await getStoredWeather();
 
     state = AsyncValue.data(weather);
   }
