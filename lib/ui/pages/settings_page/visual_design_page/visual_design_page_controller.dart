@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
+import 'package:weather_today/core/controllers/weather/weather_onecall_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/models/models.dart';
 import 'package:weather_today/i18n/translations.g.dart';
@@ -37,9 +38,10 @@ class VisualDPageController {
       (ref) => ref.watch(AppLocalization.currentTranslation));
 
   /// Погода берется из заранее сохраненного json, который всегда доступен.
-  static final weatherMock = FutureProvider.autoDispose<WeatherOneCall>(
-      (ref) async => TestWeatherJson
-          .getOneCallWeatherToTest()); //можно просто сделать модельку
+  static final weatherMock = FutureProvider.autoDispose<WeatherOneCall?>(
+      (ref) async =>
+          ref.watch(weatherOneCallController.notifier).getStoredWeather());
+  // TestWeatherJson.getOneCallWeatherToTest()); //todo можно просто сделать модельку
 
   /// Применить значения по завершению редактирования опций.
   ///

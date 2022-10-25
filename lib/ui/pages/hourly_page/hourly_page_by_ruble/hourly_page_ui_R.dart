@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:open_weather_api/open_weather_api.dart';
-import 'package:weather_today/const/app_info.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/chart_main_forecast.dart';
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/chart_other_params_widget.dart';
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/chart_pop_widget.dart';
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/chart_wind_widget.dart';
 
+import '../../../shared/label_weather_widget.dart';
 import '../hourly_page_controller.dart';
 
 class HourlyPageByRuble extends ConsumerWidget {
@@ -33,14 +33,7 @@ class HourlyPageByRuble extends ConsumerWidget {
         const ChartWindWidget(),
         _divider,
         const ChartOtherWidget(),
-        Padding(
-          padding: const EdgeInsets.only(right: 8.0, top: 5.0, bottom: 5.0),
-          child: Text(
-            AppInfo.weatherService,
-            textAlign: TextAlign.end,
-            style: styles.bodySmall?.copyWith(fontStyle: FontStyle.italic),
-          ),
-        ),
+        const LabelWeatherWidget(padding: EdgeInsets.all(8.0)),
       ],
     );
   }
@@ -76,12 +69,12 @@ class _DateWidget extends ConsumerWidget {
               ],
             ),
           ),
-          Text(
-            DateFormat.MMMd().add_Hm().format(DateTime.now()),
-            style: styles.bodyMedium?.copyWith(
-              fontStyle: FontStyle.italic,
-            ),
-          ),
+          // Text(
+          //   DateFormat.MMMd().add_Hm().format(DateTime.now()),
+          //   style: styles.bodyMedium?.copyWith(
+          //     fontStyle: FontStyle.italic,
+          //   ),
+          // ),
         ],
       ),
     );

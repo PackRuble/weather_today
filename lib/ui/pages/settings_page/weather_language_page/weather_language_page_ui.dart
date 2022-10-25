@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/const/app_insets.dart';

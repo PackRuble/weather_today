@@ -2,7 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
@@ -11,9 +11,12 @@ import 'package:weather_today/extension/double_extension.dart';
 import 'package:weather_today/ui/shared/label_weather_widget.dart';
 import 'package:weather_today/ui/shared/shared_widget.dart';
 
+import '../../../shared/alerts_wrapper.dart';
 import '../../../utils/image_helper.dart';
 import '../../../utils/metrics_helper.dart';
 import '../daily_page_controller.dart';
+
+const Widget _divider = Divider(height: 4.0, thickness: 1.0);
 
 /// Страница погоды на 7 дней.
 class DailyWeatherPageByRuble extends ConsumerWidget {
@@ -23,21 +26,92 @@ class DailyWeatherPageByRuble extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    const Widget divider = Divider(height: 4.0, thickness: 1.0);
+
     return ListView.separated(
       physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       itemBuilder: (BuildContext context, int index) {
         if (index + 1 == daily.length) {
           return const LabelWeatherWidget();
         }
-        return _GroupExpansionWidget(daily[index]);
+
+        List<Widget> content = [];
+
+        if (index == 0) {
+          content = [...content, const _AlertsListWidget(), divider];
+        }
+
+        content = [...content, _GroupExpansionWidget(daily[index])];
+
+        return Column(children: content);
       },
       separatorBuilder: (_, int index) {
         if (index + 2 == daily.length) {
           return const SizedBox.shrink();
         }
-        return const Divider(height: 4.0, thickness: 1.0);
+        return divider;
       },
       itemCount: daily.length,
+    );
+  }
+}
+
+class _AlertsListWidget extends ConsumerWidget {
+  const _AlertsListWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return AlertsWrapper(
+      asyncAlerts: ref.watch(DailyPageController.alerts),
+      data: (List<WeatherAlert> alerts) {
+        return Column(
+          children: [
+            for (final alert in alerts) ...[
+              _AlertTileWidget(alert),
+              if (alert != alerts.last) _divider,
+            ]
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _AlertTileWidget extends ConsumerWidget {
+  const _AlertTileWidget(this.alert);
+
+  final WeatherAlert alert;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(DailyPageController.tr);
+
+    final String date = alert.start!.day == alert.end!.day
+        ? t.global.time.timeFromTimeSToTimeEnl(
+            time: DateFormat('dd.MM').format(alert.start!),
+            timeStart: DateFormat.H().format(alert.start!),
+            timeEnd: DateFormat.H().format(alert.end!))
+        : t.global.time.fromTimeToTimeNl(
+            timeStart: DateFormat('dd.MM').format(alert.start!),
+            timeEnd: DateFormat('dd.MM').format(alert.end!));
+
+    // coldfix Когда-нибудь я узнаю, как решать эти проблемы с переполнением
+    // в leading и trailing в ListTile
+    return ListTile(
+      leading: UnconstrainedBox(
+        alignment: Alignment.topCenter,
+        constrainedAxis: Axis.horizontal,
+        child: SizedBox(
+          width: 90.0,
+          child: Text(date, textAlign: TextAlign.center),
+        ),
+      ),
+      title: Text(alert.event!),
+      subtitle: Text(alert.description!),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+      tileColor: Theme.of(context).errorColor.withOpacity(0.2),
     );
   }
 }
@@ -110,7 +184,7 @@ class TileDailyWidget extends ConsumerWidget {
           children: [
             Transform.rotate(
               angle:
-              MetricsHelper.fromRadiansToDegrees(weather.windDegree ?? 0),
+                  MetricsHelper.fromRadiansToDegrees(weather.windDegree ?? 0),
               child: Icon(AppIcons.directWind,
                   color: theme.iconTheme.color, size: 28.0),
             ),
@@ -349,9 +423,10 @@ class _ExpandedWidget extends ConsumerWidget {
     );
   }
 
-  Row _buildRow({required double height,
-    required List<Widget> left,
-    required List<Widget> right}) {
+  Row _buildRow(
+      {required double height,
+      required List<Widget> left,
+      required List<Widget> right}) {
     return Row(
       children: [
         Expanded(
@@ -382,10 +457,10 @@ class _ExpandedWidget extends ConsumerWidget {
 
   /// Заголовок показателей.
   Widget _buildTitleRow(String title) => Align(
-    alignment: Alignment.centerLeft,
-    child: HeaderRWidget(
-      title,
-      padding: const EdgeInsets.all(4.0),
-    ),
-  );
+        alignment: Alignment.centerLeft,
+        child: HeaderRWidget(
+          title,
+          padding: const EdgeInsets.all(4.0),
+        ),
+      );
 }

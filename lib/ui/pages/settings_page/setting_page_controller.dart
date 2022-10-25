@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/core/controllers/general_settings_controller.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';

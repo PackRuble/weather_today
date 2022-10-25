@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_icons.dart';
-import 'package:weather_today/const/app_info.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/pages/current_page/current_page_controller.dart';
-import 'package:weather_today/ui/shared/alerts_wrapper.dart';
+import 'package:weather_today/ui/shared/label_weather_widget.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
 import '../../../shared/rowtile_table_widget.dart';
@@ -35,16 +34,9 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
         const _DateWidget(),
         const _MainInfoWidget(),
         const _MainDescriptionWidget(),
-        Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: Text(
-            AppInfo.weatherService,
-            textAlign: TextAlign.end,
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall
-                ?.copyWith(fontStyle: FontStyle.italic),
-          ),
+        const LabelWeatherWidget(
+          padding:
+              EdgeInsets.only(left: 8.0, right: 8.0, top: 0.0, bottom: 5.0),
         ),
         _divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.sun),
@@ -58,9 +50,9 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
         _divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.more),
         _CustomPadding(child: const _ExtendedInfoWidget()),
-        _divider,
-        _TitleWidget(t.mainPageDRuble.currentPage.headers.alerts),
-        const _AlertsWidget(),
+        // _divider,
+        // _TitleWidget(t.mainPageDRuble.currentPage.headers.alerts),
+        // const _AlertsWidget(),
         // const Divider(thickness: 3.0),
       ],
     );
@@ -169,12 +161,9 @@ class _MainInfoWidget extends ConsumerWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                width: 150.0,
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: ImageHelper.getWeatherIcon(weather.weatherIcon),
-                ),
+              SizedBox.square(
+                dimension: 150.0,
+                child: ImageHelper.getWeatherIcon(weather.weatherIcon),
               ),
             ],
           ),
@@ -458,70 +447,6 @@ class _ExtendedInfoWidget extends ConsumerWidget {
         if (_visibility != null)
           RowItem(AppIcons.visibility, t.weather.visibility, '$_visibility %'),
       ],
-    );
-  }
-}
-
-class _AlertsWidget extends ConsumerWidget {
-  const _AlertsWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(CurrentPageController.tr);
-
-    return AlertsWrapper(
-        asyncAlerts: ref.watch(CurrentPageController.alerts),
-        data: (List<WeatherAlert> alerts) {
-          return Column(
-            children: [
-              for (final alert in alerts) ...[
-                _AlertTileWidget(alert),
-                if (alert != alerts.last) const Divider(height: 1.0),
-              ]
-            ],
-          );
-        },
-        valueIsEmpty: Padding(
-          padding: const EdgeInsets.all(inset),
-          child: Text(t.weather.quietlyOnTheHorizon),
-        ));
-  }
-}
-
-class _AlertTileWidget extends ConsumerWidget {
-  const _AlertTileWidget(this.alert);
-
-  final WeatherAlert alert;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(CurrentPageController.tr);
-
-    final String date = alert.start!.day == alert.end!.day
-        ? t.global.time.timeFromTimeSToTimeEnl(
-            time: DateFormat('dd.MM').format(alert.start!),
-            timeStart: DateFormat.H().format(alert.start!),
-            timeEnd: DateFormat.H().format(alert.end!))
-        : t.global.time.fromTimeToTimeNl(
-            timeStart: DateFormat('dd.MM').format(alert.start!),
-            timeEnd: DateFormat('dd.MM').format(alert.end!));
-
-    // coldfix Когда-нибудь я узнаю, как решать эти проблемы с переполнением
-    // в leading и trailing в ListTile
-    return ListTile(
-      leading: UnconstrainedBox(
-        alignment: Alignment.topCenter,
-        constrainedAxis: Axis.horizontal,
-        child: SizedBox(
-          width: 90.0,
-          child: Text(date, textAlign: TextAlign.center),
-        ),
-      ),
-      title: Text(alert.event!),
-      subtitle: Text(alert.description!),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
     );
   }
 }

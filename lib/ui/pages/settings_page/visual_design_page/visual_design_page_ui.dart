@@ -1,7 +1,7 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/models/models.dart';
@@ -138,7 +138,7 @@ class _SaveButtonWidget extends ConsumerWidget {
 
     return isNeedSave
         ? IconButton(
-      onPressed: ref.read(VisualDPageController.instance).saveAllChanges,
+            onPressed: ref.read(VisualDPageController.instance).saveAllChanges,
             icon: const Icon(Icons.done),
           )
         : const SizedBox.shrink();
@@ -161,8 +161,7 @@ class _DesignWidgetChip extends ConsumerWidget {
         return ChipInCloud(
           selected: _selected == _designs[index],
           label: Text(_designs[index].toCamelCaseToWords()),
-          onSelected: (_) =>
-              ref
+          onSelected: (_) => ref
               .read(VisualDPageController.instance)
               .setVisualDesign(_designs[index]),
         );

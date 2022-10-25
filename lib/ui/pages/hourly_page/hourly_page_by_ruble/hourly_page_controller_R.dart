@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/chart_model.dart';
 
 import '../hourly_page_controller.dart';

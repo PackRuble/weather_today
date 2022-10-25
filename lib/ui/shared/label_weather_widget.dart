@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/const/app_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Виджет-плашка поставщика погоды.
-class LabelWeatherWidget extends ConsumerWidget {
+class LabelWeatherWidget extends StatelessWidget {
   const LabelWeatherWidget({
-    this.padding = const EdgeInsets.only(right: 8.0, top: 5.0, bottom: 5.0),
+    this.padding = const EdgeInsets.all(5.0),
     this.alignment = Alignment.centerRight,
   });
 
@@ -13,21 +12,42 @@ class LabelWeatherWidget extends ConsumerWidget {
   final EdgeInsets padding;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    const String nameService = AppInfo.weatherService;
+  Widget build(BuildContext context) {
+    const String nameService = 'Weather data provided by ';
+    final Uri urlService = Uri.parse('https://openweathermap.org/');
+
+    final textStyle = Theme.of(context).textTheme.bodySmall;
 
     return Padding(
       padding: padding,
+      // child: SizedBox(
+      //   height: 30.0,
       child: Align(
         alignment: alignment,
-        child: Text(
-          nameService,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(fontStyle: FontStyle.italic),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Text.rich(const TextSpan(text: nameService), style: textStyle),
+                InkWell(
+                  onTap: () => launchUrl(urlService,
+                      mode: LaunchMode.externalApplication),
+                  child: Text(
+                    'OpenWeather',
+                    style: textStyle?.copyWith(
+                        decoration: TextDecoration.underline,
+                        color: Colors.blue),
+                  ),
+                ),
+              ],
+            ),
+            // Image.asset(
+            //     'assets/images/attribution/owm/openweather_master_logo.png'),
+          ],
         ),
       ),
+      // ),
     );
   }
 }

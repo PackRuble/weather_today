@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loggy/loggy.dart';
+import 'package:weather_pack/weather_pack.dart';
 
 // todo: заменить на пакетные пути
 
@@ -14,15 +15,15 @@ class ImageHelper {
   /// [onError] - если произошла ошибка загрузки.
   static Widget getWeatherIcon(String? weatherIcon, [String onError = '🌈']) =>
       Image.asset(
-        'assets/weather_icons/$weatherIcon.png',
-        package: 'open_weather_api',
+        'assets/weather_icons/@4/$weatherIcon.png',
+        // ImagePathWeather.getPathWeatherIcon('weatherIcon' ?? ''),
+        package: ImagePathWeather.packageName,
         filterQuality: FilterQuality.high,
         errorBuilder: (_, e, s) {
+          // coldfix: await fix https://github.com/flutter/flutter/issues/107416
           logWarning('*$weatherIcon* not found assets weatherIcon');
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(onError),
-          );
+
+          return Text(onError);
         },
       );
 

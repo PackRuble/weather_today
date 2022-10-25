@@ -2,7 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/const/app_insets.dart';
@@ -94,12 +94,12 @@ class _DateWidget extends ConsumerWidget {
               ],
             ),
           ),
-          Text(
-            DateFormat.MMMd().add_Hm().format(DateTime.now()),
-            style: styles.bodyMedium?.copyWith(
-              fontStyle: FontStyle.italic,
-            ),
-          ),
+          // Text(
+          //   DateFormat.MMMd().add_Hm().format(DateTime.now()),
+          //   style: styles.bodyMedium?.copyWith(
+          //     fontStyle: FontStyle.italic,
+          //   ),
+          // ),
         ],
       ),
     );
@@ -182,11 +182,10 @@ class TileHourlyWidget extends ConsumerWidget {
                 : Text(
                     DateFormat('HH:mm').format(weather.date ?? DateTime.now())),
           ),
-          SizedBox(
-              width: 50.0,
-              child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: ImageHelper.getWeatherIcon(weather.weatherIcon))),
+          SizedBox.square(
+            dimension: 50.0,
+            child: ImageHelper.getWeatherIcon(weather.weatherIcon),
+          ),
           const SizedBox(width: 6.0),
           SizedBox(
             width: 40.0,

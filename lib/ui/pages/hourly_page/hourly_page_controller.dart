@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/weather/weather_onecall_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
@@ -23,8 +23,8 @@ class HourlyPageController {
 
   /// Погода ONE_CALL на 2 дня почасовая [WeatherHourly].
   static final hourly = Provider<AsyncValue<List<WeatherHourly>>>((ref) {
-    final AsyncValue<WeatherOneCall> asyncWeather =
-        ref.watch(weatherOneCallController);
+    final AsyncValue<WeatherOneCall?> asyncWeather =
+        ref.watch(weatherOneCallController); // hotfix: null
 
     if (asyncWeather.isRefreshing || asyncWeather.isLoading) {
       return const AsyncValue.loading();

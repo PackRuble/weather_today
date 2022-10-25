@@ -1,4 +1,4 @@
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/i18n/translations.g.dart';
 import 'package:weather_today/i18n/translations_enum.dart';
@@ -138,8 +138,14 @@ class MetricsHelper {
       // используем нужную точность знаков?
       if (precision != null) {
         result = units.valueToString(value, precision);
+
+        // ignore: parameter_assignments
+        value = units.value(value, precision);
       } else {
         result = units.valueToString(value);
+
+        // ignore: parameter_assignments
+        value = units.value(value);
       }
 
       // заменяем минус на тире в обязательном порядке

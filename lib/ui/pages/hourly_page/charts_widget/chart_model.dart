@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/ui/feature/chart_widget_feature/chart_utils.dart';
 import 'package:weather_today/ui/feature/chart_widget_feature/model/count_label.dart';
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/theme_charts.dart';

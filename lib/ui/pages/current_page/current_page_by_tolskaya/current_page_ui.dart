@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_icons.dart';
-import 'package:weather_today/const/app_info.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/core/models/place/place_model.dart';
@@ -11,7 +10,7 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
-import '../../../shared/alerts_wrapper.dart';
+import '../../../shared/label_weather_widget.dart';
 import '../../../utils/metrics_helper.dart';
 import '../current_page_controller.dart';
 
@@ -37,8 +36,7 @@ class CurrentWeatherPageByTolskaya extends ConsumerWidget {
               weatherIcon: currently.weatherIcon,
               temp: currently.temp,
               tempFeelsLike: currently.tempFeelsLike),
-          const SizedBox(height: _indent),
-          const _AlertsWidget(),
+          const Divider(),
           _WindWidget(
             windSpeed: currently.windSpeed,
             windGust: currently.windGust,
@@ -51,14 +49,7 @@ class CurrentWeatherPageByTolskaya extends ConsumerWidget {
             sunrise: currently.sunrise,
             sunset: currently.sunset,
           ),
-          Text(
-            AppInfo.weatherService,
-            textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall
-                ?.copyWith(fontStyle: FontStyle.italic),
-          ),
+          const LabelWeatherWidget(alignment: Alignment.center),
         ],
       ),
     );
@@ -211,72 +202,6 @@ class _MainInfoWidget extends ConsumerWidget {
         ),
         const SizedBox(height: _indent),
       ],
-    );
-  }
-}
-
-class _AlertsWidget extends ConsumerWidget {
-  const _AlertsWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(CurrentPageController.tr);
-
-    return AlertsWrapper(
-      asyncAlerts: ref.watch(CurrentPageController.alerts),
-      valueIsEmpty: const Divider(),
-      data: (List<WeatherAlert> alerts) {
-        return Column(
-          children: [
-            for (final alert in alerts) ...[
-              if (alerts.first == alert) const Divider(height: 1.0),
-              _AlertTileWidget(alert),
-              const Divider(height: 1.0),
-            ]
-          ],
-        );
-      },
-    );
-  }
-}
-
-class _AlertTileWidget extends ConsumerWidget {
-  const _AlertTileWidget(this.alert);
-
-  final WeatherAlert alert;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(CurrentPageController.tr);
-
-    final String date = alert.start!.day == alert.end!.day
-        ? t.global.time.timeFromTimeSToTimeEnl(
-            time: DateFormat('dd.MM').format(alert.start!),
-            timeStart: DateFormat.H().format(alert.start!),
-            timeEnd: DateFormat.H().format(alert.end!))
-        : t.global.time.fromTimeToTimeNl(
-            timeStart: DateFormat('dd.MM').format(alert.start!),
-            timeEnd: DateFormat('dd.MM').format(alert.end!));
-
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
-      horizontalTitleGap: 0.0,
-      tileColor: Theme.of(context).errorColor.withOpacity(0.2),
-      leading: UnconstrainedBox(
-        alignment: Alignment.topCenter,
-        constrainedAxis: Axis.horizontal,
-        child: SizedBox(
-          width: 90.0,
-          child: Text(date, textAlign: TextAlign.center),
-        ),
-      ),
-      title: Text(
-        alert.description!,
-        style: Theme.of(context).textTheme.bodyMedium,
-      ),
-      // subtitle: Text(alert.description!),
     );
   }
 }
