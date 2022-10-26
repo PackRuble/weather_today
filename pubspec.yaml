@@ -23,10 +23,7 @@ dependencies:
   expandable: ^5.0.1
   intro_slider: ^3.0.10 # replace with your own solution
   country_icons: ^2.0.2
-  fluttertoast: ^8.0.9 # Пакет предназначен для показа системных уведомлений
-  #  flutter_portal: ^1.0.0-dev.2
-  #  flutter_speed_dial: ^5.0.0+1
-  #  shimmer: ^2.0.0
+  fluttertoast: ^8.1.1
   fl_chart: ^0.55.2
 
   # Theme
@@ -56,27 +53,19 @@ dependencies:
   intl: ^0.17.0
   loggy: ^2.0.1+1
   url_launcher: ^6.1.6
-  #  equatable: ^2.0.3
-  #  nanoid: ^1.0.0
-  meta: ^1.8.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  json_serializable: ^6.5.1
+  json_serializable: ^6.5.3
   auto_route_generator: ^5.0.3
   build_runner: ^2.3.2
   icons_launcher: ^2.0.5
-
-  #  You can let the library rebuild automatically for you.
-  #
-  #  command -> flutter pub run slang:watch
   slang_build_runner: ^3.1.0
-
-  freezed: ^2.2.0 # await updating auto_route
-
+  freezed: ^2.2.0
   lint: ^1.10.0
+  meta: ^1.8.0
 
 flutter:
 
