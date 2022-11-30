@@ -25,7 +25,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final bool showIntro = ref.watch(AppGeneralSettings.showIntro);
 
-    if (true ?? showIntro) {
+    if (showIntro) {
       return const WrapperPage(child: IntroPage());
     }
 

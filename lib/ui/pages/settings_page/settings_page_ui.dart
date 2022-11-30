@@ -55,6 +55,7 @@ class _TileSetting extends StatelessWidget {
     this.subtitle,
     this.trailing,
     required this.onTap,
+    this.onLongPress,
   });
 
   final IconData leading;
@@ -62,6 +63,7 @@ class _TileSetting extends StatelessWidget {
   final String? subtitle;
   final IconData? trailing;
   final Function() onTap;
+  final Function()? onLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +91,7 @@ class _TileSetting extends StatelessWidget {
         ],
       ),
       onTap: onTap,
+      onLongPress: onLongPress,
     );
   }
 }
@@ -316,6 +319,8 @@ class _TileAboutAppWidget extends ConsumerWidget {
       title: t.settingsPage.aboutAppTile.tileTitle,
       onTap: () async =>
           ref.read(SettingPageController.instance).dialogAboutApp(context),
+      onLongPress: () =>
+          ref.read(SettingPageController.instance).dialogAppDebug(context),
     );
   }
 }

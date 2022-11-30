@@ -57,7 +57,8 @@ class AppGeneralSettings with Updater {
   static final showIntro =
       StateProvider<bool>((ref) => DbStore.showIntroDefault);
 
-  Future<void> setIsIntro(bool value) async {
+  Future<void> setIsIntro(bool value, [bool isNotify = true]) async {
+    if (!isNotify) return saveDb<bool>(DbStore.showIntro, value);
     await saveAndUpdate<bool>(showIntro, DbStore.showIntro, value);
   }
 }

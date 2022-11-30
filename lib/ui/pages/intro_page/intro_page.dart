@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:weather_today/core/controllers/general_settings_controller.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/i18n/translations_enum.dart';
 import 'package:weather_today/ui/pages/intro_page/intro_page_controller.dart';
@@ -206,10 +207,7 @@ class _RightButtonWidget extends ConsumerWidget {
     Widget doneButton() {
       return createButton(
         tr.introPage.doneButton,
-        () => controller.nextPage(
-          duration: const Duration(milliseconds: _durationMill),
-          curve: Curves.ease,
-        ),
+        () => ref.read(AppGeneralSettings.instance).setIsIntro(false),
       );
     }
 
