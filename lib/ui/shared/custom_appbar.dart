@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/const/app_colors.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
+
+import 'theme_button.dart';
 
 /// Кастомный AppBar для всех экранов приложения.
 class RAppBar extends ConsumerWidget implements PreferredSizeWidget {
@@ -22,15 +22,6 @@ class RAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bool isLight = AppColors.of(context).isLight;
-
-    final Widget themeButton = IconButton(
-      onPressed: () => ref
-          .read(AppTheme.instance)
-          .setThemeMode(isLight ? ThemeMode.dark : ThemeMode.light),
-      icon: Icon(isLight ? Icons.light_mode_rounded : Icons.nightlight_round),
-    );
-
     // bug нельзя даже изменить цвет иконок, ждем исправления:
     // https://github.com/flutter/flutter/issues/110878
     return AppBar(
@@ -41,7 +32,7 @@ class RAppBar extends ConsumerWidget implements PreferredSizeWidget {
         overflow: TextOverflow.fade,
       ),
       actions: [
-        if (addThemeButton) themeButton,
+        if (addThemeButton) const ChangerThemeButton(),
         if (actions != null) ...actions!,
       ],
     );
