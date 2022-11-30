@@ -211,6 +211,19 @@
       "set": "Set"
     }
   },
+  "intro_page": {
+    "tile1title": "CHECK",
+    "tile1subtitle": "Super-accurate weather for 48 hours and current for 7 days. Don't get caught in the rain - there are weather warnings",
+    "tile2title": "MEASURE",
+    "tile2subtitle": "Use your preferred units of temperature, speed, and pressure",
+    "tile3title": "SAVE",
+    "tile3subtitle": "Favorite locations are always at your fingertips. What's the weather like in London today?",
+    "tile4title": "VISUALIZE",
+    "tile4subtitle": "Colorful color themes will take care of the bad mood in gloomy weather. There's a nighttime theme",
+    "previous_button": "Back",
+    "next_button": "Next",
+    "done_button": "Done"
+  },
   "weather": {
     "condition": {
       "thunderstorm": "Thunderstorm",
