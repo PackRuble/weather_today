@@ -1,16 +1,15 @@
 /// Generated file. Do not edit.
 ///
 /// Locales: 2
-/// Strings: 562 (281 per locale)
+/// Strings: 584 (292 per locale)
 ///
-/// Built on 2022-10-07 at 16:16 UTC
+/// Built on 2022-11-30 at 07:15 UTC
 import 'package:slang/builder/model/node.dart';
 import 'package:slang_flutter/slang_flutter.dart';
 
 export 'package:slang_flutter/slang_flutter.dart';
 
 part 'translations_en.g.dart';
-
 part 'translations_ru.g.dart';
 
 const AppLocale _baseLocale = AppLocale.ru;
@@ -50,7 +49,6 @@ class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, TranslationsRu> {
 
   // static aliases (checkout base methods for documentation)
   static AppLocale parse(String rawLocale) => instance.parse(rawLocale);
-
   static AppLocale parseLocaleParts(
           {required String languageCode,
           String? scriptCode,
@@ -59,6 +57,5 @@ class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, TranslationsRu> {
           languageCode: languageCode,
           scriptCode: scriptCode,
           countryCode: countryCode);
-
   static AppLocale findDeviceLocale() => instance.findDeviceLocale();
 }
