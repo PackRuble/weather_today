@@ -244,8 +244,12 @@ class LocaleButtonWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final locale = ref.watch(AppLocalization.currentLocale);
 
+    final theme = Theme.of(context);
+
     final focus = useFocusNode()..unfocus();
 
+    // bug: Selected item is correctly highlighted on the web and desktop, but on the android
+    //  https://github.com/flutter/flutter/issues/70294
     return DropdownButton<AppLocale>(
       value: locale,
       onChanged: (_) => focus.unfocus(),
@@ -253,10 +257,16 @@ class LocaleButtonWidget extends HookConsumerWidget {
       alignment: Alignment.bottomCenter,
       isExpanded: true,
       items: AppLocale.values
-          .map((e) => DropdownMenuItem(
+          .map((e) => DropdownMenuItem<AppLocale>(
                 value: e,
                 onTap: () => ref.watch(AppLocalization.instance).setLocale(e),
-                child: Text(e.nameTr, textAlign: TextAlign.center),
+                child: Text(
+                  e.nameTr,
+                  textAlign: TextAlign.center,
+                  // changed after _bug fixed
+                  style: theme.textTheme.titleMedium?.copyWith(
+                      color: e == locale ? theme.colorScheme.secondary : null),
+                ),
               ))
           .toList(),
       selectedItemBuilder: (_) {
