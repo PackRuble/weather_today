@@ -5,11 +5,15 @@ flutter build apk --target-platform=android-arm64 --split-per-abi
 ```
 
 ## Localization
+https://pub.dev/packages/slang#tools
 ```shell
-flutter pub run slang:watch
+flutter pub run slang watch
 ```
 ```shell
-flutter pub run slang:build
+flutter pub run slang build
+```
+```shell
+flutter pub run slang analyze
 ```
 
 ## Build files
