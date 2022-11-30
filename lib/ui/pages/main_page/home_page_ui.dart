@@ -13,7 +13,7 @@ import '../../shared/wrapper_page.dart';
 import '../current_page/current_page_main.dart';
 import '../daily_page/daily_page_main.dart';
 import '../hourly_page/hourly_page_main.dart';
-import '../intro/intro_page.dart';
+import '../intro_page/intro_page.dart';
 import '../settings_page/settings_page_ui.dart';
 import 'home_page_controller.dart';
 
@@ -25,7 +25,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final bool showIntro = ref.watch(AppGeneralSettings.showIntro);
 
-    if (showIntro) {
+    if (true ?? showIntro) {
       return const WrapperPage(child: IntroPage());
     }
 
