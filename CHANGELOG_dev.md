@@ -1,3 +1,23 @@
+
+## 3.0.0-pre.2
+
+* upd: intro page
+* add: other platforms
+* add: attribution owm service
+* improve interface weather controller
+* upd: package weather_pack
+* upd: translation
+* some adaptation on windows
+
+## 3.0.0-pre.1
+
+### Quick app building
+
+* update packages in `pubspec.yaml`
+* fix gradle version
+* build app after creating local repository from github
+* create a separate file `icons_launcher.yaml`
+
 ## 3.0.0-pre.0
 
 ### Major update of the project. What's new?
@@ -11,12 +31,3 @@
 * fix Updater using `meta`
 * fix some lint in code
 * fix constructor `ServiceInit` class
-
-## 3.0.0-pre.1
-
-### Quick app building
-
-* update packages in `pubspec.yaml`
-* fix gradle version
-* build app after creating local repository from github
-* create a separate file `icons_launcher.yaml`
