@@ -1,3 +1,8 @@
+## 3.0.0-pre.3
+
+* fix: attribution label
+* fix: overflow in bottom navigation bar
+* fix: chip in visual page more without checkmarks
 
 ## 3.0.0-pre.2
 
