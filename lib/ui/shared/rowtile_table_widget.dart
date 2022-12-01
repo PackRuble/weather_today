@@ -21,12 +21,22 @@ class RowItem extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
+        mainAxisSize: MainAxisSize.max,
         children: [
           Icon(icon),
           const SizedBox(width: 16.0),
-          Text(title, style: textTheme.bodyMedium),
-          const Spacer(),
-          Text(value, style: textTheme.bodyMedium),
+          Expanded(flex: 10, child: Text(title, style: textTheme.bodyMedium)),
+          Flexible(
+            flex: 11,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                value,
+                style: textTheme.bodyMedium,
+                textAlign: TextAlign.end,
+              ),
+            ),
+          ),
         ],
       ),
     );

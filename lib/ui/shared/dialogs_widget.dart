@@ -27,7 +27,7 @@ class DialogOption<T> extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (icon != null) ...[Icon(icon), const SizedBox(width: 5.0)],
-            Text.rich(TextSpan(text: title)),
+            Flexible(child: Text.rich(TextSpan(text: title))),
           ],
         ),
         selected: groupValue == value,

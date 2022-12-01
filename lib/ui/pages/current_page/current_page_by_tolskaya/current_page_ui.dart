@@ -245,17 +245,19 @@ class _WindWidget extends ConsumerWidget {
         const SizedBox(width: _indent),
         const Icon(AppIcons.wind),
         const SizedBox(width: _indent),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: _indent),
-            Text(_windSpeed, style: styles.bodyMedium),
-            if (_windGust != null) ...[
+        Flexible(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               const SizedBox(height: _indent),
-              Text(_windGust, style: styles.bodyMedium),
-            ]
-          ],
+              Text(_windSpeed, style: styles.bodyMedium),
+              if (_windGust != null) ...[
+                const SizedBox(height: _indent),
+                Text(_windGust, style: styles.bodyMedium),
+              ]
+            ],
+          ),
         ),
       ],
     );
@@ -275,7 +277,7 @@ class _OtherInfoWidget extends ConsumerWidget {
           const SizedBox(width: _indent),
           Icon(icon),
           const SizedBox(width: _indent),
-          Text('$value $desc'),
+          Flexible(child: Text('$value $desc')),
         ],
       ),
     );

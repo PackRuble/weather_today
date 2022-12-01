@@ -22,11 +22,12 @@ class AttributionWeatherWidget extends StatelessWidget {
     final textStyle =
         Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10);
 
-    return Padding(
-      padding: padding,
-      child: Align(
-        alignment: alignment,
+    return Align(
+      alignment: alignment,
+      child: Padding(
+        padding: padding,
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Image.asset(
@@ -35,7 +36,13 @@ class AttributionWeatherWidget extends StatelessWidget {
                   : 'assets/images/attribution/owm/openweather_negative_logo.png',
               width: 40,
             ),
-            Text.rich(const TextSpan(text: nameService), style: textStyle),
+            Flexible(
+              child: Text.rich(
+                textAlign: TextAlign.center,
+                const TextSpan(text: nameService),
+                style: textStyle,
+              ),
+            ),
             InkWell(
               onTap: () =>
                   launchUrl(urlService, mode: LaunchMode.externalApplication),

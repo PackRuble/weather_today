@@ -38,7 +38,7 @@ class DailyWeatherPageByRuble extends ConsumerWidget {
         List<Widget> content = [];
 
         if (index == 0) {
-          content = [...content, const _AlertsListWidget(), divider];
+          content = [...content, const _AlertsListWidget()];
         }
 
         content = [...content, _GroupExpansionWidget(daily[index])];
@@ -310,15 +310,21 @@ class _ExpandedWidget extends ConsumerWidget {
     final String _pressureUnits = MetricsHelper.getPressureUnits(pressureUnits);
 
     /// Одна тайл-строка.
-    Row _buildTile(String title, [String? value, String? unit]) {
+    Widget _buildTile(String title, [String? value, String? unit]) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            title,
-            style: stylesText.labelLarge,
+          Expanded(
+            flex: 2,
+            child: Text(
+              title,
+              overflow: TextOverflow.fade,
+              style: stylesText.labelLarge,
+            ),
           ),
+          const SizedBox(width: 2.0),
           Text.rich(
+            textAlign: TextAlign.end,
             TextSpan(
               style: stylesText.labelLarge,
               children: <TextSpan>[
@@ -340,6 +346,7 @@ class _ExpandedWidget extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildTitleRow(t.weather.riseAndSetPl),
               _buildRow(
@@ -423,19 +430,16 @@ class _ExpandedWidget extends ConsumerWidget {
     );
   }
 
-  Row _buildRow(
+  Widget _buildRow(
       {required double height,
       required List<Widget> left,
       required List<Widget> right}) {
     return Row(
       children: [
         Expanded(
-          child: SizedBox(
-            height: height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: left,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: left,
           ),
         ),
         SizedBox(
@@ -443,12 +447,9 @@ class _ExpandedWidget extends ConsumerWidget {
           child: _vDivider,
         ),
         Expanded(
-          child: SizedBox(
-            height: height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: right,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: right,
           ),
         ),
       ],

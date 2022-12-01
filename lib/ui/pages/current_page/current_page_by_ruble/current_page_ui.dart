@@ -14,7 +14,7 @@ import '../../../shared/rowtile_table_widget.dart';
 import '../../../shared/shared_widget.dart';
 import '../../../utils/metrics_helper.dart';
 
-const double inset = 15.0;
+const double _inset = 15.0;
 
 /// Страница с CURRENT-погодой, дизайн ByRuble.
 class CurrentWeatherPageByRuble extends ConsumerWidget {
@@ -40,27 +40,23 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
         ),
         _divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.sun),
-        _CustomPadding(child: const _SunriseInfoWidget()),
+        _customPadding(child: const _SunriseInfoWidget()),
         _divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.wind),
-        _CustomPadding(child: const _WindWidget()),
+        _customPadding(child: const _WindWidget()),
         _divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.clouds),
-        _CustomPadding(child: const CloudinessWidget()),
+        _customPadding(child: const CloudinessWidget()),
         _divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.more),
-        _CustomPadding(child: const _ExtendedInfoWidget()),
-        // _divider,
-        // _TitleWidget(t.mainPageDRuble.currentPage.headers.alerts),
-        // const _AlertsWidget(),
-        // const Divider(thickness: 3.0),
+        _customPadding(child: const _ExtendedInfoWidget()),
       ],
     );
   }
 
-  Padding _CustomPadding({required Widget child}) {
+  Padding _customPadding({required Widget child}) {
     return Padding(
-      padding: const EdgeInsets.all(inset),
+      padding: const EdgeInsets.all(_inset),
       child: child,
     );
   }
@@ -76,10 +72,7 @@ class _TitleWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return HeaderRWidget(
-      title,
-      // fontStyle: FontStyle.italic,
-    );
+    return HeaderRWidget(title);
   }
 }
 
@@ -144,26 +137,31 @@ class _MainInfoWidget extends ConsumerWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SizedBox(
-                width: 150.0,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text.rich(
-                    TextSpan(
-                      style: styles.bodyMedium?.copyWith(fontSize: 72.0),
-                      children: <TextSpan>[
-                        TextSpan(text: _temp),
-                        TextSpan(
-                            text: _tempUnits,
-                            style: styles.bodyMedium?.copyWith(fontSize: 60.0)),
-                      ],
+              Flexible(
+                child: SizedBox(
+                  width: 150.0,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text.rich(
+                      TextSpan(
+                        style: styles.bodyMedium?.copyWith(fontSize: 72.0),
+                        children: <TextSpan>[
+                          TextSpan(text: _temp),
+                          TextSpan(
+                              text: _tempUnits,
+                              style:
+                                  styles.bodyMedium?.copyWith(fontSize: 60.0)),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-              SizedBox.square(
-                dimension: 150.0,
-                child: ImageHelper.getWeatherIcon(weather.weatherIcon),
+              Flexible(
+                child: SizedBox.square(
+                  dimension: 150.0,
+                  child: ImageHelper.getWeatherIcon(weather.weatherIcon),
+                ),
               ),
             ],
           ),
@@ -171,11 +169,11 @@ class _MainInfoWidget extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(
-              width: 150.0,
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
+            Flexible(
+              child: SizedBox(
+                width: 150.0,
                 child: Text.rich(
+                  textAlign: TextAlign.center,
                   TextSpan(
                     style: styles.bodyMedium,
                     children: <TextSpan>[
@@ -188,12 +186,14 @@ class _MainInfoWidget extends ConsumerWidget {
                 ),
               ),
             ),
-            SizedBox(
-              width: 150.0,
-              child: Text(
-                _weatherMain,
-                style: styles.bodyMedium,
-                textAlign: TextAlign.center,
+            Flexible(
+              child: SizedBox(
+                width: 150.0,
+                child: Text(
+                  _weatherMain,
+                  style: styles.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ],
@@ -329,48 +329,52 @@ class _WindWidget extends ConsumerWidget {
     final TextTheme styles = Theme.of(context).textTheme;
 
     return Row(
+      mainAxisSize: MainAxisSize.max,
       children: [
-        SizedBox(
-          height: 70.0,
-          width: 70.0,
-          child: FittedBox(
-            child: Transform.rotate(
-              angle: windDegreeAngle,
-              child: const Icon(AppIcons.directWind),
+        Flexible(
+          flex: 1,
+          child: Transform.rotate(
+            filterQuality: FilterQuality.high,
+            angle: windDegreeAngle,
+            child: const FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Icon(AppIcons.directWind, size: 70),
             ),
           ),
         ),
-        const Spacer(flex: 1),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text.rich(
-              TextSpan(
-                style: styles.bodyMedium,
-                children: <TextSpan>[
-                  TextSpan(text: _windSpeed, style: styles.headlineSmall),
-                  TextSpan(text: ' $_speedUnits'),
-                  if (_windSide != null) ...[
-                    const TextSpan(text: ', '),
-                    TextSpan(text: _windSide, style: styles.bodyLarge),
-                  ],
-                ],
-              ),
-            ),
-            if (_windGust != null)
+        const SizedBox(width: 8.0),
+        Flexible(
+          flex: 3,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Text.rich(
                 TextSpan(
                   style: styles.bodyMedium,
                   children: <TextSpan>[
-                    TextSpan(text: t.weather.gustUp),
-                    TextSpan(text: ' $_windGust', style: styles.bodyLarge),
+                    TextSpan(text: _windSpeed, style: styles.headlineSmall),
                     TextSpan(text: ' $_speedUnits'),
+                    if (_windSide != null) ...[
+                      const TextSpan(text: ', '),
+                      TextSpan(text: _windSide, style: styles.bodyLarge),
+                    ],
                   ],
                 ),
-              )
-          ],
+              ),
+              if (_windGust != null)
+                Text.rich(
+                  TextSpan(
+                    style: styles.bodyMedium,
+                    children: <TextSpan>[
+                      TextSpan(text: t.weather.gustUp),
+                      TextSpan(text: ' $_windGust', style: styles.bodyLarge),
+                      TextSpan(text: ' $_speedUnits'),
+                    ],
+                  ),
+                )
+            ],
+          ),
         ),
-        const Spacer(flex: 5),
       ],
     );
   }
@@ -387,38 +391,25 @@ class CloudinessWidget extends ConsumerWidget {
     if (cloudiness == null) return const SizedBox.shrink();
 
     return Row(
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(10, (int index) {
-        if (cloudiness >= index * 10) {
-          return const Icon(Icons.cloud, color: Colors.lightBlueAccent);
-        } else {
-          return const Icon(Icons.cloud_outlined,
-              color: Colors.lightBlueAccent);
-        }
+        return Flexible(
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: cloudiness >= index * 10
+                  ? const Icon(Icons.cloud, color: Colors.lightBlueAccent)
+                  : const Icon(Icons.cloud_outlined,
+                      color: Colors.lightBlueAccent),
+            ),
+          ),
+        );
       }),
     );
   }
 }
-
-// class CloudinessWidget extends ConsumerWidget {
-//   const CloudinessWidget();
-//
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final double? cloudiness =
-//         ref.watch(CurrentPageController.current).value!.cloudiness;
-//
-//     if (cloudiness == null) return const SizedBox.shrink();
-//
-//     return ListTile(
-//       horizontalTitleGap: 0.0,
-//       minVerticalPadding: 0.0,
-//       onTap: () {},
-//       leading: const Icon(Icons.cloud),
-//       title: Text('$cloudiness % неба покрыто облаками'),
-//     );
-//   }
-// }
 
 class _ExtendedInfoWidget extends ConsumerWidget {
   const _ExtendedInfoWidget();
