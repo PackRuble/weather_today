@@ -301,6 +301,8 @@ class ChipsCloud extends ConsumerWidget {
     return Wrap(
       alignment: WrapAlignment.spaceEvenly,
       runAlignment: WrapAlignment.spaceEvenly,
+      spacing: 6.0,
+      runSpacing: 6.0,
       children: items,
     );
   }
@@ -319,17 +321,15 @@ class ChipInCloud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: ChoiceChip(
-        label: label,
-        elevation: 2.0,
-        selected: selected,
-        side: BorderSide(color: AppColors.of(context).chipBorderColor),
-        backgroundColor: AppColors.of(context).chipColor,
-        selectedColor: AppColors.of(context).chipSelectedColor,
-        onSelected: onSelected,
-      ),
+    return RawChip(
+      label: label,
+      elevation: 0.0,
+      showCheckmark: false,
+      selected: selected,
+      side: BorderSide(color: AppColors.of(context).chipBorderColor),
+      backgroundColor: AppColors.of(context).chipColor,
+      selectedColor: AppColors.of(context).chipSelectedColor,
+      onSelected: onSelected,
     );
   }
 }
