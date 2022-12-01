@@ -12,7 +12,7 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 import 'package:weather_today/ui/pages/hourly_page/hourly_page_controller.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
-import '../../../shared/label_weather_widget.dart';
+import '../../../shared/attribution_weather_widget.dart';
 import '../../../shared/rowtile_table_widget.dart';
 import '../../../utils/metrics_helper.dart';
 
@@ -50,7 +50,7 @@ class HourlyPageByTolskaya extends ConsumerWidget {
         },
         itemBuilder: (BuildContext context, int index) {
           if (index + 1 == hourly.length) {
-            return const LabelWeatherWidget();
+            return const AttributionWeatherWidget();
           }
           return Column(
             children: [

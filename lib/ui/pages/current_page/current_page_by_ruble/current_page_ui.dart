@@ -7,7 +7,7 @@ import 'package:weather_today/core/controllers/weather_service_controllers.dart'
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/pages/current_page/current_page_controller.dart';
-import 'package:weather_today/ui/shared/label_weather_widget.dart';
+import 'package:weather_today/ui/shared/attribution_weather_widget.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
 import '../../../shared/rowtile_table_widget.dart';
@@ -34,7 +34,7 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
         const _DateWidget(),
         const _MainInfoWidget(),
         const _MainDescriptionWidget(),
-        const LabelWeatherWidget(
+        const AttributionWeatherWidget(
           padding:
               EdgeInsets.only(left: 8.0, right: 8.0, top: 0.0, bottom: 5.0),
         ),

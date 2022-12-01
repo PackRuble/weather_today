@@ -10,7 +10,7 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
-import '../../../shared/label_weather_widget.dart';
+import '../../../shared/attribution_weather_widget.dart';
 import '../../../utils/metrics_helper.dart';
 import '../current_page_controller.dart';
 
@@ -49,7 +49,7 @@ class CurrentWeatherPageByTolskaya extends ConsumerWidget {
             sunrise: currently.sunrise,
             sunset: currently.sunset,
           ),
-          const LabelWeatherWidget(alignment: Alignment.center),
+          const AttributionWeatherWidget(alignment: Alignment.center),
         ],
       ),
     );

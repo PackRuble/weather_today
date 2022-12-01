@@ -8,7 +8,7 @@ import 'package:weather_today/ui/pages/hourly_page/charts_widget/chart_other_par
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/chart_pop_widget.dart';
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/chart_wind_widget.dart';
 
-import '../../../shared/label_weather_widget.dart';
+import '../../../shared/attribution_weather_widget.dart';
 import '../hourly_page_controller.dart';
 
 class HourlyPageByRuble extends ConsumerWidget {
@@ -33,7 +33,7 @@ class HourlyPageByRuble extends ConsumerWidget {
         const ChartWindWidget(),
         _divider,
         const ChartOtherWidget(),
-        const LabelWeatherWidget(padding: EdgeInsets.all(8.0)),
+        const AttributionWeatherWidget(padding: EdgeInsets.all(8.0)),
       ],
     );
   }
