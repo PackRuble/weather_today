@@ -7,6 +7,7 @@ class AppInfo {
   static const String flutterVersion = 'Channel stable v3.3.0';
   static const String copyright = '© 2022 $author';
   static const String author = 'Ruble Pack';
+  static const String mailAuthor = 'pack.ruble@gmail.com';
   static const String license = 'BSD 3-Clause License';
   static const String icon = 'assets/images/app_icon.png';
 
