@@ -54,15 +54,14 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       ),
       height: AppInsets.heightSearchBar,
       width: widthScreen - AppInsets.aroundPaddingSearchBar * 2,
-      // progress: isLoading,
       debounceDelay: Duration(milliseconds: SearchWidgetNotifier.debounceDelay),
       clearQueryOnClose: true,
       onQueryChanged: (String query) async =>
           ref.read(searchWidgetProvider.notifier).newRequest(query),
       onSubmitted: (String query) async =>
           ref.read(searchWidgetProvider.notifier).newRequest(query),
-      onFocusChanged: (bool isFocus) =>
-          ref.read(searchWidgetProvider.notifier).changeFocus(isFocus),
+      // onFocusChanged: (bool isFocus) =>
+      //     ref.read(searchWidgetProvider.notifier).changeFocus(isFocus),
       transition: CircularFloatingSearchBarTransition(),
       automaticallyImplyBackButton: false,
       leadingActions: [

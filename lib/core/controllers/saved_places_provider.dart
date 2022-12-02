@@ -32,7 +32,9 @@ class SavedPlacesNotifier extends StateNotifier<List<Place>> {
 
   // coldfix: create freezed states
   static List<Place> _conversionSavedPlacesDb(List<String> listJsonStr) {
-    if (listJsonStr.contains(DbStore.firstRun) && listJsonStr.length == 1) {
+    // В списке будет [DbStore.firstRun] только тогда, когда это первый запуск.
+    // В остальных случаях это будет пустой список
+    if (listJsonStr.contains(DbStore.firstRun)) {
       return initialSavedPlaces;
     } else {
       return listJsonStr.map((String strJson) {
@@ -67,7 +69,7 @@ class SavedPlacesNotifier extends StateNotifier<List<Place>> {
       // Ведь места с одинаковым местоположением.
       newList = [newPlace.copyWith(note: oldPlace.note), ...newList];
     } else {
-      // места не было в списке сохраненных
+      // место не в списке сохраненных
       newList = [newPlace, ...newList];
     }
 

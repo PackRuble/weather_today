@@ -26,8 +26,6 @@ class VisualDesignPage extends ConsumerWidget {
     final ScrollPhysics scrollPhysic =
         ref.watch(VisualDPageController.selectedScrollPhysic).scrollPhysics;
 
-    const Widget _divider = Divider(height: 12.0, thickness: 12.0);
-
     return WrapperPage(
       child: WillPopScope(
         onWillPop: () async =>
@@ -39,9 +37,7 @@ class VisualDesignPage extends ConsumerWidget {
           ),
           body: Column(
             children: [
-              _divider,
               const _ExampleTileDesign(),
-              _divider,
               Expanded(
                 child: ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -93,6 +89,12 @@ class _ExampleTileDesign extends ConsumerWidget {
               tolskaya_hourly.TileHourlyWidget(weatherMock.hourly![10]);
           break;
       }
+
+      const Widget _divider = Divider(height: 12.0, thickness: 12.0);
+
+      _testedWidget = Column(
+        children: [_divider, _testedWidget, _divider],
+      );
     }
 
     final double textScaleFactor =
@@ -298,12 +300,15 @@ class ChipsCloud extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Wrap(
-      alignment: WrapAlignment.spaceEvenly,
-      runAlignment: WrapAlignment.spaceEvenly,
-      spacing: 6.0,
-      runSpacing: 6.0,
-      children: items,
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Wrap(
+        alignment: WrapAlignment.spaceEvenly,
+        runAlignment: WrapAlignment.spaceEvenly,
+        spacing: 6.0,
+        runSpacing: 6.0,
+        children: items,
+      ),
     );
   }
 }

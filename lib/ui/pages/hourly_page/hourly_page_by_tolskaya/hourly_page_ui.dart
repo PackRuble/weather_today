@@ -201,7 +201,6 @@ class TileHourlyWidget extends ConsumerWidget {
           ),
           const SizedBox(width: 6.0),
           Text.rich(
-            //todo
             overflow: TextOverflow.fade,
             maxLines: 1,
             TextSpan(

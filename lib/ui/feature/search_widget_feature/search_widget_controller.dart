@@ -81,11 +81,11 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
   // ===========================================================================
 
   /// Изменение фокуса виджета
-  void changeFocus(bool isFocus) {
-    if (!isFocus) {
-      _ref.read(controllerBarProvider).close();
-    }
-  }
+  // void changeFocus(bool isFocus) {
+  //   if (!isFocus) {
+  //     _ref.read(controllerBarProvider).close();
+  //   }
+  // }
 
   /// Индикатор загрузки
   ///

@@ -11,7 +11,7 @@ class CurrentPageController {
 
   final Ref _ref;
 
-  /// Актуальная Weather_CURRENT. fixme: Это утечка памяти?
+  /// Актуальная Weather_CURRENT.
   static final current = Provider<AsyncValue<WeatherCurrent?>>(
       (ref) => ref.watch(weatherCurrentController));
 

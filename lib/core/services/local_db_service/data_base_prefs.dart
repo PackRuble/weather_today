@@ -5,8 +5,6 @@ import '../../../utils/logger/db_logger.dart';
 import '../../../utils/same_types.dart';
 import 'interface/i_data_base.dart';
 
-// coldfix: отдельный логгер для db с другими методами
-
 /// Модель для связи настроек компонентов приложения с SharedPreferences.
 class DataBasePrefs with DbLoggy implements IDataBase {
   DataBasePrefs();

@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:loggy/loggy.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/key_store.dart';
 import 'package:weather_today/core/services/local_db_service/data_base_controller.dart';
@@ -46,8 +47,16 @@ class ApiServiceOwm with Updater {
   Future<bool> isCorrectApiKey(String apiString) async =>
       _isCorrectApiKey(apiString);
 
-  Future<bool> _isCorrectApiKey(String apiString) async =>
-      OWMApiTest().isCorrectApiKey(apiString);
+  Future<bool> _isCorrectApiKey(String apiString) async {
+    try {
+      return OWMApiTest()
+          .isCorrectApiKey(apiString)
+          .timeout(const Duration(seconds: 10));
+    } catch (e, s) {
+      logError(e, s);
+      return false;
+    }
+  }
 
   /// Сбросить значение ключа к дефолтным.
   Future<void> resetUserApiKey() async {
@@ -57,7 +66,6 @@ class ApiServiceOwm with Updater {
 
   /// Установить пользовательский ключ
   Future<bool> setUserApiKey(String newApiKey) async {
-    // тодо добавить обработку ошибок
     if (!(await isCorrectApiKey(newApiKey))) return false;
 
     await saveAndUpdate(apiKey, DbStore.userApiKeyOWM, newApiKey);

@@ -65,25 +65,28 @@ class _TileWidget extends ConsumerWidget {
 
     final bool isCurrent = current == lang;
 
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          foregroundColor:
-              AppColors.of(context).theme.textTheme.bodyMedium?.color,
-          backgroundColor: isCurrent
-              ? AppColors.of(context).cardSelectedColor
-              : AppColors.of(context).cardColor,
-          side: BorderSide(
-            color: isCurrent
-                ? AppColors.of(context).cardSelectedBorder
-                : AppColors.of(context).cardBorderColor,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            foregroundColor:
+                AppColors.of(context).theme.textTheme.bodyMedium?.color,
+            backgroundColor: isCurrent
+                ? AppColors.of(context).cardSelectedColor
+                : AppColors.of(context).cardColor,
+            side: BorderSide(
+              color: isCurrent
+                  ? AppColors.of(context).cardSelectedBorder
+                  : AppColors.of(context).cardBorderColor,
+            ),
           ),
+          onPressed: () async => ref
+              .read(WeatherLanguagePageController.instance)
+              .setWeatherLanguage(lang),
+          child: Text(lang.name),
         ),
-        onPressed: () async => ref
-            .read(WeatherLanguagePageController.instance)
-            .setWeatherLanguage(lang),
-        child: Text(lang.name),
       ),
     );
   }

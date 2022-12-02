@@ -37,12 +37,10 @@ class DbStore {
   // ===========================================================================
 
   static const String currentPlace = 'currentPlace';
-  static const String currentPlaceDefault = ''; // coldfix - сделать разумней
+  static const String currentPlaceDefault = '';
 
   static const String savedPlaces = 'savedPlaces';
-  static const List<String> savedPlacesDefault = <String>[
-    firstRun
-  ]; // coldfix - сделать разумней
+  static const List<String> savedPlacesDefault = <String>[firstRun];
 
   static const String weatherOneCall = 'weatherOneCall';
   static const String weatherOneCallDefault = '';

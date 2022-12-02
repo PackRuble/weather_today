@@ -19,12 +19,6 @@ const bool _kDebugMode = fl_service.kDebugMode;
 /// Время ожидания вызова обновления погоды?
 const Duration _timeoutServiceOWM = Duration(seconds: 10);
 
-//coldfix: needs to be redesigned
-//  * correct try-catch
-//  * fix logging
-//  * fix dead code
-//  *
-
 /// Разрешено для OneCall API, пакет - Free:
 /// * 1,000 calls/day
 /// * 30,000 calls/month

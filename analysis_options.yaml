@@ -1,4 +1,3 @@
-#include: all_lint_rules.yaml
 include: package:lint/analysis_options.yaml
 
 analyzer:
@@ -15,7 +14,7 @@ linter:
     # Personal preference.
     require_trailing_commas: false
 
-    # In build method todo text
+    # In build method don't correct
     no_leading_underscores_for_local_identifiers: false
 
     # False positive for custom enum-like classes (such as Flutter's "AppColors")
@@ -29,9 +28,6 @@ linter:
 
     # Personal preference. I prefer "if (bool) return;" over having it in multiple lines
     always_put_control_body_on_new_line: false
-
-    # False positive when the future is returned by the function
-    #    discarded_futures: true #todo del
 
     # False positive
     one_member_abstracts: false

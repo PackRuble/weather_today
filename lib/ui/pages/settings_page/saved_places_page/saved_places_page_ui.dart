@@ -1,4 +1,5 @@
 import 'package:expandable/expandable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
@@ -38,33 +39,44 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
 
     return WrapperPage(
       child: Scaffold(
-        body: WrapperBodyWithFSBar(
-          body: listPlaces.isEmpty
-              ? Center(child: Text(t.savedPlacesPage.placesNotFound))
-              : ListView.separated(
-                  physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const Divider(
-                      height: 5.0,
-                    );
-                  },
-                  itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      children: [
-                        if (index == 0)
-                          TipRWidget(
-                            text: Text(
-                                '${AppSmiles.info} ${t.savedPlacesPage.tips.clickToMore}\n'
-                                '${AppSmiles.pinned} ${t.savedPlacesPage.tips.holdToSet}'),
-                          ),
-                        _TileFoundedWidget(listPlaces[index]),
-                        if (index == listPlaces.length - 1)
-                          const SizedBox(height: 50.0)
-                      ],
-                    );
-                  },
-                  itemCount: listPlaces.length,
-                ),
+        body: Stack(
+          children: [
+            WrapperBodyWithFSBar(
+              body: listPlaces.isEmpty
+                  ? Center(child: Text(t.savedPlacesPage.placesNotFound))
+                  : ListView.separated(
+                      physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const Divider(
+                          height: 5.0,
+                        );
+                      },
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            if (index == 0)
+                              TipRWidget(
+                                text: Text(
+                                    '${AppSmiles.info} ${t.savedPlacesPage.tips.clickToMore}\n'
+                                    '${AppSmiles.pinned} ${t.savedPlacesPage.tips.holdToSet}'),
+                              ),
+                            _TileFoundedWidget(listPlaces[index]),
+                            if (index == listPlaces.length - 1)
+                              const SizedBox(height: 50.0)
+                          ],
+                        );
+                      },
+                      itemCount: listPlaces.length,
+                    ),
+            ),
+            if (defaultTargetPlatform == TargetPlatform.windows ||
+                defaultTargetPlatform == TargetPlatform.linux ||
+                defaultTargetPlatform == TargetPlatform.macOS)
+              const Align(
+                alignment: Alignment.bottomLeft,
+                child: BackButton(),
+              )
+          ],
         ),
       ),
     );
@@ -148,8 +160,7 @@ class _HeaderWidget extends ConsumerWidget {
                 fit: BoxFit.contain,
                 child: IconButton(
                   icon: ImageHelper.getFlagIcon(place.countryCode),
-                  onPressed: () =>
-                      ref
+                  onPressed: () => ref
                       .read(SavedPlacesPageController.instance)
                       .dialogSeeFlag(context, place),
                 ),
@@ -160,8 +171,7 @@ class _HeaderWidget extends ConsumerWidget {
           Icons.delete,
           color: IconTheme.of(context).color,
         ),
-        onPressed: () async =>
-            ref
+        onPressed: () async => ref
             .read(SavedPlacesPageController.instance)
             .dialogAfterDeletingPlace(context, place),
       ),
@@ -213,8 +223,7 @@ class _ExpandedWidget extends ConsumerWidget {
                   Center(
                     child: IconButton(
                       icon: const Icon(Icons.edit),
-                      onPressed: () async =>
-                          ref
+                      onPressed: () async => ref
                           .read(SavedPlacesPageController.instance)
                           .dialogMakeNote(context, place),
                     ),

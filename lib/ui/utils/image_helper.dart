@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:loggy/loggy.dart';
 import 'package:weather_pack/weather_pack.dart';
 
-// todo: заменить на пакетные пути
-
 /// Менеджер получения всех изображений в приложении.
 ///
 /// Удобен тем, что имеет обработку ошибок.
@@ -20,7 +18,7 @@ class ImageHelper {
         package: ImagePathWeather.packageName,
         filterQuality: FilterQuality.high,
         errorBuilder: (_, e, s) {
-          // coldfix: await fix https://github.com/flutter/flutter/issues/107416
+          // bug: await fix https://github.com/flutter/flutter/issues/107416
           logWarning('*$weatherIcon* not found assets weatherIcon');
 
           return Text(onError);

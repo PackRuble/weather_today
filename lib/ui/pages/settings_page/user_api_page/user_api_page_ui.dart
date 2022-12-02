@@ -58,7 +58,7 @@ class _AboutApiWidget extends ConsumerWidget {
         ),
         Link(
           target: LinkTarget.defaultTarget,
-          uri: Uri.parse('https://openweathermap.org/api'),
+          uri: Uri.parse('https://home.openweathermap.org/api_keys'),
           builder: (BuildContext context, Future<void> Function()? followLink) {
             return TextButton(
               onPressed: followLink,

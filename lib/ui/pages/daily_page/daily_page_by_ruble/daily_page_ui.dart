@@ -66,11 +66,13 @@ class _AlertsListWidget extends ConsumerWidget {
     return AlertsWrapper(
       asyncAlerts: ref.watch(DailyPageController.alerts),
       data: (List<WeatherAlert> alerts) {
+        if (alerts.isEmpty) return const SizedBox.shrink();
+
         return Column(
           children: [
             for (final alert in alerts) ...[
               _AlertTileWidget(alert),
-              if (alert != alerts.last) _divider,
+              const Divider(height: 0.0),
             ]
           ],
         );
