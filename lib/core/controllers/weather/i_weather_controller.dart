@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart' as fl_service;
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
-import 'package:meta/meta.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 

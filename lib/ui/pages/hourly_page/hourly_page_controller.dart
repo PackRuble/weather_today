@@ -21,16 +21,19 @@ class HourlyPageController {
   static final tr = Provider.autoDispose<TranslationsRu>(
       (ref) => ref.watch(AppLocalization.currentTranslation));
 
+  /// Погода [WeatherOneCall].
+  static final onecall = Provider<AsyncValue<WeatherOneCall?>>(
+      (ref) => ref.watch(weatherOneCallController));
+
   /// Погода ONE_CALL на 2 дня почасовая [WeatherHourly].
-  static final hourly = Provider<AsyncValue<List<WeatherHourly>>>((ref) {
-    final AsyncValue<WeatherOneCall?> asyncWeather =
-        ref.watch(weatherOneCallController); // hotfix: null
+  static final hourly = Provider<AsyncValue<List<WeatherHourly>?>>((ref) {
+    final AsyncValue<WeatherOneCall?> asyncWeather = ref.watch(onecall);
 
     if (asyncWeather.isRefreshing || asyncWeather.isLoading) {
       return const AsyncValue.loading();
     }
 
-    return AsyncValue.data(asyncWeather.value?.hourly ?? []);
+    return AsyncValue.data(asyncWeather.value?.hourly);
   });
 
   /// Погода ONE_CALL на час поминутная [WeatherHourly].

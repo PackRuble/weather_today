@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:meta/meta.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/key_store.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';

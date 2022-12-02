@@ -12,6 +12,13 @@ import '../../const/first_run_saved_places.dart';
 import '../../utils/state_updater.dart';
 
 /// Общее состояние сервиса получения погоды для приложения.
+///
+/// Содержит состояния:
+/// - [currentPlace]
+/// - [speedUnits]
+/// - [pressureUnits]
+/// - [tempUnits]
+/// - [currentLanguage]
 class WeatherServices with Updater {
   WeatherServices(this.ref);
 
@@ -21,12 +28,10 @@ class WeatherServices with Updater {
   @override
   IDataBase get db => ref.read(dbService);
 
-  /// инициализировать. Переопределяем значения провайдеров на значения из дб.
+  /// Инициализация. Переопределяем значения провайдеров на значения из бд.
   Future<void> init() async {
     await loadAndUpdate(currentPlace, DbStore.currentPlace,
         DbStore.currentPlaceDefault, _conversionCurrentPlace);
-    // await loadAndUpdate(savedPlacesDb, Store.savedPlaces,
-    //     Store.savedPlacesDefault, _conversionSavedPlacesDb);
     await loadAndUpdate(speedUnits, DbStore.speedUnits,
         DbStore.speedUnitsDefault, _conversionSpeedUnits);
     await loadAndUpdate(pressureUnits, DbStore.pressureUnits,
@@ -58,30 +63,6 @@ class WeatherServices with Updater {
     update<Place>(currentPlace, place);
     await saveDb(DbStore.currentPlace, jsonEncode(place.toJson()));
   }
-
-  // Обработка сохраненных местоположений
-  //============================================================================
-  //тодо. подумать как правильно инициализировать один ед раз с начальным местом
-  /// Список сохраненных местоположений.
-  /*static final savedPlacesDb = StateProvider<List<Place>>((ref) => []);
-
-  static List<Place> _conversionSavedPlacesDb(List<String> listJsonStr) =>
-      listJsonStr != []
-          ? listJsonStr.map((String strJson) {
-              return Place.fromJson(
-                  json.decode(strJson) as Map<String, dynamic>);
-            }).toList()
-          : _initialSavedPlaces;
-
-  /// Установить новый список избранных мест.
-  ///
-  /// Будет установлено и сохранено в бд.
-  Future<void> setSavedPlacesDb(List<Place> list) async => saveAndUpdate(
-      savedPlacesDb,
-      Store.savedPlaces,
-      list
-          .map((e) => jsonEncode(e.toJson()))
-          .toList()); // тодо обернуть List.of()???*/
 
   // Единицы измерения скорости.
   //============================================================================
