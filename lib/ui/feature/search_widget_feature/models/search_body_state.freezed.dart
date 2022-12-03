@@ -82,7 +82,6 @@ class _$SearchBodyStateCopyWithImpl<$Res, $Val extends SearchBodyState>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 }
@@ -91,7 +90,6 @@ class _$SearchBodyStateCopyWithImpl<$Res, $Val extends SearchBodyState>
 abstract class _$$_FoundCopyWith<$Res> {
   factory _$$_FoundCopyWith(_$_Found value, $Res Function(_$_Found) then) =
       __$$_FoundCopyWithImpl<$Res>;
-
   @useResult
   $Res call({List<Place> places});
 }
@@ -240,7 +238,6 @@ abstract class _Found implements SearchBodyState {
 abstract class _$$_SavedCopyWith<$Res> {
   factory _$$_SavedCopyWith(_$_Saved value, $Res Function(_$_Saved) then) =
       __$$_SavedCopyWithImpl<$Res>;
-
   @useResult
   $Res call({List<Place> places});
 }

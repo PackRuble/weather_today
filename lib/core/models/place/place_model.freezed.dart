@@ -54,7 +54,6 @@ mixin _$Place {
 abstract class $PlaceCopyWith<$Res> {
   factory $PlaceCopyWith(Place value, $Res Function(Place) then) =
       _$PlaceCopyWithImpl<$Res, Place>;
-
   @useResult
   $Res call(
       {String? name,
@@ -74,7 +73,6 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -132,7 +130,6 @@ abstract class _$$_SavedPlaceCopyWith<$Res> implements $PlaceCopyWith<$Res> {
   factory _$$_SavedPlaceCopyWith(
           _$_SavedPlace value, $Res Function(_$_SavedPlace) then) =
       __$$_SavedPlaceCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call(
