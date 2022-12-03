@@ -53,7 +53,8 @@ dependencies:
   # Utility
   flutter_dotenv: ^5.0.2
   intl: ^0.17.0
-  loggy: ^2.0.1+1
+  loggy: ^2.0.3
+  stack_trace: ^1.10.0
   url_launcher: ^6.1.6
 
 dev_dependencies:

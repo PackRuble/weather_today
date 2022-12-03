@@ -4,6 +4,7 @@ import 'package:loggy/loggy.dart';
 import 'package:weather_today/core/services/api/api_OWM.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/core/services/local_db_service/data_base_controller.dart';
+import 'package:weather_today/utils/logger/release_logger.dart';
 
 import '../utils/logger/loggy_printer.dart';
 import 'controllers/general_settings_controller.dart';
@@ -45,9 +46,15 @@ class ServiceInit {
       _container.read(ApiServiceOwm.instance).init();
 
   Future<void> _initLogger() async {
+    final _loggerManager = _container.read(loggerManager);
+    await _loggerManager.init();
+
     logInfo('Активируем логгер');
     Loggy.initLoggy(
-      logPrinter: const CustomPrinter(),
+      logPrinter: SmartPrinter(
+        consolePrinter: ConsolePrinter(showColors: true),
+        userPrinter: UserPrinter(manager: _loggerManager),
+      ),
       logOptions: const LogOptions(
         LogLevel.all,
         stackTraceLevel: LogLevel.off,

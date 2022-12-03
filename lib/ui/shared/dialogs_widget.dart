@@ -82,6 +82,31 @@ class _DialogSwitchState extends State<DialogSwitch> {
   }
 }
 
+class DialogTile extends StatelessWidget {
+  const DialogTile({
+    Key? key,
+    required this.title,
+    this.subtitle,
+    required this.onTap,
+  }) : super(key: key);
+
+  final String title;
+  final String? subtitle;
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleDialogOption(
+      padding: EdgeInsets.zero,
+      child: ListTile(
+        title: Text(title),
+        subtitle: subtitle != null ? Text(subtitle!) : null,
+        onTap: onTap,
+      ),
+    );
+  }
+}
+
 Future<T?> infoDialogCustom<T>(
   BuildContext context, {
   Icon? icon,
@@ -183,7 +208,7 @@ Future<void> showSwitchedDialog(
   Icon? icon,
   required String title,
   String? subTitle,
-  required List<DialogSwitch> listDialogOption,
+  required List<Widget> listDialogOption,
 }) async {
   return showDialog(
       context: context,
@@ -202,7 +227,7 @@ Future<void> showSwitchedDialog(
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
                 child: subTitle != null ? Text(subTitle) : null,
               ),
-              ...listDialogOption.map((DialogSwitch option) {
+              ...listDialogOption.map((Widget option) {
                 return Column(
                   children: [
                     const Divider(height: 0.0),

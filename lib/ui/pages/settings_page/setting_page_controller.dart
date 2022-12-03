@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
@@ -9,6 +10,7 @@ import 'package:weather_today/core/controllers/weather_service_controllers.dart'
 import 'package:weather_today/i18n/translations.g.dart';
 import 'package:weather_today/i18n/translations_enum.dart';
 import 'package:weather_today/ui/const/app_dialogs.dart';
+import 'package:weather_today/utils/routes/routes.gr.dart';
 
 import '../../shared/dialogs_widget.dart';
 import '../main_page/model/homepage_index_model.dart';
@@ -198,6 +200,11 @@ class SettingPageController {
           onChanged: (bool value) {
             _ref.read(AppGeneralSettings.instance).setIsIntro(value, false);
           },
+        ),
+        DialogTile(
+          title: 'Open logs screen',
+          subtitle: 'You can see all the logs the application collects',
+          onTap: () => context.router.push(const LogsRoute()),
         )
       ],
     );

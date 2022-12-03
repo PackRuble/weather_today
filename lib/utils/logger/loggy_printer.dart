@@ -1,4 +1,50 @@
+import 'package:flutter/foundation.dart';
 import 'package:loggy/loggy.dart';
+import 'package:weather_today/core/services/local_db_service/interface/i_data_base.dart';
+import 'package:weather_today/utils/logger/release_logger.dart';
+
+class SmartPrinter extends LoggyPrinter {
+  SmartPrinter({
+    required this.consolePrinter,
+    required this.userPrinter,
+  });
+
+  final ConsolePrinter consolePrinter;
+  final UserPrinter userPrinter;
+
+  @override
+  void onLog(LogRecord record) {
+    if (kDebugMode || kProfileMode) {
+      consolePrinter.onLog(record);
+    }
+
+    userPrinter.onLog(record);
+  }
+}
+
+class UserPrinter extends LoggyPrinter {
+  UserPrinter({required this.manager});
+
+  AppLogsManager manager;
+
+  @override
+  void onLog(LogRecord record) {
+    final result = StringBuffer();
+
+    result.write('${record.time}: ');
+    result.write(record.toString());
+
+    if (record.error != null) {
+      result.write('\n${record.error}');
+    }
+
+    if (record.stackTrace != null) {
+      result.write('\n${record.stackTrace}');
+    }
+
+    manager.addLogRecord(result.toString());
+  }
+}
 
 /// Format log and add emoji to represent the color.
 ///
@@ -9,10 +55,13 @@ import 'package:loggy/loggy.dart';
 ///
 /// Format:
 /// *EMOJI* *TIME* *LOG PRIORITY*  *LOGGER NAME* - *CLASS NAME* - *LOG MESSAGE*
-class CustomPrinter extends LoggyPrinter {
-  const CustomPrinter({
+class ConsolePrinter extends LoggyPrinter {
+  ConsolePrinter({
     this.showColors,
+    this.db,
   }) : super();
+
+  IDataBase? db;
 
   final bool? showColors;
 

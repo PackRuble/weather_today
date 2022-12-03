@@ -103,4 +103,11 @@ class DbStore {
   // enum
   static const String scrollPhysics = 'scrollPhysics';
   static const int scrollPhysicsDefault = 0; // bouncingScrollPhysics
+
+  // logs
+  static const String logsApp = 'logsApp';
+
+  static const String enableLoggingApp = 'enableLoggingApp';
+
+  static const bool enableLoggingAppDefault = true;
 }
