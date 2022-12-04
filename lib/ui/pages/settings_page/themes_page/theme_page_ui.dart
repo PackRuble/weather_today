@@ -3,11 +3,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/pages/settings_page/themes_page/theme_page_controller.dart';
 
-import '../../../shared/custom_appbar.dart';
+import '../../../shared/appbar_widget.dart';
 import '../../../shared/wrapper_page.dart';
 import 'theme_selector.dart';
 
-const double inset = 2.0;
+const double _inset = 2.0;
 
 /// Страница показывает различные настройки цветовой темы.
 class ThemePage extends ConsumerWidget {
@@ -103,7 +103,7 @@ class _SwapComputeDarkWidget extends ConsumerWidget {
     return isLight
         ? const SizedBox.shrink()
         : SwitchListTile(
-      value: swapDark,
+            value: swapDark,
             title: Text(t.themesPage.swapColorsDark),
             onChanged: (bool value) =>
                 ref.read(AppTheme.instance).toggleDarkSwapColors(value),
@@ -161,7 +161,7 @@ class _SwapTrueBlackWidget extends ConsumerWidget {
     return isLight
         ? const SizedBox.shrink()
         : SwitchListTile(
-      value: darkIsTrueBlack,
+            value: darkIsTrueBlack,
             title: Text(t.themesPage.darkIsTrueBlack),
             subtitle: Text(t.themesPage.darkIsTrueBlackSub),
             onChanged: (bool value) =>
@@ -178,7 +178,7 @@ class ShowThemeColors extends StatelessWidget {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: inset),
+      padding: const EdgeInsets.symmetric(horizontal: _inset),
       child: Column(
         children: [
           Row(
@@ -250,7 +250,7 @@ class ThemeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.all(inset),
+        padding: const EdgeInsets.all(_inset),
         child: SizedBox(
           height: MediaQuery.of(context).size.width * 0.15,
           child: Card(
@@ -264,7 +264,7 @@ class ThemeCard extends StatelessWidget {
             elevation: 0,
             color: color,
             child: Padding(
-              padding: const EdgeInsets.all(inset),
+              padding: const EdgeInsets.all(_inset),
               child: Center(
                 child: Text(
                   label,

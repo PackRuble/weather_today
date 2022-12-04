@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:loggy/loggy.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/models/place/place_model.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../../const/countries_code.dart';
 import 'interface/i_place_service.dart';
@@ -19,8 +19,11 @@ class PlaceServiceOWM implements IPlaceService {
   Future<T?> _safelyCall<T>(Future<T> Function() func) async {
     try {
       return func.call().timeout(const Duration(seconds: 10));
+    } on TimeoutException catch (e, s) {
+      logInfo('TimeoutException', e, s);
+      return null;
     } catch (e, s) {
-      logError(e, s);
+      logError(func.runtimeType.toString(), e, s);
       return null;
     }
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:loggy/loggy.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/const/app_icons.dart';
@@ -10,6 +9,7 @@ import 'package:weather_today/core/models/place/place_model.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/const/app_dialogs.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../utils/image_helper.dart';
 import '../../utils/metrics_helper.dart';

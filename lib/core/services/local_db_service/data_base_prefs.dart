@@ -1,12 +1,12 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_today/const/key_store.dart';
 
-import '../../../utils/logger/db_logger.dart';
+import '../../../utils/logger/_observers/db_logger.dart';
 import '../../../utils/same_types.dart';
 import 'interface/i_data_base.dart';
 
 /// Модель для связи настроек компонентов приложения с SharedPreferences.
-class DataBasePrefs with DbLoggy implements IDataBase {
+class DataBasePrefs with DbLogger implements IDataBase {
   DataBasePrefs();
 
   late final SharedPreferences _prefs;

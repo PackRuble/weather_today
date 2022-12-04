@@ -1,10 +1,10 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:loggy/loggy.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/key_store.dart';
 import 'package:weather_today/core/services/local_db_service/data_base_controller.dart';
 import 'package:weather_today/core/services/local_db_service/interface/i_data_base.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 import 'package:weather_today/utils/state_updater.dart';
 
 // Api-key. See more https://home.openweathermap.org/api_keys.
@@ -61,7 +61,7 @@ class ApiServiceOwm with Updater {
   /// Сбросить значение ключа к дефолтным.
   Future<void> resetUserApiKey() async {
     await saveDb(DbStore.userApiKeyOWM, DbStore.userApiKeyOWMDefault);
-    ref.refresh(apiKey);
+    ref.invalidate(apiKey);
   }
 
   /// Установить пользовательский ключ

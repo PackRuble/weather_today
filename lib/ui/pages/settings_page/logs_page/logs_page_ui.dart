@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:loggy/loggy.dart';
+import 'package:weather_today/core/controllers/logger_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
-import 'package:weather_today/utils/logger/release_logger.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
-import '../../../shared/custom_appbar.dart';
+import '../../../shared/appbar_widget.dart';
 import '../../../shared/wrapper_page.dart';
 
 class LogsPage extends ConsumerWidget with UiLoggy {
@@ -12,7 +12,7 @@ class LogsPage extends ConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    logInfo('build');
+    logDebug('build');
 
     final theme = Theme.of(context);
 

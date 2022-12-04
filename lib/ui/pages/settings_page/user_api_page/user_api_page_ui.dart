@@ -7,7 +7,7 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 import 'package:weather_today/ui/shared/tips_widget.dart';
 import 'package:weather_today/ui/shared/wrapper_page.dart';
 
-import '../../../shared/custom_appbar.dart';
+import '../../../shared/appbar_widget.dart';
 import 'user_api_page_controller.dart';
 
 /// Страница по управлению пользовательским апи ключом.

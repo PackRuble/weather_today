@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loggy/loggy.dart';
 import 'package:weather_pack/weather_pack.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
 /// Менеджер получения всех изображений в приложении.
 ///

@@ -7,7 +7,7 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 import 'package:weather_today/core/services/app_theme_service/models/models.dart';
 import 'package:weather_today/extension/enum_extension.dart';
 
-import '../../../shared/custom_appbar.dart';
+import '../../../shared/appbar_widget.dart';
 import '../../../shared/shared_widget.dart';
 import '../../../shared/wrapper_page.dart';
 import '../../daily_page/daily_page_by_ruble/daily_page_ui.dart' as ruble_daily;

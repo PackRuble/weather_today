@@ -5,7 +5,7 @@ import 'package:loggy/loggy.dart';
 class NavigationObserver extends AutoRouterObserver implements LoggyType {
   @override
   Loggy<NavigationObserver> get loggy =>
-      Loggy<NavigationObserver>('Navigator Loggy');
+      Loggy<NavigationObserver>('[Navigator]');
 
   @override
   void didPush(Route route, Route? previousRoute) {

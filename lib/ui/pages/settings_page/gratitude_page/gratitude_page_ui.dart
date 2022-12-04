@@ -5,7 +5,7 @@ import 'package:weather_today/const/app_info.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 
-import '../../../shared/custom_appbar.dart';
+import '../../../shared/appbar_widget.dart';
 import '../../../shared/wrapper_page.dart';
 
 class GratitudePage extends ConsumerWidget {

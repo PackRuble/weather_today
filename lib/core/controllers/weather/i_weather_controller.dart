@@ -4,11 +4,10 @@ import 'dart:io';
 import 'package:flutter/foundation.dart' as fl_service;
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:loggy/loggy.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
-import '../../../utils/logger/riverpod_logger.dart';
 import '../../models/place/place_model.dart';
 import '../../services/local_db_service/data_base_controller.dart';
 import '../../services/local_db_service/interface/i_data_base.dart';
@@ -27,7 +26,8 @@ const Duration _timeoutServiceOWM = Duration(seconds: 10);
 /// * 60 calls/minute
 /// * 1,000,000 calls/month
 ///
-abstract class IWeatherNotifier<T> extends StateNotifier<AsyncValue<T?>> {
+abstract class IWeatherNotifier<T> extends StateNotifier<AsyncValue<T?>>
+    with GlobalLogger {
   IWeatherNotifier(
     this._ref, {
     required Place currentPlace,
@@ -66,7 +66,7 @@ abstract class IWeatherNotifier<T> extends StateNotifier<AsyncValue<T?>> {
     }
 
     if (_kDebugMode) {
-      logInfo('init in the debug mode');
+      logDebug('init in the debug mode');
       state = AsyncValue.data(await getStoredWeather());
       return;
     }
@@ -152,7 +152,7 @@ abstract class IWeatherNotifier<T> extends StateNotifier<AsyncValue<T?>> {
   /// * обработку ошибок.
   /// * время возможного обновления.
   Future<T?> _getWeather(Place place) async {
-    rlogDebug('Начинаем делать запрос для получения $T по place: $place');
+    logInfo('Начинаем делать запрос для получения $T по place: $place');
 
     T? weather;
 
@@ -166,13 +166,13 @@ abstract class IWeatherNotifier<T> extends StateNotifier<AsyncValue<T?>> {
       // сохраняем полученные данные в бд
       await saveWeatherInDb(weather as T);
     } on SocketException catch (e, s) {
-      rlogDebug('Нет соединения с интернетом или с сервером погоды.', e, s);
+      logInfo('Нет соединения с интернетом или с сервером погоды.', e, s);
       _ref.read(MessageController.instance).tSocketException();
     } on TimeoutException catch (e, s) {
-      rlogDebug('Время ожидания сервиса истекло', e, s);
+      logInfo('Время ожидания сервиса истекло', e, s);
       _ref.read(MessageController.instance).tTimeoutException();
     } catch (e, s) {
-      rlogError('Другая ошибка', e, s);
+      logError('Другая ошибка', e, s);
     }
 
     return weather;

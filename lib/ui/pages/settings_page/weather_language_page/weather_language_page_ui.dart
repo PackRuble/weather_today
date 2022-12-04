@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:loggy/loggy.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/const/app_insets.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
-import '../../../shared/custom_appbar.dart';
+import '../../../shared/appbar_widget.dart';
 import '../../../shared/tips_widget.dart';
 import '../../../shared/wrapper_page.dart';
 import 'weather_language_page_controller.dart';
@@ -18,7 +18,7 @@ class WeatherLanguagePage extends ConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    loggy.info('build');
+    loggy.debug('build');
 
     final t = ref.watch(WeatherLanguagePageController.tr);
 

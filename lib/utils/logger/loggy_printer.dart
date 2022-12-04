@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:loggy/loggy.dart';
-import 'package:weather_today/utils/logger/release_logger.dart';
+import 'package:weather_today/core/controllers/logger_controller.dart';
 
 // ignore_for_file: avoid_print
 
@@ -30,6 +30,7 @@ class SmartPrinter extends LoggyPrinter {
   }
 }
 
+/// Пропускает все записи уровня [LogLevel.debug].
 class UserPrinter extends LoggyPrinter {
   const UserPrinter({required this.manager});
 
@@ -37,6 +38,10 @@ class UserPrinter extends LoggyPrinter {
 
   @override
   void onLog(LogRecord record) {
+    if (record.level == LogLevel.debug) {
+      return;
+    }
+
     final result = StringBuffer();
 
     result.write('${record.time}: ');

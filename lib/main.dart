@@ -2,17 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:loggy/loggy.dart';
 import 'package:slang_flutter/slang_flutter.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:weather_today/core/init_app_service.dart';
-import 'package:weather_today/utils/logger/navigator_logger.dart';
-import 'package:weather_today/utils/logger/riverpod_logger.dart';
 import 'package:weather_today/utils/routes/routes.gr.dart';
 
 import 'const/app_info.dart';
 import 'core/controllers/localization_controller.dart';
 import 'core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'utils/logger/all_observers.dart';
 
 Future<void> main() async {
   final WidgetsBinding widgetsBinding =
@@ -22,7 +20,7 @@ Future<void> main() async {
   widgetsBinding.deferFirstFrame();
 
   // This let us access providers before runApp (read only)
-  final container = ProviderContainer(observers: [RivLoggy()]);
+  final container = ProviderContainer(observers: [RiverpodObserver()]);
 
   // асинхронная инициализация всех сервисов
   await ServiceInit(container).init();
@@ -60,7 +58,7 @@ class WeatherMain extends ConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    loggy.debug('build');
+    loggy.info('build');
 
     final AppLocalization appLocalization = ref.watch(AppLocalization.instance);
     final Locale locale =

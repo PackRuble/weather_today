@@ -1,5 +1,4 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:loggy/loggy.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/saved_places_provider.dart';
@@ -8,6 +7,7 @@ import 'package:weather_today/core/models/place/place_model.dart';
 import 'package:weather_today/core/services/place_service/place_service.dart';
 import 'package:weather_today/i18n/translations.g.dart';
 import 'package:weather_today/ui/feature/search_widget_feature/models/search_body_state.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
 final searchWidgetProvider =
     StateNotifierProvider.autoDispose<SearchWidgetNotifier, SearchBodyState>(
