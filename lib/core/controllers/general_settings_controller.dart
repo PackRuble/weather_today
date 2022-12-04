@@ -4,7 +4,8 @@ import 'package:weather_today/core/services/local_db_service/data_base_controlle
 import 'package:weather_today/core/services/local_db_service/interface/i_data_base.dart';
 import 'package:weather_today/utils/state_updater.dart';
 
-import '../../ui/pages/main_page/model/homepage_index_model.dart';
+/// Стартовая страница приложения.
+enum HomepageIndex { settings, hourly, today, daily }
 
 /// Представляет контроллер общих настроек приложения.
 ///

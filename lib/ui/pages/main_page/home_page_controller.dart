@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/controllers/general_settings_controller.dart';
+import 'package:weather_today/utils/logger/navigator_logger.dart';
 
 /// Контроллер страницы [HomePage].
 class HomePageController {
@@ -38,13 +40,18 @@ class HomePageController {
   static final currentIndex = Provider<int>((ref) {
     final controller = ref.watch(pageController);
 
+    ref.listenSelf((previous, next) =>
+        _notifyObservers(previous ?? controller.initialPage, next));
+
     return controller.page?.round() ?? controller.initialPage;
   });
 
   /// Установить новую страницу, когда мы пролистываем.
-  void setIndexPageFromHandSlide(int index) => _ref
-      .read(pageController)
-      .animateToPage(index, duration: _durationSlide, curve: Curves.ease);
+  void setIndexPageFromHandSlide(int index) {
+    _ref
+        .read(pageController)
+        .animateToPage(index, duration: _durationSlide, curve: Curves.ease);
+  }
 
   /// Установить новую страницу, когда мы щелкаем по bottom bar.
   void setIndexPageFromBar(int index) {
@@ -54,5 +61,43 @@ class HomePageController {
     }
 
     _ref.read(pageController).jumpToPage(index);
+  }
+
+  /// Логгируем передвижения по вкладкам.
+  ///
+  /// Внутри создается [RouteMatch] с нужными данными, для удовлетворения нужд
+  /// логгера.
+  static void _notifyObservers(int previousIndex, int nextIndex) {
+    const routeInfo = RouteMatch(
+      name: '', // `routeName` override after
+      segments: [],
+      path: '',
+      stringMatch: '',
+      key: ValueKey(''),
+    );
+
+    TabPageRoute getRoute(int index) {
+      switch (index) {
+        case 0:
+          return TabPageRoute(
+              routeInfo: routeInfo.copyWith(routeName: 'SettingsTab'),
+              index: 0);
+        case 1:
+          return TabPageRoute(
+              routeInfo: routeInfo.copyWith(routeName: 'HourlyTab'), index: 1);
+        case 2:
+          return TabPageRoute(
+              routeInfo: routeInfo.copyWith(routeName: 'CurrentlyTab'),
+              index: 2);
+        case 3:
+          return TabPageRoute(
+              routeInfo: routeInfo.copyWith(routeName: 'DailyTab'), index: 3);
+        default:
+          return throw "Wrong page index. Try again.";
+      }
+    }
+
+    NavigationObserver()
+        .didChangeTabRoute(getRoute(previousIndex), getRoute(nextIndex));
   }
 }

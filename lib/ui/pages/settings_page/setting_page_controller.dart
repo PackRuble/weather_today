@@ -13,7 +13,6 @@ import 'package:weather_today/ui/const/app_dialogs.dart';
 import 'package:weather_today/utils/routes/routes.gr.dart';
 
 import '../../shared/dialogs_widget.dart';
-import '../main_page/model/homepage_index_model.dart';
 
 /// Контроллер страницы настроек.
 class SettingPageController {
