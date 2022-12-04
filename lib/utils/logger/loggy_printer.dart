@@ -1,15 +1,23 @@
 import 'package:flutter/foundation.dart';
 import 'package:loggy/loggy.dart';
-import 'package:weather_today/core/services/local_db_service/interface/i_data_base.dart';
 import 'package:weather_today/utils/logger/release_logger.dart';
 
+// ignore_for_file: avoid_print
+
 class SmartPrinter extends LoggyPrinter {
-  SmartPrinter({
+  const SmartPrinter({
     required this.consolePrinter,
     required this.userPrinter,
   });
 
+  /// Предназначен, чтобы выводить сообщения в консоль.
+  ///
+  /// Для подробного ознакомления смотреть [ConsolePrinter.onLog].
   final ConsolePrinter consolePrinter;
+
+  /// Предназначен, чтобы сохранять сообщения у пользователя.
+  ///
+  /// Для подробного ознакомления смотреть [UserPrinter.onLog].
   final UserPrinter userPrinter;
 
   @override
@@ -23,9 +31,9 @@ class SmartPrinter extends LoggyPrinter {
 }
 
 class UserPrinter extends LoggyPrinter {
-  UserPrinter({required this.manager});
+  const UserPrinter({required this.manager});
 
-  AppLogsManager manager;
+  final AppLogsManager manager;
 
   @override
   void onLog(LogRecord record) {
@@ -56,16 +64,11 @@ class UserPrinter extends LoggyPrinter {
 /// Format:
 /// *EMOJI* *TIME* *LOG PRIORITY*  *LOGGER NAME* - *CLASS NAME* - *LOG MESSAGE*
 class ConsolePrinter extends LoggyPrinter {
-  ConsolePrinter({
-    this.showColors,
-    this.db,
+  const ConsolePrinter({
+    this.showColors = false,
   }) : super();
 
-  IDataBase? db;
-
-  final bool? showColors;
-
-  bool get _colorize => showColors ?? false;
+  final bool showColors;
 
   static final _levelColors = {
     LogLevel.debug:
@@ -96,7 +99,7 @@ class ConsolePrinter extends LoggyPrinter {
         .padRight(8);
 
     final _color =
-        _colorize ? levelColor(record.level) ?? AnsiColor() : AnsiColor();
+        showColors ? levelColor(record.level) ?? AnsiColor() : AnsiColor();
     final _prefix = levelPrefix(record.level) ?? _defaultPrefix;
 
     print(_color(
