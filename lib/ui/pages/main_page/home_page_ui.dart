@@ -53,9 +53,9 @@ class _BodyWidget extends ConsumerWidget {
     return PageView(
       physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       controller: ref.watch(HomePageController.pageController),
-      onPageChanged: (int index) => ref
-          .read(HomePageController.instance)
-          .setIndexPageFromHandSlide(index),
+      // onPageChanged: (int index) => ref
+      //     .read(HomePageController.instance)
+      //     .setIndexPageFromHandSlide(index),
       children: const [
         SettingsPage(),
         HourlyWeatherPage(),
@@ -100,7 +100,7 @@ class _BottomBarWidget extends ConsumerWidget {
     Widget getTextButton({required String label, required int index}) {
       return TextButton(
         onPressed: () =>
-            ref.read(HomePageController.instance).setIndexPageFromBar(index),
+            ref.read(HomePageController.instance).setIndexPageWhenClick(index),
         style: theme.textButtonTheme.style?.copyWith(
           padding: MaterialStateProperty.all(EdgeInsets.zero),
           minimumSize: MaterialStateProperty.all(const Size.fromWidth(48.0)),

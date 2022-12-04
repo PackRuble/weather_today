@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/controllers/general_settings_controller.dart';
-import 'package:weather_today/utils/logger/navigator_logger.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
 /// Контроллер страницы [HomePage].
 class HomePageController {
@@ -37,30 +37,28 @@ class HomePageController {
   /// * 1 - страница почасовой погоды;
   /// * 2 - страница текущей погоды;
   /// * 3 - страница прогнозов погоды на ближайшие дни (на 7 дней);
-  static final currentIndex = Provider<int>((ref) {
-    final controller = ref.watch(pageController);
+  static final currentIndex = Provider<int>(
+    (ref) {
+      final index = ref.watch(pageController.select(
+          (controller) => controller.page?.round() ?? controller.initialPage));
 
-    ref.listenSelf((previous, next) =>
-        _notifyObservers(previous ?? controller.initialPage, next));
+      ref.listenSelf(
+          (previous, next) => _notifyObservers(previous ?? index, next));
 
-    return controller.page?.round() ?? controller.initialPage;
-  });
-
-  /// Установить новую страницу, когда мы пролистываем.
-  void setIndexPageFromHandSlide(int index) {
-    _ref
-        .read(pageController)
-        .animateToPage(index, duration: _durationSlide, curve: Curves.ease);
-  }
+      return index;
+    },
+    name: '$HomePageController/currentIndex',
+  );
 
   /// Установить новую страницу, когда мы щелкаем по bottom bar.
-  void setIndexPageFromBar(int index) {
+  void setIndexPageWhenClick(int index) {
+    final controller = _ref.read(pageController);
     if ((_ref.read(currentIndex) - index).abs() == 1) {
-      setIndexPageFromHandSlide(index);
-      return;
+      controller.animateToPage(index,
+          duration: _durationSlide, curve: Curves.ease);
+    } else {
+      controller.jumpToPage(index);
     }
-
-    _ref.read(pageController).jumpToPage(index);
   }
 
   /// Логгируем передвижения по вкладкам.
