@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/models/toasts_model.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 import 'package:weather_today/utils/routes/routes.gr.dart';
 
 import 'global_key.dart';
@@ -17,6 +18,8 @@ class SnackController extends ChangeNotifier {
   void showSnack(MessageSnack snack) {
     this.snack = snack;
     notifyListeners();
+
+    logInfo(snack);
   }
 }
 
@@ -27,6 +30,8 @@ class ToastController extends ChangeNotifier {
   void showToast(MessageToast toast) {
     this.toast = toast;
     notifyListeners();
+
+    logInfo(toast);
   }
 }
 
@@ -36,18 +41,21 @@ class MessageController {
 
   final Ref _ref;
 
-  static final instance = Provider(MessageController.new);
+  static final instance = Provider(
+    MessageController.new,
+    name: '$MessageController/instance',
+  );
 
   /// Пассивное уведомление. Не интерактивный.
   static final toasts = ChangeNotifierProvider<ToastController>(
     (ref) => ToastController(),
-    name: '$ToastController',
+    name: '$MessageController/toasts->$ToastController',
   );
 
   /// Активное уведомление. Интерактивный, позволяет выбрать действия.
   static final snacks = ChangeNotifierProvider<SnackController>(
     (ref) => SnackController(),
-    name: '$SnackController',
+    name: '$MessageController/snacks->$SnackController',
   );
 
   /// показать Toast.

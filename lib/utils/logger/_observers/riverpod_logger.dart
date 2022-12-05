@@ -11,8 +11,7 @@ class RiverpodObserver extends ProviderObserver implements LoggyType {
     Object? value,
     ProviderContainer container,
   ) {
-    if (provider.name != null &&
-        !(provider.name?.contains('.notifier') ?? false)) {
+    if (provider.name != null) {
       return loggy.info('INIT: ${provider.name}'
           '\n╔══'
           '\n║ value: $value'
@@ -27,8 +26,7 @@ class RiverpodObserver extends ProviderObserver implements LoggyType {
     Object? newValue,
     ProviderContainer container,
   ) {
-    if (provider.name != null &&
-        !(provider.name?.contains('.notifier') ?? false)) {
+    if (provider.name != null) {
       return loggy.info('UPD: ${provider.name}'
           '\n╔══'
           '\n║ previousValue: $previousValue'
@@ -43,8 +41,7 @@ class RiverpodObserver extends ProviderObserver implements LoggyType {
     ProviderBase provider,
     ProviderContainer container,
   ) {
-    if (provider.name != null &&
-        !(provider.name?.contains('.notifier') ?? false)) {
+    if (provider.name != null) {
       return loggy.info('Dispose: ${provider.name}');
     }
   }
@@ -56,8 +53,6 @@ class RiverpodObserver extends ProviderObserver implements LoggyType {
     StackTrace stackTrace,
     ProviderContainer container,
   ) {
-    if (provider.name != null) {
-      return loggy.error('FAIL: ${provider.name}', [error, stackTrace]);
-    }
+    return loggy.error('FAIL: ${provider.name}', [error, stackTrace]);
   }
 }

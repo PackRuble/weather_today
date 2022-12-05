@@ -6,7 +6,10 @@ import 'interface/i_place_service.dart';
 import 'place_service_OWM.dart';
 
 /// Сервис по предоставлению места.
-final placeServiceOWMPr = Provider<IPlaceService>((ref) {
-  final String apikey = ref.watch(ApiServiceOwm.apiKey);
-  return PlaceServiceOWM(GeocodingService(apikey));
-});
+final placeServiceOWMPr = Provider.autoDispose<IPlaceService>(
+  (ref) {
+    final String apikey = ref.watch(ApiServiceOwm.apiKey);
+    return PlaceServiceOWM(GeocodingService(apikey));
+  },
+  name: 'placeServiceOWMPr->$PlaceServiceOWM',
+);

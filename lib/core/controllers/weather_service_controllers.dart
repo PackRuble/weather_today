@@ -43,14 +43,19 @@ class WeatherServices with Updater {
   }
 
   /// экземпляр.
-  static final instance =
-      Provider<WeatherServices>(WeatherServices.new, name: '$WeatherServices');
+  static final instance = Provider<WeatherServices>(
+    WeatherServices.new,
+    name: '$WeatherServices/instance',
+  );
 
   // Текущее место по которому приходят данные о погоде
   //============================================================================
 
   /// Текущее место.
-  static final currentPlace = StateProvider<Place>((ref) => Place.fromJson({}));
+  static final currentPlace = StateProvider<Place>(
+    (ref) => Place.fromJson({}),
+    name: '$WeatherServices/currentPlace',
+  );
 
   static Place _conversionCurrentPlace(String raw) {
     return raw != ''
@@ -69,7 +74,9 @@ class WeatherServices with Updater {
 
   /// Провайдер предоставляет единицы измерения скорости.
   static final speedUnits = StateProvider<Speed>(
-      (ref) => _conversionSpeedUnits(DbStore.speedUnitsDefault));
+    (ref) => _conversionSpeedUnits(DbStore.speedUnitsDefault),
+    name: '$WeatherServices/speedUnits',
+  );
 
   static Speed _conversionSpeedUnits(int value) => Speed.values[value];
 
@@ -84,7 +91,9 @@ class WeatherServices with Updater {
 
   /// Провайдер предоставляет единицы измерения давления.
   static final pressureUnits = StateProvider<Pressure>(
-      (ref) => _conversionPressureUnits(DbStore.pressureUnitsDefault));
+    (ref) => _conversionPressureUnits(DbStore.pressureUnitsDefault),
+    name: '$WeatherServices/pressureUnits',
+  );
 
   static Pressure _conversionPressureUnits(int value) => Pressure.values[value];
 
@@ -99,7 +108,9 @@ class WeatherServices with Updater {
 
   /// Провайдер предоставляет единицы измерения температуры.
   static final tempUnits = StateProvider<Temp>(
-      (ref) => _conversionTempUnits(DbStore.temperatureUnitsDefault));
+    (ref) => _conversionTempUnits(DbStore.temperatureUnitsDefault),
+    name: '$WeatherServices/tempUnits',
+  );
 
   static Temp _conversionTempUnits(int value) => Temp.values[value];
 
@@ -114,7 +125,9 @@ class WeatherServices with Updater {
 
   /// Провайдер предоставляет язык погодных условий.
   static final currentLanguage = StateProvider<WeatherLanguage>(
-      (ref) => _conversionCurrentLanguage(DbStore.userWeatherLanguageDefault));
+    (ref) => _conversionCurrentLanguage(DbStore.userWeatherLanguageDefault),
+    name: '$WeatherServices/currentLanguage',
+  );
 
   static WeatherLanguage _conversionCurrentLanguage(String code) =>
       codeAndLangMatching[code] ??

@@ -19,7 +19,7 @@ class AppTheme with Updater {
   @override
   IDataBase get db => ref.read(dbService);
 
-  static final instance = Provider(AppTheme.new);
+  static final instance = Provider(AppTheme.new, name: '$AppTheme/instance');
 
   Future<void> init() async {
     await loadAndUpdate<AppVisualDesign, int>(
@@ -63,9 +63,12 @@ class AppTheme with Updater {
   // ---------------------------------------------------------------------------
 
   /// Тема оформления главных страниц с погодой.
-  static final visualDesign = StateProvider<AppVisualDesign>((ref) {
-    return _conversionVisualDesign(DbStore.visualDesignAppDefault);
-  });
+  static final visualDesign = StateProvider<AppVisualDesign>(
+    (ref) {
+      return _conversionVisualDesign(DbStore.visualDesignAppDefault);
+    },
+    name: '$AppTheme/visualDesign',
+  );
 
   static AppVisualDesign _conversionVisualDesign(int value) =>
       AppVisualDesign.values[value];
@@ -80,8 +83,10 @@ class AppTheme with Updater {
   // ---------------------------------------------------------------------------
 
   /// Текстовый масштаб в приложении.
-  static final textScaleFactor =
-      StateProvider<double>((ref) => DbStore.textScaleFactorDefault);
+  static final textScaleFactor = StateProvider<double>(
+    (ref) => DbStore.textScaleFactorDefault,
+    name: '$AppTheme/textScaleFactor',
+  );
 
   /// Установить новый текстовый масштаб [textScaleFactor].
   Future<void> setTextScaleFactor(double value) async =>
@@ -95,7 +100,9 @@ class AppTheme with Updater {
   /// Изменить через [setScrollPhysics].
   ///
   static final scrollPhysics = StateProvider<AppScrollPhysics>(
-      (ref) => _conversionScrollPhysics(DbStore.scrollPhysicsDefault));
+    (ref) => _conversionScrollPhysics(DbStore.scrollPhysicsDefault),
+    name: '$AppTheme/scrollPhysics',
+  );
 
   static AppScrollPhysics _conversionScrollPhysics(int value) =>
       AppScrollPhysics.values[value];
@@ -114,7 +121,9 @@ class AppTheme with Updater {
   /// Изменить через [setTypography].
   ///
   static final typography = StateProvider<AppTypography>(
-      (ref) => _conversionTypography(DbStore.typographyDefault));
+    (ref) => _conversionTypography(DbStore.typographyDefault),
+    name: '$AppTheme/typography',
+  );
 
   static AppTypography _conversionTypography(int value) =>
       AppTypography.values[value];
@@ -134,7 +143,9 @@ class AppTheme with Updater {
   /// Изменять через [setFontFamily].
   ///
   static final fontFamily = StateProvider<AppFontFamily>(
-      (ref) => _conversionFontFamily(DbStore.fontFamilyDefault));
+    (ref) => _conversionFontFamily(DbStore.fontFamilyDefault),
+    name: '$AppTheme/fontFamily',
+  );
 
   static AppFontFamily _conversionFontFamily(String value) =>
       AppFontFamily.getFontFamily(value);
@@ -149,7 +160,9 @@ class AppTheme with Updater {
   // ---------------------------------------------------------------------------
 
   static final currentThemeScheme = StateProvider<FlexSchemeData>(
-      (ref) => _conversionThemeScheme(DbStore.themeSchemeDefault));
+    (ref) => _conversionThemeScheme(DbStore.themeSchemeDefault),
+    name: '$AppTheme/currentThemeScheme',
+  );
 
   static FlexSchemeData _conversionThemeScheme(int index) =>
       AppThemeScheme.schemes[index];
@@ -165,7 +178,9 @@ class AppTheme with Updater {
 
   /// Светлый/темный/системный режим приложения.
   static final themeMode = StateProvider<ThemeMode>(
-      (ref) => _conversionThemeMode(DbStore.themeModeDefault));
+    (ref) => _conversionThemeMode(DbStore.themeModeDefault),
+    name: '$AppTheme/themeMode',
+  );
 
   static ThemeMode _conversionThemeMode(int index) => ThemeMode.values[index];
 
@@ -179,8 +194,10 @@ class AppTheme with Updater {
   // ---------------------------------------------------------------------------
 
   /// Swap primary and secondary, and their container colors.
-  static final swapColors =
-      StateProvider<bool>((ref) => DbStore.swapColorsThemeDefault);
+  static final swapColors = StateProvider<bool>(
+    (ref) => DbStore.swapColorsThemeDefault,
+    name: '$AppTheme/swapColors',
+  );
 
   /// Swap primary and secondary, and their container colors.
   Future<void> toggleSwapColors(bool swap) async =>
@@ -191,7 +208,9 @@ class AppTheme with Updater {
 
   /// Computed dark swaps main and container.
   static final swapDarkMainAndContainerColors = StateProvider<bool>(
-      (ref) => DbStore.swapDarkMainAndContainerColorsDefault);
+    (ref) => DbStore.swapDarkMainAndContainerColorsDefault,
+    name: '$AppTheme/swapDarkMainAndContainerColors',
+  );
 
   Future<void> toggleDarkSwapColors(bool swap) async => saveAndUpdate<bool>(
       swapDarkMainAndContainerColors,
@@ -202,8 +221,10 @@ class AppTheme with Updater {
   // ---------------------------------------------------------------------------
 
   /// Оттенки черного.
-  static final darkLevel =
-      StateProvider<int>((ref) => DbStore.darkLevelThemeDefault);
+  static final darkLevel = StateProvider<int>(
+    (ref) => DbStore.darkLevelThemeDefault,
+    name: '$AppTheme/darkLevel',
+  );
 
   /// Установить степень насыщенности 0-100%.
   Future<void> setDarkLevel(int value) async =>
@@ -213,8 +234,10 @@ class AppTheme with Updater {
   // ---------------------------------------------------------------------------
 
   /// Настоящий черный цвет.
-  static final darkIsTrueBlack =
-      StateProvider<bool>((ref) => DbStore.darkIsTrueBlackDefault);
+  static final darkIsTrueBlack = StateProvider<bool>(
+    (ref) => DbStore.darkIsTrueBlackDefault,
+    name: '$AppTheme/darkIsTrueBlack',
+  );
 
   Future<void> toggleDarkIsTrueBlack(bool value) async =>
       saveAndUpdate<bool>(darkIsTrueBlack, DbStore.darkIsTrueBlack, value);
@@ -223,8 +246,10 @@ class AppTheme with Updater {
   // ---------------------------------------------------------------------------
 
   /// Новшества в цветах и спецэффектах Material Design 3.
-  static final useMaterial3 =
-      StateProvider<bool>((ref) => DbStore.useMaterial3Default);
+  static final useMaterial3 = StateProvider<bool>(
+    (ref) => DbStore.useMaterial3Default,
+    name: '$AppTheme/useMaterial3',
+  );
 
   Future<void> toggleUseMaterial3(bool value) async =>
       saveAndUpdate<bool>(useMaterial3, DbStore.useMaterial3, value);
@@ -235,9 +260,11 @@ class AppTheme with Updater {
   /// Текущая используемая тема исходя из ThemeMode.
   ///
   /// isDark получаем исходя из Brightness.dark == Theme.of(context).brightness.
-  static final usingThemeNow = Provider.autoDispose
-      .family<FlexColorScheme, bool>((ref, bool isDark) =>
-          isDark ? ref.watch(darkTheme) : ref.watch(lightTheme));
+  static final usingThemeNow =
+      Provider.autoDispose.family<FlexColorScheme, bool>(
+    (ref, bool isDark) => isDark ? ref.watch(darkTheme) : ref.watch(lightTheme),
+    name: '$AppTheme/usingThemeNow',
+  );
 
   // Светлая и темная темы.
   // ---------------------------------------------------------------------------

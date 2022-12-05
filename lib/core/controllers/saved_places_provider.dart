@@ -13,14 +13,14 @@ import '../../const/first_run_saved_places.dart';
 final savedPlacesController =
     StateNotifierProvider.autoDispose<SavedPlacesNotifier, List<Place>>(
   SavedPlacesNotifier.new,
-  name: '$SavedPlacesNotifier',
+  name: 'savedPlacesController->$SavedPlacesNotifier',
 );
 
 /// Контроллер сохраненных мест.
 class SavedPlacesNotifier extends StateNotifier<List<Place>> {
   SavedPlacesNotifier(this._ref) : super([]) {
-    unawaited(
-        _init()); // coldfix: при необходимости перевести на AsyncValue и await-инициализацию.
+    // coldfix: при необходимости перевести на AsyncValue и await-инициализацию.
+    unawaited(_init());
   }
 
   final Ref _ref;

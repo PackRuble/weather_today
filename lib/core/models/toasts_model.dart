@@ -18,7 +18,7 @@ class MessageToast {
   final ToastGravity? gravity;
 
   @override
-  String toString() => 'Toast - $message';
+  String toString() => 'Toast: [ $message ]';
 }
 
 /// Уведомление с действиями.
@@ -39,5 +39,5 @@ class MessageSnack {
   final MapEntry<String, Function()>? action;
 
   @override
-  String toString() => 'Snack - $message';
+  String toString() => 'Snack: [ $message ]';
 }

@@ -25,14 +25,19 @@ class ApiServiceOwm with Updater {
   IDataBase get db => ref.read(dbService);
 
   /// экземпляр класса для доступа к методам данного класса.
-  static final instance = Provider(ApiServiceOwm.new, name: '$ApiServiceOwm');
+  static final instance = Provider.autoDispose(
+    ApiServiceOwm.new,
+    name: '$ApiServiceOwm',
+  );
 
   /// Apikey сервиса OWM.
   static final apiKey = StateProvider<String>((ref) => _apiWeather);
 
   /// Установлен пользовательский apiKey?
-  static final isUserApiKey =
-      Provider<bool>((ref) => ref.watch(apiKey) != _apiWeather);
+  static final isUserApiKey = Provider<bool>(
+    (ref) => ref.watch(apiKey) != _apiWeather,
+    name: '$ApiServiceOwm/isUserApiKey',
+  );
 
   /// Запустить перед созданием класса с ожиданием завершения.
   Future<void> init() async {
