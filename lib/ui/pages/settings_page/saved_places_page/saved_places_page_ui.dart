@@ -160,7 +160,7 @@ class _HeaderWidget extends ConsumerWidget {
                 fit: BoxFit.contain,
                 child: IconButton(
                   icon: ImageHelper.getFlagIcon(place.countryCode),
-                  onPressed: () => ref
+                  onPressed: () async => ref
                       .read(SavedPlacesPageController.instance)
                       .dialogSeeFlag(context, place),
                 ),

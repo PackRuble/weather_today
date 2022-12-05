@@ -23,7 +23,7 @@ class GratitudePage extends ConsumerWidget {
       return WidgetSpan(
         alignment: PlaceholderAlignment.middle,
         child: InkWell(
-          onTap: () =>
+          onTap: () async =>
               launchUrl(Uri.parse(link), mode: LaunchMode.platformDefault),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),

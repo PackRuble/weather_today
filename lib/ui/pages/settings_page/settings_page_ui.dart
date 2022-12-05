@@ -1,3 +1,5 @@
+// ignore_for_file: discarded_futures
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_today/const/key_store.dart';
@@ -11,6 +13,9 @@ class AppLogsManager {
   late final SharedPreferences _prefs;
 
   /// Максимальное количество хранимых записей.
+  ///
+  /// Мы не должны забывать, что в этом способе логгирования (через [SharedPreferences])
+  /// все логи хранятся в оперативной памяти.
   static const _maxCountRecords = 1000;
 
   Future<void> init() async => _prefs = await SharedPreferences.getInstance();
@@ -19,10 +24,11 @@ class AppLogsManager {
       _prefs.getBool(DbStore.enableLoggingApp) ??
       DbStore.enableLoggingAppDefault;
 
-  void enableLogging() => _prefs.setBool(DbStore.enableLoggingApp, true);
+  Future<void> enableLogging() async =>
+      _prefs.setBool(DbStore.enableLoggingApp, true);
 
   /// Это действие также очистит логи.
-  void disableLogging() {
+  Future<void> disableLogging() async {
     _prefs.setBool(DbStore.enableLoggingApp, false);
     clearLogs();
   }
@@ -39,10 +45,10 @@ class AppLogsManager {
     final oldRecords = getLogs() ?? [];
 
     // нет нужды ожидать
-    _prefs.setStringList(
+    unawaited(_prefs.setStringList(
       DbStore.logsApp,
       (oldRecords..insert(0, record)).take(_maxCountRecords).toList(),
-    );
+    ));
   }
 
   /// Очистить все логи

@@ -44,7 +44,7 @@ class AttributionWeatherWidget extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () =>
+              onTap: () async =>
                   launchUrl(urlService, mode: LaunchMode.externalApplication),
               child: Text(
                 'OpenWeather',

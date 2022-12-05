@@ -79,7 +79,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
           showIfClosed: false,
           showIfOpened: true,
           icon: const Icon(Icons.info_outline_rounded),
-          onTap: () => AppDialogs.placeSearchInfo(context),
+          onTap: () async => AppDialogs.placeSearchInfo(context),
         ),
         _SavedBookmarkAction(),
         FloatingSearchBarAction.icon(
@@ -89,7 +89,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
             isLight ? Icons.light_mode_rounded : Icons.nightlight_round,
             color: colors.scheme.primary,
           ),
-          onTap: () => ref
+          onTap: () async => ref
               .read(AppTheme.instance)
               .setThemeMode(isLight ? ThemeMode.dark : ThemeMode.light),
         ),
@@ -280,9 +280,9 @@ class _TileSearchWidget extends ConsumerWidget {
     title += name.isNotEmpty ? ', $name' : '';
 
     return ListTile(
-      onTap: () =>
+      onTap: () async =>
           ref.read(searchWidgetProvider.notifier).selectCurrentPlace(place),
-      onLongPress: () => ref
+      onLongPress: () async => ref
           .read(searchWidgetProvider.notifier)
           .changePlaceToSavedPlaces(isSaved, place),
       leading: place.countryCode == null

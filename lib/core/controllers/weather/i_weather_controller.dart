@@ -35,7 +35,7 @@ abstract class IWeatherNotifier<T> extends StateNotifier<AsyncValue<T?>>
   })  : _currentPlace = currentPlace,
         _allowedRequestRate = allowedRequestRate,
         super(const AsyncValue.loading()) {
-    _init();
+    unawaited(_init());
   }
 
   final Ref _ref;

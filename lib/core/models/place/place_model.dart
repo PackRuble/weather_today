@@ -4,6 +4,8 @@ import 'package:weather_pack/weather_pack.dart';
 part 'place_model.freezed.dart';
 part 'place_model.g.dart';
 
+// ignore_for_file: invalid_annotation_target
+
 /// Местоположение и его характеристики.
 ///
 @freezed

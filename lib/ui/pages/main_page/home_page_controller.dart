@@ -54,6 +54,7 @@ class HomePageController {
   void setIndexPageWhenClick(int index) {
     final controller = _ref.read(pageController);
     if ((_ref.read(currentIndex) - index).abs() == 1) {
+      // ignore: discarded_futures
       controller.animateToPage(index,
           duration: _durationSlide, curve: Curves.ease);
     } else {

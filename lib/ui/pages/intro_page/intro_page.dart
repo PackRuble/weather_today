@@ -164,7 +164,7 @@ class _LeftButtonWidget extends ConsumerWidget {
         }
       },
       child: ElevatedButton(
-        onPressed: () => controller.previousPage(
+        onPressed: () async => controller.previousPage(
           duration: const Duration(milliseconds: _durationMill),
           curve: Curves.ease,
         ),
@@ -197,7 +197,7 @@ class _RightButtonWidget extends ConsumerWidget {
     Widget nextButton() {
       return createButton(
         tr.introPage.nextButton,
-        () => controller.nextPage(
+        () async => controller.nextPage(
           duration: const Duration(milliseconds: _durationMill),
           curve: Curves.ease,
         ),
@@ -207,7 +207,7 @@ class _RightButtonWidget extends ConsumerWidget {
     Widget doneButton() {
       return createButton(
         tr.introPage.doneButton,
-        () => ref.read(AppGeneralSettings.instance).setIsIntro(false),
+        () async => ref.read(AppGeneralSettings.instance).setIsIntro(false),
       );
     }
 
@@ -257,7 +257,8 @@ class LocaleButtonWidget extends HookConsumerWidget {
       items: AppLocale.values
           .map((e) => DropdownMenuItem<AppLocale>(
                 value: e,
-                onTap: () => ref.watch(AppLocalization.instance).setLocale(e),
+                onTap: () async =>
+                    ref.watch(AppLocalization.instance).setLocale(e),
                 child: Text(
                   e.nameTr,
                   textAlign: TextAlign.center,

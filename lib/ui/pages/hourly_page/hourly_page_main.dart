@@ -17,7 +17,8 @@ class HourlyWeatherPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return RefreshWrapper<List<WeatherHourly>>(
       asyncValue: ref.watch(HourlyPageController.hourly),
-      onRefresh: () => ref.read(HourlyPageController.instance).updateWeather(),
+      onRefresh: () async =>
+          ref.read(HourlyPageController.instance).updateWeather(),
       physicsListView: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       child: (List<WeatherHourly> hourly) {
         switch (ref.watch(AppTheme.visualDesign)) {

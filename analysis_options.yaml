@@ -5,6 +5,7 @@ analyzer:
     - '**/*.g.dart'
     - '**/*.freezed.dart'
 
+# If necessary, use (ignore: lint) and (ignore_for_file: lint)
 linter:
   rules:
 
@@ -74,3 +75,8 @@ linter:
     flutter_style_todos: true
 
     unnecessary_lambdas: true
+
+    # I prefer to explicitly specify which asynchronous functions not to expect
+    # (use unawaited from dart:async)
+    discarded_futures: true
+    unawaited_futures: false

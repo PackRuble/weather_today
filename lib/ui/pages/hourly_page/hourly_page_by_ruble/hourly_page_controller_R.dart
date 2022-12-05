@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/chart_model.dart';

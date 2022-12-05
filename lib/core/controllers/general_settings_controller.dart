@@ -41,7 +41,9 @@ class AppGeneralSettings with Updater {
 
   /// Выбранная страница при старте приложения.
   static final startPageIndex = StateProvider<HomepageIndex>(
-      (ref) => _conversionStartPageIndex(DbStore.startPageIndexDefault));
+    (ref) => _conversionStartPageIndex(DbStore.startPageIndexDefault),
+    name: '$AppGeneralSettings/startPageIndex',
+  );
 
   static HomepageIndex _conversionStartPageIndex(int value) =>
       HomepageIndex.values[value];
@@ -55,8 +57,10 @@ class AppGeneralSettings with Updater {
   // ===========================================================================
 
   /// Показать интро? Обычно необходимо показать при первом запуске.
-  static final showIntro =
-      StateProvider<bool>((ref) => DbStore.showIntroDefault);
+  static final showIntro = StateProvider<bool>(
+    (ref) => DbStore.showIntroDefault,
+    name: '$AppGeneralSettings/showIntro',
+  );
 
   Future<void> setIsIntro(bool value, [bool isNotify = true]) async {
     if (!isNotify) return saveDb<bool>(DbStore.showIntro, value);

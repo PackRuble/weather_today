@@ -195,6 +195,7 @@ class SettingPageController {
           subtitle: 'Turn on and restart to see the effect',
           value: await _ref
               .read(AppGeneralSettings.instance)
+              // ignore: invalid_use_of_protected_member
               .loadDb(DbStore.showIntro, DbStore.showIntroDefault),
           onChanged: (bool value) {
             _ref.read(AppGeneralSettings.instance).setIsIntro(value, false);

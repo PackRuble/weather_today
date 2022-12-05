@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -18,7 +19,8 @@ final savedPlacesController =
 /// Контроллер сохраненных мест.
 class SavedPlacesNotifier extends StateNotifier<List<Place>> {
   SavedPlacesNotifier(this._ref) : super([]) {
-    _init(); // coldfix: при необходимости перевести на AsyncValue и await-инициализацию.
+    unawaited(
+        _init()); // coldfix: при необходимости перевести на AsyncValue и await-инициализацию.
   }
 
   final Ref _ref;

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
@@ -22,7 +24,7 @@ final searchWidgetProvider =
 class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
   SearchWidgetNotifier(this._ref, this._savedPlaces)
       : super(const SearchBodyState.loading()) {
-    _init();
+    unawaited(_init());
   }
 
   final Ref _ref;
@@ -174,7 +176,7 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
   // ===========================================================================
 
   /// Выбрать местоположение текущим.
-  void selectCurrentPlace(Place place) {
+  Future<void> selectCurrentPlace(Place place) async {
     _ref.read(controllerBarProvider).close();
     _ref.read(WeatherServices.instance).setCurrentPlace(place);
   }

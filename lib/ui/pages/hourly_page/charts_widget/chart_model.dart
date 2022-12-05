@@ -158,8 +158,8 @@ class ChartModel<T> {
       _tempFeelsMin = min(_tempFeelsMin, h.tempFeelsLike ?? _tempFeelsMin);
     }
 
-    double _maxValueY = max(max(_dewPointMax, _tempMax), _tempFeelsMax);
-    double _minValueY = min(min(_dewPointMin, _tempMin), _tempFeelsMin);
+    final double _maxValueY = max(max(_dewPointMax, _tempMax), _tempFeelsMax);
+    final double _minValueY = min(min(_dewPointMin, _tempMin), _tempFeelsMin);
 
     // доп проверка на корректность данных
     if (_maxValueY == startValue || _minValueY == startValue) {

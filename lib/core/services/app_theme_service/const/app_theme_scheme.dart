@@ -52,6 +52,7 @@ class AppThemeScheme {
       fontFamily: fontFamily,
     );
 
+    // ignore: unused_local_variable
     final ColorScheme _colorScheme = _flexScheme.toScheme;
 
     // _flexScheme.toTheme.iconTheme.copyWith(color: _flexScheme.secondary);

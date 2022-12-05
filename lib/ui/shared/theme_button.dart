@@ -14,7 +14,7 @@ class ChangerThemeButton extends ConsumerWidget {
     final bool isLight = AppColors.of(context).isLight;
 
     return IconButton(
-      onPressed: () => ref
+      onPressed: () async => ref
           .read(AppTheme.instance)
           .setThemeMode(isLight ? ThemeMode.dark : ThemeMode.light),
       icon: Icon(isLight ? Icons.light_mode_rounded : Icons.nightlight_round),

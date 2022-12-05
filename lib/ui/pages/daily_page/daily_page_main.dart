@@ -16,7 +16,8 @@ class DailyWeatherPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return RefreshWrapper<List<WeatherDaily>>(
       asyncValue: ref.watch(DailyPageController.daily),
-      onRefresh: () => ref.read(DailyPageController.instance).updateWeather(),
+      onRefresh: () async =>
+          ref.read(DailyPageController.instance).updateWeather(),
       physicsListView: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       child: (List<WeatherDaily> daily) {
         switch (ref.watch(AppTheme.visualDesign)) {
@@ -24,6 +25,7 @@ class DailyWeatherPage extends ConsumerWidget {
             return DailyWeatherPageByRuble(daily);
           case AppVisualDesign.byTolskaya:
           // return DailyWeatherPageByTolskaya(daily);
+          // ignore: no_default_cases
           default:
             return DailyWeatherPageByRuble(daily);
         }

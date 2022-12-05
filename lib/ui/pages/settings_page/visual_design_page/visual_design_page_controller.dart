@@ -218,6 +218,6 @@ class VisualDPageController {
       }
     }
 
-    _ref.refresh(changesProvider);
+    _ref.invalidate(changesProvider);
   }
 }

@@ -183,7 +183,7 @@ class AppTheme with Updater {
       StateProvider<bool>((ref) => DbStore.swapColorsThemeDefault);
 
   /// Swap primary and secondary, and their container colors.
-  void toggleSwapColors(bool swap) =>
+  Future<void> toggleSwapColors(bool swap) async =>
       saveAndUpdate<bool>(swapColors, DbStore.swapColorsTheme, swap);
 
   // Computed dark swaps main and container.
@@ -193,7 +193,7 @@ class AppTheme with Updater {
   static final swapDarkMainAndContainerColors = StateProvider<bool>(
       (ref) => DbStore.swapDarkMainAndContainerColorsDefault);
 
-  void toggleDarkSwapColors(bool swap) => saveAndUpdate<bool>(
+  Future<void> toggleDarkSwapColors(bool swap) async => saveAndUpdate<bool>(
       swapDarkMainAndContainerColors,
       DbStore.swapDarkMainAndContainerColors,
       swap);
@@ -206,7 +206,7 @@ class AppTheme with Updater {
       StateProvider<int>((ref) => DbStore.darkLevelThemeDefault);
 
   /// Установить степень насыщенности 0-100%.
-  void setDarkLevel(int value) =>
+  Future<void> setDarkLevel(int value) async =>
       saveAndUpdate<int>(darkLevel, DbStore.darkLevelTheme, value);
 
   // Настоящий черный цвет.
@@ -216,7 +216,7 @@ class AppTheme with Updater {
   static final darkIsTrueBlack =
       StateProvider<bool>((ref) => DbStore.darkIsTrueBlackDefault);
 
-  void toggleDarkIsTrueBlack(bool value) =>
+  Future<void> toggleDarkIsTrueBlack(bool value) async =>
       saveAndUpdate<bool>(darkIsTrueBlack, DbStore.darkIsTrueBlack, value);
 
   // Material Design 3.
@@ -226,7 +226,7 @@ class AppTheme with Updater {
   static final useMaterial3 =
       StateProvider<bool>((ref) => DbStore.useMaterial3Default);
 
-  void toggleUseMaterial3(bool value) =>
+  Future<void> toggleUseMaterial3(bool value) async =>
       saveAndUpdate<bool>(useMaterial3, DbStore.useMaterial3, value);
 
   // Theme

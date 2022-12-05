@@ -187,6 +187,7 @@ class _TextFieldApiWidget extends ConsumerWidget {
         offset = 0.0;
       }
 
+      // ignore: discarded_futures
       listController.animateTo(offset,
           duration: const Duration(milliseconds: 500), curve: Curves.linear);
     });
@@ -219,7 +220,7 @@ class _TextFieldApiWidget extends ConsumerWidget {
           border: const OutlineInputBorder(),
         ),
         keyboardType: TextInputType.text,
-        onSubmitted: (_) =>
+        onSubmitted: (_) async =>
             ref.read(UserApiPageController.instance).setUserApi(),
       ),
     );
@@ -249,7 +250,8 @@ class _DoneAndLoadingWidget extends ConsumerWidget {
             tooltip: t.apiWeatherPage.tooltips.set,
             icon: const Icon(Icons.check_circle_outline_rounded),
             onPressed: isEnabled
-                ? () => ref.read(UserApiPageController.instance).setUserApi()
+                ? () async =>
+                    ref.read(UserApiPageController.instance).setUserApi()
                 : null,
           );
   }

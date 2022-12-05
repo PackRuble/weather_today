@@ -16,8 +16,6 @@ import '../../../utils/image_helper.dart';
 import '../../../utils/metrics_helper.dart';
 import '../daily_page_controller.dart';
 
-const Widget _divider = Divider(height: 4.0, thickness: 1.0);
-
 /// Страница погоды на 7 дней.
 class DailyWeatherPageByRuble extends ConsumerWidget {
   const DailyWeatherPageByRuble(this.daily);
@@ -112,6 +110,7 @@ class _AlertTileWidget extends ConsumerWidget {
       ),
       title: Text(alert.event!),
       subtitle: Text(alert.description!),
+      // ignore: use_named_constants
       contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
       tileColor: Theme.of(context).errorColor.withOpacity(0.2),
     );
@@ -156,8 +155,6 @@ class TileDailyWidget extends ConsumerWidget {
     final t = ref.watch(AppLocalization.currentTranslation);
 
     final TextTheme styles = theme.textTheme;
-
-    final double textScaleFactor = MediaQuery.textScaleFactorOf(context);
 
     final Temp tempUnits = ref.watch(DailyPageController.tempUnits);
     final String _tempUnits = MetricsHelper.getTempUnits(tempUnits);
