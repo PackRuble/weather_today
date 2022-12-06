@@ -137,30 +137,38 @@ class AppDialogs {
   /// Информационный диалог, показывающий информацию об этом приложении.
   static Future<void> aboutApp(
     BuildContext context,
-  ) async =>
-      showAboutThingsDialog<void>(
-        context,
-        applicationName: AppInfo.appName,
-        // applicationIcon: const Icon(Icons.self_improvement_rounded),
-        applicationIcon: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4.0),
-            child: Image.asset(
-              ImagePaths.iconAbout,
-              fit: BoxFit.cover,
-              width: 70,
-              height: 70,
-              filterQuality: FilterQuality.high,
-            ),
+  ) async {
+    final installerStore = await AppInfo.get(AppInfoData.installerStore);
+
+    // ignore: use_build_context_synchronously
+    return showAboutAppDialog<void>(
+      context,
+      applicationName: await AppInfo.get(AppInfoData.appName),
+      applicationIcon: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
+        child: SizedBox.square(
+          dimension: 70,
+          child: Image.asset(
+            ImagePaths.iconAbout,
+            repeat: ImageRepeat.repeat,
+            fit: BoxFit.scaleDown,
+            filterQuality: FilterQuality.high,
           ),
         ),
-        applicationLegalese: AppInfo.copyright,
-        applicationVersion: 'v${AppInfo.version}',
-        more: [
-          const Text(''),
-          const Text('❤ Flutter - ${AppInfo.flutterVersion}'),
-        ],
-      );
+      ),
+      applicationLegalese: AppInfo.copyright,
+      applicationVersion: 'v.${await AppInfo.get(AppInfoData.appVersion)}',
+      more: [
+        const Text(''),
+        Text('Build number: ${await AppInfo.get(AppInfoData.buildNumber)}'),
+        if (installerStore.isNotEmpty) Text(installerStore),
+        // Text('${await AppInfo.get(AppInfoData.buildSignature)}'),
+        // Text('${await AppInfo.get(AppInfoData.packageName)}'),
+        const Text(''),
+        const Text('Build with Flutter ❤'),
+      ],
+    );
+  }
 
   /// Предупреждающий диалог о сохранении изменений.
   ///

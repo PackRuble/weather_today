@@ -26,8 +26,6 @@
 .pub-cache/
 .pub/
 /build/
-pubspec.lock
-.metadata
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -48,3 +46,7 @@ app.*.map.json
 
 # fvm
 .fvm/flutter_sdk
+
+# helpful generated files for translation
+/assets/i18n/_missing_translations.json
+/assets/i18n/_unused_translations.json

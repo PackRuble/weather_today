@@ -142,7 +142,7 @@ Future<T?> infoDialogCustom<T>(
       });
 }
 
-Future<T?> showAboutThingsDialog<T>(
+Future<T?> showAboutAppDialog<T>(
   BuildContext context, {
   String? applicationName,
   String? applicationVersion,
