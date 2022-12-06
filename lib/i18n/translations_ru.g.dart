@@ -27,6 +27,7 @@ class TranslationsRu implements BaseTranslations<AppLocale, TranslationsRu> {
 	late final TranslationsSavedPlacesPageRu savedPlacesPage = TranslationsSavedPlacesPageRu._(_root);
 	late final TranslationsSearchBarRu searchBar = TranslationsSearchBarRu._(_root);
 	late final TranslationsFlagsPageRu flagsPage = TranslationsFlagsPageRu._(_root);
+	late final TranslationsSystemSettingsPageRu systemSettingsPage = TranslationsSystemSettingsPageRu._(_root);
 	late final TranslationsGratitudePageRu gratitudePage = TranslationsGratitudePageRu._(_root);
 	late final TranslationsWeatherLangPageRu weatherLangPage = TranslationsWeatherLangPageRu._(_root);
 	late final TranslationsApiWeatherPageRu apiWeatherPage = TranslationsApiWeatherPageRu._(_root);
@@ -70,6 +71,7 @@ class TranslationsSettingsPageRu {
 	late final TranslationsSettingsPageHomepageTileRu homepageTile = TranslationsSettingsPageHomepageTileRu._(_root);
 	late final TranslationsSettingsPageLocaleTileRu localeTile = TranslationsSettingsPageLocaleTileRu._(_root);
 	late final TranslationsSettingsPageGratitudeTileRu gratitudeTile = TranslationsSettingsPageGratitudeTileRu._(_root);
+	late final TranslationsSettingsPageSystemSettingsTileRu systemSettingsTile = TranslationsSettingsPageSystemSettingsTileRu._(_root);
 	late final TranslationsSettingsPageAboutAppTileRu aboutAppTile = TranslationsSettingsPageAboutAppTileRu._(_root);
 }
 
@@ -136,6 +138,17 @@ class TranslationsFlagsPageRu {
 
 	// Translations
 	String get appbarTitle => 'Флаги разных стран';
+}
+
+// Path: systemSettingsPage
+class TranslationsSystemSettingsPageRu {
+	TranslationsSystemSettingsPageRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	String get appbarTitle => 'Системные настройки';
+	late final TranslationsSystemSettingsPageEnableLogsTileRu enableLogsTile = TranslationsSystemSettingsPageEnableLogsTileRu._(_root);
 }
 
 // Path: gratitudePage
@@ -490,7 +503,7 @@ class TranslationsSettingsPageThemeTileRu {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	String get tileTitle => 'Цветовое решение приложения';
+	String get tileTitle => 'Цветовое решение';
 }
 
 // Path: settingsPage.countryFlagsTile
@@ -537,6 +550,16 @@ class TranslationsSettingsPageGratitudeTileRu {
 
 	// Translations
 	String get tileTitle => 'Благодарности';
+}
+
+// Path: settingsPage.systemSettingsTile
+class TranslationsSettingsPageSystemSettingsTileRu {
+	TranslationsSettingsPageSystemSettingsTileRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	String get tileTitle => 'Системные настройки';
 }
 
 // Path: settingsPage.aboutAppTile
@@ -588,6 +611,18 @@ class TranslationsSearchBarTipsRu {
 	String get notFoundedPlaces => 'Нет найденных мест.';
 	String get showFoundedPlaces => 'Показаны найденные места.';
 	String get searchError => 'Произошла ошибка';
+}
+
+// Path: systemSettingsPage.enableLogsTile
+class TranslationsSystemSettingsPageEnableLogsTileRu {
+	TranslationsSystemSettingsPageEnableLogsTileRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	String get tileTitle => 'Включить логирование';
+	String get tileSub => 'Ваши данные - только ваши';
+	String get tileContent => 'При включении данной опции будут собираться данные (логи) об использовании приложения. Однако, они не отправляются автоматически НИКОГДА. Их можно отправить только вручную. Выключение данной опции также удалит все логи.';
 }
 
 // Path: weatherLangPage.tips

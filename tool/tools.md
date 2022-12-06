@@ -15,6 +15,9 @@ flutter pub run slang build
 ```shell
 flutter pub run slang analyze
 ```
+```shell
+flutter pub run slang apply
+```
 
 ## Build files
 ```shell

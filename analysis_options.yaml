@@ -79,4 +79,4 @@ linter:
     # I prefer to explicitly specify which asynchronous functions not to expect
     # (use unawaited from dart:async)
     discarded_futures: true
-    unawaited_futures: false
+    unawaited_futures: true

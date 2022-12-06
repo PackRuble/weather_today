@@ -105,7 +105,7 @@
       "tile_title": "Visual design"
     },
     "theme_tile": {
-      "tile_title": "Application color scheme"
+      "tile_title": "Color scheme"
     },
     "country_flags_tile": {
       "tile_title": "Flags of different countries"
@@ -127,6 +127,9 @@
     },
     "about_app_tile": {
       "tile_title": "About the app"
+    },
+    "system_settings_tile": {
+      "tile_title": "System settings"
     }
   },
   "visual_design_page": {
@@ -175,6 +178,14 @@
   },
   "flags_page": {
     "appbar_title": "Flags of different countries"
+  },
+  "system_settings_page": {
+    "appbar_title": "System settings",
+    "enable_logs_tile": {
+      "tile_title": "Enable logging",
+      "tile_sub": "Your data is only yours",
+      "tile_content": "Enabling this option will collect data (logs) about application usage. However, they are not automatically sent NEVER. They can only be sent manually. Disabling this option will also delete all logs."
+    }
   },
   "gratitude_page": {
     "appbar_title": "I want to say thank you...",

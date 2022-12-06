@@ -3,11 +3,12 @@ import 'dart:async';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_today/const/key_store.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
 final loggerManager = Provider<AppLogsManager>((ref) => AppLogsManager());
 
 /// Call async [init] before use.
-class AppLogsManager {
+class AppLogsManager with GlobalLogger {
   AppLogsManager();
 
   late final SharedPreferences _prefs;
@@ -24,13 +25,17 @@ class AppLogsManager {
       _prefs.getBool(DbStore.enableLoggingApp) ??
       DbStore.enableLoggingAppDefault;
 
-  Future<void> enableLogging() async =>
-      _prefs.setBool(DbStore.enableLoggingApp, true);
+  Future<void> enableLogging() async {
+    unawaited(_prefs.setBool(DbStore.enableLoggingApp, true));
+    loggy.info('Enable logger.');
+  }
 
   /// Это действие также очистит логи.
   Future<void> disableLogging() async {
-    _prefs.setBool(DbStore.enableLoggingApp, false);
-    clearLogs();
+    unawaited(_prefs.setBool(DbStore.enableLoggingApp, false));
+    unawaited(clearLogs());
+
+    loggy.info('Disable logger. Clear all logs.');
   }
 
   /// Получить все собранные логи.

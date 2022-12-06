@@ -27,6 +27,7 @@ class TranslationsEn implements TranslationsRu {
 	@override late final TranslationsSavedPlacesPageEn savedPlacesPage = TranslationsSavedPlacesPageEn._(_root);
 	@override late final TranslationsSearchBarEn searchBar = TranslationsSearchBarEn._(_root);
 	@override late final TranslationsFlagsPageEn flagsPage = TranslationsFlagsPageEn._(_root);
+	@override late final TranslationsSystemSettingsPageEn systemSettingsPage = TranslationsSystemSettingsPageEn._(_root);
 	@override late final TranslationsGratitudePageEn gratitudePage = TranslationsGratitudePageEn._(_root);
 	@override late final TranslationsWeatherLangPageEn weatherLangPage = TranslationsWeatherLangPageEn._(_root);
 	@override late final TranslationsApiWeatherPageEn apiWeatherPage = TranslationsApiWeatherPageEn._(_root);
@@ -71,6 +72,7 @@ class TranslationsSettingsPageEn implements TranslationsSettingsPageRu {
 	@override late final TranslationsSettingsPageLocaleTileEn localeTile = TranslationsSettingsPageLocaleTileEn._(_root);
 	@override late final TranslationsSettingsPageGratitudeTileEn gratitudeTile = TranslationsSettingsPageGratitudeTileEn._(_root);
 	@override late final TranslationsSettingsPageAboutAppTileEn aboutAppTile = TranslationsSettingsPageAboutAppTileEn._(_root);
+	@override late final TranslationsSettingsPageSystemSettingsTileEn systemSettingsTile = TranslationsSettingsPageSystemSettingsTileEn._(_root);
 }
 
 // Path: visualDesignPage
@@ -136,6 +138,17 @@ class TranslationsFlagsPageEn implements TranslationsFlagsPageRu {
 
 	// Translations
 	@override String get appbarTitle => 'Flags of different countries';
+}
+
+// Path: systemSettingsPage
+class TranslationsSystemSettingsPageEn implements TranslationsSystemSettingsPageRu {
+	TranslationsSystemSettingsPageEn._(this._root);
+
+	@override final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get appbarTitle => 'System settings';
+	@override late final TranslationsSystemSettingsPageEnableLogsTileEn enableLogsTile = TranslationsSystemSettingsPageEnableLogsTileEn._(_root);
 }
 
 // Path: gratitudePage
@@ -493,7 +506,7 @@ class TranslationsSettingsPageThemeTileEn implements TranslationsSettingsPageThe
 	@override final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get tileTitle => 'Application color scheme';
+	@override String get tileTitle => 'Color scheme';
 }
 
 // Path: settingsPage.countryFlagsTile
@@ -552,6 +565,16 @@ class TranslationsSettingsPageAboutAppTileEn implements TranslationsSettingsPage
 	@override String get tileTitle => 'About the app';
 }
 
+// Path: settingsPage.systemSettingsTile
+class TranslationsSettingsPageSystemSettingsTileEn implements TranslationsSettingsPageSystemSettingsTileRu {
+	TranslationsSettingsPageSystemSettingsTileEn._(this._root);
+
+	@override final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get tileTitle => 'System settings';
+}
+
 // Path: visualDesignPage.headers
 class TranslationsVisualDesignPageHeadersEn implements TranslationsVisualDesignPageHeadersRu {
 	TranslationsVisualDesignPageHeadersEn._(this._root);
@@ -591,6 +614,18 @@ class TranslationsSearchBarTipsEn implements TranslationsSearchBarTipsRu {
 	@override String get notFoundedPlaces => 'No places found.';
 	@override String get showFoundedPlaces => 'The found places are shown.';
 	@override String get searchError => 'An error has occurred.';
+}
+
+// Path: systemSettingsPage.enableLogsTile
+class TranslationsSystemSettingsPageEnableLogsTileEn implements TranslationsSystemSettingsPageEnableLogsTileRu {
+	TranslationsSystemSettingsPageEnableLogsTileEn._(this._root);
+
+	@override final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get tileTitle => 'Enable logging';
+	@override String get tileSub => 'Your data is only yours';
+	@override String get tileContent => 'Enabling this option will collect data (logs) about application usage. However, they are not automatically sent NEVER. They can only be sent manually. Disabling this option will also delete all logs.';
 }
 
 // Path: weatherLangPage.tips

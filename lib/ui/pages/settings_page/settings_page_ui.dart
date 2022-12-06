@@ -43,6 +43,7 @@ class SettingsPage extends ConsumerWidget {
         const _TileCountryFlagsWidget(),
         const _TileHomepageIndexWidget(),
         const _TileLocaleAppWidget(),
+        const _SystemSettingsWidget(),
         const _TileGratitudeWidget(),
         const _TileAboutAppWidget(),
       ],
@@ -52,6 +53,7 @@ class SettingsPage extends ConsumerWidget {
 
 class _TileSetting extends StatelessWidget {
   const _TileSetting({
+    super.key,
     required this.leading,
     required this.title,
     this.subtitle,
@@ -290,6 +292,21 @@ class _TileLocaleAppWidget extends ConsumerWidget {
       subtitle: t.settingsPage.localeTile.tileSub(locale: locale),
       onTap: () async =>
           ref.read(SettingPageController.instance).dialogSetLocale(context),
+    );
+  }
+}
+
+class _SystemSettingsWidget extends ConsumerWidget {
+  const _SystemSettingsWidget();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(SettingPageController.tr);
+
+    return _TileSetting(
+      leading: AppIcons.systemSettingsTile,
+      title: t.settingsPage.systemSettingsTile.tileTitle,
+      onTap: () => context.router.push(const SystemSettingsRoute()),
     );
   }
 }
