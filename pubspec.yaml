@@ -58,6 +58,7 @@ dependencies:
   url_launcher: ^6.1.6
   meta: ^1.8.0
   package_info_plus: ^3.0.2
+  flutter_markdown: ^0.6.13
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +82,7 @@ flutter:
     - assets/icons/icon.png
     - assets/images/
     - assets/images/attribution/owm/
+    - assets/doc/
 
   fonts:
     # see https://flutter.dev/custom-fonts/#from-packages

@@ -56,6 +56,9 @@ class DbStore {
   static const String showIntro = 'isIntro';
   static const bool showIntroDefault = true;
 
+  static const String isAcceptedTermsConditions = 'isAcceptedTermsConditions';
+  static const bool isAcceptedTermsConditionsDefault = false;
+
   // Цветовая тема приложения.
   // ===========================================================================
 

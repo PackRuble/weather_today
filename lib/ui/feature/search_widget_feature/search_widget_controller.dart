@@ -178,7 +178,7 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
   /// Выбрать местоположение текущим.
   Future<void> selectCurrentPlace(Place place) async {
     _ref.read(controllerBarProvider).close();
-    _ref.read(WeatherServices.instance).setCurrentPlace(place);
+    unawaited(_ref.read(WeatherServices.instance).setCurrentPlace(place));
   }
 
   /// Добавить/удалить место.

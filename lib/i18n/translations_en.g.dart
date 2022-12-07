@@ -1,7 +1,7 @@
 part of 'translations.g.dart';
 
 // Path: <root>
-class TranslationsEn implements TranslationsRu {
+class TranslationsEn extends TranslationsRu {
 
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
@@ -12,7 +12,8 @@ class TranslationsEn implements TranslationsRu {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  );
+		  ),
+		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <en>.
 	@override final TranslationMetadata<AppLocale, TranslationsRu> $meta;
@@ -37,11 +38,12 @@ class TranslationsEn implements TranslationsRu {
 	@override late final TranslationsDialogsEn dialogs = TranslationsDialogsEn._(_root);
 	@override late final TranslationsEnumsEn enums = TranslationsEnumsEn._(_root);
 	@override late final TranslationsUnitsEn units = TranslationsUnitsEn._(_root);
+	@override late final TranslationsLicenseTermsPageEn licenseTermsPage = TranslationsLicenseTermsPageEn._(_root);
 }
 
 // Path: mainPageDRuble
-class TranslationsMainPageDRubleEn implements TranslationsMainPageDRubleRu {
-	TranslationsMainPageDRubleEn._(this._root);
+class TranslationsMainPageDRubleEn extends TranslationsMainPageDRubleRu {
+	TranslationsMainPageDRubleEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -52,8 +54,8 @@ class TranslationsMainPageDRubleEn implements TranslationsMainPageDRubleRu {
 }
 
 // Path: settingsPage
-class TranslationsSettingsPageEn implements TranslationsSettingsPageRu {
-	TranslationsSettingsPageEn._(this._root);
+class TranslationsSettingsPageEn extends TranslationsSettingsPageRu {
+	TranslationsSettingsPageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -76,8 +78,8 @@ class TranslationsSettingsPageEn implements TranslationsSettingsPageRu {
 }
 
 // Path: visualDesignPage
-class TranslationsVisualDesignPageEn implements TranslationsVisualDesignPageRu {
-	TranslationsVisualDesignPageEn._(this._root);
+class TranslationsVisualDesignPageEn extends TranslationsVisualDesignPageRu {
+	TranslationsVisualDesignPageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -87,8 +89,8 @@ class TranslationsVisualDesignPageEn implements TranslationsVisualDesignPageRu {
 }
 
 // Path: themesPage
-class TranslationsThemesPageEn implements TranslationsThemesPageRu {
-	TranslationsThemesPageEn._(this._root);
+class TranslationsThemesPageEn extends TranslationsThemesPageRu {
+	TranslationsThemesPageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -106,8 +108,8 @@ class TranslationsThemesPageEn implements TranslationsThemesPageRu {
 }
 
 // Path: savedPlacesPage
-class TranslationsSavedPlacesPageEn implements TranslationsSavedPlacesPageRu {
-	TranslationsSavedPlacesPageEn._(this._root);
+class TranslationsSavedPlacesPageEn extends TranslationsSavedPlacesPageRu {
+	TranslationsSavedPlacesPageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -120,8 +122,8 @@ class TranslationsSavedPlacesPageEn implements TranslationsSavedPlacesPageRu {
 }
 
 // Path: searchBar
-class TranslationsSearchBarEn implements TranslationsSearchBarRu {
-	TranslationsSearchBarEn._(this._root);
+class TranslationsSearchBarEn extends TranslationsSearchBarRu {
+	TranslationsSearchBarEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -131,8 +133,8 @@ class TranslationsSearchBarEn implements TranslationsSearchBarRu {
 }
 
 // Path: flagsPage
-class TranslationsFlagsPageEn implements TranslationsFlagsPageRu {
-	TranslationsFlagsPageEn._(this._root);
+class TranslationsFlagsPageEn extends TranslationsFlagsPageRu {
+	TranslationsFlagsPageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -141,8 +143,8 @@ class TranslationsFlagsPageEn implements TranslationsFlagsPageRu {
 }
 
 // Path: systemSettingsPage
-class TranslationsSystemSettingsPageEn implements TranslationsSystemSettingsPageRu {
-	TranslationsSystemSettingsPageEn._(this._root);
+class TranslationsSystemSettingsPageEn extends TranslationsSystemSettingsPageRu {
+	TranslationsSystemSettingsPageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -152,8 +154,8 @@ class TranslationsSystemSettingsPageEn implements TranslationsSystemSettingsPage
 }
 
 // Path: gratitudePage
-class TranslationsGratitudePageEn implements TranslationsGratitudePageRu {
-	TranslationsGratitudePageEn._(this._root);
+class TranslationsGratitudePageEn extends TranslationsGratitudePageRu {
+	TranslationsGratitudePageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -185,8 +187,8 @@ class TranslationsGratitudePageEn implements TranslationsGratitudePageRu {
 }
 
 // Path: weatherLangPage
-class TranslationsWeatherLangPageEn implements TranslationsWeatherLangPageRu {
-	TranslationsWeatherLangPageEn._(this._root);
+class TranslationsWeatherLangPageEn extends TranslationsWeatherLangPageRu {
+	TranslationsWeatherLangPageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -196,8 +198,8 @@ class TranslationsWeatherLangPageEn implements TranslationsWeatherLangPageRu {
 }
 
 // Path: apiWeatherPage
-class TranslationsApiWeatherPageEn implements TranslationsApiWeatherPageRu {
-	TranslationsApiWeatherPageEn._(this._root);
+class TranslationsApiWeatherPageEn extends TranslationsApiWeatherPageRu {
+	TranslationsApiWeatherPageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -211,8 +213,8 @@ class TranslationsApiWeatherPageEn implements TranslationsApiWeatherPageRu {
 }
 
 // Path: introPage
-class TranslationsIntroPageEn implements TranslationsIntroPageRu {
-	TranslationsIntroPageEn._(this._root);
+class TranslationsIntroPageEn extends TranslationsIntroPageRu {
+	TranslationsIntroPageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -231,8 +233,8 @@ class TranslationsIntroPageEn implements TranslationsIntroPageRu {
 }
 
 // Path: weather
-class TranslationsWeatherEn implements TranslationsWeatherRu {
-	TranslationsWeatherEn._(this._root);
+class TranslationsWeatherEn extends TranslationsWeatherRu {
+	TranslationsWeatherEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -320,8 +322,8 @@ class TranslationsWeatherEn implements TranslationsWeatherRu {
 }
 
 // Path: global
-class TranslationsGlobalEn implements TranslationsGlobalRu {
-	TranslationsGlobalEn._(this._root);
+class TranslationsGlobalEn extends TranslationsGlobalRu {
+	TranslationsGlobalEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -330,8 +332,8 @@ class TranslationsGlobalEn implements TranslationsGlobalRu {
 }
 
 // Path: dialogs
-class TranslationsDialogsEn implements TranslationsDialogsRu {
-	TranslationsDialogsEn._(this._root);
+class TranslationsDialogsEn extends TranslationsDialogsRu {
+	TranslationsDialogsEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -347,8 +349,8 @@ class TranslationsDialogsEn implements TranslationsDialogsRu {
 }
 
 // Path: enums
-class TranslationsEnumsEn implements TranslationsEnumsRu {
-	TranslationsEnumsEn._(this._root);
+class TranslationsEnumsEn extends TranslationsEnumsRu {
+	TranslationsEnumsEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -357,8 +359,8 @@ class TranslationsEnumsEn implements TranslationsEnumsRu {
 }
 
 // Path: units
-class TranslationsUnitsEn implements TranslationsUnitsRu {
-	TranslationsUnitsEn._(this._root);
+class TranslationsUnitsEn extends TranslationsUnitsRu {
+	TranslationsUnitsEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -369,9 +371,22 @@ class TranslationsUnitsEn implements TranslationsUnitsRu {
 	@override late final TranslationsUnitsSideOfTheWorldEn sideOfTheWorld = TranslationsUnitsSideOfTheWorldEn._(_root);
 }
 
+// Path: licenseTermsPage
+class TranslationsLicenseTermsPageEn extends TranslationsLicenseTermsPageRu {
+	TranslationsLicenseTermsPageEn._(TranslationsEn root) : this._root = root, super._(root);
+
+	@override final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Terms & Conditions';
+	@override String get subtitle => 'Terms of use of the application:';
+	@override String get buttonCancel => 'Reject and exit';
+	@override String get buttonAccept => 'Accept';
+}
+
 // Path: mainPageDRuble.mainPage
-class TranslationsMainPageDRubleMainPageEn implements TranslationsMainPageDRubleMainPageRu {
-	TranslationsMainPageDRubleMainPageEn._(this._root);
+class TranslationsMainPageDRubleMainPageEn extends TranslationsMainPageDRubleMainPageRu {
+	TranslationsMainPageDRubleMainPageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -380,8 +395,8 @@ class TranslationsMainPageDRubleMainPageEn implements TranslationsMainPageDRuble
 }
 
 // Path: mainPageDRuble.hourlyPage
-class TranslationsMainPageDRubleHourlyPageEn implements TranslationsMainPageDRubleHourlyPageRu {
-	TranslationsMainPageDRubleHourlyPageEn._(this._root);
+class TranslationsMainPageDRubleHourlyPageEn extends TranslationsMainPageDRubleHourlyPageRu {
+	TranslationsMainPageDRubleHourlyPageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -393,8 +408,8 @@ class TranslationsMainPageDRubleHourlyPageEn implements TranslationsMainPageDRub
 }
 
 // Path: mainPageDRuble.currentPage
-class TranslationsMainPageDRubleCurrentPageEn implements TranslationsMainPageDRubleCurrentPageRu {
-	TranslationsMainPageDRubleCurrentPageEn._(this._root);
+class TranslationsMainPageDRubleCurrentPageEn extends TranslationsMainPageDRubleCurrentPageRu {
+	TranslationsMainPageDRubleCurrentPageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -409,8 +424,8 @@ class TranslationsMainPageDRubleCurrentPageEn implements TranslationsMainPageDRu
 }
 
 // Path: settingsPage.headers
-class TranslationsSettingsPageHeadersEn implements TranslationsSettingsPageHeadersRu {
-	TranslationsSettingsPageHeadersEn._(this._root);
+class TranslationsSettingsPageHeadersEn extends TranslationsSettingsPageHeadersRu {
+	TranslationsSettingsPageHeadersEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -421,8 +436,8 @@ class TranslationsSettingsPageHeadersEn implements TranslationsSettingsPageHeade
 }
 
 // Path: settingsPage.savedPlacesTile
-class TranslationsSettingsPageSavedPlacesTileEn implements TranslationsSettingsPageSavedPlacesTileRu {
-	TranslationsSettingsPageSavedPlacesTileEn._(this._root);
+class TranslationsSettingsPageSavedPlacesTileEn extends TranslationsSettingsPageSavedPlacesTileRu {
+	TranslationsSettingsPageSavedPlacesTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -431,8 +446,8 @@ class TranslationsSettingsPageSavedPlacesTileEn implements TranslationsSettingsP
 }
 
 // Path: settingsPage.tempTile
-class TranslationsSettingsPageTempTileEn implements TranslationsSettingsPageTempTileRu {
-	TranslationsSettingsPageTempTileEn._(this._root);
+class TranslationsSettingsPageTempTileEn extends TranslationsSettingsPageTempTileRu {
+	TranslationsSettingsPageTempTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -444,8 +459,8 @@ class TranslationsSettingsPageTempTileEn implements TranslationsSettingsPageTemp
 }
 
 // Path: settingsPage.pressureTile
-class TranslationsSettingsPagePressureTileEn implements TranslationsSettingsPagePressureTileRu {
-	TranslationsSettingsPagePressureTileEn._(this._root);
+class TranslationsSettingsPagePressureTileEn extends TranslationsSettingsPagePressureTileRu {
+	TranslationsSettingsPagePressureTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -457,8 +472,8 @@ class TranslationsSettingsPagePressureTileEn implements TranslationsSettingsPage
 }
 
 // Path: settingsPage.speedTile
-class TranslationsSettingsPageSpeedTileEn implements TranslationsSettingsPageSpeedTileRu {
-	TranslationsSettingsPageSpeedTileEn._(this._root);
+class TranslationsSettingsPageSpeedTileEn extends TranslationsSettingsPageSpeedTileRu {
+	TranslationsSettingsPageSpeedTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -470,8 +485,8 @@ class TranslationsSettingsPageSpeedTileEn implements TranslationsSettingsPageSpe
 }
 
 // Path: settingsPage.weatherLangTile
-class TranslationsSettingsPageWeatherLangTileEn implements TranslationsSettingsPageWeatherLangTileRu {
-	TranslationsSettingsPageWeatherLangTileEn._(this._root);
+class TranslationsSettingsPageWeatherLangTileEn extends TranslationsSettingsPageWeatherLangTileRu {
+	TranslationsSettingsPageWeatherLangTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -480,8 +495,8 @@ class TranslationsSettingsPageWeatherLangTileEn implements TranslationsSettingsP
 }
 
 // Path: settingsPage.userApiTile
-class TranslationsSettingsPageUserApiTileEn implements TranslationsSettingsPageUserApiTileRu {
-	TranslationsSettingsPageUserApiTileEn._(this._root);
+class TranslationsSettingsPageUserApiTileEn extends TranslationsSettingsPageUserApiTileRu {
+	TranslationsSettingsPageUserApiTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -490,8 +505,8 @@ class TranslationsSettingsPageUserApiTileEn implements TranslationsSettingsPageU
 }
 
 // Path: settingsPage.visualDesignTile
-class TranslationsSettingsPageVisualDesignTileEn implements TranslationsSettingsPageVisualDesignTileRu {
-	TranslationsSettingsPageVisualDesignTileEn._(this._root);
+class TranslationsSettingsPageVisualDesignTileEn extends TranslationsSettingsPageVisualDesignTileRu {
+	TranslationsSettingsPageVisualDesignTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -500,8 +515,8 @@ class TranslationsSettingsPageVisualDesignTileEn implements TranslationsSettings
 }
 
 // Path: settingsPage.themeTile
-class TranslationsSettingsPageThemeTileEn implements TranslationsSettingsPageThemeTileRu {
-	TranslationsSettingsPageThemeTileEn._(this._root);
+class TranslationsSettingsPageThemeTileEn extends TranslationsSettingsPageThemeTileRu {
+	TranslationsSettingsPageThemeTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -510,8 +525,8 @@ class TranslationsSettingsPageThemeTileEn implements TranslationsSettingsPageThe
 }
 
 // Path: settingsPage.countryFlagsTile
-class TranslationsSettingsPageCountryFlagsTileEn implements TranslationsSettingsPageCountryFlagsTileRu {
-	TranslationsSettingsPageCountryFlagsTileEn._(this._root);
+class TranslationsSettingsPageCountryFlagsTileEn extends TranslationsSettingsPageCountryFlagsTileRu {
+	TranslationsSettingsPageCountryFlagsTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -520,8 +535,8 @@ class TranslationsSettingsPageCountryFlagsTileEn implements TranslationsSettings
 }
 
 // Path: settingsPage.homepageTile
-class TranslationsSettingsPageHomepageTileEn implements TranslationsSettingsPageHomepageTileRu {
-	TranslationsSettingsPageHomepageTileEn._(this._root);
+class TranslationsSettingsPageHomepageTileEn extends TranslationsSettingsPageHomepageTileRu {
+	TranslationsSettingsPageHomepageTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -533,8 +548,8 @@ class TranslationsSettingsPageHomepageTileEn implements TranslationsSettingsPage
 }
 
 // Path: settingsPage.localeTile
-class TranslationsSettingsPageLocaleTileEn implements TranslationsSettingsPageLocaleTileRu {
-	TranslationsSettingsPageLocaleTileEn._(this._root);
+class TranslationsSettingsPageLocaleTileEn extends TranslationsSettingsPageLocaleTileRu {
+	TranslationsSettingsPageLocaleTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -546,8 +561,8 @@ class TranslationsSettingsPageLocaleTileEn implements TranslationsSettingsPageLo
 }
 
 // Path: settingsPage.gratitudeTile
-class TranslationsSettingsPageGratitudeTileEn implements TranslationsSettingsPageGratitudeTileRu {
-	TranslationsSettingsPageGratitudeTileEn._(this._root);
+class TranslationsSettingsPageGratitudeTileEn extends TranslationsSettingsPageGratitudeTileRu {
+	TranslationsSettingsPageGratitudeTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -556,8 +571,8 @@ class TranslationsSettingsPageGratitudeTileEn implements TranslationsSettingsPag
 }
 
 // Path: settingsPage.aboutAppTile
-class TranslationsSettingsPageAboutAppTileEn implements TranslationsSettingsPageAboutAppTileRu {
-	TranslationsSettingsPageAboutAppTileEn._(this._root);
+class TranslationsSettingsPageAboutAppTileEn extends TranslationsSettingsPageAboutAppTileRu {
+	TranslationsSettingsPageAboutAppTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -566,8 +581,8 @@ class TranslationsSettingsPageAboutAppTileEn implements TranslationsSettingsPage
 }
 
 // Path: settingsPage.systemSettingsTile
-class TranslationsSettingsPageSystemSettingsTileEn implements TranslationsSettingsPageSystemSettingsTileRu {
-	TranslationsSettingsPageSystemSettingsTileEn._(this._root);
+class TranslationsSettingsPageSystemSettingsTileEn extends TranslationsSettingsPageSystemSettingsTileRu {
+	TranslationsSettingsPageSystemSettingsTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -576,8 +591,8 @@ class TranslationsSettingsPageSystemSettingsTileEn implements TranslationsSettin
 }
 
 // Path: visualDesignPage.headers
-class TranslationsVisualDesignPageHeadersEn implements TranslationsVisualDesignPageHeadersRu {
-	TranslationsVisualDesignPageHeadersEn._(this._root);
+class TranslationsVisualDesignPageHeadersEn extends TranslationsVisualDesignPageHeadersRu {
+	TranslationsVisualDesignPageHeadersEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -590,8 +605,8 @@ class TranslationsVisualDesignPageHeadersEn implements TranslationsVisualDesignP
 }
 
 // Path: savedPlacesPage.tips
-class TranslationsSavedPlacesPageTipsEn implements TranslationsSavedPlacesPageTipsRu {
-	TranslationsSavedPlacesPageTipsEn._(this._root);
+class TranslationsSavedPlacesPageTipsEn extends TranslationsSavedPlacesPageTipsRu {
+	TranslationsSavedPlacesPageTipsEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -601,8 +616,8 @@ class TranslationsSavedPlacesPageTipsEn implements TranslationsSavedPlacesPageTi
 }
 
 // Path: searchBar.tips
-class TranslationsSearchBarTipsEn implements TranslationsSearchBarTipsRu {
-	TranslationsSearchBarTipsEn._(this._root);
+class TranslationsSearchBarTipsEn extends TranslationsSearchBarTipsRu {
+	TranslationsSearchBarTipsEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -617,8 +632,8 @@ class TranslationsSearchBarTipsEn implements TranslationsSearchBarTipsRu {
 }
 
 // Path: systemSettingsPage.enableLogsTile
-class TranslationsSystemSettingsPageEnableLogsTileEn implements TranslationsSystemSettingsPageEnableLogsTileRu {
-	TranslationsSystemSettingsPageEnableLogsTileEn._(this._root);
+class TranslationsSystemSettingsPageEnableLogsTileEn extends TranslationsSystemSettingsPageEnableLogsTileRu {
+	TranslationsSystemSettingsPageEnableLogsTileEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -629,8 +644,8 @@ class TranslationsSystemSettingsPageEnableLogsTileEn implements TranslationsSyst
 }
 
 // Path: weatherLangPage.tips
-class TranslationsWeatherLangPageTipsEn implements TranslationsWeatherLangPageTipsRu {
-	TranslationsWeatherLangPageTipsEn._(this._root);
+class TranslationsWeatherLangPageTipsEn extends TranslationsWeatherLangPageTipsRu {
+	TranslationsWeatherLangPageTipsEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -639,8 +654,8 @@ class TranslationsWeatherLangPageTipsEn implements TranslationsWeatherLangPageTi
 }
 
 // Path: apiWeatherPage.tips
-class TranslationsApiWeatherPageTipsEn implements TranslationsApiWeatherPageTipsRu {
-	TranslationsApiWeatherPageTipsEn._(this._root);
+class TranslationsApiWeatherPageTipsEn extends TranslationsApiWeatherPageTipsRu {
+	TranslationsApiWeatherPageTipsEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -650,8 +665,8 @@ class TranslationsApiWeatherPageTipsEn implements TranslationsApiWeatherPageTips
 }
 
 // Path: apiWeatherPage.defaultApi
-class TranslationsApiWeatherPageDefaultApiEn implements TranslationsApiWeatherPageDefaultApiRu {
-	TranslationsApiWeatherPageDefaultApiEn._(this._root);
+class TranslationsApiWeatherPageDefaultApiEn extends TranslationsApiWeatherPageDefaultApiRu {
+	TranslationsApiWeatherPageDefaultApiEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -662,8 +677,8 @@ class TranslationsApiWeatherPageDefaultApiEn implements TranslationsApiWeatherPa
 }
 
 // Path: apiWeatherPage.userApi
-class TranslationsApiWeatherPageUserApiEn implements TranslationsApiWeatherPageUserApiRu {
-	TranslationsApiWeatherPageUserApiEn._(this._root);
+class TranslationsApiWeatherPageUserApiEn extends TranslationsApiWeatherPageUserApiRu {
+	TranslationsApiWeatherPageUserApiEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -674,8 +689,8 @@ class TranslationsApiWeatherPageUserApiEn implements TranslationsApiWeatherPageU
 }
 
 // Path: apiWeatherPage.tooltips
-class TranslationsApiWeatherPageTooltipsEn implements TranslationsApiWeatherPageTooltipsRu {
-	TranslationsApiWeatherPageTooltipsEn._(this._root);
+class TranslationsApiWeatherPageTooltipsEn extends TranslationsApiWeatherPageTooltipsRu {
+	TranslationsApiWeatherPageTooltipsEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -688,8 +703,8 @@ class TranslationsApiWeatherPageTooltipsEn implements TranslationsApiWeatherPage
 }
 
 // Path: global.time
-class TranslationsGlobalTimeEn implements TranslationsGlobalTimeRu {
-	TranslationsGlobalTimeEn._(this._root);
+class TranslationsGlobalTimeEn extends TranslationsGlobalTimeRu {
+	TranslationsGlobalTimeEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -708,8 +723,8 @@ class TranslationsGlobalTimeEn implements TranslationsGlobalTimeRu {
 }
 
 // Path: dialogs.messages
-class TranslationsDialogsMessagesEn implements TranslationsDialogsMessagesRu {
-	TranslationsDialogsMessagesEn._(this._root);
+class TranslationsDialogsMessagesEn extends TranslationsDialogsMessagesRu {
+	TranslationsDialogsMessagesEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -723,8 +738,8 @@ class TranslationsDialogsMessagesEn implements TranslationsDialogsMessagesRu {
 }
 
 // Path: dialogs.buttons
-class TranslationsDialogsButtonsEn implements TranslationsDialogsButtonsRu {
-	TranslationsDialogsButtonsEn._(this._root);
+class TranslationsDialogsButtonsEn extends TranslationsDialogsButtonsRu {
+	TranslationsDialogsButtonsEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -737,8 +752,8 @@ class TranslationsDialogsButtonsEn implements TranslationsDialogsButtonsRu {
 }
 
 // Path: dialogs.placeSearchInfo
-class TranslationsDialogsPlaceSearchInfoEn implements TranslationsDialogsPlaceSearchInfoRu {
-	TranslationsDialogsPlaceSearchInfoEn._(this._root);
+class TranslationsDialogsPlaceSearchInfoEn extends TranslationsDialogsPlaceSearchInfoRu {
+	TranslationsDialogsPlaceSearchInfoEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -752,8 +767,8 @@ class TranslationsDialogsPlaceSearchInfoEn implements TranslationsDialogsPlaceSe
 }
 
 // Path: dialogs.confirmDelPlace
-class TranslationsDialogsConfirmDelPlaceEn implements TranslationsDialogsConfirmDelPlaceRu {
-	TranslationsDialogsConfirmDelPlaceEn._(this._root);
+class TranslationsDialogsConfirmDelPlaceEn extends TranslationsDialogsConfirmDelPlaceRu {
+	TranslationsDialogsConfirmDelPlaceEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -764,8 +779,8 @@ class TranslationsDialogsConfirmDelPlaceEn implements TranslationsDialogsConfirm
 }
 
 // Path: dialogs.seeFlag
-class TranslationsDialogsSeeFlagEn implements TranslationsDialogsSeeFlagRu {
-	TranslationsDialogsSeeFlagEn._(this._root);
+class TranslationsDialogsSeeFlagEn extends TranslationsDialogsSeeFlagRu {
+	TranslationsDialogsSeeFlagEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -775,8 +790,8 @@ class TranslationsDialogsSeeFlagEn implements TranslationsDialogsSeeFlagRu {
 }
 
 // Path: dialogs.confirmDelUserApikey
-class TranslationsDialogsConfirmDelUserApikeyEn implements TranslationsDialogsConfirmDelUserApikeyRu {
-	TranslationsDialogsConfirmDelUserApikeyEn._(this._root);
+class TranslationsDialogsConfirmDelUserApikeyEn extends TranslationsDialogsConfirmDelUserApikeyRu {
+	TranslationsDialogsConfirmDelUserApikeyEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -786,8 +801,8 @@ class TranslationsDialogsConfirmDelUserApikeyEn implements TranslationsDialogsCo
 }
 
 // Path: dialogs.confirmSaveChanges
-class TranslationsDialogsConfirmSaveChangesEn implements TranslationsDialogsConfirmSaveChangesRu {
-	TranslationsDialogsConfirmSaveChangesEn._(this._root);
+class TranslationsDialogsConfirmSaveChangesEn extends TranslationsDialogsConfirmSaveChangesRu {
+	TranslationsDialogsConfirmSaveChangesEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -797,8 +812,8 @@ class TranslationsDialogsConfirmSaveChangesEn implements TranslationsDialogsConf
 }
 
 // Path: dialogs.makeNote
-class TranslationsDialogsMakeNoteEn implements TranslationsDialogsMakeNoteRu {
-	TranslationsDialogsMakeNoteEn._(this._root);
+class TranslationsDialogsMakeNoteEn extends TranslationsDialogsMakeNoteRu {
+	TranslationsDialogsMakeNoteEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -808,8 +823,8 @@ class TranslationsDialogsMakeNoteEn implements TranslationsDialogsMakeNoteRu {
 }
 
 // Path: enums.homepage
-class TranslationsEnumsHomepageEn implements TranslationsEnumsHomepageRu {
-	TranslationsEnumsHomepageEn._(this._root);
+class TranslationsEnumsHomepageEn extends TranslationsEnumsHomepageRu {
+	TranslationsEnumsHomepageEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -821,8 +836,8 @@ class TranslationsEnumsHomepageEn implements TranslationsEnumsHomepageRu {
 }
 
 // Path: units.temp
-class TranslationsUnitsTempEn implements TranslationsUnitsTempRu {
-	TranslationsUnitsTempEn._(this._root);
+class TranslationsUnitsTempEn extends TranslationsUnitsTempRu {
+	TranslationsUnitsTempEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -831,8 +846,8 @@ class TranslationsUnitsTempEn implements TranslationsUnitsTempRu {
 }
 
 // Path: units.speed
-class TranslationsUnitsSpeedEn implements TranslationsUnitsSpeedRu {
-	TranslationsUnitsSpeedEn._(this._root);
+class TranslationsUnitsSpeedEn extends TranslationsUnitsSpeedRu {
+	TranslationsUnitsSpeedEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -841,8 +856,8 @@ class TranslationsUnitsSpeedEn implements TranslationsUnitsSpeedRu {
 }
 
 // Path: units.pressure
-class TranslationsUnitsPressureEn implements TranslationsUnitsPressureRu {
-	TranslationsUnitsPressureEn._(this._root);
+class TranslationsUnitsPressureEn extends TranslationsUnitsPressureRu {
+	TranslationsUnitsPressureEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -852,8 +867,8 @@ class TranslationsUnitsPressureEn implements TranslationsUnitsPressureRu {
 }
 
 // Path: units.sideOfTheWorld
-class TranslationsUnitsSideOfTheWorldEn implements TranslationsUnitsSideOfTheWorldRu {
-	TranslationsUnitsSideOfTheWorldEn._(this._root);
+class TranslationsUnitsSideOfTheWorldEn extends TranslationsUnitsSideOfTheWorldRu {
+	TranslationsUnitsSideOfTheWorldEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -864,8 +879,8 @@ class TranslationsUnitsSideOfTheWorldEn implements TranslationsUnitsSideOfTheWor
 }
 
 // Path: mainPageDRuble.mainPage.bottomBar
-class TranslationsMainPageDRubleMainPageBottomBarEn implements TranslationsMainPageDRubleMainPageBottomBarRu {
-	TranslationsMainPageDRubleMainPageBottomBarEn._(this._root);
+class TranslationsMainPageDRubleMainPageBottomBarEn extends TranslationsMainPageDRubleMainPageBottomBarRu {
+	TranslationsMainPageDRubleMainPageBottomBarEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -877,8 +892,8 @@ class TranslationsMainPageDRubleMainPageBottomBarEn implements TranslationsMainP
 }
 
 // Path: mainPageDRuble.hourlyPage.forecast
-class TranslationsMainPageDRubleHourlyPageForecastEn implements TranslationsMainPageDRubleHourlyPageForecastRu {
-	TranslationsMainPageDRubleHourlyPageForecastEn._(this._root);
+class TranslationsMainPageDRubleHourlyPageForecastEn extends TranslationsMainPageDRubleHourlyPageForecastRu {
+	TranslationsMainPageDRubleHourlyPageForecastEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -889,8 +904,8 @@ class TranslationsMainPageDRubleHourlyPageForecastEn implements TranslationsMain
 }
 
 // Path: mainPageDRuble.hourlyPage.pop
-class TranslationsMainPageDRubleHourlyPagePopEn implements TranslationsMainPageDRubleHourlyPagePopRu {
-	TranslationsMainPageDRubleHourlyPagePopEn._(this._root);
+class TranslationsMainPageDRubleHourlyPagePopEn extends TranslationsMainPageDRubleHourlyPagePopRu {
+	TranslationsMainPageDRubleHourlyPagePopEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -904,8 +919,8 @@ class TranslationsMainPageDRubleHourlyPagePopEn implements TranslationsMainPageD
 }
 
 // Path: mainPageDRuble.hourlyPage.wind
-class TranslationsMainPageDRubleHourlyPageWindEn implements TranslationsMainPageDRubleHourlyPageWindRu {
-	TranslationsMainPageDRubleHourlyPageWindEn._(this._root);
+class TranslationsMainPageDRubleHourlyPageWindEn extends TranslationsMainPageDRubleHourlyPageWindRu {
+	TranslationsMainPageDRubleHourlyPageWindEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -919,8 +934,8 @@ class TranslationsMainPageDRubleHourlyPageWindEn implements TranslationsMainPage
 }
 
 // Path: mainPageDRuble.hourlyPage.more
-class TranslationsMainPageDRubleHourlyPageMoreEn implements TranslationsMainPageDRubleHourlyPageMoreRu {
-	TranslationsMainPageDRubleHourlyPageMoreEn._(this._root);
+class TranslationsMainPageDRubleHourlyPageMoreEn extends TranslationsMainPageDRubleHourlyPageMoreRu {
+	TranslationsMainPageDRubleHourlyPageMoreEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -932,8 +947,8 @@ class TranslationsMainPageDRubleHourlyPageMoreEn implements TranslationsMainPage
 }
 
 // Path: mainPageDRuble.currentPage.headers
-class TranslationsMainPageDRubleCurrentPageHeadersEn implements TranslationsMainPageDRubleCurrentPageHeadersRu {
-	TranslationsMainPageDRubleCurrentPageHeadersEn._(this._root);
+class TranslationsMainPageDRubleCurrentPageHeadersEn extends TranslationsMainPageDRubleCurrentPageHeadersRu {
+	TranslationsMainPageDRubleCurrentPageHeadersEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -946,8 +961,8 @@ class TranslationsMainPageDRubleCurrentPageHeadersEn implements TranslationsMain
 }
 
 // Path: units.temp.fullName
-class TranslationsUnitsTempFullNameEn implements TranslationsUnitsTempFullNameRu {
-	TranslationsUnitsTempFullNameEn._(this._root);
+class TranslationsUnitsTempFullNameEn extends TranslationsUnitsTempFullNameRu {
+	TranslationsUnitsTempFullNameEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -958,8 +973,8 @@ class TranslationsUnitsTempFullNameEn implements TranslationsUnitsTempFullNameRu
 }
 
 // Path: units.speed.abbr
-class TranslationsUnitsSpeedAbbrEn implements TranslationsUnitsSpeedAbbrRu {
-	TranslationsUnitsSpeedAbbrEn._(this._root);
+class TranslationsUnitsSpeedAbbrEn extends TranslationsUnitsSpeedAbbrRu {
+	TranslationsUnitsSpeedAbbrEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -970,8 +985,8 @@ class TranslationsUnitsSpeedAbbrEn implements TranslationsUnitsSpeedAbbrRu {
 }
 
 // Path: units.pressure.abbr
-class TranslationsUnitsPressureAbbrEn implements TranslationsUnitsPressureAbbrRu {
-	TranslationsUnitsPressureAbbrEn._(this._root);
+class TranslationsUnitsPressureAbbrEn extends TranslationsUnitsPressureAbbrRu {
+	TranslationsUnitsPressureAbbrEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -985,8 +1000,8 @@ class TranslationsUnitsPressureAbbrEn implements TranslationsUnitsPressureAbbrRu
 }
 
 // Path: units.pressure.name
-class TranslationsUnitsPressureNameEn implements TranslationsUnitsPressureNameRu {
-	TranslationsUnitsPressureNameEn._(this._root);
+class TranslationsUnitsPressureNameEn extends TranslationsUnitsPressureNameRu {
+	TranslationsUnitsPressureNameEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -1000,8 +1015,8 @@ class TranslationsUnitsPressureNameEn implements TranslationsUnitsPressureNameRu
 }
 
 // Path: units.sideOfTheWorld.abbr
-class TranslationsUnitsSideOfTheWorldAbbrEn implements TranslationsUnitsSideOfTheWorldAbbrRu {
-	TranslationsUnitsSideOfTheWorldAbbrEn._(this._root);
+class TranslationsUnitsSideOfTheWorldAbbrEn extends TranslationsUnitsSideOfTheWorldAbbrRu {
+	TranslationsUnitsSideOfTheWorldAbbrEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -1017,8 +1032,8 @@ class TranslationsUnitsSideOfTheWorldAbbrEn implements TranslationsUnitsSideOfTh
 }
 
 // Path: units.sideOfTheWorld.nameAdj
-class TranslationsUnitsSideOfTheWorldNameAdjEn implements TranslationsUnitsSideOfTheWorldNameAdjRu {
-	TranslationsUnitsSideOfTheWorldNameAdjEn._(this._root);
+class TranslationsUnitsSideOfTheWorldNameAdjEn extends TranslationsUnitsSideOfTheWorldNameAdjRu {
+	TranslationsUnitsSideOfTheWorldNameAdjEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -1034,8 +1049,8 @@ class TranslationsUnitsSideOfTheWorldNameAdjEn implements TranslationsUnitsSideO
 }
 
 // Path: units.sideOfTheWorld.name
-class TranslationsUnitsSideOfTheWorldNameEn implements TranslationsUnitsSideOfTheWorldNameRu {
-	TranslationsUnitsSideOfTheWorldNameEn._(this._root);
+class TranslationsUnitsSideOfTheWorldNameEn extends TranslationsUnitsSideOfTheWorldNameRu {
+	TranslationsUnitsSideOfTheWorldNameEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -1051,8 +1066,8 @@ class TranslationsUnitsSideOfTheWorldNameEn implements TranslationsUnitsSideOfTh
 }
 
 // Path: mainPageDRuble.hourlyPage.forecast.legend
-class TranslationsMainPageDRubleHourlyPageForecastLegendEn implements TranslationsMainPageDRubleHourlyPageForecastLegendRu {
-	TranslationsMainPageDRubleHourlyPageForecastLegendEn._(this._root);
+class TranslationsMainPageDRubleHourlyPageForecastLegendEn extends TranslationsMainPageDRubleHourlyPageForecastLegendRu {
+	TranslationsMainPageDRubleHourlyPageForecastLegendEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -1063,8 +1078,8 @@ class TranslationsMainPageDRubleHourlyPageForecastLegendEn implements Translatio
 }
 
 // Path: mainPageDRuble.hourlyPage.pop.legend
-class TranslationsMainPageDRubleHourlyPagePopLegendEn implements TranslationsMainPageDRubleHourlyPagePopLegendRu {
-	TranslationsMainPageDRubleHourlyPagePopLegendEn._(this._root);
+class TranslationsMainPageDRubleHourlyPagePopLegendEn extends TranslationsMainPageDRubleHourlyPagePopLegendRu {
+	TranslationsMainPageDRubleHourlyPagePopLegendEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -1074,8 +1089,8 @@ class TranslationsMainPageDRubleHourlyPagePopLegendEn implements TranslationsMai
 }
 
 // Path: mainPageDRuble.hourlyPage.wind.legend
-class TranslationsMainPageDRubleHourlyPageWindLegendEn implements TranslationsMainPageDRubleHourlyPageWindLegendRu {
-	TranslationsMainPageDRubleHourlyPageWindLegendEn._(this._root);
+class TranslationsMainPageDRubleHourlyPageWindLegendEn extends TranslationsMainPageDRubleHourlyPageWindLegendRu {
+	TranslationsMainPageDRubleHourlyPageWindLegendEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
@@ -1085,8 +1100,8 @@ class TranslationsMainPageDRubleHourlyPageWindLegendEn implements TranslationsMa
 }
 
 // Path: mainPageDRuble.hourlyPage.more.legend
-class TranslationsMainPageDRubleHourlyPageMoreLegendEn implements TranslationsMainPageDRubleHourlyPageMoreLegendRu {
-	TranslationsMainPageDRubleHourlyPageMoreLegendEn._(this._root);
+class TranslationsMainPageDRubleHourlyPageMoreLegendEn extends TranslationsMainPageDRubleHourlyPageMoreLegendRu {
+	TranslationsMainPageDRubleHourlyPageMoreLegendEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 

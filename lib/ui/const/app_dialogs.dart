@@ -1,10 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_today/const/app_info.dart';
 import 'package:weather_today/const/countries_code.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/ui/shared/dialogs_widget.dart';
+import 'package:weather_today/utils/routes/routes.gr.dart';
 
+import '../shared/terms_use_app_markdown.dart';
 import '../utils/image_helper.dart';
+
+// coldfix: move here all dialogs
 
 /// Класс представляет список диалогов приложения.
 class AppDialogs {
@@ -138,6 +143,8 @@ class AppDialogs {
   static Future<void> aboutApp(
     BuildContext context,
   ) async {
+    final theme = Theme.of(context);
+
     final installerStore = await AppInfo.get(AppInfoData.installerStore);
 
     // ignore: use_build_context_synchronously
@@ -164,6 +171,17 @@ class AppDialogs {
         if (installerStore.isNotEmpty) Text(installerStore),
         // Text('${await AppInfo.get(AppInfoData.buildSignature)}'),
         // Text('${await AppInfo.get(AppInfoData.packageName)}'),
+        InkWell(
+          onTap: () => context.router.push(const TermsUseAppRoute()),
+          child: Text(
+            'Terms of uses',
+            style: theme.textTheme.titleMedium?.copyWith(
+              inherit: false,
+              decoration: TextDecoration.underline,
+              color: theme.primaryColor,
+            ),
+          ),
+        ),
         const Text(''),
         const Text('Build with Flutter ❤'),
       ],
@@ -237,5 +255,30 @@ class AppDialogs {
             child: Text(tr.dialogs.buttons.okay)),
       ],
     );
+  }
+
+  /// Диалог о принятии условий использования приложения.
+  static Future<bool> acceptedTermsInfo(
+    BuildContext context,
+  ) async {
+    final bool? isAccepted = await infoDialogCustom<bool>(
+      context,
+      title: tr.licenseTermsPage.title,
+      barrierDismissible: false,
+      content: const SizedBox(
+        width: double.maxFinite,
+        child: TermsUseAppMarkdown(),
+      ),
+      listActions: [
+        TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(tr.licenseTermsPage.buttonCancel)),
+        TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(tr.licenseTermsPage.buttonAccept)),
+      ],
+    );
+
+    return isAccepted ?? false;
   }
 }

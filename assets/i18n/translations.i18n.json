@@ -235,6 +235,12 @@
     "next_button": "Далее",
     "done_button": "Готово"
   },
+  "license_terms_page": {
+    "title": "Положения и условия",
+    "subtitle": "Условия использования приложения:",
+    "button_cancel": "Отклонить и выйти",
+    "button_accept": "Принять"
+  },
   "weather": {
     "@@condition": "Это будет Map<String, String>",
     "condition": {

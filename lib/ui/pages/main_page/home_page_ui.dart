@@ -15,6 +15,7 @@ import '../daily_page/daily_page_main.dart';
 import '../hourly_page/hourly_page_main.dart';
 import '../intro_page/intro_page.dart';
 import '../settings_page/settings_page_ui.dart';
+import 'accepted_license_widget.dart';
 import 'home_page_controller.dart';
 
 /// Главная страница приложения. Содержит 4 вкладки.
@@ -24,9 +25,15 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bool showIntro = ref.watch(AppGeneralSettings.showIntro);
+    final bool isAcceptedTerms =
+        ref.watch(AppGeneralSettings.isAcceptedTermsConditions);
 
     if (showIntro) {
       return const WrapperPage(child: IntroPage());
+    }
+
+    if (!isAcceptedTerms) {
+      return const AcceptedLicenseWidget();
     }
 
     return WrapperPage(
@@ -53,9 +60,6 @@ class _BodyWidget extends ConsumerWidget {
     return PageView(
       physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       controller: ref.watch(HomePageController.pageController),
-      // onPageChanged: (int index) => ref
-      //     .read(HomePageController.instance)
-      //     .setIndexPageFromHandSlide(index),
       children: const [
         SettingsPage(),
         HourlyWeatherPage(),

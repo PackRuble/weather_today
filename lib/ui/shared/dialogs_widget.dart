@@ -111,12 +111,15 @@ Future<T?> infoDialogCustom<T>(
   BuildContext context, {
   Icon? icon,
   required String title,
+  bool? barrierDismissible,
   String? subTitle,
   Widget? content,
+  bool? scrollable,
   required List<TextButton> listActions,
 }) async {
   return showDialog<T>(
       context: context,
+      barrierDismissible: barrierDismissible ?? true,
       builder: (BuildContext context) {
         return WrapperPage(
           child: AlertDialog(
@@ -137,6 +140,7 @@ Future<T?> infoDialogCustom<T>(
             ),
             content: content,
             actions: listActions,
+            scrollable: scrollable ?? false,
           ),
         );
       });

@@ -28,6 +28,11 @@ class AppGeneralSettings with Updater {
 
     await loadAndUpdate<bool, bool>(
         showIntro, DbStore.showIntro, DbStore.showIntroDefault);
+
+    await loadAndUpdate<bool, bool>(
+        isAcceptedTermsConditions,
+        DbStore.isAcceptedTermsConditions,
+        DbStore.isAcceptedTermsConditionsDefault);
   }
 
   /// Access to an instance of a class.
@@ -65,5 +70,18 @@ class AppGeneralSettings with Updater {
   Future<void> setIsIntro(bool value, [bool isNotify = true]) async {
     if (!isNotify) return saveDb<bool>(DbStore.showIntro, value);
     await saveAndUpdate<bool>(showIntro, DbStore.showIntro, value);
+  }
+
+  // ===========================================================================
+
+  /// Приняты ли условия использования данного приложения.
+  static final isAcceptedTermsConditions = StateProvider<bool>(
+    (ref) => DbStore.isAcceptedTermsConditionsDefault,
+    name: '$AppGeneralSettings/isAcceptedTermsConditions',
+  );
+
+  Future<void> setAcceptedTermsConditions(bool value) async {
+    await saveAndUpdate<bool>(
+        isAcceptedTermsConditions, DbStore.isAcceptedTermsConditions, value);
   }
 }

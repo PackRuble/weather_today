@@ -20,19 +20,19 @@ class IntroPageController {
   /// Instance of class [IntroPageController].
   static final instance = Provider.autoDispose(
     IntroPageController.new,
-    name: '$IntroPageController',
+    name: '$IntroPageController/instance',
   );
 
   /// Instance of class [TranslationsRu].
   static final tr = Provider.autoDispose<TranslationsRu>(
     (ref) => ref.watch(AppLocalization.currentTranslation),
-    name: '${instance.name} - translate',
+    name: '$IntroPageController/translate',
   );
 
   /// Instance of class [TranslationsRu].
   static final introTiles = Provider.autoDispose<List<IntroTile>>(
     (ref) => _getIntroTiles(ref.watch(tr)),
-    name: '${instance.name} - slides',
+    name: '$IntroPageController/slides',
   );
 
   static List<IntroTile> _getIntroTiles(TranslationsRu t) {

@@ -450,5 +450,11 @@
         "north_west": "North-West"
       }
     }
+  },
+  "license_terms_page": {
+    "title": "Terms & Conditions",
+    "subtitle": "Terms of use of the application:",
+    "button_cancel": "Reject and exit",
+    "button_accept": "Accept"
   }
 }
