@@ -166,7 +166,6 @@ class AppDialogs {
       applicationLegalese: AppInfo.copyright,
       applicationVersion: 'v.${await AppInfo.get(AppInfoData.appVersion)}',
       more: [
-        const Text(''),
         Text('Build number: ${await AppInfo.get(AppInfoData.buildNumber)}'),
         if (installerStore.isNotEmpty) Text(installerStore),
         // Text('${await AppInfo.get(AppInfoData.buildSignature)}'),

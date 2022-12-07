@@ -18,6 +18,10 @@ flutter pub run slang analyze
 ```shell
 flutter pub run slang apply
 ```
+There is a command to quickly get the number of words, characters, etc.
+```shell
+flutter pub run slang stats
+```
 
 ## Build files
 ```shell
