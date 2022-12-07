@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:weather_today/const/app_colors.dart';
 
 import 'wrapper_page.dart';
+
+ShapeBorder _shape(BuildContext context) => RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16.0),
+      side: BorderSide(
+        color: AppColors.of(context).cardBorderColor,
+      ),
+    );
 
 class DialogOption<T> extends StatelessWidget {
   const DialogOption({
@@ -123,6 +131,7 @@ Future<T?> infoDialogCustom<T>(
       builder: (BuildContext context) {
         return WrapperPage(
           child: AlertDialog(
+            shape: _shape(context),
             title: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -155,9 +164,15 @@ Future<T?> showAboutAppDialog<T>(
   List<Widget>? more,
 }) async {
   return showDialog<T>(
-      context: context,
-      builder: (BuildContext context) {
-        return WrapperPage(
+    context: context,
+    builder: (BuildContext context) {
+      return Theme(
+        data: Theme.of(context).copyWith(
+          dialogTheme: DialogTheme(
+            shape: _shape(context),
+          ),
+        ),
+        child: WrapperPage(
           child: AboutDialog(
             applicationName: applicationName,
             applicationVersion: applicationVersion,
@@ -165,8 +180,10 @@ Future<T?> showAboutAppDialog<T>(
             applicationLegalese: applicationLegalese,
             children: more,
           ),
-        );
-      });
+        ),
+      );
+    },
+  );
 }
 
 Future<T?> showChoosingDialog<T>(
@@ -181,6 +198,7 @@ Future<T?> showChoosingDialog<T>(
       builder: (BuildContext context) {
         return WrapperPage(
           child: SimpleDialog(
+            shape: _shape(context),
             title: Column(
               children: [
                 icon,
@@ -219,6 +237,7 @@ Future<void> showSwitchedDialog(
       builder: (BuildContext context) {
         return WrapperPage(
           child: SimpleDialog(
+            shape: _shape(context),
             title: Column(
               children: [
                 if (icon != null) icon,
