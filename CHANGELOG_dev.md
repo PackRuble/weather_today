@@ -1,3 +1,14 @@
+## 3.0.0-pre.4
+
+* add: terms of use of the app + widget
+* upd: improve ui response and become more flexible
+* add: message log pump and logger. New page for enable logger.
+* add: secret debug menu
+* upd: improve behavior when slide and switch between pages
+* upd: about dialog now use `package_info_plus`
+* upd: `pubspec` dependencies
+* fix: lint rules and more small fix
+
 ## 3.0.0-pre.3
 
 * fix: attribution label

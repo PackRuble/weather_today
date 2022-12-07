@@ -101,7 +101,7 @@ class DbStore {
 
   // enum
   static const String fontFamily = 'fontFamily';
-  static const String fontFamilyDefault = 'Lobster';
+  static const String fontFamilyDefault = 'Noto Serif';
 
   // enum
   static const String scrollPhysics = 'scrollPhysics';
@@ -111,6 +111,5 @@ class DbStore {
   static const String logsApp = 'logsApp';
 
   static const String enableLoggingApp = 'enableLoggingApp';
-
   static const bool enableLoggingAppDefault = true;
 }

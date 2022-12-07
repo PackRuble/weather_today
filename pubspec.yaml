@@ -2,7 +2,7 @@ name: weather_today
 description: Weather for every day.
 publish_to: none
 
-version: 3.0.0-pre.3
+version: 3.0.0-pre.4+3
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
@@ -13,10 +13,6 @@ dependencies:
 
   # service weather
   weather_pack: ^0.0.1
-
-  #    git:
-  #      url: file://C:/open_weather_api
-  #      ref: master
 
   # Widgets
   material_floating_search_bar: ^0.3.7
@@ -55,21 +51,25 @@ dependencies:
   intl: ^0.17.0
   loggy: ^2.0.3
   stack_trace: ^1.10.0
-  url_launcher: ^6.1.6
+  url_launcher: ^6.1.7
   meta: ^1.8.0
   package_info_plus: ^3.0.2
   flutter_markdown: ^0.6.13
+
+  #    git:
+  #      url: file://C:/open_weather_api
+  #      ref: master
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  json_serializable: ^6.5.3
+  json_serializable: ^6.5.4
   auto_route_generator: ^5.0.3
   build_runner: ^2.3.2
   icons_launcher: ^2.0.6
-  freezed: ^2.2.0
-  lint: ^1.10.0
+  freezed: ^2.3.0
+  lint: ^2.0.1
 
 
 flutter:

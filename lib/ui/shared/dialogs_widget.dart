@@ -218,7 +218,7 @@ Future<T?> showChoosingDialog<T>(
                     option,
                   ],
                 );
-              }).toList(),
+              }),
             ],
           ),
         );
@@ -257,7 +257,7 @@ Future<void> showSwitchedDialog(
                     option,
                   ],
                 );
-              }).toList(),
+              }),
             ],
           ),
         );

@@ -37,7 +37,7 @@ Future<void> main() async {
     return true;
   };
 
-  Chain.capture(() async {
+  await Chain.capture(() async {
     runApp(
       UncontrolledProviderScope(
         container: container,

@@ -1,4 +1,4 @@
-include: package:lint/analysis_options.yaml
+include: package:lint/strict.yaml
 
 analyzer:
   exclude:
@@ -80,3 +80,6 @@ linter:
     # (use unawaited from dart:async)
     discarded_futures: true
     unawaited_futures: true
+
+    # https://dart-lang.github.io/linter/lints/use_decorated_box.html
+    use_decorated_box: true
