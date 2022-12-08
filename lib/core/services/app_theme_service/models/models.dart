@@ -49,12 +49,8 @@ enum AppTypography {
     }
   }
 
-  @override
   String toCamelCaseToWords() =>
-      name.substring(0, 1).toUpperCase() +
-      name.substring(1, 8) +
-      ' ' +
-      name.substring(8);
+      '${name.substring(0, 1).toUpperCase()}${name.substring(1, 8)} ${name.substring(8)}';
 }
 
 /// Физика скролла.

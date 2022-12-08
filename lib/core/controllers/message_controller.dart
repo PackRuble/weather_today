@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/models/toasts_model.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 import 'package:weather_today/utils/routes/routes.gr.dart';
 
 import 'global_key.dart';
@@ -17,6 +18,8 @@ class SnackController extends ChangeNotifier {
   void showSnack(MessageSnack snack) {
     this.snack = snack;
     notifyListeners();
+
+    logInfo(snack);
   }
 }
 
@@ -27,6 +30,8 @@ class ToastController extends ChangeNotifier {
   void showToast(MessageToast toast) {
     this.toast = toast;
     notifyListeners();
+
+    logInfo(toast);
   }
 }
 
@@ -36,29 +41,34 @@ class MessageController {
 
   final Ref _ref;
 
-  Reader get _reader => _ref.read;
-
-  static final pr =
-      Provider<MessageController>((ref) => MessageController(ref));
+  static final instance = Provider(
+    MessageController.new,
+    name: '$MessageController/instance',
+  );
 
   /// Пассивное уведомление. Не интерактивный.
   static final toasts = ChangeNotifierProvider<ToastController>(
-      (ref) => ToastController(),
-      name: '$ToastController');
+    (ref) => ToastController(),
+    name: '$MessageController/toasts->$ToastController',
+  );
 
   /// Активное уведомление. Интерактивный, позволяет выбрать действия.
   static final snacks = ChangeNotifierProvider<SnackController>(
-      (ref) => SnackController(),
-      name: '$SnackController');
+    (ref) => SnackController(),
+    name: '$MessageController/snacks->$SnackController',
+  );
 
   /// показать Toast.
-  void _showToast(MessageToast toast) => _reader(toasts).showToast(toast);
+  void _showToast(MessageToast toast) => _ref.read(toasts).showToast(toast);
 
   /// показать Snack.
-  void _showSnack(MessageSnack snack) => _reader(snacks).showSnack(snack);
+  void _showSnack(MessageSnack snack) => _ref.read(snacks).showSnack(snack);
 
   /// Ошибка сети.
   void tSocketException() => _showToast(_StoreMessages.toastSocketException);
+
+  /// Время соединения истекло.
+  void tTimeoutException() => _showToast(_StoreMessages.toastTimeoutException);
 
   /// Успешная установка ApiKey-погоды.
   void tApiKeyWeatherSetTrue() =>
@@ -92,6 +102,16 @@ class _StoreMessages {
     gravity: ToastGravity.TOP,
   );
 
+  /// Уведомление о невозможности установить соединение с сервером.
+  ///
+  /// Возникает если:
+  /// - Нет удается установить соединение с сервером погоды;
+  static final MessageToast toastTimeoutException = MessageToast(
+    message: '🕐🕜🕑👈',
+    toastTime: Toast.LENGTH_LONG,
+    gravity: ToastGravity.TOP,
+  );
+
   /// Уведомление об успехе установки apiKey weather.
   ///
   static final MessageToast toastApiKeyWeatherSetTrue = MessageToast(
@@ -110,7 +130,7 @@ class _StoreMessages {
 
   /// Уведомление об успешной проверке api ключа погоды.
   ///
-  static final MessageToast toastApikeyOWMSuccess = MessageToast(
+  static MessageToast toastApikeyOWMSuccess = MessageToast(
     message: tr.dialogs.messages.apiKeyOWMVerificationSuccess,
     toastTime: Toast.LENGTH_SHORT,
     gravity: ToastGravity.BOTTOM,

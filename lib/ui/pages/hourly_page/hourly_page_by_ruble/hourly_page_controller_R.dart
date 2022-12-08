@@ -1,18 +1,19 @@
+// ignore_for_file: file_names
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/chart_model.dart';
 
 import '../hourly_page_controller.dart';
 
 /// The controller this [HourlyPageByRuble].
 class HPByRubleCtrl {
-  HPByRubleCtrl(this._reader);
+  HPByRubleCtrl(this._ref);
 
-  final Reader _reader;
+  final Ref _ref;
 
   /// экземпляр.
-  static final pr =
-      Provider.autoDispose<HPByRubleCtrl>((ref) => HPByRubleCtrl(ref.read));
+  static final instance = Provider.autoDispose(HPByRubleCtrl.new);
 
   /// экземпляр данных почасовой погоды.
   static final hourly = Provider<List<WeatherHourly>?>(

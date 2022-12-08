@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:loggy/loggy.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/const/app_icons.dart';
@@ -10,6 +9,7 @@ import 'package:weather_today/core/models/place/place_model.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/const/app_dialogs.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../utils/image_helper.dart';
 import '../../utils/metrics_helper.dart';
@@ -54,15 +54,14 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       ),
       height: AppInsets.heightSearchBar,
       width: widthScreen - AppInsets.aroundPaddingSearchBar * 2,
-      // progress: isLoading,
       debounceDelay: Duration(milliseconds: SearchWidgetNotifier.debounceDelay),
       clearQueryOnClose: true,
       onQueryChanged: (String query) async =>
           ref.read(searchWidgetProvider.notifier).newRequest(query),
       onSubmitted: (String query) async =>
           ref.read(searchWidgetProvider.notifier).newRequest(query),
-      onFocusChanged: (bool isFocus) =>
-          ref.read(searchWidgetProvider.notifier).changeFocus(isFocus),
+      // onFocusChanged: (bool isFocus) =>
+      //     ref.read(searchWidgetProvider.notifier).changeFocus(isFocus),
       transition: CircularFloatingSearchBarTransition(),
       automaticallyImplyBackButton: false,
       leadingActions: [
@@ -80,7 +79,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
           showIfClosed: false,
           showIfOpened: true,
           icon: const Icon(Icons.info_outline_rounded),
-          onTap: () => AppDialogs.placeSearchInfo(context),
+          onTap: () async => AppDialogs.placeSearchInfo(context),
         ),
         _SavedBookmarkAction(),
         FloatingSearchBarAction.icon(
@@ -90,8 +89,8 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
             isLight ? Icons.light_mode_rounded : Icons.nightlight_round,
             color: colors.scheme.primary,
           ),
-          onTap: () => ref
-              .read(AppTheme.pr)
+          onTap: () async => ref
+              .read(AppTheme.instance)
               .setThemeMode(isLight ? ThemeMode.dark : ThemeMode.light),
         ),
       ],
@@ -281,9 +280,9 @@ class _TileSearchWidget extends ConsumerWidget {
     title += name.isNotEmpty ? ', $name' : '';
 
     return ListTile(
-      onTap: () =>
+      onTap: () async =>
           ref.read(searchWidgetProvider.notifier).selectCurrentPlace(place),
-      onLongPress: () => ref
+      onLongPress: () async => ref
           .read(searchWidgetProvider.notifier)
           .changePlaceToSavedPlaces(isSaved, place),
       leading: place.countryCode == null

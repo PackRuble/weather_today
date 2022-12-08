@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:loggy/loggy.dart';
 import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
-import '../../../shared/custom_appbar.dart';
+import '../../../shared/appbar_widget.dart';
 import '../../../shared/wrapper_page.dart';
 import 'country_flags_page_controller.dart';
 
@@ -20,7 +20,7 @@ class CountryFlagsPage extends ConsumerWidget with UiLoggy {
 
     // [[countryCode, countryName], ...]
     final List<List<String>> countries =
-        ref.watch(CountryFlagsPageController.cr).getCountries();
+        ref.watch(CountryFlagsPageController.instance).getCountries();
 
     final t = ref.watch(CountryFlagsPageController.tr);
 

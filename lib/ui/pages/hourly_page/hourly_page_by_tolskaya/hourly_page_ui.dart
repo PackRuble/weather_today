@@ -2,7 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/const/app_insets.dart';
@@ -12,7 +12,7 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 import 'package:weather_today/ui/pages/hourly_page/hourly_page_controller.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
-import '../../../shared/label_weather_widget.dart';
+import '../../../shared/attribution_weather_widget.dart';
 import '../../../shared/rowtile_table_widget.dart';
 import '../../../utils/metrics_helper.dart';
 
@@ -50,7 +50,7 @@ class HourlyPageByTolskaya extends ConsumerWidget {
         },
         itemBuilder: (BuildContext context, int index) {
           if (index + 1 == hourly.length) {
-            return const LabelWeatherWidget();
+            return const AttributionWeatherWidget();
           }
           return Column(
             children: [
@@ -94,12 +94,12 @@ class _DateWidget extends ConsumerWidget {
               ],
             ),
           ),
-          Text(
-            DateFormat.MMMd().add_Hm().format(DateTime.now()),
-            style: styles.bodyMedium?.copyWith(
-              fontStyle: FontStyle.italic,
-            ),
-          ),
+          // Text(
+          //   DateFormat.MMMd().add_Hm().format(DateTime.now()),
+          //   style: styles.bodyMedium?.copyWith(
+          //     fontStyle: FontStyle.italic,
+          //   ),
+          // ),
         ],
       ),
     );
@@ -182,11 +182,10 @@ class TileHourlyWidget extends ConsumerWidget {
                 : Text(
                     DateFormat('HH:mm').format(weather.date ?? DateTime.now())),
           ),
-          SizedBox(
-              width: 50.0,
-              child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: ImageHelper.getWeatherIcon(weather.weatherIcon))),
+          SizedBox.square(
+            dimension: 50.0,
+            child: ImageHelper.getWeatherIcon(weather.weatherIcon),
+          ),
           const SizedBox(width: 6.0),
           SizedBox(
             width: 40.0,
@@ -202,7 +201,6 @@ class TileHourlyWidget extends ConsumerWidget {
           ),
           const SizedBox(width: 6.0),
           Text.rich(
-            //todo
             overflow: TextOverflow.fade,
             maxLines: 1,
             TextSpan(
@@ -286,85 +284,6 @@ class _ExpandedWidget extends ConsumerWidget {
             RowItem(AppIcons.dewPoint, t.weather.dewPoint, _dewPoint),
         ],
       ),
-    );
-  }
-}
-
-class _ExpandedWidget1 extends ConsumerWidget {
-  const _ExpandedWidget1(this.weather);
-
-  final WeatherHourly weather;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      children: [
-        Divider(
-            color: Theme.of(context).dividerTheme.color,
-            indent: 10.0,
-            endIndent: 10.0),
-        const SizedBox(height: 3.0),
-        Table(
-          columnWidths: {
-            0: FlexColumnWidth(2),
-            1: FlexColumnWidth(4),
-            2: FlexColumnWidth(3),
-          },
-          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          children: [
-            _buildTableRow(Icons.opacity_rounded, 'Влажность',
-                '${weather.humidity} %', context),
-            _spacerTableRow(),
-            _buildTableRow(Icons.thermostat_auto_rounded, 'Точка росы',
-                '${weather.dewPoint} °C', context),
-            _spacerTableRow(),
-            _buildTableRow(Icons.play_for_work_rounded, 'Давление',
-                '${weather.pressure} hPa', context),
-            // _spacerTableRow(),
-            // _buildTableRow(
-            //     Icons.wb_sunny_rounded, 'УФ-индекс', '${weather.uvi}'),
-            _spacerTableRow(),
-            _buildTableRow(Icons.visibility_outlined, 'Видимость',
-                '${weather.visibility} м', context),
-          ],
-        ),
-        const SizedBox(height: 3.0),
-      ],
-    );
-  }
-
-  TableRow _spacerTableRow() {
-    return const TableRow(children: [
-      SizedBox(height: 10.0),
-      SizedBox(height: 10.0),
-      SizedBox(height: 10.0),
-    ]);
-  }
-
-  TableRow _buildTableRow(
-      IconData icon, String key, String value, BuildContext context) {
-    return TableRow(
-      // key: ValueKey(item.id),
-      // decoration: const BoxDecoration(
-      //   gradient: LinearGradient(
-      //     colors: <Color>[
-      //       Color(0xFF4285F4), // blue
-      //       Color(0xFF34A853), // green
-      //       Color(0xFFFBBC05), // yellow
-      //       Color(0xFFEA4335), // red
-      //       Color(
-      //           0xFF4285F4), // blue again to seamlessly transition to the start
-      //     ],
-      //     stops: <double>[0.0, 0.25, 0.5, 0.75, 1.0],
-      //     transform: GradientRotation(3.14 / 4),
-      //   ),
-      //   color: Colors.lightBlueAccent,
-      // ),
-      children: [
-        Icon(icon),
-        Text(key, style: Theme.of(context).textTheme.bodyMedium),
-        Text(value, style: Theme.of(context).textTheme.bodyMedium),
-      ], // Pass the widgets to be set as the row content.
     );
   }
 }

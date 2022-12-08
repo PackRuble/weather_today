@@ -4,19 +4,20 @@ import 'package:weather_today/core/services/local_db_service/data_base_controlle
 import 'package:weather_today/core/services/local_db_service/interface/i_data_base.dart';
 import 'package:weather_today/utils/state_updater.dart';
 
-import '../../ui/pages/main_page/model/homepage_index_model.dart';
+/// Стартовая страница приложения.
+enum HomepageIndex { settings, hourly, today, daily }
 
 /// Представляет контроллер общих настроек приложения.
 ///
 /// Запустить [init] при использовании класса.
 class AppGeneralSettings with Updater {
-  AppGeneralSettings(this.reader);
+  AppGeneralSettings(this.ref);
 
   @override
-  final Reader reader;
+  final Ref ref;
 
   @override
-  IDataBase get db => reader(dbService);
+  IDataBase get db => ref.read(dbService);
 
   Future<void> init() async {
     await loadAndUpdate<HomepageIndex, int>(
@@ -27,18 +28,27 @@ class AppGeneralSettings with Updater {
 
     await loadAndUpdate<bool, bool>(
         showIntro, DbStore.showIntro, DbStore.showIntroDefault);
+
+    await loadAndUpdate<bool, bool>(
+        isAcceptedTermsConditions,
+        DbStore.isAcceptedTermsConditions,
+        DbStore.isAcceptedTermsConditionsDefault);
   }
 
-  /// Доступ к классу.
-  static final pr =
-      Provider<AppGeneralSettings>((ref) => AppGeneralSettings(ref.read));
+  /// Access to an instance of a class.
+  static final instance = Provider(
+    AppGeneralSettings.new,
+    name: '$AppGeneralSettings',
+  );
 
   // Стартовая страница при запуске приложения.
   // ===========================================================================
 
   /// Выбранная страница при старте приложения.
   static final startPageIndex = StateProvider<HomepageIndex>(
-      (ref) => _conversionStartPageIndex(DbStore.startPageIndexDefault));
+    (ref) => _conversionStartPageIndex(DbStore.startPageIndexDefault),
+    name: '$AppGeneralSettings/startPageIndex',
+  );
 
   static HomepageIndex _conversionStartPageIndex(int value) =>
       HomepageIndex.values[value];
@@ -52,10 +62,26 @@ class AppGeneralSettings with Updater {
   // ===========================================================================
 
   /// Показать интро? Обычно необходимо показать при первом запуске.
-  static final showIntro =
-      StateProvider<bool>((ref) => DbStore.showIntroDefault);
+  static final showIntro = StateProvider<bool>(
+    (ref) => DbStore.showIntroDefault,
+    name: '$AppGeneralSettings/showIntro',
+  );
 
-  Future<void> setIsIntro(bool value) async {
+  Future<void> setIsIntro(bool value, [bool isNotify = true]) async {
+    if (!isNotify) return saveDb<bool>(DbStore.showIntro, value);
     await saveAndUpdate<bool>(showIntro, DbStore.showIntro, value);
+  }
+
+  // ===========================================================================
+
+  /// Приняты ли условия использования данного приложения.
+  static final isAcceptedTermsConditions = StateProvider<bool>(
+    (ref) => DbStore.isAcceptedTermsConditionsDefault,
+    name: '$AppGeneralSettings/isAcceptedTermsConditions',
+  );
+
+  Future<void> setAcceptedTermsConditions(bool value) async {
+    await saveAndUpdate<bool>(
+        isAcceptedTermsConditions, DbStore.isAcceptedTermsConditions, value);
   }
 }

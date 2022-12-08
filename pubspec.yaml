@@ -1,9 +1,8 @@
 name: weather_today
 description: Weather for every day.
+publish_to: none
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-version: 2.26.112+17
+version: 3.1.0+4
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
@@ -12,64 +11,66 @@ dependencies:
   flutter:
     sdk: flutter
 
-  open_weather_api:
-    path: C:/Users/Ruble/Documents/Programming/Projects/FlutterProjects/open_weather_api
+  # service weather
+  weather_pack: ^0.0.1
 
-  intro_slider: ^3.0.10
-  flutter_dotenv: ^5.0.2
-  shared_preferences: ^2.0.15
-  expandable: ^5.0.1
-  country_icons: ^2.0.2
+  # Widgets
   material_floating_search_bar: ^0.3.7
+  expandable: ^5.0.1
+  smooth_page_indicator: ^1.0.0+2
+  country_icons: ^2.0.2
+  fluttertoast: ^8.1.1
+  fl_chart: ^0.55.2
+  weather_animation: ^0.0.1
 
-  flex_color_scheme: ^6.0.0
+  # Theme
+  flex_color_scheme: ^6.1.1
 
-  #  flutter_speed_dial: ^5.0.0+1
+  # Models and annotation
+  json_annotation: ^4.7.0
+  freezed_annotation: ^2.2.0
 
-  json_annotation: ^4.6.0
+  # Routing
+  auto_route: ^5.0.4
 
-  auto_route: ^5.0.1
-  freezed_annotation: ^2.1.0
+  # Database
+  shared_preferences: ^2.0.15
 
-  #  flutter_portal: ^1.0.0-dev.2
+  # State manager
+  hooks_riverpod: ^2.0.2
+  flutter_hooks: 0.18.5+1
 
-  # Пакет предназначен для показа уведомлений
-  fluttertoast: ^8.0.9
-  #  shimmer: ^2.0.0
-  #  equatable: ^2.0.3
-  #  nanoid: ^1.0.0
-  intl: ^0.17.0
-  hooks_riverpod: ^2.0.0-dev.9
-  flutter_hooks: ^0.18.5+1
-
-  # amazing charts
-  fl_chart: ^0.55.1
-  loggy: ^2.0.1+1
-  url_launcher: ^6.1.5
-
-  # This is a cool localization and internationalization package
-  slang: 2.7.0
-  slang_flutter: 2.7.0
+  # Localization
+  slang: ^3.5.0
+  slang_flutter: ^3.5.0
   flutter_localizations:
     sdk: flutter
+
+  # Utility
+  flutter_dotenv: ^5.0.2
+  intl: ^0.17.0
+  loggy: ^2.0.3
+  stack_trace: ^1.10.0
+  url_launcher: ^6.1.7
+  meta: ^1.8.0
+  package_info_plus: ^3.0.2
+  flutter_markdown: ^0.6.13
+
+  #    git:
+  #      url: file://C:/open_weather_api
+  #      ref: master
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  json_serializable: ^6.3.1
-  auto_route_generator: ^5.0.2
-  build_runner: ^2.2.0
-  icons_launcher: ^2.0.4
+  json_serializable: ^6.5.4
+  auto_route_generator: ^5.0.3
+  build_runner: ^2.3.2
+  icons_launcher: ^2.0.6
+  freezed: ^2.3.0
+  lint: ^2.0.1
 
-  #  You can let the library rebuild automatically for you.
-  #
-  #  command -> flutter pub run slang:watch
-  slang_build_runner: 2.7.0
-
-  freezed: ^2.1.0+1
-
-  lint: ^1.10.0
 
 flutter:
 
@@ -80,25 +81,10 @@ flutter:
     - .env
     - assets/icons/icon.png
     - assets/images/
-    - assets/images/intro/
+    - assets/images/attribution/owm/
+    - assets/doc/
 
   fonts:
-    #    - family: Caveat
-    #      fonts:
-    #        - asset: assets/fonts/Caveat-Bold.ttf
-    #          weight: 400
-    #        - asset: assets/fonts/Caveat-Medium.ttf
-    #          weight: 500
-    #        - asset: assets/fonts/Caveat-Regular.ttf
-    #          weight: 600
-    #        - asset: assets/fonts/Caveat-SemiBold.ttf
-    #          weight: 700
-    #        - asset: assets/fonts/Caveat-VariableFont_wght.ttf
-    #    - family: MarckScript
-    #      fonts:
-    #        - asset: assets/fonts/MarckScript-Regular.ttf
-    #          weight: 400
-
     # see https://flutter.dev/custom-fonts/#from-packages
     - family: Anonymous Pro
       fonts:
@@ -166,20 +152,6 @@ flutter:
       fonts:
         - asset: assets/fonts/Pacifico/Pacifico-Regular.ttf
 
-    - family: Press Start 2P
-      fonts:
-        - asset: assets/fonts/Press_Start_2P/PressStart2P-Regular.ttf
-
     - family: Raleway
       fonts:
         - asset: assets/fonts/Raleway/Raleway-Regular.ttf
-
-
-flutter_icons:
-  image_path: "assets/icons/icon.png"
-  #  image_path_android: "assets/images/icon-710x599-android.png"
-  #  image_path_ios: "assets/images/icon-1024x1024.png"
-  android: true # can specify file name here e.g. "ic_launcher"
-#  ios: true # can specify file name here e.g. "My-Launcher-Icon"
-#  adaptive_icon_background: "assets/images/christmas-background.png" # only available for Android 8.0 devices and above
-#  adaptive_icon_foreground: "assets/images/icon-foreground-432x432.png" # only available for Android 8.0 devices and above

@@ -1,8 +1,7 @@
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
+import 'package:weather_today/core/controllers/general_settings_controller.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/i18n/translations.g.dart';
-
-import '../ui/pages/main_page/model/homepage_index_model.dart';
 
 extension AppLocaleTr on AppLocale {
   String get nameTr {

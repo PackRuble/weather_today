@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/ui/feature/chart_widget_feature/chart_utils.dart';
 import 'package:weather_today/ui/feature/chart_widget_feature/chart_widget.dart';
@@ -39,7 +39,7 @@ class ChartWindWidget extends ConsumerWidget {
           hourly.length < 2 ? null : hourly[hourly.length - 1].date;
 
       return CustomChartWidget(
-        generateData: [],
+        generateData: const [],
         generateLabelsData: FlTitlesData(),
         titleWidget: titleWidget,
         ifEmptyDataWidget: (startDate == null || endDate == null)

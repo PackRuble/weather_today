@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/controllers/general_settings_controller.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
 /// Контроллер страницы [HomePage].
 class HomePageController {
@@ -8,14 +10,11 @@ class HomePageController {
 
   final Ref _ref;
 
-  Reader get _reader => _ref.read;
-
-  Reader get _refresher => _ref.refresh;
-
   /// экземпляр.
-  static final pr = Provider<HomePageController>(
-      (ref) => HomePageController(ref),
-      name: '$HomePageController');
+  static final instance = Provider(
+    HomePageController.new,
+    name: '$HomePageController',
+  );
 
   // ---------------------------------------
   // Работа с интерфейсом
@@ -38,23 +37,66 @@ class HomePageController {
   /// * 1 - страница почасовой погоды;
   /// * 2 - страница текущей погоды;
   /// * 3 - страница прогнозов погоды на ближайшие дни (на 7 дней);
-  static final currentIndex = Provider<int>((ref) {
-    final controller = ref.watch(pageController);
+  static final currentIndex = Provider<int>(
+    (ref) {
+      final index = ref.watch(pageController.select(
+          (controller) => controller.page?.round() ?? controller.initialPage));
 
-    return controller.page?.round() ?? controller.initialPage;
-  });
+      ref.listenSelf(
+          (previous, next) => _notifyObservers(previous ?? index, next));
 
-  /// Установить новую страницу, когда мы пролистываем.
-  void setIndexPageFromHandSlide(int index) => _reader(pageController)
-      .animateToPage(index, duration: _durationSlide, curve: Curves.ease);
+      return index;
+    },
+    name: '$HomePageController/currentIndex',
+  );
 
   /// Установить новую страницу, когда мы щелкаем по bottom bar.
-  void setIndexPageFromBar(int index) {
-    if ((_reader(currentIndex) - index).abs() == 1) {
-      setIndexPageFromHandSlide(index);
-      return;
+  void setIndexPageWhenClick(int index) {
+    final controller = _ref.read(pageController);
+    if ((_ref.read(currentIndex) - index).abs() == 1) {
+      // ignore: discarded_futures
+      controller.animateToPage(index,
+          duration: _durationSlide, curve: Curves.ease);
+    } else {
+      controller.jumpToPage(index);
+    }
+  }
+
+  /// Логгируем передвижения по вкладкам.
+  ///
+  /// Внутри создается [RouteMatch] с нужными данными, для удовлетворения нужд
+  /// логгера.
+  static void _notifyObservers(int previousIndex, int nextIndex) {
+    const routeInfo = RouteMatch(
+      name: '', // `routeName` override after
+      segments: [],
+      path: '',
+      stringMatch: '',
+      key: ValueKey(''),
+    );
+
+    TabPageRoute getRoute(int index) {
+      switch (index) {
+        case 0:
+          return TabPageRoute(
+              routeInfo: routeInfo.copyWith(routeName: 'SettingsTab'),
+              index: 0);
+        case 1:
+          return TabPageRoute(
+              routeInfo: routeInfo.copyWith(routeName: 'HourlyTab'), index: 1);
+        case 2:
+          return TabPageRoute(
+              routeInfo: routeInfo.copyWith(routeName: 'CurrentlyTab'),
+              index: 2);
+        case 3:
+          return TabPageRoute(
+              routeInfo: routeInfo.copyWith(routeName: 'DailyTab'), index: 3);
+        default:
+          return throw "Wrong page index. Try again.";
+      }
     }
 
-    _reader(pageController).jumpToPage(index);
+    NavigationObserver()
+        .didChangeTabRoute(getRoute(previousIndex), getRoute(nextIndex));
   }
 }

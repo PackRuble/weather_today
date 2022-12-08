@@ -1,13 +1,13 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/models/models.dart';
 import 'package:weather_today/extension/enum_extension.dart';
 
-import '../../../shared/custom_appbar.dart';
+import '../../../shared/appbar_widget.dart';
 import '../../../shared/shared_widget.dart';
 import '../../../shared/wrapper_page.dart';
 import '../../daily_page/daily_page_by_ruble/daily_page_ui.dart' as ruble_daily;
@@ -26,12 +26,10 @@ class VisualDesignPage extends ConsumerWidget {
     final ScrollPhysics scrollPhysic =
         ref.watch(VisualDPageController.selectedScrollPhysic).scrollPhysics;
 
-    const Widget _divider = Divider(height: 12.0, thickness: 12.0);
-
     return WrapperPage(
       child: WillPopScope(
         onWillPop: () async =>
-            ref.watch(VisualDPageController.cr).onWillPop(context),
+            ref.watch(VisualDPageController.instance).onWillPop(context),
         child: Scaffold(
           appBar: RAppBar(
             t.visualDesignPage.appbarTitle,
@@ -39,9 +37,7 @@ class VisualDesignPage extends ConsumerWidget {
           ),
           body: Column(
             children: [
-              _divider,
               const _ExampleTileDesign(),
-              _divider,
               Expanded(
                 child: ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -93,6 +89,12 @@ class _ExampleTileDesign extends ConsumerWidget {
               tolskaya_hourly.TileHourlyWidget(weatherMock.hourly![10]);
           break;
       }
+
+      const Widget _divider = Divider(height: 12.0, thickness: 12.0);
+
+      _testedWidget = Column(
+        children: [_divider, _testedWidget, _divider],
+      );
     }
 
     final double textScaleFactor =
@@ -138,7 +140,7 @@ class _SaveButtonWidget extends ConsumerWidget {
 
     return isNeedSave
         ? IconButton(
-            onPressed: ref.read(VisualDPageController.cr).saveAllChanges,
+            onPressed: ref.read(VisualDPageController.instance).saveAllChanges,
             icon: const Icon(Icons.done),
           )
         : const SizedBox.shrink();
@@ -162,7 +164,7 @@ class _DesignWidgetChip extends ConsumerWidget {
           selected: _selected == _designs[index],
           label: Text(_designs[index].toCamelCaseToWords()),
           onSelected: (_) => ref
-              .read(VisualDPageController.cr)
+              .read(VisualDPageController.instance)
               .setVisualDesign(_designs[index]),
         );
       }),
@@ -191,7 +193,8 @@ class _ChangerTextScaleWidget extends ConsumerWidget {
                   ((maxTextScaleFactor - minTextScaleFactor) * 100).toInt(),
               min: minTextScaleFactor,
               max: maxTextScaleFactor,
-              onChanged: ref.read(VisualDPageController.cr).setTextScaleFactor,
+              onChanged:
+                  ref.read(VisualDPageController.instance).setTextScaleFactor,
             ),
           ),
         ),
@@ -229,8 +232,9 @@ class _FamilyFontsWidget extends ConsumerWidget {
         return ChipInCloud(
           selected: selected == items[index],
           label: Text(items[index].toCamelCaseToWords()),
-          onSelected: (_) =>
-              ref.read(VisualDPageController.cr).setFontFamily(items[index]),
+          onSelected: (_) => ref
+              .read(VisualDPageController.instance)
+              .setFontFamily(items[index]),
         );
       }),
     );
@@ -253,8 +257,9 @@ class _TypographyWidget extends ConsumerWidget {
         return ChipInCloud(
           selected: selected == items[index],
           label: Text(items[index].toCamelCaseToWords()),
-          onSelected: (_) =>
-              ref.read(VisualDPageController.cr).setTypography(items[index]),
+          onSelected: (_) => ref
+              .read(VisualDPageController.instance)
+              .setTypography(items[index]),
         );
       }),
     );
@@ -277,8 +282,9 @@ class _ScrollPhysicsWidget extends ConsumerWidget {
         return ChipInCloud(
           selected: selected == items[index],
           label: Text(items[index].toCamelCaseToWords()),
-          onSelected: (_) =>
-              ref.read(VisualDPageController.cr).setScrollPhysic(items[index]),
+          onSelected: (_) => ref
+              .read(VisualDPageController.instance)
+              .setScrollPhysic(items[index]),
         );
       }),
     );
@@ -294,10 +300,15 @@ class ChipsCloud extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Wrap(
-      alignment: WrapAlignment.spaceEvenly,
-      runAlignment: WrapAlignment.spaceEvenly,
-      children: items,
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Wrap(
+        alignment: WrapAlignment.spaceEvenly,
+        runAlignment: WrapAlignment.spaceEvenly,
+        spacing: 6.0,
+        runSpacing: 6.0,
+        children: items,
+      ),
     );
   }
 }
@@ -315,17 +326,15 @@ class ChipInCloud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: ChoiceChip(
-        label: label,
-        elevation: 2.0,
-        selected: selected,
-        side: BorderSide(color: AppColors.of(context).chipBorderColor),
-        backgroundColor: AppColors.of(context).chipColor,
-        selectedColor: AppColors.of(context).chipSelectedColor,
-        onSelected: onSelected,
-      ),
+    return RawChip(
+      label: label,
+      elevation: 0.0,
+      showCheckmark: false,
+      selected: selected,
+      side: BorderSide(color: AppColors.of(context).chipBorderColor),
+      backgroundColor: AppColors.of(context).chipColor,
+      selectedColor: AppColors.of(context).chipSelectedColor,
+      onSelected: onSelected,
     );
   }
 }

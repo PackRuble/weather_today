@@ -8,14 +8,15 @@ import 'package:weather_today/ui/const/app_dialogs.dart';
 
 /// Контроллер страницы [UserApiPage].
 class UserApiPageController {
-  UserApiPageController(this._reader);
+  UserApiPageController(this._ref);
 
-  final Reader _reader;
+  final Ref _ref;
 
   /// экземпляр.
-  static final pr = Provider.autoDispose<UserApiPageController>(
-      (ref) => UserApiPageController(ref.read),
-      name: '$UserApiPageController');
+  static final instance = Provider.autoDispose(
+    UserApiPageController.new,
+    name: '$UserApiPageController',
+  );
 
   /// Происходит ли в данный момент установка ключа apikeyWeather.
   static final isTestingApiKey =
@@ -31,31 +32,32 @@ class UserApiPageController {
 
   /// Установить пользовательский api.
   Future<void> setUserApi() async {
-    _reader(isTestingApiKey.notifier).update((_) => true);
+    _ref.read(isTestingApiKey.notifier).update((_) => true);
 
-    final bool isCorrectApi = await _reader(ApiServiceOwm.pr)
+    final bool isCorrectApi = await _ref
+        .read(ApiServiceOwm.instance)
         .setUserApiKey(apiTextController.value.text);
 
     if (isCorrectApi) {
-      _reader(MessageController.pr).tApiKeyWeatherSetTrue();
+      _ref.read(MessageController.instance).tApiKeyWeatherSetTrue();
     } else {
-      _reader(MessageController.pr).tApiKeyWeatherSetFalse();
+      _ref.read(MessageController.instance).tApiKeyWeatherSetFalse();
     }
 
-    _reader(isTestingApiKey.notifier).update((_) => false);
+    _ref.read(isTestingApiKey.notifier).update((_) => false);
   }
 
   /// Проверить, корректный ли апи установлен.
   Future<void> checkApi() async {
-    _reader(isTestingApiKey.notifier).update((_) => true);
+    _ref.read(isTestingApiKey.notifier).update((_) => true);
 
-    if (await _reader(ApiServiceOwm.pr).isCorrectInstalledApiKey()) {
-      _reader(MessageController.pr).tCheckApikeyOWMSuccess();
+    if (await _ref.read(ApiServiceOwm.instance).isCorrectInstalledApiKey()) {
+      _ref.read(MessageController.instance).tCheckApikeyOWMSuccess();
     } else {
-      _reader(MessageController.pr).tCheckApikeyOWMFail();
+      _ref.read(MessageController.instance).tCheckApikeyOWMFail();
     }
 
-    _reader(isTestingApiKey.notifier).update((_) => false);
+    _ref.read(isTestingApiKey.notifier).update((_) => false);
   }
 
   /// Удалить пользовательский apiKey-погоды.
@@ -64,7 +66,7 @@ class UserApiPageController {
         await AppDialogs.confirmDeletionUserApiKeyWeather(context);
 
     if (isDelete) {
-      await _reader(ApiServiceOwm.pr).resetUserApiKey();
+      await _ref.read(ApiServiceOwm.instance).resetUserApiKey();
     }
   }
 

@@ -36,6 +36,8 @@ class AppIcons {
 
   static const IconData localeTile = Icons.language_rounded;
 
+  static const IconData systemSettingsTile = Icons.settings_applications_sharp;
+
   static const IconData gratitudeTile = Icons.volunteer_activism;
 
   static const IconData aboutAppTile = Icons.self_improvement_rounded;

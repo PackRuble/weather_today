@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/ui/feature/chart_widget_feature/chart_utils.dart';
 import 'package:weather_today/ui/feature/chart_widget_feature/chart_widget.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
@@ -36,7 +36,7 @@ class ChartForecastWidget extends ConsumerWidget {
 
     if (!chart.isDataCorrect) {
       return CustomChartWidget(
-        generateData: [],
+        generateData: const [],
         generateLabelsData: FlTitlesData(),
         titleWidget: titleWidget,
         ifEmptyDataWidget:
@@ -122,10 +122,9 @@ class ChartForecastWidget extends ConsumerWidget {
       dataList.addAll([
         _generateGroup(
           i,
-          Temp.fromKelvinTo(chart.tempUnits, chart.data[i].temp ?? 0.0),
-          Temp.fromKelvinTo(
-              chart.tempUnits, chart.data[i].tempFeelsLike ?? 0.0),
-          Temp.fromKelvinTo(chart.tempUnits, chart.data[i].dewPoint ?? 0.0),
+          chart.tempUnits.value(chart.data[i].temp ?? 0.0),
+          chart.tempUnits.value(chart.data[i].tempFeelsLike ?? 0.0),
+          chart.tempUnits.value(chart.data[i].dewPoint ?? 0.0),
         )
       ]);
     }

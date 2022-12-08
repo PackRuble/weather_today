@@ -37,7 +37,7 @@ class WrapperBodyWithFSBar extends ConsumerWidget {
         Align(
           alignment: Alignment.topCenter,
           child: ColoredBox(
-            color: Theme.of(context).appBarTheme.backgroundColor! ??
+            color: Theme.of(context).appBarTheme.backgroundColor ??
                 Theme.of(context).colorScheme.primaryContainer,
             child: SizedBox(
               height: paddingTop,

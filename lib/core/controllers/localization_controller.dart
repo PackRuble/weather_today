@@ -32,10 +32,10 @@ class AppLocalization {
 
   IDataBase get _dbService => ref.read(dbService);
 
-  static final pr = Provider<AppLocalization>((ref) => AppLocalization(ref));
-
-  // static TranslationsRu get _t => AppLocale.ru.build();
-  // static set _t(TranslationsRu translationsRu) => translationsRu;
+  static final instance = Provider<AppLocalization>(
+    AppLocalization.new,
+    name: '$AppLocalization',
+  );
 
   /// Текущая локаль приложения.
   static final currentLocale = StateProvider<AppLocale>((ref) => AppLocale.ru);
@@ -57,22 +57,15 @@ class AppLocalization {
       _dbService.load(DbStore.appLocale, DbStore.appLocaleDefault);
 
   /// Текущий translation.
-  static final currentTranslation = StateProvider<TranslationsRu>((ref) {
-    final AppLocale locale = ref.watch(currentLocale);
-    tr = locale.build(); // we need to assign
-    return tr;
-  });
-
-  /// Получить перевод по локали.
-  @Deprecated('Устарело в связи с аналогичным методом [AppLocale.build()]')
-  static TranslationsRu getTranslation(AppLocale locale) {
-    switch (locale) {
-      case AppLocale.ru:
-        return AppLocale.ru.build();
-      case AppLocale.en:
-        return AppLocale.en.build();
-    }
-  }
+  static final currentTranslation = StateProvider<TranslationsRu>(
+    (ref) {
+      final AppLocale locale = ref.watch(currentLocale);
+      // ignore: join_return_with_assignment
+      tr = locale.build(); // we need to assign
+      return tr;
+    },
+    name: '$AppLocalization/currentTranslation',
+  );
 
   /// Текущая локаль девайса.
   AppLocale get deviceLocale => AppLocaleUtils.findDeviceLocale();

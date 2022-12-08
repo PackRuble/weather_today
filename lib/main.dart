@@ -1,8 +1,16 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:slang_flutter/slang_flutter.dart';
+import 'package:stack_trace/stack_trace.dart';
 import 'package:weather_today/core/init_app_service.dart';
+import 'package:weather_today/utils/routes/routes.gr.dart';
 
+import 'const/app_info.dart';
 import 'core/controllers/localization_controller.dart';
 import 'core/services/app_theme_service/controller/app_theme_controller.dart';
-import 'shared_libs.dart';
+import 'utils/logger/all_observers.dart';
 
 Future<void> main() async {
   final WidgetsBinding widgetsBinding =
@@ -12,17 +20,34 @@ Future<void> main() async {
   widgetsBinding.deferFirstFrame();
 
   // This let us access providers before runApp (read only)
-  final container = ProviderContainer(observers: [RivLoggy()]);
+  final container = ProviderContainer(observers: [RiverpodObserver()]);
 
   // асинхронная инициализация всех сервисов
   await ServiceInit(container).init();
 
-  runApp(
-    UncontrolledProviderScope(
-      container: container,
-      child: WeatherMain(),
-    ),
-  );
+  // логгирование всевозможных ошибок
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+    logError('Flutter Error', details.exception,
+        Trace.from(details.stack ?? Trace.current()).terse);
+    // exit(1);
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    logError('PlatformDispatcher Error', error, stack);
+    return true;
+  };
+
+  await Chain.capture(() async {
+    runApp(
+      UncontrolledProviderScope(
+        container: container,
+        child: WeatherMain(),
+      ),
+    );
+  }, onError: (error, stackTrace) {
+    // здесь ловим ошибки от асинхронных вызовов
+    logError('Async Error', error, Trace.from(stackTrace).terse);
+  });
 
   // Remove splash screen when bootstrap is complete
   widgetsBinding.allowFirstFrame();
@@ -33,9 +58,9 @@ class WeatherMain extends ConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    loggy.debug('build');
+    loggy.info('build');
 
-    final AppLocalization appLocalization = ref.watch(AppLocalization.pr);
+    final AppLocalization appLocalization = ref.watch(AppLocalization.instance);
     final Locale locale =
         ref.watch(AppLocalization.currentLocale).flutterLocale;
 
@@ -43,7 +68,10 @@ class WeatherMain extends ConsumerWidget with UiLoggy {
       theme: ref.watch(AppTheme.lightTheme).toTheme,
       darkTheme: ref.watch(AppTheme.darkTheme).toTheme,
       themeMode: ref.watch(AppTheme.themeMode),
-      routerDelegate: _appRouter.delegate(),
+      routerDelegate: AutoRouterDelegate(
+        _appRouter,
+        navigatorObservers: () => [NavigationObserver()],
+      ),
       routeInformationParser: _appRouter.defaultRouteParser(),
       debugShowCheckedModeBanner: false,
       title: AppInfo.appName,

@@ -1,4 +1,4 @@
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/i18n/translations.g.dart';
 import 'package:weather_today/i18n/translations_enum.dart';
@@ -73,7 +73,7 @@ class MetricsHelper {
   /// Получить корректное название места следующего вида:
   /// --> '[localName]' || null
   static String? getLocalName(Place place, String languageCode) =>
-      place.localNames?[languageCodeReverse[languageCode.toLowerCase()]];
+      place.localNames?[codeAndLangMatching[languageCode.toLowerCase()]];
 
   static SideOfTheWorld getNSEWDirect(double degree) {
     return SideOfTheWorld.fromDegrees(degree);
@@ -137,9 +137,15 @@ class MetricsHelper {
     if (value != null) {
       // используем нужную точность знаков?
       if (precision != null) {
-        result = Temp.fromKelvinToString(units, value, precision);
+        result = units.valueToString(value, precision);
+
+        // ignore: parameter_assignments
+        value = units.value(value, precision);
       } else {
-        result = Temp.fromKelvinToString(units, value);
+        result = units.valueToString(value);
+
+        // ignore: parameter_assignments
+        value = units.value(value);
       }
 
       // заменяем минус на тире в обязательном порядке

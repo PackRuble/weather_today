@@ -13,7 +13,7 @@ extension WaysToString on Enum {
 
     for (var i = 1; i < words.length; i++) {
       if (words[i].toUpperCase() == words[i]) {
-        newWords.add(' ' + words[i].toUpperCase());
+        newWords.add(' ${words[i].toUpperCase()}');
       } else {
         newWords.add(words[i]);
       }

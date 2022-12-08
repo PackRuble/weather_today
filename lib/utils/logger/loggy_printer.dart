@@ -1,4 +1,63 @@
+import 'package:flutter/foundation.dart';
 import 'package:loggy/loggy.dart';
+import 'package:weather_today/core/controllers/logger_controller.dart';
+
+// ignore_for_file: avoid_print
+
+class SmartPrinter extends LoggyPrinter {
+  const SmartPrinter({
+    required this.consolePrinter,
+    required this.userPrinter,
+  });
+
+  /// Предназначен, чтобы выводить сообщения в консоль.
+  ///
+  /// Для подробного ознакомления смотреть [ConsolePrinter.onLog].
+  final ConsolePrinter consolePrinter;
+
+  /// Предназначен, чтобы сохранять сообщения у пользователя.
+  ///
+  /// Для подробного ознакомления смотреть [UserPrinter.onLog].
+  final UserPrinter userPrinter;
+
+  @override
+  void onLog(LogRecord record) {
+    if (kDebugMode || kProfileMode) {
+      consolePrinter.onLog(record);
+    }
+
+    userPrinter.onLog(record);
+  }
+}
+
+/// Пропускает все записи уровня [LogLevel.debug].
+class UserPrinter extends LoggyPrinter {
+  const UserPrinter({required this.manager});
+
+  final AppLogsManager manager;
+
+  @override
+  void onLog(LogRecord record) {
+    if (record.level == LogLevel.debug) {
+      return;
+    }
+
+    final result = StringBuffer();
+
+    result.write('${record.time}: ');
+    result.write(record.toString());
+
+    if (record.error != null) {
+      result.write('\n${record.error}');
+    }
+
+    if (record.stackTrace != null) {
+      result.write('\n${record.stackTrace}');
+    }
+
+    manager.addLogRecord(result.toString());
+  }
+}
 
 /// Format log and add emoji to represent the color.
 ///
@@ -9,14 +68,12 @@ import 'package:loggy/loggy.dart';
 ///
 /// Format:
 /// *EMOJI* *TIME* *LOG PRIORITY*  *LOGGER NAME* - *CLASS NAME* - *LOG MESSAGE*
-class CustomPrinter extends LoggyPrinter {
-  const CustomPrinter({
-    this.showColors,
+class ConsolePrinter extends LoggyPrinter {
+  const ConsolePrinter({
+    this.showColors = false,
   }) : super();
 
-  final bool? showColors;
-
-  bool get _colorize => showColors ?? false;
+  final bool showColors;
 
   static final _levelColors = {
     LogLevel.debug:
@@ -47,7 +104,7 @@ class CustomPrinter extends LoggyPrinter {
         .padRight(8);
 
     final _color =
-        _colorize ? levelColor(record.level) ?? AnsiColor() : AnsiColor();
+        showColors ? levelColor(record.level) ?? AnsiColor() : AnsiColor();
     final _prefix = levelPrefix(record.level) ?? _defaultPrefix;
 
     print(_color(

@@ -1,15 +1,15 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 
 part 'place_model.freezed.dart';
 part 'place_model.g.dart';
+
+// ignore_for_file: invalid_annotation_target
 
 /// Местоположение и его характеристики.
 ///
 @freezed
 class Place with _$Place {
-  const Place._();
-
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Place({
     /// Название местоположения.
@@ -36,6 +36,7 @@ class Place with _$Place {
     /// Заметка об этом месте.
     String? note,
   }) = _SavedPlace;
+  const Place._();
 
   /// Внутренний метод десериализации json.
   factory Place.fromJson(Map<String, dynamic> map) => _$PlaceFromJson(map);

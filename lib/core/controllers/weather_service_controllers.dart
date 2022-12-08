@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/key_store.dart';
 import 'package:weather_today/core/models/place/place_model.dart';
 import 'package:weather_today/core/services/api/api_OWM.dart';
@@ -12,21 +12,26 @@ import '../../const/first_run_saved_places.dart';
 import '../../utils/state_updater.dart';
 
 /// Общее состояние сервиса получения погоды для приложения.
+///
+/// Содержит состояния:
+/// - [currentPlace]
+/// - [speedUnits]
+/// - [pressureUnits]
+/// - [tempUnits]
+/// - [currentLanguage]
 class WeatherServices with Updater {
-  WeatherServices(this.reader);
+  WeatherServices(this.ref);
 
   @override
-  final Reader reader;
+  final Ref ref;
 
   @override
-  IDataBase get db => reader(dbService);
+  IDataBase get db => ref.read(dbService);
 
-  /// инициализировать. Переопределяем значения провайдеров на значения из дб.
+  /// Инициализация. Переопределяем значения провайдеров на значения из бд.
   Future<void> init() async {
     await loadAndUpdate(currentPlace, DbStore.currentPlace,
         DbStore.currentPlaceDefault, _conversionCurrentPlace);
-    // await loadAndUpdate(savedPlacesDb, Store.savedPlaces,
-    //     Store.savedPlacesDefault, _conversionSavedPlacesDb);
     await loadAndUpdate(speedUnits, DbStore.speedUnits,
         DbStore.speedUnitsDefault, _conversionSpeedUnits);
     await loadAndUpdate(pressureUnits, DbStore.pressureUnits,
@@ -38,14 +43,19 @@ class WeatherServices with Updater {
   }
 
   /// экземпляр.
-  static final pr =
-      Provider<WeatherServices>((ref) => WeatherServices(ref.read));
+  static final instance = Provider<WeatherServices>(
+    WeatherServices.new,
+    name: '$WeatherServices/instance',
+  );
 
   // Текущее место по которому приходят данные о погоде
   //============================================================================
 
   /// Текущее место.
-  static final currentPlace = StateProvider<Place>((ref) => Place.fromJson({}));
+  static final currentPlace = StateProvider<Place>(
+    (ref) => Place.fromJson({}),
+    name: '$WeatherServices/currentPlace',
+  );
 
   static Place _conversionCurrentPlace(String raw) {
     return raw != ''
@@ -59,36 +69,14 @@ class WeatherServices with Updater {
     await saveDb(DbStore.currentPlace, jsonEncode(place.toJson()));
   }
 
-  // Обработка сохраненных местоположений
-  //============================================================================
-  //тодо. подумать как правильно инициализировать один ед раз с начальным местом
-  /// Список сохраненных местоположений.
-  /*static final savedPlacesDb = StateProvider<List<Place>>((ref) => []);
-
-  static List<Place> _conversionSavedPlacesDb(List<String> listJsonStr) =>
-      listJsonStr != []
-          ? listJsonStr.map((String strJson) {
-              return Place.fromJson(
-                  json.decode(strJson) as Map<String, dynamic>);
-            }).toList()
-          : _initialSavedPlaces;
-
-  /// Установить новый список избранных мест.
-  ///
-  /// Будет установлено и сохранено в бд.
-  Future<void> setSavedPlacesDb(List<Place> list) async => saveAndUpdate(
-      savedPlacesDb,
-      Store.savedPlaces,
-      list
-          .map((e) => jsonEncode(e.toJson()))
-          .toList()); // тодо обернуть List.of()???*/
-
   // Единицы измерения скорости.
   //============================================================================
 
   /// Провайдер предоставляет единицы измерения скорости.
   static final speedUnits = StateProvider<Speed>(
-      (ref) => _conversionSpeedUnits(DbStore.speedUnitsDefault));
+    (ref) => _conversionSpeedUnits(DbStore.speedUnitsDefault),
+    name: '$WeatherServices/speedUnits',
+  );
 
   static Speed _conversionSpeedUnits(int value) => Speed.values[value];
 
@@ -103,7 +91,9 @@ class WeatherServices with Updater {
 
   /// Провайдер предоставляет единицы измерения давления.
   static final pressureUnits = StateProvider<Pressure>(
-      (ref) => _conversionPressureUnits(DbStore.pressureUnitsDefault));
+    (ref) => _conversionPressureUnits(DbStore.pressureUnitsDefault),
+    name: '$WeatherServices/pressureUnits',
+  );
 
   static Pressure _conversionPressureUnits(int value) => Pressure.values[value];
 
@@ -118,7 +108,9 @@ class WeatherServices with Updater {
 
   /// Провайдер предоставляет единицы измерения температуры.
   static final tempUnits = StateProvider<Temp>(
-      (ref) => _conversionTempUnits(DbStore.temperatureUnitsDefault));
+    (ref) => _conversionTempUnits(DbStore.temperatureUnitsDefault),
+    name: '$WeatherServices/tempUnits',
+  );
 
   static Temp _conversionTempUnits(int value) => Temp.values[value];
 
@@ -133,11 +125,13 @@ class WeatherServices with Updater {
 
   /// Провайдер предоставляет язык погодных условий.
   static final currentLanguage = StateProvider<WeatherLanguage>(
-      (ref) => _conversionCurrentLanguage(DbStore.userWeatherLanguageDefault));
+    (ref) => _conversionCurrentLanguage(DbStore.userWeatherLanguageDefault),
+    name: '$WeatherServices/currentLanguage',
+  );
 
   static WeatherLanguage _conversionCurrentLanguage(String code) =>
-      languageCodeReverse[code] ??
-      languageCodeReverse[DbStore.userWeatherLanguageDefault]!;
+      codeAndLangMatching[code] ??
+      codeAndLangMatching[DbStore.userWeatherLanguageDefault]!;
 
   /// Установить язык погодных условий.
   Future<void> setCurrentLanguage(WeatherLanguage newValue) async {
@@ -146,7 +140,7 @@ class WeatherServices with Updater {
   }
 
   /// Доступ к экземпляру сервиса погоды.
-  static final weatherDomain = Provider<WeatherDomain>((ref) {
+  static final weatherService = Provider<WeatherService>((ref) {
     // отслеживаем и устанавливаем apikey weather
     final String apiKey = ref.watch(ApiServiceOwm.apiKey);
 
@@ -154,6 +148,6 @@ class WeatherServices with Updater {
     final WeatherLanguage currentLanguage =
         ref.watch(WeatherServices.currentLanguage);
 
-    return WeatherDomain(apiKey, language: currentLanguage);
+    return WeatherService(apiKey, language: currentLanguage);
   });
 }

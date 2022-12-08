@@ -1,19 +1,20 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/i18n/translations.g.dart';
 
 /// Модель страницы [WeatherLanguagePage].
 class WeatherLanguagePageController {
-  WeatherLanguagePageController(this._reader);
+  WeatherLanguagePageController(this._ref);
 
-  final Reader _reader;
+  final Ref _ref;
 
   /// экземпляр.
-  static final pr = Provider.autoDispose<WeatherLanguagePageController>((ref) {
-    return WeatherLanguagePageController(ref.read);
-  }, name: '$WeatherLanguagePageController');
+  static final instance = Provider.autoDispose(
+    WeatherLanguagePageController.new,
+    name: '$WeatherLanguagePageController',
+  );
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
@@ -24,5 +25,5 @@ class WeatherLanguagePageController {
 
   /// Установка языка погоды.
   Future<void> setWeatherLanguage(WeatherLanguage lang) async =>
-      _reader(WeatherServices.pr).setCurrentLanguage(lang);
+      _ref.read(WeatherServices.instance).setCurrentLanguage(lang);
 }

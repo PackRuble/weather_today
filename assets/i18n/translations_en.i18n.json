@@ -105,7 +105,7 @@
       "tile_title": "Visual design"
     },
     "theme_tile": {
-      "tile_title": "Application color scheme"
+      "tile_title": "Color scheme"
     },
     "country_flags_tile": {
       "tile_title": "Flags of different countries"
@@ -127,6 +127,9 @@
     },
     "about_app_tile": {
       "tile_title": "About the app"
+    },
+    "system_settings_tile": {
+      "tile_title": "System settings"
     }
   },
   "visual_design_page": {
@@ -176,9 +179,17 @@
   "flags_page": {
     "appbar_title": "Flags of different countries"
   },
+  "system_settings_page": {
+    "appbar_title": "System settings",
+    "enable_logs_tile": {
+      "tile_title": "Enable logging",
+      "tile_sub": "Your data is only yours",
+      "tile_content": "Enabling this option will collect data (logs) about application usage. However, they are not automatically sent NEVER. They can only be sent manually. Disabling this option will also delete all logs."
+    }
+  },
   "gratitude_page": {
     "appbar_title": "I want to say thank you...",
-    "text": "\tA year earlier I was fascinated by the new programming language dart, having learned flutter at the same time. To sharpen my skills in the substance of the new, I realized that I wanted to create a simple (it seemed to me at the time, hoho) application - a weather aggregator. And after half a year there appeared an application called Weather Today - Everyday Weather.\n\tDuring the developing process I had a lot of people (and their solutions) helping and supporting me.\n\tI am eternally grateful to my girlfriend Ekaterina for her patience, understanding and acceptance of the fact that I spent rare evening hours working on the app instead of spending them with my family.\n\tAlso I would like to pay tribute to my fellow developers who put up interesting and, importantly, useful developments. In particular I want to mention the dart team, Remi Rousselet for their wonderful Riverpod and freezed packages, Tien Do Nam for their beautiful slang, RydMike for their charming FlexColorScheme package.\n\tI am always open to communication and would appreciate if, after using my application, you could write a few lines about its practicality and competence, and share your opinion on possible features that would be worth doing.\n"
+    "text(rich)": "\tA year earlier I became interested in a new programming language, dart, and at the same time I learned flutter. To sharpen my skills in the substance of the new, I realized that I wanted to create a simple (it seemed to me at the time, hoho) application - a weather aggregator. And after half a year there appeared an application called 'Weather Today' - everyday weather.\n\tDuring the developing process I had a lot of people (and their solutions) helping and supporting me.\n\tI am eternally grateful to my girlfriend for her patience, understanding and acceptance of the rare evening hours I spent working on the app instead of spending them with my family.\n\tI would also like to pay tribute to fellow developers who put out interesting and, importantly, useful products. In particular I want to mention {Dart(dart)} and {Flutter(flutter)} team for a great platform to build truly cool applications; {RemiRousselet(Remi Rousselet)} for the delightful {Riverpod(riverpod)} and {Freezed(freezed)} packages; {TienDoNam(Tien Do Nam)} for the beautiful {Slang(slang)}; {RydMike(Ryd Mike)} for the charming {FlexColorScheme(flexColorScheme)} package. \n\tI'm always open to communication and would appreciate it if, after using this app, you could write a few lines about its practicality and competence, and share your opinion on possible features that would be worth doing.\n\tI can be contacted:\n\t\t- email: {myEmail(pack.ruble@gmail.com)}\n"
   },
   "weather_lang_page": {
     "appbar_title": "Language of weather conditions",
@@ -210,6 +221,19 @@
       "awaiting": "Awaiting...",
       "set": "Set"
     }
+  },
+  "intro_page": {
+    "tile1title": "CHECK",
+    "tile1subtitle": "Super-accurate weather for 48 hours and current for 7 days. Don't get caught in the rain - there are weather warnings",
+    "tile2title": "MEASURE",
+    "tile2subtitle": "Use your preferred units of temperature, speed, and pressure",
+    "tile3title": "SAVE",
+    "tile3subtitle": "Favorite locations are always at your fingertips. What's the weather like in London today?",
+    "tile4title": "VISUALIZE",
+    "tile4subtitle": "Colorful color themes will take care of the bad mood in gloomy weather. There's a nighttime theme",
+    "previous_button": "Back",
+    "next_button": "Next",
+    "done_button": "Done"
   },
   "weather": {
     "condition": {
@@ -426,5 +450,11 @@
         "north_west": "North-West"
       }
     }
+  },
+  "license_terms_page": {
+    "title": "Terms & Conditions",
+    "subtitle": "Terms of use of the application:",
+    "button_cancel": "Reject and exit",
+    "button_accept": "Accept"
   }
 }

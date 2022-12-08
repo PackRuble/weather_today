@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/ui/feature/chart_widget_feature/chart_utils.dart';
 import 'package:weather_today/ui/feature/chart_widget_feature/model/count_label.dart';
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/theme_charts.dart';
@@ -158,8 +158,8 @@ class ChartModel<T> {
       _tempFeelsMin = min(_tempFeelsMin, h.tempFeelsLike ?? _tempFeelsMin);
     }
 
-    double _maxValueY = max(max(_dewPointMax, _tempMax), _tempFeelsMax);
-    double _minValueY = min(min(_dewPointMin, _tempMin), _tempFeelsMin);
+    final double _maxValueY = max(max(_dewPointMax, _tempMax), _tempFeelsMax);
+    final double _minValueY = min(min(_dewPointMin, _tempMin), _tempFeelsMin);
 
     // доп проверка на корректность данных
     if (_maxValueY == startValue || _minValueY == startValue) {
@@ -168,8 +168,8 @@ class ChartModel<T> {
     }
 
     // определяем минимальное и максимальное значение лэйбла на графике
-    valueMinY = Temp.fromKelvinTo(Temp.celsius, _minValueY);
-    valueMaxY = Temp.fromKelvinTo(Temp.celsius, _maxValueY);
+    valueMinY = Temp.celsius.value(_minValueY);
+    valueMaxY = Temp.celsius.value(_maxValueY);
 
     // интервал между метками слева от графика
     scaleDivisionLeft = ChartUtils.getYIntervalBetweenLabel(

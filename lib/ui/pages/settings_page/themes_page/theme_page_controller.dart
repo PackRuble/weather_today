@@ -8,12 +8,7 @@ class ThemePageController {
 
   final Ref _ref;
 
-  Reader get _reader => _ref.read;
-
-  Reader get _refresh => _ref.refresh;
-
-  static final cr =
-      Provider<ThemePageController>((ref) => ThemePageController(ref));
+  static final instance = Provider(ThemePageController.new);
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(

@@ -1,12 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:weather_today/const/key_store.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
+import 'package:weather_today/utils/same_types.dart';
 
-import '../../../utils/logger/db_logger.dart';
-import '../../../utils/same_types.dart';
 import 'interface/i_data_base.dart';
 
-/// Модель для связи настроек компонентов приложения с SharedPreferences.
-class DataBasePrefs with DbLoggy implements IDataBase {
+/// The class allows access to [SharedPreferences].
+class DataBasePrefs with DbLogger implements IDataBase {
   DataBasePrefs();
 
   late final SharedPreferences _prefs;
@@ -14,38 +14,44 @@ class DataBasePrefs with DbLoggy implements IDataBase {
   @override
   Future<void> init() async => _prefs = await SharedPreferences.getInstance();
 
-  /// Загрузка значений из [SharedPreferences] используя key из [DbStore].
+  /// Load values from [SharedPreferences] using the key from [DbStore].
   @override
   Future<T> load<T>(String key, T defaultValue) async {
     Object? value;
     try {
       if (sameTypes<T, List<String>>()) {
-        value = _prefs.getStringList(key) as T;
+        value = _prefs.getStringList(key) as T?;
       } else {
         // простые типы не нуждаются в cast
         // coldfix: добавить проверку других типов, если необходимо
         value = _prefs.get(key);
       }
 
-      // значения ещё нет в бд, либо проблемы с cast
+      // значения ещё нет в бд
       if (value == null) {
         loggy.info(
-            'For *$key* value is null, loaded the Default: *$defaultValue*');
+            'For <$key> value is null, loaded the `defaultValue`: <$defaultValue>');
         return defaultValue;
       }
 
-      loggy.info('LOADED --> key: *$key*, value: *$value* | type value: *$T*');
+      if (kReleaseMode) {
+        loggy.info('LOADED: [ key: <$key> | type: <$T> ]');
+      } else {
+        loggy.info('LOADED: [ key: <$key> | value: <$value> | type: <$T> ]');
+      }
+
       return value as T;
     } catch (e, s) {
       loggy.error(
-          'Not loaded for key: *$key*! Has been loaded the defaultValue: *$defaultValue* | type value: *$T*',
+          'Not loaded for key: <$key>! Has been loaded the `defaultValue`: <$defaultValue> | type: <$T>',
           e,
           s);
+
       return defaultValue;
     }
   }
 
-  /// Save a setting in [SharedPreferences], using `key` as its storage key.
+  /// Save a setting in [SharedPreferences], using key as its storage key [DbStore].
   @override
   Future<void> save<T>(String key, T value) async {
     Future<bool> _save() async {
@@ -82,16 +88,24 @@ class DataBasePrefs with DbLoggy implements IDataBase {
 
         throw Exception('Wrong type for saving to database');
       } catch (e, s) {
-        loggy.error(
-            'Not saved --> key: *$key* | value: *$value* | type value: *$T*',
-            e,
-            s);
+        if (kReleaseMode) {
+          loggy.error('NOT Saved: [ key: <$key> | type: <$T> ]', e, s);
+        } else {
+          loggy.error(
+              'NOT Saved: [ key: <$key> | value: <$value> | type: <$T> ]',
+              e,
+              s);
+        }
         return false;
       }
     }
 
     if (await _save()) {
-      loggy.info('SAVED --> key: *$key* | value: *$value*, | type value: *$T*');
+      if (kReleaseMode) {
+        loggy.info('SAVED: [ key: <$key> | type: <$T> ]');
+      } else {
+        loggy.info('SAVED: [ key: <$key> | value: <$value>, | type: <$T> ]');
+      }
     }
   }
 
@@ -99,25 +113,25 @@ class DataBasePrefs with DbLoggy implements IDataBase {
   Future<bool> clearAll() async {
     if (await _prefs.clear()) {
       loggy.info(
-          'The user storage has been cleared. | prefs: ${_prefs.toString()}|');
+          'The user storage has been cleared: [ AllKeys: ${_prefs.getKeys()} ]');
       return true;
+    } else {
+      loggy.error(
+          'An error occurred while clearing the user storage: [ prefs: ${_prefs.toString()} ]');
+      return false;
     }
-
-    loggy.error(
-        'An error occurred while clearing the user storage. | prefs: ${_prefs.toString()}|');
-    return false;
   }
 
   @override
   Future<bool> clearKey(String key) async {
     if (await _prefs.remove(key)) {
       loggy.info(
-          'The record has been deleted from the storage. | key: *$key* | | prefs: ${_prefs.toString()}|');
+          'The record has been deleted from the storage: [ key: <$key> | value: <${_prefs.get(key)}> ]');
       return true;
+    } else {
+      loggy.error(
+          'Failed to delete a record from the storage: [ key: <$key> | value: <${_prefs.get(key)}> ]');
+      return false;
     }
-
-    loggy.error(
-        'Failed to delete a record from the storage. | key: *$key* | | prefs: ${_prefs.toString()}|');
-    return false;
   }
 }

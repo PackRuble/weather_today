@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/models/models.dart';
 import 'package:weather_today/ui/shared/refresh_wrapper.dart';
@@ -17,7 +17,8 @@ class CurrentWeatherPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return RefreshWrapper<WeatherCurrent>(
       asyncValue: ref.watch(CurrentPageController.current),
-      onRefresh: () => ref.read(CurrentPageController.pr).updateWeather(),
+      onRefresh: () async =>
+          ref.read(CurrentPageController.instance).updateWeather(),
       physicsListView: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       child: (WeatherCurrent weatherCur) {
         switch (ref.watch(AppTheme.visualDesign)) {

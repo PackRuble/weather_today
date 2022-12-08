@@ -1,13 +1,15 @@
+// ignore_for_file: discarded_futures
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/pages/settings_page/themes_page/theme_page_controller.dart';
 
-import '../../../shared/custom_appbar.dart';
+import '../../../shared/appbar_widget.dart';
 import '../../../shared/wrapper_page.dart';
 import 'theme_selector.dart';
 
-const double inset = 2.0;
+const double _inset = 2.0;
 
 /// Страница показывает различные настройки цветовой темы.
 class ThemePage extends ConsumerWidget {
@@ -65,7 +67,8 @@ class _SwapColorsThemeWidget extends ConsumerWidget {
     return SwitchListTile(
       value: isSwapColors,
       title: Text(t.themesPage.swapColorsLight),
-      onChanged: (bool value) => ref.read(AppTheme.pr).toggleSwapColors(value),
+      onChanged: (bool value) =>
+          ref.read(AppTheme.instance).toggleSwapColors(value),
     );
   }
 }
@@ -84,7 +87,7 @@ class _UseMaterial3Widget extends ConsumerWidget {
       title: Text(t.themesPage.useMaterial3),
       subtitle: Text(t.themesPage.useMaterial3Sub),
       onChanged: (bool value) =>
-          ref.read(AppTheme.pr).toggleUseMaterial3(value),
+          ref.read(AppTheme.instance).toggleUseMaterial3(value),
     );
   }
 }
@@ -105,7 +108,7 @@ class _SwapComputeDarkWidget extends ConsumerWidget {
             value: swapDark,
             title: Text(t.themesPage.swapColorsDark),
             onChanged: (bool value) =>
-                ref.read(AppTheme.pr).toggleDarkSwapColors(value),
+                ref.read(AppTheme.instance).toggleDarkSwapColors(value),
           );
   }
 }
@@ -130,7 +133,7 @@ class _DarkLevelWidget extends ConsumerWidget {
               min: 0.0,
               max: 100,
               onChangeEnd: (double value) =>
-                  ref.read(AppTheme.pr).setDarkLevel(value.toInt()),
+                  ref.read(AppTheme.instance).setDarkLevel(value.toInt()),
               onChanged: (double value) => ref
                   .read(ThemePageController.darkLevel.notifier)
                   .update((_) => value.toInt()),
@@ -164,7 +167,7 @@ class _SwapTrueBlackWidget extends ConsumerWidget {
             title: Text(t.themesPage.darkIsTrueBlack),
             subtitle: Text(t.themesPage.darkIsTrueBlackSub),
             onChanged: (bool value) =>
-                ref.read(AppTheme.pr).toggleDarkIsTrueBlack(value),
+                ref.read(AppTheme.instance).toggleDarkIsTrueBlack(value),
           );
   }
 }
@@ -177,7 +180,7 @@ class ShowThemeColors extends StatelessWidget {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: inset),
+      padding: const EdgeInsets.symmetric(horizontal: _inset),
       child: Column(
         children: [
           Row(
@@ -249,7 +252,7 @@ class ThemeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.all(inset),
+        padding: const EdgeInsets.all(_inset),
         child: SizedBox(
           height: MediaQuery.of(context).size.width * 0.15,
           child: Card(
@@ -263,7 +266,7 @@ class ThemeCard extends StatelessWidget {
             elevation: 0,
             color: color,
             child: Padding(
-              padding: const EdgeInsets.all(inset),
+              padding: const EdgeInsets.all(_inset),
               child: Center(
                 child: Text(
                   label,
@@ -294,7 +297,7 @@ class _DarkModeTileWidget extends ConsumerWidget {
       trailing: ThemeModeSwitch(
         themeMode: themeMode,
         onChanged: (ThemeMode value) =>
-            ref.read(AppTheme.pr).setThemeMode(value),
+            ref.read(AppTheme.instance).setThemeMode(value),
       ),
       title: Text(t.themesPage.darkMode),
       subtitle: Text('${t.themesPage.darkModeSub} ${themeMode.name}'),

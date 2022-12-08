@@ -1,9 +1,17 @@
+import 'package:expandable/expandable.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:weather_pack/weather_pack.dart';
+import 'package:weather_today/const/app_icons.dart';
+import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
-import 'package:weather_today/shared_libs.dart';
-import 'package:weather_today/ui/shared/label_weather_widget.dart';
+import 'package:weather_today/extension/double_extension.dart';
+import 'package:weather_today/ui/shared/attribution_weather_widget.dart';
 import 'package:weather_today/ui/shared/shared_widget.dart';
 
+import '../../../shared/alerts_wrapper.dart';
 import '../../../utils/image_helper.dart';
 import '../../../utils/metrics_helper.dart';
 import '../daily_page_controller.dart';
@@ -16,21 +24,95 @@ class DailyWeatherPageByRuble extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    const Widget divider = Divider(height: 4.0, thickness: 1.0);
+
     return ListView.separated(
       physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       itemBuilder: (BuildContext context, int index) {
         if (index + 1 == daily.length) {
-          return const LabelWeatherWidget();
+          return const AttributionWeatherWidget();
         }
-        return _GroupExpansionWidget(daily[index]);
+
+        List<Widget> content = [];
+
+        if (index == 0) {
+          content = [...content, const _AlertsListWidget()];
+        }
+
+        content = [...content, _GroupExpansionWidget(daily[index])];
+
+        return Column(children: content);
       },
       separatorBuilder: (_, int index) {
         if (index + 2 == daily.length) {
           return const SizedBox.shrink();
         }
-        return const Divider(height: 4.0, thickness: 1.0);
+        return divider;
       },
       itemCount: daily.length,
+    );
+  }
+}
+
+class _AlertsListWidget extends ConsumerWidget {
+  const _AlertsListWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return AlertsWrapper(
+      asyncAlerts: ref.watch(DailyPageController.alerts),
+      data: (List<WeatherAlert> alerts) {
+        if (alerts.isEmpty) return const SizedBox.shrink();
+
+        return Column(
+          children: [
+            for (final alert in alerts) ...[
+              _AlertTileWidget(alert),
+              const Divider(height: 0.0),
+            ]
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _AlertTileWidget extends ConsumerWidget {
+  const _AlertTileWidget(this.alert);
+
+  final WeatherAlert alert;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(DailyPageController.tr);
+
+    final String date = alert.start!.day == alert.end!.day
+        ? t.global.time.timeFromTimeSToTimeEnl(
+            time: DateFormat('dd.MM').format(alert.start!),
+            timeStart: DateFormat.H().format(alert.start!),
+            timeEnd: DateFormat.H().format(alert.end!))
+        : t.global.time.fromTimeToTimeNl(
+            timeStart: DateFormat('dd.MM').format(alert.start!),
+            timeEnd: DateFormat('dd.MM').format(alert.end!));
+
+    // coldfix Когда-нибудь я узнаю, как решать эти проблемы с переполнением
+    // в leading и trailing в ListTile
+    return ListTile(
+      leading: UnconstrainedBox(
+        alignment: Alignment.topCenter,
+        constrainedAxis: Axis.horizontal,
+        child: SizedBox(
+          width: 90.0,
+          child: Text(date, textAlign: TextAlign.center),
+        ),
+      ),
+      title: Text(alert.event!),
+      subtitle: Text(alert.description!),
+      // ignore: use_named_constants
+      contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+      tileColor: Theme.of(context).errorColor.withOpacity(0.2),
     );
   }
 }
@@ -73,8 +155,6 @@ class TileDailyWidget extends ConsumerWidget {
     final t = ref.watch(AppLocalization.currentTranslation);
 
     final TextTheme styles = theme.textTheme;
-
-    final double textScaleFactor = MediaQuery.textScaleFactorOf(context);
 
     final Temp tempUnits = ref.watch(DailyPageController.tempUnits);
     final String _tempUnits = MetricsHelper.getTempUnits(tempUnits);
@@ -229,15 +309,21 @@ class _ExpandedWidget extends ConsumerWidget {
     final String _pressureUnits = MetricsHelper.getPressureUnits(pressureUnits);
 
     /// Одна тайл-строка.
-    Row _buildTile(String title, [String? value, String? unit]) {
+    Widget _buildTile(String title, [String? value, String? unit]) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            title,
-            style: stylesText.labelLarge,
+          Expanded(
+            flex: 2,
+            child: Text(
+              title,
+              overflow: TextOverflow.fade,
+              style: stylesText.labelLarge,
+            ),
           ),
+          const SizedBox(width: 2.0),
           Text.rich(
+            textAlign: TextAlign.end,
             TextSpan(
               style: stylesText.labelLarge,
               children: <TextSpan>[
@@ -259,6 +345,7 @@ class _ExpandedWidget extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildTitleRow(t.weather.riseAndSetPl),
               _buildRow(
@@ -342,19 +429,16 @@ class _ExpandedWidget extends ConsumerWidget {
     );
   }
 
-  Row _buildRow(
+  Widget _buildRow(
       {required double height,
       required List<Widget> left,
       required List<Widget> right}) {
     return Row(
       children: [
         Expanded(
-          child: SizedBox(
-            height: height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: left,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: left,
           ),
         ),
         SizedBox(
@@ -362,12 +446,9 @@ class _ExpandedWidget extends ConsumerWidget {
           child: _vDivider,
         ),
         Expanded(
-          child: SizedBox(
-            height: height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: right,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: right,
           ),
         ),
       ],

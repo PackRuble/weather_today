@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:weather_today/const/app_colors.dart';
 
 import 'wrapper_page.dart';
+
+ShapeBorder _shape(BuildContext context) => RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16.0),
+      side: BorderSide(
+        color: AppColors.of(context).cardBorderColor,
+      ),
+    );
 
 class DialogOption<T> extends StatelessWidget {
   const DialogOption({
@@ -27,7 +35,7 @@ class DialogOption<T> extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             if (icon != null) ...[Icon(icon), const SizedBox(width: 5.0)],
-            Text.rich(TextSpan(text: title)),
+            Flexible(child: Text.rich(TextSpan(text: title))),
           ],
         ),
         selected: groupValue == value,
@@ -42,19 +50,88 @@ class DialogOption<T> extends StatelessWidget {
   }
 }
 
+class DialogSwitch extends StatefulWidget {
+  const DialogSwitch({
+    Key? key,
+    required this.value,
+    required this.title,
+    this.subtitle,
+    required this.onChanged,
+  }) : super(key: key);
+
+  final String title;
+  final String? subtitle;
+  final void Function(bool) onChanged;
+  final bool value;
+
+  @override
+  State<DialogSwitch> createState() => _DialogSwitchState();
+}
+
+class _DialogSwitchState extends State<DialogSwitch> {
+  late bool value = widget.value;
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleDialogOption(
+      padding: EdgeInsets.zero,
+      child: SwitchListTile(
+        onChanged: (bool value) {
+          setState(() {
+            this.value = value;
+          });
+          widget.onChanged(value);
+        },
+        title: Text(widget.title),
+        subtitle: widget.subtitle != null ? Text(widget.subtitle!) : null,
+        value: value,
+      ),
+    );
+  }
+}
+
+class DialogTile extends StatelessWidget {
+  const DialogTile({
+    Key? key,
+    required this.title,
+    this.subtitle,
+    required this.onTap,
+  }) : super(key: key);
+
+  final String title;
+  final String? subtitle;
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleDialogOption(
+      padding: EdgeInsets.zero,
+      child: ListTile(
+        title: Text(title),
+        subtitle: subtitle != null ? Text(subtitle!) : null,
+        onTap: onTap,
+      ),
+    );
+  }
+}
+
 Future<T?> infoDialogCustom<T>(
   BuildContext context, {
   Icon? icon,
   required String title,
+  bool? barrierDismissible,
   String? subTitle,
   Widget? content,
+  bool? scrollable,
   required List<TextButton> listActions,
 }) async {
   return showDialog<T>(
       context: context,
+      barrierDismissible: barrierDismissible ?? true,
       builder: (BuildContext context) {
         return WrapperPage(
           child: AlertDialog(
+            shape: _shape(context),
             title: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -72,12 +149,13 @@ Future<T?> infoDialogCustom<T>(
             ),
             content: content,
             actions: listActions,
+            scrollable: scrollable ?? false,
           ),
         );
       });
 }
 
-Future<T?> showAboutThingsDialog<T>(
+Future<T?> showAboutAppDialog<T>(
   BuildContext context, {
   String? applicationName,
   String? applicationVersion,
@@ -86,9 +164,15 @@ Future<T?> showAboutThingsDialog<T>(
   List<Widget>? more,
 }) async {
   return showDialog<T>(
-      context: context,
-      builder: (BuildContext context) {
-        return WrapperPage(
+    context: context,
+    builder: (BuildContext context) {
+      return Theme(
+        data: Theme.of(context).copyWith(
+          dialogTheme: DialogTheme(
+            shape: _shape(context),
+          ),
+        ),
+        child: WrapperPage(
           child: AboutDialog(
             applicationName: applicationName,
             applicationVersion: applicationVersion,
@@ -96,8 +180,10 @@ Future<T?> showAboutThingsDialog<T>(
             applicationLegalese: applicationLegalese,
             children: more,
           ),
-        );
-      });
+        ),
+      );
+    },
+  );
 }
 
 Future<T?> showChoosingDialog<T>(
@@ -112,6 +198,7 @@ Future<T?> showChoosingDialog<T>(
       builder: (BuildContext context) {
         return WrapperPage(
           child: SimpleDialog(
+            shape: _shape(context),
             title: Column(
               children: [
                 icon,
@@ -131,7 +218,46 @@ Future<T?> showChoosingDialog<T>(
                     option,
                   ],
                 );
-              }).toList(),
+              }),
+            ],
+          ),
+        );
+      });
+}
+
+Future<void> showSwitchedDialog(
+  BuildContext context, {
+  Icon? icon,
+  required String title,
+  String? subTitle,
+  required List<Widget> listDialogOption,
+}) async {
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return WrapperPage(
+          child: SimpleDialog(
+            shape: _shape(context),
+            title: Column(
+              children: [
+                if (icon != null) icon,
+                Text(title, textAlign: TextAlign.center),
+              ],
+            ),
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
+                child: subTitle != null ? Text(subTitle) : null,
+              ),
+              ...listDialogOption.map((Widget option) {
+                return Column(
+                  children: [
+                    const Divider(height: 0.0),
+                    option,
+                  ],
+                );
+              }),
             ],
           ),
         );

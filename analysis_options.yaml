@@ -1,52 +1,85 @@
-include: package:lint/analysis_options.yaml
+include: package:lint/strict.yaml
 
-#analyzer:
-#  exclude:
-#  - '**.freezed.dart'
+analyzer:
+  exclude:
+    - '**/*.g.dart'
+    - '**/*.freezed.dart'
 
-# Not happy with the default? Customize the rules depending on your needs.
-# Here are some examples:
+# If necessary, use (ignore: lint) and (ignore_for_file: lint)
 linter:
-  errors:
-    unused_field: ignore
-  #    unused_local_variable: ignore
-
   rules:
-    # Make constructors the first thing in every class
-    sort_constructors_first: true
-
-    sort_pub_dependencies: false
-
-    # The new tabs vs. spaces. Choose wisely
-    prefer_single_quotes: true
-    prefer_double_quotes: false
-
-    # Good packages document everything
-    public_member_api_docs: false #true
-
-    # Blindly follow the Flutter code style, which prefers types everywhere
-    always_specify_types: true
-
-    # Back to the 80s
-    lines_longer_than_80_chars: false
 
     # Use parameter order as in json response
-    always_put_required_named_parameters_first: false
+    #    always_put_required_named_parameters_first: false
 
-    # Util classes are awesome!
-    avoid_classes_with_only_static_members: false
-
-    prefer_if_elements_to_conditional_expressions: false
-    unawaited_futures: true
-
-    avoid_positional_boolean_parameters: false
-
-    no_leading_underscores_for_local_identifiers: false
-
+    # Personal preference.
     require_trailing_commas: false
 
+    # In build method don't correct
+    no_leading_underscores_for_local_identifiers: false
+
+    # False positive for custom enum-like classes (such as Flutter's "AppColors")
+    avoid_classes_with_only_static_members: false
+
+    # Conflicts with `omit_local_variable_types` and other rules.
+    # As per Dart guidelines, we want to avoid unnecessary types to make the code
+    # more readable.
+    # See https://dart.dev/guides/language/effective-dart/design#avoid-type-annotating-initialized-local-variables
+    always_specify_types: false
+
+    # Personal preference. I prefer "if (bool) return;" over having it in multiple lines
+    always_put_control_body_on_new_line: false
+
+    # False positive
+    one_member_abstracts: false
+
+    # Single quotes are easier to type and don't compromise on readability.
+    prefer_double_quotes: false
+
+    # Incompatible with `prefer_final_locals` and `prefer_final_parameters`.
+    # Having immutable local variables makes larger functions more predictable
+    # so we will use `prefer_final_locals` instead.
+    #    unnecessary_final: false
+
+    # Personal preference.
+    avoid_annotating_with_dynamic: false
+
+    # conflicts with `prefer_relative_imports`
     always_use_package_imports: false
 
+    # Personal preference.
+    prefer_if_elements_to_conditional_expressions: false
+
+    # Personal preference.
+    avoid_positional_boolean_parameters: false
+
+    # Personal preference. Sometimes it's not convenient.
+    unused_field: false
+
+    # Personal preference.
+    sort_pub_dependencies: false
+
+    # Sometimes the api of packages can change along with the default value.
+    # It can be hard to keep track of.
+    avoid_redundant_argument_values: false
+
+    # I'm going to use in a new project :)
     use_super_parameters: false
 
+    # ====================true
 
+    # It's logical
+    no_default_cases: true
+
+    # Personal preference. It is comfortable.
+    flutter_style_todos: true
+
+    unnecessary_lambdas: true
+
+    # I prefer to explicitly specify which asynchronous functions not to expect
+    # (use unawaited from dart:async)
+    discarded_futures: true
+    unawaited_futures: true
+
+    # https://dart-lang.github.io/linter/lints/use_decorated_box.html
+    use_decorated_box: true

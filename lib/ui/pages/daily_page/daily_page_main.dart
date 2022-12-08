@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
-import 'package:weather_today/shared_libs.dart';
 import 'package:weather_today/ui/shared/refresh_wrapper.dart';
 
 import '../../../core/services/app_theme_service/models/models.dart';
@@ -14,7 +16,8 @@ class DailyWeatherPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return RefreshWrapper<List<WeatherDaily>>(
       asyncValue: ref.watch(DailyPageController.daily),
-      onRefresh: () => ref.read(DailyPageController.pr).updateWeather(),
+      onRefresh: () async =>
+          ref.read(DailyPageController.instance).updateWeather(),
       physicsListView: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       child: (List<WeatherDaily> daily) {
         switch (ref.watch(AppTheme.visualDesign)) {
@@ -22,6 +25,7 @@ class DailyWeatherPage extends ConsumerWidget {
             return DailyWeatherPageByRuble(daily);
           case AppVisualDesign.byTolskaya:
           // return DailyWeatherPageByTolskaya(daily);
+          // ignore: no_default_cases
           default:
             return DailyWeatherPageByRuble(daily);
         }

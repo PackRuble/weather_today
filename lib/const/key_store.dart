@@ -37,12 +37,10 @@ class DbStore {
   // ===========================================================================
 
   static const String currentPlace = 'currentPlace';
-  static const String currentPlaceDefault = ''; // coldfix - сделать разумней
+  static const String currentPlaceDefault = '';
 
   static const String savedPlaces = 'savedPlaces';
-  static const List<String> savedPlacesDefault = <String>[
-    firstRun
-  ]; // coldfix - сделать разумней
+  static const List<String> savedPlacesDefault = <String>[firstRun];
 
   static const String weatherOneCall = 'weatherOneCall';
   static const String weatherOneCallDefault = '';
@@ -57,6 +55,9 @@ class DbStore {
 
   static const String showIntro = 'isIntro';
   static const bool showIntroDefault = true;
+
+  static const String isAcceptedTermsConditions = 'isAcceptedTermsConditions';
+  static const bool isAcceptedTermsConditionsDefault = false;
 
   // Цветовая тема приложения.
   // ===========================================================================
@@ -100,9 +101,15 @@ class DbStore {
 
   // enum
   static const String fontFamily = 'fontFamily';
-  static const String fontFamilyDefault = 'Lobster';
+  static const String fontFamilyDefault = 'Noto Serif';
 
   // enum
   static const String scrollPhysics = 'scrollPhysics';
   static const int scrollPhysicsDefault = 0; // bouncingScrollPhysics
+
+  // logs
+  static const String logsApp = 'logsApp';
+
+  static const String enableLoggingApp = 'enableLoggingApp';
+  static const bool enableLoggingAppDefault = true;
 }

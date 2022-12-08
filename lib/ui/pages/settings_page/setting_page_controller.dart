@@ -1,26 +1,30 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:open_weather_api/open_weather_api.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_icons.dart';
+import 'package:weather_today/const/key_store.dart';
 import 'package:weather_today/core/controllers/general_settings_controller.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/i18n/translations.g.dart';
 import 'package:weather_today/i18n/translations_enum.dart';
 import 'package:weather_today/ui/const/app_dialogs.dart';
+import 'package:weather_today/utils/routes/routes.gr.dart';
 
 import '../../shared/dialogs_widget.dart';
-import '../main_page/model/homepage_index_model.dart';
 
 /// Контроллер страницы настроек.
 class SettingPageController {
-  SettingPageController(this._reader);
+  SettingPageController(this._ref);
 
-  final Reader _reader;
+  final Ref _ref;
 
   /// экземпляр.
-  static final pr = Provider.autoDispose<SettingPageController>(
-      (ref) => SettingPageController(ref.read));
+  static final instance = Provider.autoDispose(
+    SettingPageController.new,
+    name: '$SettingPageController',
+  );
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
@@ -41,9 +45,9 @@ class SettingPageController {
 
   /// Диалог - Выбрать единицы измерения температуры.
   Future<void> dialogSetTempUnits(BuildContext context) async {
-    final t = _reader(tr);
+    final t = _ref.read(tr);
 
-    final Temp units = _reader(tempUnits);
+    final Temp units = _ref.read(tempUnits);
     final Temp? _newUnits = await showChoosingDialog<Temp>(
       context,
       icon: const Icon(AppIcons.tempUnitsTile),
@@ -57,7 +61,7 @@ class SettingPageController {
     );
 
     if (_newUnits != null) {
-      await _reader(WeatherServices.pr).setTempUnits(_newUnits);
+      await _ref.read(WeatherServices.instance).setTempUnits(_newUnits);
     }
   }
 
@@ -69,9 +73,9 @@ class SettingPageController {
 
   /// Диалог - Выбрать единицы измерения давления.
   Future<void> dialogSetPressureUnits(BuildContext context) async {
-    final t = _reader(tr);
+    final t = _ref.read(tr);
 
-    final Pressure units = _reader(pressureUnits);
+    final Pressure units = _ref.read(pressureUnits);
     final Pressure? _newUnits = await showChoosingDialog<Pressure>(
       context,
       icon: const Icon(AppIcons.pressure),
@@ -85,7 +89,7 @@ class SettingPageController {
     );
 
     if (_newUnits != null) {
-      await _reader(WeatherServices.pr).setPressureUnits(_newUnits);
+      await _ref.read(WeatherServices.instance).setPressureUnits(_newUnits);
     }
   }
 
@@ -97,9 +101,9 @@ class SettingPageController {
 
   /// Диалог - Выбрать единицы измерения скорости.
   Future<void> dialogSetSpeedUnits(BuildContext context) async {
-    final t = _reader(tr);
+    final t = _ref.read(tr);
 
-    final Speed units = _reader(speedUnits);
+    final Speed units = _ref.read(speedUnits);
 
     final Speed? _newUnits = await showChoosingDialog<Speed>(
       context,
@@ -114,7 +118,7 @@ class SettingPageController {
     );
 
     if (_newUnits != null) {
-      await _reader(WeatherServices.pr).setSpeedUnits(_newUnits);
+      await _ref.read(WeatherServices.instance).setSpeedUnits(_newUnits);
     }
   }
 
@@ -127,9 +131,9 @@ class SettingPageController {
 
   /// Диалог - Установить новую locale.
   Future<void> dialogSetLocale(BuildContext context) async {
-    final t = _reader(tr);
+    final t = _ref.read(tr);
 
-    final AppLocale locale = _reader(currentLocale);
+    final AppLocale locale = _ref.read(currentLocale);
 
     final AppLocale? _newLocale = await showChoosingDialog<AppLocale>(
       context,
@@ -144,7 +148,7 @@ class SettingPageController {
     );
 
     if (_newLocale != null) {
-      await _reader(AppLocalization.pr).setLocale(_newLocale);
+      await _ref.read(AppLocalization.instance).setLocale(_newLocale);
     }
   }
 
@@ -156,9 +160,9 @@ class SettingPageController {
 
   /// Диалог - Выбрать стартовую страницу.
   Future<void> dialogSetHomepage(BuildContext context) async {
-    final t = _reader(tr);
+    final t = _ref.read(tr);
 
-    final HomepageIndex page = _reader(startPageIndex);
+    final HomepageIndex page = _ref.read(startPageIndex);
 
     final HomepageIndex? _newPage = await showChoosingDialog<HomepageIndex>(
       context,
@@ -173,11 +177,36 @@ class SettingPageController {
     );
 
     if (_newPage != null) {
-      await _reader(AppGeneralSettings.pr).setStartPageIndex(_newPage);
+      await _ref.read(AppGeneralSettings.instance).setStartPageIndex(_newPage);
     }
   }
 
   /// Диалог - Об приложении.
   Future<void> dialogAboutApp(BuildContext context) async =>
       AppDialogs.aboutApp(context);
+
+  Future<void> dialogAppDebug(BuildContext context) async {
+    await showSwitchedDialog(
+      context,
+      title: 'Debug menu',
+      listDialogOption: [
+        DialogSwitch(
+          title: 'Show intro again',
+          subtitle: 'Turn on and restart to see the effect',
+          value: await _ref
+              .read(AppGeneralSettings.instance)
+              // ignore: invalid_use_of_protected_member
+              .loadDb(DbStore.showIntro, DbStore.showIntroDefault),
+          onChanged: (bool value) {
+            _ref.read(AppGeneralSettings.instance).setIsIntro(value, false);
+          },
+        ),
+        DialogTile(
+          title: 'Open logs screen',
+          subtitle: 'You can see all the logs the application collects',
+          onTap: () => context.router.push(const LogsRoute()),
+        )
+      ],
+    );
+  }
 }
