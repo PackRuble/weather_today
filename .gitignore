@@ -30,6 +30,10 @@
 # Web related
 lib/generated_plugin_registrant.dart
 
+# generated_plugins
+**/GeneratedPluginRegistrant.swift
+**/generated_plugin**.**
+
 # Symbolication related
 app.*.symbols
 
@@ -43,6 +47,7 @@ app.*.map.json
 
 # environment variables
 .env
+/tool/build_with_secret.md
 
 # fvm
 .fvm/flutter_sdk

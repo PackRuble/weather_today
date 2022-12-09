@@ -1,4 +1,4 @@
-## Условия использования приложения:
+**Условия использования приложения:**
 1. Все погодные данные, а также данные о найденных местоположениях предоставляются сервисом "OpenWeather" ([https://openweathermap.org/]). Автор приложения не несёт ответственности за данные, предоставленные вышеуказанным сервисом. Ознакомьтесь с политикой конфиденциальности сервиса "OpenWeather" ([https://openweather.co.uk/privacy-policy/]).
 2. Отображение и использование границ, географических названий и связанных с ними данных, представленных на картах или в ином виде третьих сторон, не гарантирует отсутствия ошибок. Использование данных третьих сторон не означает одобрения или принятия используемых обозначений или границ.
 3. Разработчик данного приложения не даёт никаких гарантий и не делает заявлений или утверждений, прямых или косвенных, в отношении точности, доступности, полноты или полезности информации, содержащейся здесь, и не будет иметь никакой юридической ответственности или обязательств (в том числе ответственности за небрежность) за любые потери, повреждения или травмы (включая летальный исход), которые могут являться результатом, прямым или косвенным, поставки или использования такой информации.
@@ -6,7 +6,7 @@
 5. Любое использование данных этого приложения означает полное и безоговорочное принятие Вами условий настоящего лицензионного соглашения в полном объеме без каких-либо изъятий и ограничений с Вашей стороны.
 6. Соглашение вступает в силу для пользователя с момента установки приложения и действует в течение неопределённого срока.
 
-## Terms of use of the application:
+**Terms of use of the application:**
 1. All weather data as well as location data are provided by the "OpenWeather" service ([https://openweathermap.org/]). The author of the application is not responsible for the data provided by the above service. Read the privacy policy of the "OpenWeather" service ([https://openweather.co.uk/privacy-policy/]).
 2. The display and use of borders, geographical names and related data provided on maps or otherwise by third parties does not guarantee the absence of errors. The use of these third parties does not imply endorsement or acceptance of the designations or boundaries used.
 3. The developer of this app makes no warranties or representations or representations, express or implied, as to the accuracy, availability, completeness or usefulness of the information contained herein, and will have no legal liability or liability (including liability for negligence) for any loss, damage or injury (including death) that may result, direct or indirect, from the supply or use of such information.

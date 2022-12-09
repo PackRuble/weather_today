@@ -47,7 +47,6 @@ dependencies:
     sdk: flutter
 
   # Utility
-  flutter_dotenv: ^5.0.2
   intl: ^0.17.0
   loggy: ^2.0.3
   stack_trace: ^1.10.0
@@ -78,7 +77,6 @@ flutter:
 
   # https://flutter.dev/assets-and-images
   assets:
-    - .env
     - assets/icons/icon.png
     - assets/images/
     - assets/images/attribution/owm/

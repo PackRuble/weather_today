@@ -235,9 +235,12 @@
     "next_button": "Далее",
     "done_button": "Готово"
   },
-  "license_terms_page": {
-    "title": "Положения и условия",
-    "subtitle": "Условия использования приложения:",
+  "terms_conditions": {
+    "information_for_action": "Ознакомьтесь и согласитесь со всеми юридическими документами для использования данного приложения.",
+    "privacy_policy": "Политика конфиденциальности",
+    "terms_and_conditions": "Положения и условия",
+    "terms_use_app": "Условия использования приложения",
+    "confirmation_with_the_above": "После нажатия кнопки \"@:termsConditions.buttonAccept\" вы подтверждаете, что ознакомились и согласны со всем вышеуказанным",
     "button_cancel": "Отклонить и выйти",
     "button_accept": "Принять"
   },

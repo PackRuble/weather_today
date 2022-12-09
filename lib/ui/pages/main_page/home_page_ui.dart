@@ -7,6 +7,7 @@ import 'package:weather_today/core/controllers/global_key.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 
+import '../../shared/all_terms_widget.dart';
 import '../../shared/listen_message_widget.dart';
 import '../../shared/wrap_body_with_search_bar.dart';
 import '../../shared/wrapper_page.dart';
@@ -15,7 +16,6 @@ import '../daily_page/daily_page_main.dart';
 import '../hourly_page/hourly_page_main.dart';
 import '../intro_page/intro_page.dart';
 import '../settings_page/settings_page_ui.dart';
-import 'accepted_license_widget.dart';
 import 'home_page_controller.dart';
 
 /// Главная страница приложения. Содержит 4 вкладки.
@@ -33,7 +33,13 @@ class HomePage extends ConsumerWidget {
     }
 
     if (!isAcceptedTerms) {
-      return const AcceptedLicenseWidget();
+      return const WrapperPage(
+        child: Scaffold(
+          body: SafeArea(
+            child: TermsConditionsWidget(),
+          ),
+        ),
+      );
     }
 
     return WrapperPage(

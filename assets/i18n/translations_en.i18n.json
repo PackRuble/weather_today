@@ -451,9 +451,12 @@
       }
     }
   },
-  "license_terms_page": {
-    "title": "Terms & Conditions",
-    "subtitle": "Terms of use of the application:",
+  "terms_conditions": {
+    "information_for_action": "Read and agree to all legal documents to use this application.",
+    "privacy_policy": "Privacy Policy",
+    "terms_and_conditions": "Terms and conditions",
+    "terms_use_app": "Application Terms of Use",
+    "confirmation_with_the_above": "After clicking \"@:termsConditions.buttonAccept\" you confirm that you have read and agree with all of the above",
     "button_cancel": "Reject and exit",
     "button_accept": "Accept"
   }

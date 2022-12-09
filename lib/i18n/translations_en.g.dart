@@ -38,7 +38,7 @@ class TranslationsEn extends TranslationsRu {
 	@override late final TranslationsDialogsEn dialogs = TranslationsDialogsEn._(_root);
 	@override late final TranslationsEnumsEn enums = TranslationsEnumsEn._(_root);
 	@override late final TranslationsUnitsEn units = TranslationsUnitsEn._(_root);
-	@override late final TranslationsLicenseTermsPageEn licenseTermsPage = TranslationsLicenseTermsPageEn._(_root);
+	@override late final TranslationsTermsConditionsEn termsConditions = TranslationsTermsConditionsEn._(_root);
 }
 
 // Path: mainPageDRuble
@@ -371,15 +371,18 @@ class TranslationsUnitsEn extends TranslationsUnitsRu {
 	@override late final TranslationsUnitsSideOfTheWorldEn sideOfTheWorld = TranslationsUnitsSideOfTheWorldEn._(_root);
 }
 
-// Path: licenseTermsPage
-class TranslationsLicenseTermsPageEn extends TranslationsLicenseTermsPageRu {
-	TranslationsLicenseTermsPageEn._(TranslationsEn root) : this._root = root, super._(root);
+// Path: termsConditions
+class TranslationsTermsConditionsEn extends TranslationsTermsConditionsRu {
+	TranslationsTermsConditionsEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Terms & Conditions';
-	@override String get subtitle => 'Terms of use of the application:';
+	@override String get informationForAction => 'Read and agree to all legal documents to use this application.';
+	@override String get privacyPolicy => 'Privacy Policy';
+	@override String get termsAndConditions => 'Terms and conditions';
+	@override String get termsUseApp => 'Application Terms of Use';
+	@override String get confirmationWithTheAbove => 'After clicking "${_root.termsConditions.buttonAccept}" you confirm that you have read and agree with all of the above';
 	@override String get buttonCancel => 'Reject and exit';
 	@override String get buttonAccept => 'Accept';
 }

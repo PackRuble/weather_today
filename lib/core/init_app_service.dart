@@ -1,4 +1,3 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
 import 'package:weather_today/core/controllers/logger_controller.dart';
@@ -22,7 +21,6 @@ class ServiceInit {
 
   Future<void> _initServices() async {
     await _initLogger();
-    await _initEnv();
     await _initDBService();
     await _initApiOWMService();
     await _initAppGeneralSettings();
@@ -63,11 +61,6 @@ class ServiceInit {
       //   BlacklistFilter([BlacklistedLoggy]),
       // ],
     );
-  }
-
-  Future<void> _initEnv() async {
-    logInfo('Загрузка переменных окружения');
-    await dotenv.load();
   }
 
   Future<void> _initLocalization() async {
