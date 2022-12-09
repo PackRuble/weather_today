@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:weather_today/const/app_info.dart';
 import 'package:weather_today/const/countries_code.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
-import 'package:weather_today/ui/shared/dialogs_widget.dart';
 import 'package:weather_today/utils/routes/routes.gr.dart';
 
-import '../shared/terms_use_app_markdown.dart';
+import '../shared/dialogs_widget.dart';
 import '../utils/image_helper.dart';
 
 // coldfix: move here all dialogs
@@ -171,9 +170,9 @@ class AppDialogs {
         // Text('${await AppInfo.get(AppInfoData.buildSignature)}'),
         // Text('${await AppInfo.get(AppInfoData.packageName)}'),
         InkWell(
-          onTap: () => context.router.push(const TermsUseAppRoute()),
+          onTap: () => context.router.push(const TermsAppRoute()),
           child: Text(
-            'Terms of uses',
+            'Terms&Conditions',
             style: theme.textTheme.titleMedium?.copyWith(
               inherit: false,
               decoration: TextDecoration.underline,
@@ -254,30 +253,5 @@ class AppDialogs {
             child: Text(tr.dialogs.buttons.okay)),
       ],
     );
-  }
-
-  /// Диалог о принятии условий использования приложения.
-  static Future<bool> acceptedTermsInfo(
-    BuildContext context,
-  ) async {
-    final bool? isAccepted = await infoDialogCustom<bool>(
-      context,
-      title: tr.licenseTermsPage.title,
-      barrierDismissible: false,
-      content: const SizedBox(
-        width: double.maxFinite,
-        child: TermsUseAppMarkdown(),
-      ),
-      listActions: [
-        TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(tr.licenseTermsPage.buttonCancel)),
-        TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(tr.licenseTermsPage.buttonAccept)),
-      ],
-    );
-
-    return isAccepted ?? false;
   }
 }

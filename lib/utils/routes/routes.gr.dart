@@ -24,7 +24,7 @@ import '../../ui/pages/settings_page/saved_places_page/saved_places_page_ui.dart
     as _i2;
 import '../../ui/pages/settings_page/system_settings_page/system_page_ui.dart'
     as _i10;
-import '../../ui/pages/settings_page/terms_of_use_page/terms_of_use_ui.dart'
+import '../../ui/pages/settings_page/terms_app_page/terms_app_page.dart'
     as _i11;
 import '../../ui/pages/settings_page/themes_page/theme_page_ui.dart' as _i6;
 import '../../ui/pages/settings_page/user_api_page/user_api_page_ui.dart'
@@ -100,10 +100,10 @@ class AppRouter extends _i12.RootStackRouter {
         child: _i10.SystemSettingsPage(),
       );
     },
-    TermsUseAppRoute.name: (routeData) {
+    TermsAppRoute.name: (routeData) {
       return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i11.TermsUseAppPage(),
+        child: const _i11.TermsAppPage(),
       );
     },
   };
@@ -151,8 +151,8 @@ class AppRouter extends _i12.RootStackRouter {
           path: '/system-settings-page',
         ),
         _i12.RouteConfig(
-          TermsUseAppRoute.name,
-          path: '/terms-use-app-page',
+          TermsAppRoute.name,
+          path: '/terms-app-page',
         ),
       ];
 }
@@ -278,13 +278,13 @@ class SystemSettingsRoute extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.TermsUseAppPage]
-class TermsUseAppRoute extends _i12.PageRouteInfo<void> {
-  const TermsUseAppRoute()
+/// [_i11.TermsAppPage]
+class TermsAppRoute extends _i12.PageRouteInfo<void> {
+  const TermsAppRoute()
       : super(
-          TermsUseAppRoute.name,
-          path: '/terms-use-app-page',
+          TermsAppRoute.name,
+          path: '/terms-app-page',
         );
 
-  static const String name = 'TermsUseAppRoute';
+  static const String name = 'TermsAppRoute';
 }

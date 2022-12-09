@@ -32,7 +32,7 @@ class TranslationsRu implements BaseTranslations<AppLocale, TranslationsRu> {
 	late final TranslationsWeatherLangPageRu weatherLangPage = TranslationsWeatherLangPageRu._(_root);
 	late final TranslationsApiWeatherPageRu apiWeatherPage = TranslationsApiWeatherPageRu._(_root);
 	late final TranslationsIntroPageRu introPage = TranslationsIntroPageRu._(_root);
-	late final TranslationsLicenseTermsPageRu licenseTermsPage = TranslationsLicenseTermsPageRu._(_root);
+	late final TranslationsTermsConditionsRu termsConditions = TranslationsTermsConditionsRu._(_root);
 	late final TranslationsWeatherRu weather = TranslationsWeatherRu._(_root);
 	late final TranslationsGlobalRu global = TranslationsGlobalRu._(_root);
 	late final TranslationsDialogsRu dialogs = TranslationsDialogsRu._(_root);
@@ -231,15 +231,18 @@ class TranslationsIntroPageRu {
 	String get doneButton => 'Готово';
 }
 
-// Path: licenseTermsPage
-class TranslationsLicenseTermsPageRu {
-	TranslationsLicenseTermsPageRu._(this._root);
+// Path: termsConditions
+class TranslationsTermsConditionsRu {
+	TranslationsTermsConditionsRu._(this._root);
 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'Положения и условия';
-	String get subtitle => 'Условия использования приложения:';
+	String get informationForAction => 'Ознакомьтесь и согласитесь со всеми юридическими документами для использования данного приложения.';
+	String get privacyPolicy => 'Политика конфиденциальности';
+	String get termsAndConditions => 'Положения и условия';
+	String get termsUseApp => 'Условия использования приложения';
+	String get confirmationWithTheAbove => 'После нажатия кнопки "${_root.termsConditions.buttonAccept}" вы подтверждаете, что ознакомились и согласны со всем вышеуказанным';
 	String get buttonCancel => 'Отклонить и выйти';
 	String get buttonAccept => 'Принять';
 }
