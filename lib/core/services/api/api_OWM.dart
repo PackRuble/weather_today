@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/key_store.dart';
@@ -10,7 +9,7 @@ import 'package:weather_today/utils/logger/all_observers.dart';
 import 'package:weather_today/utils/state_updater.dart';
 
 // Api-key. See more https://home.openweathermap.org/api_keys.
-final String _apiWeather = dotenv.env['API_WEATHER'] ?? 'Api-key not found';
+const String _apiWeather = String.fromEnvironment('API_WEATHER');
 
 /// Implementation of the Api service "openweathermap.org == OWM".
 ///
