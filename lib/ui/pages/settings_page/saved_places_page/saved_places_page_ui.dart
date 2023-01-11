@@ -32,7 +32,7 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
   Widget build(BuildContext context, WidgetRef ref) {
     loggy.debug('build');
 
-    final t = ref.read(SavedPlacesPageController.tr);
+    final t = ref.watch(SavedPlacesPageController.tr);
 
     final List<Place> listPlaces =
         ref.watch(SavedPlacesPageController.savedPlaces);

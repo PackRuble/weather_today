@@ -258,7 +258,7 @@ class LocaleButtonWidget extends HookConsumerWidget {
           .map((e) => DropdownMenuItem<AppLocale>(
                 value: e,
                 onTap: () async =>
-                    ref.watch(AppLocalization.instance).setLocale(e),
+                    ref.read(AppLocalization.instance).setLocale(e),
                 child: Text(
                   e.nameTr,
                   textAlign: TextAlign.center,

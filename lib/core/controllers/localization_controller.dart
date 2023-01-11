@@ -16,7 +16,7 @@ import '../../i18n/translations.g.dart';
 /// Translation happens during initialization of the widget (call of translate).
 ///
 /// Usage:
-/// t.someKey.anotherKey;
+/// [tr].someKey.anotherKey;
 late TranslationsRu tr;
 
 /// Управление локалью всего приложения.

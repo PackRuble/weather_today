@@ -1,8 +1,17 @@
-# weather_today
+## Weather Today
 
 Weather for every day.
 
 ✨ Handy application for tracking weather conditions with an amazing design.
+
+## Table of Contents
+<!-- TOC -->
+  * [Weather Today](#weather-today)
+  * [Table of Contents](#table-of-contents)
+  * [Building an android application](#building-an-android-application)
+  * [Error in the generated files](#error-in-the-generated-files)
+  * [Error in the app's launcher icon](#error-in-the-apps-launcher-icon)
+<!-- TOC -->
 
 ## Building an android application
 
@@ -25,7 +34,7 @@ Weather for every day.
    `--obfuscate --split-debug-info=build/app/outputs/symbols` - Once you’ve obfuscated your binary,
    save the symbols file. You need this if you later want to de-obfuscate a stack trace.
 
-### Error in the generated files
+## Error in the generated files
 
 If you have a problem with the files `*.g.dart` and others generated files try this:
 
@@ -37,9 +46,7 @@ with flag(optional):
 
 `--build-filter=lib/PATH_FILE` - build concrete file
 
-### Error in the app's launcher icon
-
-try this:
+## Error in the app's launcher icon
 
 ```shell
 flutter pub run icons_launcher:create

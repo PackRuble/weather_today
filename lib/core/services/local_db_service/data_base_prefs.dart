@@ -20,10 +20,8 @@ class DataBasePrefs with DbLogger implements IDataBase {
     Object? value;
     try {
       if (sameTypes<T, List<String>>()) {
-        value = _prefs.getStringList(key) as T?;
+        value = _prefs.getStringList(key);
       } else {
-        // простые типы не нуждаются в cast
-        // coldfix: добавить проверку других типов, если необходимо
         value = _prefs.get(key);
       }
 
