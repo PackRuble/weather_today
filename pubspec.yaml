@@ -12,19 +12,19 @@ dependencies:
     sdk: flutter
 
   # service weather
-  weather_pack: ^0.0.1
+  weather_pack: ^0.0.2
 
   # Widgets
   material_floating_search_bar: ^0.3.7
   expandable: ^5.0.1
   smooth_page_indicator: ^1.0.0+2
   country_icons: ^2.0.2
-  fluttertoast: ^8.1.1
+  fluttertoast: ^8.1.2
   fl_chart: ^0.55.2
-  weather_animation: ^0.0.1
+  weather_animation: ^0.0.2
 
   # Theme
-  flex_color_scheme: ^6.1.1
+  flex_color_scheme: ^6.1.2
 
   # Models and annotation
   json_annotation: ^4.7.0
@@ -37,27 +37,23 @@ dependencies:
   shared_preferences: ^2.0.15
 
   # State manager
-  hooks_riverpod: ^2.0.2
+  hooks_riverpod: ^2.1.3
   flutter_hooks: 0.18.5+1
 
   # Localization
-  slang: ^3.5.0
-  slang_flutter: ^3.5.0
+  slang: ^3.7.0
+  slang_flutter: ^3.7.0
   flutter_localizations:
     sdk: flutter
 
   # Utility
-  intl: ^0.17.0
+  intl: ^0.17.0 # after bump flutter
   loggy: ^2.0.3
-  stack_trace: ^1.10.0
+  stack_trace: ^1.10.0 # after bump flutter
   url_launcher: ^6.1.7
   meta: ^1.8.0
   package_info_plus: ^3.0.2
   flutter_markdown: ^0.6.13
-
-  #    git:
-  #      url: file://C:/open_weather_api
-  #      ref: master
 
 dev_dependencies:
   flutter_test:
@@ -65,9 +61,9 @@ dev_dependencies:
 
   json_serializable: ^6.5.4
   auto_route_generator: ^5.0.3
-  build_runner: ^2.3.2
-  icons_launcher: ^2.0.6
-  freezed: ^2.3.0
+  build_runner: ^2.3.3
+  icons_launcher: ^2.0.6 # after bump flutter
+  freezed: ^2.3.2
   lint: ^2.0.1
 
 
