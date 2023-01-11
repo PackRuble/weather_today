@@ -130,78 +130,91 @@ class _MainInfoWidget extends ConsumerWidget {
     final String _weatherMain =
         MetricsHelper.getWeatherMainTr(weather.weatherMain, t) ?? r'¯\_(ツ)_/¯';
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 130.0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Flexible(
-                child: SizedBox(
-                  width: 150.0,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text.rich(
-                      TextSpan(
-                        style: styles.bodyMedium?.copyWith(fontSize: 72.0),
-                        children: <TextSpan>[
-                          TextSpan(text: _temp),
-                          TextSpan(
-                              text: _tempUnits,
-                              style:
-                                  styles.bodyMedium?.copyWith(fontSize: 60.0)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Flexible(
-                child: SizedBox.square(
-                  dimension: 150.0,
-                  child: ImageHelper.getWeatherIcon(weather.weatherIcon),
-                ),
-              ),
-            ],
-          ),
+    Widget renderTemp() {
+      return Text.rich(
+        TextSpan(
+          style: styles.bodyMedium?.copyWith(fontSize: 72.0),
+          children: <TextSpan>[
+            TextSpan(text: _temp),
+            TextSpan(
+                text: _tempUnits,
+                style: styles.bodyMedium?.copyWith(fontSize: 60.0)),
+          ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      );
+    }
+
+    Widget renderTempFeelLikes() {
+      return Text.rich(
+        textAlign: TextAlign.center,
+        TextSpan(
+          style: styles.bodyMedium,
           children: [
-            Flexible(
-              child: SizedBox(
-                width: 150.0,
-                child: Text.rich(
-                  textAlign: TextAlign.center,
-                  TextSpan(
-                    style: styles.bodyMedium,
-                    children: [
-                      TextSpan(text: t.weather.feelsLikeAs),
-                      WidgetSpan(
-                        child: Text(
-                          ' $_tempFeelsLike$_tempUnits',
-                          style: styles.bodyLarge,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Flexible(
-              child: SizedBox(
-                width: 150.0,
-                child: Text(
-                  _weatherMain,
-                  style: styles.bodyMedium,
-                  textAlign: TextAlign.center,
-                ),
+            TextSpan(text: t.weather.feelsLikeAs),
+
+            // Todo: issue #7 https://github.com/PackRuble/weather_today/issues/7
+            //  если мы применяем style, то сбивается baseline или alignment
+            //
+            //  также, мы не можем применить TextSpan т.к. при переполнении
+            //  тире переносится без значения
+            //
+            //  а тире я использую, потому что минус достаточно мал по длине и
+            //  выглядит плохо для дизайна. Хотя и с минусом проблем нет.
+            WidgetSpan(
+              child: Text(
+                ' $_tempFeelsLike$_tempUnits',
+                // style: styles.bodyLarge,
               ),
             ),
           ],
         ),
+      );
+    }
+
+    Widget renderDescription() {
+      return Text(
+        _weatherMain,
+        style: styles.bodyMedium,
+        textAlign: TextAlign.center,
+      );
+    }
+
+    const _height1block = 150.0;
+    const _inset = 10.0;
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        const SizedBox(width: _inset),
+        Flexible(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox.square(
+                dimension: _height1block,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: renderTemp(),
+                ),
+              ),
+              renderTempFeelLikes(),
+            ],
+          ),
+        ),
+        const SizedBox(width: _inset),
+        Flexible(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox.square(
+                dimension: _height1block,
+                child: ImageHelper.getWeatherIcon(weather.weatherIcon),
+              ),
+              renderDescription(),
+            ],
+          ),
+        ),
+        const SizedBox(width: _inset),
       ],
     );
   }
