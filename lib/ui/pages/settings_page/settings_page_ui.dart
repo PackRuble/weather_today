@@ -53,10 +53,12 @@ class SettingsPage extends ConsumerWidget {
 
 class _TileSetting extends StatelessWidget {
   const _TileSetting({
+    // ignore: unused_element
     super.key,
     required this.leading,
     required this.title,
     this.subtitle,
+    // ignore: unused_element
     this.trailing,
     required this.onTap,
     this.onLongPress,

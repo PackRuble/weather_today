@@ -164,6 +164,7 @@ class TileHourlyWidget extends ConsumerWidget {
         MetricsHelper.getPercentage(
             weather.pop == 0.0 ? null : weather.pop, 1.0));
 
+    // ignore: unused_local_variable
     final String? _uvi = weather.uvi?.toStringAsFixed(0);
 
     final String _weatherMain =

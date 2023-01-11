@@ -15,6 +15,7 @@ class IntroTile {
 class IntroPageController {
   IntroPageController(this._ref);
 
+  // ignore: unused_field
   final Ref _ref;
 
   /// Instance of class [IntroPageController].

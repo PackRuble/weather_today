@@ -285,6 +285,7 @@ class _OtherInfoWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // ignore: unused_local_variable
     final TextTheme styles = Theme.of(context).textTheme;
 
     final t = ref.watch(CurrentPageController.tr);
@@ -341,6 +342,7 @@ class _SunriseInfoWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // ignore: unused_local_variable
     final TextTheme styles = Theme.of(context).textTheme;
 
     final t = ref.watch(CurrentPageController.tr);

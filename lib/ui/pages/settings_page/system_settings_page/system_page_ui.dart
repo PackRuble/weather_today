@@ -15,6 +15,7 @@ class SystemSettingsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // ignore: unused_local_variable
     final theme = Theme.of(context);
     final t = ref.watch(AppLocalization.currentTranslation);
 

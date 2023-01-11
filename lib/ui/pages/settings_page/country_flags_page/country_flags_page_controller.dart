@@ -7,6 +7,7 @@ import 'package:weather_today/i18n/translations.g.dart';
 class CountryFlagsPageController {
   CountryFlagsPageController(this._ref);
 
+  // ignore: unused_field
   final Ref _ref;
 
   static final instance = Provider.autoDispose(CountryFlagsPageController.new);

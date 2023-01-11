@@ -20,6 +20,7 @@ class HourlyPageByRuble extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // ignore: unused_local_variable
     final TextTheme styles = Theme.of(context).textTheme;
 
     const Divider _divider = Divider(height: 6.0, thickness: 1.0);

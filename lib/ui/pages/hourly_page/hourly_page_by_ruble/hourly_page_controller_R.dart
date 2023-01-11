@@ -10,6 +10,7 @@ import '../hourly_page_controller.dart';
 class HPByRubleCtrl {
   HPByRubleCtrl(this._ref);
 
+  // ignore: unused_field
   final Ref _ref;
 
   /// экземпляр.

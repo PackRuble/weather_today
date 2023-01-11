@@ -65,6 +65,7 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
 class _TitleWidget extends ConsumerWidget {
   const _TitleWidget(
     this.title, {
+    // ignore: unused_element
     super.key,
   });
 
