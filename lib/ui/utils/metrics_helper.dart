@@ -20,11 +20,12 @@ class MetricsHelper {
 
   /// Получить корректное название места следующего вида:
   /// --> '[countryCode], [state]' || [name] || null
+  ///
+  /// Note: without country
   static String? getCountryCodeAndStateOrName(Place place) {
     String result = '';
 
-    if (place.countryCode?.isNotEmpty ?? false) result += place.countryCode!;
-    if (place.state?.isNotEmpty ?? false) result += ', ${place.state}';
+    if (place.state?.isNotEmpty ?? false) result += '${place.state}';
     if (result.isEmpty) result += place.name ?? '';
 
     return result.isNotEmpty ? result : null;
@@ -32,10 +33,10 @@ class MetricsHelper {
 
   /// Получить корректное название места следующего вида:
   /// --> '[countryCode], [localName]' || '[countryCode], [name]' || [name] || null
+  ///
+  /// Note: without country
   static String? getCountryCodeAndNameOrName(Place place, String languageCode) {
     String result = '';
-
-    if (place.countryCode?.isNotEmpty ?? false) result += place.countryCode!;
 
     final String? name = getLocalNameOrName(place, languageCode);
     if (name != null) result += result.isNotEmpty ? ', $name' : name;

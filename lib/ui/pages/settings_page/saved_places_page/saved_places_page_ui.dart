@@ -14,7 +14,6 @@ import 'package:weather_today/utils/logger/all_observers.dart';
 import '../../../shared/tips_widget.dart';
 import '../../../shared/wrap_body_with_search_bar.dart';
 import '../../../shared/wrapper_page.dart';
-import '../../../utils/image_helper.dart';
 import '../../../utils/metrics_helper.dart';
 
 /// Страница сохраненных мест.
@@ -152,20 +151,6 @@ class _HeaderWidget extends ConsumerWidget {
     return ListTile(
       title: Text(title),
       subtitle: Text(subtitle),
-      leading: place.countryCode == null
-          ? null
-          : SizedBox(
-              width: 40.0,
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: IconButton(
-                  icon: ImageHelper.getFlagIcon(place.countryCode),
-                  onPressed: () async => ref
-                      .read(SavedPlacesPageController.instance)
-                      .dialogSeeFlag(context, place),
-                ),
-              ),
-            ),
       trailing: IconButton(
         icon: Icon(
           Icons.delete,

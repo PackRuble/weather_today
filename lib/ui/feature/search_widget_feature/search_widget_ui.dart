@@ -11,7 +11,6 @@ import 'package:weather_today/ui/const/app_dialogs.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
-import '../../utils/image_helper.dart';
 import '../../utils/metrics_helper.dart';
 import 'search_widget_controller.dart';
 
@@ -285,15 +284,6 @@ class _TileSearchWidget extends ConsumerWidget {
       onLongPress: () async => ref
           .read(searchWidgetProvider.notifier)
           .changePlaceToSavedPlaces(isSaved, place),
-      leading: place.countryCode == null
-          ? null
-          : SizedBox.square(
-              dimension: 25.0,
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: ImageHelper.getFlagIcon(place.countryCode),
-              ),
-            ),
       title: Text(title),
       horizontalTitleGap: 0.0,
       tileColor: isCurrent ? AppColors.of(context).cardSelectedColor : null,
