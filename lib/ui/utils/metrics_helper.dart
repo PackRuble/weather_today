@@ -122,7 +122,7 @@ class MetricsHelper {
   /// * [withUnits] - добавлять единицы измерения после значения.
   /// * [withFiller] - использовать заполнитель при [value]=null.
   /// * [filler] - заполнитель при [value]=null.
-  /// * [precision] - количество цифр после десятичной точки. =0 - целое число
+  /// * [precision] - количество знаков после запятой. Всегда >=0
   static String? getTemp(
     double? value,
     Temp units, {
@@ -133,29 +133,25 @@ class MetricsHelper {
     int? precision,
   }) {
     String result = '';
+    double _value;
+
+    assert((precision ?? 0) >= 0, 'precision must be greater than 0 (or ==)');
+    final int _precision = precision ?? 0;
 
     if (value != null) {
-      // используем нужную точность знаков?
-      if (precision != null) {
-        result = units.valueToString(value, precision);
-
-        // ignore: parameter_assignments
-        value = units.value(value, precision);
-      } else {
-        result = units.valueToString(value);
-
-        // ignore: parameter_assignments
-        value = units.value(value);
-      }
+      result = units.valueToString(value, _precision);
+      _value = units.value(value, _precision);
 
       // заменяем минус на тире в обязательном порядке
-      if (value < 0.0) {
+      if (_value < 0.0) {
         result = '–' + result.substring(1);
+      } else if (_value.toString().contains('-')) {
+        result = result.substring(1);
       }
 
-      // температура со знаком?
+      // температура со знаком +?
       if (withSign) {
-        if (value > 0.0) {
+        if (_value > 0.0) {
           result = '+' + result;
         }
       }
