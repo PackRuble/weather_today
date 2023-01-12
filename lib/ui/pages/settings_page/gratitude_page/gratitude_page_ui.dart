@@ -70,6 +70,7 @@ class GratitudePage extends ConsumerWidget {
                     text, 'https://pub.dev/packages/flex_color_scheme'),
                 myEmail: (_) => getLinkText(
                     AppInfo.mailAuthor, 'mailto:${AppInfo.mailAuthor}'),
+                tgGroup: (text) => getLinkText(text, AppInfo.telegramGroup),
               ),
               textAlign: TextAlign.justify,
               style: textStyle,

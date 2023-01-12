@@ -160,8 +160,8 @@ class TranslationsGratitudePageRu {
 
 	// Translations
 	String get appbarTitle => 'Хочу сказать спасибо...';
-	TextSpan text({required InlineSpanBuilder dart, required InlineSpanBuilder flutter, required InlineSpanBuilder remiRousselet, required InlineSpanBuilder riverpod, required InlineSpanBuilder freezed, required InlineSpanBuilder tienDoNam, required InlineSpanBuilder slang, required InlineSpanBuilder rydMike, required InlineSpanBuilder flexColorScheme, required InlineSpanBuilder myEmail}) => TextSpan(children: [
-		const TextSpan(text: '	Годом ранее я увлекся новым языком программирования dart, попутно изучив flutter. Для оттачивания своих навыков в субстанции нового я понял, что хочу создать простенькое (казалось мне тогда, хохо) приложение – агрегатор погоды. И вот, минуя полгода, на свет появилось приложение под названием – \'Weather Today\' – погода на каждый день.\n	За время разработки со мной были рядом люди (и их решения), оказывающие большую помощь и поддержку.\n	Я бесконечно благодарен своей девушке за её терпение, понимание и принятие того, что редкие вечерние часы я тратил на работу над приложением, вместо того, чтобы провести их с семьёй.\n	Также я хотел бы отдать должное коллегам-разработчикам, кто выкладывает интересные и, немаловажно, полезные разработки. В особенности я хочу отметить команду '),
+	TextSpan text({required InlineSpanBuilder dart, required InlineSpanBuilder flutter, required InlineSpanBuilder remiRousselet, required InlineSpanBuilder riverpod, required InlineSpanBuilder freezed, required InlineSpanBuilder tienDoNam, required InlineSpanBuilder slang, required InlineSpanBuilder rydMike, required InlineSpanBuilder flexColorScheme, required InlineSpanBuilder myEmail, required InlineSpanBuilder tgGroup}) => TextSpan(children: [
+		const TextSpan(text: '  Годом ранее я увлекся новым языком программирования dart, попутно изучив flutter. Для оттачивания своих навыков в субстанции нового я понял, что хочу создать простенькое (казалось мне тогда, хохо) приложение – агрегатор погоды. И вот, минуя полгода, на свет появилось приложение под названием – \'Weather Today\' – погода на каждый день.\n  За время разработки со мной были рядом люди (и их решения), оказывающие большую помощь и поддержку.\n  Я бесконечно благодарен своей девушке за её терпение, понимание и принятие того, что редкие вечерние часы я тратил на работу над приложением, вместо того, чтобы провести их с семьёй.\n  Также я хотел бы отдать должное коллегам-разработчикам, кто выкладывает интересные и, немаловажно, полезные разработки. В особенности я хочу отметить команду '),
 		dart('dart'),
 		const TextSpan(text: ' и '),
 		flutter('flutter'),
@@ -179,9 +179,10 @@ class TranslationsGratitudePageRu {
 		rydMike('Ryd Mike'),
 		const TextSpan(text: ' за очаровательный пакет '),
 		flexColorScheme('flexColorScheme'),
-		const TextSpan(text: '.\n	Я всегда открыт для общения и буду благодарен, если, попользовавшись данным приложением, вы напишите пару строк о его практичности и компетентности, а также поделитесь мнением о возможных функциях, которые стоило бы сделать.\n	Со мной можно связаться:\n		- email: '),
+		const TextSpan(text: '.\n  Я всегда открыт для общения и буду благодарен, если, попользовавшись данным приложением, вы напишите пару строк о его практичности и компетентности, а также поделитесь мнением о возможных функциях, которые стоило бы сделать.\n  Со мной можно связаться:\n    - email: '),
 		myEmail('pack.ruble@gmail.com'),
-		const TextSpan(text: '\n'),
+		const TextSpan(text: '\n    - telegram: '),
+		tgGroup('группа Telegram'),
 	]);
 }
 

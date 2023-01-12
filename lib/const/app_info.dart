@@ -21,6 +21,7 @@ class AppInfo {
   static const String copyright = '© 2022 $author';
   static const String author = 'Ruble Pack';
   static const String mailAuthor = 'pack.ruble@gmail.com';
+  static const String telegramGroup = 'https://t.me/+GFFZ8Lk1Bz5kMTEy';
   static const String license = '';
   static const String icon = 'assets/images/app_icon.png';
 

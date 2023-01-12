@@ -161,8 +161,8 @@ class TranslationsGratitudePageEn extends TranslationsGratitudePageRu {
 
 	// Translations
 	@override String get appbarTitle => 'I want to say thank you...';
-	@override TextSpan text({required InlineSpanBuilder dart, required InlineSpanBuilder flutter, required InlineSpanBuilder remiRousselet, required InlineSpanBuilder riverpod, required InlineSpanBuilder freezed, required InlineSpanBuilder tienDoNam, required InlineSpanBuilder slang, required InlineSpanBuilder rydMike, required InlineSpanBuilder flexColorScheme, required InlineSpanBuilder myEmail}) => TextSpan(children: [
-		const TextSpan(text: '	A year earlier I became interested in a new programming language, dart, and at the same time I learned flutter. To sharpen my skills in the substance of the new, I realized that I wanted to create a simple (it seemed to me at the time, hoho) application - a weather aggregator. And after half a year there appeared an application called \'Weather Today\' - everyday weather.\n	During the developing process I had a lot of people (and their solutions) helping and supporting me.\n	I am eternally grateful to my girlfriend for her patience, understanding and acceptance of the rare evening hours I spent working on the app instead of spending them with my family.\n	I would also like to pay tribute to fellow developers who put out interesting and, importantly, useful products. In particular I want to mention '),
+	@override TextSpan text({required InlineSpanBuilder dart, required InlineSpanBuilder flutter, required InlineSpanBuilder remiRousselet, required InlineSpanBuilder riverpod, required InlineSpanBuilder freezed, required InlineSpanBuilder tienDoNam, required InlineSpanBuilder slang, required InlineSpanBuilder rydMike, required InlineSpanBuilder flexColorScheme, required InlineSpanBuilder myEmail, required InlineSpanBuilder tgGroup}) => TextSpan(children: [
+		const TextSpan(text: '  A year earlier I became interested in a new programming language, dart, and at the same time I learned flutter. To sharpen my skills in the substance of the new, I realized that I wanted to create a simple (it seemed to me at the time, hoho) application - a weather aggregator. And after half a year there appeared an application called \'Weather Today\' - everyday weather.\n  During the developing process I had a lot of people (and their solutions) helping and supporting me.\n  I am eternally grateful to my girlfriend for her patience, understanding and acceptance of the rare evening hours I spent working on the app instead of spending them with my family.\n  I would also like to pay tribute to fellow developers who put out interesting and, importantly, useful products. In particular I want to mention '),
 		dart('dart'),
 		const TextSpan(text: ' and '),
 		flutter('flutter'),
@@ -180,9 +180,10 @@ class TranslationsGratitudePageEn extends TranslationsGratitudePageRu {
 		rydMike('Ryd Mike'),
 		const TextSpan(text: ' for the charming '),
 		flexColorScheme('flexColorScheme'),
-		const TextSpan(text: ' package. \n	I\'m always open to communication and would appreciate it if, after using this app, you could write a few lines about its practicality and competence, and share your opinion on possible features that would be worth doing.\n	I can be contacted:\n		- email: '),
+		const TextSpan(text: ' package. \n  I\'m always open to communication and would appreciate it if, after using this app, you could write a few lines about its practicality and competence, and share your opinion on possible features that would be worth doing.\n  I can be contacted:\n    - email: '),
 		myEmail('pack.ruble@gmail.com'),
-		const TextSpan(text: '\n'),
+		const TextSpan(text: '\n    - telegram: '),
+		tgGroup('Telegram group'),
 	]);
 }
 
