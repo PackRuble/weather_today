@@ -19,12 +19,12 @@ class GratitudePage extends ConsumerWidget {
 
     final textStyle = theme.textTheme.titleMedium;
 
-    InlineSpan getLinkText(String text, String link) {
+    InlineSpan getLinkText(String text, String link, [LaunchMode? mode]) {
       return WidgetSpan(
         alignment: PlaceholderAlignment.middle,
         child: InkWell(
-          onTap: () async =>
-              launchUrl(Uri.parse(link), mode: LaunchMode.platformDefault),
+          onTap: () async => launchUrl(Uri.parse(link),
+              mode: mode ?? LaunchMode.platformDefault),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: Text(
@@ -70,7 +70,8 @@ class GratitudePage extends ConsumerWidget {
                     text, 'https://pub.dev/packages/flex_color_scheme'),
                 myEmail: (_) => getLinkText(
                     AppInfo.mailAuthor, 'mailto:${AppInfo.mailAuthor}'),
-                tgGroup: (text) => getLinkText(text, AppInfo.telegramGroup),
+                tgGroup: (text) => getLinkText(text, AppInfo.telegramGroup,
+                    LaunchMode.externalNonBrowserApplication),
               ),
               textAlign: TextAlign.justify,
               style: textStyle,

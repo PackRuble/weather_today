@@ -264,7 +264,7 @@ class LocaleButtonWidget extends HookConsumerWidget {
                   textAlign: TextAlign.center,
                   // changed after _bug fixed
                   style: theme.textTheme.titleMedium?.copyWith(
-                      color: e == locale ? theme.colorScheme.secondary : null),
+                      color: e == locale ? theme.primaryColor : null),
                 ),
               ))
           .toList(),
