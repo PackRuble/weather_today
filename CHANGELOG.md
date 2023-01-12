@@ -1,3 +1,8 @@
+## 3.1.2+7
+
+* add: some info in about
+* fix: annoying ui bugs
+
 ## 3.1.1+5
 
 * add: terms&conditions files
