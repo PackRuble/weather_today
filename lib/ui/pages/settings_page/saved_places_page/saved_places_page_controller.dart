@@ -52,7 +52,8 @@ class SavedPlacesPageController {
     BuildContext context,
     Place place,
   ) async {
-    if (await AppDialogs.confirmDeletionPlace(context)) {
+    final isDelPlace = await AppDialogs.confirmDeletionPlace(context);
+    if (isDelPlace) {
       await _deletePlace(place);
     }
   }

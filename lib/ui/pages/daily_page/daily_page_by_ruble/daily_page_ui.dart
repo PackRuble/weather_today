@@ -112,7 +112,7 @@ class _AlertTileWidget extends ConsumerWidget {
       subtitle: Text(alert.description!),
       // ignore: use_named_constants
       contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
-      tileColor: Theme.of(context).errorColor.withOpacity(0.2),
+      tileColor: Theme.of(context).colorScheme.error.withOpacity(0.2),
     );
   }
 }

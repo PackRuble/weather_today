@@ -115,7 +115,7 @@ class DataBasePrefs with DbLogger implements IDataBase {
       return true;
     } else {
       loggy.error(
-          'An error occurred while clearing the user storage: [ prefs: ${_prefs.toString()} ]');
+          'An error occurred while clearing the user storage: [ prefs: $_prefs ]');
       return false;
     }
   }
