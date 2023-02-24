@@ -112,7 +112,8 @@ class _MainInfoWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TextTheme styles = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final TextTheme styles = theme.textTheme;
 
     final t = ref.watch(CurrentPageController.tr);
 
@@ -188,7 +189,6 @@ class _MainInfoWidget extends ConsumerWidget {
         const SizedBox(width: _inset),
         Flexible(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox.square(
                 dimension: _height1block,
@@ -204,11 +204,27 @@ class _MainInfoWidget extends ConsumerWidget {
         const SizedBox(width: _inset),
         Flexible(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox.square(
                 dimension: _height1block,
-                child: ImageHelper.getWeatherIcon(weather.weatherIcon),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    DecoratedBox(
+                      decoration: ShapeDecoration(
+                        shadows: [
+                          BoxShadow(
+                            color: theme.colorScheme.primary,
+                            blurRadius: 50,
+                            spreadRadius: 30,
+                          ),
+                        ],
+                        shape: const CircleBorder(),
+                      ),
+                    ),
+                    ImageHelper.getWeatherIcon(weather.weatherIcon)
+                  ],
+                ),
               ),
               renderDescription(),
             ],
