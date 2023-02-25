@@ -264,15 +264,20 @@ class LocaleButtonWidget extends HookConsumerWidget {
                   textAlign: TextAlign.center,
                   // changed after _bug fixed
                   style: theme.textTheme.titleMedium?.copyWith(
-                      color: e == locale ? theme.colorScheme.secondary : null),
+                      color: e == locale ? theme.colorScheme.primary : null),
                 ),
               ))
           .toList(),
       selectedItemBuilder: (_) {
         return AppLocale.values
-            .map((e) => Center(
-                  child: Text(locale.nameTr),
-                ))
+            .map((e) => FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  locale.nameTr,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    color: theme.colorScheme.primary,
+                  ),
+                )))
             .toList();
       },
     );
