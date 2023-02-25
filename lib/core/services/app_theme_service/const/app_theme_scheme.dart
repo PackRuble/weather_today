@@ -5,23 +5,8 @@ import 'package:flutter/material.dart';
 class AppThemeScheme {
   AppThemeScheme._();
 
-  /// Returns the light theme based on properties passed to it.
-  static FlexColorScheme light({
-    required FlexSchemeData usedTheme,
-    required bool swapColors,
-    required bool useMaterial3,
-    required Typography typography,
-    required String fontFamily,
-  }) {
-    final FlexColorScheme _flexScheme = FlexColorScheme.light(
-      colors: usedTheme.light,
-      surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
-      blendLevel: 10,
-      appBarOpacity: 0.85,
-      appBarElevation: 6.0,
-      swapColors: swapColors,
-      appBarStyle: FlexAppBarStyle.primary,
-      subThemesData: const FlexSubThemesData(
+  static FlexSubThemesData get _subThemesDataLight => const FlexSubThemesData(
+        useM2StyleDividerInM3: true,
         blendOnLevel: 20,
         defaultRadius: 8.0,
         bottomSheetRadius: 8.0,
@@ -44,7 +29,30 @@ class AppThemeScheme {
         navigationBarIndicatorOpacity: 0.19,
         navigationBarOpacity: 0.90,
         navigationBarHeight: 60.0,
-      ),
+      );
+
+  static FlexSubThemesData get _subThemesDataDark =>
+      _subThemesDataLight.copyWith(
+        blendOnLevel: 10,
+      );
+
+  /// Returns the light theme based on properties passed to it.
+  static FlexColorScheme light({
+    required FlexSchemeData usedTheme,
+    required bool swapColors,
+    required bool useMaterial3,
+    required Typography typography,
+    required String fontFamily,
+  }) {
+    final FlexColorScheme _flexScheme = FlexColorScheme.light(
+      colors: usedTheme.light,
+      surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
+      blendLevel: 10,
+      appBarOpacity: 0.85,
+      appBarElevation: 6.0,
+      swapColors: swapColors,
+      appBarStyle: FlexAppBarStyle.primary,
+      subThemesData: _subThemesDataLight,
       useMaterial3ErrorColors: true,
       visualDensity: FlexColorScheme.comfortablePlatformDensity,
       useMaterial3: useMaterial3,
@@ -81,33 +89,10 @@ class AppThemeScheme {
         appBarElevation: 8.0,
         swapColors: swapColors,
         darkIsTrueBlack: darkIsTrueBlack,
-        subThemesData: const FlexSubThemesData(
-          blendOnLevel: 10,
-          defaultRadius: 8.0,
-          bottomSheetRadius: 8.0,
-          textButtonRadius: 10.0,
-          elevatedButtonRadius: 10.0,
-          outlinedButtonRadius: 10.0,
-          toggleButtonsRadius: 10.0,
-          unselectedToggleIsColored: true,
-          inputDecoratorRadius: 12.0,
-          fabRadius: 10.0,
-          chipSchemeColor: SchemeColor.primary,
-          chipRadius: 10.0,
-          cardRadius: 8.0,
-          popupMenuOpacity: 0.90,
-          popupMenuRadius: 10.0,
-          dialogRadius: 10.0,
-          timePickerDialogRadius: 10.0,
-          bottomNavigationBarOpacity: 0.90,
-          bottomNavigationBarElevation: 8.0,
-          navigationBarIndicatorOpacity: 0.19,
-          navigationBarOpacity: 0.90,
-          navigationBarHeight: 60.0,
-        ),
+        subThemesData: _subThemesDataDark,
         useMaterial3ErrorColors: true,
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        useMaterial3: true, //useMaterial3,
+        useMaterial3: useMaterial3,
         typography: typography,
         fontFamily: fontFamily,
       );
