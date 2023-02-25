@@ -48,6 +48,21 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+    flavorDimensions "weather_today"
+
+    productFlavors {
+        dev {
+            dimension "weather_today"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "Weather Today [DEV]"
+            versionNameSuffix ".dev"
+        }
+        prod {
+            dimension "weather_today"
+            resValue "string", "app_name", "Weather Today"
+        }
+    }
+
     defaultConfig {
         applicationId "com.Ruble.Pack.weather_today"
         minSdkVersion flutter.minSdkVersion
