@@ -112,18 +112,24 @@ class _AlertTileWidget extends ConsumerWidget {
       ),
       title: Text(alert.event!),
       subtitle: Column(
-        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (alert.description != null) Text(alert.description!),
           if (alert.senderName != null)
-            Text(
-              '\n${alert.senderName!}',
-              style: theme.textTheme.bodySmall,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  alert.senderName!,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    fontSize: 10,
+                  ),
+                ),
+              ],
             ),
         ],
       ),
-      // ignore: use_named_constants
+      horizontalTitleGap: 8.0,
       contentPadding: const EdgeInsets.only(right: 8.0),
       tileColor: Theme.of(context).colorScheme.error.withOpacity(0.2),
     );
