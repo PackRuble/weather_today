@@ -71,6 +71,8 @@ class _ExampleTileDesign extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+
     final WeatherOneCall? weatherMock =
         ref.watch(VisualDPageController.weatherMock).valueOrNull;
 
@@ -114,13 +116,7 @@ class _ExampleTileDesign extends ConsumerWidget {
               fontFamily: fontFamily,
             );
 
-    // не работает типографика, ждем решения этой проблемы
-    // todo https://github.com/flutter/flutter/issues/103864
-
     return Theme(
-      // data: ThemeData(
-      //     typography: typography,
-      //     fontFamily: fontFamily),
       data: nowFlexTheme.toTheme,
       child: MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: textScaleFactor),
