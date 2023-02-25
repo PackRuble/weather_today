@@ -32,6 +32,7 @@ class GratitudePage extends ConsumerWidget {
               style: theme.textTheme.titleMedium?.copyWith(
                 inherit: false,
                 decoration: TextDecoration.underline,
+                decorationColor: Colors.blue,
                 color: Colors.blue,
               ),
             ),

@@ -28,7 +28,13 @@ flutter pub run slang stats
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
-## Icons Launcher
+## Generate Icons Launcher
+helping: https://pub.dev/packages/icons_launcher
+
+dev icons:
 ```shell
-flutter pub run icons_launcher:create
+flutter clean &&
+flutter pub get &&
+flutter pub run icons_launcher:create --flavor dev
+ 
 ```

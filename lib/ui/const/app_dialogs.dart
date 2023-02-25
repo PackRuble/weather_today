@@ -177,6 +177,7 @@ class AppDialogs {
               inherit: false,
               decoration: TextDecoration.underline,
               color: theme.primaryColor,
+              decorationColor: theme.primaryColor,
             ),
           ),
         ),

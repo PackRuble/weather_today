@@ -6,7 +6,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="Weather Today">
+        android:label="@string/app_name">
         <activity
             android:name=".MainActivity"
             android:exported="true"

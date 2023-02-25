@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
 /// Менеджер получения всех изображений в приложении.
@@ -13,15 +12,15 @@ class ImageHelper {
   /// [onError] - если произошла ошибка загрузки.
   static Widget getWeatherIcon(String? weatherIcon, [String onError = '🌈']) =>
       Image.asset(
-        'assets/weather_icons/@4/$weatherIcon.png',
+        'assets/weather_icons/$weatherIcon.png',
         // ImagePathWeather.getPathWeatherIcon('weatherIcon' ?? ''),
-        package: ImagePathWeather.packageName,
+        // package: ImagePathWeather.packageName,
         filterQuality: FilterQuality.high,
         errorBuilder: (_, e, s) {
           // bug: await fix https://github.com/flutter/flutter/issues/107416
           logWarning('*$weatherIcon* not found assets weatherIcon');
 
-          return Text(onError);
+          return FittedBox(fit: BoxFit.contain, child: Text(onError));
         },
       );
 

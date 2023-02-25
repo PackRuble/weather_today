@@ -22,11 +22,8 @@ class RAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // bug нельзя даже изменить цвет иконок, ждем исправления:
-    // https://github.com/flutter/flutter/issues/110878
     return AppBar(
       titleSpacing: 0.0,
-      // actionsIconTheme: IconThemeData(color: Colors.blue),
       title: Text(
         title,
         overflow: TextOverflow.fade,

@@ -1,3 +1,14 @@
+## 3.2.0+pre.8
+* upd: `pubspec` dependencies
+* fix: the section with logging enabled is temporarily hidden
+* upd: weather icons have been replaced with the best quality
+* add: 12 new color themes 
+* add: more new Material Design 3 widgets 
+* add: glow effect for weather icon in "Today" tab 
+* fix: color of icons in appBar for light theme 
+* upd: warning design 
+* fix: bug that prevented using Material 3 in dark theme
+
 ## 3.0.0-pre.4
 
 * add: terms of use of the app + widget

@@ -53,9 +53,6 @@ linter:
     # Personal preference.
     avoid_positional_boolean_parameters: false
 
-    # Personal preference. Sometimes it's not convenient.
-    unused_field: false
-
     # Personal preference.
     sort_pub_dependencies: false
 
@@ -66,13 +63,13 @@ linter:
     # I'm going to use in a new project :)
     use_super_parameters: false
 
+    # Personal preference. It is comfortable.
+    flutter_style_todos: false
+
     # ====================true
 
     # It's logical
     no_default_cases: true
-
-    # Personal preference. It is comfortable.
-    flutter_style_todos: true
 
     unnecessary_lambdas: true
 

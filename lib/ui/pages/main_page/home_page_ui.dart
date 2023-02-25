@@ -131,36 +131,44 @@ class _BottomBarWidget extends ConsumerWidget {
 
     return SizedBox(
       height: AppInsets.heightBottomBar,
-      child: BottomAppBar(
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Flexible(
-              child: getTextButton(
-                label: '',
-                index: 0,
+      child: Theme(
+        data: theme.copyWith(
+          useMaterial3: false,
+        ),
+        child: BottomAppBar(
+          // todo: no reaction on change
+          //  A temporary solution with Theme
+          // color: theme.colorScheme.background,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Flexible(
+                child: getTextButton(
+                  label: '',
+                  index: 0,
+                ),
               ),
-            ),
-            Expanded(
-              child: getTextButton(
-                label: t.mainPageDRuble.mainPage.bottomBar.hourly,
-                index: 1,
+              Expanded(
+                child: getTextButton(
+                  label: t.mainPageDRuble.mainPage.bottomBar.hourly,
+                  index: 1,
+                ),
               ),
-            ),
-            Expanded(
-              child: getTextButton(
-                label: t.mainPageDRuble.mainPage.bottomBar.today,
-                index: 2,
+              Expanded(
+                child: getTextButton(
+                  label: t.mainPageDRuble.mainPage.bottomBar.today,
+                  index: 2,
+                ),
               ),
-            ),
-            Expanded(
-              child: getTextButton(
-                label: t.mainPageDRuble.mainPage.bottomBar.daily,
-                index: 3,
+              Expanded(
+                child: getTextButton(
+                  label: t.mainPageDRuble.mainPage.bottomBar.daily,
+                  index: 3,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

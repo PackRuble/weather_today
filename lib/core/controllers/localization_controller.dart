@@ -17,7 +17,9 @@ import '../../i18n/translations.g.dart';
 ///
 /// Usage:
 /// [tr].someKey.anotherKey;
-late TranslationsRu tr;
+TranslationsRu get tr => _tr;
+
+late TranslationsRu _tr;
 
 /// Управление локалью всего приложения.
 ///
@@ -44,7 +46,7 @@ class AppLocalization {
   Future<void> init() async {
     final AppLocale locale = _parseRawLocale(await _getUserStoredLocale());
     Intl.defaultLocale = locale.languageCode;
-    tr = locale.build();
+    _tr = locale.build();
     ref.read(currentLocale.notifier).update((_) => locale);
   }
 
@@ -61,7 +63,7 @@ class AppLocalization {
     (ref) {
       final AppLocale locale = ref.watch(currentLocale);
       // ignore: join_return_with_assignment
-      tr = locale.build(); // we need to assign
+      _tr = locale.build(); // we need to assign
       return tr;
     },
     name: '$AppLocalization/currentTranslation',
