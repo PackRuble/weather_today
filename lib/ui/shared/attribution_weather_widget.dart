@@ -49,7 +49,10 @@ class AttributionWeatherWidget extends StatelessWidget {
               child: Text(
                 'OpenWeather',
                 style: textStyle?.copyWith(
-                    decoration: TextDecoration.underline, color: Colors.blue),
+                  decoration: TextDecoration.underline,
+                  decorationColor: Colors.blue,
+                  color: Colors.blue,
+                ),
               ),
             ),
           ],
