@@ -86,6 +86,8 @@ class _AlertTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+
     final t = ref.watch(DailyPageController.tr);
 
     final String date = alert.start!.day == alert.end!.day
@@ -98,7 +100,7 @@ class _AlertTileWidget extends ConsumerWidget {
             timeEnd: DateFormat('dd.MM').format(alert.end!));
 
     // coldfix Когда-нибудь я узнаю, как решать эти проблемы с переполнением
-    // в leading и trailing в ListTile
+    //  в leading и trailing в ListTile
     return ListTile(
       leading: UnconstrainedBox(
         alignment: Alignment.topCenter,
@@ -109,9 +111,20 @@ class _AlertTileWidget extends ConsumerWidget {
         ),
       ),
       title: Text(alert.event!),
-      subtitle: Text(alert.description!),
+      subtitle: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (alert.description != null) Text(alert.description!),
+          if (alert.senderName != null)
+            Text(
+              '\n${alert.senderName!}',
+              style: theme.textTheme.bodySmall,
+            ),
+        ],
+      ),
       // ignore: use_named_constants
-      contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+      contentPadding: const EdgeInsets.only(right: 8.0),
       tileColor: Theme.of(context).colorScheme.error.withOpacity(0.2),
     );
   }

@@ -268,13 +268,14 @@ class MetricsHelper {
     final List<WeatherAlert> newAlerts = [];
 
     for (final WeatherAlert alert in oldAlerts) {
-      // воспрос: возможно, пустое [alert.description] нам тоже подойдет?
+      // вопрос: возможно, пустое [alert.description] нам тоже подойдет?
       // ответ: json подсказывает, если нет description - это не локальные
       // уведомления. А нам такие не нужны :)
-      if ((alert.event?.isEmpty ?? true) ||
-          (alert.description?.isEmpty ?? true)) {
-        continue;
-      }
+      // if ((alert.event?.isEmpty ?? true)
+      // || (alert.description?.isEmpty ?? true)
+      //     ) {
+      //   continue;
+      // }
 
       if (alert.start == null || alert.end == null) {
         continue;
@@ -298,7 +299,9 @@ class MetricsHelper {
         event: alert.event!.toCapitalized(),
         start: start,
         end: end,
-        description: alert.description!.toCapitalized(),
+        description: (alert.description?.isNotEmpty ?? false)
+            ? alert.description!.toCapitalized()
+            : null,
         tags: alert.tags,
       ));
     }
