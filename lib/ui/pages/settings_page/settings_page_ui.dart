@@ -43,7 +43,8 @@ class SettingsPage extends ConsumerWidget {
         const _TileCountryFlagsWidget(),
         const _TileHomepageIndexWidget(),
         const _TileLocaleAppWidget(),
-        const _SystemSettingsWidget(),
+        // убрано. Ожидается полная реализация логирования
+        // const _SystemSettingsWidget(),
         const _TileGratitudeWidget(),
         const _TileAboutAppWidget(),
       ],
