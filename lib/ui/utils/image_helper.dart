@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
 /// Менеджер получения всех изображений в приложении.
@@ -15,7 +14,7 @@ class ImageHelper {
       Image.asset(
         'assets/weather_icons/$weatherIcon.png',
         // ImagePathWeather.getPathWeatherIcon('weatherIcon' ?? ''),
-        package: ImagePathWeather.packageName,
+        // package: ImagePathWeather.packageName,
         filterQuality: FilterQuality.high,
         errorBuilder: (_, e, s) {
           // bug: await fix https://github.com/flutter/flutter/issues/107416

@@ -25,13 +25,15 @@ Future<void> main() async {
   // асинхронная инициализация всех сервисов
   await ServiceInit(container).init();
 
-  // логгирование всевозможных ошибок
+  // логгирование ошибок flutter framework
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
     logError('Flutter Error', details.exception,
         Trace.from(details.stack ?? Trace.current()).terse);
     // exit(1);
   };
+
+  // логгирование ошибок платформы
   PlatformDispatcher.instance.onError = (error, stack) {
     logError('PlatformDispatcher Error', error, stack);
     return true;
