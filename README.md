@@ -1,4 +1,4 @@
-[![image](assets/market/IconKitchen-Output/play-store/play_store_feature_graphic.png)][google_play_app_link]
+[<img alt="image" align="middle" width="70%" src="assets/market/IconKitchen-Output/play-store/play_store_feature_graphic.png"/>][google_play_app_link]
 
 
 [![telegram_badge]][telegram_link]
@@ -9,7 +9,7 @@
 
 Weather for every day. Try it now on Google Play:
 
-<a href='https://play.google.com/store/apps/details?id=com.Ruble.Pack.weather_today&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"/></a>
+<a href='https://play.google.com/store/apps/details?id=com.Ruble.Pack.weather_today&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt="Get it on Google Play" width="20%" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"/></a>
 
 ## Weather Today
 
@@ -67,15 +67,15 @@ Some interesting features:
 2. `flutter pub get`
 3. Building apk use `flutter build apk`:
 
-   with flag ( ▶ required, ▷ optional ):
+   with flag ( 🔴 required, 🟢 optional ):
 
-   - ▶ `--dart-define 'API_WEATHER=YourApiKey'` - your api key for the weather service [openweathermap.org](https://openweathermap.org/). Read more [here](https://github.com/PackRuble/weather_pack)
-   - ▶ `--pub` - run the `flutter pub get` command before building
-   - ▷ `--flavor` - build a custom app flavor as defined by platform-specific build setup. Supports the use of product flavors in Android Gradle scripts, and the use of custom Xcode schemes.
-   - ▷ `--target=<path>` - the main entry-point file of the application, as run on the device. If the "--target" option is omitted, but a file name is provided on the command line, then that is used instead (defaults to "lib\main.dart")
-   - ▷ `--target-platform=android-arm,android-arm64,android-x64` - choose the right platforms
-   - ▷ `--split-per-abi` - build a release APK for each target ABI (Application Binary Interface)
-   - ▷ `--obfuscate --split-debug-info=build/app/outputs/symbols` - once you’ve obfuscated your binary, save the symbols file. You need this if you later want to de-obfuscate a stack trace.
+   - 🔴 `--dart-define 'API_WEATHER=YourApiKey'` - your api key for the weather service [openweathermap.org](https://openweathermap.org/). Read more [here](https://github.com/PackRuble/weather_pack)
+   - 🔴 `--pub` - run the `flutter pub get` command before building
+   - 🟢 `--flavor` - build a custom app flavor as defined by platform-specific build setup. Supports the use of product flavors in Android Gradle scripts, and the use of custom Xcode schemes.
+   - 🟢 `--target=<path>` - the main entry-point file of the application, as run on the device. If the "--target" option is omitted, but a file name is provided on the command line, then that is used instead (defaults to "lib\main.dart")
+   - 🟢 `--target-platform=android-arm,android-arm64,android-x64` - choose the right platforms
+   - 🟢 `--split-per-abi` - build a release APK for each target ABI (Application Binary Interface)
+   - 🟢 `--obfuscate --split-debug-info=build/app/outputs/symbols` - once you’ve obfuscated your binary, save the symbols file. You need this if you later want to de-obfuscate a stack trace.
 
 
 ## Possible problems/errors
@@ -90,8 +90,8 @@ flutter pub run build_runner build
 ```
 
 with flag(optional):
-- `--delete-conflicting-outputs` - deletes previously generated files
-- `--build-filter=lib/PATH_FILE` - build concrete file
+- 🟢 `--delete-conflicting-outputs` - deletes previously generated files
+- 🟢 `--build-filter=lib/PATH_FILE` - build concrete file
 
 
 ### Change in the app's launcher icon
@@ -114,19 +114,19 @@ flutter pub run icons_launcher:create
 
 You can:
 
-▶ give this repository a star
+🟢 give this repository a star
 
 >[<img alt="ede" height="60" src="https://raw.githubusercontent.com/PackRuble/public_doc/main/assets/give_repo_star.png"/>][github_link]
 
-▶ to donate money on a 🍕. To do this, either contact me via email or visit the Telegram group.
+🟢 to donate money on a 🍕. To do this, either contact me via email or visit the Telegram group.
 
 | ![](https://img.shields.io/badge/--0?style=social&logo=gmail) pack.ruble@gmail.com | ![](https://img.shields.io/badge/--0?style=social&logo=telegram) https://t.me/rublepack |
 |------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
 
 
-▶ share the project on social networks
+🟢 share the project on social networks
 
-▶ create an issue or pull request or fork
+🟢 create an issue or pull request or fork
 
 **Thank you for your help, kisses to all 💋**
 
