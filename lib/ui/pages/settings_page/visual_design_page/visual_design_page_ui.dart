@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,6 +17,7 @@ import '../../hourly_page/hourly_page_by_tolskaya/hourly_page_ui.dart'
 import 'visual_design_page_controller.dart';
 
 /// Страница из настроек визуального оформления.
+@RoutePage()
 class VisualDesignPage extends ConsumerWidget {
   const VisualDesignPage();
 

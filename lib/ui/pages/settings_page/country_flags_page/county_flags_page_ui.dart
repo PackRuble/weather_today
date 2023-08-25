@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/const/app_colors.dart';
@@ -11,6 +12,7 @@ import 'country_flags_page_controller.dart';
 
 const double _inset = 8.0;
 
+@RoutePage()
 class CountryFlagsPage extends ConsumerWidget with UiLoggy {
   const CountryFlagsPage();
 

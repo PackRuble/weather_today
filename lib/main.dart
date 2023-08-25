@@ -5,12 +5,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:slang_flutter/slang_flutter.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:weather_today/core/init_app_service.dart';
-import 'package:weather_today/utils/routes/routes.gr.dart';
 
 import 'const/app_info.dart';
 import 'core/controllers/localization_controller.dart';
 import 'core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'utils/logger/all_observers.dart';
+import 'utils/routes/routes.dart';
 
 Future<void> main() async {
   final WidgetsBinding widgetsBinding =

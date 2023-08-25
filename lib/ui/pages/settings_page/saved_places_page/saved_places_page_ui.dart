@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ import '../../../utils/metrics_helper.dart';
 /// * добавить заметку к каждому месту;
 /// * посмотреть на флаг;
 /// * посмотреть некоторые характеристики места;
+@RoutePage()
 class SavedPlacesPage extends ConsumerWidget with UiLoggy {
   const SavedPlacesPage();
 

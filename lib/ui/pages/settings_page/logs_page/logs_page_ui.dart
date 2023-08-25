@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/controllers/logger_controller.dart';
@@ -7,6 +8,7 @@ import 'package:weather_today/utils/logger/all_observers.dart';
 import '../../../shared/appbar_widget.dart';
 import '../../../shared/wrapper_page.dart';
 
+@RoutePage()
 class LogsPage extends ConsumerWidget with UiLoggy {
   const LogsPage();
 

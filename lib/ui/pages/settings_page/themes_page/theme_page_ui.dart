@@ -1,5 +1,6 @@
 // ignore_for_file: discarded_futures
 
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
@@ -12,6 +13,7 @@ import 'theme_selector.dart';
 const double _inset = 2.0;
 
 /// Страница показывает различные настройки цветовой темы.
+@RoutePage()
 class ThemePage extends ConsumerWidget {
   const ThemePage();
 

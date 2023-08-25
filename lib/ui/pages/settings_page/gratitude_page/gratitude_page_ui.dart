@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -8,6 +9,7 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 import '../../../shared/appbar_widget.dart';
 import '../../../shared/wrapper_page.dart';
 
+@RoutePage()
 class GratitudePage extends ConsumerWidget {
   const GratitudePage();
 

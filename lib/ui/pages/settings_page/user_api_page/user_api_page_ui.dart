@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,6 +12,7 @@ import '../../../shared/appbar_widget.dart';
 import 'user_api_page_controller.dart';
 
 /// Страница по управлению пользовательским апи ключом.
+@RoutePage()
 class UserApiPage extends ConsumerWidget {
   const UserApiPage();
 

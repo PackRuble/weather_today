@@ -1,31 +1,22 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:weather_today/ui/pages/main_page/home_page_ui.dart';
-import 'package:weather_today/ui/pages/settings_page/country_flags_page/county_flags_page_ui.dart';
-import 'package:weather_today/ui/pages/settings_page/gratitude_page/gratitude_page_ui.dart';
-import 'package:weather_today/ui/pages/settings_page/logs_page/logs_page_ui.dart';
-import 'package:weather_today/ui/pages/settings_page/saved_places_page/saved_places_page_ui.dart';
-import 'package:weather_today/ui/pages/settings_page/system_settings_page/system_page_ui.dart';
-import 'package:weather_today/ui/pages/settings_page/terms_app_page/terms_app_page.dart';
-import 'package:weather_today/ui/pages/settings_page/themes_page/theme_page_ui.dart';
-import 'package:weather_today/ui/pages/settings_page/user_api_page/user_api_page_ui.dart';
-import 'package:weather_today/ui/pages/settings_page/visual_design_page/visual_design_page_ui.dart';
-import 'package:weather_today/ui/pages/settings_page/weather_language_page/weather_language_page_ui.dart';
+import 'routes.gr.dart';
 
-@MaterialAutoRouter(
-  replaceInRouteName: 'Page,Route',
-  routes: <AutoRoute>[
-    AutoRoute(page: HomePage, initial: true),
-    AutoRoute(page: SavedPlacesPage),
-    AutoRoute(page: WeatherLanguagePage),
-    AutoRoute(page: UserApiPage),
-    AutoRoute(page: CountryFlagsPage),
-    AutoRoute(page: ThemePage),
-    AutoRoute(page: VisualDesignPage),
-    AutoRoute(page: GratitudePage),
-    AutoRoute(page: LogsPage),
-    AutoRoute(page: SystemSettingsPage),
-    AutoRoute(page: TermsAppPage),
-  ],
+@AutoRouterConfig(
+  replaceInRouteName: 'Page|Screen,Route',
 )
-class $AppRouter {}
+class AppRouter extends $AppRouter {
+  @override
+  List<AutoRoute> get routes => [
+        AutoRoute(page: HomeRoute.page, initial: true),
+        AutoRoute(page: SavedPlacesRoute.page),
+        AutoRoute(page: WeatherLanguageRoute.page),
+        AutoRoute(page: UserApiRoute.page),
+        AutoRoute(page: CountryFlagsRoute.page),
+        AutoRoute(page: ThemeRoute.page),
+        AutoRoute(page: VisualDesignRoute.page),
+        AutoRoute(page: GratitudeRoute.page),
+        AutoRoute(page: LogsRoute.page),
+        AutoRoute(page: SystemSettingsRoute.page),
+        AutoRoute(page: TermsAppRoute.page),
+      ];
+}

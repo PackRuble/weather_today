@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
@@ -13,6 +14,7 @@ import '../../../shared/wrapper_page.dart';
 import 'weather_language_page_controller.dart';
 
 /// Страница для выбора языка запроса некоторых параметров сервиса погоды.
+@RoutePage()
 class WeatherLanguagePage extends ConsumerWidget with UiLoggy {
   const WeatherLanguagePage();
 

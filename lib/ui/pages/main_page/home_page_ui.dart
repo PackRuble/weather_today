@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/const/app_icons.dart';
@@ -19,6 +20,7 @@ import '../settings_page/settings_page_ui.dart';
 import 'home_page_controller.dart';
 
 /// Главная страница приложения. Содержит 4 вкладки.
+@RoutePage()
 class HomePage extends ConsumerWidget {
   const HomePage();
 

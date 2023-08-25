@@ -64,39 +64,34 @@ class HomePageController {
 
   /// Логгируем передвижения по вкладкам.
   ///
-  /// Внутри создается [RouteMatch] с нужными данными, для удовлетворения нужд
+  /// Внутри [getRoute] создается [TabPageRoute] с нужными данными, для удовлетворения нужд
   /// логгера.
   static void _notifyObservers(int previousIndex, int nextIndex) {
-    const routeInfo = RouteMatch(
-      name: '', // `routeName` override after
-      segments: [],
-      path: '',
-      stringMatch: '',
-      key: ValueKey(''),
-    );
-
     TabPageRoute getRoute(int index) {
-      switch (index) {
-        case 0:
-          return TabPageRoute(
-              routeInfo: routeInfo.copyWith(routeName: 'SettingsTab'),
-              index: 0);
-        case 1:
-          return TabPageRoute(
-              routeInfo: routeInfo.copyWith(routeName: 'HourlyTab'), index: 1);
-        case 2:
-          return TabPageRoute(
-              routeInfo: routeInfo.copyWith(routeName: 'CurrentlyTab'),
-              index: 2);
-        case 3:
-          return TabPageRoute(
-              routeInfo: routeInfo.copyWith(routeName: 'DailyTab'), index: 3);
-        default:
-          return throw "Wrong page index. Try again.";
-      }
+      return TabPageRoute(
+        routeInfo: RouteMatch(
+          segments: const [],
+          stringMatch: '',
+          key: const ValueKey(''),
+          config: AutoRoute(
+            page: PageInfo(
+              switch (index) {
+                0 => 'SettingsTab',
+                1 => 'HourlyTab',
+                2 => 'CurrentlyTab',
+                3 => 'DailyTab',
+                _ => throw "Wrong page index. Try again."
+              },
+            ),
+          ),
+        ),
+        index: index,
+      );
     }
 
-    NavigationObserver()
-        .didChangeTabRoute(getRoute(previousIndex), getRoute(nextIndex));
+    NavigationObserver().didChangeTabRoute(
+      getRoute(previousIndex),
+      getRoute(nextIndex),
+    );
   }
 }
