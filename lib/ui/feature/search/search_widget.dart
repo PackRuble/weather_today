@@ -64,10 +64,13 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       transition: CircularFloatingSearchBarTransition(),
       automaticallyImplyBackButton: false,
       leadingActions: [
-        FloatingSearchBarAction.icon(
-          showIfOpened: false,
-          icon: const Icon(Icons.place),
-          onTap: () {},
+        IgnorePointer(
+          ignoring: true,
+          child: FloatingSearchBarAction.icon(
+            showIfOpened: false,
+            icon: const Icon(Icons.place),
+            onTap: () {},
+          ),
         ),
       ],
       actions: [
