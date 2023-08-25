@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/const/app_insets.dart';
-import 'package:weather_today/ui/feature/search_widget_feature/search_widget_ui.dart';
+import 'package:weather_today/ui/feature/search/search_widget.dart';
 
 /// A wrapper for a page body with FSBar.
 ///

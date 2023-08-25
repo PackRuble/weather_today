@@ -4,8 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_icons.dart';
-import 'package:weather_today/ui/feature/chart_widget_feature/chart_utils.dart';
-import 'package:weather_today/ui/feature/chart_widget_feature/chart_widget.dart';
+import 'package:weather_today/ui/feature/charts/chart_utils.dart';
+import 'package:weather_today/ui/feature/charts/chart_widget.dart';
 
 import '../../../utils/metrics_helper.dart';
 import '../hourly_page_by_ruble/hourly_page_controller_R.dart';

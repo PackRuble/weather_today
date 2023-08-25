@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_pack/weather_pack.dart';
-import 'package:weather_today/ui/feature/chart_widget_feature/chart_utils.dart';
-import 'package:weather_today/ui/feature/chart_widget_feature/chart_widget.dart';
+import 'package:weather_today/ui/feature/charts/chart_utils.dart';
+import 'package:weather_today/ui/feature/charts/chart_widget.dart';
 
 import '../hourly_page_by_ruble/hourly_page_controller_R.dart';
 import '../hourly_page_controller.dart';

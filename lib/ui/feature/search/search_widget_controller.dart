@@ -8,7 +8,7 @@ import 'package:weather_today/core/controllers/weather_service_controllers.dart'
 import 'package:weather_today/core/models/place/place_model.dart';
 import 'package:weather_today/core/services/place_service/place_service.dart';
 import 'package:weather_today/i18n/translations.g.dart';
-import 'package:weather_today/ui/feature/search_widget_feature/models/search_body_state.dart';
+import 'package:weather_today/ui/feature/search/models/search_body_state.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
 final searchWidgetProvider =

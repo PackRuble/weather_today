@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_today/ui/feature/chart_widget_feature/model/count_label.dart';
+import 'package:weather_today/ui/feature/charts/model/count_label.dart';
 
 // ignore_for_file: constant_identifier_names
 
