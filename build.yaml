@@ -3,17 +3,17 @@ targets:
     builders:
       auto_route_generator:autoRouteGenerator:
         enabled: true
-      #        generate_for:
-      #          include:
-      #            - lib/utils/routes/routes.dart
+        generate_for:
+          include:
+            - lib/utils/routes/routes.dart
       json_serializable:json_serializable:
-        enabled: false
+        enabled: true
         generate_for:
           include:
             - lib/**/models/**/*.dart
       freezed:
         enabled: true
-#        generate_for:
-#          - '**/models/**/*.dart'
-#          - '**/models/*.dart'
-#          - '**/search_body_state.dart'
+        generate_for:
+          - '**/models/**/*.dart'
+          - '**/models/*.dart'
+          - '**/search_body_state.dart'

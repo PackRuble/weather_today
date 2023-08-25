@@ -25,7 +25,7 @@ Map<String, dynamic> _$$_SavedPlaceToJson(_$_SavedPlace instance) =>
     <String, dynamic>{
       'name': instance.name,
       'local_names': instance.localNames
-          ?.map((k, e) => MapEntry(_$WeatherLanguageEnumMap[k], e)),
+          ?.map((k, e) => MapEntry(_$WeatherLanguageEnumMap[k]!, e)),
       'latitude': instance.latitude,
       'longitude': instance.longitude,
       'country': instance.country,
