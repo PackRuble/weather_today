@@ -84,13 +84,66 @@ class _BottomBarWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final TextTheme textTheme = Theme.of(context).textTheme;
 
     final t = ref.watch(AppLocalization.currentTranslation);
 
-    // получаем текущий индекс
-    final int curIndex = ref.watch(HomePageController.currentIndex);
+    return SizedBox(
+      height: AppInsets.heightBottomBar,
+      child: Theme(
+        data: theme.copyWith(
+          useMaterial3: false,
+        ),
+        child: BottomAppBar(
+          // todo: no reaction on change
+          //  A temporary solution with Theme
+          // color: theme.colorScheme.background,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const Flexible(
+                child: BottomIcon(
+                  index: 0,
+                ),
+              ),
+              Expanded(
+                child: BottomIcon(
+                  label: t.mainPageDRuble.mainPage.bottomBar.hourly,
+                  index: 1,
+                ),
+              ),
+              Expanded(
+                child: BottomIcon(
+                  label: t.mainPageDRuble.mainPage.bottomBar.today,
+                  index: 2,
+                ),
+              ),
+              Expanded(
+                child: BottomIcon(
+                  label: t.mainPageDRuble.mainPage.bottomBar.daily,
+                  index: 3,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
+class BottomIcon extends ConsumerWidget {
+  const BottomIcon({super.key, this.label, required this.index});
+
+  final String? label;
+  final int index;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+
+    final int currentIndex = ref.watch(HomePageController.currentIndex);
     final double textScaleFactor = ref.watch(AppTheme.textScaleFactor);
 
     final themeNavBar = theme.bottomNavigationBarTheme;
@@ -109,70 +162,24 @@ class _BottomBarWidget extends ConsumerWidget {
       color: unselectedColor,
     );
 
-    Widget getTextButton({required String label, required int index}) {
-      return TextButton(
-        onPressed: () =>
-            ref.read(HomePageController.instance).setIndexPageWhenClick(index),
-        style: theme.textButtonTheme.style?.copyWith(
-          padding: MaterialStateProperty.all(EdgeInsets.zero),
-          minimumSize: MaterialStateProperty.all(const Size.fromWidth(48.0)),
-        ),
-        child: index == 0
-            ? Icon(
-                AppIcons.settingsIcon,
-                size: index == curIndex ? 27.0 : 24.0,
-                color: index == curIndex ? selectedColor : unselectedColor,
-              )
-            : Text(
-                label,
-                overflow: TextOverflow.ellipsis,
-                style: index == curIndex ? selectedStyle : unselectedStyle,
-              ),
-      );
-    }
-
-    return SizedBox(
-      height: AppInsets.heightBottomBar,
-      child: Theme(
-        data: theme.copyWith(
-          useMaterial3: false,
-        ),
-        child: BottomAppBar(
-          // todo: no reaction on change
-          //  A temporary solution with Theme
-          // color: theme.colorScheme.background,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Flexible(
-                child: getTextButton(
-                  label: '',
-                  index: 0,
-                ),
-              ),
-              Expanded(
-                child: getTextButton(
-                  label: t.mainPageDRuble.mainPage.bottomBar.hourly,
-                  index: 1,
-                ),
-              ),
-              Expanded(
-                child: getTextButton(
-                  label: t.mainPageDRuble.mainPage.bottomBar.today,
-                  index: 2,
-                ),
-              ),
-              Expanded(
-                child: getTextButton(
-                  label: t.mainPageDRuble.mainPage.bottomBar.daily,
-                  index: 3,
-                ),
-              ),
-            ],
-          ),
-        ),
+    return TextButton(
+      onPressed: () =>
+          ref.read(HomePageController.instance).setIndexPageWhenClick(index),
+      style: theme.textButtonTheme.style?.copyWith(
+        padding: const MaterialStatePropertyAll(EdgeInsets.zero),
+        minimumSize: const MaterialStatePropertyAll(Size.fromWidth(48.0)),
       ),
+      child: label == null
+          ? Icon(
+              AppIcons.settingsIcon,
+              size: index == currentIndex ? 27.0 : 24.0,
+              color: index == currentIndex ? selectedColor : unselectedColor,
+            )
+          : Text(
+              label!,
+              overflow: TextOverflow.ellipsis,
+              style: index == currentIndex ? selectedStyle : unselectedStyle,
+            ),
     );
   }
 }
