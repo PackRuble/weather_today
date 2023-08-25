@@ -76,7 +76,7 @@ class _TileSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: _indent),
-      horizontalTitleGap: 0.0,
+      horizontalTitleGap: 16.0,
       leading: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Icon>[
