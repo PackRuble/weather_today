@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/const/app_insets.dart';

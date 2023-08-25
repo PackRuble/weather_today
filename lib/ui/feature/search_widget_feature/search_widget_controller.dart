@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/saved_places_provider.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
