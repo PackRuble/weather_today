@@ -7,6 +7,7 @@ import 'package:weather_today/core/controllers/general_settings_controller.dart'
 import 'package:weather_today/core/controllers/global_key.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'package:weather_today/ui/feature/search/search_widget.dart';
 
 import '../../shared/all_terms_widget.dart';
 import '../../shared/listen_message_widget.dart';
@@ -45,15 +46,15 @@ class HomePage extends ConsumerWidget {
     }
 
     return WrapperPage(
-      child: Scaffold(
-        key: materialKeyProvider,
-        bottomNavigationBar: const _BottomBarWidget(),
-        resizeToAvoidBottomInset: false,
-        // этим занимается сама панель-поиск
-        extendBodyBehindAppBar: false,
-        extendBody: false,
-        body: const WrapperBodyWithFSBar(
-          body: ListenMessageWrapper(child: _BodyWidget()),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: const CustomSearchBar(),
+          key: materialKeyProvider,
+          bottomNavigationBar: const _BottomBarWidget(),
+          resizeToAvoidBottomInset: false,
+          extendBodyBehindAppBar: false,
+          extendBody: false,
+          body: const _BodyWidget(),
         ),
       ),
     );

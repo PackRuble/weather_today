@@ -14,9 +14,88 @@ import 'package:weather_today/utils/logger/all_observers.dart';
 import '../../utils/metrics_helper.dart';
 import 'search_widget_controller.dart';
 
+class SearchBarApp extends StatefulWidget {
+  const SearchBarApp({super.key});
+
+  @override
+  State<SearchBarApp> createState() => _SearchBarAppState();
+}
+
+class _SearchBarAppState extends State<SearchBarApp> {
+  bool isDark = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData themeData = ThemeData(
+        useMaterial3: true,
+        brightness: isDark ? Brightness.dark : Brightness.light);
+
+    return MaterialApp(
+      theme: themeData,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Search Bar Sample')),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SearchAnchor(
+            builder: (BuildContext context, SearchController controller) {
+              return SearchBar(
+                controller: controller,
+                padding: const MaterialStatePropertyAll<EdgeInsets>(
+                    EdgeInsets.symmetric(horizontal: 16.0)),
+                onTap: () {
+                  controller.openView();
+                },
+                onChanged: (_) {
+                  controller.openView();
+                },
+                leading: const Icon(Icons.search),
+                trailing: <Widget>[
+                  Tooltip(
+                    message: 'Change brightness mode',
+                    child: IconButton(
+                      isSelected: isDark,
+                      onPressed: () {
+                        setState(() {
+                          isDark = !isDark;
+                        });
+                      },
+                      icon: const Icon(Icons.wb_sunny_outlined),
+                      selectedIcon: const Icon(Icons.brightness_2_outlined),
+                    ),
+                  )
+                ],
+              );
+            },
+            suggestionsBuilder:
+                (BuildContext context, SearchController controller) {
+              return List<ListTile>.generate(5, (int index) {
+                final String item = 'item $index';
+                return ListTile(
+                  title: Text(item),
+                  onTap: () {
+                    setState(() {
+                      controller.closeView(item);
+                    });
+                  },
+                );
+              });
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 /// Виджет поиска в верхней части экрана. Используется для поиска мест.
-class SearchWidget extends ConsumerWidget with UiLoggy {
-  const SearchWidget();
+class CustomSearchBar extends ConsumerWidget
+    with UiLoggy
+    implements PreferredSizeWidget {
+  const CustomSearchBar();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(
+      kToolbarHeight + (2 * AppInsets.aroundPaddingSearchBar));
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,21 +109,15 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
     final AppColors colors = AppColors.of(context);
     final isLight = colors.isLight;
 
-    return FloatingSearchBar(
+    FloatingSearchBar(
       accentColor: colors.accentColorSearchbar,
       backgroundColor: colors.backgroundColorSearchbar,
       shadowColor: colors.shadowColorSearchbar,
       backdropColor: barrierColor,
       controller: ref.watch(SearchWidgetNotifier.controllerBarProvider),
       title: const _TitleSearch(),
-      hint: t.searchBar.hintTextField,
       borderRadius:
           const BorderRadius.all(Radius.circular(AppInsets.cornerRadiusCard)),
-      border: BorderSide(color: colors.borderColorSearchbar),
-      scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-      transitionDuration: const Duration(milliseconds: 800),
-      transitionCurve: Curves.easeInOut,
-      physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       axisAlignment: 0.0,
       openAxisAlignment: 0.0,
       margins: EdgeInsets.only(
@@ -96,6 +169,88 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       builder: (_, __) {
         return const _SearchBodyWidget();
       },
+    );
+
+    return ColoredBox(
+      color: Theme.of(context).appBarTheme.backgroundColor!,
+      child: Padding(
+        padding: const EdgeInsets.all(AppInsets.aroundPaddingSearchBar),
+        // todo: SearchAnchor.bar https://github.com/flutter/flutter/issues/130687
+        child: SearchAnchor(
+          viewHintText: t.searchBar.hintTextField,
+          viewBackgroundColor: barrierColor,
+          viewSide: BorderSide(color: colors.borderColorSearchbar),
+          isFullScreen: false,
+          builder: (BuildContext context, SearchController controller) {
+            return SearchBar(
+              hintText: t.searchBar.hintTextField,
+              shape: const MaterialStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
+              ),
+              // padding: const MaterialStatePropertyAll(EdgeInsets.all(16)),
+              controller: controller,
+              onTap: () {
+                print('onTap');
+                controller.openView();
+              },
+              onChanged: (_) {
+                // todo: https://github.com/flutter/flutter/issues/132915
+                print('onChanged: $_');
+                controller.openView();
+              },
+              onSubmitted: (_) {
+                print('onSubmitted: $_');
+
+                controller.closeView(_);
+              },
+              leading: const Icon(Icons.place),
+              trailing: <Widget>[
+                const Icon(Icons.info_outline_rounded)
+                // FloatingSearchBarAction.searchToClear(
+                //   showIfClosed: false,
+                // ),
+                // FloatingSearchBarAction.icon(
+                //   showIfClosed: false,
+                //   showIfOpened: true,
+                //   icon: const Icon(Icons.info_outline_rounded),
+                //   onTap: () async => AppDialogs.placeSearchInfo(context),
+                // ),
+                // _SavedBookmarkAction(),
+                // FloatingSearchBarAction.icon(
+                //   showIfClosed: true,
+                //   showIfOpened: false,
+                //   icon: Icon(
+                //     isLight ? Icons.light_mode_rounded : Icons.nightlight_round,
+                //     color: colors.scheme.primary,
+                //   ),
+                //   onTap: () async => ref
+                //       .read(AppTheme.instance)
+                //       .setThemeMode(isLight ? ThemeMode.dark : ThemeMode.light),
+                // ),
+              ],
+            );
+          },
+          suggestionsBuilder:
+              (BuildContext context, SearchController controller) {
+            return List<ListTile>.generate(5, (int index) {
+              final String item = 'item $index';
+              return ListTile(
+                title: Text(item),
+                onTap: () {
+                  controller.closeView(item);
+                  FocusScope.of(context).unfocus();
+                },
+              );
+            });
+          },
+          viewBuilder: (Iterable<Widget> suggestions) => ListView(
+            physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
+            children: suggestions.toList(),
+          ),
+        ),
+      ),
     );
   }
 }

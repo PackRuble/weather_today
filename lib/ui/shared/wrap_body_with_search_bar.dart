@@ -23,7 +23,7 @@ class WrapperBodyWithFSBar extends ConsumerWidget {
         AppInsets.aroundPaddingSearchBar;
 
     return Stack(
-      fit: StackFit.expand,
+      fit: StackFit.loose,
       children: [
         Padding(
           // coldfix не получилось реализовать blurred из-за padding
@@ -50,7 +50,7 @@ class WrapperBodyWithFSBar extends ConsumerWidget {
             ),
           ),
         ),
-        const SearchWidget(),
+        const CustomSearchBar(),
       ],
     );
   }
