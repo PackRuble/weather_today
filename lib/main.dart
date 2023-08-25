@@ -12,19 +12,7 @@ import 'core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'utils/logger/all_observers.dart';
 import 'utils/routes/routes.dart';
 
-Future<void> main() async {
-  final WidgetsBinding widgetsBinding =
-      WidgetsFlutterBinding.ensureInitialized();
-
-  // Keep native splash screen up until app is finished bootstrapping
-  widgetsBinding.deferFirstFrame();
-
-  // This let us access providers before runApp (read only)
-  final container = ProviderContainer(observers: [RiverpodObserver()]);
-
-  // асинхронная инициализация всех сервисов
-  await ServiceInit(container).init();
-
+void _loggingErrors() {
   // логгирование ошибок flutter framework
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
@@ -38,21 +26,39 @@ Future<void> main() async {
     logError('PlatformDispatcher Error', error, stack);
     return true;
   };
+}
 
-  await Chain.capture(() async {
-    runApp(
-      UncontrolledProviderScope(
-        container: container,
-        child: WeatherMain(),
-      ),
-    );
-  }, onError: (error, stackTrace) {
-    // здесь ловим ошибки от асинхронных вызовов
-    logError('Async Error', error, Trace.from(stackTrace).terse);
-  });
+Future<void> main() async {
+  _loggingErrors();
 
-  // Remove splash screen when bootstrap is complete
-  widgetsBinding.allowFirstFrame();
+  await Chain.capture(
+    () async {
+      final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+      // Keep native splash screen up until app is finished bootstrapping
+      widgetsBinding.deferFirstFrame();
+
+      // This let us access providers before runApp (read only)
+      final container = ProviderContainer(observers: [RiverpodObserver()]);
+
+      // асинхронная инициализация всех сервисов
+      await ServiceInit(container).init();
+
+      runApp(
+        UncontrolledProviderScope(
+          container: container,
+          child: WeatherMain(),
+        ),
+      );
+
+      // Remove splash screen when bootstrap is complete
+      widgetsBinding.allowFirstFrame();
+    },
+    onError: (error, stackTrace) {
+      // здесь ловим ошибки от асинхронных вызовов
+      logError('Async Error', error, Trace.from(stackTrace).terse);
+    },
+  );
 }
 
 class WeatherMain extends ConsumerWidget with UiLoggy {
