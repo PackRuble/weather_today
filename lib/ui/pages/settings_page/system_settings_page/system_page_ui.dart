@@ -27,7 +27,7 @@ class SystemSettingsPage extends ConsumerWidget {
         body: ListView(
           physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
           children: const [
-            _EnableLogsSwitch(),
+            EnableLogsSwitch(),
             Divider(height: 0.0, thickness: 1.0),
           ],
         ),
@@ -36,10 +36,13 @@ class SystemSettingsPage extends ConsumerWidget {
   }
 }
 
-class _EnableLogsSwitch extends ConsumerWidget {
-  const _EnableLogsSwitch({
+class EnableLogsSwitch extends ConsumerWidget {
+  const EnableLogsSwitch({
     Key? key,
+    this.onChange,
   }) : super(key: key);
+
+  final VoidCallback? onChange;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -59,6 +62,8 @@ class _EnableLogsSwitch extends ConsumerWidget {
                   } else {
                     unawaited(ref.read(loggerManager).disableLogging());
                   }
+
+                  onChange?.call();
                 },
                 title: t.systemSettingsPage.enableLogsTile.tileTitle,
                 subtitle: t.systemSettingsPage.enableLogsTile.tileSub,

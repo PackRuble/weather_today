@@ -7,6 +7,7 @@ import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../../shared/appbar_widget.dart';
 import '../../../shared/wrapper_page.dart';
+import '../system_settings_page/system_page_ui.dart' show EnableLogsSwitch;
 
 @RoutePage()
 class LogsPage extends ConsumerWidget with UiLoggy {
@@ -20,38 +21,47 @@ class LogsPage extends ConsumerWidget with UiLoggy {
 
     final logsManager = ref.watch(loggerManager);
 
-    final logs = logsManager.getLogs()?.reversed.toList() ?? [];
-
     return WrapperPage(
       child: Scaffold(
         appBar: const RAppBar('Logs'),
-        body: logs.isEmpty
-            ? const Center(child: Text('There are no logs'))
-            : SelectionArea(
-                child: ListView.separated(
-                  itemCount: logs.length,
-                  padding: const EdgeInsets.all(8.0),
-                  physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
-                  itemBuilder: (BuildContext _, int index) {
-                    return Row(
-                      children: [
-                        Text(
-                          index.toString(),
-                          style: theme.textTheme.titleMedium,
+        body: StatefulBuilder(builder: (context, setState) {
+          final logs = logsManager.getLogs()?.reversed.toList() ?? [];
+          return Column(
+            children: [
+              // coldfix: пока что костыль, так как логи не реактивны
+              EnableLogsSwitch(onChange: () => setState(() {})),
+              const Divider(height: 0.0, thickness: 1.0),
+              logs.isEmpty
+                  ? const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Center(child: Text('There are no logs')),
+                    )
+                  : Expanded(
+                      child: SelectionArea(
+                        child: ListView.separated(
+                          itemCount: logs.length,
+                          padding: const EdgeInsets.all(8.0),
+                          physics:
+                              ref.watch(AppTheme.scrollPhysics).scrollPhysics,
+                          itemBuilder: (BuildContext _, int index) {
+                            return Row(
+                              children: [
+                                Text(
+                                  index.toString(),
+                                  style: theme.textTheme.titleMedium,
+                                ),
+                                const SizedBox(width: 10),
+                                Flexible(child: Text(logs[index])),
+                              ],
+                            );
+                          },
+                          separatorBuilder: (_, __) => const Divider(),
                         ),
-                        const SizedBox(width: 10),
-                        Flexible(
-                            child: Text(
-                          logs[index],
-                        )),
-                      ],
-                    );
-                  },
-                  separatorBuilder: (_, __) {
-                    return const Divider();
-                  },
-                ),
-              ),
+                      ),
+                    ),
+            ],
+          );
+        }),
       ),
     );
   }
