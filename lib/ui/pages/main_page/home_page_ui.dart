@@ -1,6 +1,8 @@
 import 'package:auto_route/annotations.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/const/app_insets.dart';
 import 'package:weather_today/core/controllers/general_settings_controller.dart';
@@ -89,43 +91,36 @@ class _BottomBarWidget extends ConsumerWidget {
 
     return SizedBox(
       height: AppInsets.heightBottomBar,
-      child: Theme(
-        data: theme.copyWith(
-          useMaterial3: false,
-        ),
-        child: BottomAppBar(
-          // todo: no reaction on change
-          //  A temporary solution with Theme
-          // color: theme.colorScheme.background,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              const Flexible(
-                child: BottomIcon(
-                  index: 0,
-                ),
+      child: BottomAppBar(
+        color: theme.colorScheme.background.darken(5),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const Flexible(
+              child: BottomIcon(
+                index: 0,
               ),
-              Expanded(
-                child: BottomIcon(
-                  label: t.mainPageDRuble.mainPage.bottomBar.hourly,
-                  index: 1,
-                ),
+            ),
+            Expanded(
+              child: BottomIcon(
+                label: t.mainPageDRuble.mainPage.bottomBar.hourly,
+                index: 1,
               ),
-              Expanded(
-                child: BottomIcon(
-                  label: t.mainPageDRuble.mainPage.bottomBar.today,
-                  index: 2,
-                ),
+            ),
+            Expanded(
+              child: BottomIcon(
+                label: t.mainPageDRuble.mainPage.bottomBar.today,
+                index: 2,
               ),
-              Expanded(
-                child: BottomIcon(
-                  label: t.mainPageDRuble.mainPage.bottomBar.daily,
-                  index: 3,
-                ),
+            ),
+            Expanded(
+              child: BottomIcon(
+                label: t.mainPageDRuble.mainPage.bottomBar.daily,
+                index: 3,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
