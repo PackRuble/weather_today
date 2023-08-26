@@ -31,6 +31,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
     final isLight = colors.isLight;
 
     return FloatingSearchBar(
+      implicitDuration: Duration.zero,
       accentColor: colors.accentColorSearchbar,
       backgroundColor: colors.backgroundColorSearchbar,
       shadowColor: colors.shadowColorSearchbar,
