@@ -129,8 +129,9 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
   }
 
   /// Паттерн позволяет обработать строку с широтой и долготой.
-  static const String _patternLonLat =
-      r'(^\s*[-+]?(?:[1-8]?\d(?:\.\d+)?|90(?:\.0+)?))\s*,\s*([-+]?(?:180(?:\.0+)?|(?:(?:1[0-7]\d)|(?:[1-9]?\d))(?:\.\d+)?)\s*)$';
+  static final _patternLonLat = RegExp(
+    r'(^\s*[-+]?(?:[1-8]?\d(?:\.\d+)?|90(?:\.0+)?))\s*,\s*([-+]?(?:180(?:\.0+)?|(?:(?:1[0-7]\d)|(?:[1-9]?\d))(?:\.\d+)?)\s*)$',
+  );
 
   /// Обработать сырую строку
   Future<List<Place>> _handleRawQuery(String rawQuery) async {
@@ -138,7 +139,7 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
     // содержит ли строка цифры /todo более общий паттерн типа 85, 82
     // if (rawQuery.contains(RegExp(r'\d+'))) {
     // Проверяем, содержит ли строка паттерн 'долгота, широта'
-    if (rawQuery.contains(RegExp(_patternLonLat))) {
+    if (rawQuery.contains(_patternLonLat)) {
       final List<String> splitter = rawQuery.split(',');
 
       if (splitter.length == 2) {
