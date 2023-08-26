@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:weather_today/ui/feature/chart_widget_feature/chart_utils.dart';
+import 'package:weather_today/ui/feature/charts/chart_utils.dart';
 
 void main() {
   group('chart_utils.dart', () {

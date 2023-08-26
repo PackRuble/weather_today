@@ -138,7 +138,8 @@ class BottomIcon extends ConsumerWidget {
       style: theme.textButtonTheme.style?.copyWith(
         padding: const MaterialStatePropertyAll(EdgeInsets.zero),
         minimumSize: const MaterialStatePropertyAll(Size.fromWidth(48.0)),
-        splashFactory: InkSparkle.splashFactory,
+        shape: const MaterialStatePropertyAll(LinearBorder.none),
+        splashFactory: theme.splashFactory,
       ),
       child: Consumer(
         builder: (context, ref, _) {
