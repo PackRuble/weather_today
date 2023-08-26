@@ -87,10 +87,10 @@ class _DateWidget extends ConsumerWidget {
                 TextSpan(text: t.weather.currentAsOf),
                 if (actualData != null)
                   TextSpan(
-                      text:
-                          ' ${DateFormat.MMMd().add_Hm().format(actualData!)}',
-                      style: styles.bodyMedium
-                          ?.copyWith(fontStyle: FontStyle.italic)),
+                    text: ' ${DateFormat.MMMd().add_Hm().format(actualData!)}',
+                    style: styles.bodyMedium
+                        ?.copyWith(fontStyle: FontStyle.italic),
+                  ),
               ],
             ),
           ),

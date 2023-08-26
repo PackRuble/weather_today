@@ -18,6 +18,15 @@ import '../../core/models/place/place_model.dart';
 class MetricsHelper {
   MetricsHelper._();
 
+  // `\u2212` или `String.fromCharCode(0x2212)` - знак минуса `−`
+  static const _minus = '\u2212';
+
+  // `\u2010` или `String.fromCharCode(0x2010)` - знак дефиса `-`
+  static const _hyphen = '\u2010';
+
+  // `\u002D` или `String.fromCharCode(0x002D)` - знак дефис-минус `-`
+  static const _hyphenMinus = '\u002D';
+
   /// Получить корректное название места следующего вида:
   /// --> '[countryCode], [state]' || [name] || null
   ///
@@ -112,10 +121,19 @@ class MetricsHelper {
   // ===========================================================================
   // temperature conversion
 
+  /// Заменяем дефис-минус на настоящий минус. Он просто больше :)
+  static String _fixMinus(String value) {
+    if (value == '${_hyphenMinus}0.0' || value == '${_hyphenMinus}0') {
+      return value.substring(1);
+    }
+
+    return value.contains(_hyphenMinus) ? _minus + value.substring(1) : value;
+  }
+
   /// Получить темпрературу в строковом виде.
   ///
   /// Нюансы:
-  /// * знак [-] отрицательной температуры всегда заменяется на тире [–].
+  /// * знак дефис-минус всегда заменяется на минус.
   /// * при использовании [withFiller] всегда вернется [String].
   ///
   /// Аргументы:
@@ -143,12 +161,7 @@ class MetricsHelper {
       result = units.valueToString(value, _precision);
       _value = units.value(value, _precision);
 
-      // заменяем минус на тире в обязательном порядке
-      if (_value < 0.0) {
-        result = '–' + result.substring(1);
-      } else if (_value.toString().contains('-')) {
-        result = result.substring(1);
-      }
+      result = _fixMinus(result);
 
       // температура со знаком +?
       if (withSign) {

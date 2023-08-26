@@ -143,6 +143,8 @@ class _GroupExpansionWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // todo: хочется отрисовывать внутренности только после открытия. Хорошая оптимизация будет :)
+    //  хотя и ExpansionPanelList отрисовывает содержимое сразу
     return ExpandableNotifier(
       child: ScrollOnExpand(
         child: ExpandablePanel(
@@ -313,6 +315,7 @@ class _ExpandedWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print('$_ExpandedWidget + ${weather.date}');
     final TextTheme stylesText = Theme.of(context).textTheme;
     final t = ref.watch(AppLocalization.currentTranslation);
 

@@ -131,54 +131,35 @@ class _MainInfoWidget extends ConsumerWidget {
     final String _weatherMain =
         MetricsHelper.getWeatherMainTr(weather.weatherMain, t) ?? r'¯\_(ツ)_/¯';
 
-    Widget renderTemp() {
-      return Text.rich(
-        TextSpan(
-          style: styles.bodyMedium?.copyWith(fontSize: 72.0),
-          children: <TextSpan>[
-            TextSpan(text: _temp),
-            TextSpan(
-                text: _tempUnits,
-                style: styles.bodyMedium?.copyWith(fontSize: 60.0)),
-          ],
-        ),
-      );
-    }
+    final tempWidget = Text.rich(
+      TextSpan(
+        style: styles.bodyMedium?.copyWith(fontSize: 72.0),
+        children: <TextSpan>[
+          TextSpan(text: _temp),
+          TextSpan(
+            text: _tempUnits,
+            style: styles.bodyMedium?.copyWith(fontSize: 60.0),
+          ),
+        ],
+      ),
+    );
 
-    Widget renderTempFeelLikes() {
-      return Text.rich(
-        textAlign: TextAlign.center,
-        TextSpan(
-          style: styles.bodyMedium,
-          children: [
-            TextSpan(text: t.weather.feelsLikeAs),
-
-            // Todo: issue #7 https://github.com/PackRuble/weather_today/issues/7
-            //  если мы применяем style, то сбивается baseline или alignment
-            //
-            //  также, мы не можем применить TextSpan т.к. при переполнении
-            //  тире переносится без значения
-            //
-            //  а тире я использую, потому что минус достаточно мал по длине и
-            //  выглядит плохо для дизайна. Хотя и с минусом проблем нет.
-            WidgetSpan(
-              child: Text(
-                ' $_tempFeelsLike$_tempUnits',
-                // style: styles.bodyLarge,
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    Widget renderDescription() {
-      return Text(
-        _weatherMain,
+    final tempFeelLikesWidget = Text.rich(
+      textAlign: TextAlign.center,
+      TextSpan(
         style: styles.bodyMedium,
-        textAlign: TextAlign.center,
-      );
-    }
+        children: [
+          TextSpan(text: t.weather.feelsLikeAs),
+          TextSpan(text: ' $_tempFeelsLike$_tempUnits'),
+        ],
+      ),
+    );
+
+    final descriptionWidget = Text(
+      _weatherMain,
+      style: styles.bodyMedium,
+      textAlign: TextAlign.center,
+    );
 
     const _height1block = 150.0;
     const _inset = 10.0;
@@ -194,10 +175,10 @@ class _MainInfoWidget extends ConsumerWidget {
                 dimension: _height1block,
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
-                  child: renderTemp(),
+                  child: tempWidget,
                 ),
               ),
-              renderTempFeelLikes(),
+              tempFeelLikesWidget,
             ],
           ),
         ),
@@ -226,7 +207,7 @@ class _MainInfoWidget extends ConsumerWidget {
                   ],
                 ),
               ),
-              renderDescription(),
+              descriptionWidget,
             ],
           ),
         ),
