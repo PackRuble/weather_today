@@ -86,42 +86,37 @@ class _BottomBarWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-
     final t = ref.watch(AppLocalization.currentTranslation);
 
-    return SizedBox(
+    return BottomAppBar(
+      padding: EdgeInsets.zero,
       height: AppInsets.heightBottomBar,
-      child: BottomAppBar(
-        color: theme.colorScheme.background.darken(5),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            const Flexible(
-              child: BottomIcon(
-                index: 0,
-              ),
+      color: theme.colorScheme.background.darken(5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          const BottomIcon(
+            index: 0,
+          ),
+          Expanded(
+            child: BottomIcon(
+              label: t.mainPageDRuble.mainPage.bottomBar.hourly,
+              index: 1,
             ),
-            Expanded(
-              child: BottomIcon(
-                label: t.mainPageDRuble.mainPage.bottomBar.hourly,
-                index: 1,
-              ),
+          ),
+          Expanded(
+            child: BottomIcon(
+              label: t.mainPageDRuble.mainPage.bottomBar.today,
+              index: 2,
             ),
-            Expanded(
-              child: BottomIcon(
-                label: t.mainPageDRuble.mainPage.bottomBar.today,
-                index: 2,
-              ),
+          ),
+          Expanded(
+            child: BottomIcon(
+              label: t.mainPageDRuble.mainPage.bottomBar.daily,
+              index: 3,
             ),
-            Expanded(
-              child: BottomIcon(
-                label: t.mainPageDRuble.mainPage.bottomBar.daily,
-                index: 3,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -136,26 +131,6 @@ class BottomIcon extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final TextTheme textTheme = theme.textTheme;
-
-    final int currentIndex = ref.watch(HomePageController.currentIndex);
-    final double textScaleFactor = ref.watch(AppTheme.textScaleFactor);
-
-    final themeNavBar = theme.bottomNavigationBarTheme;
-
-    final selectedColor = themeNavBar.selectedItemColor;
-    final unselectedColor = themeNavBar.unselectedItemColor;
-
-    final selectedStyle = textTheme.labelLarge?.copyWith(
-      fontSize:
-          (themeNavBar.selectedLabelStyle?.fontSize ?? 14) * textScaleFactor,
-      color: selectedColor,
-    );
-    final unselectedStyle = textTheme.labelMedium?.copyWith(
-      fontSize:
-          (themeNavBar.unselectedLabelStyle?.fontSize ?? 12) * textScaleFactor,
-      color: unselectedColor,
-    );
 
     return TextButton(
       onPressed: () =>
@@ -163,18 +138,49 @@ class BottomIcon extends ConsumerWidget {
       style: theme.textButtonTheme.style?.copyWith(
         padding: const MaterialStatePropertyAll(EdgeInsets.zero),
         minimumSize: const MaterialStatePropertyAll(Size.fromWidth(48.0)),
+        splashFactory: InkSparkle.splashFactory,
       ),
-      child: label == null
-          ? Icon(
-              AppIcons.settingsIcon,
-              size: index == currentIndex ? 27.0 : 24.0,
-              color: index == currentIndex ? selectedColor : unselectedColor,
-            )
-          : Text(
-              label!,
-              overflow: TextOverflow.ellipsis,
-              style: index == currentIndex ? selectedStyle : unselectedStyle,
-            ),
+      child: Consumer(
+        builder: (context, ref, _) {
+          final TextTheme textTheme = theme.textTheme;
+
+          final int currentIndex = ref.watch(HomePageController.currentIndex);
+          final double textScaleFactor = ref.watch(AppTheme.textScaleFactor);
+
+          final themeNavBar = theme.bottomNavigationBarTheme;
+
+          final selectedColor = themeNavBar.selectedItemColor;
+          final unselectedColor = themeNavBar.unselectedItemColor;
+
+          final selectedStyle = textTheme.labelLarge?.copyWith(
+            fontSize: (themeNavBar.selectedLabelStyle?.fontSize ?? 14) *
+                textScaleFactor,
+            color: selectedColor,
+          );
+          final unselectedStyle = textTheme.labelMedium?.copyWith(
+            fontSize: (themeNavBar.unselectedLabelStyle?.fontSize ?? 12) *
+                textScaleFactor,
+            color: unselectedColor,
+          );
+
+          return label == null
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Icon(
+                    AppIcons.settingsIcon,
+                    size: index == currentIndex ? 27.0 : 24.0,
+                    color:
+                        index == currentIndex ? selectedColor : unselectedColor,
+                  ),
+                )
+              : Text(
+                  label!,
+                  overflow: TextOverflow.ellipsis,
+                  style:
+                      index == currentIndex ? selectedStyle : unselectedStyle,
+                );
+        },
+      ),
     );
   }
 }
