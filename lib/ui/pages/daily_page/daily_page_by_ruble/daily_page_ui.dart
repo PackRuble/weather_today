@@ -147,6 +147,7 @@ class _GroupExpansionWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // todo: хочется отрисовывать внутренности только после открытия. Хорошая оптимизация будет :)
     //  хотя и ExpansionPanelList отрисовывает содержимое сразу
+    // быть может поможет Visibility...
     return ExpandableNotifier(
       child: ScrollOnExpand(
         child: ExpandablePanel(
@@ -459,6 +460,7 @@ class _OneTile extends StatelessWidget {
       ),
     );
 
+    // todo: решить проблему с значением давления
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

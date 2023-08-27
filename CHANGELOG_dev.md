@@ -1,3 +1,16 @@
+## [3.3.0-pre.1+10] - 25-08-2023
+- imp: upgrade to dart 3.1 and flutter 3.13
+- upd: dependencies with code (routing, old search_bar)
+- upd: kotlin_version "1.6.21" to "1.7.10"
+- upd: tools.build:gradle "7.4.1" to "7.4.2"
+- fix: "zone mismatch" when call `WidgetsFlutterBinding.ensureInitialized()` in another zone
+- fix: bottom navigation bar
+- fix: duration animation in search bar
+- fix: description deleted if it is the same as the main description
+- fix: duration in search bar
+- add: shadow to weather image
+- imp: more flexible ui
+
 ## 3.2.0+pre.8
 * upd: `pubspec` dependencies
 * fix: the section with logging enabled is temporarily hidden
