@@ -14,7 +14,7 @@ import '../../../shared/rowtile_table_widget.dart';
 import '../../../shared/shared_widget.dart';
 import '../../../utils/metrics_helper.dart';
 
-const double _inset = 15.0;
+const double _inset = 14.0;
 
 /// Страница с CURRENT-погодой, дизайн ByRuble.
 class CurrentWeatherPageByRuble extends ConsumerWidget {
@@ -36,7 +36,7 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
         const _MainDescriptionWidget(),
         const AttributionWeatherWidget(
           padding:
-              EdgeInsets.only(left: 8.0, right: 8.0, top: 0.0, bottom: 5.0),
+              EdgeInsets.only(left: 8.0, right: 8.0, top: 0.0, bottom: 4.0),
         ),
         divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.sun),
@@ -73,7 +73,10 @@ class _TitleWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return HeaderRWidget(title);
+    return HeaderRWidget(
+      title,
+      padding: const EdgeInsets.only(left: _inset, top: _inset),
+    );
   }
 }
 
@@ -98,7 +101,7 @@ class _DateWidget extends ConsumerWidget {
           children: <TextSpan>[
             TextSpan(text: '${t.weather.currentAsOf} '),
             _date != null
-                ? TextSpan(text: DateFormat('EEE, d MMMM, HH:mm').format(_date))
+                ? TextSpan(text: DateFormat('EEE, d MMMM, HH:mm').format(_date))
                 : const TextSpan(text: '–')
           ],
         ),
@@ -209,15 +212,23 @@ class _MainDescriptionWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
+    final t = ref.watch(CurrentPageController.tr);
 
-    final String? description =
-        ref.watch(CurrentPageController.current).value!.weatherDescription;
+    final weather = ref.watch(CurrentPageController.current).value!;
+    final String? description = weather.weatherDescription;
+    final String? _weatherMain =
+        MetricsHelper.getWeatherMainTr(weather.weatherMain, t);
+
+    if (description == null ||
+        _weatherMain?.toLowerCase() == description.toLowerCase()) {
+      return const SizedBox(height: 6);
+    }
 
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: Text(
-          description?.toCapitalized() ?? '٩(｡•́‿•̀｡)۶',
+          description.toCapitalized(),
           textAlign: TextAlign.center,
           style: styles.bodyMedium,
         ),
@@ -239,11 +250,11 @@ class _SunriseInfoWidget extends ConsumerWidget {
     final DateTime? sunriseD = wCur.sunrise;
     final DateTime? sunsetD = wCur.sunset;
 
-    String sunrise = '${t.mainPageDRuble.currentPage.sunrise} - ';
-    String sunset = '${t.mainPageDRuble.currentPage.sunset} - ';
-    String dayLength = '${t.mainPageDRuble.currentPage.dayLength} - ';
+    String sunrise = '${t.mainPageDRuble.currentPage.sunrise} – ';
+    String sunset = '${t.mainPageDRuble.currentPage.sunset} – ';
+    String dayLength = '${t.mainPageDRuble.currentPage.dayLength} – ';
     String timeBeforeSunset =
-        '${t.mainPageDRuble.currentPage.timeBeforeSunset} - ';
+        '${t.mainPageDRuble.currentPage.timeBeforeSunset} – ';
 
     if (sunriseD != null && sunsetD != null) {
       final Duration diff = sunsetD.difference(sunriseD);
