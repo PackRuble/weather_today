@@ -185,7 +185,9 @@ class TileHourlyWidget extends ConsumerWidget {
           ),
           SizedBox.square(
             dimension: 50.0,
-            child: ImageHelper.getWeatherIcon(weather.weatherIcon),
+            child: FittedBox(
+              child: WeatherImageIcon(weatherIcon: weather.weatherIcon),
+            ),
           ),
           const SizedBox(width: 6.0),
           SizedBox(
@@ -201,15 +203,17 @@ class TileHourlyWidget extends ConsumerWidget {
             ),
           ),
           const SizedBox(width: 6.0),
-          Text.rich(
-            overflow: TextOverflow.fade,
-            maxLines: 1,
-            TextSpan(
-              text: _weatherMain,
-              style: styles.bodyMedium,
+          Expanded(
+            child: Text.rich(
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              TextSpan(
+                text: _weatherMain,
+                style: styles.bodyMedium,
+              ),
             ),
           ),
-          const Spacer(),
+          const SizedBox(width: 6.0),
           if (_pop != null)
             Text.rich(
               TextSpan(

@@ -252,8 +252,9 @@ class TileDailyWidget extends ConsumerWidget {
             child: SizedBox.square(
               dimension: 60.0,
               child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: ImageHelper.getWeatherIcon(weather.weatherIcon)),
+                fit: BoxFit.contain,
+                child: WeatherImageIcon(weatherIcon: weather.weatherIcon),
+              ),
             ),
           ),
           Flexible(

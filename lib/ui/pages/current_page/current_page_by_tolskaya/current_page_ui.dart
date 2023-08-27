@@ -158,8 +158,9 @@ class _MainInfoWidget extends ConsumerWidget {
                 child: SizedBox.square(
                   dimension: 75.0,
                   child: FittedBox(
-                      fit: BoxFit.contain,
-                      child: ImageHelper.getWeatherIcon(weatherIcon)),
+                    fit: BoxFit.contain,
+                    child: WeatherImageIcon(weatherIcon: weatherIcon),
+                  ),
                 ),
               ),
             ),

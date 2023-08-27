@@ -216,8 +216,9 @@ class ChartForecastWidget extends ConsumerWidget {
                   SizedBox.square(
                     dimension: ChartTheme.fSizeWeatherIcon,
                     child: FittedBox(
-                        fit: BoxFit.contain,
-                        child: ImageHelper.getWeatherIcon(weatherIcon)),
+                      fit: BoxFit.contain,
+                      child: WeatherImageIcon(weatherIcon: weatherIcon),
+                    ),
                   ),
                 ],
               ),

@@ -26,7 +26,7 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(CurrentPageController.tr);
 
-    const Divider _divider = Divider(thickness: 1.0);
+    const Divider divider = Divider(thickness: 1.0);
 
     return ListView(
       physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
@@ -38,16 +38,16 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
           padding:
               EdgeInsets.only(left: 8.0, right: 8.0, top: 0.0, bottom: 5.0),
         ),
-        _divider,
+        divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.sun),
         _customPadding(child: const _SunriseInfoWidget()),
-        _divider,
+        divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.wind),
         _customPadding(child: const _WindWidget()),
-        _divider,
+        divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.clouds),
         _customPadding(child: const CloudinessWidget()),
-        _divider,
+        divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.more),
         _customPadding(child: const _ExtendedInfoWidget()),
       ],
@@ -185,26 +185,12 @@ class _MainInfoWidget extends ConsumerWidget {
         const SizedBox(width: _inset),
         Flexible(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox.square(
                 dimension: _height1block,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    DecoratedBox(
-                      decoration: ShapeDecoration(
-                        shadows: [
-                          BoxShadow(
-                            color: theme.colorScheme.primary,
-                            blurRadius: 50,
-                            spreadRadius: 30,
-                          ),
-                        ],
-                        shape: const CircleBorder(),
-                      ),
-                    ),
-                    ImageHelper.getWeatherIcon(weather.weatherIcon)
-                  ],
+                child: FittedBox(
+                  child: WeatherImageIcon(weatherIcon: weather.weatherIcon),
                 ),
               ),
               descriptionWidget,
@@ -263,11 +249,14 @@ class _SunriseInfoWidget extends ConsumerWidget {
       final Duration diff = sunsetD.difference(sunriseD);
 
       if (diff.inHours == 0) {
-        dayLength += t.global.time
-            .timeToMinute(minute: diff.inMinutes - (diff.inHours * 60));
+        dayLength += t.global.time.timeToMinute(
+          minute: diff.inMinutes - (diff.inHours * 60),
+        );
       } else {
         dayLength += t.global.time.timeToHourMinute(
-            hour: diff.inHours, minute: diff.inMinutes - (diff.inHours * 60));
+          hour: diff.inHours,
+          minute: diff.inMinutes - (diff.inHours * 60),
+        );
       }
 
       final Duration diffSunset =
@@ -277,8 +266,9 @@ class _SunriseInfoWidget extends ConsumerWidget {
         timeBeforeSunset += t.weather.sunAlreadySet;
       } else {
         timeBeforeSunset += t.global.time.timeToHourMinute(
-            hour: diffSunset.inHours,
-            minute: diffSunset.inMinutes - (diffSunset.inHours * 60));
+          hour: diffSunset.inHours,
+          minute: diffSunset.inMinutes - (diffSunset.inHours * 60),
+        );
       }
       sunrise += DateFormat.Hm().format(sunriseD);
 
@@ -295,12 +285,8 @@ class _SunriseInfoWidget extends ConsumerWidget {
       children: [
         Row(
           children: [
-            Expanded(
-              child: Text(sunrise),
-            ),
-            Expanded(
-              child: Text(sunset),
-            ),
+            Expanded(child: Text(sunrise)),
+            Expanded(child: Text(sunset)),
           ],
         ),
         const SizedBox(height: 10.0),
