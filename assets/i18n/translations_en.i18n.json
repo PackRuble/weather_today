@@ -22,7 +22,7 @@
         "title": "Precipitation",
         "subtitle": "Total precipitation",
         "no_pop_expected": "No precipitation expected",
-        "pop_expected": "Precipitation from {startDate} to {endDate} is not expected",
+        "pop_expected": "Precipitation from {startDate} to {endDate} is not expected",
         "units": "mm",
         "legend": {
           "rain": "rain",
@@ -34,7 +34,7 @@
         "subtitle": "Maximum wind",
         "units": "m/s",
         "no_wind_expected": "Doldrums pending",
-        "wind_expected": "From {startDate} to {endDate} doldrums",
+        "wind_expected": "From {startDate} to {endDate} doldrums",
         "legend": {
           "wind": "wind",
           "gust": "gust"
@@ -322,12 +322,12 @@
       "today": "Today",
       "tomorrow": "Tomorrow",
       "theDayAfterTomorrow": "The day after tomorrow",
-      "time_to_hour_minute": "{hour} h {minute} min",
-      "time_to_minute": "{minute} min",
-      "time_from_timeS_to_timeE": "{time} from {time_start} to {time_end}",
-      "from_time_to_time": "from {time_start} to {time_end}",
-      "time_from_timeS_to_timeEnl": "{time} \nfrom {time_start} to {time_end}",
-      "from_time_to_time_nl": "from {time_start} \nto {time_end}"
+      "time_to_hour_minute": "{hour} h {minute} min",
+      "time_to_minute": "{minute} min",
+      "time_from_timeS_to_timeE": "{time} from {time_start} to {time_end}",
+      "from_time_to_time": "from {time_start} to {time_end}",
+      "time_from_timeS_to_timeEnl": "{time} \nfrom {time_start} to {time_end}",
+      "from_time_to_time_nl": "from {time_start} \nto {time_end}"
     }
   },
   "dialogs": {

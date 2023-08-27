@@ -718,12 +718,12 @@ class TranslationsGlobalTimeEn extends TranslationsGlobalTimeRu {
 	@override String get today => 'Today';
 	@override String get tomorrow => 'Tomorrow';
 	@override String get theDayAfterTomorrow => 'The day after tomorrow';
-	@override String timeToHourMinute({required Object hour, required Object minute}) => '${hour} h ${minute} min';
-	@override String timeToMinute({required Object minute}) => '${minute} min';
-	@override String timeFromTimeSToTimeE({required Object time, required Object timeStart, required Object timeEnd}) => '${time} from ${timeStart} to ${timeEnd}';
-	@override String fromTimeToTime({required Object timeStart, required Object timeEnd}) => 'from ${timeStart} to ${timeEnd}';
-	@override String timeFromTimeSToTimeEnl({required Object time, required Object timeStart, required Object timeEnd}) => '${time} \nfrom ${timeStart} to ${timeEnd}';
-	@override String fromTimeToTimeNl({required Object timeStart, required Object timeEnd}) => 'from ${timeStart} \nto ${timeEnd}';
+	@override String timeToHourMinute({required Object hour, required Object minute}) => '${hour} h ${minute} min';
+	@override String timeToMinute({required Object minute}) => '${minute} min';
+	@override String timeFromTimeSToTimeE({required Object time, required Object timeStart, required Object timeEnd}) => '${time} from ${timeStart} to ${timeEnd}';
+	@override String fromTimeToTime({required Object timeStart, required Object timeEnd}) => 'from ${timeStart} to ${timeEnd}';
+	@override String timeFromTimeSToTimeEnl({required Object time, required Object timeStart, required Object timeEnd}) => '${time} \nfrom ${timeStart} to ${timeEnd}';
+	@override String fromTimeToTimeNl({required Object timeStart, required Object timeEnd}) => 'from ${timeStart} \nto ${timeEnd}';
 }
 
 // Path: dialogs.messages
@@ -917,7 +917,7 @@ class TranslationsMainPageDRubleHourlyPagePopEn extends TranslationsMainPageDRub
 	@override String get title => 'Precipitation';
 	@override String get subtitle => 'Total precipitation';
 	@override String get noPopExpected => 'No precipitation expected';
-	@override String popExpected({required Object startDate, required Object endDate}) => 'Precipitation from ${startDate} to ${endDate} is not expected';
+	@override String popExpected({required Object startDate, required Object endDate}) => 'Precipitation from ${startDate} to ${endDate} is not expected';
 	@override String get units => 'mm';
 	@override late final TranslationsMainPageDRubleHourlyPagePopLegendEn legend = TranslationsMainPageDRubleHourlyPagePopLegendEn._(_root);
 }
@@ -933,7 +933,7 @@ class TranslationsMainPageDRubleHourlyPageWindEn extends TranslationsMainPageDRu
 	@override String get subtitle => 'Maximum wind';
 	@override String get units => 'm/s';
 	@override String get noWindExpected => 'Doldrums pending';
-	@override String windExpected({required Object startDate, required Object endDate}) => 'From ${startDate} to ${endDate} doldrums';
+	@override String windExpected({required Object startDate, required Object endDate}) => 'From ${startDate} to ${endDate} doldrums';
 	@override late final TranslationsMainPageDRubleHourlyPageWindLegendEn legend = TranslationsMainPageDRubleHourlyPageWindLegendEn._(_root);
 }
 

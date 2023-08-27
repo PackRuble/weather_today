@@ -1,9 +1,12 @@
 /// Generated file. Do not edit.
 ///
+/// Original: assets/i18n
+/// To regenerate, run: `dart run slang`
+///
 /// Locales: 2
 /// Strings: 608 (304 per locale)
 ///
-/// Built on 2023-01-11 at 16:22 UTC
+/// Built on 2023-08-27 at 09:50 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -46,4 +49,6 @@ class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, TranslationsRu> {
 	static AppLocale parse(String rawLocale) => instance.parse(rawLocale);
 	static AppLocale parseLocaleParts({required String languageCode, String? scriptCode, String? countryCode}) => instance.parseLocaleParts(languageCode: languageCode, scriptCode: scriptCode, countryCode: countryCode);
 	static AppLocale findDeviceLocale() => instance.findDeviceLocale();
+	static List<Locale> get supportedLocales => instance.supportedLocales;
+	static List<String> get supportedLocalesRaw => instance.supportedLocalesRaw;
 }

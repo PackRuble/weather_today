@@ -714,12 +714,12 @@ class TranslationsGlobalTimeRu {
 	String get today => 'Сегодня';
 	String get tomorrow => 'Завтра';
 	String get theDayAfterTomorrow => 'Послезавтра';
-	String timeToHourMinute({required Object hour, required Object minute}) => '${hour} ч ${minute} мин';
-	String timeToMinute({required Object minute}) => '${minute} мин';
-	String timeFromTimeSToTimeE({required Object time, required Object timeStart, required Object timeEnd}) => '${time} с ${timeStart} по ${timeEnd}';
-	String fromTimeToTime({required Object timeStart, required Object timeEnd}) => 'с ${timeStart} по ${timeEnd}';
-	String timeFromTimeSToTimeEnl({required Object time, required Object timeStart, required Object timeEnd}) => '${time} \nс ${timeStart} по ${timeEnd}';
-	String fromTimeToTimeNl({required Object timeStart, required Object timeEnd}) => 'с ${timeStart} \nпо ${timeEnd}';
+	String timeToHourMinute({required Object hour, required Object minute}) => '${hour} ч ${minute} мин';
+	String timeToMinute({required Object minute}) => '${minute} мин';
+	String timeFromTimeSToTimeE({required Object time, required Object timeStart, required Object timeEnd}) => '${time} с ${timeStart} по ${timeEnd}';
+	String fromTimeToTime({required Object timeStart, required Object timeEnd}) => 'с ${timeStart} по ${timeEnd}';
+	String timeFromTimeSToTimeEnl({required Object time, required Object timeStart, required Object timeEnd}) => '${time} \nс ${timeStart} по ${timeEnd}';
+	String fromTimeToTimeNl({required Object timeStart, required Object timeEnd}) => 'с ${timeStart} \nпо ${timeEnd}';
 }
 
 // Path: dialogs.messages
@@ -913,7 +913,7 @@ class TranslationsMainPageDRubleHourlyPagePopRu {
 	String get title => 'Осадки';
 	String get subtitle => 'Общий объем осадков';
 	String get noPopExpected => 'Осадки не ожидаются';
-	String popExpected({required Object startDate, required Object endDate}) => 'Осадки с ${startDate} по ${endDate} не ожидаются';
+	String popExpected({required Object startDate, required Object endDate}) => 'Осадки с ${startDate} по ${endDate} не ожидаются';
 	String get units => 'мм';
 	late final TranslationsMainPageDRubleHourlyPagePopLegendRu legend = TranslationsMainPageDRubleHourlyPagePopLegendRu._(_root);
 }
@@ -929,7 +929,7 @@ class TranslationsMainPageDRubleHourlyPageWindRu {
 	String get subtitle => 'Максимальный ветер';
 	String get units => 'м/с';
 	String get noWindExpected => 'Ожидается штиль';
-	String windExpected({required Object startDate, required Object endDate}) => 'С ${startDate} по ${endDate} штиль';
+	String windExpected({required Object startDate, required Object endDate}) => 'С ${startDate} по ${endDate} штиль';
 	late final TranslationsMainPageDRubleHourlyPageWindLegendRu legend = TranslationsMainPageDRubleHourlyPageWindLegendRu._(_root);
 }
 

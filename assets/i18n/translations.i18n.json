@@ -22,7 +22,7 @@
         "title": "Осадки",
         "subtitle": "Общий объем осадков",
         "no_pop_expected": "Осадки не ожидаются",
-        "pop_expected": "Осадки с {startDate} по {endDate} не ожидаются",
+        "pop_expected": "Осадки с {startDate} по {endDate} не ожидаются",
         "units": "мм",
         "legend": {
           "rain": "дождь",
@@ -34,7 +34,7 @@
         "subtitle": "Максимальный ветер",
         "units": "м/с",
         "no_wind_expected": "Ожидается штиль",
-        "wind_expected": "С {startDate} по {endDate} штиль",
+        "wind_expected": "С {startDate} по {endDate} штиль",
         "legend": {
           "wind": "ветер",
           "gust": "порывы"
@@ -331,12 +331,12 @@
       "today": "Сегодня",
       "tomorrow": "Завтра",
       "theDayAfterTomorrow": "Послезавтра",
-      "time_to_hour_minute": "{hour} ч {minute} мин",
-      "time_to_minute": "{minute} мин",
-      "time_from_timeS_to_timeE": "{time} с {time_start} по {time_end}",
-      "from_time_to_time": "с {time_start} по {time_end}",
-      "time_from_timeS_to_timeEnl": "{time} \nс {time_start} по {time_end}",
-      "from_time_to_time_nl": "с {time_start} \nпо {time_end}"
+      "time_to_hour_minute": "{hour} ч {minute} мин",
+      "time_to_minute": "{minute} мин",
+      "time_from_timeS_to_timeE": "{time} с {time_start} по {time_end}",
+      "from_time_to_time": "с {time_start} по {time_end}",
+      "time_from_timeS_to_timeEnl": "{time} \nс {time_start} по {time_end}",
+      "from_time_to_time_nl": "с {time_start} \nпо {time_end}"
     }
   },
   "dialogs": {
