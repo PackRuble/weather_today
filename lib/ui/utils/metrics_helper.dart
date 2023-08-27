@@ -130,7 +130,7 @@ class MetricsHelper {
     return value.contains(_hyphenMinus) ? _minus + value.substring(1) : value;
   }
 
-  /// Получить темпрературу в строковом виде.
+  /// Получить температуру в строковом виде.
   ///
   /// Нюансы:
   /// * знак дефис-минус всегда заменяется на минус.
@@ -142,7 +142,7 @@ class MetricsHelper {
   /// * [withFiller] - использовать заполнитель при [value]=null.
   /// * [filler] - заполнитель при [value]=null.
   /// * [precision] - количество знаков после запятой. Всегда >=0
-  static String? getTemp(
+  static String? getTempOrNull(
     double? value,
     Temp units, {
     bool withSign = false,
@@ -183,6 +183,26 @@ class MetricsHelper {
 
     return result;
   }
+
+  /// Отличается от [getTempOrNull] только тем, что всегда использует [filler],
+  /// если [value] равно null.
+  static String getTemp(
+    double? value,
+    Temp units, {
+    bool withSign = false,
+    bool withUnits = true,
+    String filler = '–',
+    int? precision,
+  }) =>
+      getTempOrNull(
+        value,
+        units,
+        withSign: withSign,
+        withUnits: withUnits,
+        withFiller: true,
+        filler: filler,
+        precision: precision,
+      )!;
 
   /// Получить единицы температуры вида `°C`.
   static String getTempUnits(Temp units) => units.abbr;

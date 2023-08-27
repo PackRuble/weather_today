@@ -157,8 +157,8 @@ class TileHourlyWidget extends ConsumerWidget {
 
     final Temp tempUnits = ref.watch(HourlyPageController.tempUnits);
 
-    final String _temp = MetricsHelper.getTemp(weather.temp, tempUnits,
-        withUnits: false, withFiller: true)!;
+    final String _temp =
+        MetricsHelper.getTemp(weather.temp, tempUnits, withUnits: false);
 
     final String? _pop = MetricsHelper.withPrecision(
         MetricsHelper.getPercentage(

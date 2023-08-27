@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -179,10 +181,10 @@ class TileDailyWidget extends ConsumerWidget {
 
     final Temp tempUnits = ref.watch(DailyPageController.tempUnits);
     final String _tempUnits = MetricsHelper.getTempUnits(tempUnits);
-    final String _tempMin = MetricsHelper.getTemp(weather.tempMin, tempUnits,
-        withUnits: false, withFiller: true)!;
-    final String _tempMax = MetricsHelper.getTemp(weather.tempMax, tempUnits,
-        withUnits: false, withFiller: true)!;
+    final String _tempMin =
+        MetricsHelper.getTemp(weather.tempMin, tempUnits, withUnits: false);
+    final String _tempMax =
+        MetricsHelper.getTemp(weather.tempMax, tempUnits, withUnits: false);
 
     final String? _pop = MetricsHelper.withPrecision(
         MetricsHelper.getPercentage(
@@ -316,51 +318,24 @@ class _ExpandedWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print('$_ExpandedWidget + ${weather.date}');
-    final TextTheme stylesText = Theme.of(context).textTheme;
     final t = ref.watch(AppLocalization.currentTranslation);
 
     final Temp tempUnits = ref.watch(DailyPageController.tempUnits);
 
-    String getTemp(double? value) => MetricsHelper.getTemp(value, tempUnits,
-        withUnits: false, withFiller: true)!;
+    String getTemp(double? value) => MetricsHelper.getTemp(
+          value,
+          tempUnits,
+          withUnits: false,
+        );
 
     final Pressure pressureUnits = ref.watch(WeatherServices.pressureUnits);
     final String? _pressure = MetricsHelper.getPressure(
-        weather.pressure, pressureUnits,
-        withUnits: false, precision: 0);
+      weather.pressure,
+      pressureUnits,
+      withUnits: false,
+      precision: 0,
+    );
     final String _pressureUnits = MetricsHelper.getPressureUnits(pressureUnits);
-
-    /// Одна тайл-строка.
-    Widget _buildTile(String title, [String? value, String? unit]) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: 2,
-            child: Text(
-              title,
-              overflow: TextOverflow.fade,
-              style: stylesText.labelLarge,
-            ),
-          ),
-          const SizedBox(width: 2.0),
-          Text.rich(
-            textAlign: TextAlign.end,
-            TextSpan(
-              style: stylesText.labelLarge,
-              children: <TextSpan>[
-                TextSpan(text: value),
-                TextSpan(
-                  text: unit,
-                  style: stylesText.labelMedium,
-                ),
-              ],
-            ),
-          ),
-        ],
-      );
-    }
 
     return Column(
       children: [
@@ -370,78 +345,78 @@ class _ExpandedWidget extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildTitleRow(t.weather.riseAndSetPl),
-              _buildRow(
+              _Title(t.weather.riseAndSetPl),
+              _TitleContent(
                 height: _minHeightRowTile * 3,
                 left: [
-                  _buildTile(t.weather.sunrise,
+                  _OneTile(t.weather.sunrise,
                       DateFormat.Hm().format(weather.sunrise!)),
-                  _buildTile(t.weather.sunset,
+                  _OneTile(t.weather.sunset,
                       DateFormat.Hm().format(weather.sunset!)),
                 ],
                 right: [
-                  _buildTile(t.weather.moonrise,
+                  _OneTile(t.weather.moonrise,
                       DateFormat.Hm().format(weather.moonrise!)),
-                  _buildTile(t.weather.moonset,
+                  _OneTile(t.weather.moonset,
                       DateFormat.Hm().format(weather.moonset!)),
-                  _buildTile(t.weather.moonPhase, weather.moonPhase.toString()),
+                  _OneTile(t.weather.moonPhase, weather.moonPhase.toString()),
                 ],
               ),
               _hDivider,
-              _buildTitleRow(t.weather.temp),
-              _buildRow(
+              _Title(t.weather.temp),
+              _TitleContent(
                 height: _minHeightRowTile * 1,
                 left: [
-                  _buildTile(t.weather.minimum, getTemp(weather.tempMin),
+                  _OneTile(t.weather.minimum, getTemp(weather.tempMin),
                       tempUnits.abbr)
                 ],
                 right: [
-                  _buildTile(t.weather.maximum, getTemp(weather.tempMax),
+                  _OneTile(t.weather.maximum, getTemp(weather.tempMax),
                       tempUnits.abbr)
                 ],
               ),
               _hDivider,
-              _buildRow(
+              _TitleContent(
                 height: _minHeightRowTile * 5,
                 left: [
-                  _buildTile(t.weather.real),
-                  _buildTile(t.weather.atMorning, getTemp(weather.tempMorning),
+                  _OneTile(t.weather.real),
+                  _OneTile(t.weather.atMorning, getTemp(weather.tempMorning),
                       tempUnits.abbr),
-                  _buildTile(t.weather.atDay, getTemp(weather.tempDay),
+                  _OneTile(t.weather.atDay, getTemp(weather.tempDay),
                       tempUnits.abbr),
-                  _buildTile(t.weather.atEvening, getTemp(weather.tempEvening),
+                  _OneTile(t.weather.atEvening, getTemp(weather.tempEvening),
                       tempUnits.abbr),
-                  _buildTile(t.weather.atNight, getTemp(weather.tempNight),
+                  _OneTile(t.weather.atNight, getTemp(weather.tempNight),
                       tempUnits.abbr),
                 ],
                 right: [
-                  _buildTile(t.weather.feels),
-                  _buildTile(t.weather.atMorning,
+                  _OneTile(t.weather.feels),
+                  _OneTile(t.weather.atMorning,
                       getTemp(weather.tempFeelsLikeMorning), tempUnits.abbr),
-                  _buildTile(t.weather.atDay, getTemp(weather.tempFeelsLikeDay),
+                  _OneTile(t.weather.atDay, getTemp(weather.tempFeelsLikeDay),
                       tempUnits.abbr),
-                  _buildTile(t.weather.atEvening,
+                  _OneTile(t.weather.atEvening,
                       getTemp(weather.tempFeelsLikeEvening), tempUnits.abbr),
-                  _buildTile(t.weather.atNight,
+                  _OneTile(t.weather.atNight,
                       getTemp(weather.tempFeelsLikeNight), tempUnits.abbr),
                 ],
               ),
               _hDivider,
-              _buildTitleRow(t.weather.indicators),
-              _buildRow(
+              _Title(t.weather.indicators),
+              _TitleContent(
                 height: _minHeightRowTile * 3,
                 left: [
                   if (_pressure != null)
-                    _buildTile(
-                        t.weather.pressure, _pressure, ' $_pressureUnits'),
-                  _buildTile(t.weather.cloudiness,
+                    _OneTile(t.weather.pressure, _pressure, ' $_pressureUnits',
+                        true),
+                  _OneTile(t.weather.cloudiness,
                       weather.cloudiness.toStringMaybe(), '%'),
-                  _buildTile(t.weather.uvi, weather.uvi.toStringMaybe()),
+                  _OneTile(t.weather.uvi, weather.uvi.toStringMaybe()),
                 ],
                 right: [
-                  _buildTile(t.weather.humidity,
-                      weather.humidity.toStringMaybe(), '%'),
-                  _buildTile(t.weather.dewPoint, getTemp(weather.dewPoint),
+                  _OneTile(t.weather.humidity, weather.humidity.toStringMaybe(),
+                      '%'),
+                  _OneTile(t.weather.dewPoint, getTemp(weather.dewPoint),
                       tempUnits.abbr),
                 ],
               ),
@@ -451,35 +426,108 @@ class _ExpandedWidget extends ConsumerWidget {
       ],
     );
   }
+}
 
-  Widget _buildRow(
-      {required double height,
-      required List<Widget> left,
-      required List<Widget> right}) {
+class _OneTile extends StatelessWidget {
+  const _OneTile(
+    this.title, [
+    this.value,
+    this.unit,
+    this.isExpandedUnit = false,
+  ]);
+
+  final String title;
+  final String? value;
+  final String? unit;
+  final bool isExpandedUnit;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    final valueWithUnitWidget = Text.rich(
+      textAlign: TextAlign.end,
+      TextSpan(
+        style: textTheme.labelLarge,
+        children: <TextSpan>[
+          TextSpan(text: value),
+          TextSpan(
+            text: unit,
+            style: textTheme.labelMedium,
+          ),
+        ],
+      ),
+    );
+
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: left,
+        Flexible(
+          flex: 1,
+          fit: isExpandedUnit ? FlexFit.loose : FlexFit.tight,
+          child: Text(
+            title,
+            style: textTheme.labelLarge,
           ),
         ),
-        SizedBox(
-          height: height,
-          child: _vDivider,
-        ),
-        Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: right,
+        if (isExpandedUnit) ...[
+          Flexible(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 4),
+              child: valueWithUnitWidget,
+            ),
           ),
-        ),
+        ] else
+          valueWithUnitWidget
       ],
     );
   }
+}
 
-  /// Заголовок показателей.
-  Widget _buildTitleRow(String title) => Align(
+class _TitleContent extends StatelessWidget {
+  const _TitleContent({
+    super.key,
+    required this.height,
+    required this.left,
+    required this.right,
+  });
+
+  final double height;
+  final List<Widget> left;
+  final List<Widget> right;
+
+  @override
+  Widget build(BuildContext context) => Row(
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: left,
+            ),
+          ),
+          SizedBox(
+            height: height,
+            child: _vDivider,
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: right,
+            ),
+          ),
+        ],
+      );
+}
+
+/// Заголовок показателей.
+class _Title extends StatelessWidget {
+  const _Title(this.title, {super.key});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) => Align(
         alignment: Alignment.centerLeft,
         child: HeaderRWidget(
           title,

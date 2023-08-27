@@ -124,12 +124,12 @@ class _MainInfoWidget extends ConsumerWidget {
         ref.watch(CurrentPageController.current).value!;
 
     final Temp tempUnits = ref.watch(CurrentPageController.tempUnits);
-    final String _temp = MetricsHelper.getTemp(weather.temp, tempUnits,
-        withUnits: false, withFiller: true)!;
+    final String _temp =
+        MetricsHelper.getTemp(weather.temp, tempUnits, withUnits: false);
     final String _tempUnits = MetricsHelper.getTempUnits(tempUnits);
     final String _tempFeelsLike = MetricsHelper.getTemp(
         weather.tempFeelsLike, tempUnits,
-        withUnits: false, withFiller: true)!;
+        withUnits: false);
 
     final String _weatherMain =
         MetricsHelper.getWeatherMainTr(weather.weatherMain, t) ?? r'¯\_(ツ)_/¯';

@@ -134,11 +134,11 @@ class _MainInfoWidget extends ConsumerWidget {
 
     final Temp tempUnits = ref.watch(CurrentPageController.tempUnits);
     final String _temp = MetricsHelper.getTemp(temp, tempUnits,
-        withUnits: false, withSign: true, withFiller: true)!;
+        withUnits: false, withSign: true);
     final String _tempUnits = MetricsHelper.getTempUnits(tempUnits);
     final String _tempFeelsLike = MetricsHelper.getTemp(
         tempFeelsLike, tempUnits,
-        withUnits: false, withFiller: true, withSign: true)!;
+        withUnits: false, withSign: true);
 
     return Column(
       children: [
