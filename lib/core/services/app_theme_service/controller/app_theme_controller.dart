@@ -22,11 +22,6 @@ class AppTheme with Updater {
   static final instance = Provider(AppTheme.new, name: '$AppTheme/instance');
 
   Future<void> init() async {
-    await loadAndUpdate<AppVisualDesign, int>(
-        visualDesign,
-        DbStore.visualDesignApp,
-        DbStore.visualDesignAppDefault,
-        _conversionVisualDesign);
     await loadAndUpdate<double, double>(textScaleFactor,
         DbStore.textScaleFactor, DbStore.textScaleFactorDefault);
     await loadAndUpdate<AppScrollPhysics, int>(
@@ -57,26 +52,6 @@ class AppTheme with Updater {
         DbStore.darkIsTrueBlackDefault);
     await loadAndUpdate<bool, bool>(
         useMaterial3, DbStore.useMaterial3, DbStore.useMaterial3Default);
-  }
-
-  // AppVisualDesign
-  // ---------------------------------------------------------------------------
-
-  /// Тема оформления главных страниц с погодой.
-  static final visualDesign = StateProvider<AppVisualDesign>(
-    (ref) {
-      return _conversionVisualDesign(DbStore.visualDesignAppDefault);
-    },
-    name: '$AppTheme/visualDesign',
-  );
-
-  static AppVisualDesign _conversionVisualDesign(int value) =>
-      AppVisualDesign.values[value];
-
-  /// Установить новое визуальное оформление [visualDesign].
-  Future<void> setVisualDesign(AppVisualDesign design) async {
-    update<AppVisualDesign>(visualDesign, design);
-    await saveDb(DbStore.visualDesignApp, design.index);
   }
 
   // TextScaleFactor

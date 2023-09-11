@@ -5,15 +5,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'package:weather_today/core/services/app_theme_service/models/design_page.dart';
 import 'package:weather_today/core/services/app_theme_service/models/models.dart';
 import 'package:weather_today/extension/enum_extension.dart';
 
 import '../../../shared/appbar_widget.dart';
 import '../../../shared/shared_widget.dart';
 import '../../../shared/wrapper_page.dart';
-import '../../daily_page/daily_page_by_ruble/daily_page_ui.dart' as ruble_daily;
-import '../../hourly_page/hourly_page_by_tolskaya/hourly_page_ui.dart'
-    as tolskaya_hourly;
 import 'visual_design_page_controller.dart';
 
 /// Страница из настроек визуального оформления.
@@ -39,7 +37,7 @@ class VisualDesignPage extends ConsumerWidget {
           ),
           body: Column(
             children: [
-              const _ExampleTileDesign(),
+              // const _ExampleTileDesign(),
               Expanded(
                 child: ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -78,28 +76,28 @@ class _ExampleTileDesign extends ConsumerWidget {
     final WeatherOneCall? weatherMock =
         ref.watch(VisualDPageController.weatherMock).valueOrNull;
 
-    final AppVisualDesign visualDesign =
-        ref.watch(VisualDPageController.selectedDesignProvider);
-
+    // final AppVisualDesign visualDesign =
+    //     ref.watch(VisualDPageController.selectedDesignProvider);
+    //
     Widget? _testedWidget;
+    //
+    // if (weatherMock != null) {
+    //   switch (visualDesign) {
+    //     case AppVisualDesign.byRuble:
+    //       _testedWidget = ruble_daily.TileDailyWidget(weatherMock.daily!.first);
+    //       break;
+    //     case AppVisualDesign.byTolskaya:
+    //       _testedWidget =
+    //           tolskaya_hourly.TileHourlyWidget(weatherMock.hourly![10]);
+    //       break;
+    //   }
 
-    if (weatherMock != null) {
-      switch (visualDesign) {
-        case AppVisualDesign.byRuble:
-          _testedWidget = ruble_daily.TileDailyWidget(weatherMock.daily!.first);
-          break;
-        case AppVisualDesign.byTolskaya:
-          _testedWidget =
-              tolskaya_hourly.TileHourlyWidget(weatherMock.hourly![10]);
-          break;
-      }
+    const Widget _divider = Divider(height: 12.0, thickness: 12.0);
 
-      const Widget _divider = Divider(height: 12.0, thickness: 12.0);
-
-      _testedWidget = Column(
-        children: [_divider, _testedWidget, _divider],
-      );
-    }
+    _testedWidget = Column(
+      children: [_divider, /*_testedWidget,*/ _divider],
+    );
+    // }
 
     final double textScaleFactor =
         ref.watch(VisualDPageController.textScaleFactorProvider);
@@ -150,23 +148,56 @@ class _DesignWidgetChip extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<AppVisualDesign> _designs =
-        ref.watch(VisualDPageController.visualDesignsProvider);
+    final notifier = ref.watch(VisualDPageController.instance);
+    final List<DesignPage> designPages =
+        ref.watch(VisualDPageController.weatherDesignPages);
 
-    final AppVisualDesign _selected =
-        ref.watch(VisualDPageController.selectedDesignProvider);
+    // we really want to read it once
+    final textScaleFactor =
+        ref.read(VisualDPageController.textScaleFactorProvider);
 
-    return ChipsCloud(
-      items: List<ChipInCloud>.generate(_designs.length, (int index) {
-        return ChipInCloud(
-          selected: _selected == _designs[index],
-          label: Text(_designs[index].toCamelCaseToWords()),
-          onSelected: (_) => ref
-              .read(VisualDPageController.instance)
-              .setVisualDesign(_designs[index]),
-        );
-      }),
+    return ReorderableListView(
+      buildDefaultDragHandles: false,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      onReorder: notifier.onReorderWeatherPage,
+      children: [
+        for (final (index, designPage) in designPages.indexed)
+          SwitchListTile(
+            value: notifier.isSelectedDesign(designPage.design),
+            onChanged: designPage.page == WeatherPage.daily
+                ? null
+                : (value) async => notifier.onChangeDesignPage(value, index),
+            key: ValueKey(designPage.hashCode),
+            title: Text(
+              // using for all states
+              style: Theme.of(context).textTheme.titleMedium,
+              designPage.toString(),
+              textScaleFactor: textScaleFactor,
+            ),
+            secondary: ReorderableDragStartListener(
+              index: index,
+              child: Icon(
+                Icons.drag_handle_rounded,
+                // using for all states
+                color: Theme.of(context).iconTheme.color,
+              ),
+            ),
+          )
+      ],
     );
+
+    // return ChipsCloud(
+    //   items: List<ChipInCloud>.generate(_designs.length, (int index) {
+    //     return ChipInCloud(
+    //       selected: _selected == _designs[index],
+    //       label: Text(_designs[index].toCamelCaseToWords()),
+    //       onSelected: (_) => ref
+    //           .read(VisualDPageController.instance)
+    //           .setVisualDesign(_designs[index]),
+    //     );
+    //   }),
+    // );
   }
 }
 

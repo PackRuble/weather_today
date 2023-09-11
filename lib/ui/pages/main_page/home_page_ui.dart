@@ -2,13 +2,14 @@ import 'package:auto_route/annotations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/const/app_insets.dart';
 import 'package:weather_today/core/controllers/general_settings_controller.dart';
 import 'package:weather_today/core/controllers/global_key.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'package:weather_today/core/services/app_theme_service/models/design_page.dart';
+import 'package:weather_today/ui/pages/settings_page/visual_design_page/visual_design_page_controller.dart';
 
 import '../../shared/all_terms_widget.dart';
 import '../../shared/listen_message_widget.dart';
@@ -67,15 +68,19 @@ class _BodyWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final designPages = ref
+        .watch(VisualDPageController.weatherDesignPages)
+        .map((e) => switch (e.page) {
+              WeatherPage.hourly => HourlyWeatherPage(design: e.design),
+              WeatherPage.currently => CurrentWeatherPage(design: e.design),
+              WeatherPage.daily => DailyWeatherPage(design: e.design),
+            })
+        .toList();
+
     return PageView(
       physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       controller: ref.watch(HomePageController.pageController),
-      children: const [
-        SettingsPage(),
-        HourlyWeatherPage(),
-        CurrentWeatherPage(),
-        DailyWeatherPage(),
-      ],
+      children: [const SettingsPage(), ...designPages],
     );
   }
 }

@@ -4,7 +4,9 @@ import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/weather/weather_onecall_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'package:weather_today/core/services/app_theme_service/models/design_page.dart';
 import 'package:weather_today/core/services/app_theme_service/models/models.dart';
+import 'package:weather_today/core/services/cardoteka/cardoteka.dart';
 import 'package:weather_today/i18n/translations.g.dart';
 import 'package:weather_today/ui/const/app_dialogs.dart';
 
@@ -72,28 +74,49 @@ class VisualDPageController {
   // VisualDesign
   // ---------------------------------------------------------------------------
 
-  /// Список визуальных дизайнов.
+  /// List of visual designs.
   ///
-  static final visualDesignsProvider =
-      Provider.autoDispose<List<AppVisualDesign>>(
-          (ref) => AppVisualDesign.values);
+  static final weatherDesignPages = Provider.autoDispose<List<DesignPage>>(
+    (ref) => ref.watch(SettingsStorage.instance).attach(
+          SettingsCards.designPages,
+          (value) => ref.state = value,
+          detacher: ref.onDispose,
+        ),
+  );
 
-  /// Выбранный визульный дизайн.
-  ///
-  static final selectedDesignProvider =
-      StateProvider.autoDispose<AppVisualDesign>(
-          (ref) => ref.watch(AppTheme.visualDesign));
+  Future<void> onReorderWeatherPage(int oldIndex, int newIndex) async {
+    final pages = [..._ref.read(weatherDesignPages)];
 
-  /// Установить новое значение [textScaleFactorProvider].
-  void setVisualDesign(AppVisualDesign design) {
-    _ref.read(selectedDesignProvider.notifier).state = design;
-    _saveNewAction(_SavedChanges.visualDesign);
+    if (oldIndex < newIndex) {
+      // ignore: parameter_assignments
+      newIndex -= 1;
+    }
+    final item = pages.removeAt(oldIndex);
+    pages.insert(newIndex, item);
+
+    await _saveWeatherDesignPages(pages);
   }
 
-  /// Сохранить визуальный дизайн.
-  Future<void> _saveVisualDesign() async => _ref
-      .read(AppTheme.instance)
-      .setVisualDesign(_ref.read(selectedDesignProvider));
+  bool isSelectedDesign(AppVisualDesign design) => switch (design) {
+        AppVisualDesign.byRuble => true,
+        AppVisualDesign.byTolskaya => false,
+      };
+
+  Future<void> onChangeDesignPage(bool isActivate, int designPageIndex) async {
+    final pages = [..._ref.read(weatherDesignPages)];
+
+    final designPage = pages[designPageIndex];
+    pages[designPageIndex] = designPage.copyWith(
+      design: isActivate ? AppVisualDesign.byRuble : AppVisualDesign.byTolskaya,
+    );
+
+    await _saveWeatherDesignPages(pages);
+  }
+
+  /// Установить новое значение [selectedDesignProvider].
+  Future<void> _saveWeatherDesignPages(List<DesignPage> pages) async => _ref
+      .read(SettingsStorage.instance)
+      .set<List<DesignPage>>(SettingsCards.designPages, pages);
 
   // ---------------------------------------------------------------------------
   // FontFamily
@@ -201,7 +224,7 @@ class VisualDPageController {
         in _ref.read(changesProvider.notifier).state) {
       switch (change) {
         case _SavedChanges.visualDesign:
-          await _saveVisualDesign();
+          // await _saveVisualDesign(); // todo:
           break;
         case _SavedChanges.textScaleFactor:
           await _saveTextScaleFactor();

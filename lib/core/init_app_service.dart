@@ -1,3 +1,4 @@
+import 'package:cardoteka/cardoteka.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
 import 'package:weather_today/core/controllers/logger_controller.dart';
@@ -22,6 +23,7 @@ class ServiceInit {
   Future<void> _initServices() async {
     await _initLogger();
     await _initDBService();
+    await _initCardoteka();
     await _initApiOWMService();
     await _initAppGeneralSettings();
     await _initAppTheme();
@@ -30,6 +32,8 @@ class ServiceInit {
   }
 
   Future<void> _initDBService() async => _container.read(dbService).init();
+
+  Future<void> _initCardoteka() async => Cardoteka.init();
 
   Future<void> _initAppTheme() async =>
       _container.read(AppTheme.instance).init();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
-import 'package:weather_today/core/services/app_theme_service/models/models.dart';
+import 'package:weather_today/core/services/app_theme_service/models/design_page.dart';
 import 'package:weather_today/ui/shared/refresh_wrapper.dart';
 
 import 'hourly_page_by_ruble/hourly_page_ui_R.dart';
@@ -11,7 +11,9 @@ import 'hourly_page_controller.dart';
 
 /// Страница с OneCall-погодой, почасовая на 2 дня.
 class HourlyWeatherPage extends ConsumerWidget {
-  const HourlyWeatherPage();
+  const HourlyWeatherPage({super.key, required this.design});
+
+  final AppVisualDesign design;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,13 +22,9 @@ class HourlyWeatherPage extends ConsumerWidget {
       onRefresh: () async =>
           ref.read(HourlyPageController.instance).updateWeather(),
       physicsListView: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
-      child: (List<WeatherHourly> hourly) {
-        switch (ref.watch(AppTheme.visualDesign)) {
-          case AppVisualDesign.byRuble:
-            return HourlyPageByRuble(hourly);
-          case AppVisualDesign.byTolskaya:
-            return HourlyPageByTolskaya(hourly);
-        }
+      child: (List<WeatherHourly> hourly) => switch (design) {
+        AppVisualDesign.byRuble => HourlyPageByRuble(hourly),
+        AppVisualDesign.byTolskaya => HourlyPageByTolskaya(hourly)
       },
     );
   }

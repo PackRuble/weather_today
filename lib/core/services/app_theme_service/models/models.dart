@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Авторский дизайн некоторых элементов главных страниц.
-enum AppVisualDesign {
-  byRuble,
-  byTolskaya,
-}
-
 /// Семейство шрифтов.
 enum AppFontFamily {
   anonymousPro('Anonymous Pro'),
