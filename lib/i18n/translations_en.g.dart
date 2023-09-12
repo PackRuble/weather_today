@@ -33,12 +33,12 @@ class TranslationsEn extends TranslationsRu {
 	@override late final TranslationsWeatherLangPageEn weatherLangPage = TranslationsWeatherLangPageEn._(_root);
 	@override late final TranslationsApiWeatherPageEn apiWeatherPage = TranslationsApiWeatherPageEn._(_root);
 	@override late final TranslationsIntroPageEn introPage = TranslationsIntroPageEn._(_root);
+	@override late final TranslationsTermsConditionsEn termsConditions = TranslationsTermsConditionsEn._(_root);
 	@override late final TranslationsWeatherEn weather = TranslationsWeatherEn._(_root);
 	@override late final TranslationsGlobalEn global = TranslationsGlobalEn._(_root);
 	@override late final TranslationsDialogsEn dialogs = TranslationsDialogsEn._(_root);
 	@override late final TranslationsEnumsEn enums = TranslationsEnumsEn._(_root);
 	@override late final TranslationsUnitsEn units = TranslationsUnitsEn._(_root);
-	@override late final TranslationsTermsConditionsEn termsConditions = TranslationsTermsConditionsEn._(_root);
 }
 
 // Path: mainPageDRuble
@@ -73,8 +73,8 @@ class TranslationsSettingsPageEn extends TranslationsSettingsPageRu {
 	@override late final TranslationsSettingsPageHomepageTileEn homepageTile = TranslationsSettingsPageHomepageTileEn._(_root);
 	@override late final TranslationsSettingsPageLocaleTileEn localeTile = TranslationsSettingsPageLocaleTileEn._(_root);
 	@override late final TranslationsSettingsPageGratitudeTileEn gratitudeTile = TranslationsSettingsPageGratitudeTileEn._(_root);
-	@override late final TranslationsSettingsPageAboutAppTileEn aboutAppTile = TranslationsSettingsPageAboutAppTileEn._(_root);
 	@override late final TranslationsSettingsPageSystemSettingsTileEn systemSettingsTile = TranslationsSettingsPageSystemSettingsTileEn._(_root);
+	@override late final TranslationsSettingsPageAboutAppTileEn aboutAppTile = TranslationsSettingsPageAboutAppTileEn._(_root);
 }
 
 // Path: visualDesignPage
@@ -85,6 +85,7 @@ class TranslationsVisualDesignPageEn extends TranslationsVisualDesignPageRu {
 
 	// Translations
 	@override String get appbarTitle => 'Visual design';
+	@override late final TranslationsVisualDesignPageTipsEn tips = TranslationsVisualDesignPageTipsEn._(_root);
 	@override late final TranslationsVisualDesignPageHeadersEn headers = TranslationsVisualDesignPageHeadersEn._(_root);
 }
 
@@ -233,6 +234,22 @@ class TranslationsIntroPageEn extends TranslationsIntroPageRu {
 	@override String get doneButton => 'Done';
 }
 
+// Path: termsConditions
+class TranslationsTermsConditionsEn extends TranslationsTermsConditionsRu {
+	TranslationsTermsConditionsEn._(TranslationsEn root) : this._root = root, super._(root);
+
+	@override final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get informationForAction => 'Read and agree to all legal documents to use this application.';
+	@override String get privacyPolicy => 'Privacy Policy';
+	@override String get termsAndConditions => 'Terms and conditions';
+	@override String get termsUseApp => 'Application Terms of Use';
+	@override String get confirmationWithTheAbove => 'After clicking "${_root.termsConditions.buttonAccept}" you confirm that you have read and agree with all of the above';
+	@override String get buttonCancel => 'Reject and exit';
+	@override String get buttonAccept => 'Accept';
+}
+
 // Path: weather
 class TranslationsWeatherEn extends TranslationsWeatherRu {
 	TranslationsWeatherEn._(TranslationsEn root) : this._root = root, super._(root);
@@ -370,22 +387,6 @@ class TranslationsUnitsEn extends TranslationsUnitsRu {
 	@override late final TranslationsUnitsSpeedEn speed = TranslationsUnitsSpeedEn._(_root);
 	@override late final TranslationsUnitsPressureEn pressure = TranslationsUnitsPressureEn._(_root);
 	@override late final TranslationsUnitsSideOfTheWorldEn sideOfTheWorld = TranslationsUnitsSideOfTheWorldEn._(_root);
-}
-
-// Path: termsConditions
-class TranslationsTermsConditionsEn extends TranslationsTermsConditionsRu {
-	TranslationsTermsConditionsEn._(TranslationsEn root) : this._root = root, super._(root);
-
-	@override final TranslationsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get informationForAction => 'Read and agree to all legal documents to use this application.';
-	@override String get privacyPolicy => 'Privacy Policy';
-	@override String get termsAndConditions => 'Terms and conditions';
-	@override String get termsUseApp => 'Application Terms of Use';
-	@override String get confirmationWithTheAbove => 'After clicking "${_root.termsConditions.buttonAccept}" you confirm that you have read and agree with all of the above';
-	@override String get buttonCancel => 'Reject and exit';
-	@override String get buttonAccept => 'Accept';
 }
 
 // Path: mainPageDRuble.mainPage
@@ -574,6 +575,16 @@ class TranslationsSettingsPageGratitudeTileEn extends TranslationsSettingsPageGr
 	@override String get tileTitle => 'Gratitude';
 }
 
+// Path: settingsPage.systemSettingsTile
+class TranslationsSettingsPageSystemSettingsTileEn extends TranslationsSettingsPageSystemSettingsTileRu {
+	TranslationsSettingsPageSystemSettingsTileEn._(TranslationsEn root) : this._root = root, super._(root);
+
+	@override final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get tileTitle => 'System settings';
+}
+
 // Path: settingsPage.aboutAppTile
 class TranslationsSettingsPageAboutAppTileEn extends TranslationsSettingsPageAboutAppTileRu {
 	TranslationsSettingsPageAboutAppTileEn._(TranslationsEn root) : this._root = root, super._(root);
@@ -584,14 +595,14 @@ class TranslationsSettingsPageAboutAppTileEn extends TranslationsSettingsPageAbo
 	@override String get tileTitle => 'About the app';
 }
 
-// Path: settingsPage.systemSettingsTile
-class TranslationsSettingsPageSystemSettingsTileEn extends TranslationsSettingsPageSystemSettingsTileRu {
-	TranslationsSettingsPageSystemSettingsTileEn._(TranslationsEn root) : this._root = root, super._(root);
+// Path: visualDesignPage.tips
+class TranslationsVisualDesignPageTipsEn extends TranslationsVisualDesignPageTipsRu {
+	TranslationsVisualDesignPageTipsEn._(TranslationsEn root) : this._root = root, super._(root);
 
 	@override final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get tileTitle => 'System settings';
+	@override String get info => 'Hold down the tile to see the design';
 }
 
 // Path: visualDesignPage.headers

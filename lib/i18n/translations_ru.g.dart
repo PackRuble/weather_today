@@ -84,6 +84,7 @@ class TranslationsVisualDesignPageRu {
 
 	// Translations
 	String get appbarTitle => 'Визуальное оформление';
+	late final TranslationsVisualDesignPageTipsRu tips = TranslationsVisualDesignPageTipsRu._(_root);
 	late final TranslationsVisualDesignPageHeadersRu headers = TranslationsVisualDesignPageHeadersRu._(_root);
 }
 
@@ -588,6 +589,16 @@ class TranslationsSettingsPageAboutAppTileRu {
 
 	// Translations
 	String get tileTitle => 'О приложении';
+}
+
+// Path: visualDesignPage.tips
+class TranslationsVisualDesignPageTipsRu {
+	TranslationsVisualDesignPageTipsRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	String get info => 'Удерживайте тайл, чтобы увидеть дизайн';
 }
 
 // Path: visualDesignPage.headers

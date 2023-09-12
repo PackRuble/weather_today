@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_colors.dart';
+import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/models/design_page.dart';
 import 'package:weather_today/core/services/app_theme_service/models/models.dart';
@@ -15,6 +16,7 @@ import 'package:weather_today/ui/pages/daily_page/daily_page_by_ruble/daily_page
     as ruble_daily;
 import 'package:weather_today/ui/pages/daily_page/daily_page_main.dart';
 import 'package:weather_today/ui/pages/hourly_page/hourly_page_main.dart';
+import 'package:weather_today/ui/shared/tips_widget.dart';
 
 import '../../../shared/appbar_widget.dart';
 import '../../../shared/shared_widget.dart';
@@ -181,22 +183,31 @@ class _DesignPagesWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(VisualDPageController.tr);
     final notifier = ref.watch(VisualDPageController.instance);
     final List<DesignPage> designPages =
         ref.watch(VisualDPageController.weatherDesignPages);
 
-    return ReorderableListView(
-      buildDefaultDragHandles: false,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      onReorder: notifier.onReorderWeatherPage,
+    return Column(
       children: [
-        for (final (index, designPage) in designPages.indexed)
-          _DesignTile(
-            key: ValueKey(designPage.hashCode),
-            designPage: designPage,
-            index: index,
-          )
+        TipRWidget(
+          text: Text('${AppSmiles.info} ${t.visualDesignPage.tips.info}'),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+        ),
+        ReorderableListView(
+          buildDefaultDragHandles: false,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          onReorder: notifier.onReorderWeatherPage,
+          children: [
+            for (final (index, designPage) in designPages.indexed)
+              _DesignTile(
+                key: ValueKey(designPage.hashCode),
+                designPage: designPage,
+                index: index,
+              )
+          ],
+        ),
       ],
     );
   }
@@ -224,13 +235,21 @@ class _DesignTile extends ConsumerWidget {
 
     return _OverlayWeatherOnLongPress(
       overlayBuilder: (_) => SafeArea(
-        child: Card(
-          margin: const EdgeInsets.all(16.0),
-          child: switch (designPage.page) {
-            WeatherPage.daily => DailyWeatherPage(design: design),
-            WeatherPage.hourly => HourlyWeatherPage(design: design),
-            WeatherPage.currently => CurrentWeatherPage(design: design),
-          },
+        child: ColoredBox(
+          color: Colors.black54,
+          child: Card(
+            elevation: 8.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              side: BorderSide(color: Theme.of(context).primaryColor),
+            ),
+            margin: const EdgeInsets.all(16.0),
+            child: switch (designPage.page) {
+              WeatherPage.daily => DailyWeatherPage(design: design),
+              WeatherPage.hourly => HourlyWeatherPage(design: design),
+              WeatherPage.currently => CurrentWeatherPage(design: design),
+            },
+          ),
         ),
       ),
       child: SwitchListTile(
