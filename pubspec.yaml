@@ -22,6 +22,7 @@ dependencies:
   fluttertoast: ^8.2.2
   fl_chart: ^0.63.0
   weather_animation: ^0.0.2
+  sliver_tools: ^0.2.12
 
   # Theme
   flex_color_scheme: ^7.3.1

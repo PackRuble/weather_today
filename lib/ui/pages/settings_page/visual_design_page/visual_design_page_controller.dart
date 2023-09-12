@@ -10,10 +10,9 @@ import 'package:weather_today/core/services/cardoteka/cardoteka.dart';
 import 'package:weather_today/i18n/translations.g.dart';
 import 'package:weather_today/ui/const/app_dialogs.dart';
 
-/// Перечисления нужны для добавления в список измененных данных для
-/// последующего сохранения их.
+/// Enumerations are needed to add to the list of modified data for the
+/// subsequent saving of them.
 enum _SavedChanges {
-  visualDesign,
   textScaleFactor,
   fontFamily,
   typography,
@@ -39,7 +38,7 @@ class VisualDPageController {
   static final tr = Provider.autoDispose<TranslationsRu>(
       (ref) => ref.watch(AppLocalization.currentTranslation));
 
-  /// Погода берется из заранее сохраненного json, который всегда доступен.
+  /// Погода берется из заранее сохраненного json, который всегда доступен. (уже нет)
   static final weatherMock = FutureProvider.autoDispose<WeatherOneCall?>(
       (ref) async =>
           ref.watch(weatherOneCallController.notifier).getStoredWeather());
@@ -113,7 +112,7 @@ class VisualDPageController {
     await _saveWeatherDesignPages(pages);
   }
 
-  /// Установить новое значение [selectedDesignProvider].
+  /// Set the new value to [SettingsCards.designPages].
   Future<void> _saveWeatherDesignPages(List<DesignPage> pages) async => _ref
       .read(SettingsStorage.instance)
       .set<List<DesignPage>>(SettingsCards.designPages, pages);
@@ -211,9 +210,8 @@ class VisualDPageController {
       .read(changesProvider.notifier)
       .update((state) => Set.of({...state, change}));
 
-  /// Вызвать все функции сохранения. Могут быть следующими:
+  /// Call all save functions. May be as follows:
   ///
-  /// * [_saveVisualDesign]
   /// * [_saveTextScaleFactor]
   /// * [_saveFontFamily]
   /// * [_saveTypography]
@@ -222,23 +220,13 @@ class VisualDPageController {
   Future<void> saveAllChanges() async {
     for (final _SavedChanges change
         in _ref.read(changesProvider.notifier).state) {
-      switch (change) {
-        case _SavedChanges.visualDesign:
-          // await _saveVisualDesign(); // todo:
-          break;
-        case _SavedChanges.textScaleFactor:
-          await _saveTextScaleFactor();
-          break;
-        case _SavedChanges.fontFamily:
-          await _saveFontFamily();
-          break;
-        case _SavedChanges.typography:
-          await _saveTypography();
-          break;
-        case _SavedChanges.scrollPhysics:
-          await _saveScrollPhysics();
-          break;
+      await switch (change) {
+        _SavedChanges.textScaleFactor => _saveTextScaleFactor,
+        _SavedChanges.fontFamily => _saveFontFamily,
+        _SavedChanges.typography => _saveTypography,
+        _SavedChanges.scrollPhysics => _saveScrollPhysics,
       }
+          .call();
     }
 
     _ref.invalidate(changesProvider);

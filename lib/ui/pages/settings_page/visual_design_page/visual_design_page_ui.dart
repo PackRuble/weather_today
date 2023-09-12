@@ -2,19 +2,22 @@ import 'package:auto_route/annotations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/models/design_page.dart';
 import 'package:weather_today/core/services/app_theme_service/models/models.dart';
 import 'package:weather_today/extension/enum_extension.dart';
+import 'package:weather_today/ui/pages/daily_page/daily_page_by_ruble/daily_page_ui.dart'
+    as ruble_daily;
 
 import '../../../shared/appbar_widget.dart';
 import '../../../shared/shared_widget.dart';
 import '../../../shared/wrapper_page.dart';
 import 'visual_design_page_controller.dart';
 
-/// Страница из настроек визуального оформления.
+/// A page from the visual design settings.
 @RoutePage()
 class VisualDesignPage extends ConsumerWidget {
   const VisualDesignPage();
@@ -23,7 +26,7 @@ class VisualDesignPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(VisualDPageController.tr);
 
-    final ScrollPhysics scrollPhysic =
+    final ScrollPhysics scrollPhysics =
         ref.watch(VisualDPageController.selectedScrollPhysic).scrollPhysics;
 
     return WrapperPage(
@@ -35,27 +38,46 @@ class VisualDesignPage extends ConsumerWidget {
             t.visualDesignPage.appbarTitle,
             actions: const [_SaveButtonWidget()],
           ),
-          body: Column(
-            children: [
-              // const _ExampleTileDesign(),
-              Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  physics: AlwaysScrollableScrollPhysics(parent: scrollPhysic),
-                  children: [
-                    HeaderRWidget(t.visualDesignPage.headers.design),
-                    const _DesignWidgetChip(),
-                    HeaderRWidget(t.visualDesignPage.headers.font),
-                    const _FamilyFontsWidget(),
-                    HeaderRWidget(t.visualDesignPage.headers.fontSize),
-                    const _ChangerTextScaleWidget(),
-                    HeaderRWidget(t.visualDesignPage.headers.typography),
-                    const _TypographyWidget(),
-                    HeaderRWidget(t.visualDesignPage.headers.scroll),
-                    const _ScrollPhysicsWidget(),
-                    const SizedBox(height: 20.0),
-                  ],
+          body: CustomScrollView(
+            physics: scrollPhysics,
+            // if necessary padding, use MultiSliver
+            // padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            slivers: [
+              _HeaderSliverText(t.visualDesignPage.headers.design),
+              SliverToBoxAdapter(
+                key: ValueKey('$_DesignPagesWidget'),
+                child: const _DesignPagesWidget(),
+              ),
+              SliverPinnedHeader(
+                key: ValueKey('$_ExampleTileDesign'),
+                child: ColoredBox(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  child: const _ExampleTileDesign(),
                 ),
+              ),
+              _HeaderSliverText(t.visualDesignPage.headers.font),
+              SliverToBoxAdapter(
+                key: ValueKey('$_FamilyFontsWidget'),
+                child: const _FamilyFontsWidget(),
+              ),
+              _HeaderSliverText(t.visualDesignPage.headers.fontSize),
+              SliverToBoxAdapter(
+                key: ValueKey('$_ChangerTextScaleWidget'),
+                child: const _ChangerTextScaleWidget(),
+              ),
+              _HeaderSliverText(t.visualDesignPage.headers.typography),
+              SliverToBoxAdapter(
+                key: ValueKey('$_TypographyWidget'),
+                child: const _TypographyWidget(),
+              ),
+              _HeaderSliverText(t.visualDesignPage.headers.scroll),
+              SliverToBoxAdapter(
+                key: ValueKey('$_ScrollPhysicsWidget'),
+                child: const _ScrollPhysicsWidget(),
+              ),
+              const SliverToBoxAdapter(
+                key: ValueKey('SizedBox bottom'),
+                child: SizedBox(height: 20.0),
               ),
             ],
           ),
@@ -65,39 +87,46 @@ class VisualDesignPage extends ConsumerWidget {
   }
 }
 
-/// Пример виджета погоды с главной страницы.
+class _HeaderSliverText extends StatelessWidget {
+  const _HeaderSliverText(this.text, {super.key});
+
+  final String text;
+
+  static const _paddingHeader = EdgeInsets.only(left: 16, top: 16, bottom: 8);
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      key: ValueKey(text),
+      child: HeaderRWidget(
+        text,
+        padding: _paddingHeader,
+      ),
+    );
+  }
+}
+
+/// An example of a weather widget from the home page.
 class _ExampleTileDesign extends ConsumerWidget {
   const _ExampleTileDesign();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-
     final WeatherOneCall? weatherMock =
         ref.watch(VisualDPageController.weatherMock).valueOrNull;
 
-    // final AppVisualDesign visualDesign =
-    //     ref.watch(VisualDPageController.selectedDesignProvider);
-    //
-    Widget? _testedWidget;
-    //
-    // if (weatherMock != null) {
-    //   switch (visualDesign) {
-    //     case AppVisualDesign.byRuble:
-    //       _testedWidget = ruble_daily.TileDailyWidget(weatherMock.daily!.first);
-    //       break;
-    //     case AppVisualDesign.byTolskaya:
-    //       _testedWidget =
-    //           tolskaya_hourly.TileHourlyWidget(weatherMock.hourly![10]);
-    //       break;
-    //   }
+    Widget? testedWidget;
 
-    const Widget _divider = Divider(height: 12.0, thickness: 12.0);
+    if (weatherMock != null) {
+      testedWidget = ruble_daily.TileDailyWidget(weatherMock.daily!.first);
 
-    _testedWidget = Column(
-      children: [_divider, /*_testedWidget,*/ _divider],
-    );
-    // }
+      const Widget _divider = Divider(height: 12.0, thickness: 12.0);
+
+      testedWidget = Column(
+        children: [_divider, testedWidget, _divider],
+      );
+    }
 
     final double textScaleFactor =
         ref.watch(VisualDPageController.textScaleFactorProvider);
@@ -108,7 +137,7 @@ class _ExampleTileDesign extends ConsumerWidget {
     final String fontFamily =
         ref.watch(VisualDPageController.selectedFontFamily).fontFamily;
 
-    final bool isDark = Brightness.dark == Theme.of(context).brightness;
+    final bool isDark = Brightness.dark == theme.brightness;
 
     final FlexColorScheme nowFlexTheme =
         ref.watch(AppTheme.usingThemeNow(isDark)).copyWith(
@@ -120,7 +149,7 @@ class _ExampleTileDesign extends ConsumerWidget {
       data: nowFlexTheme.toTheme,
       child: MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: textScaleFactor),
-        child: _testedWidget ?? const SizedBox.shrink(),
+        child: testedWidget ?? const SizedBox.shrink(),
       ),
     );
   }
@@ -143,8 +172,8 @@ class _SaveButtonWidget extends ConsumerWidget {
   }
 }
 
-class _DesignWidgetChip extends ConsumerWidget {
-  const _DesignWidgetChip();
+class _DesignPagesWidget extends ConsumerWidget {
+  const _DesignPagesWidget();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -172,7 +201,13 @@ class _DesignWidgetChip extends ConsumerWidget {
             title: Text(
               // using for all states
               style: Theme.of(context).textTheme.titleMedium,
-              designPage.toString(),
+              designPage.page.toCamelCaseToWords(),
+              textScaleFactor: textScaleFactor,
+            ),
+            subtitle: Text(
+              // using for all states
+              style: Theme.of(context).textTheme.bodyMedium,
+              'design ${designPage.design.toCamelCaseToWords()}',
               textScaleFactor: textScaleFactor,
             ),
             secondary: ReorderableDragStartListener(
@@ -186,18 +221,6 @@ class _DesignWidgetChip extends ConsumerWidget {
           )
       ],
     );
-
-    // return ChipsCloud(
-    //   items: List<ChipInCloud>.generate(_designs.length, (int index) {
-    //     return ChipInCloud(
-    //       selected: _selected == _designs[index],
-    //       label: Text(_designs[index].toCamelCaseToWords()),
-    //       onSelected: (_) => ref
-    //           .read(VisualDPageController.instance)
-    //           .setVisualDesign(_designs[index]),
-    //     );
-    //   }),
-    // );
   }
 }
 
