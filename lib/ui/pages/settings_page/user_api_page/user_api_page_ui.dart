@@ -69,6 +69,7 @@ class _AboutApiWidget extends ConsumerWidget {
             );
           },
         ),
+        const SizedBox(height: 8.0),
       ],
     );
   }
@@ -119,7 +120,6 @@ class _StatusTileWidget extends ConsumerWidget {
                 ),
               ],
             ),
-            horizontalTitleGap: 0.0,
           ),
         ),
         Column(
