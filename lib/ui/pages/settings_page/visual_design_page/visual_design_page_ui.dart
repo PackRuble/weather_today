@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:weather_pack/weather_pack.dart';
@@ -9,8 +10,11 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 import 'package:weather_today/core/services/app_theme_service/models/design_page.dart';
 import 'package:weather_today/core/services/app_theme_service/models/models.dart';
 import 'package:weather_today/extension/enum_extension.dart';
+import 'package:weather_today/ui/pages/current_page/current_page_main.dart';
 import 'package:weather_today/ui/pages/daily_page/daily_page_by_ruble/daily_page_ui.dart'
     as ruble_daily;
+import 'package:weather_today/ui/pages/daily_page/daily_page_main.dart';
+import 'package:weather_today/ui/pages/hourly_page/hourly_page_main.dart';
 
 import '../../../shared/appbar_widget.dart';
 import '../../../shared/shared_widget.dart';
@@ -172,7 +176,7 @@ class _SaveButtonWidget extends ConsumerWidget {
   }
 }
 
-class _DesignPagesWidget extends ConsumerWidget {
+class _DesignPagesWidget extends HookConsumerWidget {
   const _DesignPagesWidget();
 
   @override
@@ -181,10 +185,6 @@ class _DesignPagesWidget extends ConsumerWidget {
     final List<DesignPage> designPages =
         ref.watch(VisualDPageController.weatherDesignPages);
 
-    // we really want to read it once
-    final textScaleFactor =
-        ref.read(VisualDPageController.textScaleFactorProvider);
-
     return ReorderableListView(
       buildDefaultDragHandles: false,
       shrinkWrap: true,
@@ -192,34 +192,98 @@ class _DesignPagesWidget extends ConsumerWidget {
       onReorder: notifier.onReorderWeatherPage,
       children: [
         for (final (index, designPage) in designPages.indexed)
-          SwitchListTile(
-            value: notifier.isSelectedDesign(designPage.design),
-            onChanged: designPage.page == WeatherPage.daily
-                ? null
-                : (value) async => notifier.onChangeDesignPage(value, index),
+          _DesignTile(
             key: ValueKey(designPage.hashCode),
-            title: Text(
-              // using for all states
-              style: Theme.of(context).textTheme.titleMedium,
-              designPage.page.toCamelCaseToWords(),
-              textScaleFactor: textScaleFactor,
-            ),
-            subtitle: Text(
-              // using for all states
-              style: Theme.of(context).textTheme.bodyMedium,
-              'design ${designPage.design.toCamelCaseToWords()}',
-              textScaleFactor: textScaleFactor,
-            ),
-            secondary: ReorderableDragStartListener(
-              index: index,
-              child: Icon(
-                Icons.drag_handle_rounded,
-                // using for all states
-                color: Theme.of(context).iconTheme.color,
-              ),
-            ),
+            designPage: designPage,
+            index: index,
           )
       ],
+    );
+  }
+}
+
+class _DesignTile extends ConsumerWidget {
+  const _DesignTile({
+    super.key,
+    required this.designPage,
+    required this.index,
+  });
+
+  final DesignPage designPage;
+  final int index;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.watch(VisualDPageController.instance);
+    // we really want to read it once
+    final textScaleFactor = ref.watch(AppTheme.textScaleFactor);
+    final design = designPage.design;
+    final page = designPage.page;
+
+    return _OverlayWeatherOnLongPress(
+      overlayBuilder: (_) => SafeArea(
+        child: Card(
+          margin: const EdgeInsets.all(16.0),
+          child: switch (designPage.page) {
+            WeatherPage.daily => DailyWeatherPage(design: design),
+            WeatherPage.hourly => HourlyWeatherPage(design: design),
+            WeatherPage.currently => CurrentWeatherPage(design: design),
+          },
+        ),
+      ),
+      child: SwitchListTile(
+        value: notifier.isSelectedDesign(design),
+        onChanged: page == WeatherPage.daily
+            ? (_) {}
+            : (value) async => notifier.onChangeDesignPage(value, index),
+        title: Text(
+          page.toWords(), // todo tr
+          textScaleFactor: textScaleFactor,
+        ),
+        subtitle: Text(
+          '${page == WeatherPage.daily ? 'only ' : ''}design ${design.toWords()}',
+          textScaleFactor: textScaleFactor,
+        ),
+        secondary: ReorderableDragStartListener(
+          index: index,
+          child: const Icon(Icons.drag_handle_rounded),
+        ),
+      ),
+    );
+  }
+}
+
+class _OverlayWeatherOnLongPress extends HookConsumerWidget {
+  const _OverlayWeatherOnLongPress({
+    super.key,
+    required this.child,
+    required this.overlayBuilder,
+  });
+
+  final Widget child;
+  final WidgetBuilder overlayBuilder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    OverlayEntry? weatherOverlayEntry;
+
+    useMemoized(() => weatherOverlayEntry?.dispose, const []);
+
+    void showOverlay() {
+      final overlay = Overlay.of(context);
+      weatherOverlayEntry = OverlayEntry(builder: overlayBuilder);
+      overlay.insert(weatherOverlayEntry!);
+    }
+
+    void hideOverlay() {
+      weatherOverlayEntry?.remove();
+      weatherOverlayEntry = null;
+    }
+
+    return GestureDetector(
+      onLongPressStart: (_) => showOverlay(),
+      onLongPressEnd: (_) => hideOverlay(),
+      child: child,
     );
   }
 }
@@ -232,38 +296,41 @@ class _ChangerTextScaleWidget extends ConsumerWidget {
     final double textScaleFactor =
         ref.watch(VisualDPageController.textScaleFactorProvider);
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          flex: 5,
-          child: ColoredBox(
-            color: Colors.transparent,
-            child: Slider(
-              value: textScaleFactor,
-              divisions:
-                  ((maxTextScaleFactor - minTextScaleFactor) * 100).toInt(),
-              min: minTextScaleFactor,
-              max: maxTextScaleFactor,
-              onChanged:
-                  ref.read(VisualDPageController.instance).setTextScaleFactor,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: ColoredBox(
-            color: Colors.transparent,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                '${(textScaleFactor * 100).toStringAsFixed(0)}%',
-                textAlign: TextAlign.start,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+
+        return Padding(
+          padding: const EdgeInsets.only(right: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: width / 1.4,
+                child: Slider(
+                  value: textScaleFactor,
+                  divisions:
+                      ((maxTextScaleFactor - minTextScaleFactor) * 100).toInt(),
+                  min: minTextScaleFactor,
+                  max: maxTextScaleFactor,
+                  onChanged: ref
+                      .read(VisualDPageController.instance)
+                      .setTextScaleFactor,
+                ),
               ),
-            ),
+              Flexible(
+                child: SizedBox(
+                  width: width / 3,
+                  child: Text(
+                    '${(textScaleFactor * 100).toStringAsFixed(0)}%',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 }
@@ -283,7 +350,7 @@ class _FamilyFontsWidget extends ConsumerWidget {
       items: List<ChipInCloud>.generate(items.length, (int index) {
         return ChipInCloud(
           selected: selected == items[index],
-          label: Text(items[index].toCamelCaseToWords()),
+          label: Text(items[index].fontFamily),
           onSelected: (_) => ref
               .read(VisualDPageController.instance)
               .setFontFamily(items[index]),
@@ -333,7 +400,8 @@ class _ScrollPhysicsWidget extends ConsumerWidget {
       items: List<ChipInCloud>.generate(items.length, (int index) {
         return ChipInCloud(
           selected: selected == items[index],
-          label: Text(items[index].toCamelCaseToWords()),
+          label: Text(items[index]
+              .toWords(startWithSmall: false, stringCase: StringCase.lower)),
           onSelected: (_) => ref
               .read(VisualDPageController.instance)
               .setScrollPhysic(items[index]),

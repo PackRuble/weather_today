@@ -30,18 +30,12 @@ enum AppTypography {
   material2018,
   material2021;
 
-  Typography get typography {
-    switch (index) {
-      case 0:
-        return Typography.material2014();
-      case 1:
-        return Typography.material2018();
-      case 2:
-        return Typography.material2021();
-      default:
-        return Typography.material2021();
-    }
-  }
+  Typography get typography => switch (index) {
+        0 => Typography.material2014(),
+        1 => Typography.material2018(),
+        2 => Typography.material2021(),
+        _ => Typography.material2021()
+      };
 
   String toCamelCaseToWords() =>
       '${name.substring(0, 1).toUpperCase()}${name.substring(1, 8)} ${name.substring(8)}';
