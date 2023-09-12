@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/controllers/general_settings_controller.dart';
+import 'package:weather_today/core/services/app_theme_service/models/design_page.dart';
+import 'package:weather_today/core/services/cardoteka/cardoteka.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
 /// Контроллер страницы [HomePage].
@@ -14,6 +16,16 @@ class HomePageController {
   static final instance = Provider(
     HomePageController.new,
     name: '$HomePageController',
+  );
+
+  /// List of visual designs.
+  ///
+  static final designPages = Provider.autoDispose<List<DesignPage>>(
+    (ref) => ref.watch(SettingsStorage.instance).attach(
+          SettingsCards.designPages,
+          (value) => ref.state = value,
+          detacher: ref.onDispose,
+        ),
   );
 
   // ---------------------------------------

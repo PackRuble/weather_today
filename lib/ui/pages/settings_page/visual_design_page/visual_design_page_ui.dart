@@ -215,8 +215,10 @@ class _DesignTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.watch(VisualDPageController.instance);
-    // we really want to read it once
     final textScaleFactor = ref.watch(AppTheme.textScaleFactor);
+    final t = ref.watch(VisualDPageController.tr);
+    final titleTr = t.mainPageDRuble.mainPage.bottomBar;
+
     final design = designPage.design;
     final page = designPage.page;
 
@@ -237,7 +239,11 @@ class _DesignTile extends ConsumerWidget {
             ? (_) {}
             : (value) async => notifier.onChangeDesignPage(value, index),
         title: Text(
-          page.toWords(), // todo tr
+          switch (designPage.page) {
+            WeatherPage.daily => titleTr.daily,
+            WeatherPage.hourly => titleTr.hourly,
+            WeatherPage.currently => titleTr.today,
+          },
           textScaleFactor: textScaleFactor,
         ),
         subtitle: Text(

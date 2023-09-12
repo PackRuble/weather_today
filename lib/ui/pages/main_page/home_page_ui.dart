@@ -9,7 +9,6 @@ import 'package:weather_today/core/controllers/global_key.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/models/design_page.dart';
-import 'package:weather_today/ui/pages/settings_page/visual_design_page/visual_design_page_controller.dart';
 
 import '../../shared/all_terms_widget.dart';
 import '../../shared/listen_message_widget.dart';
@@ -69,7 +68,7 @@ class _BodyWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final designPages = ref
-        .watch(VisualDPageController.weatherDesignPages)
+        .watch(HomePageController.designPages)
         .map((e) => switch (e.page) {
               WeatherPage.hourly => HourlyWeatherPage(design: e.design),
               WeatherPage.currently => CurrentWeatherPage(design: e.design),
@@ -93,35 +92,38 @@ class _BottomBarWidget extends ConsumerWidget {
     final theme = Theme.of(context);
     final t = ref.watch(AppLocalization.currentTranslation);
 
+    final bars = ref.watch(HomePageController.designPages).indexed.map<Widget>(
+      ((int, DesignPage) item) {
+        var (index, designPage) = item;
+
+        index++; // settings button have index 0
+
+        return Expanded(
+          child: switch (designPage.page) {
+            WeatherPage.hourly => BottomIcon(
+                label: t.mainPageDRuble.mainPage.bottomBar.hourly,
+                index: index,
+              ),
+            WeatherPage.currently => BottomIcon(
+                label: t.mainPageDRuble.mainPage.bottomBar.today,
+                index: index,
+              ),
+            WeatherPage.daily => BottomIcon(
+                label: t.mainPageDRuble.mainPage.bottomBar.daily,
+                index: index,
+              ),
+          },
+        );
+      },
+    );
+
     return BottomAppBar(
       padding: EdgeInsets.zero,
       height: AppInsets.heightBottomBar,
       color: theme.colorScheme.background.darken(5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          const BottomIcon(
-            index: 0,
-          ),
-          Expanded(
-            child: BottomIcon(
-              label: t.mainPageDRuble.mainPage.bottomBar.hourly,
-              index: 1,
-            ),
-          ),
-          Expanded(
-            child: BottomIcon(
-              label: t.mainPageDRuble.mainPage.bottomBar.today,
-              index: 2,
-            ),
-          ),
-          Expanded(
-            child: BottomIcon(
-              label: t.mainPageDRuble.mainPage.bottomBar.daily,
-              index: 3,
-            ),
-          ),
-        ],
+        children: [const BottomIcon(index: 0), ...bars],
       ),
     );
   }
