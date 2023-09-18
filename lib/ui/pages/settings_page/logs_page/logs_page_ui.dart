@@ -2,7 +2,6 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/controllers/logger_controller.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../../shared/appbar_widget.dart';
@@ -39,8 +38,6 @@ class LogsPage extends ConsumerWidget with UiLoggy {
                       child: ListView.separated(
                         itemCount: logs.length,
                         padding: const EdgeInsets.all(8.0),
-                        physics:
-                            ref.watch(AppTheme.scrollPhysics).scrollPhysics,
                         itemBuilder: (BuildContext _, int index) {
                           return Row(
                             children: [

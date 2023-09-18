@@ -8,7 +8,6 @@ import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/const/app_insets.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/core/models/place/place_model.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/pages/settings_page/saved_places_page/saved_places_page_controller.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
@@ -44,7 +43,6 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
             body: listPlaces.isEmpty
                 ? Center(child: Text(t.savedPlacesPage.placesNotFound))
                 : ListView.separated(
-                    physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
                     separatorBuilder: (BuildContext context, int index) {
                       return const Divider(
                         height: 5.0,

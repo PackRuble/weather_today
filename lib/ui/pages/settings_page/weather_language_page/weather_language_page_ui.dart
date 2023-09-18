@@ -5,7 +5,6 @@ import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_colors.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/const/app_insets.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../../shared/appbar_widget.dart';
@@ -29,7 +28,6 @@ class WeatherLanguagePage extends ConsumerWidget with UiLoggy {
         child: Padding(
           padding: const EdgeInsets.all(AppInsets.allPadding),
           child: ListView.builder(
-            physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
             itemBuilder: (BuildContext context, int index) {
               return Column(
                 children: [

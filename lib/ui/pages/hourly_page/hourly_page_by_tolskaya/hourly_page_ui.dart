@@ -8,7 +8,6 @@ import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/const/app_insets.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/pages/hourly_page/hourly_page_controller.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
@@ -27,7 +26,6 @@ class HourlyPageByTolskaya extends ConsumerWidget {
 
     return ListView.separated(
         itemCount: hourly.length,
-        physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
         separatorBuilder: (BuildContext context, int index) {
           if (hourly[index].date?.hour == 23) {
             return Column(

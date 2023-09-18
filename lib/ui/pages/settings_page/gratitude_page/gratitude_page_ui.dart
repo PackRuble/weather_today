@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:weather_today/const/app_info.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 
 import '../../../shared/appbar_widget.dart';
 
@@ -46,7 +45,6 @@ class GratitudePage extends ConsumerWidget {
       appBar: RAppBar(t.gratitudePage.appbarTitle),
       body: ListView(
         padding: const EdgeInsets.all(8.0),
-        physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
         children: [
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

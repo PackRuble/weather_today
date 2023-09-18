@@ -70,7 +70,6 @@ class _BodyWidget extends ConsumerWidget {
         .toList();
 
     return PageView(
-      physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       controller: ref.watch(HomePageController.pageController),
       children: [const SettingsPage(), ...designPages],
     );

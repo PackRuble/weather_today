@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/pages/current_page/current_page_controller.dart';
 import 'package:weather_today/ui/shared/attribution_weather_widget.dart';
@@ -29,7 +28,6 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
     const Divider divider = Divider(thickness: 1.0);
 
     return ListView(
-      physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       children: [
         const _DateWidget(),
         const _MainInfoWidget(),

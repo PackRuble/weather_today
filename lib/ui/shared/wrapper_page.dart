@@ -10,6 +10,7 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 /// - следит за фокусом;
 /// - следит за размером текста;
 /// - помогает настроить взаимодействие с приложением согласно устройства;
+/// - следит за используемой физикой скролла
 class WrapperPage extends ConsumerWidget {
   const WrapperPage({required this.child});
 
@@ -18,28 +19,24 @@ class WrapperPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final double textScaleFactor = ref.watch(AppTheme.textScaleFactor);
+    final scrollTheme = ScrollConfiguration.of(context);
 
-    Widget _child;
+    final _child = ScrollConfiguration(
+      behavior: scrollTheme.copyWith(
+        physics: ref
+            .watch(AppTheme.scrollPhysics)
+            .scrollPhysics
+            .applyTo(scrollTheme.getScrollPhysics(context)),
+        dragDevices: {
+          if (defaultTargetPlatform == TargetPlatform.windows) ...{
+            PointerDeviceKind.touch,
+            PointerDeviceKind.mouse,
+          }
+        },
+      ),
+      child: child,
+    );
 
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-      case TargetPlatform.iOS:
-        _child = child;
-        break;
-      // ignore: no_default_cases
-      default:
-        _child = ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(
-            dragDevices: {
-              PointerDeviceKind.touch,
-              PointerDeviceKind.mouse,
-            },
-          ),
-          child: child,
-        );
-    }
-
-    // Применяем масштабирование текста во всем приложении
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: textScaleFactor),
       child: GestureDetector(

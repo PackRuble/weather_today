@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/link.dart';
 import 'package:weather_today/const/app_icons.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
 
 import '../../../shared/appbar_widget.dart';
@@ -27,7 +26,6 @@ class UserApiPage extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         controller: viewController,
-        physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
         children: const [
           _AboutApiWidget(),
           Divider(height: 4.0),

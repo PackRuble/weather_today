@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/controllers/general_settings_controller.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 
 import 'terms_conditions_widget.dart';
 
@@ -46,7 +45,6 @@ class TermsConditionsWidget extends ConsumerWidget {
       children: [
         Expanded(
           child: ListView(
-            physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
             children: [
               if (!isAccepted) ...[
                 _DecoratedWidget(

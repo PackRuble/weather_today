@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/logger_controller.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 
 import '../../../shared/appbar_widget.dart';
 import '../../../shared/switch_tile_widget.dart';
@@ -23,7 +22,6 @@ class SystemSettingsPage extends ConsumerWidget {
     return Scaffold(
       appBar: RAppBar(t.systemSettingsPage.appbarTitle),
       body: ListView(
-        physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
         children: const [
           EnableLogsSwitch(),
           Divider(height: 0.0, thickness: 1.0),

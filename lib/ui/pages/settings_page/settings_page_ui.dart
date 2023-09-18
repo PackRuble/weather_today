@@ -25,7 +25,6 @@ class SettingsPage extends ConsumerWidget {
     final t = ref.watch(SettingPageController.tr);
 
     return ListView(
-      physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       children: <Widget>[
         HeaderRWidget(t.settingsPage.headers.weather),
         const _TileMyPlaceWidget(),

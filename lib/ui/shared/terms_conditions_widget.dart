@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 
 enum _TermsAsset {
   privacyPolicy(r'assets/doc/privacy_policy.md'),
@@ -37,7 +36,6 @@ class TermsDocWidget extends ConsumerWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Markdown(
-            physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
             onTapLink: (String text, String? href, String title) async {
               await launchUrl(
                 Uri.parse(text),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/core/services/app_theme_service/models/design_page.dart';
 import 'package:weather_today/ui/shared/refresh_wrapper.dart';
 
@@ -21,7 +20,6 @@ class CurrentWeatherPage extends ConsumerWidget {
       asyncValue: ref.watch(CurrentPageController.current),
       onRefresh: () async =>
           ref.read(CurrentPageController.instance).updateWeather(),
-      physicsListView: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       child: (WeatherCurrent weatherCur) => switch (design) {
         AppVisualDesign.byRuble => CurrentWeatherPageByRuble(weatherCur),
         AppVisualDesign.byTolskaya => CurrentWeatherPageByTolskaya(weatherCur)

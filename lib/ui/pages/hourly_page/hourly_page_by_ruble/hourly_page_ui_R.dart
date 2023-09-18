@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_pack/weather_pack.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/chart_main_forecast.dart';
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/chart_other_params_widget.dart';
 import 'package:weather_today/ui/pages/hourly_page/charts_widget/chart_pop_widget.dart';
@@ -26,7 +25,6 @@ class HourlyPageByRuble extends ConsumerWidget {
     const Divider _divider = Divider(height: 6.0, thickness: 1.0);
 
     return ListView(
-      physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       children: [
         _DateWidget(hourly.first.date),
         const ChartForecastWidget(),

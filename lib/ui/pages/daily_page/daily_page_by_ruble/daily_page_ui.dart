@@ -8,7 +8,6 @@ import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/extension/double_extension.dart';
 import 'package:weather_today/ui/shared/attribution_weather_widget.dart';
 import 'package:weather_today/ui/shared/shared_widget.dart';
@@ -30,7 +29,7 @@ class DailyWeatherPageByRuble extends ConsumerWidget {
     const Widget divider = Divider(height: 4.0, thickness: 1.0);
 
     return ListView.separated(
-      physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
+      // physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       itemBuilder: (BuildContext context, int index) {
         if (index + 1 == daily.length) {
           return const AttributionWeatherWidget();
@@ -134,7 +133,7 @@ class _AlertTileWidget extends ConsumerWidget {
       ),
       horizontalTitleGap: 8.0,
       contentPadding: const EdgeInsets.only(right: 8.0),
-      tileColor: Theme.of(context).colorScheme.error.withOpacity(0.2),
+      tileColor: theme.colorScheme.secondary.withOpacity(0.2),
     );
   }
 }

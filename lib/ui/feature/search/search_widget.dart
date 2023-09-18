@@ -45,7 +45,6 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
       transitionDuration: const Duration(milliseconds: 800),
       transitionCurve: Curves.easeInOut,
-      physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       axisAlignment: 0.0,
       openAxisAlignment: 0.0,
       margins: EdgeInsets.only(

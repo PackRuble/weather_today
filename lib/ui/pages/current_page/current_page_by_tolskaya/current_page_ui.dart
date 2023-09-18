@@ -6,7 +6,6 @@ import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/core/controllers/weather_service_controllers.dart';
 import 'package:weather_today/core/models/place/place_model.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
@@ -27,7 +26,6 @@ class CurrentWeatherPageByTolskaya extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
       child: ListView(
-        physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
         children: [
           _DateWidget(currently.date),
           _MainInfoWidget(

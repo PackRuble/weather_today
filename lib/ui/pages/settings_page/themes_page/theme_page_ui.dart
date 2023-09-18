@@ -34,7 +34,6 @@ class ThemePage extends ConsumerWidget {
       child: Scaffold(
         appBar: RAppBar(t.themesPage.appbarTitle),
         body: ListView(
-          physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
           children: const [
             Divider(),
             ShowThemeColors(),

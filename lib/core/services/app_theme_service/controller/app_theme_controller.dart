@@ -70,9 +70,9 @@ class AppTheme with Updater {
   // AppScrollPhysics
   // ---------------------------------------------------------------------------
 
-  /// Тип скролла в приложении.
+  /// The type of scroll in the application.
   ///
-  /// Изменить через [setScrollPhysics].
+  /// Change via [setScrollPhysics].
   ///
   static final scrollPhysics = StateProvider<AppScrollPhysics>(
     (ref) => _conversionScrollPhysics(DbStore.scrollPhysicsDefault),
@@ -82,7 +82,7 @@ class AppTheme with Updater {
   static AppScrollPhysics _conversionScrollPhysics(int value) =>
       AppScrollPhysics.values[value];
 
-  /// Установить новый тип скролла [scrollPhysics].
+  /// Set a new scroll type [scrollPhysics].
   Future<void> setScrollPhysics(AppScrollPhysics scroll) async {
     update<AppScrollPhysics>(scrollPhysics, scroll);
     await saveDb(DbStore.scrollPhysics, scroll.index);
