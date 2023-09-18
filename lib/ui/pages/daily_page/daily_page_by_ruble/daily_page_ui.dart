@@ -12,6 +12,7 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 import 'package:weather_today/extension/double_extension.dart';
 import 'package:weather_today/ui/shared/attribution_weather_widget.dart';
 import 'package:weather_today/ui/shared/shared_widget.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../../shared/alerts_wrapper.dart';
 import '../../../utils/image_helper.dart';
@@ -145,9 +146,6 @@ class _GroupExpansionWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // todo: хочется отрисовывать внутренности только после открытия. Хорошая оптимизация будет :)
-    //  хотя и ExpansionPanelList отрисовывает содержимое сразу
-    // быть может поможет Visibility...
     return ExpandableNotifier(
       child: ScrollOnExpand(
         child: ExpandablePanel(
@@ -160,7 +158,54 @@ class _GroupExpansionWidget extends ConsumerWidget {
           ),
           header: TileDailyWidget(daily),
           collapsed: const SizedBox.shrink(),
+          builder: (_, collapsed, expanded) => Expandable(
+            collapsed: collapsed,
+            expanded: expanded,
+          ),
+          // optimized! will be build only at the time of expansion
           expanded: _ExpandedWidget(daily),
+        ),
+      ),
+    );
+  }
+}
+
+class Expandable extends StatelessWidget {
+  const Expandable({
+    Key? key,
+    required this.expanded,
+    required this.collapsed,
+  }) : super(key: key);
+
+  final Widget collapsed;
+  final Widget expanded;
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = ExpandableController.of(context);
+    final theme = ExpandableThemeData.of(context);
+
+    return ClipRect(
+      child: AnimatedSize(
+        duration: theme.animationDuration!,
+        curve: theme.sizeCurve!,
+        child: AnimatedSwitcher(
+          duration: theme.animationDuration!,
+          switchInCurve: Interval(
+              theme.collapsedFadeStart, theme.collapsedFadeEnd,
+              curve: theme.fadeCurve!),
+          switchOutCurve: Interval(
+              theme.expandedFadeStart, theme.expandedFadeEnd,
+              curve: theme.fadeCurve!),
+          layoutBuilder: (currentChild, previousChildren) => Stack(
+            clipBehavior: Clip.none,
+            alignment: theme.alignment!,
+            children: <Widget>[
+              ...previousChildren,
+              if (currentChild != null) currentChild,
+            ],
+          ),
+          child: controller!.expanded ? expanded : collapsed,
         ),
       ),
     );
@@ -312,13 +357,15 @@ const Widget _vDivider = VerticalDivider(
 );
 
 /// Информация в расширяющемся боксе. Все погодные характеристики здесь.
-class _ExpandedWidget extends ConsumerWidget {
+class _ExpandedWidget extends ConsumerWidget with UiLoggy {
   const _ExpandedWidget(this.weather);
 
   final WeatherDaily weather;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    loggy.debug('build');
+
     final t = ref.watch(AppLocalization.currentTranslation);
 
     final Temp tempUnits = ref.watch(DailyPageController.tempUnits);
