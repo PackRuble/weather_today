@@ -20,7 +20,7 @@ class IntroPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final mediaQuery = MediaQuery.of(context);
+    final viewPadding = MediaQuery.viewPaddingOf(context);
 
     final introTiles = ref.watch(IntroPageController.introTiles);
 
@@ -41,7 +41,7 @@ class IntroPage extends HookConsumerWidget {
               children: [for (final tile in introTiles) _IntroTileWidget(tile)],
             ),
             Positioned(
-              top: mediaQuery.viewPadding.top + 4.0,
+              top: viewPadding.top + 4.0,
               right: 4.0,
               child: const ChangerThemeButton(),
             ),

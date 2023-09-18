@@ -123,7 +123,7 @@ class _TileDocWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery.sizeOf(context);
     final theme = Theme.of(context);
 
     return Column(

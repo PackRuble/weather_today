@@ -23,7 +23,7 @@ class ChartForecastWidget extends ConsumerWidget {
     final t = ref.watch(HourlyPageController.tr);
 
     final bool isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
+        MediaQuery.orientationOf(context) == Orientation.portrait;
 
     final ChartModel<WeatherHourly> chart =
         ref.watch(HPByRubleCtrl.chartMainForecast);

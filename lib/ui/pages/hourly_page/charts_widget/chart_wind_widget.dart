@@ -96,7 +96,7 @@ class ChartWindWidget extends ConsumerWidget {
     ];
 
     final bool isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
+        MediaQuery.orientationOf(context) == Orientation.portrait;
 
     return CustomChartWidget(
       generateData: generateData,

@@ -48,7 +48,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       axisAlignment: 0.0,
       openAxisAlignment: 0.0,
       margins: EdgeInsets.only(
-        top: MediaQuery.of(context).viewPadding.top +
+        top: MediaQuery.viewPaddingOf(context).top +
             AppInsets.aroundPaddingSearchBar,
       ),
       height: AppInsets.heightSearchBar,

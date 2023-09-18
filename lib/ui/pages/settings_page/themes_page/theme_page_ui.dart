@@ -252,7 +252,7 @@ class ThemeCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(_inset),
         child: SizedBox(
-          height: MediaQuery.of(context).size.width * 0.15,
+          height: MediaQuery.sizeOf(context).width * 0.15,
           child: Card(
             margin: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
