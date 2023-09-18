@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:slang_flutter/slang_flutter.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:weather_today/core/init_app_service.dart';
+import 'package:weather_today/ui/shared/wrapper_page.dart';
 
 import 'const/app_info.dart';
 import 'core/controllers/localization_controller.dart';
@@ -76,8 +77,7 @@ class WeatherMain extends ConsumerWidget with UiLoggy {
       theme: ref.watch(AppTheme.lightTheme).toTheme,
       darkTheme: ref.watch(AppTheme.darkTheme).toTheme,
       themeMode: ref.watch(AppTheme.themeMode),
-      // todo: Use a builder instead of wrapping each page in a WrapperPage
-      // builder: ,
+      builder: (context, child) => WrapperPage(child: child!),
       routerDelegate: AutoRouterDelegate(
         _appRouter,
         navigatorObservers: () => [NavigationObserver()],

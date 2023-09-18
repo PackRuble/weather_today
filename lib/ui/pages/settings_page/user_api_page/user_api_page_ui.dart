@@ -6,7 +6,6 @@ import 'package:url_launcher/link.dart';
 import 'package:weather_today/const/app_icons.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
-import 'package:weather_today/ui/shared/wrapper_page.dart';
 
 import '../../../shared/appbar_widget.dart';
 import 'user_api_page_controller.dart';
@@ -23,22 +22,20 @@ class UserApiPage extends ConsumerWidget {
 
     final t = ref.watch(UserApiPageController.tr);
 
-    return WrapperPage(
-      child: Scaffold(
-        appBar: RAppBar(t.apiWeatherPage.appbarTitle),
-        body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          controller: viewController,
-          physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
-          children: const [
-            _AboutApiWidget(),
-            Divider(height: 4.0),
-            _StatusTileWidget(),
-            Divider(height: 4.0),
-            _TextFieldApiWidget(),
-            SizedBox(height: 50.0),
-          ],
-        ),
+    return Scaffold(
+      appBar: RAppBar(t.apiWeatherPage.appbarTitle),
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        controller: viewController,
+        physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
+        children: const [
+          _AboutApiWidget(),
+          Divider(height: 4.0),
+          _StatusTileWidget(),
+          Divider(height: 4.0),
+          _TextFieldApiWidget(),
+          SizedBox(height: 50.0),
+        ],
       ),
     );
   }

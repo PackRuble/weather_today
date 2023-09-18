@@ -7,7 +7,6 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 import 'package:weather_today/ui/pages/settings_page/themes_page/theme_page_controller.dart';
 
 import '../../../shared/appbar_widget.dart';
-import '../../../shared/wrapper_page.dart';
 import 'theme_selector.dart';
 
 const double _inset = 2.0;
@@ -28,29 +27,27 @@ class ThemePage extends ConsumerWidget {
             ref.watch(ThemePageController.darkLevel)))
         .toTheme;
 
-    return WrapperPage(
-      child: Theme(
-        data: currentTheme.brightness == Brightness.light
-            ? currentTheme
-            : testedDarkLevelTheme,
-        child: Scaffold(
-          appBar: RAppBar(t.themesPage.appbarTitle),
-          body: ListView(
-            physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
-            children: const [
-              Divider(),
-              ShowThemeColors(),
-              Divider(),
-              ThemeSelector(),
-              _SwapColorsThemeWidget(),
-              _UseMaterial3Widget(),
-              Divider(),
-              _DarkModeTileWidget(),
-              _SwapComputeDarkWidget(),
-              _DarkLevelWidget(),
-              _SwapTrueBlackWidget(),
-            ],
-          ),
+    return Theme(
+      data: currentTheme.brightness == Brightness.light
+          ? currentTheme
+          : testedDarkLevelTheme,
+      child: Scaffold(
+        appBar: RAppBar(t.themesPage.appbarTitle),
+        body: ListView(
+          physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
+          children: const [
+            Divider(),
+            ShowThemeColors(),
+            Divider(),
+            ThemeSelector(),
+            _SwapColorsThemeWidget(),
+            _UseMaterial3Widget(),
+            Divider(),
+            _DarkModeTileWidget(),
+            _SwapComputeDarkWidget(),
+            _DarkLevelWidget(),
+            _SwapTrueBlackWidget(),
+          ],
         ),
       ),
     );

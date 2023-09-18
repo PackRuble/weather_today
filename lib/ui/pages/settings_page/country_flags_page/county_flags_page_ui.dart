@@ -7,7 +7,6 @@ import 'package:weather_today/ui/utils/image_helper.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../../shared/appbar_widget.dart';
-import '../../../shared/wrapper_page.dart';
 import 'country_flags_page_controller.dart';
 
 const double _inset = 8.0;
@@ -26,25 +25,22 @@ class CountryFlagsPage extends ConsumerWidget with UiLoggy {
 
     final t = ref.watch(CountryFlagsPageController.tr);
 
-    return WrapperPage(
-      child: Scaffold(
-        appBar: RAppBar(t.flagsPage.appbarTitle),
-        body: GridView.custom(
-          padding: const EdgeInsets.all(_inset),
-          physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 1 / 1,
-            crossAxisSpacing: _inset,
-            mainAxisSpacing: _inset,
-          ),
-          childrenDelegate: SliverChildBuilderDelegate(
-            (_, int index) {
-              return _TileCountryWidget(
-                  countries[index][0], countries[index][1]);
-            },
-            childCount: countries.length,
-          ),
+    return Scaffold(
+      appBar: RAppBar(t.flagsPage.appbarTitle),
+      body: GridView.custom(
+        padding: const EdgeInsets.all(_inset),
+        physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 1 / 1,
+          crossAxisSpacing: _inset,
+          mainAxisSpacing: _inset,
+        ),
+        childrenDelegate: SliverChildBuilderDelegate(
+          (_, int index) {
+            return _TileCountryWidget(countries[index][0], countries[index][1]);
+          },
+          childCount: countries.length,
         ),
       ),
     );

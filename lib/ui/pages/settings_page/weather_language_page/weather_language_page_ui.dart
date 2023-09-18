@@ -10,7 +10,6 @@ import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../../shared/appbar_widget.dart';
 import '../../../shared/tips_widget.dart';
-import '../../../shared/wrapper_page.dart';
 import 'weather_language_page_controller.dart';
 
 /// Страница для выбора языка запроса некоторых параметров сервиса погоды.
@@ -24,30 +23,28 @@ class WeatherLanguagePage extends ConsumerWidget with UiLoggy {
 
     final t = ref.watch(WeatherLanguagePageController.tr);
 
-    return WrapperPage(
-      child: Scaffold(
-        appBar: RAppBar(t.weatherLangPage.appbarTitle),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(AppInsets.allPadding),
-            child: ListView.builder(
-              physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  children: [
-                    if (index == 0)
-                      TipRWidget(
-                        padding:
-                            const EdgeInsets.only(bottom: AppInsets.allPadding),
-                        text: Text(
-                            '${AppSmiles.set} ${t.weatherLangPage.tips.info}'),
-                      ),
-                    _TileWidget(WeatherLanguage.values[index]),
-                  ],
-                );
-              },
-              itemCount: WeatherLanguage.values.length,
-            ),
+    return Scaffold(
+      appBar: RAppBar(t.weatherLangPage.appbarTitle),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(AppInsets.allPadding),
+          child: ListView.builder(
+            physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
+            itemBuilder: (BuildContext context, int index) {
+              return Column(
+                children: [
+                  if (index == 0)
+                    TipRWidget(
+                      padding:
+                          const EdgeInsets.only(bottom: AppInsets.allPadding),
+                      text: Text(
+                          '${AppSmiles.set} ${t.weatherLangPage.tips.info}'),
+                    ),
+                  _TileWidget(WeatherLanguage.values[index]),
+                ],
+              );
+            },
+            itemCount: WeatherLanguage.values.length,
           ),
         ),
       ),

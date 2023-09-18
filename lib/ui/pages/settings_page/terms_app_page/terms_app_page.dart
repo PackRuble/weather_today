@@ -6,7 +6,6 @@ import 'package:weather_today/core/controllers/localization_controller.dart';
 
 import '../../../shared/all_terms_widget.dart';
 import '../../../shared/appbar_widget.dart';
-import '../../../shared/wrapper_page.dart';
 
 @RoutePage()
 class TermsAppPage extends ConsumerWidget {
@@ -22,11 +21,9 @@ class TermsAppPage extends ConsumerWidget {
     final bool isAcceptedTerms =
         ref.watch(AppGeneralSettings.isAcceptedTermsConditions);
 
-    return WrapperPage(
-      child: Scaffold(
-        appBar: RAppBar(t.termsConditions.termsAndConditions),
-        body: TermsConditionsWidget(isAccepted: isAcceptedTerms),
-      ),
+    return Scaffold(
+      appBar: RAppBar(t.termsConditions.termsAndConditions),
+      body: TermsConditionsWidget(isAccepted: isAcceptedTerms),
     );
   }
 }

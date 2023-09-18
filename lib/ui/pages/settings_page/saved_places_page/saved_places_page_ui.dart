@@ -14,7 +14,6 @@ import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../../shared/tips_widget.dart';
 import '../../../shared/wrap_body_with_search_bar.dart';
-import '../../../shared/wrapper_page.dart';
 import '../../../utils/metrics_helper.dart';
 
 /// Страница сохраненных мест.
@@ -38,47 +37,45 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
     final List<Place> listPlaces =
         ref.watch(SavedPlacesPageController.savedPlaces);
 
-    return WrapperPage(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            WrapperBodyWithFSBar(
-              body: listPlaces.isEmpty
-                  ? Center(child: Text(t.savedPlacesPage.placesNotFound))
-                  : ListView.separated(
-                      physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const Divider(
-                          height: 5.0,
-                        );
-                      },
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          children: [
-                            if (index == 0)
-                              TipRWidget(
-                                text: Text(
-                                    '${AppSmiles.info} ${t.savedPlacesPage.tips.clickToMore}\n'
-                                    '${AppSmiles.pinned} ${t.savedPlacesPage.tips.holdToSet}'),
-                              ),
-                            _TileFoundedWidget(listPlaces[index]),
-                            if (index == listPlaces.length - 1)
-                              const SizedBox(height: 50.0)
-                          ],
-                        );
-                      },
-                      itemCount: listPlaces.length,
-                    ),
-            ),
-            if (defaultTargetPlatform == TargetPlatform.windows ||
-                defaultTargetPlatform == TargetPlatform.linux ||
-                defaultTargetPlatform == TargetPlatform.macOS)
-              const Align(
-                alignment: Alignment.bottomLeft,
-                child: BackButton(),
-              )
-          ],
-        ),
+    return Scaffold(
+      body: Stack(
+        children: [
+          WrapperBodyWithFSBar(
+            body: listPlaces.isEmpty
+                ? Center(child: Text(t.savedPlacesPage.placesNotFound))
+                : ListView.separated(
+                    physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const Divider(
+                        height: 5.0,
+                      );
+                    },
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          if (index == 0)
+                            TipRWidget(
+                              text: Text(
+                                  '${AppSmiles.info} ${t.savedPlacesPage.tips.clickToMore}\n'
+                                  '${AppSmiles.pinned} ${t.savedPlacesPage.tips.holdToSet}'),
+                            ),
+                          _TileFoundedWidget(listPlaces[index]),
+                          if (index == listPlaces.length - 1)
+                            const SizedBox(height: 50.0)
+                        ],
+                      );
+                    },
+                    itemCount: listPlaces.length,
+                  ),
+          ),
+          if (defaultTargetPlatform == TargetPlatform.windows ||
+              defaultTargetPlatform == TargetPlatform.linux ||
+              defaultTargetPlatform == TargetPlatform.macOS)
+            const Align(
+              alignment: Alignment.bottomLeft,
+              child: BackButton(),
+            )
+        ],
       ),
     );
   }

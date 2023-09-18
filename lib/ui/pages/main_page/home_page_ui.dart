@@ -13,7 +13,6 @@ import 'package:weather_today/core/services/app_theme_service/models/design_page
 import '../../shared/all_terms_widget.dart';
 import '../../shared/listen_message_widget.dart';
 import '../../shared/wrap_body_with_search_bar.dart';
-import '../../shared/wrapper_page.dart';
 import '../current_page/current_page_main.dart';
 import '../daily_page/daily_page_main.dart';
 import '../hourly_page/hourly_page_main.dart';
@@ -33,30 +32,24 @@ class HomePage extends ConsumerWidget {
         ref.watch(AppGeneralSettings.isAcceptedTermsConditions);
 
     if (showIntro) {
-      return const WrapperPage(child: IntroPage());
+      return const IntroPage();
     }
 
     if (!isAcceptedTerms) {
-      return const WrapperPage(
-        child: Scaffold(
-          body: SafeArea(
-            child: TermsConditionsWidget(),
-          ),
-        ),
+      return const Scaffold(
+        body: SafeArea(child: TermsConditionsWidget()),
       );
     }
 
-    return WrapperPage(
-      child: Scaffold(
-        key: materialKeyProvider,
-        bottomNavigationBar: const _BottomBarWidget(),
-        resizeToAvoidBottomInset: false,
-        // этим занимается сама панель-поиск
-        extendBodyBehindAppBar: false,
-        extendBody: false,
-        body: const WrapperBodyWithFSBar(
-          body: ListenMessageWrapper(child: _BodyWidget()),
-        ),
+    return Scaffold(
+      key: materialKeyProvider,
+      bottomNavigationBar: const _BottomBarWidget(),
+      resizeToAvoidBottomInset: false,
+      // этим занимается сама панель-поиск
+      extendBodyBehindAppBar: false,
+      extendBody: false,
+      body: const WrapperBodyWithFSBar(
+        body: ListenMessageWrapper(child: _BodyWidget()),
       ),
     );
   }

@@ -9,7 +9,6 @@ import 'package:weather_today/core/services/app_theme_service/controller/app_the
 
 import '../../../shared/appbar_widget.dart';
 import '../../../shared/switch_tile_widget.dart';
-import '../../../shared/wrapper_page.dart';
 
 @RoutePage()
 class SystemSettingsPage extends ConsumerWidget {
@@ -21,16 +20,14 @@ class SystemSettingsPage extends ConsumerWidget {
     final theme = Theme.of(context);
     final t = ref.watch(AppLocalization.currentTranslation);
 
-    return WrapperPage(
-      child: Scaffold(
-        appBar: RAppBar(t.systemSettingsPage.appbarTitle),
-        body: ListView(
-          physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
-          children: const [
-            EnableLogsSwitch(),
-            Divider(height: 0.0, thickness: 1.0),
-          ],
-        ),
+    return Scaffold(
+      appBar: RAppBar(t.systemSettingsPage.appbarTitle),
+      body: ListView(
+        physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
+        children: const [
+          EnableLogsSwitch(),
+          Divider(height: 0.0, thickness: 1.0),
+        ],
       ),
     );
   }
