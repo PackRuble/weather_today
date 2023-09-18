@@ -37,7 +37,7 @@ class ChartForecastWidget extends ConsumerWidget {
     if (!chart.isDataCorrect) {
       return CustomChartWidget(
         generateData: const [],
-        generateLabelsData: FlTitlesData(),
+        generateLabelsData: const FlTitlesData(),
         titleWidget: titleWidget,
         ifEmptyDataWidget:
             Text(t.weather.noDataProvided, style: styles.bodyMedium),

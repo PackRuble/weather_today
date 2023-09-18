@@ -1,11 +1,11 @@
+// ignore_for_file: unused_field, prefer_interpolation_to_compose_strings
+
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/i18n/translations.g.dart';
 import 'package:weather_today/i18n/translations_enum.dart';
 
 import '../../core/models/place/place_model.dart';
-
-// ignore_for_file: prefer_interpolation_to_compose_strings
 
 /// Вспомогательный класс для корректного отображения различных метрик.
 ///

@@ -33,7 +33,7 @@ class ChartOtherWidget extends ConsumerWidget {
     if (!chart.isDataCorrect) {
       return CustomChartWidget(
         generateData: const [],
-        generateLabelsData: FlTitlesData(),
+        generateLabelsData: const FlTitlesData(),
         titleWidget: titleWidget,
         ifEmptyDataWidget: Text(t.mainPageDRuble.hourlyPage.more.noData,
             style: styles.bodyMedium),

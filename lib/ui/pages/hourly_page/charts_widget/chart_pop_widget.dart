@@ -36,7 +36,7 @@ class ChartPopWidget extends ConsumerWidget {
 
       return CustomChartWidget(
         generateData: const [],
-        generateLabelsData: FlTitlesData(),
+        generateLabelsData: const FlTitlesData(),
         titleWidget: titleWidget,
         ifEmptyDataWidget: (startDate == null || endDate == null)
             ? Text(t.mainPageDRuble.hourlyPage.pop.noPopExpected,

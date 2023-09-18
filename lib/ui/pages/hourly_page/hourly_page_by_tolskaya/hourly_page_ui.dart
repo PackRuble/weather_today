@@ -256,7 +256,7 @@ class _ExpandedWidget extends ConsumerWidget {
 
     final Temp tempUnits = ref.watch(HourlyPageController.tempUnits);
     final String? _dewPoint =
-        MetricsHelper.getTemp(weather.dewPoint, tempUnits);
+        MetricsHelper.getTempOrNull(weather.dewPoint, tempUnits);
 
     final Speed speedUnits = ref.watch(HourlyPageController.speedUnits);
     final String? _windSpeed =

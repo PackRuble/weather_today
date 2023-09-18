@@ -112,7 +112,7 @@ class CustomChartWidget extends StatelessWidget {
                         BarChartData(
                           barTouchData: BarTouchData(enabled: false),
                           borderData: FlBorderData(show: false),
-                          gridData: FlGridData(show: false),
+                          gridData: const FlGridData(show: false),
                           titlesData: generateLabelsData,
                           barGroups: generateData,
                         ),
