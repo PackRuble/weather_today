@@ -33,6 +33,7 @@ dependencies:
 
   # Routing
   auto_route: ^7.8.3
+  dismissible_page: ^1.0.2
 
   # Database
   shared_preferences: ^2.2.1
