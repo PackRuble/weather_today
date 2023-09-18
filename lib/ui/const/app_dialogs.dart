@@ -6,7 +6,6 @@ import 'package:weather_today/core/controllers/localization_controller.dart';
 import 'package:weather_today/utils/routes/routes.gr.dart';
 
 import '../shared/dialogs_widget.dart';
-import '../utils/image_helper.dart';
 
 // coldfix: move here all dialogs
 
@@ -138,7 +137,7 @@ class AppDialogs {
       ) ??
       false;
 
-  /// Информационный диалог, показывающий информацию об этом приложении.
+  /// An information dialog showing information about this application.
   static Future<void> aboutApp(
     BuildContext context,
   ) async {
@@ -155,7 +154,7 @@ class AppDialogs {
         child: SizedBox.square(
           dimension: 70,
           child: Image.asset(
-            ImagePaths.iconAbout,
+            await AppInfo.iconAppPath,
             repeat: ImageRepeat.repeat,
             fit: BoxFit.scaleDown,
             filterQuality: FilterQuality.high,

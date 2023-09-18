@@ -76,7 +76,7 @@ flutter:
 
   # https://flutter.dev/assets-and-images
   assets:
-    - assets/icons/icon.png
+    - assets/icons/
     - assets/images/
     - assets/weather_icons/
     - assets/images/attribution/owm/

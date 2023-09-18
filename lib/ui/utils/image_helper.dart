@@ -1,8 +1,6 @@
 import 'dart:ui' show ImageFilter;
 
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
 /// Менеджер получения всех изображений в приложении.
@@ -30,10 +28,13 @@ class ImageHelper {
 }
 
 class ImagePaths {
+  const ImagePaths._();
+
   static String root = 'assets/images';
   static String icons = 'assets/icons';
 
-  static String iconAbout = '$icons/icon.png';
+  static String iconApp = '$icons/icon.png';
+  static String iconAppDev = '$icons/icon_dev.png';
 }
 
 /// Получить иконку погоды по её коду.
