@@ -76,6 +76,8 @@ class WeatherMain extends ConsumerWidget with UiLoggy {
       theme: ref.watch(AppTheme.lightTheme).toTheme,
       darkTheme: ref.watch(AppTheme.darkTheme).toTheme,
       themeMode: ref.watch(AppTheme.themeMode),
+      // todo: Use a builder instead of wrapping each page in a WrapperPage
+      // builder: ,
       routerDelegate: AutoRouterDelegate(
         _appRouter,
         navigatorObservers: () => [NavigationObserver()],

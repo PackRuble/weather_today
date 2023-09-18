@@ -31,6 +31,21 @@ class AppThemeScheme {
         navigationBarHeight: 60.0,
       );
 
+  // next: we're doing this until
+  // [Unexpected Ink Splash with Material3 when navigating · Issue #119897 · flutter/flutter](https://github.com/flutter/flutter/issues/119897)
+  static PageTransitionsTheme get pageTransitionsTheme {
+    const builder = ZoomPageTransitionsBuilder(
+      allowEnterRouteSnapshotting: false,
+    );
+
+    return const PageTransitionsTheme(
+      builders: <TargetPlatform, PageTransitionsBuilder>{
+        TargetPlatform.android: builder,
+        TargetPlatform.windows: builder,
+      },
+    );
+  }
+
   static FlexSubThemesData get _subThemesDataDark =>
       _subThemesDataLight.copyWith(
         blendOnLevel: 10,
@@ -58,6 +73,7 @@ class AppThemeScheme {
       useMaterial3: useMaterial3,
       typography: typography,
       fontFamily: fontFamily,
+      pageTransitionsTheme: pageTransitionsTheme,
     );
 
     // ignore: unused_local_variable
@@ -95,6 +111,7 @@ class AppThemeScheme {
         useMaterial3: useMaterial3,
         typography: typography,
         fontFamily: fontFamily,
+        pageTransitionsTheme: pageTransitionsTheme,
       );
 
   static List<FlexSchemeData> schemes = FlexColor.schemesList;
