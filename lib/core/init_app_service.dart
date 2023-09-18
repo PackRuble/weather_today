@@ -1,10 +1,11 @@
 import 'package:cardoteka/cardoteka.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:loggy/loggy.dart';
 import 'package:weather_today/core/controllers/logger_controller.dart';
 import 'package:weather_today/core/services/api/api_OWM.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 import 'package:weather_today/core/services/local_db_service/data_base_controller.dart';
+import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../utils/logger/loggy_printer.dart';
 import 'controllers/general_settings_controller.dart';
@@ -51,7 +52,7 @@ class ServiceInit {
     final _loggerManager = _container.read(loggerManager);
     await _loggerManager.init();
 
-    logInfo('Активируем логгер');
+    logInfo('Activate the logger...');
     Loggy.initLoggy(
       logPrinter: SmartPrinter(
         consolePrinter: const ConsolePrinter(showColors: true),
@@ -61,10 +62,13 @@ class ServiceInit {
         LogLevel.all,
         stackTraceLevel: LogLevel.off,
       ),
-      // filters: [
-      //   BlacklistFilter([BlacklistedLoggy]),
-      // ],
+      filters: kDebugMode
+          ? [
+              BlacklistFilter([DbLogger])
+            ]
+          : [],
     );
+    logInfo('Successful logger activation');
   }
 
   Future<void> _initLocalization() async {

@@ -24,7 +24,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
 
     final t = ref.watch(SearchWidgetNotifier.tr);
 
-    final widthScreen = MediaQuery.of(context).size.width;
+    final widthScreen = MediaQuery.sizeOf(context).width;
 
     final Color? barrierColor = ModalRoute.of(context)?.barrierColor;
     final AppColors colors = AppColors.of(context);

@@ -1,4 +1,4 @@
-import 'package:loggy/loggy.dart' show LoggyType, Loggy;
+import 'package:loggy/loggy.dart' show Loggy, LoggyType;
 
 mixin GlobalLogger implements LoggyType {
   @override
