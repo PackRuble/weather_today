@@ -7,7 +7,7 @@ class AppThemeScheme {
 
   static FlexSubThemesData get _subThemesDataLight => const FlexSubThemesData(
         useM2StyleDividerInM3: true,
-        blendOnLevel: 20,
+        // blendOnLevel: 20,
         defaultRadius: 8.0,
         bottomSheetRadius: 8.0,
         textButtonRadius: 10.0,
@@ -31,6 +31,11 @@ class AppThemeScheme {
         navigationBarHeight: 60.0,
       );
 
+  static FlexSubThemesData get _subThemesDataDark =>
+      _subThemesDataLight.copyWith(
+        blendOnLevel: 10,
+      );
+
   // next: we're doing this until
   // [Unexpected Ink Splash with Material3 when navigating · Issue #119897 · flutter/flutter](https://github.com/flutter/flutter/issues/119897)
   static PageTransitionsTheme get pageTransitionsTheme {
@@ -46,11 +51,6 @@ class AppThemeScheme {
     );
   }
 
-  static FlexSubThemesData get _subThemesDataDark =>
-      _subThemesDataLight.copyWith(
-        blendOnLevel: 10,
-      );
-
   /// Returns the light theme based on properties passed to it.
   static FlexColorScheme light({
     required FlexSchemeData usedTheme,
@@ -60,7 +60,7 @@ class AppThemeScheme {
     required String fontFamily,
   }) {
     final FlexColorScheme _flexScheme = FlexColorScheme.light(
-      colors: usedTheme.light,
+      colors: usedTheme.light.defaultError,
       surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
       blendLevel: 10,
       appBarOpacity: 0.85,
@@ -97,7 +97,7 @@ class AppThemeScheme {
     required String fontFamily,
   }) =>
       FlexColorScheme.dark(
-        colors: usedTheme.light.defaultError
+        colors: usedTheme.dark.defaultError
             .toDark(darkLevel, swapDarkMainAndContainerColors),
         surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
         blendLevel: 10,

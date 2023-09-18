@@ -2,6 +2,7 @@
 
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_pack/weather_pack.dart';
@@ -13,10 +14,11 @@ import 'package:weather_today/ui/shared/attribution_weather_widget.dart';
 import 'package:weather_today/ui/shared/shared_widget.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
-import '../../../shared/alerts_wrapper.dart';
 import '../../../utils/image_helper.dart';
 import '../../../utils/metrics_helper.dart';
 import '../daily_page_controller.dart';
+
+const Widget _divider = Divider(height: 0.0, thickness: 1.0);
 
 /// Страница погоды на 7 дней.
 class DailyWeatherPageByRuble extends ConsumerWidget {
@@ -26,10 +28,7 @@ class DailyWeatherPageByRuble extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const Widget divider = Divider(height: 4.0, thickness: 1.0);
-
     return ListView.separated(
-      // physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
       itemBuilder: (BuildContext context, int index) {
         if (index + 1 == daily.length) {
           return const AttributionWeatherWidget();
@@ -49,7 +48,7 @@ class DailyWeatherPageByRuble extends ConsumerWidget {
         if (index + 2 == daily.length) {
           return const SizedBox.shrink();
         }
-        return divider;
+        return _divider;
       },
       itemCount: daily.length,
     );
@@ -63,21 +62,24 @@ class _AlertsListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AlertsWrapper(
-      asyncAlerts: ref.watch(DailyPageController.alerts),
-      data: (List<WeatherAlert> alerts) {
-        if (alerts.isEmpty) return const SizedBox.shrink();
+    return ref.watch(DailyPageController.alerts).maybeWhen(
+        data: (List<WeatherAlert>? alerts) {
+          if (alerts?.isEmpty ?? true) {
+            return const SizedBox.shrink();
+          }
 
-        return Column(
-          children: [
-            for (final alert in alerts) ...[
-              _AlertTileWidget(alert),
-              const Divider(height: 0.0),
-            ]
-          ],
-        );
-      },
-    );
+          alerts = MetricsHelper.getCorrectAlert(alerts!);
+
+          return Column(
+            children: [
+              for (final alert in alerts) ...[
+                _AlertTileWidget(alert),
+                _divider,
+              ]
+            ],
+          );
+        },
+        orElse: () => const SizedBox.shrink());
   }
 }
 
@@ -94,46 +96,79 @@ class _AlertTileWidget extends ConsumerWidget {
 
     final String date = alert.start!.day == alert.end!.day
         ? t.global.time.timeFromTimeSToTimeEnl(
-            time: DateFormat('dd.MM').format(alert.start!),
+            time: DateFormat.MMMMd().format(alert.start!).replaceAll(' ', ' '),
             timeStart: DateFormat.H().format(alert.start!),
-            timeEnd: DateFormat.H().format(alert.end!))
-        : t.global.time.fromTimeToTimeNl(
-            timeStart: DateFormat('dd.MM').format(alert.start!),
-            timeEnd: DateFormat('dd.MM').format(alert.end!));
+            timeEnd: DateFormat.H().format(alert.end!),
+          )
+        : t.global.time.fromTimeToTime(
+            // todo: rename fromDateToDate
+            timeStart:
+                DateFormat.MMMMd().format(alert.start!).replaceAll(' ', ' '),
+            timeEnd: DateFormat.MMMMd().format(alert.end!).replaceAll(' ', ' '),
+          );
 
-    // coldfix Когда-нибудь я узнаю, как решать эти проблемы с переполнением
-    //  в leading и trailing в ListTile
+    final String? description = alert.description;
+
     return ListTile(
-      leading: UnconstrainedBox(
-        alignment: Alignment.topCenter,
-        constrainedAxis: Axis.horizontal,
-        child: SizedBox(
-          width: 90.0,
-          child: Text(date, textAlign: TextAlign.center),
-        ),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Flexible(
+                child: Text(
+                  date,
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    color: theme.colorScheme.onSecondary,
+                  ),
+                  textAlign: TextAlign.end,
+                ),
+              ),
+            ],
+          ),
+          Text(alert.event ?? ''),
+        ],
       ),
-      title: Text(alert.event!),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (alert.description != null) Text(alert.description!),
+          if (description != null)
+            HookConsumer(
+              key: ValueKey(description),
+              builder: (context, _, child) {
+                const maxLength = 128;
+                final isNeedCrop = description.length > maxLength;
+                final showFullDescriptionState = useState(!isNeedCrop);
+
+                final showFullDescription = showFullDescriptionState.value;
+
+                return InkWell(
+                    splashFactory:
+                        InkSparkle.constantTurbulenceSeedSplashFactory,
+                    onTap: isNeedCrop
+                        ? () => showFullDescriptionState.value =
+                            !showFullDescription
+                        : null,
+                    child: isNeedCrop && !showFullDescription
+                        ? Text('${description.substring(0, maxLength)}…')
+                        : Text(description));
+              },
+            ),
           if (alert.senderName != null)
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
                   alert.senderName!,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    fontSize: 10,
-                  ),
+                  style: theme.textTheme.bodySmall?.copyWith(fontSize: 10),
                 ),
               ],
             ),
         ],
       ),
-      horizontalTitleGap: 8.0,
-      contentPadding: const EdgeInsets.only(right: 8.0),
-      tileColor: theme.colorScheme.secondary.withOpacity(0.2),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+      tileColor: theme.colorScheme.secondary.withOpacity(.4),
     );
   }
 }

@@ -29,7 +29,7 @@ class WrapperPage extends ConsumerWidget {
             .applyTo(scrollTheme.getScrollPhysics(context)),
         dragDevices: {
           if (defaultTargetPlatform == TargetPlatform.windows) ...{
-            PointerDeviceKind.touch,
+            PointerDeviceKind.trackpad,
             PointerDeviceKind.mouse,
           }
         },

@@ -301,14 +301,17 @@ class MetricsHelper {
     final List<WeatherAlert> newAlerts = [];
 
     for (final WeatherAlert alert in oldAlerts) {
-      // вопрос: возможно, пустое [alert.description] нам тоже подойдет?
-      // ответ: json подсказывает, если нет description - это не локальные
-      // уведомления. А нам такие не нужны :)
-      // if ((alert.event?.isEmpty ?? true)
-      // || (alert.description?.isEmpty ?? true)
-      //     ) {
-      //   continue;
-      // }
+      // отправитель mecom.ru дублирует информацию на английский, в котором отсутствует description
+      // coldfix: можно добавить также текущий язык
+      // проверить на содержание ещё одного английского аллерта с таким же временем
+      if ((alert.description?.isEmpty ?? true) &&
+          (alert.senderName?.contains('mecom.ru') ?? false) &&
+          oldAlerts.any((element) =>
+              element.start == alert.start &&
+              element.end == alert.end &&
+              element.hashCode != alert.hashCode)) {
+        continue;
+      }
 
       if (alert.start == null || alert.end == null) {
         continue;
