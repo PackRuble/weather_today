@@ -38,16 +38,12 @@ class ImagePaths {
 }
 
 /// Получить иконку погоды по её коду.
-///
-/// Укажите [onError] - если произошла ошибка загрузки.
 class WeatherImageIcon extends StatelessWidget {
   const WeatherImageIcon({
     super.key,
     required this.weatherIcon,
-    this.onError = '🌈',
   });
 
-  final String onError;
   final String? weatherIcon;
 
   @override
@@ -59,12 +55,20 @@ class WeatherImageIcon extends StatelessWidget {
           // ImagePathWeather.getPathWeatherIcon('weatherIcon' ?? ''),
           // package: ImagePathWeather.packageName,
           color: isBackground ? theme.primaryColorDark : null,
-          filterQuality: FilterQuality.low,
+          filterQuality: FilterQuality.high,
           errorBuilder: (_, e, s) {
             // bug: await fix https://github.com/flutter/flutter/issues/107416
-            logWarning('*$weatherIcon* not found assets weatherIcon');
+            logWarning('$e: *$weatherIcon* not found assets weatherIcon');
 
-            return FittedBox(fit: BoxFit.contain, child: Text(onError));
+            // coldfix: осталась полоска сверху на главной странице
+            return Transform.scale(
+              filterQuality: FilterQuality.low,
+              scale: 0.5,
+              child: Image.asset(
+                filterQuality: FilterQuality.high,
+                'assets/images/rainbow.png',
+              ),
+            );
           },
         );
 
