@@ -1,6 +1,8 @@
 // ignore_for_file: discarded_futures
 
 import 'package:auto_route/annotations.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
@@ -248,31 +250,58 @@ class ThemeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorName = ColorTools.nameThatColor(color);
+
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(_inset),
         child: SizedBox(
-          height: MediaQuery.sizeOf(context).width * 0.15,
+          height: MediaQuery.sizeOf(context).height * 0.16,
           child: Card(
             margin: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4),
               side: BorderSide(
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                color: theme.colorScheme.onPrimaryContainer,
               ),
             ),
             elevation: 0,
             color: color,
             child: Padding(
               padding: const EdgeInsets.all(_inset),
-              child: Center(
-                child: Text(
-                  label,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const Spacer(),
+                  Center(
+                    child: Text(
+                      label,
+                      style: theme.textTheme.bodySmall?.copyWith(
                         color: textColor,
                       ),
-                  textAlign: TextAlign.center,
-                ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    textAlign: TextAlign.end,
+                    colorName,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      fontSize: 8,
+                      fontStyle: FontStyle.italic,
+                      overflow: TextOverflow.fade,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: const Offset(1.0, 1.0),
+                          blurRadius: 1.0,
+                          color: textColor.onColor,
+                        ),
+                      ],
+                      color: textColor,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

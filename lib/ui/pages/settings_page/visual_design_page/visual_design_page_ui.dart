@@ -97,15 +97,13 @@ class _HeaderSliverText extends StatelessWidget {
 
   final String text;
 
-  static const _paddingHeader = EdgeInsets.only(left: 16, top: 16, bottom: 8);
-
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       key: ValueKey(text),
       child: HeaderRWidget(
         text,
-        padding: _paddingHeader,
+        padding: const EdgeInsets.only(left: 16, top: 16, bottom: 8),
       ),
     );
   }

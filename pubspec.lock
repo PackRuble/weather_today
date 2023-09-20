@@ -328,6 +328,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.63.0"
+  flex_color_picker:
+    dependency: "direct main"
+    description:
+      name: flex_color_picker
+      sha256: f37476ab3e80dcaca94e428e159944d465dd16312fda9ff41e07e86f04bfa51c
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.0"
   flex_color_scheme:
     dependency: "direct main"
     description:
@@ -744,10 +752,10 @@ packages:
     dependency: "direct dev"
     description:
       name: riverpod_lint
-      sha256: "74123a5f0a8e809ab80078dbc02061ecf02e09647a2c3231c87b7342bcf8d399"
+      sha256: ac720622fde22356eca69a4831c15ab811615bf256a2ce37f1fff06b7f86cacf
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.4"
+    version: "2.1.0"
   rxdart:
     dependency: transitive
     description:
