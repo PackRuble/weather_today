@@ -49,6 +49,12 @@ android {
     flavorDimensions "weather_today"
 
     productFlavors {
+        dev_debug {
+            dimension "weather_today"
+            applicationIdSuffix ".dev_debug"
+            resValue "string", "app_name", "Weather Today [dev_debug]"
+            versionNameSuffix ".dev_debug"
+        }
         dev {
             dimension "weather_today"
             applicationIdSuffix ".dev"
