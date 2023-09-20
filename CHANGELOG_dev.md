@@ -1,3 +1,18 @@
+## [3.3.0-pre.3+16] - 20-09-2023
+- fea: slide effect when closing a page using gestures
+- upd: rebuild folders (win, mac, ios, android) using flutter version 3.14.0-0.2.pre
+- upd: setting build.gradle (new flavor dev_debug) and associated icons/names in the application itself
+- imp: expanded content in daily page now optimized
+- imp: `WrapperPage` now contains scrollPhysics and been moved in main 
+- imp: new alerts design and fix sender message in ru location
+- fix: default weather icon was displayed incorrectly
+- upd: `MediaQuery.of` optimization
+- upd: resolve hints
+
+## [3.3.0-pre.2+11] - 12-09-2023
+- feat: ability to change the location and style of weather pages
+- upd: dependencies
+
 ## [3.3.0-pre.1+10] - 25-08-2023
 - imp: upgrade to dart 3.1 and flutter 3.13
 - upd: dependencies with code (routing, old search_bar)

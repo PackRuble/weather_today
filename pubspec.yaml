@@ -2,7 +2,7 @@ name: weather_today
 description: Weather for every day.
 publish_to: none
 
-version: 3.3.0-pre.2+11
+version: 3.3.0-pre.3+16
 
 environment:
   sdk: ^3.0.0
@@ -46,7 +46,7 @@ dependencies:
 
   # State manager
   hooks_riverpod: ^2.4.0
-  flutter_hooks: ^0.20.1
+  flutter_hooks: 0.20.1
 
   # Localization
   slang: ^3.23.0
@@ -75,7 +75,7 @@ dev_dependencies:
 
   # linters
   custom_lint: ^0.5.3
-  riverpod_lint: ^2.0.4
+  riverpod_lint: ^2.1.0
   lint: ^2.1.2
 
 flutter:
