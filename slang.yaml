@@ -6,7 +6,7 @@ fallback_strategy: base_locale # в случае ошибки возвращае
 
 input_directory: assets/i18n # путь хранения переводов
 input_file_pattern: .i18n.json
-output_directory: lib/i18n # путь генерации переводов
+output_directory: lib/application/i18n # путь генерации переводов
 output_file_name: translations.g.dart
 output_format: multiple_files
 

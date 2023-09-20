@@ -5,11 +5,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:weather_pack/weather_pack.dart';
-import 'package:weather_today/const/app_colors.dart';
-import 'package:weather_today/const/app_icons.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
-import 'package:weather_today/core/services/app_theme_service/models/design_page.dart';
-import 'package:weather_today/core/services/app_theme_service/models/models.dart';
+import 'package:weather_today/application/const/app_colors.dart';
+import 'package:weather_today/application/const/app_icons.dart';
+import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
+import 'package:weather_today/domain/controllers/app_theme/models/design_page.dart';
+import 'package:weather_today/domain/controllers/app_theme/models/models.dart';
 import 'package:weather_today/extension/enum_extension.dart';
 import 'package:weather_today/ui/pages/current_page/current_page_main.dart';
 import 'package:weather_today/ui/pages/daily_page/daily_page_by_ruble/daily_page_ui.dart'

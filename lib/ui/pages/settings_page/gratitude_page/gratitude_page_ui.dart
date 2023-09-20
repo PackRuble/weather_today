@@ -2,8 +2,8 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:weather_today/const/app_info.dart';
-import 'package:weather_today/core/controllers/localization_controller.dart';
+import 'package:weather_today/application/const/app_info.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
 
 import '../../../shared/appbar_widget.dart';
 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../core/controllers/message_controller.dart';
-import '../../core/models/toasts_model.dart';
+import '../../domain/controllers/message_controller.dart';
+import '../../domain/models/toasts_model.dart';
 import 'snack_widget.dart';
 
 /// Виджет-обертка необходим, чтобы другой виджет мог слушать Toast/Snackbar.

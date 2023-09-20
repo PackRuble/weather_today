@@ -3,11 +3,11 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/const/app_colors.dart';
-import 'package:weather_today/const/app_icons.dart';
-import 'package:weather_today/const/app_insets.dart';
-import 'package:weather_today/core/controllers/weather_service_controllers.dart';
-import 'package:weather_today/core/models/place/place_model.dart';
+import 'package:weather_today/application/const/app_colors.dart';
+import 'package:weather_today/application/const/app_icons.dart';
+import 'package:weather_today/application/const/app_insets.dart';
+import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
+import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/ui/pages/settings_page/saved_places_page/saved_places_page_controller.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 

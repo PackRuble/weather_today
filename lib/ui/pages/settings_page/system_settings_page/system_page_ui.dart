@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/core/controllers/localization_controller.dart';
-import 'package:weather_today/core/controllers/logger_controller.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
+import 'package:weather_today/domain/controllers/logger_controller.dart';
 
 import '../../../shared/appbar_widget.dart';
 import '../../../shared/switch_tile_widget.dart';

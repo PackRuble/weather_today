@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_today/const/app_info.dart';
-import 'package:weather_today/const/countries_code.dart';
-import 'package:weather_today/core/controllers/localization_controller.dart';
-import 'package:weather_today/utils/routes/routes.gr.dart';
+import 'package:weather_today/application/const/app_info.dart';
+import 'package:weather_today/application/const/countries_code.dart';
+import 'package:weather_today/application/navigation/routes.gr.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
 
 import '../shared/dialogs_widget.dart';
 

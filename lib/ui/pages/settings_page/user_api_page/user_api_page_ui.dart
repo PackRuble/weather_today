@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/link.dart';
-import 'package:weather_today/const/app_icons.dart';
+import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
 
 import '../../../shared/appbar_widget.dart';

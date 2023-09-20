@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:weather_today/const/app_colors.dart';
+import 'package:weather_today/application/const/app_colors.dart';
 
 /// Виджет-плашка поставщика погоды.
 class AttributionWeatherWidget extends StatelessWidget {

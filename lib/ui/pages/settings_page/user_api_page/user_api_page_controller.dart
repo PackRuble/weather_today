@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/core/controllers/localization_controller.dart';
-import 'package:weather_today/core/controllers/message_controller.dart';
-import 'package:weather_today/core/services/api/api_OWM.dart';
-import 'package:weather_today/i18n/translations.g.dart';
+import 'package:weather_today/application/i18n/translations.g.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
+import 'package:weather_today/domain/controllers/message_controller.dart';
+import 'package:weather_today/domain/controllers/owm_controller.dart';
 import 'package:weather_today/ui/const/app_dialogs.dart';
 
 /// Контроллер страницы [UserApiPage].
@@ -24,7 +24,7 @@ class UserApiPageController {
 
   /// Установлен пользовательский api?
   static final isUserApiKeyWeather = StateProvider.autoDispose<bool>(
-      (ref) => ref.watch(ApiServiceOwm.isUserApiKey));
+      (ref) => ref.watch(OWMController.isUserApiKey));
 
   /// Провайдер возвращает translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
@@ -35,7 +35,7 @@ class UserApiPageController {
     _ref.read(isTestingApiKey.notifier).update((_) => true);
 
     final bool isCorrectApi = await _ref
-        .read(ApiServiceOwm.instance)
+        .read(OWMController.instance)
         .setUserApiKey(apiTextController.value.text);
 
     if (isCorrectApi) {
@@ -51,7 +51,7 @@ class UserApiPageController {
   Future<void> checkApi() async {
     _ref.read(isTestingApiKey.notifier).update((_) => true);
 
-    if (await _ref.read(ApiServiceOwm.instance).isCorrectInstalledApiKey()) {
+    if (await _ref.read(OWMController.instance).isCorrectInstalledApiKey()) {
       _ref.read(MessageController.instance).tCheckApikeyOWMSuccess();
     } else {
       _ref.read(MessageController.instance).tCheckApikeyOWMFail();
@@ -66,7 +66,7 @@ class UserApiPageController {
         await AppDialogs.confirmDeletionUserApiKeyWeather(context);
 
     if (isDelete) {
-      await _ref.read(ApiServiceOwm.instance).resetUserApiKey();
+      await _ref.read(OWMController.instance).resetUserApiKey();
     }
   }
 

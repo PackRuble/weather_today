@@ -2,8 +2,8 @@ import 'dart:io' show exit;
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/core/controllers/general_settings_controller.dart';
-import 'package:weather_today/core/controllers/localization_controller.dart';
+import 'package:weather_today/domain/controllers/general_settings_controller.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
 
 import 'terms_conditions_widget.dart';
 

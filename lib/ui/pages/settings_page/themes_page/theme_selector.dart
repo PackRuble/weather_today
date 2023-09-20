@@ -1,9 +1,9 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/const/app_insets.dart';
-import 'package:weather_today/core/services/app_theme_service/const/app_theme_scheme.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'package:weather_today/application/const/app_insets.dart';
+import 'package:weather_today/application/theme/app_theme_scheme.dart';
+import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
 
 /// Переключатель тем, с выпадающим списком.
 class ThemeSelector extends ConsumerWidget {

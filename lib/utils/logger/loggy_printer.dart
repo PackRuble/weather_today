@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:loggy/loggy.dart';
-import 'package:weather_today/core/controllers/logger_controller.dart';
+import 'package:weather_today/domain/controllers/logger_controller.dart';
 
 // ignore_for_file: avoid_print
 

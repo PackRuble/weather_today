@@ -4,12 +4,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/const/app_icons.dart';
-import 'package:weather_today/core/controllers/general_settings_controller.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
-import 'package:weather_today/i18n/translations_enum.dart';
+import 'package:weather_today/application/const/app_icons.dart';
+import 'package:weather_today/application/i18n/translations_enum.dart';
+import 'package:weather_today/application/navigation/routes.gr.dart';
+import 'package:weather_today/domain/controllers/general_settings_controller.dart';
+import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/pages/settings_page/setting_page_controller.dart';
-import 'package:weather_today/utils/routes/routes.gr.dart';
 
 import '../../shared/shared_widget.dart';
 

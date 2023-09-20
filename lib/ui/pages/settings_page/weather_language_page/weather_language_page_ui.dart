@@ -2,9 +2,9 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
-import 'package:weather_today/const/app_colors.dart';
-import 'package:weather_today/const/app_icons.dart';
-import 'package:weather_today/const/app_insets.dart';
+import 'package:weather_today/application/const/app_colors.dart';
+import 'package:weather_today/application/const/app_icons.dart';
+import 'package:weather_today/application/const/app_insets.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../../shared/appbar_widget.dart';

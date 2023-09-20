@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
-import 'package:weather_today/core/controllers/localization_controller.dart';
-import 'package:weather_today/core/controllers/weather/weather_onecall_controller.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
-import 'package:weather_today/core/services/app_theme_service/models/design_page.dart';
-import 'package:weather_today/core/services/app_theme_service/models/models.dart';
-import 'package:weather_today/core/services/cardoteka/cardoteka.dart';
-import 'package:weather_today/i18n/translations.g.dart';
+import 'package:weather_today/application/i18n/translations.g.dart';
+import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
+import 'package:weather_today/domain/controllers/app_theme/models/design_page.dart';
+import 'package:weather_today/domain/controllers/app_theme/models/models.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
+import 'package:weather_today/domain/controllers/weather/weather_onecall_controller.dart';
+import 'package:weather_today/domain/services/cardoteka/cardoteka.dart';
 import 'package:weather_today/ui/const/app_dialogs.dart';
 
 /// Enumerations are needed to add to the list of modified data for the

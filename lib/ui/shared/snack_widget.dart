@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_today/core/models/toasts_model.dart';
+import 'package:weather_today/domain/models/toasts_model.dart';
 
 /// Преднастроенное всплывающее сообщение.
 class CustomSnack extends SnackBar {

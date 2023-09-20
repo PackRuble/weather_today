@@ -1,8 +1,8 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
-import 'package:weather_today/core/controllers/localization_controller.dart';
-import 'package:weather_today/core/controllers/weather_service_controllers.dart';
-import 'package:weather_today/i18n/translations.g.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
+import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
+import 'package:weather_today/application/i18n/translations.g.dart';
 
 /// Модель страницы [WeatherLanguagePage].
 class WeatherLanguagePageController {

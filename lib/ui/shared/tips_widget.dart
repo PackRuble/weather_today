@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/const/app_colors.dart';
+import 'package:weather_today/application/const/app_colors.dart';
 
 /// Виджет-подсказка.
 class TipRWidget extends ConsumerWidget {

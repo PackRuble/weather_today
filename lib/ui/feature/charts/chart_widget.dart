@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_today/const/app_colors.dart';
+import 'package:weather_today/application/const/app_colors.dart';
 
 import '../../shared/shared_widget.dart';
 

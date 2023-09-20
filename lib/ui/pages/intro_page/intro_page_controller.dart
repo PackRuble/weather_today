@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_animation/weather_animation.dart';
-import 'package:weather_today/core/controllers/localization_controller.dart';
-import 'package:weather_today/i18n/translations.g.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
+import 'package:weather_today/application/i18n/translations.g.dart';
 
 class IntroTile {
   final String title;

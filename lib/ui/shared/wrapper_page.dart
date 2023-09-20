@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
 
 /// The wrapper allows us to do a lot of useful work for us.
 /// At the moment:

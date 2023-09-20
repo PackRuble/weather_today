@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_today/const/app_colors.dart';
+import 'package:weather_today/application/const/app_colors.dart';
 
 import 'wrapper_page.dart';
 

@@ -2,10 +2,10 @@
 
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/extension/string_extension.dart';
-import 'package:weather_today/i18n/translations.g.dart';
-import 'package:weather_today/i18n/translations_enum.dart';
+import 'package:weather_today/application/i18n/translations.g.dart';
+import 'package:weather_today/application/i18n/translations_enum.dart';
 
-import '../../core/models/place/place_model.dart';
+import '../../domain/models/place/place_model.dart';
 
 /// Вспомогательный класс для корректного отображения различных метрик.
 ///

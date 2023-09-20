@@ -2,16 +2,16 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:slang_flutter/slang_flutter.dart';
 import 'package:stack_trace/stack_trace.dart';
-import 'package:weather_today/core/init_app_service.dart';
+import 'package:weather_today/application/i18n/translations.g.dart';
+import 'package:weather_today/domain/init_app_service.dart';
 import 'package:weather_today/ui/shared/wrapper_page.dart';
 
-import 'const/app_info.dart';
-import 'core/controllers/localization_controller.dart';
-import 'core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'application/const/app_info.dart';
+import 'application/navigation/routes.dart';
+import 'domain/controllers/localization_controller.dart';
+import 'domain/controllers/app_theme/controller/app_theme_controller.dart';
 import 'utils/logger/all_observers.dart';
-import 'utils/routes/routes.dart';
 
 void _loggingErrors() {
   // логгирование ошибок flutter framework

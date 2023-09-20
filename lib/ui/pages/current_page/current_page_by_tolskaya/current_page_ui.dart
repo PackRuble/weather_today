@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_pack/weather_pack.dart';
-import 'package:weather_today/const/app_icons.dart';
-import 'package:weather_today/core/controllers/localization_controller.dart';
-import 'package:weather_today/core/controllers/weather_service_controllers.dart';
-import 'package:weather_today/core/models/place/place_model.dart';
+import 'package:weather_today/application/const/app_icons.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
+import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
+import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
