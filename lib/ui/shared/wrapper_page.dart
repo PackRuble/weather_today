@@ -5,12 +5,12 @@ import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
 
-/// Обертка позволяет сделать много полезной работы за нас.
-/// В данный момент:
-/// - следит за фокусом;
-/// - следит за размером текста;
-/// - помогает настроить взаимодействие с приложением согласно устройства;
-/// - следит за используемой физикой скролла
+/// The wrapper allows us to do a lot of useful work for us.
+/// At the moment:
+/// - monitors focus;
+/// - monitors the text size;
+/// - helps to customize interaction with the application according to the device;
+/// - monitors the scroll physics used;
 class WrapperPage extends ConsumerWidget {
   const WrapperPage({required this.child});
 
@@ -28,8 +28,8 @@ class WrapperPage extends ConsumerWidget {
             .scrollPhysics
             .applyTo(scrollTheme.getScrollPhysics(context)),
         dragDevices: {
+          ...scrollTheme.dragDevices,
           if (defaultTargetPlatform == TargetPlatform.windows) ...{
-            PointerDeviceKind.trackpad,
             PointerDeviceKind.mouse,
           }
         },
