@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/application/const/app_insets.dart';
+import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
+import 'package:weather_today/domain/controllers/app_theme/models/design_page.dart';
 import 'package:weather_today/domain/controllers/general_settings_controller.dart';
 import 'package:weather_today/domain/controllers/global_key.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
-import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
-import 'package:weather_today/domain/controllers/app_theme/models/design_page.dart';
 
 import '../../shared/all_terms_widget.dart';
 import '../../shared/listen_message_widget.dart';

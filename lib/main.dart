@@ -9,8 +9,8 @@ import 'package:weather_today/ui/shared/wrapper_page.dart';
 
 import 'application/const/app_info.dart';
 import 'application/navigation/routes.dart';
-import 'domain/controllers/localization_controller.dart';
 import 'domain/controllers/app_theme/controller/app_theme_controller.dart';
+import 'domain/controllers/localization_controller.dart';
 import 'utils/logger/all_observers.dart';
 
 void _loggingErrors() {

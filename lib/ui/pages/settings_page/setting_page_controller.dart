@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/application/const/app_icons.dart';
+import 'package:weather_today/application/i18n/translations.g.dart';
+import 'package:weather_today/application/i18n/translations_enum.dart';
 import 'package:weather_today/application/navigation/routes.gr.dart';
 import 'package:weather_today/domain/controllers/general_settings_controller.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 import 'package:weather_today/domain/services/local_storage/key_store.dart';
-import 'package:weather_today/application/i18n/translations.g.dart';
-import 'package:weather_today/application/i18n/translations_enum.dart';
 import 'package:weather_today/ui/const/app_dialogs.dart';
 
 import '../../shared/dialogs_widget.dart';

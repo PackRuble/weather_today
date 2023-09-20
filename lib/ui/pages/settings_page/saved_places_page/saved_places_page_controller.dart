@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:weather_today/application/i18n/translations.g.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/controllers/saved_places_provider.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 import 'package:weather_today/domain/models/place/place_model.dart';
-import 'package:weather_today/application/i18n/translations.g.dart';
 import 'package:weather_today/ui/const/app_dialogs.dart';
 
 import '../../../utils/image_helper.dart';

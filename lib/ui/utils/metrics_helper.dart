@@ -1,9 +1,9 @@
 // ignore_for_file: unused_field, prefer_interpolation_to_compose_strings
 
 import 'package:weather_pack/weather_pack.dart';
-import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/application/i18n/translations.g.dart';
 import 'package:weather_today/application/i18n/translations_enum.dart';
+import 'package:weather_today/extension/string_extension.dart';
 
 import '../../domain/models/place/place_model.dart';
 

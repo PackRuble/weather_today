@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:weather_today/application/i18n/translations_enum.dart';
 import 'package:weather_today/domain/controllers/general_settings_controller.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
-import 'package:weather_today/application/i18n/translations_enum.dart';
 import 'package:weather_today/ui/pages/intro_page/intro_page_controller.dart';
 
 import '../../../application/i18n/translations.g.dart';

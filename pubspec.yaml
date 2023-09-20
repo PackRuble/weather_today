@@ -46,7 +46,7 @@ dependencies:
 
   # State manager
   hooks_riverpod: ^2.4.0
-  flutter_hooks: 0.20.1
+  flutter_hooks: ^0.20.1
 
   # Localization
   slang: ^3.23.0
