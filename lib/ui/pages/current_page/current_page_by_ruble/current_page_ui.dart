@@ -151,7 +151,10 @@ class _MainInfoWidget extends ConsumerWidget {
         style: styles.bodyMedium,
         children: [
           TextSpan(text: t.weather.feelsLikeAs),
-          TextSpan(text: ' $_tempFeelsLike$_tempUnits'),
+          TextSpan(
+            text: ' $_tempFeelsLike$_tempUnits',
+            style: styles.titleMedium,
+          ),
         ],
       ),
     );
