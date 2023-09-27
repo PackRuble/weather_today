@@ -357,12 +357,14 @@ class TranslationsDialogsEn extends TranslationsDialogsRu {
 
 	// Translations
 	@override late final TranslationsDialogsMessagesEn messages = TranslationsDialogsMessagesEn._(_root);
+	@override late final TranslationsDialogsTitlesEn titles = TranslationsDialogsTitlesEn._(_root);
 	@override late final TranslationsDialogsButtonsEn buttons = TranslationsDialogsButtonsEn._(_root);
 	@override late final TranslationsDialogsPlaceSearchInfoEn placeSearchInfo = TranslationsDialogsPlaceSearchInfoEn._(_root);
 	@override late final TranslationsDialogsConfirmDelPlaceEn confirmDelPlace = TranslationsDialogsConfirmDelPlaceEn._(_root);
 	@override late final TranslationsDialogsSeeFlagEn seeFlag = TranslationsDialogsSeeFlagEn._(_root);
 	@override late final TranslationsDialogsConfirmDelUserApikeyEn confirmDelUserApikey = TranslationsDialogsConfirmDelUserApikeyEn._(_root);
 	@override late final TranslationsDialogsConfirmSaveChangesEn confirmSaveChanges = TranslationsDialogsConfirmSaveChangesEn._(_root);
+	@override late final TranslationsDialogsConfirmResetSettingsEn confirmResetSettings = TranslationsDialogsConfirmResetSettingsEn._(_root);
 	@override late final TranslationsDialogsMakeNoteEn makeNote = TranslationsDialogsMakeNoteEn._(_root);
 }
 
@@ -724,17 +726,17 @@ class TranslationsGlobalTimeEn extends TranslationsGlobalTimeRu {
 	@override final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get theDayBeforeYesterday => 'The day before yesterday';
+	@override String get dayBeforeYesterday => 'The day before yesterday';
 	@override String get yesterday => 'Yesterday';
 	@override String get today => 'Today';
 	@override String get tomorrow => 'Tomorrow';
-	@override String get theDayAfterTomorrow => 'The day after tomorrow';
-	@override String timeToHourMinute({required Object hour, required Object minute}) => '${hour} h ${minute} min';
-	@override String timeToMinute({required Object minute}) => '${minute} min';
-	@override String timeFromTimeSToTimeE({required Object time, required Object timeStart, required Object timeEnd}) => '${time} from ${timeStart} to ${timeEnd}';
-	@override String fromTimeToTime({required Object timeStart, required Object timeEnd}) => 'from ${timeStart} to ${timeEnd}';
-	@override String timeFromTimeSToTimeEnl({required Object time, required Object timeStart, required Object timeEnd}) => '${time} \nfrom ${timeStart} to ${timeEnd}';
-	@override String fromTimeToTimeNl({required Object timeStart, required Object timeEnd}) => 'from ${timeStart} \nto ${timeEnd}';
+	@override String get dayAfterTomorrow => 'The day after tomorrow';
+	@override String hm({required Object hour, required Object minute}) => '${hour} h ${minute} min';
+	@override String m({required Object minute}) => '${minute} min';
+	@override String dateFromToWithNbsp({required Object date, required Object timeStart, required Object timeEnd}) => '${date} from ${timeStart} to ${timeEnd}';
+	@override String dateFromToWithNbspNewline({required Object date, required Object timeStart, required Object timeEnd}) => '${date} \nfrom ${timeStart} to ${timeEnd}';
+	@override String fromToWithNbsp({required Object timeStart, required Object timeEnd}) => 'from ${timeStart} to ${timeEnd}';
+	@override String fromToWithNbspNewline({required Object timeStart, required Object timeEnd}) => 'from ${timeStart} \nto ${timeEnd}';
 }
 
 // Path: dialogs.messages
@@ -752,6 +754,17 @@ class TranslationsDialogsMessagesEn extends TranslationsDialogsMessagesRu {
 	@override String get weatherUpdateFail => 'Not available right now...';
 }
 
+// Path: dialogs.titles
+class TranslationsDialogsTitlesEn extends TranslationsDialogsTitlesRu {
+	TranslationsDialogsTitlesEn._(TranslationsEn root) : this._root = root, super._(root);
+
+	@override final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get warning => 'Warning';
+	@override String get info => 'Information';
+}
+
 // Path: dialogs.buttons
 class TranslationsDialogsButtonsEn extends TranslationsDialogsButtonsRu {
 	TranslationsDialogsButtonsEn._(TranslationsEn root) : this._root = root, super._(root);
@@ -763,6 +776,7 @@ class TranslationsDialogsButtonsEn extends TranslationsDialogsButtonsRu {
 	@override String get okay => 'Okay';
 	@override String get know => 'Know';
 	@override String get save => 'Save';
+	@override String get reset => 'Reset';
 	@override String get cancel => 'Cancel';
 }
 
@@ -788,7 +802,6 @@ class TranslationsDialogsConfirmDelPlaceEn extends TranslationsDialogsConfirmDel
 	@override final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Warning';
 	@override String get subtitle => 'Delete place?';
 	@override String get content => 'The place will be removed from the list of saved places';
 }
@@ -800,7 +813,6 @@ class TranslationsDialogsSeeFlagEn extends TranslationsDialogsSeeFlagRu {
 	@override final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Information';
 	@override String get subtitle => 'You can see the full name of the country and its flag';
 }
 
@@ -811,7 +823,6 @@ class TranslationsDialogsConfirmDelUserApikeyEn extends TranslationsDialogsConfi
 	@override final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Warning';
 	@override String get subtitle => 'Your user api key will be deleted.';
 }
 
@@ -822,8 +833,18 @@ class TranslationsDialogsConfirmSaveChangesEn extends TranslationsDialogsConfirm
 	@override final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Warning';
 	@override String get subtitle => 'Save changes?';
+}
+
+// Path: dialogs.confirmResetSettings
+class TranslationsDialogsConfirmResetSettingsEn extends TranslationsDialogsConfirmResetSettingsRu {
+	TranslationsDialogsConfirmResetSettingsEn._(TranslationsEn root) : this._root = root, super._(root);
+
+	@override final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get subtitle => 'Reset settings?';
+	@override String get content => 'This page\'s settings will be reset.';
 }
 
 // Path: dialogs.makeNote

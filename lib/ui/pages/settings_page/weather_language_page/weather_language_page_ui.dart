@@ -23,7 +23,7 @@ class WeatherLanguagePage extends ConsumerWidget with UiLoggy {
     final t = ref.watch(WeatherLanguagePageController.tr);
 
     return Scaffold(
-      appBar: RAppBar(t.weatherLangPage.appbarTitle),
+      appBar: AppBarCustom(t.weatherLangPage.appbarTitle),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(AppInsets.allPadding),

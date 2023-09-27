@@ -22,7 +22,7 @@ class UserApiPage extends ConsumerWidget {
     final t = ref.watch(UserApiPageController.tr);
 
     return Scaffold(
-      appBar: RAppBar(t.apiWeatherPage.appbarTitle),
+      appBar: AppBarCustom(t.apiWeatherPage.appbarTitle),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         controller: viewController,

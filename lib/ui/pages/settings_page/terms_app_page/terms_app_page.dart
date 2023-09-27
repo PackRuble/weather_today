@@ -22,7 +22,7 @@ class TermsAppPage extends ConsumerWidget {
         ref.watch(AppGeneralSettings.isAcceptedTermsConditions);
 
     return Scaffold(
-      appBar: RAppBar(t.termsConditions.termsAndConditions),
+      appBar: AppBarCustom(t.termsConditions.termsAndConditions),
       body: TermsConditionsWidget(isAccepted: isAcceptedTerms),
     );
   }

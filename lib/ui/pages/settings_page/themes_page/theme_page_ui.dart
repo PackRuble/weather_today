@@ -34,7 +34,7 @@ class ThemePage extends ConsumerWidget {
           ? currentTheme
           : testedDarkLevelTheme,
       child: Scaffold(
-        appBar: RAppBar(t.themesPage.appbarTitle),
+        appBar: AppBarCustom(t.themesPage.appbarTitle),
         body: ListView(
           children: const [
             Divider(),
@@ -293,7 +293,7 @@ class ThemeCard extends StatelessWidget {
                       overflow: TextOverflow.fade,
                       shadows: <Shadow>[
                         Shadow(
-                          offset: const Offset(1.0, 1.0),
+                          offset: const Offset(0.5, 0.5),
                           blurRadius: 1.0,
                           color: textColor.onColor,
                         ),

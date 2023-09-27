@@ -329,17 +329,17 @@
   },
   "global": {
     "time": {
-      "the_day_before_yesterday": "The day before yesterday",
+      "day_before_yesterday": "The day before yesterday",
       "yesterday": "Yesterday",
       "today": "Today",
       "tomorrow": "Tomorrow",
-      "theDayAfterTomorrow": "The day after tomorrow",
-      "time_to_hour_minute": "{hour} h {minute} min",
-      "time_to_minute": "{minute} min",
-      "time_from_timeS_to_timeE": "{time} from {time_start} to {time_end}",
-      "from_time_to_time": "from {time_start} to {time_end}",
-      "time_from_timeS_to_timeEnl": "{time} \nfrom {time_start} to {time_end}",
-      "from_time_to_time_nl": "from {time_start} \nto {time_end}"
+      "day_after_tomorrow": "The day after tomorrow",
+      "hm": "{hour} h {minute} min",
+      "m": "{minute} min",
+      "date_from_to_with_nbsp": "{date} from {time_start} to {time_end}",
+      "date_from_to_with_nbsp_newline": "{date} \nfrom {time_start} to {time_end}",
+      "from_to_with_nbsp": "from {time_start} to {time_end}",
+      "from_to_with_nbsp_newline": "from {time_start} \nto {time_end}"
     }
   },
   "dialogs": {
@@ -351,11 +351,16 @@
       "api_key_OWM_verification_fail": "Api key is invalid!",
       "weather_update_fail": "Not available right now..."
     },
+    "titles": {
+      "warning": "Warning",
+      "info": "Information"
+    },
     "buttons": {
       "ok": "Ok",
       "okay": "Okay",
       "know": "Know",
       "save": "Save",
+      "reset": "Reset",
       "cancel": "Cancel"
     },
     "place_search_info": {
@@ -368,21 +373,21 @@
       "coord": "55.75199, 37.61773"
     },
     "confirm_del_place": {
-      "title": "Warning",
       "subtitle": "Delete place?",
       "content": "The place will be removed from the list of saved places"
     },
     "see_flag": {
-      "title": "Information",
       "subtitle": "You can see the full name of the country and its flag"
     },
     "confirm_del_user_apikey": {
-      "title": "Warning",
       "subtitle": "Your user api key will be deleted."
     },
     "confirm_save_changes": {
-      "title": "Warning",
       "subtitle": "Save changes?"
+    },
+    "confirm_reset_settings": {
+      "subtitle": "Reset settings?",
+      "content": "This page's settings will be reset."
     },
     "make_note": {
       "title": "Note",

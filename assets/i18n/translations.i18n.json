@@ -329,17 +329,17 @@
   },
   "global": {
     "time": {
-      "the_day_before_yesterday": "Позавчера",
+      "day_before_yesterday": "Позавчера",
       "yesterday": "Вчера",
       "today": "Сегодня",
       "tomorrow": "Завтра",
-      "theDayAfterTomorrow": "Послезавтра",
-      "time_to_hour_minute": "{hour} ч {minute} мин",
-      "time_to_minute": "{minute} мин",
-      "time_from_timeS_to_timeE": "{time} с {time_start} по {time_end}",
-      "from_time_to_time": "с {time_start} по {time_end}",
-      "time_from_timeS_to_timeEnl": "{time} \nс {time_start} по {time_end}",
-      "from_time_to_time_nl": "с {time_start} \nпо {time_end}"
+      "day_after_tomorrow": "Послезавтра",
+      "hm": "{hour} ч {minute} мин",
+      "m": "{minute} мин",
+      "date_from_to_with_nbsp": "{date} с {time_start} по {time_end}",
+      "date_from_to_with_nbsp_newline": "{date} \nс {time_start} по {time_end}",
+      "from_to_with_nbsp": "с {time_start} по {time_end}",
+      "from_to_with_nbsp_newline": "с {time_start} \nпо {time_end}"
     }
   },
   "dialogs": {
@@ -351,11 +351,16 @@
       "api_key_OWM_verification_fail": "Api ключ недействителен!",
       "weather_update_fail": "Сейчас недоступно..."
     },
+    "titles": {
+      "warning": "Предупреждение",
+      "info": "Информация"
+    },
     "buttons": {
       "ok": "Ок",
       "okay": "Понятно",
       "know": "Узнать",
       "save": "Сохранить",
+      "reset": "Сбросить",
       "cancel": "Отмена"
     },
     "place_search_info": {
@@ -367,21 +372,21 @@
       "coord": "55.75199, 37.61773"
     },
     "confirm_del_place": {
-      "title": "Предупреждение",
       "subtitle": "Удалить местоположение?",
-      "content": "Местоположение будет удалено из списка сохраненных"
+      "content": "Местоположение будет удалено из списка сохранённых"
     },
     "see_flag": {
-      "title": "Информация",
       "subtitle": "Вы можете увидеть полное наименование страны и её флаг"
     },
     "confirm_del_user_apikey": {
-      "title": "Предупреждение",
       "subtitle": "Ваш пользовательский ключ api будет удален"
     },
     "confirm_save_changes": {
-      "title": "Предупреждение",
       "subtitle": "Сохранить изменения?"
+    },
+    "confirm_reset_settings": {
+      "subtitle": "Сбросить настройки?",
+      "content": "Настройки этой страницы будут сброшены."
     },
     "make_note": {
       "title": "Заметка",

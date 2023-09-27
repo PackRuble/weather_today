@@ -23,7 +23,7 @@ class AppDialogs {
       await infoDialogCustom<bool>(
         context,
         icon: const Icon(Icons.delete),
-        title: tr.dialogs.confirmDelPlace.title,
+        title: tr.dialogs.titles.warning,
         subTitle: tr.dialogs.confirmDelPlace.subtitle,
         content: Text(tr.dialogs.confirmDelPlace.content),
         listActions: [
@@ -48,7 +48,7 @@ class AppDialogs {
     await infoDialogCustom<void>(
       context,
       icon: const Icon(Icons.flag_rounded),
-      title: tr.dialogs.seeFlag.title,
+      title: tr.dialogs.titles.info,
       subTitle: tr.dialogs.seeFlag.subtitle,
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -124,7 +124,7 @@ class AppDialogs {
       await infoDialogCustom<bool>(
         context,
         icon: const Icon(Icons.delete),
-        title: tr.dialogs.confirmDelUserApikey.title,
+        title: tr.dialogs.titles.warning,
         subTitle: tr.dialogs.confirmDelUserApikey.subtitle,
         listActions: [
           TextButton(
@@ -197,7 +197,7 @@ class AppDialogs {
       await infoDialogCustom<bool>(
         context,
         icon: const Icon(Icons.done),
-        title: tr.dialogs.confirmSaveChanges.title,
+        title: tr.dialogs.titles.warning,
         subTitle: tr.dialogs.confirmSaveChanges.subtitle,
         listActions: [
           TextButton(
@@ -253,5 +253,31 @@ class AppDialogs {
             child: Text(tr.dialogs.buttons.okay)),
       ],
     );
+  }
+
+  /// Reset settings confirmation
+  static Future<bool> confirmResetSettings(BuildContext context) async {
+    final theme = Theme.of(context);
+
+    return await infoDialogCustom<bool>(
+          context,
+          icon: Icon(
+            Icons.settings_backup_restore_rounded,
+            color: theme.iconTheme.color,
+          ),
+          // todo translate
+          title: tr.dialogs.titles.warning,
+          subTitle: tr.dialogs.confirmResetSettings.subtitle,
+          content: Text(tr.dialogs.confirmResetSettings.content),
+          listActions: [
+            TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: Text(tr.dialogs.buttons.cancel)),
+            TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: Text(tr.dialogs.buttons.reset)),
+          ],
+        ) ??
+        false;
   }
 }

@@ -354,10 +354,10 @@ class _SunriseInfoWidget extends ConsumerWidget {
       final Duration diff = sunset!.difference(sunrise!);
 
       if (diff.inHours == 0) {
-        _dayLength = t.global.time
-            .timeToMinute(minute: diff.inMinutes - (diff.inHours * 60));
+        _dayLength =
+            t.global.time.m(minute: diff.inMinutes - (diff.inHours * 60));
       } else {
-        _dayLength = t.global.time.timeToHourMinute(
+        _dayLength = t.global.time.hm(
             hour: diff.inHours, minute: diff.inMinutes - (diff.inHours * 60));
       }
 

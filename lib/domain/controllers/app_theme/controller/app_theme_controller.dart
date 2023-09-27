@@ -285,4 +285,28 @@ class AppTheme with Updater {
       fontFamily: ref.watch(fontFamily).fontFamily,
     );
   });
+
+  Future<void> resetThemeToDefaultSettings() async {
+    await Future.wait([
+      db.clearKey(DbStore.themeScheme),
+      db.clearKey(DbStore.themeMode),
+      db.clearKey(DbStore.swapColorsTheme),
+      db.clearKey(DbStore.swapDarkMainAndContainerColors),
+      db.clearKey(DbStore.darkLevelTheme),
+      db.clearKey(DbStore.useMaterial3),
+    ]);
+
+    await init();
+  }
+
+  Future<void> resetVisualDesignToDefaultSettings() async {
+    await Future.wait([
+      db.clearKey(DbStore.textScaleFactor),
+      db.clearKey(DbStore.scrollPhysics),
+      db.clearKey(DbStore.typography),
+      db.clearKey(DbStore.fontFamily),
+    ]);
+
+    await init();
+  }
 }

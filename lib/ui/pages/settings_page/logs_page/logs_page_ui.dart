@@ -20,7 +20,7 @@ class LogsPage extends ConsumerWidget with UiLoggy {
     final logsManager = ref.watch(loggerManager);
 
     return Scaffold(
-      appBar: const RAppBar('Logs'),
+      appBar: const AppBarCustom('Logs'),
       body: StatefulBuilder(builder: (context, setState) {
         final logs = logsManager.getLogs()?.reversed.toList() ?? [];
         return Column(

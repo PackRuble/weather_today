@@ -42,7 +42,7 @@ class GratitudePage extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: RAppBar(t.gratitudePage.appbarTitle),
+      appBar: AppBarCustom(t.gratitudePage.appbarTitle),
       body: ListView(
         padding: const EdgeInsets.all(8.0),
         children: [

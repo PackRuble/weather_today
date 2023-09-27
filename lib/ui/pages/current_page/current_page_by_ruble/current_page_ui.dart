@@ -261,11 +261,11 @@ class _SunriseInfoWidget extends ConsumerWidget {
       final Duration diff = sunsetD.difference(sunriseD);
 
       if (diff.inHours == 0) {
-        dayLength += t.global.time.timeToMinute(
+        dayLength += t.global.time.m(
           minute: diff.inMinutes - (diff.inHours * 60),
         );
       } else {
-        dayLength += t.global.time.timeToHourMinute(
+        dayLength += t.global.time.hm(
           hour: diff.inHours,
           minute: diff.inMinutes - (diff.inHours * 60),
         );
@@ -277,7 +277,7 @@ class _SunriseInfoWidget extends ConsumerWidget {
       if (diffSunset.isNegative) {
         timeBeforeSunset += t.weather.sunAlreadySet;
       } else {
-        timeBeforeSunset += t.global.time.timeToHourMinute(
+        timeBeforeSunset += t.global.time.hm(
           hour: diffSunset.inHours,
           minute: diffSunset.inMinutes - (diffSunset.inHours * 60),
         );

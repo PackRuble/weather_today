@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:auto_route/annotations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ import 'package:weather_today/ui/pages/daily_page/daily_page_by_ruble/daily_page
     as ruble_daily;
 import 'package:weather_today/ui/pages/daily_page/daily_page_main.dart';
 import 'package:weather_today/ui/pages/hourly_page/hourly_page_main.dart';
+import 'package:weather_today/ui/shared/reset_button.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
@@ -40,9 +43,16 @@ class VisualDesignPage extends ConsumerWidget {
       onWillPop: () async =>
           ref.watch(VisualDPageController.instance).onWillPop(context),
       child: Scaffold(
-        appBar: RAppBar(
+        appBar: AppBarCustom(
           t.visualDesignPage.appbarTitle,
-          actions: const [_SaveButtonWidget()],
+          actions: LinkedHashMap.of({
+            ActionButton.slot1: const _SaveButtonWidget(),
+            ActionButton.reset: ResetButton(
+              onConfirm: ref
+                  .read(VisualDPageController.instance)
+                  .resetToDefaultSettings,
+            ),
+          }),
         ),
         body: CustomScrollView(
           physics: scrollPhysics,
@@ -169,7 +179,7 @@ class _SaveButtonWidget extends ConsumerWidget {
     return isNeedSave
         ? IconButton(
             onPressed: ref.read(VisualDPageController.instance).saveAllChanges,
-            icon: const Icon(Icons.done),
+            icon: const Icon(Icons.done_rounded),
           )
         : const SizedBox.shrink();
   }

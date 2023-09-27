@@ -20,7 +20,7 @@ class SystemSettingsPage extends ConsumerWidget {
     final t = ref.watch(AppLocalization.currentTranslation);
 
     return Scaffold(
-      appBar: RAppBar(t.systemSettingsPage.appbarTitle),
+      appBar: AppBarCustom(t.systemSettingsPage.appbarTitle),
       body: ListView(
         children: const [
           EnableLogsSwitch(),

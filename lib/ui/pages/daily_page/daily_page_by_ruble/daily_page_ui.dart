@@ -95,13 +95,12 @@ class _AlertTileWidget extends ConsumerWidget {
     final t = ref.watch(DailyPageController.tr);
 
     final String date = alert.start!.day == alert.end!.day
-        ? t.global.time.timeFromTimeSToTimeEnl(
-            time: DateFormat.MMMMd().format(alert.start!).replaceAll(' ', ' '),
+        ? t.global.time.dateFromToWithNbspNewline(
+            date: DateFormat.MMMMd().format(alert.start!).replaceAll(' ', ' '),
             timeStart: DateFormat.H().format(alert.start!),
             timeEnd: DateFormat.H().format(alert.end!),
           )
-        : t.global.time.fromTimeToTime(
-            // todo: rename fromDateToDate
+        : t.global.time.fromToWithNbsp(
             timeStart:
                 DateFormat.MMMMd().format(alert.start!).replaceAll(' ', ' '),
             timeEnd: DateFormat.MMMMd().format(alert.end!).replaceAll(' ', ' '),

@@ -231,4 +231,7 @@ class VisualDPageController {
 
     _ref.invalidate(changesProvider);
   }
+
+  Future<void> resetToDefaultSettings() async =>
+      _ref.read(AppTheme.instance).resetVisualDesignToDefaultSettings();
 }

@@ -25,7 +25,7 @@ class CountryFlagsPage extends ConsumerWidget with UiLoggy {
     final t = ref.watch(CountryFlagsPageController.tr);
 
     return Scaffold(
-      appBar: RAppBar(t.flagsPage.appbarTitle),
+      appBar: AppBarCustom(t.flagsPage.appbarTitle),
       body: GridView.custom(
         padding: const EdgeInsets.all(_inset),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

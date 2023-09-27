@@ -353,12 +353,14 @@ class TranslationsDialogsRu {
 
 	// Translations
 	late final TranslationsDialogsMessagesRu messages = TranslationsDialogsMessagesRu._(_root);
+	late final TranslationsDialogsTitlesRu titles = TranslationsDialogsTitlesRu._(_root);
 	late final TranslationsDialogsButtonsRu buttons = TranslationsDialogsButtonsRu._(_root);
 	late final TranslationsDialogsPlaceSearchInfoRu placeSearchInfo = TranslationsDialogsPlaceSearchInfoRu._(_root);
 	late final TranslationsDialogsConfirmDelPlaceRu confirmDelPlace = TranslationsDialogsConfirmDelPlaceRu._(_root);
 	late final TranslationsDialogsSeeFlagRu seeFlag = TranslationsDialogsSeeFlagRu._(_root);
 	late final TranslationsDialogsConfirmDelUserApikeyRu confirmDelUserApikey = TranslationsDialogsConfirmDelUserApikeyRu._(_root);
 	late final TranslationsDialogsConfirmSaveChangesRu confirmSaveChanges = TranslationsDialogsConfirmSaveChangesRu._(_root);
+	late final TranslationsDialogsConfirmResetSettingsRu confirmResetSettings = TranslationsDialogsConfirmResetSettingsRu._(_root);
 	late final TranslationsDialogsMakeNoteRu makeNote = TranslationsDialogsMakeNoteRu._(_root);
 }
 
@@ -720,17 +722,17 @@ class TranslationsGlobalTimeRu {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	String get theDayBeforeYesterday => 'Позавчера';
+	String get dayBeforeYesterday => 'Позавчера';
 	String get yesterday => 'Вчера';
 	String get today => 'Сегодня';
 	String get tomorrow => 'Завтра';
-	String get theDayAfterTomorrow => 'Послезавтра';
-	String timeToHourMinute({required Object hour, required Object minute}) => '${hour} ч ${minute} мин';
-	String timeToMinute({required Object minute}) => '${minute} мин';
-	String timeFromTimeSToTimeE({required Object time, required Object timeStart, required Object timeEnd}) => '${time} с ${timeStart} по ${timeEnd}';
-	String fromTimeToTime({required Object timeStart, required Object timeEnd}) => 'с ${timeStart} по ${timeEnd}';
-	String timeFromTimeSToTimeEnl({required Object time, required Object timeStart, required Object timeEnd}) => '${time} \nс ${timeStart} по ${timeEnd}';
-	String fromTimeToTimeNl({required Object timeStart, required Object timeEnd}) => 'с ${timeStart} \nпо ${timeEnd}';
+	String get dayAfterTomorrow => 'Послезавтра';
+	String hm({required Object hour, required Object minute}) => '${hour} ч ${minute} мин';
+	String m({required Object minute}) => '${minute} мин';
+	String dateFromToWithNbsp({required Object date, required Object timeStart, required Object timeEnd}) => '${date} с ${timeStart} по ${timeEnd}';
+	String dateFromToWithNbspNewline({required Object date, required Object timeStart, required Object timeEnd}) => '${date} \nс ${timeStart} по ${timeEnd}';
+	String fromToWithNbsp({required Object timeStart, required Object timeEnd}) => 'с ${timeStart} по ${timeEnd}';
+	String fromToWithNbspNewline({required Object timeStart, required Object timeEnd}) => 'с ${timeStart} \nпо ${timeEnd}';
 }
 
 // Path: dialogs.messages
@@ -748,6 +750,17 @@ class TranslationsDialogsMessagesRu {
 	String get weatherUpdateFail => 'Сейчас недоступно...';
 }
 
+// Path: dialogs.titles
+class TranslationsDialogsTitlesRu {
+	TranslationsDialogsTitlesRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	String get warning => 'Предупреждение';
+	String get info => 'Информация';
+}
+
 // Path: dialogs.buttons
 class TranslationsDialogsButtonsRu {
 	TranslationsDialogsButtonsRu._(this._root);
@@ -759,6 +772,7 @@ class TranslationsDialogsButtonsRu {
 	String get okay => 'Понятно';
 	String get know => 'Узнать';
 	String get save => 'Сохранить';
+	String get reset => 'Сбросить';
 	String get cancel => 'Отмена';
 }
 
@@ -784,9 +798,8 @@ class TranslationsDialogsConfirmDelPlaceRu {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'Предупреждение';
 	String get subtitle => 'Удалить местоположение?';
-	String get content => 'Местоположение будет удалено из списка сохраненных';
+	String get content => 'Местоположение будет удалено из списка сохранённых';
 }
 
 // Path: dialogs.seeFlag
@@ -796,7 +809,6 @@ class TranslationsDialogsSeeFlagRu {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'Информация';
 	String get subtitle => 'Вы можете увидеть полное наименование страны и её флаг';
 }
 
@@ -807,7 +819,6 @@ class TranslationsDialogsConfirmDelUserApikeyRu {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'Предупреждение';
 	String get subtitle => 'Ваш пользовательский ключ api будет удален';
 }
 
@@ -818,8 +829,18 @@ class TranslationsDialogsConfirmSaveChangesRu {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'Предупреждение';
 	String get subtitle => 'Сохранить изменения?';
+}
+
+// Path: dialogs.confirmResetSettings
+class TranslationsDialogsConfirmResetSettingsRu {
+	TranslationsDialogsConfirmResetSettingsRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	String get subtitle => 'Сбросить настройки?';
+	String get content => 'Настройки этой страницы будут сброшены.';
 }
 
 // Path: dialogs.makeNote
