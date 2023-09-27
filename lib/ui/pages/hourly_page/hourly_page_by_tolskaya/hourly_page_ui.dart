@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_pack/weather_pack.dart';
-import 'package:weather_today/application/const/app_colors.dart';
 import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/application/const/app_insets.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
@@ -111,14 +110,14 @@ class _GroupExpansionWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AppColors colors = AppColors.of(context);
+    final theme = Theme.of(context);
 
     return Card(
       elevation: 4.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),
         side: BorderSide(
-          color: colors.cardBorderColor,
+          color: theme.primaryColor,
         ),
       ),
       child: ExpandableNotifier(
@@ -130,7 +129,8 @@ class _GroupExpansionWidget extends ConsumerWidget {
               tapBodyToExpand: false,
               tapBodyToCollapse: false,
               hasIcon: true,
-              iconColor: Theme.of(context).iconTheme.color,
+              iconColor: theme.iconTheme.color,
+              iconPadding: const EdgeInsets.all(8.0),
             ),
             header: TileHourlyWidget(weather),
             collapsed: const SizedBox.shrink(),
@@ -169,18 +169,19 @@ class TileHourlyWidget extends ConsumerWidget {
         MetricsHelper.getWeatherMainTr(weather.weatherMain, t) ?? '';
 
     return ListTile(
+      minVerticalPadding: 0.0,
       minLeadingWidth: 0.0,
-      horizontalTitleGap: 5.0,
+      horizontalTitleGap: 16.0,
+      contentPadding: const EdgeInsets.only(right: 0.0, left: 8.0),
+      leading: Text(
+        weather.date == null
+            ? '––:––'
+            : DateFormat('HH:mm').format(weather.date!),
+        style: styles.labelLarge,
+      ),
       title: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            width: 56.0,
-            child: weather.date == null
-                ? const Text('--:--')
-                : Text(
-                    DateFormat('HH:mm').format(weather.date ?? DateTime.now())),
-          ),
           SizedBox.square(
             dimension: 50.0,
             child: FittedBox(
