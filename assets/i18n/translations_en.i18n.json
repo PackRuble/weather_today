@@ -114,7 +114,7 @@
       "tile_title": "Start Page",
       "tile_sub": "{homepage}",
       "dialog_title": "Start Page",
-      "dialog_sub": "The desired page will open immediately when the application loads."
+      "dialog_sub": "The desired page will open immediately when you launch the application."
     },
     "locale_tile": {
       "tile_title": "Application language",

@@ -39,6 +39,8 @@ Future<void> main() async {
   //   yield LicenseEntryWithLineBreaks(<String>['google_fonts'], license);
   // });
 
+  /// todo проверить, почему не работает сенсорный анфокус в поле ввода ключа
+
   await Chain.capture(
     () async {
       final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
