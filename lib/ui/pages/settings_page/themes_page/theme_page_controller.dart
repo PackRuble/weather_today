@@ -11,10 +11,13 @@ class ThemePageController {
 
   static final instance = Provider(ThemePageController.new);
 
-  /// Провайдер возвращает translate.
+  /// The provider returns translate.
   static final tr = Provider.autoDispose<TranslationsRu>(
       (ref) => ref.watch(AppLocalization.currentTranslation));
 
   static final darkLevel =
       StateProvider.autoDispose<int>((ref) => ref.watch(AppTheme.darkLevel));
+
+  Future<void> resetToDefaultSettings() async =>
+      _ref.read(AppTheme.instance).resetThemeToDefaultSettings();
 }

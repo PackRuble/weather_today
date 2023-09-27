@@ -19,6 +19,7 @@ import 'package:weather_today/ui/pages/daily_page/daily_page_by_ruble/daily_page
 import 'package:weather_today/ui/pages/daily_page/daily_page_main.dart';
 import 'package:weather_today/ui/pages/hourly_page/hourly_page_main.dart';
 import 'package:weather_today/ui/shared/reset_button.dart';
+import 'package:weather_today/ui/shared/theme_button.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
@@ -52,6 +53,7 @@ class VisualDesignPage extends ConsumerWidget {
                   .read(VisualDPageController.instance)
                   .resetToDefaultSettings,
             ),
+            ActionButton.themeMode: const ChangerThemeButton(),
           }),
         ),
         body: CustomScrollView(

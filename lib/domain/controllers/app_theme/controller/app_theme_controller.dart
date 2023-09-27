@@ -293,6 +293,7 @@ class AppTheme with Updater {
       db.clearKey(DbStore.swapColorsTheme),
       db.clearKey(DbStore.swapDarkMainAndContainerColors),
       db.clearKey(DbStore.darkLevelTheme),
+      db.clearKey(DbStore.darkIsTrueBlack),
       db.clearKey(DbStore.useMaterial3),
     ]);
 

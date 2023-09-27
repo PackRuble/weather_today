@@ -1,5 +1,7 @@
 // ignore_for_file: discarded_futures
 
+import 'dart:collection';
+
 import 'package:auto_route/annotations.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -7,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
 import 'package:weather_today/ui/pages/settings_page/themes_page/theme_page_controller.dart';
+import 'package:weather_today/ui/shared/reset_button.dart';
+import 'package:weather_today/ui/shared/theme_button.dart';
 
 import '../../../shared/appbar_widget.dart';
 import 'theme_selector.dart';
@@ -34,7 +38,16 @@ class ThemePage extends ConsumerWidget {
           ? currentTheme
           : testedDarkLevelTheme,
       child: Scaffold(
-        appBar: AppBarCustom(t.themesPage.appbarTitle),
+        appBar: AppBarCustom(
+          t.themesPage.appbarTitle,
+          actions: LinkedHashMap.of({
+            ActionButton.reset: ResetButton(
+              onConfirm:
+                  ref.read(ThemePageController.instance).resetToDefaultSettings,
+            ),
+            ActionButton.themeMode: const ChangerThemeButton(),
+          }),
+        ),
         body: ListView(
           children: const [
             Divider(),
@@ -293,7 +306,7 @@ class ThemeCard extends StatelessWidget {
                       overflow: TextOverflow.fade,
                       shadows: <Shadow>[
                         Shadow(
-                          offset: const Offset(0.5, 0.5),
+                          offset: const Offset(0.4, 0.4),
                           blurRadius: 1.0,
                           color: textColor.onColor,
                         ),
