@@ -688,7 +688,7 @@ class TranslationsApiWeatherPageDefaultApiEn extends TranslationsApiWeatherPageD
 	@override final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get usingApi => 'The default Api is used.';
+	@override String get usingApi => 'Developer key is used';
 	@override String get numbOfCalls => 'The number of calls is limited to the author\'s WeatherOpenApi rate';
 	@override String get fieldTip => 'Enter Api...';
 }
@@ -700,7 +700,7 @@ class TranslationsApiWeatherPageUserApiEn extends TranslationsApiWeatherPageUser
 	@override final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get usingApi => 'User Api installed';
+	@override String get usingApi => 'Your key is used';
 	@override String get numbOfCalls => 'The number of calls is limited to your WeatherOpenApi rate.';
 	@override String get fieldTip => 'Used...';
 }

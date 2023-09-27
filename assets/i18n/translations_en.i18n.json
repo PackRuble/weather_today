@@ -208,12 +208,12 @@
       "free": "It's free, you can get it from the link below."
     },
     "default_api": {
-      "using_api": "The default Api is used.",
+      "using_api": "Developer key is used",
       "numb_of_calls": "The number of calls is limited to the author's WeatherOpenApi rate",
       "field_tip": "Enter Api..."
     },
     "user_api": {
-      "using_api": "User Api installed",
+      "using_api": "Your key is used",
       "numb_of_calls": "The number of calls is limited to your WeatherOpenApi rate.",
       "field_tip": "Used..."
     },

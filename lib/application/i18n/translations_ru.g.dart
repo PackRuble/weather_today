@@ -684,7 +684,7 @@ class TranslationsApiWeatherPageDefaultApiRu {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	String get usingApi => 'Используется Api по умолчанию';
+	String get usingApi => 'Используется ключ разработчика';
 	String get numbOfCalls => 'Количество вызовов ограничено авторским тарифом WeatherOpenApi';
 	String get fieldTip => 'Введите Api...';
 }
@@ -696,8 +696,8 @@ class TranslationsApiWeatherPageUserApiRu {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	String get usingApi => 'Установлен пользовательский Api';
-	String get numbOfCalls => 'Количество вызовов ограничено вашим тарифом WeatherOpenApi';
+	String get usingApi => 'Используется Ваш ключ';
+	String get numbOfCalls => 'Количество вызовов ограничено Вашим тарифом WeatherOpenApi';
 	String get fieldTip => 'Используется...';
 }
 

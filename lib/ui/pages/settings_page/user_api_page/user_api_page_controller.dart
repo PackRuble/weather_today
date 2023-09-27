@@ -31,12 +31,12 @@ class UserApiPageController {
       (ref) => ref.watch(AppLocalization.currentTranslation));
 
   /// Установить пользовательский api.
-  Future<void> setUserApi() async {
+  Future<void> setUserApi(String text) async {
     _ref.read(isTestingApiKey.notifier).update((_) => true);
 
-    final bool isCorrectApi = await _ref
-        .read(OWMController.instance)
-        .setUserApiKey(apiTextController.value.text);
+    // todo: сделать нормальную валидацию при пустом поле
+    final bool isCorrectApi = text.isNotEmpty &&
+        await _ref.read(OWMController.instance).setUserApiKey(text);
 
     if (isCorrectApi) {
       _ref.read(MessageController.instance).tApiKeyWeatherSetTrue();
@@ -47,7 +47,7 @@ class UserApiPageController {
     _ref.read(isTestingApiKey.notifier).update((_) => false);
   }
 
-  /// Проверить, корректный ли апи установлен.
+  /// Проверить, корректный ли апи установлен сейчас.
   Future<void> checkApi() async {
     _ref.read(isTestingApiKey.notifier).update((_) => true);
 
@@ -67,21 +67,6 @@ class UserApiPageController {
 
     if (isDelete) {
       await _ref.read(OWMController.instance).resetUserApiKey();
-    }
-  }
-
-  final listViewController = ScrollController();
-
-  final apiTextController = TextEditingController();
-
-  final apiTextFocusNode = FocusNode();
-
-  /// Установить текст из буфера обмена.
-  void setTextFromClipboard(String? text) {
-    if (text != null) {
-      apiTextController
-        ..text = text
-        ..selection = TextSelection.collapsed(offset: text.length);
     }
   }
 }

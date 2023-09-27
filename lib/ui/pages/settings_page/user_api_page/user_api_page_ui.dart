@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/link.dart';
 import 'package:weather_today/application/const/app_icons.dart';
@@ -11,13 +12,12 @@ import 'user_api_page_controller.dart';
 
 /// Страница по управлению пользовательским апи ключом.
 @RoutePage()
-class UserApiPage extends ConsumerWidget {
+class UserApiPage extends HookConsumerWidget {
   const UserApiPage();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ScrollController viewController =
-        ref.watch(UserApiPageController.instance).listViewController;
+    final scrollController = useScrollController();
 
     final t = ref.watch(UserApiPageController.tr);
 
@@ -25,14 +25,14 @@ class UserApiPage extends ConsumerWidget {
       appBar: AppBarCustom(t.apiWeatherPage.appbarTitle),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        controller: viewController,
-        children: const [
-          _AboutApiWidget(),
-          Divider(height: 4.0),
-          _StatusTileWidget(),
-          Divider(height: 4.0),
-          _TextFieldApiWidget(),
-          SizedBox(height: 50.0),
+        controller: scrollController,
+        children: [
+          const _AboutApiWidget(),
+          const Divider(height: 4.0),
+          const _StatusTileWidget(),
+          const Divider(height: 4.0),
+          _TextFieldApiWidget(scrollController),
+          const SizedBox(height: 50.0),
         ],
       ),
     );
@@ -93,15 +93,10 @@ class _StatusTileWidget extends ConsumerWidget {
     final Color color = isSetUserApi ? Colors.green : Colors.red;
 
     return Row(
-      mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(
           child: ListTile(
-            title: Text(title),
-            subtitle: Text(subtitle),
-            contentPadding: const EdgeInsets.all(8.0),
-            leading: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            title: Row(
               children: [
                 DecoratedBox(
                   decoration: BoxDecoration(
@@ -113,12 +108,16 @@ class _StatusTileWidget extends ConsumerWidget {
                     color: color,
                   ),
                 ),
+                const SizedBox(width: 8.0),
+                Flexible(child: Text(title)),
               ],
             ),
+            subtitle: Text(subtitle),
+            contentPadding: const EdgeInsets.all(8.0),
           ),
         ),
         Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             if (isSetUserApi)
               IconButton(
@@ -144,51 +143,45 @@ class _StatusTileWidget extends ConsumerWidget {
   }
 }
 
-class _TextFieldApiWidget extends ConsumerWidget {
-  const _TextFieldApiWidget();
+class _TextFieldApiWidget extends HookConsumerWidget {
+  const _TextFieldApiWidget(this.scrollController);
+
+  final ScrollController scrollController;
+
+  void _moveScrollPosition(bool hasFocus) {
+    double offset = scrollController.position.maxScrollExtent;
+
+    if (hasFocus && offset == 0.0) {
+      offset = 50.0;
+    }
+
+    // ignore: discarded_futures
+    scrollController.animateTo(
+      offset,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.fastEaseInToSlowEaseOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ignore: unused_local_variable
-    final theme = Theme.of(context);
+    final focusNode = useFocusNode();
+    final textController = useTextEditingController();
 
     final t = ref.watch(UserApiPageController.tr);
-
     final bool isSetUserApi =
         ref.watch(UserApiPageController.isUserApiKeyWeather);
-
     final bool isLoading = ref.watch(UserApiPageController.isTestingApiKey);
 
     final String hint = isSetUserApi
         ? t.apiWeatherPage.userApi.fieldTip
         : t.apiWeatherPage.defaultApi.fieldTip;
 
-    final controller =
-        ref.watch(UserApiPageController.instance).apiTextController;
+    useEffect(() {
+      focusNode.addListener(() => _moveScrollPosition(focusNode.hasFocus));
 
-    final focusNode =
-        ref.watch(UserApiPageController.instance).apiTextFocusNode;
-
-    focusNode.addListener(() {
-      // coldfix хотелось плавно перемещать вверх поле, если вдруг оно не вмещалось
-      final listController =
-          ref.read(UserApiPageController.instance).listViewController;
-
-      double? offset;
-
-      if (focusNode.hasFocus) {
-        offset = listController.position.maxScrollExtent;
-        if (offset == 0.0) {
-          offset = 50.0;
-        }
-      } else {
-        offset = 0.0;
-      }
-
-      // ignore: discarded_futures
-      listController.animateTo(offset,
-          duration: const Duration(milliseconds: 500), curve: Curves.linear);
-    });
+      return null;
+    }, const []);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -196,7 +189,7 @@ class _TextFieldApiWidget extends ConsumerWidget {
         enabled: !isSetUserApi,
         focusNode: focusNode,
         obscureText: isSetUserApi,
-        controller: controller,
+        controller: textController,
         decoration: InputDecoration(
           prefixIcon: IconButton(
             icon: const Icon(Icons.content_paste_rounded),
@@ -206,27 +199,35 @@ class _TextFieldApiWidget extends ConsumerWidget {
                     final String? clipboardData =
                         (await Clipboard.getData('text/plain'))?.text;
 
-                    ref
-                        .read(UserApiPageController.instance)
-                        .setTextFromClipboard(clipboardData);
+                    if (clipboardData != null) {
+                      textController
+                        ..text = clipboardData
+                        ..selection = TextSelection.collapsed(
+                            offset: clipboardData.length);
+                    }
                   }
                 : null,
           ),
-          suffixIcon: const _DoneAndLoadingWidget(),
+          suffixIcon: _DoneAndLoadingWidget(
+              onDone: () async => ref
+                  .read(UserApiPageController.instance)
+                  .setUserApi(textController.text)),
           enabled: !isSetUserApi && !isLoading,
           hintText: hint,
           border: const OutlineInputBorder(),
         ),
         keyboardType: TextInputType.text,
-        onSubmitted: (_) async =>
-            ref.read(UserApiPageController.instance).setUserApi(),
+        onSubmitted: (text) async =>
+            ref.read(UserApiPageController.instance).setUserApi(text),
       ),
     );
   }
 }
 
 class _DoneAndLoadingWidget extends ConsumerWidget {
-  const _DoneAndLoadingWidget();
+  const _DoneAndLoadingWidget({required this.onDone});
+
+  final void Function() onDone;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -247,10 +248,7 @@ class _DoneAndLoadingWidget extends ConsumerWidget {
         : IconButton(
             tooltip: t.apiWeatherPage.tooltips.set,
             icon: const Icon(Icons.check_circle_outline_rounded),
-            onPressed: isEnabled
-                ? () async =>
-                    ref.read(UserApiPageController.instance).setUserApi()
-                : null,
+            onPressed: isEnabled ? onDone : null,
           );
   }
 }

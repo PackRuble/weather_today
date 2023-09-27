@@ -51,9 +51,6 @@ class OWMController with Updater {
       _isCorrectApiKey(ref.read(apiKey));
 
   /// Проверить корректность ключа для запросов.
-  Future<bool> isCorrectApiKey(String apiString) async =>
-      _isCorrectApiKey(apiString);
-
   Future<bool> _isCorrectApiKey(String apiString) async {
     try {
       return OWMApiTest()
@@ -73,7 +70,7 @@ class OWMController with Updater {
 
   /// Установить пользовательский ключ
   Future<bool> setUserApiKey(String newApiKey) async {
-    if (!(await isCorrectApiKey(newApiKey))) return false;
+    if (!(await _isCorrectApiKey(newApiKey))) return false;
 
     await saveAndUpdate(apiKey, DbStore.userApiKeyOWM, newApiKey);
     return true;
