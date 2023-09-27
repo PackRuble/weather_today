@@ -40,64 +40,69 @@ class VisualDesignPage extends ConsumerWidget {
     final ScrollPhysics scrollPhysics =
         ref.watch(VisualDPageController.selectedScrollPhysic).scrollPhysics;
 
-    return WillPopScope(
-      onWillPop: () async =>
-          ref.watch(VisualDPageController.instance).onWillPop(context),
-      child: Scaffold(
-        appBar: AppBarCustom(
-          t.visualDesignPage.appbarTitle,
-          actions: LinkedHashMap.of({
-            ActionButton.slot1: const _SaveButtonWidget(),
-            ActionButton.reset: ResetButton(
-              onConfirm: ref
-                  .read(VisualDPageController.instance)
-                  .resetToDefaultSettings,
-            ),
-            ActionButton.themeMode: const ChangerThemeButton(),
-          }),
-        ),
-        body: CustomScrollView(
-          physics: scrollPhysics,
-          // if necessary padding, use MultiSliver
-          // padding: const EdgeInsets.symmetric(horizontal: 4.0),
-          slivers: [
-            _HeaderSliverText(t.visualDesignPage.headers.design),
-            SliverToBoxAdapter(
-              key: ValueKey('$_DesignPagesWidget'),
-              child: const _DesignPagesWidget(),
-            ),
-            SliverPinnedHeader(
-              key: ValueKey('$_ExampleTileDesign'),
-              child: ColoredBox(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                child: const _ExampleTileDesign(),
+    final ThemeData theme = Theme.of(context);
+
+    return Theme(
+      data: theme..copyWith(),
+      child: WillPopScope(
+        onWillPop: () async =>
+            ref.watch(VisualDPageController.instance).onWillPop(context),
+        child: Scaffold(
+          appBar: AppBarCustom(
+            t.visualDesignPage.appbarTitle,
+            actions: LinkedHashMap.of({
+              ActionButton.slot1: const _SaveButtonWidget(),
+              ActionButton.reset: ResetButton(
+                onConfirm: ref
+                    .read(VisualDPageController.instance)
+                    .resetToDefaultSettings,
               ),
-            ),
-            _HeaderSliverText(t.visualDesignPage.headers.font),
-            SliverToBoxAdapter(
-              key: ValueKey('$_FamilyFontsWidget'),
-              child: const _FamilyFontsWidget(),
-            ),
-            _HeaderSliverText(t.visualDesignPage.headers.fontSize),
-            SliverToBoxAdapter(
-              key: ValueKey('$_ChangerTextScaleWidget'),
-              child: const _ChangerTextScaleWidget(),
-            ),
-            _HeaderSliverText(t.visualDesignPage.headers.typography),
-            SliverToBoxAdapter(
-              key: ValueKey('$_TypographyWidget'),
-              child: const _TypographyWidget(),
-            ),
-            _HeaderSliverText(t.visualDesignPage.headers.scroll),
-            SliverToBoxAdapter(
-              key: ValueKey('$_ScrollPhysicsWidget'),
-              child: const _ScrollPhysicsWidget(),
-            ),
-            const SliverToBoxAdapter(
-              key: ValueKey('SizedBox bottom'),
-              child: SizedBox(height: 20.0),
-            ),
-          ],
+              ActionButton.themeMode: const ChangerThemeButton(),
+            }),
+          ),
+          body: CustomScrollView(
+            physics: scrollPhysics,
+            // if necessary padding, use MultiSliver
+            // padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            slivers: [
+              _HeaderSliverText(t.visualDesignPage.headers.design),
+              SliverToBoxAdapter(
+                key: ValueKey('$_DesignPagesWidget'),
+                child: const _DesignPagesWidget(),
+              ),
+              SliverPinnedHeader(
+                key: ValueKey('$_ExampleTileDesign'),
+                child: ColoredBox(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  child: const _ExampleTileDesign(),
+                ),
+              ),
+              _HeaderSliverText(t.visualDesignPage.headers.font),
+              SliverToBoxAdapter(
+                key: ValueKey('$_FamilyFontsWidget'),
+                child: const _FamilyFontsWidget(),
+              ),
+              _HeaderSliverText(t.visualDesignPage.headers.fontSize),
+              SliverToBoxAdapter(
+                key: ValueKey('$_ChangerTextScaleWidget'),
+                child: const _ChangerTextScaleWidget(),
+              ),
+              _HeaderSliverText(t.visualDesignPage.headers.typography),
+              SliverToBoxAdapter(
+                key: ValueKey('$_TypographyWidget'),
+                child: const _TypographyWidget(),
+              ),
+              _HeaderSliverText(t.visualDesignPage.headers.scroll),
+              SliverToBoxAdapter(
+                key: ValueKey('$_ScrollPhysicsWidget'),
+                child: const _ScrollPhysicsWidget(),
+              ),
+              const SliverToBoxAdapter(
+                key: ValueKey('SizedBox bottom'),
+                child: SizedBox(height: 20.0),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -211,7 +216,7 @@ class _DesignPagesWidget extends HookConsumerWidget {
           children: [
             for (final (index, designPage) in designPages.indexed)
               _DesignTile(
-                key: ValueKey(designPage.hashCode),
+                key: ValueKey(index),
                 designPage: designPage,
                 index: index,
               )
