@@ -32,6 +32,13 @@ void _loggingErrors() {
 Future<void> main() async {
   _loggingErrors();
 
+  // coldfix: add custom font licenses to the project
+  // LicenseRegistry.addLicense(() async* {
+  //   final String license =
+  //       await rootBundle.loadString('assets/fonts/Anonymous_Pro/OFL.txt');
+  //   yield LicenseEntryWithLineBreaks(<String>['google_fonts'], license);
+  // });
+
   await Chain.capture(
     () async {
       final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
