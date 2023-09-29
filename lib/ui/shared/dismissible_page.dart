@@ -41,8 +41,8 @@ class MyDismissiblePage extends DismissiblePage {
     super.startingOpacity = 1,
     super.hitTestBehavior = HitTestBehavior.opaque,
     super.reverseDuration = const Duration(milliseconds: 200),
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

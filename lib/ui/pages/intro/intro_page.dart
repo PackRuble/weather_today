@@ -15,7 +15,7 @@ import '../../shared/theme_button.dart';
 const _durationMill = 500;
 
 class IntroPage extends HookConsumerWidget {
-  const IntroPage({Key? key}) : super(key: key);
+  const IntroPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -93,8 +93,9 @@ class IntroPage extends HookConsumerWidget {
 class _IntroTileWidget extends ConsumerWidget {
   const _IntroTileWidget(
     this.tile, {
-    Key? key,
-  }) : super(key: key);
+    // ignore: unused_element
+    super.key,
+  });
 
   final IntroTile tile;
 
@@ -134,9 +135,10 @@ class _IntroTileWidget extends ConsumerWidget {
 
 class _LeftButtonWidget extends ConsumerWidget {
   const _LeftButtonWidget({
-    Key? key,
+    // ignore: unused_element
+    super.key,
     required this.controller,
-  }) : super(key: key);
+  });
 
   final PageController controller;
 
@@ -176,9 +178,10 @@ class _LeftButtonWidget extends ConsumerWidget {
 
 class _RightButtonWidget extends ConsumerWidget {
   const _RightButtonWidget({
-    Key? key,
+    // ignore: unused_element
+    super.key,
     required this.controller,
-  }) : super(key: key);
+  });
 
   final PageController controller;
 
@@ -236,7 +239,7 @@ class _RightButtonWidget extends ConsumerWidget {
 }
 
 class LocaleButtonWidget extends HookConsumerWidget {
-  const LocaleButtonWidget({Key? key}) : super(key: key);
+  const LocaleButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

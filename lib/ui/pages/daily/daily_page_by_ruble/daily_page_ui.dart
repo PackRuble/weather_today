@@ -56,9 +56,7 @@ class DailyWeatherPageByRuble extends ConsumerWidget {
 }
 
 class _AlertsListWidget extends ConsumerWidget {
-  const _AlertsListWidget({
-    Key? key,
-  }) : super(key: key);
+  const _AlertsListWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -205,10 +203,10 @@ class _GroupExpansionWidget extends ConsumerWidget {
 
 class Expandable extends StatelessWidget {
   const Expandable({
-    Key? key,
+    super.key,
     required this.expanded,
     required this.collapsed,
-  }) : super(key: key);
+  });
 
   final Widget collapsed;
   final Widget expanded;

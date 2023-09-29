@@ -10,8 +10,8 @@ import '../../../shared/appbar_widget.dart';
 @RoutePage()
 class TermsAppPage extends ConsumerWidget {
   const TermsAppPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -92,6 +92,8 @@ class MessageController {
 }
 
 class _StoreMessages {
+  const _StoreMessages._();
+
   /// Уведомление об отсутствии интернета.
   ///
   /// Возникает если:

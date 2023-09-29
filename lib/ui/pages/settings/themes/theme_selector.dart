@@ -8,8 +8,8 @@ import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_
 /// Переключатель тем, с выпадающим списком.
 class ThemeSelector extends ConsumerWidget {
   const ThemeSelector({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -6,8 +6,8 @@ import '../../application/const/app_colors.dart';
 
 class ChangerThemeButton extends ConsumerWidget {
   const ChangerThemeButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

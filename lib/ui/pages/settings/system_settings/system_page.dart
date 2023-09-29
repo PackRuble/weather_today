@@ -33,9 +33,9 @@ class SystemSettingsPage extends ConsumerWidget {
 
 class EnableLogsSwitch extends ConsumerWidget {
   const EnableLogsSwitch({
-    Key? key,
+    super.key,
     this.onChange,
-  }) : super(key: key);
+  });
 
   final VoidCallback? onChange;
 

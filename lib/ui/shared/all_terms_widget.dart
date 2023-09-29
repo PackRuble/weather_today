@@ -31,9 +31,9 @@ Widget _DecoratedWidget(BuildContext context, {required Widget child}) {
 
 class TermsConditionsWidget extends ConsumerWidget {
   const TermsConditionsWidget({
-    Key? key,
+    super.key,
     this.isAccepted = false,
-  }) : super(key: key);
+  });
 
   final bool isAccepted;
 
@@ -89,8 +89,9 @@ class TermsConditionsWidget extends ConsumerWidget {
 
 class _ButtonBarWidget extends ConsumerWidget {
   const _ButtonBarWidget({
-    Key? key,
-  }) : super(key: key);
+    // ignore: unused_element
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -113,10 +114,11 @@ class _ButtonBarWidget extends ConsumerWidget {
 
 class _TileDocWidget extends ConsumerWidget {
   const _TileDocWidget({
-    Key? key,
+    // ignore: unused_element
+    super.key,
     required this.title,
     required this.child,
-  }) : super(key: key);
+  });
 
   final String title;
   final Widget child;

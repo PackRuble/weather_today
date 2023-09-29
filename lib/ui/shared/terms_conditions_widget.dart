@@ -19,8 +19,8 @@ enum _TermsAsset {
 class TermsDocWidget extends ConsumerWidget {
   const TermsDocWidget({
     required this.termsAsset,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final _TermsAsset termsAsset;
 
@@ -53,7 +53,7 @@ class TermsDocWidget extends ConsumerWidget {
 }
 
 class PrivacyPolicyMarkdown extends ConsumerWidget {
-  const PrivacyPolicyMarkdown({Key? key}) : super(key: key);
+  const PrivacyPolicyMarkdown({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -64,7 +64,7 @@ class PrivacyPolicyMarkdown extends ConsumerWidget {
 }
 
 class TermsAndConditionsMarkdown extends ConsumerWidget {
-  const TermsAndConditionsMarkdown({Key? key}) : super(key: key);
+  const TermsAndConditionsMarkdown({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -75,7 +75,7 @@ class TermsAndConditionsMarkdown extends ConsumerWidget {
 }
 
 class TermsUseAppMarkdown extends ConsumerWidget {
-  const TermsUseAppMarkdown({Key? key}) : super(key: key);
+  const TermsUseAppMarkdown({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
