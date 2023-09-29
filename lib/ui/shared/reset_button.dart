@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../const/app_dialogs.dart';
+import '../dialogs/app_dialogs.dart';
 
 class ResetButton extends StatelessWidget {
   const ResetButton({

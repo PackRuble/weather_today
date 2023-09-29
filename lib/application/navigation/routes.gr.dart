@@ -9,26 +9,24 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i12;
-import 'package:weather_today/ui/pages/main_page/home_page_ui.dart' as _i3;
-import 'package:weather_today/ui/pages/settings_page/country_flags_page/county_flags_page_ui.dart'
+import 'package:weather_today/ui/pages/home/home_page.dart' as _i3;
+import 'package:weather_today/ui/pages/settings/country_flags/country_flags_page.dart'
     as _i1;
-import 'package:weather_today/ui/pages/settings_page/gratitude_page/gratitude_page_ui.dart'
+import 'package:weather_today/ui/pages/settings/gratitude/gratitude_page.dart'
     as _i2;
-import 'package:weather_today/ui/pages/settings_page/logs_page/logs_page_ui.dart'
-    as _i4;
-import 'package:weather_today/ui/pages/settings_page/saved_places_page/saved_places_page_ui.dart'
+import 'package:weather_today/ui/pages/settings/logs/logs_page.dart' as _i4;
+import 'package:weather_today/ui/pages/settings/saved_places/saved_places_page.dart'
     as _i5;
-import 'package:weather_today/ui/pages/settings_page/system_settings_page/system_page_ui.dart'
+import 'package:weather_today/ui/pages/settings/system_settings/system_page.dart'
     as _i6;
-import 'package:weather_today/ui/pages/settings_page/terms_app_page/terms_app_page.dart'
+import 'package:weather_today/ui/pages/settings/terms_app/terms_app.dart'
     as _i7;
-import 'package:weather_today/ui/pages/settings_page/themes_page/theme_page_ui.dart'
-    as _i8;
-import 'package:weather_today/ui/pages/settings_page/user_api_page/user_api_page_ui.dart'
+import 'package:weather_today/ui/pages/settings/themes/theme_page.dart' as _i8;
+import 'package:weather_today/ui/pages/settings/user_api/user_api_page.dart'
     as _i9;
-import 'package:weather_today/ui/pages/settings_page/visual_design_page/visual_design_page_ui.dart'
+import 'package:weather_today/ui/pages/settings/visual_design/visual_design_page.dart'
     as _i10;
-import 'package:weather_today/ui/pages/settings_page/weather_language_page/weather_language_page_ui.dart'
+import 'package:weather_today/ui/pages/settings/weather_language/weather_language_page.dart'
     as _i11;
 
 abstract class $AppRouter extends _i12.RootStackRouter {

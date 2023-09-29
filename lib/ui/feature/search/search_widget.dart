@@ -7,7 +7,7 @@ import 'package:weather_today/application/const/app_insets.dart';
 import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
 import 'package:weather_today/domain/controllers/saved_places_provider.dart';
 import 'package:weather_today/domain/models/place/place_model.dart';
-import 'package:weather_today/ui/const/app_dialogs.dart';
+import 'package:weather_today/ui/dialogs/app_dialogs.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
