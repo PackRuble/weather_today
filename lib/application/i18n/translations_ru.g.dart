@@ -547,7 +547,7 @@ class TranslationsSettingsPageHomepageTileRu {
 	String get tileTitle => 'Стартовая страница';
 	String tileSub({required Object homepage}) => '${homepage}';
 	String get dialogTitle => 'Стартовая страница';
-	String get dialogSub => 'Нужная страница откроется сразу при загрузке приложения.';
+	String get dialogSub => 'Нужная страница откроется сразу при запуске приложения.';
 }
 
 // Path: settingsPage.localeTile

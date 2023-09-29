@@ -551,7 +551,7 @@ class TranslationsSettingsPageHomepageTileEn extends TranslationsSettingsPageHom
 	@override String get tileTitle => 'Start Page';
 	@override String tileSub({required Object homepage}) => '${homepage}';
 	@override String get dialogTitle => 'Start Page';
-	@override String get dialogSub => 'The desired page will open immediately when the application loads.';
+	@override String get dialogSub => 'The desired page will open immediately when you launch the application.';
 }
 
 // Path: settingsPage.localeTile
