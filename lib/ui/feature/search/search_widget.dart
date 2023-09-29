@@ -12,7 +12,7 @@ import 'package:weather_today/ui/shared/tips_widget.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../utils/metrics_helper.dart';
-import 'search_widget_controller.dart';
+import 'search_widget_notifier.dart';
 
 /// Виджет поиска в верхней части экрана. Используется для поиска мест.
 class SearchWidget extends ConsumerWidget with UiLoggy {

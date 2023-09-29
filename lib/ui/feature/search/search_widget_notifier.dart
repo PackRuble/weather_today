@@ -11,26 +11,41 @@ import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/ui/feature/search/models/search_body_state.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
+// todo: переделать в static
 final searchWidgetProvider =
-    StateNotifierProvider.autoDispose<SearchWidgetNotifier, SearchBodyState>(
-        (ref) {
-  final List<Place> savedPlaces = ref.watch(savedPlacesController);
-
-  return SearchWidgetNotifier(ref, savedPlaces);
-}, name: '$SearchWidgetNotifier');
+    AutoDisposeNotifierProvider<SearchWidgetNotifier, SearchBodyState>(
+  SearchWidgetNotifier.new,
+  name: '$SearchWidgetNotifier',
+);
 
 /// Контроллер предназначен для работы с отображением найденных и сохраненных
 /// мест в body searchBar.
-class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
-  SearchWidgetNotifier(this._ref, this._savedPlaces)
-      : super(const SearchBodyState.loading()) {
-    unawaited(_init());
-  }
-
-  final Ref _ref;
+class SearchWidgetNotifier extends AutoDisposeNotifier<SearchBodyState> {
+  SearchWidgetNotifier();
 
   /// Список сохраненных мест.
-  final List<Place> _savedPlaces;
+  late final List<Place> _savedPlaces;
+
+  @override
+  SearchBodyState build() {
+    _savedPlaces = ref.watch(savedPlacesController);
+
+    state = const SearchBodyState.loading();
+    // если запроса нет, автоматически пустой _foundedPlaces.
+    if (ref.read(_query).isEmpty) {
+      state = SearchBodyState.saved(
+        _savedPlaces.take(_countDisplayedPlaces).toList(),
+      );
+
+      // запрос есть
+    } else {
+      state = SearchBodyState.found(
+        ref.read(_foundedPlaces).take(_countDisplayedPlaces).toList(),
+      );
+    }
+
+    return state;
+  }
 
   /// Количество мест для отображения.
   static const int _countDisplayedPlaces = 5;
@@ -42,20 +57,6 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
   /// Это полезно, например, если вы хотите избежать выполнения дорогостоящих задач,
   /// таких как вызов сети или вызов для каждого отдельного символа.
   static int get debounceDelay => 1000;
-
-  /// Инициализация класса.
-  Future<void> _init() async {
-    // если запроса нет, автоматически пустой _foundedPlaces.
-    if (_ref.read(_query).isEmpty) {
-      state = SearchBodyState.saved(
-          _savedPlaces.take(_countDisplayedPlaces).toList());
-
-      // запрос есть
-    } else {
-      state = SearchBodyState.found(
-          _ref.read(_foundedPlaces).take(_countDisplayedPlaces).toList());
-    }
-  }
 
   // Список провайдеров
   // ===========================================================================
@@ -76,6 +77,7 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
       Provider.autoDispose<FloatingSearchBarController>(
           (ref) => FloatingSearchBarController());
 
+  // todo: _query может быть простой переменной
   /// запрос
   static final _query = StateProvider<String>((ref) => '');
 
@@ -102,7 +104,7 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
   Future<void> newRequest(String newQuery) async {
     state = const SearchBodyState.loading();
 
-    _ref.read(_query.notifier).update((_) => newQuery);
+    ref.read(_query.notifier).update((_) => newQuery);
 
     // если запрос пуст - возвращаем список сохраненных мест
     if (newQuery.isEmpty) {
@@ -123,7 +125,7 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
         state = const SearchBodyState.error();
       }
 
-      _ref.read(_foundedPlaces.notifier).update((_) => founded);
+      ref.read(_foundedPlaces.notifier).update((_) => founded);
       state = SearchBodyState.found(founded);
     }
   }
@@ -164,12 +166,12 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
 
   /// Получаем список мест по их предположительному наименованию.
   Future<List<Place>> _getPlacesByName(String name) async =>
-      _ref.read(placeServiceOWMPr).getPlacesByName(name);
+      ref.read(placeServiceOWMPr).getPlacesByName(name);
 
   /// Получаем список мест по их координатам.
   Future<List<Place>> _getPlacesByCoordinates(
           {required double latitude, required double longitude}) async =>
-      _ref
+      ref
           .read(placeServiceOWMPr)
           .getPlacesByCoordinates(latitude: latitude, longitude: longitude);
 
@@ -178,8 +180,8 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
 
   /// Выбрать местоположение текущим.
   Future<void> selectCurrentPlace(Place place) async {
-    _ref.read(controllerBarProvider).close();
-    unawaited(_ref.read(WeatherServices.instance).setCurrentPlace(place));
+    ref.read(controllerBarProvider).close();
+    unawaited(ref.read(WeatherServices.instance).setCurrentPlace(place));
   }
 
   /// Добавить/удалить место.
@@ -195,9 +197,9 @@ class SearchWidgetNotifier extends StateNotifier<SearchBodyState> {
 
   /// Сохранить местоположение в список сохраненных.
   Future<void> _addPlaceToSavedPlaces(Place place) async =>
-      _ref.read(savedPlacesController.notifier).addPlace(place);
+      ref.read(savedPlacesController.notifier).addPlace(place);
 
   /// Удалить местоположение из списка сохраненных.
   Future<void> _deletePlace(Place deletedPlace) async =>
-      _ref.read(savedPlacesController.notifier).deletePlace(deletedPlace);
+      ref.read(savedPlacesController.notifier).deletePlace(deletedPlace);
 }
