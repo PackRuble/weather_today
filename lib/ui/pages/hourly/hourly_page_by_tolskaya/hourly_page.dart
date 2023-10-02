@@ -7,7 +7,7 @@ import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/application/const/app_insets.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
-import 'package:weather_today/ui/pages/hourly/hourly_page_controller.dart';
+import 'package:weather_today/ui/pages/hourly/hourly_page_presenter.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
 import '../../../shared/attribution_weather_widget.dart';
@@ -68,7 +68,7 @@ class _DateWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(HourlyPageController.tr);
+    final t = ref.watch(HourlyPagePresenter.tr);
 
     final TextTheme styles = Theme.of(context).textTheme;
 
@@ -153,7 +153,7 @@ class TileHourlyWidget extends ConsumerWidget {
 
     final t = ref.watch(AppLocalization.currentTranslation);
 
-    final Temp tempUnits = ref.watch(HourlyPageController.tempUnits);
+    final Temp tempUnits = ref.watch(HourlyPagePresenter.tempUnits);
 
     final String _temp =
         MetricsHelper.getTemp(weather.temp, tempUnits, withUnits: false);
@@ -255,11 +255,11 @@ class _ExpandedWidget extends ConsumerWidget {
 
     final String? _cloudiness = MetricsHelper.withPrecision(weather.cloudiness);
 
-    final Temp tempUnits = ref.watch(HourlyPageController.tempUnits);
+    final Temp tempUnits = ref.watch(HourlyPagePresenter.tempUnits);
     final String? _dewPoint =
         MetricsHelper.getTempOrNull(weather.dewPoint, tempUnits);
 
-    final Speed speedUnits = ref.watch(HourlyPageController.speedUnits);
+    final Speed speedUnits = ref.watch(HourlyPagePresenter.speedUnits);
     final String? _windSpeed =
         MetricsHelper.getSpeed(weather.windSpeed, speedUnits);
 

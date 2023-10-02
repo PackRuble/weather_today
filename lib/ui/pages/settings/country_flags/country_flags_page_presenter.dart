@@ -3,18 +3,22 @@ import 'package:weather_today/application/const/countries_code.dart';
 import 'package:weather_today/application/i18n/translations.g.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 
-/// Class represent controller [CountryFlagsPage].
-class CountryFlagsPageController {
-  CountryFlagsPageController(this._ref);
+/// Class represent presenter for [CountryFlagsPage].
+class CountryFlagsPagePresenter {
+  CountryFlagsPagePresenter(this._ref);
 
   // ignore: unused_field
   final Ref _ref;
 
-  static final instance = Provider.autoDispose(CountryFlagsPageController.new);
+  /// Instance of current class.
+  static final instance = Provider.autoDispose(
+    CountryFlagsPagePresenter.new,
+    name: '$CountryFlagsPagePresenter',
+  );
 
-  /// Провайдер возвращает translate.
-  static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalization.currentTranslation));
+  /// Provider returns translation.
+  static StateProvider<TranslationsRu> get tr =>
+      AppLocalization.currentTranslation;
 
   /// Получить страны вида:
   /// [[countryCode, countryName], ...]

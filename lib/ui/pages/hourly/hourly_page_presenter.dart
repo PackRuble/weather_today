@@ -5,27 +5,27 @@ import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/controllers/weather/weather_onecall_controller.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 
-/// Контроллер [HourlyPage].
-class HourlyPageController {
-  HourlyPageController(this._ref);
+/// Presenter for [HourlyPage].
+class HourlyPagePresenter {
+  const HourlyPagePresenter(this._ref);
 
   final Ref _ref;
 
-  /// экземпляр.
+  /// Instance of current class.
   static final instance = Provider(
-    HourlyPageController.new,
-    name: '$HourlyPageController',
+    HourlyPagePresenter.new,
+    name: '$HourlyPagePresenter',
   );
 
-  /// Провайдер возвращает translate.
-  static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalization.currentTranslation));
+  /// Provider returns translation.
+  static StateProvider<TranslationsRu> get tr =>
+      AppLocalization.currentTranslation;
 
-  /// Погода [WeatherOneCall].
-  static final onecall = Provider<AsyncValue<WeatherOneCall?>>(
-      (ref) => ref.watch(weatherOneCallController));
+  ///  Actual [WeatherOneCall] ONE_CALL-weather.
+  static StateNotifierProvider<WeatherOnecallNotifier,
+      AsyncValue<WeatherOneCall?>> get onecall => weatherOneCallController;
 
-  /// Погода ONE_CALL на 2 дня почасовая [WeatherHourly].
+  /// Weather ONE_CALL for 2 days hourly [WeatherHourly].
   static final hourly = Provider<AsyncValue<List<WeatherHourly>?>>((ref) {
     final AsyncValue<WeatherOneCall?> asyncWeather = ref.watch(onecall);
 
@@ -36,7 +36,7 @@ class HourlyPageController {
     return AsyncValue.data(asyncWeather.value?.hourly);
   });
 
-  /// Погода ONE_CALL на час поминутная [WeatherHourly].
+  /// Weather ONE_CALL for an hour per minute [WeatherHourly].
   static final minutely = Provider<AsyncValue<List<WeatherMinutely>>>((ref) {
     final AsyncValue<WeatherOneCall?> asyncWeather =
         ref.watch(weatherOneCallController);
@@ -48,15 +48,13 @@ class HourlyPageController {
     return AsyncValue.data(asyncWeather.value?.minutely ?? []);
   });
 
-  /// Единицы измерения скорости.
-  static final speedUnits =
-      Provider<Speed>((ref) => ref.watch(WeatherServices.speedUnits));
+  /// Units of velocity measurement.
+  static StateProvider<Speed> get speedUnits => WeatherServices.speedUnits;
 
-  /// Единицы измерения температуры.
-  static final tempUnits =
-      Provider<Temp>((ref) => ref.watch(WeatherServices.tempUnits));
+  /// Units of temperature measurement.
+  static StateProvider<Temp> get tempUnits => WeatherServices.tempUnits;
 
-  /// Обновление погоды.
+  /// The ONE_CALL-weather update.
   Future<void> updateWeather() async =>
       _ref.read(weatherOneCallController.notifier).updateWeather();
 }

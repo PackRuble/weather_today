@@ -6,7 +6,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:weather_today/application/i18n/translations_enum.dart';
 import 'package:weather_today/domain/controllers/general_settings_controller.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
-import 'package:weather_today/ui/pages/intro/intro_page_controller.dart';
+import 'package:weather_today/ui/pages/intro/intro_page_presenter.dart';
 
 import '../../../application/i18n/translations.g.dart';
 import '../../shared/theme_button.dart';
@@ -22,7 +22,7 @@ class IntroPage extends HookConsumerWidget {
     final theme = Theme.of(context);
     final viewPadding = MediaQuery.viewPaddingOf(context);
 
-    final introTiles = ref.watch(IntroPageController.introTiles);
+    final introTiles = ref.watch(IntroPagePresenter.introTiles);
 
     final pageController = usePageController();
 
@@ -144,7 +144,7 @@ class _LeftButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tr = ref.watch(IntroPageController.tr);
+    final tr = ref.watch(IntroPagePresenter.tr);
 
     return AnimatedBuilder(
       animation: controller,
@@ -187,8 +187,8 @@ class _RightButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _lastIndex = ref.watch(IntroPageController.introTiles).length - 1;
-    final tr = ref.watch(IntroPageController.tr);
+    final _lastIndex = ref.watch(IntroPagePresenter.introTiles).length - 1;
+    final tr = ref.watch(IntroPagePresenter.tr);
 
     Widget createButton(String text, void Function() onPressed) {
       return ElevatedButton(

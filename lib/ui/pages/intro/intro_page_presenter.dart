@@ -12,28 +12,26 @@ class IntroTile {
 }
 
 /// Class represent controller.
-class IntroPageController {
-  IntroPageController(this._ref);
+class IntroPagePresenter {
+  const IntroPagePresenter(this._ref);
 
   // ignore: unused_field
   final Ref _ref;
 
-  /// Instance of class [IntroPageController].
+  /// Instance of class [IntroPagePresenter].
   static final instance = Provider.autoDispose(
-    IntroPageController.new,
-    name: '$IntroPageController/instance',
+    IntroPagePresenter.new,
+    name: '$IntroPagePresenter',
   );
 
-  /// Instance of class [TranslationsRu].
-  static final tr = Provider.autoDispose<TranslationsRu>(
-    (ref) => ref.watch(AppLocalization.currentTranslation),
-    name: '$IntroPageController/translate',
-  );
+  /// Provider returns translation.
+  static StateProvider<TranslationsRu> get tr =>
+      AppLocalization.currentTranslation;
 
   /// Instance of class [TranslationsRu].
   static final introTiles = Provider.autoDispose<List<IntroTile>>(
     (ref) => _getIntroTiles(ref.watch(tr)),
-    name: '$IntroPageController/slides',
+    name: '$IntroPagePresenter/slides',
   );
 
   static List<IntroTile> _getIntroTiles(TranslationsRu t) {

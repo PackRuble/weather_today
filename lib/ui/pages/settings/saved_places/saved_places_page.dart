@@ -31,10 +31,10 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
   Widget build(BuildContext context, WidgetRef ref) {
     loggy.debug('build');
 
-    final t = ref.watch(SavedPlacesPageController.tr);
+    final t = ref.watch(SavedPlacesPagePresenter.tr);
 
     final List<Place> listPlaces =
-        ref.watch(SavedPlacesPageController.savedPlaces);
+        ref.watch(SavedPlacesPagePresenter.savedPlaces);
 
     return Scaffold(
       body: Stack(
@@ -96,7 +96,7 @@ class _TileFoundedWidget extends ConsumerWidget {
       padding: const EdgeInsets.all(AppInsets.allPadding),
       child: GestureDetector(
         onLongPress: () async =>
-            ref.read(SavedPlacesPageController.instance).selectPlace(place),
+            ref.read(SavedPlacesPagePresenter.instance).selectPlace(place),
         child: Card(
           color: isSelected ? colors.cardSelectedColor : colors.cardColor,
           shape: RoundedRectangleBorder(
@@ -154,7 +154,7 @@ class _HeaderWidget extends ConsumerWidget {
           color: IconTheme.of(context).color,
         ),
         onPressed: () async => ref
-            .read(SavedPlacesPageController.instance)
+            .read(SavedPlacesPagePresenter.instance)
             .dialogAfterDeletingPlace(context, place),
       ),
     );
@@ -168,7 +168,7 @@ class _ExpandedWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.read(SavedPlacesPageController.tr);
+    final t = ref.read(SavedPlacesPagePresenter.tr);
 
     final Place curPlace = ref.watch(WeatherServices.currentPlace);
 
@@ -206,7 +206,7 @@ class _ExpandedWidget extends ConsumerWidget {
                     child: IconButton(
                       icon: const Icon(Icons.edit),
                       onPressed: () async => ref
-                          .read(SavedPlacesPageController.instance)
+                          .read(SavedPlacesPagePresenter.instance)
                           .dialogMakeNote(context, place),
                     ),
                   ),

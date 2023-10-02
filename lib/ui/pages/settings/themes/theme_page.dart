@@ -24,13 +24,13 @@ class ThemePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(ThemePageController.tr);
+    final t = ref.watch(ThemePagePresenter.tr);
 
     final ThemeData currentTheme = Theme.of(context);
 
     final ThemeData testedDarkLevelTheme = ref
         .watch(AppTheme.darkThemeTestedDarkLevel(
-            ref.watch(ThemePageController.darkLevel)))
+            ref.watch(ThemePagePresenter.darkLevel)))
         .toTheme;
 
     return Theme(
@@ -43,7 +43,7 @@ class ThemePage extends ConsumerWidget {
           actions: LinkedHashMap.of({
             ActionButton.reset: ResetButton(
               onConfirm:
-                  ref.read(ThemePageController.instance).resetToDefaultSettings,
+                  ref.read(ThemePagePresenter.instance).resetToDefaultSettings,
             ),
             ActionButton.themeMode: const ChangerThemeButton(),
           }),
@@ -73,7 +73,7 @@ class _SwapColorsThemeWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(ThemePageController.tr);
+    final t = ref.watch(ThemePagePresenter.tr);
 
     final bool isSwapColors = ref.watch(AppTheme.swapColors);
 
@@ -91,7 +91,7 @@ class _UseMaterial3Widget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(ThemePageController.tr);
+    final t = ref.watch(ThemePagePresenter.tr);
 
     final bool useMaterial3 = ref.watch(AppTheme.useMaterial3);
 
@@ -110,7 +110,7 @@ class _SwapComputeDarkWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(ThemePageController.tr);
+    final t = ref.watch(ThemePagePresenter.tr);
 
     final bool isLight = Brightness.light == Theme.of(context).brightness;
     final bool swapDark = ref.watch(AppTheme.swapDarkMainAndContainerColors);
@@ -131,10 +131,10 @@ class _DarkLevelWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(ThemePageController.tr);
+    final t = ref.watch(ThemePagePresenter.tr);
 
     final bool isLight = Brightness.light == Theme.of(context).brightness;
-    final int darkLevel = ref.watch(ThemePageController.darkLevel);
+    final int darkLevel = ref.watch(ThemePagePresenter.darkLevel);
 
     return isLight
         ? const SizedBox.shrink()
@@ -148,7 +148,7 @@ class _DarkLevelWidget extends ConsumerWidget {
               onChangeEnd: (double value) =>
                   ref.read(AppTheme.instance).setDarkLevel(value.toInt()),
               onChanged: (double value) => ref
-                  .read(ThemePageController.darkLevel.notifier)
+                  .read(ThemePagePresenter.darkLevel.notifier)
                   .update((_) => value.toInt()),
             ),
             trailing: SizedBox(
@@ -168,7 +168,7 @@ class _SwapTrueBlackWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(ThemePageController.tr);
+    final t = ref.watch(ThemePagePresenter.tr);
 
     final bool isLight = Brightness.light == Theme.of(context).brightness;
     final bool darkIsTrueBlack = ref.watch(AppTheme.darkIsTrueBlack);
@@ -329,7 +329,7 @@ class _DarkModeTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(ThemePageController.tr);
+    final t = ref.watch(ThemePagePresenter.tr);
 
     final ThemeMode themeMode = ref.watch(AppTheme.themeMode);
 

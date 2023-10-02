@@ -5,17 +5,23 @@ import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/controllers/weather/weather_onecall_controller.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 
-/// Контроллер страницы погоды на каждый день.
-class DailyPageController {
-  DailyPageController(this._ref);
+/// Daily weather page presenter.
+class DailyPagePresenter {
+  const DailyPagePresenter(this._ref);
 
   final Ref _ref;
 
-  /// Погода [WeatherOneCall].
-  static final onecall = Provider<AsyncValue<WeatherOneCall?>>(
-      (ref) => ref.watch(weatherOneCallController));
+  /// Instance of current class.
+  static final instance = Provider.autoDispose(
+    DailyPagePresenter.new,
+    name: '$DailyPagePresenter',
+  );
 
-  /// Погода ONE_CALL на 7 дней [WeatherDaily].
+  ///  Actual [WeatherOneCall] ONE_CALL-weather.
+  static StateNotifierProvider<WeatherOnecallNotifier,
+      AsyncValue<WeatherOneCall?>> get onecall => weatherOneCallController;
+
+  /// The ONE_CALL-weather for 7 days [WeatherDaily].
   static final daily = Provider<AsyncValue<List<WeatherDaily>?>>((ref) {
     final AsyncValue<WeatherOneCall?> asyncWeather = ref.watch(onecall);
 
@@ -26,7 +32,7 @@ class DailyPageController {
     return AsyncValue.data(asyncWeather.value?.daily);
   });
 
-  /// Погодные предупреждения от ONE_CALL.
+  /// Weather alerts from ONE_CALL-weather.
   static final alerts = Provider<AsyncValue<List<WeatherAlert>?>>((ref) {
     final AsyncValue<WeatherOneCall?> asyncWeather = ref.watch(onecall);
 
@@ -37,22 +43,17 @@ class DailyPageController {
     return AsyncValue.data(asyncWeather.value?.alerts);
   });
 
-  /// Провайдер возвращает translate.
-  static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalization.currentTranslation));
+  /// Provider returns translation.
+  static StateProvider<TranslationsRu> get tr =>
+      AppLocalization.currentTranslation;
 
-  /// Единицы измерения скорости.
-  static final speedUnits =
-      Provider<Speed>((ref) => ref.watch(WeatherServices.speedUnits));
+  /// Units of velocity measurement.
+  static StateProvider<Speed> get speedUnits => WeatherServices.speedUnits;
 
-  /// Единицы измерения температуры.
-  static final tempUnits =
-      Provider<Temp>((ref) => ref.watch(WeatherServices.tempUnits));
+  /// Units of temperature measurement.
+  static StateProvider<Temp> get tempUnits => WeatherServices.tempUnits;
 
-  /// экземпляр.
-  static final instance = Provider(DailyPageController.new);
-
-  /// Обновление погоды.
+  /// The ONE_CALL-weather update.
   Future<void> updateWeather() async =>
       _ref.read(weatherOneCallController.notifier).updateWeather();
 }

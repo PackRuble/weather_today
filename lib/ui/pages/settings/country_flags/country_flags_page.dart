@@ -20,9 +20,9 @@ class CountryFlagsPage extends ConsumerWidget with UiLoggy {
 
     // [[countryCode, countryName], ...]
     final List<List<String>> countries =
-        ref.watch(CountryFlagsPageController.instance).getCountries();
+        ref.watch(CountryFlagsPagePresenter.instance).getCountries();
 
-    final t = ref.watch(CountryFlagsPageController.tr);
+    final t = ref.watch(CountryFlagsPagePresenter.tr);
 
     return Scaffold(
       appBar: AppBarCustom(t.flagsPage.appbarTitle),

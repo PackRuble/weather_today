@@ -16,7 +16,7 @@ import 'package:weather_today/domain/controllers/app_theme/models/design_page.da
 import 'package:weather_today/domain/controllers/app_theme/models/models.dart';
 import 'package:weather_today/extension/enum_extension.dart';
 import 'package:weather_today/ui/pages/current/current_page_main.dart';
-import 'package:weather_today/ui/pages/daily/daily_page_by_ruble/daily_page_ui.dart'
+import 'package:weather_today/ui/pages/daily/daily_page_by_ruble/daily_page.dart'
     as ruble_daily;
 import 'package:weather_today/ui/pages/daily/daily_page_main.dart';
 import 'package:weather_today/ui/pages/hourly/hourly_page_main.dart';
@@ -37,10 +37,10 @@ class VisualDesignPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(VisualDPageController.tr);
+    final t = ref.watch(VisualDesignPresenter.tr);
 
     final ScrollPhysics scrollPhysics =
-        ref.watch(VisualDPageController.selectedScrollPhysic).scrollPhysics;
+        ref.watch(VisualDesignPresenter.selectedScrollPhysic).scrollPhysics;
 
     final ThemeData theme = Theme.of(context);
 
@@ -48,7 +48,7 @@ class VisualDesignPage extends ConsumerWidget {
       data: theme..copyWith(),
       child: WillPopScope(
         onWillPop: () async =>
-            ref.watch(VisualDPageController.instance).onWillPop(context),
+            ref.watch(VisualDesignPresenter.instance).onWillPop(context),
         child: Scaffold(
           appBar: AppBarCustom(
             t.visualDesignPage.appbarTitle,
@@ -56,7 +56,7 @@ class VisualDesignPage extends ConsumerWidget {
               ActionButton.slot1: const _SaveButtonWidget(),
               ActionButton.reset: ResetButton(
                 onConfirm: ref
-                    .read(VisualDPageController.instance)
+                    .read(VisualDesignPresenter.instance)
                     .resetToDefaultSettings,
               ),
               ActionButton.themeMode: const ChangerThemeButton(),
@@ -136,7 +136,7 @@ class _ExampleTileDesign extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final WeatherOneCall? weatherMock =
-        ref.watch(VisualDPageController.weatherMock).valueOrNull;
+        ref.watch(VisualDesignPresenter.weatherMock).valueOrNull;
 
     Widget? testedWidget;
 
@@ -151,13 +151,13 @@ class _ExampleTileDesign extends ConsumerWidget {
     }
 
     final double textScaleFactor =
-        ref.watch(VisualDPageController.textScaleFactorProvider);
+        ref.watch(VisualDesignPresenter.textScaleFactorProvider);
 
     final Typography typography =
-        ref.watch(VisualDPageController.selectedTypography).typography;
+        ref.watch(VisualDesignPresenter.selectedTypography).typography;
 
     final String fontFamily =
-        ref.watch(VisualDPageController.selectedFontFamily).fontFamily;
+        ref.watch(VisualDesignPresenter.selectedFontFamily).fontFamily;
 
     final bool isDark = Brightness.dark == theme.brightness;
 
@@ -183,11 +183,11 @@ class _SaveButtonWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bool isNeedSave =
-        ref.watch(VisualDPageController.changesProvider).isNotEmpty;
+        ref.watch(VisualDesignPresenter.changesProvider).isNotEmpty;
 
     return isNeedSave
         ? IconButton(
-            onPressed: ref.read(VisualDPageController.instance).saveAllChanges,
+            onPressed: ref.read(VisualDesignPresenter.instance).saveAllChanges,
             icon: const Icon(Icons.done_rounded),
           )
         : const SizedBox.shrink();
@@ -199,10 +199,10 @@ class _DesignPagesWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(VisualDPageController.tr);
-    final notifier = ref.watch(VisualDPageController.instance);
+    final t = ref.watch(VisualDesignPresenter.tr);
+    final notifier = ref.watch(VisualDesignPresenter.instance);
     final List<DesignPage> designPages =
-        ref.watch(VisualDPageController.weatherDesignPages);
+        ref.watch(VisualDesignPresenter.weatherDesignPages);
 
     return Column(
       children: [
@@ -241,9 +241,9 @@ class _DesignTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(VisualDPageController.instance);
+    final notifier = ref.watch(VisualDesignPresenter.instance);
     final textScaleFactor = ref.watch(AppTheme.textScaleFactor);
-    final t = ref.watch(VisualDPageController.tr);
+    final t = ref.watch(VisualDesignPresenter.tr);
     final titleTr = t.mainPageDRuble.mainPage.bottomBar;
 
     final design = designPage.design;
@@ -380,7 +380,7 @@ class _ChangerTextScaleWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final double textScaleFactor =
-        ref.watch(VisualDPageController.textScaleFactorProvider);
+        ref.watch(VisualDesignPresenter.textScaleFactorProvider);
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -400,7 +400,7 @@ class _ChangerTextScaleWidget extends ConsumerWidget {
                   min: minTextScaleFactor,
                   max: maxTextScaleFactor,
                   onChanged: ref
-                      .read(VisualDPageController.instance)
+                      .read(VisualDesignPresenter.instance)
                       .setTextScaleFactor,
                 ),
               ),
@@ -426,20 +426,18 @@ class _FamilyFontsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<AppFontFamily> items =
-        ref.watch(VisualDPageController.fontsFamilyProvider);
+    final presenter = ref.watch(VisualDesignPresenter.instance);
+    final List<AppFontFamily> items = presenter.fontsFamily;
 
     final AppFontFamily selected =
-        ref.watch(VisualDPageController.selectedFontFamily);
+        ref.watch(VisualDesignPresenter.selectedFontFamily);
 
     return ChipsCloud(
       items: List<ChipInCloud>.generate(items.length, (int index) {
         return ChipInCloud(
           selected: selected == items[index],
           label: Text(items[index].fontFamily),
-          onSelected: (_) => ref
-              .read(VisualDPageController.instance)
-              .setFontFamily(items[index]),
+          onSelected: (_) => presenter.setFontFamily(items[index]),
         );
       }),
     );
@@ -451,11 +449,11 @@ class _TypographyWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<AppTypography> items =
-        ref.watch(VisualDPageController.typographyList);
+    final presenter = ref.watch(VisualDesignPresenter.instance);
+    final List<AppTypography> items = presenter.typographyList;
 
     final AppTypography selected =
-        ref.watch(VisualDPageController.selectedTypography);
+        ref.watch(VisualDesignPresenter.selectedTypography);
 
     return ChipsCloud(
       items: List<ChipInCloud>.generate(items.length, (int index) {
@@ -463,7 +461,7 @@ class _TypographyWidget extends ConsumerWidget {
           selected: selected == items[index],
           label: Text(items[index].toCamelCaseToWords()),
           onSelected: (_) => ref
-              .read(VisualDPageController.instance)
+              .read(VisualDesignPresenter.instance)
               .setTypography(items[index]),
         );
       }),
@@ -477,10 +475,10 @@ class _ScrollPhysicsWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<AppScrollPhysics> items =
-        ref.watch(VisualDPageController.scrollPhysicsProvider);
+        ref.watch(VisualDesignPresenter.instance).scrollPhysics;
 
     final AppScrollPhysics selected =
-        ref.watch(VisualDPageController.selectedScrollPhysic);
+        ref.watch(VisualDesignPresenter.selectedScrollPhysic);
 
     return ChipsCloud(
       items: List<ChipInCloud>.generate(items.length, (int index) {
@@ -489,7 +487,7 @@ class _ScrollPhysicsWidget extends ConsumerWidget {
           label: Text(items[index]
               .toWords(startWithSmall: false, stringCase: StringCase.lower)),
           onSelected: (_) => ref
-              .read(VisualDPageController.instance)
+              .read(VisualDesignPresenter.instance)
               .setScrollPhysic(items[index]),
         );
       }),

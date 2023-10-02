@@ -14,34 +14,34 @@ import 'package:weather_today/ui/dialogs/app_dialogs.dart';
 
 import '../../shared/dialogs_widget.dart';
 
-/// Контроллер страницы настроек.
-class SettingPageController {
-  SettingPageController(this._ref);
+/// [SettingsPage] presenter.
+class SettingPagePresenter {
+  SettingPagePresenter(this._ref);
 
   final Ref _ref;
 
-  /// экземпляр.
+  /// Instance of current class.
   static final instance = Provider.autoDispose(
-    SettingPageController.new,
-    name: '$SettingPageController',
+    SettingPagePresenter.new,
+    name: '$SettingPagePresenter',
   );
 
-  /// Провайдер возвращает translate.
-  static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalization.currentTranslation));
+  /// Provider returns translation.
+  static StateProvider<TranslationsRu> get tr =>
+      AppLocalization.currentTranslation;
 
   //============================================================================
-  // текущий язык погодных условий
+  // current weather language
 
   /// {@macro weather_settings.weather_language}
-  static final currentLanguage = Provider.autoDispose<WeatherLanguage>(
-      (ref) => ref.watch(WeatherServices.currentLanguage));
+  static StateProvider<WeatherLanguage> get currentLanguage =>
+      WeatherServices.currentLanguage;
 
   //============================================================================
-  // Единицы измерения температуры
+  // Temperature units
 
-  static final tempUnits =
-      Provider.autoDispose<Temp>((ref) => ref.watch(WeatherServices.tempUnits));
+  /// Units of temperature measurement.
+  static StateProvider<Temp> get tempUnits => WeatherServices.tempUnits;
 
   /// Диалог - Выбрать единицы измерения температуры.
   Future<void> dialogSetTempUnits(BuildContext context) async {
@@ -66,10 +66,10 @@ class SettingPageController {
   }
 
   //============================================================================
-  // Единицы измерения давления
+  // Pressure units
 
-  static final pressureUnits = Provider.autoDispose<Pressure>(
-      (ref) => ref.watch(WeatherServices.pressureUnits));
+  static StateProvider<Pressure> get pressureUnits =>
+      WeatherServices.pressureUnits;
 
   /// Диалог - Выбрать единицы измерения давления.
   Future<void> dialogSetPressureUnits(BuildContext context) async {
@@ -96,8 +96,8 @@ class SettingPageController {
   //============================================================================
   // speed units
 
-  static final speedUnits = Provider.autoDispose<Speed>(
-      (ref) => ref.watch(WeatherServices.speedUnits));
+  /// Units of velocity measurement.
+  static StateProvider<Speed> get speedUnits => WeatherServices.speedUnits;
 
   /// Диалог - Выбрать единицы измерения скорости.
   Future<void> dialogSetSpeedUnits(BuildContext context) async {
@@ -125,9 +125,9 @@ class SettingPageController {
   //============================================================================
   // locale
 
-  /// текущая локаль
-  static final currentLocale = Provider.autoDispose<AppLocale>(
-      (ref) => ref.watch(AppLocalization.currentLocale));
+  /// Current locale.
+  static StateProvider<AppLocale> get currentLocale =>
+      AppLocalization.currentLocale;
 
   /// Диалог - Установить новую locale.
   Future<void> dialogSetLocale(BuildContext context) async {
@@ -155,8 +155,8 @@ class SettingPageController {
   //============================================================================
   // Homepage index
 
-  static final startPageIndex = Provider.autoDispose<HomepageIndex>(
-      (ref) => ref.watch(AppGeneralSettings.startPageIndex));
+  static StateProvider<HomepageIndex> get startPageIndex =>
+      AppGeneralSettings.startPageIndex;
 
   /// Диалог - Выбрать стартовую страницу.
   Future<void> dialogSetHomepage(BuildContext context) async {
@@ -181,7 +181,7 @@ class SettingPageController {
     }
   }
 
-  /// Диалог - Об приложении.
+  /// Диалог - О приложении.
   Future<void> dialogAboutApp(BuildContext context) async =>
       AppDialogs.aboutApp(context);
 

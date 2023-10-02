@@ -19,7 +19,7 @@ class UserApiPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();
 
-    final t = ref.watch(UserApiPageController.tr);
+    final t = ref.watch(UserApiPagePresenter.tr);
 
     return Scaffold(
       appBar: AppBarCustom(t.apiWeatherPage.appbarTitle),
@@ -44,7 +44,7 @@ class _AboutApiWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(UserApiPageController.tr);
+    final t = ref.watch(UserApiPagePresenter.tr);
 
     return Column(
       children: [
@@ -75,10 +75,10 @@ class _StatusTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(UserApiPageController.tr);
+    final t = ref.watch(UserApiPagePresenter.tr);
 
     final bool isSetUserApi =
-        ref.watch(UserApiPageController.isUserApiKeyWeather);
+        ref.watch(UserApiPagePresenter.isUserApiKeyWeather);
 
     final ThemeData theme = Theme.of(context);
 
@@ -125,7 +125,7 @@ class _StatusTileWidget extends ConsumerWidget {
                 tooltip: t.apiWeatherPage.tooltips.delApiKey,
                 icon: const Icon(Icons.delete),
                 onPressed: () async => ref
-                    .watch(UserApiPageController.instance)
+                    .watch(UserApiPagePresenter.instance)
                     .deleteUserApi(context),
               ),
             Tooltip(
@@ -133,7 +133,7 @@ class _StatusTileWidget extends ConsumerWidget {
               child: TextButton(
                 child: const Text('Check'),
                 onPressed: () async =>
-                    ref.watch(UserApiPageController.instance).checkApi(),
+                    ref.watch(UserApiPagePresenter.instance).checkApi(),
               ),
             ),
           ],
@@ -168,10 +168,10 @@ class _TextFieldApiWidget extends HookConsumerWidget {
     final focusNode = useFocusNode();
     final textController = useTextEditingController();
 
-    final t = ref.watch(UserApiPageController.tr);
+    final t = ref.watch(UserApiPagePresenter.tr);
     final bool isSetUserApi =
-        ref.watch(UserApiPageController.isUserApiKeyWeather);
-    final bool isLoading = ref.watch(UserApiPageController.isTestingApiKey);
+        ref.watch(UserApiPagePresenter.isUserApiKeyWeather);
+    final bool isLoading = ref.watch(UserApiPagePresenter.isTestingApiKey);
 
     final String hint = isSetUserApi
         ? t.apiWeatherPage.userApi.fieldTip
@@ -210,7 +210,7 @@ class _TextFieldApiWidget extends HookConsumerWidget {
           ),
           suffixIcon: _DoneAndLoadingWidget(
               onDone: () async => ref
-                  .read(UserApiPageController.instance)
+                  .read(UserApiPagePresenter.instance)
                   .setUserApi(textController.text)),
           enabled: !isSetUserApi && !isLoading,
           hintText: hint,
@@ -218,7 +218,7 @@ class _TextFieldApiWidget extends HookConsumerWidget {
         ),
         keyboardType: TextInputType.text,
         onSubmitted: (text) async =>
-            ref.read(UserApiPageController.instance).setUserApi(text),
+            ref.read(UserApiPagePresenter.instance).setUserApi(text),
       ),
     );
   }
@@ -231,18 +231,17 @@ class _DoneAndLoadingWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(UserApiPageController.tr);
+    final t = ref.watch(UserApiPagePresenter.tr);
 
-    final bool isEnabled =
-        !ref.watch(UserApiPageController.isUserApiKeyWeather);
+    final bool isEnabled = !ref.watch(UserApiPagePresenter.isUserApiKeyWeather);
 
-    final bool isLoading = ref.watch(UserApiPageController.isTestingApiKey);
+    final bool isLoading = ref.watch(UserApiPagePresenter.isTestingApiKey);
     return isLoading
         ? IconButton(
             tooltip: t.apiWeatherPage.tooltips.awaiting,
             icon: const CircularProgressIndicator(strokeWidth: 2.0),
             onPressed: () => ref
-                .read(UserApiPageController.isTestingApiKey.notifier)
+                .read(UserApiPagePresenter.isTestingApiKey.notifier)
                 .update((_) => true),
           )
         : IconButton(

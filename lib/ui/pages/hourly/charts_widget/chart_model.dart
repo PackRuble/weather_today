@@ -5,16 +5,12 @@ import 'package:weather_today/ui/feature/charts/chart_utils.dart';
 import 'package:weather_today/ui/feature/charts/model/count_label.dart';
 import 'package:weather_today/ui/pages/hourly/charts_widget/theme_charts.dart';
 
-/// Настройка величин графика.
-class ChartModel<T> {
-  ChartModel(this.data);
-
-  ChartModel.error(this.data) : isDataCorrect = false;
-
+/// Chart models.
+class ChartModel {
   /// Include Humidity(%), Clouds(%) and Pressure(hPa)
   ChartModel.clouds(this.data) {
     if (data.length < 2) {
-      errorData();
+      flagDataError();
       return;
     }
 
@@ -38,14 +34,14 @@ class ChartModel<T> {
         ChartUtils.getXInterval(countLabel.bottom, data.length, true);
 
     // определяем константу точность точки
-    constantPrecisionPointLeft = pow(0.1, precisionLeft! + 1) as double;
+    constantPrecisionPointLeft = pow(0.1, precisionLeft + 1).toDouble();
 
     isDataCorrect = true;
   }
 
   ChartModel.pop(this.data) {
     if (data.length < 2) {
-      errorData();
+      flagDataError();
       return;
     }
 
@@ -54,7 +50,7 @@ class ChartModel<T> {
     // находим максимальное значение осадков
     double _rainMax = 0.0;
     double _snowMax = 0.0;
-    for (final WeatherHourly h in data as List<WeatherHourly>) {
+    for (final WeatherHourly h in data) {
       _rainMax = max(_rainMax, h.rain ?? 0.0);
       _snowMax = max(_snowMax, h.snow ?? 0.0);
     }
@@ -63,7 +59,7 @@ class ChartModel<T> {
 
     // если количество осадков == 0
     if (_popMax == 0.0) {
-      errorData();
+      flagDataError();
       return;
     }
 
@@ -72,7 +68,7 @@ class ChartModel<T> {
         ChartUtils.getYIntervalBetweenLabel(0.0, _popMax, countLabel.left);
 
     // точность меток слева от графика
-    precisionLeft = ChartUtils.getYPrecision(scaleDivisionLeft!);
+    precisionLeft = ChartUtils.getYPrecision(scaleDivisionLeft);
 
     // находим интервальные точки сверху от графика
     labelIntervalsTop =
@@ -88,7 +84,7 @@ class ChartModel<T> {
   /// Расчет графика ветра.
   ChartModel.wind(this.data) {
     if (data.length < 2) {
-      errorData();
+      flagDataError();
       return;
     }
 
@@ -97,7 +93,7 @@ class ChartModel<T> {
     // находим максимальное значение порывов ветра
     double _windSpeedMax = 0.0;
     double _windGustMax = 0.0;
-    for (final WeatherHourly h in data as List<WeatherHourly>) {
+    for (final WeatherHourly h in data) {
       _windSpeedMax = max(_windSpeedMax, h.windSpeed ?? 0.0);
       _windGustMax = max(_windGustMax, h.windGust ?? 0.0);
     }
@@ -106,7 +102,7 @@ class ChartModel<T> {
 
     // если ветра нет, то это штиль
     if (_windMax == 0.0) {
-      errorData();
+      flagDataError();
       return;
     }
 
@@ -117,7 +113,7 @@ class ChartModel<T> {
         ChartUtils.getYIntervalBetweenLabel(0.0, _windMax, countLabel.left);
 
     // точность меток слева от графика
-    precisionLeft = ChartUtils.getYPrecision(scaleDivisionLeft!);
+    precisionLeft = ChartUtils.getYPrecision(scaleDivisionLeft);
 
     // находим интервальные точки сверху от графика
     labelIntervalsTop =
@@ -132,7 +128,7 @@ class ChartModel<T> {
 
   ChartModel.forecast(this.data) {
     if (data.length < 2) {
-      errorData();
+      flagDataError();
       return;
     }
 
@@ -148,7 +144,7 @@ class ChartModel<T> {
     double _tempMin = startValue * -1;
     double _tempFeelsMin = startValue * -1;
 
-    for (final WeatherHourly h in data as List<WeatherHourly>) {
+    for (final WeatherHourly h in data) {
       _dewPointMax = max(_dewPointMax, h.dewPoint ?? _dewPointMax);
       _tempMax = max(_tempMax, h.temp ?? _tempMax);
       _tempFeelsMax = max(_tempFeelsMax, h.tempFeelsLike ?? _tempFeelsMax);
@@ -163,7 +159,7 @@ class ChartModel<T> {
 
     // доп проверка на корректность данных
     if (_maxValueY == startValue || _minValueY == startValue) {
-      errorData();
+      flagDataError();
       return;
     }
 
@@ -176,7 +172,7 @@ class ChartModel<T> {
         valueMinY, valueMaxY!, countLabel.left);
 
     // точность меток слева от графика
-    precisionLeft = ChartUtils.getYPrecision(scaleDivisionLeft!);
+    precisionLeft = ChartUtils.getYPrecision(scaleDivisionLeft);
 
     // находим интервальные точки сверху от графика
     labelIntervalsTop =
@@ -191,50 +187,50 @@ class ChartModel<T> {
         ChartUtils.getXInterval(countLabel.bottomLow!, data.length, true);
 
     // определяем константу точность точки
-    constantPrecisionPointLeft = pow(0.1, precisionLeft! + 1) as double;
+    constantPrecisionPointLeft = pow(0.1, precisionLeft + 1).toDouble();
 
     isDataCorrect = true;
   }
 
-  static ChartModel<T> errorData<T>() => ChartModel<T>.error(<T>[]);
-
-  /// Данные. Обычно, это список, по которому будет составляться график.
-  List<T> data;
-
   bool isDataCorrect = false;
+
+  /// Список, по которому будет составляться график.
+  final List<WeatherHourly> data;
+
+  void flagDataError() => isDataCorrect = false;
 
   CountLabel countLabel = CountLabel.zero;
 
   /// Списки расположения лейблов с определенным интервалом.
   ///
   /// В процессе построения лейблов графика происходит сверка с этим списоком.
-  List<int>? labelIntervalsTop;
-  List<int>? labelIntervalsBottomIcon;
-  List<int>? labelIntervalsBottomTime;
+  late final List<int> labelIntervalsTop;
+  late final List<int> labelIntervalsBottomIcon;
+  late final List<int> labelIntervalsBottomTime;
 
   /// Некоторая константа, которая позволяет нарисовать на графике круглую точку
   /// в заданной позиции.
   ///
   /// Саморасчетная величина, зависит от точности [precisionLeft]
-  double? constantPrecisionPointLeft;
+  late double constantPrecisionPointLeft;
 
   /// Цена деления шкалы. Она же интервал расположения лэйблов.
   ///
   /// Цена деления шкалы — разность значений величины, соответствующих двум соседним отметкам шкалы.
-  double? scaleDivisionLeft;
+  late double scaleDivisionLeft;
 
   /// Количество знаков после запятой.
   ///
   /// Саморасчетная величина. Определяется исходя из разницы макс и мин значений.
-  int? precisionLeft;
+  late int precisionLeft;
 
   /// Минимальное и максимальное значение по оси Y
   double valueMinY = 0.0;
   double? valueMaxY;
 
   /// Система счисления для температуры по умолчанию - celsius. И неизменна.
-  final Temp tempUnits = Temp.celsius;
+  static const Temp tempUnits = Temp.celsius;
 
   /// Система счисления для скорости по умолчанию - м/с. И неизменна.
-  final Speed windUnits = Speed.ms;
+  static const Speed windUnits = Speed.ms;
 }

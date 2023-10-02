@@ -16,7 +16,7 @@ import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../../utils/image_helper.dart';
 import '../../../utils/metrics_helper.dart';
-import '../daily_page_controller.dart';
+import '../daily_page_presenter.dart';
 
 const Widget _divider = Divider(height: 0.0, thickness: 1.0);
 
@@ -60,7 +60,7 @@ class _AlertsListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ref.watch(DailyPageController.alerts).maybeWhen(
+    return ref.watch(DailyPagePresenter.alerts).maybeWhen(
         data: (List<WeatherAlert>? alerts) {
           if (alerts?.isEmpty ?? true) {
             return const SizedBox.shrink();
@@ -90,7 +90,7 @@ class _AlertTileWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
 
-    final t = ref.watch(DailyPageController.tr);
+    final t = ref.watch(DailyPagePresenter.tr);
 
     final String date = alert.start!.day == alert.end!.day
         ? t.global.time.dateFromToWithNbspNewline(
@@ -117,7 +117,7 @@ class _AlertTileWidget extends ConsumerWidget {
                 child: Text(
                   date,
                   style: theme.textTheme.labelLarge?.copyWith(
-                    color: theme.colorScheme.onSecondary,
+                    color: theme.colorScheme.onSecondaryContainer,
                   ),
                   textAlign: TextAlign.end,
                 ),
@@ -256,7 +256,7 @@ class TileDailyWidget extends ConsumerWidget {
 
     final TextTheme styles = theme.textTheme;
 
-    final Temp tempUnits = ref.watch(DailyPageController.tempUnits);
+    final Temp tempUnits = ref.watch(DailyPagePresenter.tempUnits);
     final String _tempUnits = MetricsHelper.getTempUnits(tempUnits);
     final String _tempMin =
         MetricsHelper.getTemp(weather.tempMin, tempUnits, withUnits: false);
@@ -267,7 +267,7 @@ class TileDailyWidget extends ConsumerWidget {
         MetricsHelper.getPercentage(
             weather.pop == 0.0 ? null : weather.pop, 1.0));
 
-    final Speed speedUnits = ref.watch(DailyPageController.speedUnits);
+    final Speed speedUnits = ref.watch(DailyPagePresenter.speedUnits);
     final String? _windSpeed = MetricsHelper.getSpeed(
         weather.windSpeed, speedUnits,
         withUnits: false, precision: 0);
@@ -399,7 +399,7 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
 
     final t = ref.watch(AppLocalization.currentTranslation);
 
-    final Temp tempUnits = ref.watch(DailyPageController.tempUnits);
+    final Temp tempUnits = ref.watch(DailyPagePresenter.tempUnits);
 
     String getTemp(double? value) => MetricsHelper.getTemp(
           value,

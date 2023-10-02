@@ -2,13 +2,12 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/ui/feature/charts/chart_utils.dart';
 import 'package:weather_today/ui/feature/charts/chart_widget.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
-import '../hourly_page_by_ruble/hourly_page_controller_R.dart';
-import '../hourly_page_controller.dart';
+import '../hourly_page_by_ruble/hourly_page_by_ruble_presenter.dart';
+import '../hourly_page_presenter.dart';
 import 'chart_model.dart';
 import 'theme_charts.dart';
 
@@ -20,13 +19,13 @@ class ChartForecastWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
 
-    final t = ref.watch(HourlyPageController.tr);
+    final t = ref.watch(HourlyPagePresenter.tr);
 
     final bool isPortrait =
         MediaQuery.orientationOf(context) == Orientation.portrait;
 
-    final ChartModel<WeatherHourly> chart =
-        ref.watch(HPByRubleCtrl.chartMainForecast);
+    final ChartModel chart =
+        ref.watch(HourlyPageByRublePresenter.chartMainForecast);
 
     final Widget titleWidget = HeadChartWidget(
       t.mainPageDRuble.hourlyPage.forecast.title,
@@ -43,10 +42,6 @@ class ChartForecastWidget extends ConsumerWidget {
             Text(t.weather.noDataProvided, style: styles.bodyMedium),
       );
     }
-
-    final List<BarChartGroupData> generateData = _generateData(chart);
-
-    final FlTitlesData generateLabelsData = _generateLabelsData(context, chart);
 
     final List<LegendWidget> legends = [
       LegendWidget(
@@ -67,12 +62,12 @@ class ChartForecastWidget extends ConsumerWidget {
     );
 
     return CustomChartWidget(
-      generateData: generateData,
-      generateLabelsData: generateLabelsData,
+      generateData: _generateData(chart),
+      generateLabelsData: _generateLabelsData(context, chart),
       chartPaddingReserved: ChartTheme.fPaddingChart,
       titleWidget: titleWidget,
       legendWidgets: legends,
-      unitsLeft: chart.tempUnits.abbr,
+      unitsLeft: ChartModel.tempUnits.abbr,
       unitsRight: unitsRight,
       aspectRatio: isPortrait
           ? ChartTheme.fAspectRatio
@@ -80,7 +75,7 @@ class ChartForecastWidget extends ConsumerWidget {
     );
   }
 
-  List<BarChartGroupData> _generateData(ChartModel<WeatherHourly> chart) {
+  List<BarChartGroupData> _generateData(ChartModel chart) {
     // температура в цельсиях.
     BarChartGroupData _generateGroup(
         int x, double temp, double tempFeelsLike, double dewPoint) {
@@ -107,8 +102,8 @@ class ChartForecastWidget extends ConsumerWidget {
             width: 3,
           ),
           BarChartRodData(
-            fromY: dewPoint - chart.constantPrecisionPointLeft!,
-            toY: dewPoint + chart.constantPrecisionPointLeft!,
+            fromY: dewPoint - chart.constantPrecisionPointLeft,
+            toY: dewPoint + chart.constantPrecisionPointLeft,
             color: ChartTheme.fColorDewPoint,
             width: 5,
           ),
@@ -116,24 +111,18 @@ class ChartForecastWidget extends ConsumerWidget {
       );
     }
 
-    final List<BarChartGroupData> dataList = [];
-
-    for (int i = 0; i < chart.data.length; i++) {
-      dataList.addAll([
+    return [
+      for (final (i, item) in chart.data.indexed)
         _generateGroup(
           i,
-          chart.tempUnits.value(chart.data[i].temp ?? 0.0),
-          chart.tempUnits.value(chart.data[i].tempFeelsLike ?? 0.0),
-          chart.tempUnits.value(chart.data[i].dewPoint ?? 0.0),
+          ChartModel.tempUnits.value(item.temp ?? 0.0),
+          ChartModel.tempUnits.value(item.tempFeelsLike ?? 0.0),
+          ChartModel.tempUnits.value(item.dewPoint ?? 0.0),
         )
-      ]);
-    }
-
-    return dataList;
+    ];
   }
 
-  FlTitlesData _generateLabelsData(
-      BuildContext context, ChartModel<WeatherHourly> chart) {
+  FlTitlesData _generateLabelsData(BuildContext context, ChartModel chart) {
     final TextTheme styles = Theme.of(context).textTheme;
 
     // метки uvi
@@ -141,10 +130,11 @@ class ChartForecastWidget extends ConsumerWidget {
     Widget _topTitles(double value, TitleMeta _) {
       final int topPoint = value.toInt();
 
-      if (chart.labelIntervalsTop!.contains(topPoint)) {
+      if (chart.labelIntervalsTop.contains(topPoint)) {
+        final weather = chart.data[topPoint];
         return Center(
           child: Text(
-            chart.data[topPoint].uvi?.round().toString() ?? '-',
+            weather.uvi?.round().toString() ?? '-',
             style: styles.bodySmall?.copyWith(
               color: ChartTheme.fColorUvi,
             ),
@@ -157,10 +147,10 @@ class ChartForecastWidget extends ConsumerWidget {
     // метки температуры по оси y
     Widget _leftTitles(double value, TitleMeta meta) {
       if (ChartUtils.isSuitYLabel(
-          value, meta.min, meta.max, chart.scaleDivisionLeft!)) {
+          value, meta.min, meta.max, chart.scaleDivisionLeft)) {
         return Center(
           child: Text(
-            value.toStringAsFixed(chart.precisionLeft!),
+            value.toStringAsFixed(chart.precisionLeft),
             style: styles.bodySmall,
           ),
         );
@@ -172,15 +162,15 @@ class ChartForecastWidget extends ConsumerWidget {
     // метки времени и иконок по оси x снизу
     Widget _bottomTitles(double value, TitleMeta _) {
       final int bottomPoint = value.toInt();
+      final weather = chart.data[bottomPoint];
 
       final List<Widget> bottomWidgets = [];
 
-      if (chart.labelIntervalsBottomTime!.contains(bottomPoint)) {
-        if (chart.data[bottomPoint].date != null) {
-          final String time =
-              DateFormat.Hm().format(chart.data[bottomPoint].date!);
-          final String date =
-              DateFormat.MMMd().format(chart.data[bottomPoint].date!);
+      if (chart.labelIntervalsBottomTime.contains(bottomPoint)) {
+        final dataDate = weather.date;
+        if (dataDate != null) {
+          final String time = DateFormat.Hm().format(dataDate);
+          final String date = DateFormat.MMMd().format(dataDate);
 
           bottomWidgets.insert(
             0,
@@ -198,8 +188,8 @@ class ChartForecastWidget extends ConsumerWidget {
         }
       }
 
-      if (chart.labelIntervalsBottomIcon!.contains(bottomPoint)) {
-        final String? weatherIcon = chart.data[bottomPoint].weatherIcon;
+      if (chart.labelIntervalsBottomIcon.contains(bottomPoint)) {
+        final String? weatherIcon = weather.weatherIcon;
 
         if (weatherIcon != null) {
           if (bottomWidgets.isEmpty) {

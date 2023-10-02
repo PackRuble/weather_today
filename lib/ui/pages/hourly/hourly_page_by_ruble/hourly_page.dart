@@ -10,7 +10,7 @@ import 'package:weather_today/ui/pages/hourly/charts_widget/chart_pop_widget.dar
 import 'package:weather_today/ui/pages/hourly/charts_widget/chart_wind_widget.dart';
 
 import '../../../shared/attribution_weather_widget.dart';
-import '../hourly_page_controller.dart';
+import '../hourly_page_presenter.dart';
 
 class HourlyPageByRuble extends ConsumerWidget {
   const HourlyPageByRuble(this.hourly);
@@ -47,7 +47,7 @@ class _DateWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(HourlyPageController.tr);
+    final t = ref.watch(HourlyPagePresenter.tr);
 
     final TextTheme styles = Theme.of(context).textTheme;
 

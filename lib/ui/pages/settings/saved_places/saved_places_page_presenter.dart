@@ -9,45 +9,45 @@ import 'package:weather_today/ui/dialogs/app_dialogs.dart';
 
 import '../../../utils/image_helper.dart';
 
-/// Контроллер страницы [SavedPlacesPage].
-class SavedPlacesPageController {
-  SavedPlacesPageController(this._ref);
+/// Page presenter [SavedPlacesPage].
+class SavedPlacesPagePresenter {
+  const SavedPlacesPagePresenter(this._ref);
 
   final Ref _ref;
 
-  /// экземпляр.
+  /// Instance of current class.
   static final instance = Provider.autoDispose(
-    SavedPlacesPageController.new,
-    name: '$SavedPlacesPageController',
+    SavedPlacesPagePresenter.new,
+    name: '$SavedPlacesPagePresenter',
   );
 
-  /// Провайдер возвращает translate.
-  static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalization.currentTranslation));
+  /// Provider returns translation.
+  static StateProvider<TranslationsRu> get tr =>
+      AppLocalization.currentTranslation;
 
   // ---------------------------------------------------------------------------
-  // работа с сохраненными местами
+  // working with saved places
 
-  /// сохраненные места
-  static final savedPlaces = Provider.autoDispose<List<Place>>(
-      (ref) => ref.watch(savedPlacesController));
+  /// saved places
+  static AutoDisposeStateNotifierProvider<SavedPlacesNotifier, List<Place>>
+      get savedPlaces => savedPlacesController;
 
-  /// Удалить местоположение из списка сохраненных.
+  /// Remove a location from your saved list.
   Future<void> _deletePlace(Place deletedPlace) async =>
       _ref.read(savedPlacesController.notifier).deletePlace(deletedPlace);
 
-  /// Обновляем местоположение не изменяя его положение в списке.
+  /// We update the location without changing its position in the list.
   Future<void> _updatePlace(Place updatedPlace) async =>
       _ref.read(savedPlacesController.notifier).updatePlace(updatedPlace);
 
-  /// Выбрать местоположение текущим.
+  /// Select location as current.
   Future<void> selectPlace(Place newPlace) async =>
       _ref.read(WeatherServices.instance).setCurrentPlace(newPlace);
 
   // ---------------------------------------------------------------------------
-  // диалоги
+  // dialogues
 
-  /// Диалог отмены удаления.
+  /// Cancel deletion dialog.
   Future<void> dialogAfterDeletingPlace(
     BuildContext context,
     Place place,
@@ -58,7 +58,7 @@ class SavedPlacesPageController {
     }
   }
 
-  /// Посмотреть флаг и полное название страны.
+  /// View the flag and full name of the country.
   Future<void> dialogSeeFlag(
     BuildContext context,
     Place place,
@@ -73,7 +73,7 @@ class SavedPlacesPageController {
     );
   }
 
-  /// Показать окно создания заметки.
+  /// Show the note creation window.
   Future<void> dialogMakeNote(
     BuildContext context,
     Place place,

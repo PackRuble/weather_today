@@ -3,20 +3,23 @@ import 'package:weather_today/application/i18n/translations.g.dart';
 import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 
-class ThemePageController {
-  ThemePageController(this._ref);
+class ThemePagePresenter {
+  const ThemePagePresenter(this._ref);
 
   // ignore: unused_field
   final Ref _ref;
 
-  static final instance = Provider(ThemePageController.new);
+  /// Instance of current class.
+  static final instance = Provider.autoDispose(
+    ThemePagePresenter.new,
+    name: '$ThemePagePresenter',
+  );
 
-  /// The provider returns translate.
-  static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalization.currentTranslation));
+  /// Provider returns translation.
+  static StateProvider<TranslationsRu> get tr =>
+      AppLocalization.currentTranslation;
 
-  static final darkLevel =
-      StateProvider.autoDispose<int>((ref) => ref.watch(AppTheme.darkLevel));
+  static StateProvider<int> get darkLevel => AppTheme.darkLevel;
 
   Future<void> resetToDefaultSettings() async =>
       _ref.read(AppTheme.instance).resetThemeToDefaultSettings();

@@ -5,7 +5,7 @@ import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 import 'package:weather_today/extension/string_extension.dart';
-import 'package:weather_today/ui/pages/current/current_page_controller.dart';
+import 'package:weather_today/ui/pages/current/current_page_presenter.dart';
 import 'package:weather_today/ui/shared/attribution_weather_widget.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
@@ -23,7 +23,7 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(CurrentPageController.tr);
+    final t = ref.watch(CurrentPagePresenter.tr);
 
     const Divider divider = Divider(thickness: 1.0);
 
@@ -86,10 +86,9 @@ class _DateWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
 
-    final t = ref.watch(CurrentPageController.tr);
+    final t = ref.watch(CurrentPagePresenter.tr);
 
-    final DateTime? _date =
-        ref.watch(CurrentPageController.current).value!.date;
+    final DateTime? _date = ref.watch(CurrentPagePresenter.current).value!.date;
 
     return Padding(
       padding: const EdgeInsets.only(top: 10.0, right: 15.0, left: 15.0),
@@ -116,12 +115,12 @@ class _MainInfoWidget extends ConsumerWidget {
     final theme = Theme.of(context);
     final TextTheme styles = theme.textTheme;
 
-    final t = ref.watch(CurrentPageController.tr);
+    final t = ref.watch(CurrentPagePresenter.tr);
 
     final WeatherCurrent weather =
-        ref.watch(CurrentPageController.current).value!;
+        ref.watch(CurrentPagePresenter.current).value!;
 
-    final Temp tempUnits = ref.watch(CurrentPageController.tempUnits);
+    final Temp tempUnits = ref.watch(CurrentPagePresenter.tempUnits);
     final String _temp =
         MetricsHelper.getTemp(weather.temp, tempUnits, withUnits: false);
     final String _tempUnits = MetricsHelper.getTempUnits(tempUnits);
@@ -213,9 +212,9 @@ class _MainDescriptionWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
-    final t = ref.watch(CurrentPageController.tr);
+    final t = ref.watch(CurrentPagePresenter.tr);
 
-    final weather = ref.watch(CurrentPageController.current).value!;
+    final weather = ref.watch(CurrentPagePresenter.current).value!;
     final String? description = weather.weatherDescription;
     final String? _weatherMain =
         MetricsHelper.getWeatherMainTr(weather.weatherMain, t);
@@ -244,9 +243,9 @@ class _SunriseInfoWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(CurrentPageController.tr);
+    final t = ref.watch(CurrentPagePresenter.tr);
 
-    final WeatherCurrent wCur = ref.watch(CurrentPageController.current).value!;
+    final WeatherCurrent wCur = ref.watch(CurrentPagePresenter.current).value!;
 
     final DateTime? sunriseD = wCur.sunrise;
     final DateTime? sunsetD = wCur.sunset;
@@ -315,15 +314,15 @@ class _WindWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(CurrentPageController.tr);
+    final t = ref.watch(CurrentPagePresenter.tr);
 
     final WeatherCurrent weather =
-        ref.watch(CurrentPageController.current).value!;
+        ref.watch(CurrentPagePresenter.current).value!;
 
     final double windDegreeAngle =
         MetricsHelper.fromRadiansToDegrees(weather.windDegree ?? 0);
 
-    final Speed speedUnits = ref.watch(CurrentPageController.speedUnits);
+    final Speed speedUnits = ref.watch(CurrentPagePresenter.speedUnits);
     final String _windSpeed = MetricsHelper.getSpeed(
         weather.windSpeed, speedUnits,
         withUnits: false, withFiller: true)!;
@@ -398,7 +397,7 @@ class CloudinessWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final double? cloudiness =
-        ref.watch(CurrentPageController.current).value!.cloudiness;
+        ref.watch(CurrentPagePresenter.current).value!.cloudiness;
 
     if (cloudiness == null) return const SizedBox.shrink();
 
@@ -428,10 +427,10 @@ class _ExtendedInfoWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(CurrentPageController.tr);
+    final t = ref.watch(CurrentPagePresenter.tr);
 
     final WeatherCurrent weather =
-        ref.watch(CurrentPageController.current).value!;
+        ref.watch(CurrentPagePresenter.current).value!;
 
     final String? _pressure = MetricsHelper.getPressure(
         weather.pressure, ref.watch(WeatherServices.pressureUnits));

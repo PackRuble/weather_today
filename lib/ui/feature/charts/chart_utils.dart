@@ -4,7 +4,7 @@ import 'package:weather_today/extension/double_extension.dart';
 ///
 /// В основном, для размещения лэйблов по осям графика.
 class ChartUtils {
-  ChartUtils._();
+  const ChartUtils._();
 
   /// Определяем, рационален ли лэйбл по оси Y.
   ///

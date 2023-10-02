@@ -22,21 +22,21 @@ enum _SavedChanges {
 const double minTextScaleFactor = 0.5;
 const double maxTextScaleFactor = 2.0;
 
-/// Контроллер [VisualDesignPage].
-class VisualDPageController {
-  VisualDPageController(this._ref);
+/// [VisualDesignPage] page presenter.
+class VisualDesignPresenter {
+  const VisualDesignPresenter(this._ref);
 
   final Ref _ref;
 
-  /// экземпляр [VisualDPageController].
+  /// Instance of current class.
   static final instance = Provider.autoDispose(
-    VisualDPageController.new,
-    name: '$VisualDPageController',
+    VisualDesignPresenter.new,
+    name: '$VisualDesignPresenter',
   );
 
-  /// Провайдер возвращает translate.
-  static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalization.currentTranslation));
+  /// Provider returns translation.
+  static StateProvider<TranslationsRu> get tr =>
+      AppLocalization.currentTranslation;
 
   /// Погода берется из заранее сохраненного json, который всегда доступен. (уже нет)
   static final weatherMock = FutureProvider.autoDispose<WeatherOneCall?>(
@@ -44,8 +44,7 @@ class VisualDPageController {
           ref.watch(weatherOneCallController.notifier).getStoredWeather());
   // TestWeatherJson.getOneCallWeatherToTest()); //todo можно просто сделать модельку
 
-  /// Применить значения по завершению редактирования опций.
-  ///
+  /// Apply the values when you finish editing the options.
   static final changesProvider =
       StateProvider.autoDispose<Set<_SavedChanges>>((ref) => {});
 
@@ -121,9 +120,8 @@ class VisualDPageController {
   // FontFamily
   // ---------------------------------------------------------------------------
 
-  /// Список шрифтов.
-  static final fontsFamilyProvider =
-      Provider.autoDispose<List<AppFontFamily>>((ref) => AppFontFamily.values);
+  /// List of fonts.
+  List<AppFontFamily> get fontsFamily => AppFontFamily.values;
 
   /// Выбранный шрифт.
   static final selectedFontFamily = StateProvider.autoDispose<AppFontFamily>(
@@ -143,10 +141,8 @@ class VisualDPageController {
   // ScrollPhysics
   // ---------------------------------------------------------------------------
 
-  /// Список scrollPhysics.
-  static final scrollPhysicsProvider =
-      Provider.autoDispose<List<AppScrollPhysics>>(
-          (ref) => AppScrollPhysics.values);
+  /// List scrollPhysics.
+  List<AppScrollPhysics> get scrollPhysics => AppScrollPhysics.values;
 
   /// Выбранный скролл.
   static final selectedScrollPhysic =
@@ -169,8 +165,7 @@ class VisualDPageController {
   // ---------------------------------------------------------------------------
 
   /// Список Типографик.
-  static final typographyList =
-      Provider.autoDispose<List<AppTypography>>((ref) => AppTypography.values);
+  List<AppTypography> get typographyList => AppTypography.values;
 
   /// Выбранная Типографика.
   static final selectedTypography = StateProvider.autoDispose<AppTypography>(

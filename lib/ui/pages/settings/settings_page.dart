@@ -22,7 +22,7 @@ class SettingsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
     return ListView(
       children: <Widget>[
@@ -107,7 +107,7 @@ class _TileMyPlaceWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
     return _TileSetting(
       leading: AppIcons.savedPlaceTile,
@@ -122,16 +122,16 @@ class _TileTempUnitsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
-    final String units = ref.watch(SettingPageController.tempUnits).abbr;
+    final String units = ref.watch(SettingPagePresenter.tempUnits).abbr;
 
     return _TileSetting(
       leading: AppIcons.tempUnitsTile,
       title: t.settingsPage.tempTile.tileTitle,
       subtitle: t.settingsPage.tempTile.tileSub(units: units),
       onTap: () async =>
-          ref.read(SettingPageController.instance).dialogSetTempUnits(context),
+          ref.read(SettingPagePresenter.instance).dialogSetTempUnits(context),
     );
   }
 }
@@ -141,16 +141,16 @@ class _TileSpeedUnitsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
-    final String units = ref.watch(SettingPageController.speedUnits).abbrTr;
+    final String units = ref.watch(SettingPagePresenter.speedUnits).abbrTr;
 
     return _TileSetting(
       leading: AppIcons.speedUnitsTile,
       title: t.settingsPage.speedTile.tileTitle,
       subtitle: t.settingsPage.pressureTile.tileSub(units: units),
       onTap: () async =>
-          ref.read(SettingPageController.instance).dialogSetSpeedUnits(context),
+          ref.read(SettingPagePresenter.instance).dialogSetSpeedUnits(context),
     );
   }
 }
@@ -160,16 +160,16 @@ class _TilePressureUnitsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
-    final String units = ref.watch(SettingPageController.pressureUnits).abbrTr;
+    final String units = ref.watch(SettingPagePresenter.pressureUnits).abbrTr;
 
     return _TileSetting(
       leading: AppIcons.pressureUnitsTile,
       title: t.settingsPage.pressureTile.tileTitle,
       subtitle: t.settingsPage.pressureTile.tileSub(units: units),
       onTap: () async => ref
-          .read(SettingPageController.instance)
+          .read(SettingPagePresenter.instance)
           .dialogSetPressureUnits(context),
     );
   }
@@ -180,9 +180,9 @@ class _TileWeatherLanguageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
-    final langName = ref.watch(SettingPageController.currentLanguage).name;
+    final langName = ref.watch(SettingPagePresenter.currentLanguage).name;
 
     return _TileSetting(
       leading: AppIcons.weatherLangTile,
@@ -198,7 +198,7 @@ class _TileUserApiWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
     return _TileSetting(
       leading: AppIcons.apiTile,
@@ -215,7 +215,7 @@ class _VisualDesignTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
     return _TileSetting(
       leading: AppIcons.visualDesignTile,
@@ -230,7 +230,7 @@ class _TileThemeWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
     final FlexSchemeData schemeData = ref.watch(AppTheme.currentThemeScheme);
 
@@ -250,7 +250,7 @@ class _TileCountryFlagsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
     return _TileSetting(
       leading: AppIcons.countryFlagsTile,
@@ -265,7 +265,7 @@ class _TileHomepageIndexWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
     final String pageName = ref.watch(AppGeneralSettings.startPageIndex).nameTr;
 
@@ -274,7 +274,7 @@ class _TileHomepageIndexWidget extends ConsumerWidget {
       title: t.settingsPage.homepageTile.tileTitle,
       subtitle: t.settingsPage.homepageTile.tileSub(homepage: pageName),
       onTap: () async =>
-          ref.read(SettingPageController.instance).dialogSetHomepage(context),
+          ref.read(SettingPagePresenter.instance).dialogSetHomepage(context),
     );
   }
 }
@@ -284,16 +284,16 @@ class _TileLocaleAppWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
-    final locale = ref.watch(SettingPageController.currentLocale).nameTr;
+    final locale = ref.watch(SettingPagePresenter.currentLocale).nameTr;
 
     return _TileSetting(
       leading: AppIcons.localeTile,
       title: t.settingsPage.localeTile.tileTitle,
       subtitle: t.settingsPage.localeTile.tileSub(locale: locale),
       onTap: () async =>
-          ref.read(SettingPageController.instance).dialogSetLocale(context),
+          ref.read(SettingPagePresenter.instance).dialogSetLocale(context),
     );
   }
 }
@@ -304,7 +304,7 @@ class _SystemSettingsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
     return _TileSetting(
       leading: AppIcons.systemSettingsTile,
@@ -319,7 +319,7 @@ class _TileGratitudeWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
     return _TileSetting(
       leading: AppIcons.gratitudeTile,
@@ -334,15 +334,15 @@ class _TileAboutAppWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SettingPageController.tr);
+    final t = ref.watch(SettingPagePresenter.tr);
 
     return _TileSetting(
       leading: AppIcons.aboutAppTile,
       title: t.settingsPage.aboutAppTile.tileTitle,
       onTap: () async =>
-          ref.read(SettingPageController.instance).dialogAboutApp(context),
+          ref.read(SettingPagePresenter.instance).dialogAboutApp(context),
       onLongPress: () =>
-          ref.read(SettingPageController.instance).dialogAppDebug(context),
+          ref.read(SettingPagePresenter.instance).dialogAppDebug(context),
     );
   }
 }

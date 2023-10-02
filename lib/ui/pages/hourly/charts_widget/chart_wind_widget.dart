@@ -8,8 +8,8 @@ import 'package:weather_today/ui/feature/charts/chart_utils.dart';
 import 'package:weather_today/ui/feature/charts/chart_widget.dart';
 
 import '../../../utils/metrics_helper.dart';
-import '../hourly_page_by_ruble/hourly_page_controller_R.dart';
-import '../hourly_page_controller.dart';
+import '../hourly_page_by_ruble/hourly_page_by_ruble_presenter.dart';
+import '../hourly_page_presenter.dart';
 import 'chart_model.dart';
 import 'theme_charts.dart';
 
@@ -19,11 +19,11 @@ class ChartWindWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(HourlyPageController.tr);
+    final t = ref.watch(HourlyPagePresenter.tr);
 
     final TextTheme styles = Theme.of(context).textTheme;
 
-    final ChartModel<WeatherHourly> chart = ref.watch(HPByRubleCtrl.chartWind);
+    final ChartModel chart = ref.watch(HourlyPageByRublePresenter.chartWind);
 
     final Widget titleWidget = HeadChartWidget(
       t.mainPageDRuble.hourlyPage.wind.title,
@@ -112,7 +112,7 @@ class ChartWindWidget extends ConsumerWidget {
     );
   }
 
-  List<BarChartGroupData> _generateData(ChartModel<WeatherHourly> chart) {
+  List<BarChartGroupData> _generateData(ChartModel chart) {
     // температура в цельсиях.
     BarChartGroupData _generateGroup(int x, double yWind, double yGust) {
       return BarChartGroupData(
@@ -150,8 +150,7 @@ class ChartWindWidget extends ConsumerWidget {
     return dataList;
   }
 
-  FlTitlesData _generateLabelsData(
-      BuildContext context, ChartModel<WeatherHourly> chart) {
+  FlTitlesData _generateLabelsData(BuildContext context, ChartModel chart) {
     final TextTheme styles = Theme.of(context).textTheme;
 
     // метки направления ветра

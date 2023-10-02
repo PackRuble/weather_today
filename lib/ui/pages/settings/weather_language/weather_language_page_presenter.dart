@@ -4,24 +4,24 @@ import 'package:weather_today/application/i18n/translations.g.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 
-/// Модель страницы [WeatherLanguagePage].
-class WeatherLanguagePageController {
-  WeatherLanguagePageController(this._ref);
+/// The [WeatherLanguagePage] page presenter.
+class WeatherLanguagePresenter {
+  WeatherLanguagePresenter(this._ref);
 
   final Ref _ref;
 
-  /// экземпляр.
+  /// Instance of current class.
   static final instance = Provider.autoDispose(
-    WeatherLanguagePageController.new,
-    name: '$WeatherLanguagePageController',
+    WeatherLanguagePresenter.new,
+    name: '$WeatherLanguagePresenter',
   );
 
-  /// Провайдер возвращает translate.
-  static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalization.currentTranslation));
+  /// Provider returns translation.
+  static StateProvider<TranslationsRu> get tr =>
+      AppLocalization.currentTranslation;
 
-  static final currentLanguage = Provider.autoDispose<WeatherLanguage>(
-      (ref) => ref.watch(WeatherServices.currentLanguage));
+  static StateProvider<WeatherLanguage> get currentLanguage =>
+      WeatherServices.currentLanguage;
 
   /// Установка языка погоды.
   Future<void> setWeatherLanguage(WeatherLanguage lang) async =>

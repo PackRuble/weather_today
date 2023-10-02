@@ -6,13 +6,13 @@ import 'package:weather_today/domain/controllers/general_settings_controller.dar
 import 'package:weather_today/domain/services/cardoteka/cardoteka.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
-/// Контроллер страницы [HomePage].
+/// [HomePage] page presenter.
 class HomePageController {
-  HomePageController(this._ref);
+  const HomePageController(this._ref);
 
   final Ref _ref;
 
-  /// экземпляр.
+  /// Instance of current class.
   static final instance = Provider(
     HomePageController.new,
     name: '$HomePageController',
@@ -29,12 +29,12 @@ class HomePageController {
   );
 
   // ---------------------------------------
-  // Работа с интерфейсом
+  // Working with the interface
 
-  /// Продолжительность анимации перехода на следующую страницу.
+  /// Duration of the transition animation to the next page.
   static const Duration _durationSlide = Duration(milliseconds: 350);
 
-  /// Контроллер [PageView].
+  /// Controller [PageView].
   static final pageController = ChangeNotifierProvider<PageController>((ref) {
     // Считываем при запуске, в отслеживании нет нужды.
     final int index = ref.read(AppGeneralSettings.startPageIndex).index;

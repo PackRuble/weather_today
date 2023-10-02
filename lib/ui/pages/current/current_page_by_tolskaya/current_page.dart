@@ -11,7 +11,7 @@ import 'package:weather_today/ui/utils/image_helper.dart';
 
 import '../../../shared/attribution_weather_widget.dart';
 import '../../../utils/metrics_helper.dart';
-import '../current_page_controller.dart';
+import '../current_page_presenter.dart';
 
 const double _indent = 5.0;
 
@@ -122,7 +122,7 @@ class _MainInfoWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
 
-    final t = ref.watch(CurrentPageController.tr);
+    final t = ref.watch(CurrentPagePresenter.tr);
 
     final String _weatherMain =
         MetricsHelper.getWeatherMainTr(weatherMain, t) ?? r'¯\_(ツ)_/¯';
@@ -130,7 +130,7 @@ class _MainInfoWidget extends ConsumerWidget {
     final String _weatherDescription =
         weatherDescription?.toCapitalized() ?? '';
 
-    final Temp tempUnits = ref.watch(CurrentPageController.tempUnits);
+    final Temp tempUnits = ref.watch(CurrentPagePresenter.tempUnits);
     final String _temp = MetricsHelper.getTemp(temp, tempUnits,
         withUnits: false, withSign: true);
     final String _tempUnits = MetricsHelper.getTempUnits(tempUnits);
@@ -219,11 +219,11 @@ class _WindWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextTheme styles = Theme.of(context).textTheme;
 
-    final t = ref.watch(CurrentPageController.tr);
+    final t = ref.watch(CurrentPagePresenter.tr);
 
     if (windSpeed == null) return const SizedBox.shrink();
 
-    final Speed speedUnits = ref.watch(CurrentPageController.speedUnits);
+    final Speed speedUnits = ref.watch(CurrentPagePresenter.speedUnits);
     String? _windSpeed = MetricsHelper.getSpeed(windSpeed, speedUnits);
     _windSpeed = '${t.weather.wind} $_windSpeed';
 
@@ -287,7 +287,7 @@ class _OtherInfoWidget extends ConsumerWidget {
     // ignore: unused_local_variable
     final TextTheme styles = Theme.of(context).textTheme;
 
-    final t = ref.watch(CurrentPageController.tr);
+    final t = ref.watch(CurrentPagePresenter.tr);
 
     final Pressure pressureUnits = ref.watch(WeatherServices.pressureUnits);
     final String _pressure = MetricsHelper.getPressure(
@@ -344,7 +344,7 @@ class _SunriseInfoWidget extends ConsumerWidget {
     // ignore: unused_local_variable
     final TextTheme styles = Theme.of(context).textTheme;
 
-    final t = ref.watch(CurrentPageController.tr);
+    final t = ref.watch(CurrentPagePresenter.tr);
 
     String _sunrise = '–';
     String _sunset = '–';

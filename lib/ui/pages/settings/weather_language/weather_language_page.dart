@@ -20,7 +20,7 @@ class WeatherLanguagePage extends ConsumerWidget with UiLoggy {
   Widget build(BuildContext context, WidgetRef ref) {
     loggy.debug('build');
 
-    final t = ref.watch(WeatherLanguagePageController.tr);
+    final t = ref.watch(WeatherLanguagePresenter.tr);
 
     return Scaffold(
       appBar: AppBarCustom(t.weatherLangPage.appbarTitle),
@@ -58,7 +58,7 @@ class _TileWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final WeatherLanguage current =
-        ref.watch(WeatherLanguagePageController.currentLanguage);
+        ref.watch(WeatherLanguagePresenter.currentLanguage);
 
     final bool isCurrent = current == lang;
 
@@ -80,7 +80,7 @@ class _TileWidget extends ConsumerWidget {
             ),
           ),
           onPressed: () async => ref
-              .read(WeatherLanguagePageController.instance)
+              .read(WeatherLanguagePresenter.instance)
               .setWeatherLanguage(lang),
           child: Text(lang.name),
         ),

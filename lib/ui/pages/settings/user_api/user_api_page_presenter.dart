@@ -6,31 +6,30 @@ import 'package:weather_today/domain/controllers/message_controller.dart';
 import 'package:weather_today/domain/controllers/owm_controller.dart';
 import 'package:weather_today/ui/dialogs/app_dialogs.dart';
 
-/// Контроллер страницы [UserApiPage].
-class UserApiPageController {
-  UserApiPageController(this._ref);
+/// [UserApiPage] page presenter.
+class UserApiPagePresenter {
+  const UserApiPagePresenter(this._ref);
 
   final Ref _ref;
 
-  /// экземпляр.
+  /// Instance of current class.
   static final instance = Provider.autoDispose(
-    UserApiPageController.new,
-    name: '$UserApiPageController',
+    UserApiPagePresenter.new,
+    name: '$UserApiPagePresenter',
   );
 
-  /// Происходит ли в данный момент установка ключа apikeyWeather.
+  /// Is the apikeyWeather key currently being installed.
   static final isTestingApiKey =
       StateProvider.autoDispose<bool>((ref) => false);
 
-  /// Установлен пользовательский api?
-  static final isUserApiKeyWeather = StateProvider.autoDispose<bool>(
-      (ref) => ref.watch(OWMController.isUserApiKey));
+  /// Do you have a custom api installed?
+  static Provider<bool> get isUserApiKeyWeather => OWMController.isUserApiKey;
 
-  /// Провайдер возвращает translate.
-  static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalization.currentTranslation));
+  /// Provider returns translation.
+  static StateProvider<TranslationsRu> get tr =>
+      AppLocalization.currentTranslation;
 
-  /// Установить пользовательский api.
+  /// Install custom api.
   Future<void> setUserApi(String text) async {
     _ref.read(isTestingApiKey.notifier).update((_) => true);
 
@@ -38,29 +37,31 @@ class UserApiPageController {
     final bool isCorrectApi = text.isNotEmpty &&
         await _ref.read(OWMController.instance).setUserApiKey(text);
 
+    final messageController = _ref.read(MessageController.instance);
     if (isCorrectApi) {
-      _ref.read(MessageController.instance).tApiKeyWeatherSetTrue();
+      messageController.tApiKeyWeatherSetTrue();
     } else {
-      _ref.read(MessageController.instance).tApiKeyWeatherSetFalse();
+      messageController.tApiKeyWeatherSetFalse();
     }
 
     _ref.read(isTestingApiKey.notifier).update((_) => false);
   }
 
-  /// Проверить, корректный ли апи установлен сейчас.
+  /// Check if the correct API is installed now.
   Future<void> checkApi() async {
     _ref.read(isTestingApiKey.notifier).update((_) => true);
 
+    final messageController = _ref.read(MessageController.instance);
     if (await _ref.read(OWMController.instance).isCorrectInstalledApiKey()) {
-      _ref.read(MessageController.instance).tCheckApikeyOWMSuccess();
+      messageController.tCheckApikeyOWMSuccess();
     } else {
-      _ref.read(MessageController.instance).tCheckApikeyOWMFail();
+      messageController.tCheckApikeyOWMFail();
     }
 
     _ref.read(isTestingApiKey.notifier).update((_) => false);
   }
 
-  /// Удалить пользовательский apiKey-погоды.
+  /// Remove custom weather apiKey.
   Future<void> deleteUserApi(BuildContext context) async {
     final bool isDelete =
         await AppDialogs.confirmDeletionUserApiKeyWeather(context);

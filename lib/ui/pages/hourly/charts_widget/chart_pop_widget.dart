@@ -6,8 +6,8 @@ import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/ui/feature/charts/chart_utils.dart';
 import 'package:weather_today/ui/feature/charts/chart_widget.dart';
 
-import '../hourly_page_by_ruble/hourly_page_controller_R.dart';
-import '../hourly_page_controller.dart';
+import '../hourly_page_by_ruble/hourly_page_by_ruble_presenter.dart';
+import '../hourly_page_presenter.dart';
 import 'chart_model.dart';
 import 'theme_charts.dart';
 
@@ -17,11 +17,11 @@ class ChartPopWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(HourlyPageController.tr);
+    final t = ref.watch(HourlyPagePresenter.tr);
 
     final TextTheme styles = Theme.of(context).textTheme;
 
-    final ChartModel<WeatherHourly> chart = ref.watch(HPByRubleCtrl.chartPop);
+    final ChartModel chart = ref.watch(HourlyPageByRublePresenter.chartPop);
 
     final Widget titleWidget = HeadChartWidget(
       t.mainPageDRuble.hourlyPage.pop.title,
@@ -67,7 +67,7 @@ class ChartPopWidget extends ConsumerWidget {
             TextSpan(text: t.mainPageDRuble.hourlyPage.pop.subtitle),
             const TextSpan(text: ' - '),
             TextSpan(
-                text: rainfall.toStringAsFixed(chart.precisionLeft ?? 1),
+                text: rainfall.toStringAsFixed(chart.precisionLeft),
                 style: styles.labelLarge),
             TextSpan(
                 text: ' ${t.mainPageDRuble.hourlyPage.pop.units}',
@@ -115,7 +115,7 @@ class ChartPopWidget extends ConsumerWidget {
     );
   }
 
-  List<BarChartGroupData> _generateData(ChartModel<WeatherHourly> chart) {
+  List<BarChartGroupData> _generateData(ChartModel chart) {
     BarChartGroupData _generateGroup(int x, double yRain, double ySnow) {
       return BarChartGroupData(
         x: x,
@@ -137,23 +137,17 @@ class ChartPopWidget extends ConsumerWidget {
       );
     }
 
-    final List<BarChartGroupData> dataList = [];
-
-    for (int i = 0; i < chart.data.length; i++) {
-      dataList.addAll([
+    return [
+      for (final (i, item) in chart.data.indexed)
         _generateGroup(
           i,
-          chart.data[i].rain ?? 0.0,
-          chart.data[i].snow ?? 0.0,
+          item.rain ?? 0.0,
+          item.snow ?? 0.0,
         )
-      ]);
-    }
-
-    return dataList;
+    ];
   }
 
-  FlTitlesData _generateLabelsData(
-      BuildContext context, ChartModel<WeatherHourly> chart) {
+  FlTitlesData _generateLabelsData(BuildContext context, ChartModel chart) {
     final TextTheme styles = Theme.of(context).textTheme;
 
     // метки pop, вероятность осадков в %
@@ -200,7 +194,7 @@ class ChartPopWidget extends ConsumerWidget {
         return false;
       }
 
-      if (chart.labelIntervalsTop!.contains(index) || maybeTwoSteps()) {
+      if (chart.labelIntervalsTop.contains(index) || maybeTwoSteps()) {
         String? label;
 
         if (weather.pop == 1.0) label = '!';
@@ -224,10 +218,10 @@ class ChartPopWidget extends ConsumerWidget {
     // метки температуры по оси y
     Widget _leftTitles(double value, TitleMeta meta) {
       if (ChartUtils.isSuitYLabel(
-          value, meta.min, meta.max, chart.scaleDivisionLeft!)) {
+          value, meta.min, meta.max, chart.scaleDivisionLeft)) {
         return Center(
           child: Text(
-            value.toStringAsFixed(chart.precisionLeft!),
+            value.toStringAsFixed(chart.precisionLeft),
             style: styles.bodySmall,
           ),
         );
@@ -239,16 +233,16 @@ class ChartPopWidget extends ConsumerWidget {
     // метки времени по оси x снизу
     Widget _bottomTitles(double value, TitleMeta _) {
       final int bottomPoint = value.toInt();
+      final weather = chart.data[bottomPoint];
 
-      if (chart.labelIntervalsBottomTime!.contains(bottomPoint)) {
-        if (chart.data[bottomPoint].date == null) {
+      if (chart.labelIntervalsBottomTime.contains(bottomPoint)) {
+        final dataDate = weather.date;
+        if (dataDate == null) {
           return const SizedBox.shrink();
         }
 
-        final String time =
-            DateFormat.Hm().format(chart.data[bottomPoint].date!);
-        final String date =
-            DateFormat.MMMd().format(chart.data[bottomPoint].date!);
+        final String time = DateFormat.Hm().format(dataDate);
+        final String date = DateFormat.MMMd().format(dataDate);
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
