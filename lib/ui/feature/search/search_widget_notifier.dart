@@ -8,134 +8,113 @@ import 'package:weather_today/domain/controllers/place_service_controller.dart';
 import 'package:weather_today/domain/controllers/saved_places_provider.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 import 'package:weather_today/domain/models/place/place_model.dart';
-import 'package:weather_today/ui/feature/search/models/search_body_state.dart';
+import 'package:weather_today/ui/feature/search/models/search_state.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
-// todo: переделать в static
-final searchWidgetProvider =
-    AutoDisposeNotifierProvider<SearchWidgetNotifier, SearchBodyState>(
-  SearchWidgetNotifier.new,
-  name: '$SearchWidgetNotifier',
-);
-
-/// Контроллер предназначен для работы с отображением найденных и сохраненных
-/// мест в body searchBar.
-class SearchWidgetNotifier extends AutoDisposeNotifier<SearchBodyState> {
+/// Notifier is designed to work with displaying found and saved places
+/// in body searchBar.
+class SearchWidgetNotifier extends AutoDisposeNotifier<SearchState> {
   SearchWidgetNotifier();
 
-  /// Список сохраненных мест.
-  late final List<Place> _savedPlaces;
+  /// List of saved places.
+  late List<Place> _savedPlaces;
+
+  /// List of found places.
+  List<Place> _foundedPlaces = [];
+
+  /// Active request.
+  String _query = '';
 
   @override
-  SearchBodyState build() {
+  SearchState build() {
     _savedPlaces = ref.watch(savedPlacesController);
+    ref.onDispose(() {
+      controllerBar.dispose();
+    });
 
-    state = const SearchBodyState.loading();
+    state = const SearchState.loading();
     // если запроса нет, автоматически пустой _foundedPlaces.
-    if (ref.read(_query).isEmpty) {
-      state = SearchBodyState.saved(
+    if (_query.isEmpty) {
+      state = SearchState.saved(
         _savedPlaces.take(_countDisplayedPlaces).toList(),
       );
 
       // запрос есть
     } else {
-      state = SearchBodyState.found(
-        ref.read(_foundedPlaces).take(_countDisplayedPlaces).toList(),
+      state = SearchState.found(
+        _foundedPlaces.take(_countDisplayedPlaces).toList(),
       );
     }
 
     return state;
   }
 
-  /// Количество мест для отображения.
+  /// The number of locations to display.
   static const int _countDisplayedPlaces = 5;
 
-  /// Отсрочка сетевого вызова, миллисекунды.
+  /// Network call delay, milliseconds.
   ///
-  /// Задержка между моментом, когда пользователь перестал набирать текст,
-  /// и вызовом onQueryChanged.
-  /// Это полезно, например, если вы хотите избежать выполнения дорогостоящих задач,
-  /// таких как вызов сети или вызов для каждого отдельного символа.
-  static int get debounceDelay => 1000;
+  /// The delay between when the user stopped typing and the onQueryChanged call.
+  /// This is useful, for example, if you want to avoid performing expensive tasks
+  /// such as calling the network or calling for each individual character.
+  static int get debounceDelayMilSec => 1000;
 
-  // Список провайдеров
+  // List of providers
   // ===========================================================================
 
-  /// Провайдер возвращает translate.
-  static final tr = Provider.autoDispose<TranslationsRu>(
-      (ref) => ref.watch(AppLocalization.currentTranslation));
+  static final instance =
+      AutoDisposeNotifierProvider<SearchWidgetNotifier, SearchState>(
+    SearchWidgetNotifier.new,
+    name: '$SearchWidgetNotifier',
+  );
 
-  /// Список найденных мест
-  static final _foundedPlaces = StateProvider<List<Place>>((ref) => []);
+  // ignore: avoid_public_notifier_properties
+  /// The provider returns translate.
+  static StateProvider<TranslationsRu> get tr =>
+      AppLocalization.currentTranslation;
 
-  /// Текущее выбранное местоположение.
-  static final currentPlace = Provider.autoDispose<Place>(
-      (ref) => ref.watch(WeatherServices.currentPlace));
+  /// Current selected location.
+  static StateProvider<Place> get currentPlace => WeatherServices.currentPlace;
 
-  /// Контроллер бара.
-  static final controllerBarProvider =
-      Provider.autoDispose<FloatingSearchBarController>(
-          (ref) => FloatingSearchBarController());
+  static AutoDisposeStateNotifierProvider<SavedPlacesNotifier, List<Place>>
+      get savedPlaces => savedPlacesController;
 
-  // todo: _query может быть простой переменной
-  /// запрос
-  static final _query = StateProvider<String>((ref) => '');
-
-  // Управление состоянием виджетов
+  // Working with a request
   // ===========================================================================
 
-  /// Изменение фокуса виджета
-  // void changeFocus(bool isFocus) {
-  //   if (!isFocus) {
-  //     _ref.read(controllerBarProvider).close();
-  //   }
-  // }
-
-  /// Индикатор загрузки
-  ///
-  /// When set to true, the FloatingSearchBar will show an undetermined LinearProgressIndicator.
-  /// When false, will hide the LinearProgressIndicator
-  // static final progress = StateProvider<bool>((ref) => false);
-
-  // Работа с запросом
-  // ===========================================================================
-
-  /// Функция обрабатывает запрос.
+  /// The function processes the request.
   Future<void> newRequest(String newQuery) async {
-    state = const SearchBodyState.loading();
+    state = const SearchState.loading();
 
-    ref.read(_query.notifier).update((_) => newQuery);
+    _query = newQuery;
 
-    // если запрос пуст - возвращаем список сохраненных мест
+    // если запрос пуст - возвращаем список сохранённых мест
     if (newQuery.isEmpty) {
       final List<Place> saved =
           _savedPlaces.take(_countDisplayedPlaces).toList();
-      state = SearchBodyState.saved(saved);
-
-      // иначе обрабатываем запрос
-    } else {
-      List<Place> founded;
-
+      state = SearchState.saved(saved);
+    }
+    // иначе, обрабатываем запрос
+    else {
       try {
-        founded = await _handleRawQuery(newQuery);
+        _foundedPlaces = await _handleRawQuery(newQuery);
       } catch (e, s) {
         logError(newQuery, e, s);
 
-        founded = [];
-        state = const SearchBodyState.error();
+        _foundedPlaces = [];
+        state = const SearchState.error();
       }
 
-      ref.read(_foundedPlaces.notifier).update((_) => founded);
-      state = SearchBodyState.found(founded);
+      state = SearchState.found(_foundedPlaces);
     }
   }
 
-  /// Паттерн позволяет обработать строку с широтой и долготой.
+  /// The pattern allows you to process a string with latitude and longitude.
   static final _patternLonLat = RegExp(
     r'(^\s*[-+]?(?:[1-8]?\d(?:\.\d+)?|90(?:\.0+)?))\s*,\s*([-+]?(?:180(?:\.0+)?|(?:(?:1[0-7]\d)|(?:[1-9]?\d))(?:\.\d+)?)\s*)$',
   );
 
-  /// Обработать сырую строку
+  /// Process raw string
   Future<List<Place>> _handleRawQuery(String rawQuery) async {
     // todo logger
     // содержит ли строка цифры /todo более общий паттерн типа 85, 82
@@ -154,7 +133,6 @@ class SearchWidgetNotifier extends AutoDisposeNotifier<SearchBodyState> {
         }
       }
     }
-    // }
     // иначе поиск по местоположению
     else {
       return _getPlacesByName(
@@ -164,29 +142,33 @@ class SearchWidgetNotifier extends AutoDisposeNotifier<SearchBodyState> {
     return [];
   }
 
-  /// Получаем список мест по их предположительному наименованию.
+  /// We get a list of places by their presumed name.
   Future<List<Place>> _getPlacesByName(String name) async =>
       ref.read(placeServiceOWMPr).getPlacesByName(name);
 
-  /// Получаем список мест по их координатам.
+  /// We get a list of places by their coordinates.
   Future<List<Place>> _getPlacesByCoordinates(
           {required double latitude, required double longitude}) async =>
       ref
           .read(placeServiceOWMPr)
           .getPlacesByCoordinates(latitude: latitude, longitude: longitude);
 
-  // Методы работы с местами.
+  // Methods of working with places.
   // ===========================================================================
 
-  /// Выбрать местоположение текущим.
+  // ignore: avoid_public_notifier_properties
+  /// Bar controller.
+  final controllerBar = FloatingSearchBarController();
+
+  /// Select location as current.
   Future<void> selectCurrentPlace(Place place) async {
-    ref.read(controllerBarProvider).close();
+    controllerBar.close();
     unawaited(ref.read(WeatherServices.instance).setCurrentPlace(place));
   }
 
-  /// Добавить/удалить место.
-  Future<void> changePlaceToSavedPlaces(bool status, Place place) async {
-    if (status) {
+  /// Add/remove location.
+  Future<void> changePlaceToSavedPlaces(bool isSave, Place place) async {
+    if (isSave) {
       // удаляем
       await _deletePlace(place);
     } else {
@@ -195,11 +177,11 @@ class SearchWidgetNotifier extends AutoDisposeNotifier<SearchBodyState> {
     }
   }
 
-  /// Сохранить местоположение в список сохраненных.
+  /// Save the location to the list of saved locations.
   Future<void> _addPlaceToSavedPlaces(Place place) async =>
       ref.read(savedPlacesController.notifier).addPlace(place);
 
-  /// Удалить местоположение из списка сохраненных.
+  /// Delete a location from the list of saved locations.
   Future<void> _deletePlace(Place deletedPlace) async =>
       ref.read(savedPlacesController.notifier).deletePlace(deletedPlace);
 }

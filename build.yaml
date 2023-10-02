@@ -15,4 +15,4 @@ targets:
         enabled: true
         generate_for:
             - lib/**/models/**.dart
-            - lib/**/search_body_state.dart
+            - lib/**/search_state.dart

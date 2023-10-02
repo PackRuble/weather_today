@@ -5,7 +5,6 @@ import 'package:weather_today/application/const/app_colors.dart';
 import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/application/const/app_insets.dart';
 import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
-import 'package:weather_today/domain/controllers/saved_places_provider.dart';
 import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/ui/dialogs/app_dialogs.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
@@ -14,15 +13,16 @@ import 'package:weather_today/utils/logger/all_observers.dart';
 import '../../utils/metrics_helper.dart';
 import 'search_widget_notifier.dart';
 
-/// Виджет поиска в верхней части экрана. Используется для поиска мест.
+/// Search widget at the top of the screen. Used to search for locations.
 class SearchWidget extends ConsumerWidget with UiLoggy {
-  const SearchWidget();
+  const SearchWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     loggy.debug('build');
 
     final t = ref.watch(SearchWidgetNotifier.tr);
+    final notifier = ref.watch(SearchWidgetNotifier.instance.notifier);
 
     final widthScreen = MediaQuery.sizeOf(context).width;
 
@@ -36,7 +36,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       backgroundColor: colors.backgroundColorSearchbar,
       shadowColor: colors.shadowColorSearchbar,
       backdropColor: barrierColor,
-      controller: ref.watch(SearchWidgetNotifier.controllerBarProvider),
+      controller: notifier.controllerBar,
       title: const _TitleSearch(),
       hint: t.searchBar.hintTextField,
       borderRadius:
@@ -53,12 +53,11 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       ),
       height: AppInsets.heightSearchBar,
       width: widthScreen - AppInsets.aroundPaddingSearchBar * 2,
-      debounceDelay: Duration(milliseconds: SearchWidgetNotifier.debounceDelay),
+      debounceDelay:
+          Duration(milliseconds: SearchWidgetNotifier.debounceDelayMilSec),
       clearQueryOnClose: true,
-      onQueryChanged: (String query) async =>
-          ref.read(searchWidgetProvider.notifier).newRequest(query),
-      onSubmitted: (String query) async =>
-          ref.read(searchWidgetProvider.notifier).newRequest(query),
+      onQueryChanged: (String query) async => notifier.newRequest(query),
+      onSubmitted: (String query) async => notifier.newRequest(query),
       // onFocusChanged: (bool isFocus) =>
       //     ref.read(searchWidgetProvider.notifier).changeFocus(isFocus),
       transition: CircularFloatingSearchBarTransition(),
@@ -74,6 +73,10 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
         ),
       ],
       actions: [
+        // _SearchToClearAction(),
+        // todo кнопка поиска закрывает бар, что нелогично
+        // попытка починить это отдельной виджетом-кнопкой не увенчалась успехом
+        // будет полностью переработано при переходе на Search от flutter sdk
         FloatingSearchBarAction.searchToClear(
           showIfClosed: false,
         ),
@@ -83,7 +86,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
           icon: const Icon(Icons.info_outline_rounded),
           onTap: () async => AppDialogs.placeSearchInfo(context),
         ),
-        _SavedBookmarkAction(),
+        const _SavedBookmarkAction(),
         FloatingSearchBarAction.icon(
           showIfClosed: true,
           showIfOpened: false,
@@ -96,9 +99,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
               .setThemeMode(isLight ? ThemeMode.dark : ThemeMode.light),
         ),
       ],
-      builder: (_, __) {
-        return const _SearchBodyWidget();
-      },
+      builder: (_, __) => const _SearchBody(),
     );
   }
 }
@@ -112,34 +113,31 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
 /// Где-то в недрах пакета [material_floating_search_bar] есть проверка *is FloatingSearchBarAction*,
 /// тогда обычный ConsumerWidget не подошёл бы.
 class _SavedBookmarkAction extends FloatingSearchBarAction {
-  _SavedBookmarkAction()
-      : super(
-          child: const SizedBox.shrink(),
-          builder: (_, __) => const SizedBox.shrink(),
-        );
+  // ignore: unused_element
+  const _SavedBookmarkAction({super.key})
+      : super(child: const SizedBox.shrink());
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (BuildContext context, WidgetRef ref, Widget? child) {
+      builder: (BuildContext context, WidgetRef ref, _) {
+        /// необходимо для отслеживания [isCurrentPlaceSaved]
+        ref.watch(SearchWidgetNotifier.savedPlaces);
         final Place currentPlace = ref.watch(SearchWidgetNotifier.currentPlace);
 
         final bool isCurrentPlaceSaved = ref
-            .watch(savedPlacesController.notifier)
+            .watch(SearchWidgetNotifier.savedPlaces.notifier)
             .isSavedPlace(currentPlace);
 
-        /// необходимо для отслеживания [isCurrentPlaceSaved]
-        ref.watch(savedPlacesController);
-
         return FloatingSearchBarAction(
+          showIfOpened: true,
           showIfClosed: true,
-          showIfOpened: false,
           child: CircularButton(
             icon: Icon(isCurrentPlaceSaved
                 ? AppIcons.savedPlaceBookmark
                 : AppIcons.notSavedPlaceBookmark),
             onPressed: () async => ref
-                .read(searchWidgetProvider.notifier)
+                .read(SearchWidgetNotifier.instance.notifier)
                 .changePlaceToSavedPlaces(isCurrentPlaceSaved, currentPlace),
           ),
         );
@@ -148,8 +146,47 @@ class _SavedBookmarkAction extends FloatingSearchBarAction {
   }
 }
 
+// class _SearchToClearAction extends FloatingSearchBarAction {
+//   _SearchToClearAction({super.key})
+//       : super(
+//           builder: (BuildContext context, _) {
+//             return FloatingSearchBarAction(
+//               showIfOpened: true,
+//               showIfClosed: true,
+//               builder: (BuildContext context, Animation<double> animation) {
+//                 final FloatingSearchAppBarState bar =
+//                     FloatingSearchAppBar.of(context)!;
+//
+//                 return ValueListenableBuilder<String>(
+//                   valueListenable: bar.queryNotifer,
+//                   builder: (BuildContext context, String query, _) {
+//                     return SearchToClear(
+//                       isEmpty: query.isEmpty,
+//                       size: 24,
+//                       color: bar.style.iconColor,
+//                       duration: const Duration(milliseconds: 450),
+//                       onTap: () {
+//                         if (query.isNotEmpty) {
+//                           bar.clear();
+//                         } else {
+//                           bar.isOpen = !bar.isOpen ||
+//                               (!bar.hasFocus && bar.isAlwaysOpened);
+//                         }
+//                       },
+//                       searchButtonSemanticLabel: 'Search',
+//                       clearButtonSemanticLabel: 'Clear',
+//                     );
+//                   },
+//                 );
+//               },
+//             );
+//           },
+//         );
+// }
+
 class _TitleSearch extends ConsumerWidget {
-  const _TitleSearch();
+  // ignore: unused_element
+  const _TitleSearch({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -165,70 +202,84 @@ class _TitleSearch extends ConsumerWidget {
   }
 }
 
-class _SearchBodyWidget extends ConsumerWidget {
-  const _SearchBodyWidget();
+class _SearchBody extends ConsumerWidget {
+  // ignore: unused_element
+  const _SearchBody({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(SearchWidgetNotifier.tr);
 
-    final searchBody = ref.watch(searchWidgetProvider);
-
-    final String _baseTooltip =
-        '${AppSmiles.pinned} ${t.searchBar.tips.holdToAction}\n'
-        '${AppSmiles.set} ${t.searchBar.tips.clickToSet}\n';
+    final searchState = ref.watch(SearchWidgetNotifier.instance);
 
     final AppColors colors = AppColors.of(context);
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),
-      child: Material(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),
-          side: BorderSide(color: colors.borderColorSearchbar),
+    return Material(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),
+        side: BorderSide(color: colors.borderColorSearchbar),
+      ),
+      clipBehavior: Clip.antiAlias,
+      elevation: 4.0,
+      child: searchState.when(
+        saved: (List<Place> saved) => _BodyCard(
+          places: saved,
+          tip: t.searchBar.tips.notSavedPlaces,
+          tipResult: t.searchBar.tips.showSavedPlaces,
         ),
-        elevation: 4.0,
-        child: searchBody.when(
-          saved: (List<Place> saved) {
-            if (saved.isEmpty) {
-              return _TipWidget(t.searchBar.tips.notSavedPlaces);
-            }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _TipWidget(
-                    '$_baseTooltip \n${t.searchBar.tips.showSavedPlaces}'),
-                const Divider(height: 1.0),
-                _BodyTilesWidget(saved),
-              ],
-            );
-          },
-          found: (List<Place> founded) {
-            if (founded.isEmpty) {
-              return _TipWidget(t.searchBar.tips.notFoundedPlaces);
-            }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _TipWidget(
-                    '$_baseTooltip \n${t.searchBar.tips.showFoundedPlaces}'),
-                const Divider(height: 1.0),
-                _BodyTilesWidget(founded),
-              ],
-            );
-          },
-          loading: () => const LinearProgressIndicator(),
-          error: () => Text(t.searchBar.tips.searchError),
+        found: (List<Place> founded) => _BodyCard(
+          places: founded,
+          tip: t.searchBar.tips.notFoundedPlaces,
+          tipResult: t.searchBar.tips.showFoundedPlaces,
         ),
+        loading: () => const LinearProgressIndicator(),
+        error: () => Text(t.searchBar.tips.searchError),
       ),
     );
   }
 }
 
+class _BodyCard extends ConsumerWidget {
+  // ignore: unused_element
+  const _BodyCard({
+    super.key,
+    required this.places,
+    required this.tip,
+    required this.tipResult,
+  });
+
+  final List<Place> places;
+  final String tip;
+  final String tipResult;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(SearchWidgetNotifier.tr);
+
+    final String _baseTooltip =
+        '${AppSmiles.pinned} ${t.searchBar.tips.holdToAction}\n'
+        '${AppSmiles.set} ${t.searchBar.tips.clickToSet}\n';
+
+    if (places.isEmpty) return _TipWidget(tip);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _TipWidget('$_baseTooltip \n$tipResult'),
+        const Divider(height: 1.0),
+        for (final place in places) ...[
+          _TileSearchWidget(place),
+          const Divider(height: 1.0),
+        ],
+      ],
+    );
+  }
+}
+
 class _TipWidget extends ConsumerWidget {
-  const _TipWidget(this.tip);
+  // ignore: unused_element
+  const _TipWidget(this.tip, {super.key});
 
   final String tip;
 
@@ -240,26 +291,9 @@ class _TipWidget extends ConsumerWidget {
   }
 }
 
-class _BodyTilesWidget extends ConsumerWidget {
-  const _BodyTilesWidget(this.places);
-
-  final List<Place> places;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      children: [
-        for (final place in places) ...[
-          _TileSearchWidget(place),
-          const Divider(height: 1.0),
-        ]
-      ],
-    );
-  }
-}
-
 class _TileSearchWidget extends ConsumerWidget {
-  const _TileSearchWidget(this.place);
+  // ignore: unused_element
+  const _TileSearchWidget(this.place, {super.key});
 
   final Place place;
 
@@ -269,8 +303,9 @@ class _TileSearchWidget extends ConsumerWidget {
 
     final String languageCode = Localizations.localeOf(context).languageCode;
 
-    final bool isSaved =
-        ref.watch(savedPlacesController.notifier).isSavedPlace(place);
+    final bool isSaved = ref
+        .watch(SearchWidgetNotifier.savedPlaces.notifier)
+        .isSavedPlace(place);
 
     final bool isCurrent = curPlace == place;
 
@@ -282,10 +317,11 @@ class _TileSearchWidget extends ConsumerWidget {
     title += name.isNotEmpty ? ', $name' : '';
 
     return ListTile(
-      onTap: () async =>
-          ref.read(searchWidgetProvider.notifier).selectCurrentPlace(place),
+      onTap: () async => ref
+          .read(SearchWidgetNotifier.instance.notifier)
+          .selectCurrentPlace(place),
       onLongPress: () async => ref
-          .read(searchWidgetProvider.notifier)
+          .read(SearchWidgetNotifier.instance.notifier)
           .changePlaceToSavedPlaces(isSaved, place),
       title: Text(title),
       horizontalTitleGap: 0.0,

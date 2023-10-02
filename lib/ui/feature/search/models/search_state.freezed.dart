@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'search_body_state.dart';
+part of 'search_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$SearchBodyState {
+mixin _$SearchState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Place> places) found,
@@ -69,16 +69,16 @@ mixin _$SearchBodyState {
 }
 
 /// @nodoc
-abstract class $SearchBodyStateCopyWith<$Res> {
-  factory $SearchBodyStateCopyWith(
-          SearchBodyState value, $Res Function(SearchBodyState) then) =
-      _$SearchBodyStateCopyWithImpl<$Res, SearchBodyState>;
+abstract class $SearchStateCopyWith<$Res> {
+  factory $SearchStateCopyWith(
+          SearchState value, $Res Function(SearchState) then) =
+      _$SearchStateCopyWithImpl<$Res, SearchState>;
 }
 
 /// @nodoc
-class _$SearchBodyStateCopyWithImpl<$Res, $Val extends SearchBodyState>
-    implements $SearchBodyStateCopyWith<$Res> {
-  _$SearchBodyStateCopyWithImpl(this._value, this._then);
+class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
+    implements $SearchStateCopyWith<$Res> {
+  _$SearchStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -87,18 +87,20 @@ class _$SearchBodyStateCopyWithImpl<$Res, $Val extends SearchBodyState>
 }
 
 /// @nodoc
-abstract class _$$_FoundCopyWith<$Res> {
-  factory _$$_FoundCopyWith(_$_Found value, $Res Function(_$_Found) then) =
-      __$$_FoundCopyWithImpl<$Res>;
+abstract class _$$FoundImplCopyWith<$Res> {
+  factory _$$FoundImplCopyWith(
+          _$FoundImpl value, $Res Function(_$FoundImpl) then) =
+      __$$FoundImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<Place> places});
 }
 
 /// @nodoc
-class __$$_FoundCopyWithImpl<$Res>
-    extends _$SearchBodyStateCopyWithImpl<$Res, _$_Found>
-    implements _$$_FoundCopyWith<$Res> {
-  __$$_FoundCopyWithImpl(_$_Found _value, $Res Function(_$_Found) _then)
+class __$$FoundImplCopyWithImpl<$Res>
+    extends _$SearchStateCopyWithImpl<$Res, _$FoundImpl>
+    implements _$$FoundImplCopyWith<$Res> {
+  __$$FoundImplCopyWithImpl(
+      _$FoundImpl _value, $Res Function(_$FoundImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -106,7 +108,7 @@ class __$$_FoundCopyWithImpl<$Res>
   $Res call({
     Object? places = null,
   }) {
-    return _then(_$_Found(
+    return _then(_$FoundImpl(
       null == places
           ? _value._places
           : places // ignore: cast_nullable_to_non_nullable
@@ -117,8 +119,8 @@ class __$$_FoundCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Found implements _Found {
-  const _$_Found(final List<Place> places) : _places = places;
+class _$FoundImpl implements _Found {
+  const _$FoundImpl(final List<Place> places) : _places = places;
 
   final List<Place> _places;
   @override
@@ -130,14 +132,14 @@ class _$_Found implements _Found {
 
   @override
   String toString() {
-    return 'SearchBodyState.found(places: $places)';
+    return 'SearchState.found(places: $places)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Found &&
+            other is _$FoundImpl &&
             const DeepCollectionEquality().equals(other._places, _places));
   }
 
@@ -148,8 +150,8 @@ class _$_Found implements _Found {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FoundCopyWith<_$_Found> get copyWith =>
-      __$$_FoundCopyWithImpl<_$_Found>(this, _$identity);
+  _$$FoundImplCopyWith<_$FoundImpl> get copyWith =>
+      __$$FoundImplCopyWithImpl<_$FoundImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -226,28 +228,30 @@ class _$_Found implements _Found {
   }
 }
 
-abstract class _Found implements SearchBodyState {
-  const factory _Found(final List<Place> places) = _$_Found;
+abstract class _Found implements SearchState {
+  const factory _Found(final List<Place> places) = _$FoundImpl;
 
   List<Place> get places;
   @JsonKey(ignore: true)
-  _$$_FoundCopyWith<_$_Found> get copyWith =>
+  _$$FoundImplCopyWith<_$FoundImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SavedCopyWith<$Res> {
-  factory _$$_SavedCopyWith(_$_Saved value, $Res Function(_$_Saved) then) =
-      __$$_SavedCopyWithImpl<$Res>;
+abstract class _$$SavedImplCopyWith<$Res> {
+  factory _$$SavedImplCopyWith(
+          _$SavedImpl value, $Res Function(_$SavedImpl) then) =
+      __$$SavedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<Place> places});
 }
 
 /// @nodoc
-class __$$_SavedCopyWithImpl<$Res>
-    extends _$SearchBodyStateCopyWithImpl<$Res, _$_Saved>
-    implements _$$_SavedCopyWith<$Res> {
-  __$$_SavedCopyWithImpl(_$_Saved _value, $Res Function(_$_Saved) _then)
+class __$$SavedImplCopyWithImpl<$Res>
+    extends _$SearchStateCopyWithImpl<$Res, _$SavedImpl>
+    implements _$$SavedImplCopyWith<$Res> {
+  __$$SavedImplCopyWithImpl(
+      _$SavedImpl _value, $Res Function(_$SavedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -255,7 +259,7 @@ class __$$_SavedCopyWithImpl<$Res>
   $Res call({
     Object? places = null,
   }) {
-    return _then(_$_Saved(
+    return _then(_$SavedImpl(
       null == places
           ? _value._places
           : places // ignore: cast_nullable_to_non_nullable
@@ -266,8 +270,8 @@ class __$$_SavedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Saved implements _Saved {
-  const _$_Saved(final List<Place> places) : _places = places;
+class _$SavedImpl implements _Saved {
+  const _$SavedImpl(final List<Place> places) : _places = places;
 
   final List<Place> _places;
   @override
@@ -279,14 +283,14 @@ class _$_Saved implements _Saved {
 
   @override
   String toString() {
-    return 'SearchBodyState.saved(places: $places)';
+    return 'SearchState.saved(places: $places)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Saved &&
+            other is _$SavedImpl &&
             const DeepCollectionEquality().equals(other._places, _places));
   }
 
@@ -297,8 +301,8 @@ class _$_Saved implements _Saved {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SavedCopyWith<_$_Saved> get copyWith =>
-      __$$_SavedCopyWithImpl<_$_Saved>(this, _$identity);
+  _$$SavedImplCopyWith<_$SavedImpl> get copyWith =>
+      __$$SavedImplCopyWithImpl<_$SavedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -375,44 +379,45 @@ class _$_Saved implements _Saved {
   }
 }
 
-abstract class _Saved implements SearchBodyState {
-  const factory _Saved(final List<Place> places) = _$_Saved;
+abstract class _Saved implements SearchState {
+  const factory _Saved(final List<Place> places) = _$SavedImpl;
 
   List<Place> get places;
   @JsonKey(ignore: true)
-  _$$_SavedCopyWith<_$_Saved> get copyWith =>
+  _$$SavedImplCopyWith<_$SavedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_LoadingCopyWith<$Res> {
-  factory _$$_LoadingCopyWith(
-          _$_Loading value, $Res Function(_$_Loading) then) =
-      __$$_LoadingCopyWithImpl<$Res>;
+abstract class _$$LoadingImplCopyWith<$Res> {
+  factory _$$LoadingImplCopyWith(
+          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
+      __$$LoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_LoadingCopyWithImpl<$Res>
-    extends _$SearchBodyStateCopyWithImpl<$Res, _$_Loading>
-    implements _$$_LoadingCopyWith<$Res> {
-  __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
+class __$$LoadingImplCopyWithImpl<$Res>
+    extends _$SearchStateCopyWithImpl<$Res, _$LoadingImpl>
+    implements _$$LoadingImplCopyWith<$Res> {
+  __$$LoadingImplCopyWithImpl(
+      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Loading implements _Loading {
-  const _$_Loading();
+class _$LoadingImpl implements _Loading {
+  const _$LoadingImpl();
 
   @override
   String toString() {
-    return 'SearchBodyState.loading()';
+    return 'SearchState.loading()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Loading);
+        (other.runtimeType == runtimeType && other is _$LoadingImpl);
   }
 
   @override
@@ -493,38 +498,40 @@ class _$_Loading implements _Loading {
   }
 }
 
-abstract class _Loading implements SearchBodyState {
-  const factory _Loading() = _$_Loading;
+abstract class _Loading implements SearchState {
+  const factory _Loading() = _$LoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$_ErrorCopyWith<$Res> {
-  factory _$$_ErrorCopyWith(_$_Error value, $Res Function(_$_Error) then) =
-      __$$_ErrorCopyWithImpl<$Res>;
+abstract class _$$ErrorImplCopyWith<$Res> {
+  factory _$$ErrorImplCopyWith(
+          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
+      __$$ErrorImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ErrorCopyWithImpl<$Res>
-    extends _$SearchBodyStateCopyWithImpl<$Res, _$_Error>
-    implements _$$_ErrorCopyWith<$Res> {
-  __$$_ErrorCopyWithImpl(_$_Error _value, $Res Function(_$_Error) _then)
+class __$$ErrorImplCopyWithImpl<$Res>
+    extends _$SearchStateCopyWithImpl<$Res, _$ErrorImpl>
+    implements _$$ErrorImplCopyWith<$Res> {
+  __$$ErrorImplCopyWithImpl(
+      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_Error implements _Error {
-  const _$_Error();
+class _$ErrorImpl implements _Error {
+  const _$ErrorImpl();
 
   @override
   String toString() {
-    return 'SearchBodyState.error()';
+    return 'SearchState.error()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Error);
+        (other.runtimeType == runtimeType && other is _$ErrorImpl);
   }
 
   @override
@@ -605,6 +612,6 @@ class _$_Error implements _Error {
   }
 }
 
-abstract class _Error implements SearchBodyState {
-  const factory _Error() = _$_Error;
+abstract class _Error implements SearchState {
+  const factory _Error() = _$ErrorImpl;
 }
