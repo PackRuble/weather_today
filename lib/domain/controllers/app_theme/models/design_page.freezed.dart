@@ -68,22 +68,22 @@ class _$DesignPageCopyWithImpl<$Res, $Val extends DesignPage>
 }
 
 /// @nodoc
-abstract class _$$_DesignPageCopyWith<$Res>
+abstract class _$$DesignPageImplCopyWith<$Res>
     implements $DesignPageCopyWith<$Res> {
-  factory _$$_DesignPageCopyWith(
-          _$_DesignPage value, $Res Function(_$_DesignPage) then) =
-      __$$_DesignPageCopyWithImpl<$Res>;
+  factory _$$DesignPageImplCopyWith(
+          _$DesignPageImpl value, $Res Function(_$DesignPageImpl) then) =
+      __$$DesignPageImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({WeatherPage page, AppVisualDesign design});
 }
 
 /// @nodoc
-class __$$_DesignPageCopyWithImpl<$Res>
-    extends _$DesignPageCopyWithImpl<$Res, _$_DesignPage>
-    implements _$$_DesignPageCopyWith<$Res> {
-  __$$_DesignPageCopyWithImpl(
-      _$_DesignPage _value, $Res Function(_$_DesignPage) _then)
+class __$$DesignPageImplCopyWithImpl<$Res>
+    extends _$DesignPageCopyWithImpl<$Res, _$DesignPageImpl>
+    implements _$$DesignPageImplCopyWith<$Res> {
+  __$$DesignPageImplCopyWithImpl(
+      _$DesignPageImpl _value, $Res Function(_$DesignPageImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$_DesignPageCopyWithImpl<$Res>
     Object? page = null,
     Object? design = null,
   }) {
-    return _then(_$_DesignPage(
+    return _then(_$DesignPageImpl(
       page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
@@ -107,11 +107,11 @@ class __$$_DesignPageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DesignPage implements _DesignPage {
-  const _$_DesignPage({required this.page, required this.design});
+class _$DesignPageImpl implements _DesignPage {
+  const _$DesignPageImpl({required this.page, required this.design});
 
-  factory _$_DesignPage.fromJson(Map<String, dynamic> json) =>
-      _$$_DesignPageFromJson(json);
+  factory _$DesignPageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DesignPageImplFromJson(json);
 
   @override
   final WeatherPage page;
@@ -127,7 +127,7 @@ class _$_DesignPage implements _DesignPage {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DesignPage &&
+            other is _$DesignPageImpl &&
             (identical(other.page, page) || other.page == page) &&
             (identical(other.design, design) || other.design == design));
   }
@@ -139,12 +139,12 @@ class _$_DesignPage implements _DesignPage {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DesignPageCopyWith<_$_DesignPage> get copyWith =>
-      __$$_DesignPageCopyWithImpl<_$_DesignPage>(this, _$identity);
+  _$$DesignPageImplCopyWith<_$DesignPageImpl> get copyWith =>
+      __$$DesignPageImplCopyWithImpl<_$DesignPageImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DesignPageToJson(
+    return _$$DesignPageImplToJson(
       this,
     );
   }
@@ -153,10 +153,10 @@ class _$_DesignPage implements _DesignPage {
 abstract class _DesignPage implements DesignPage {
   const factory _DesignPage(
       {required final WeatherPage page,
-      required final AppVisualDesign design}) = _$_DesignPage;
+      required final AppVisualDesign design}) = _$DesignPageImpl;
 
   factory _DesignPage.fromJson(Map<String, dynamic> json) =
-      _$_DesignPage.fromJson;
+      _$DesignPageImpl.fromJson;
 
   @override
   WeatherPage get page;
@@ -164,6 +164,6 @@ abstract class _DesignPage implements DesignPage {
   AppVisualDesign get design;
   @override
   @JsonKey(ignore: true)
-  _$$_DesignPageCopyWith<_$_DesignPage> get copyWith =>
+  _$$DesignPageImplCopyWith<_$DesignPageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

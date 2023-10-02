@@ -6,13 +6,13 @@ part of 'design_page.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DesignPage _$$_DesignPageFromJson(Map<String, dynamic> json) =>
-    _$_DesignPage(
+_$DesignPageImpl _$$DesignPageImplFromJson(Map<String, dynamic> json) =>
+    _$DesignPageImpl(
       page: $enumDecode(_$WeatherPageEnumMap, json['page']),
       design: $enumDecode(_$AppVisualDesignEnumMap, json['design']),
     );
 
-Map<String, dynamic> _$$_DesignPageToJson(_$_DesignPage instance) =>
+Map<String, dynamic> _$$DesignPageImplToJson(_$DesignPageImpl instance) =>
     <String, dynamic>{
       'page': _$WeatherPageEnumMap[instance.page]!,
       'design': _$AppVisualDesignEnumMap[instance.design]!,

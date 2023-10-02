@@ -126,10 +126,10 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
 }
 
 /// @nodoc
-abstract class _$$_SavedPlaceCopyWith<$Res> implements $PlaceCopyWith<$Res> {
-  factory _$$_SavedPlaceCopyWith(
-          _$_SavedPlace value, $Res Function(_$_SavedPlace) then) =
-      __$$_SavedPlaceCopyWithImpl<$Res>;
+abstract class _$$SavedPlaceImplCopyWith<$Res> implements $PlaceCopyWith<$Res> {
+  factory _$$SavedPlaceImplCopyWith(
+          _$SavedPlaceImpl value, $Res Function(_$SavedPlaceImpl) then) =
+      __$$SavedPlaceImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -144,11 +144,11 @@ abstract class _$$_SavedPlaceCopyWith<$Res> implements $PlaceCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SavedPlaceCopyWithImpl<$Res>
-    extends _$PlaceCopyWithImpl<$Res, _$_SavedPlace>
-    implements _$$_SavedPlaceCopyWith<$Res> {
-  __$$_SavedPlaceCopyWithImpl(
-      _$_SavedPlace _value, $Res Function(_$_SavedPlace) _then)
+class __$$SavedPlaceImplCopyWithImpl<$Res>
+    extends _$PlaceCopyWithImpl<$Res, _$SavedPlaceImpl>
+    implements _$$SavedPlaceImplCopyWith<$Res> {
+  __$$SavedPlaceImplCopyWithImpl(
+      _$SavedPlaceImpl _value, $Res Function(_$SavedPlaceImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -163,7 +163,7 @@ class __$$_SavedPlaceCopyWithImpl<$Res>
     Object? state = freezed,
     Object? note = freezed,
   }) {
-    return _then(_$_SavedPlace(
+    return _then(_$SavedPlaceImpl(
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -203,8 +203,8 @@ class __$$_SavedPlaceCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_SavedPlace extends _SavedPlace {
-  const _$_SavedPlace(
+class _$SavedPlaceImpl extends _SavedPlace {
+  const _$SavedPlaceImpl(
       {required this.name,
       required final Map<WeatherLanguage, String>? localNames,
       required this.latitude,
@@ -216,8 +216,8 @@ class _$_SavedPlace extends _SavedPlace {
       : _localNames = localNames,
         super._();
 
-  factory _$_SavedPlace.fromJson(Map<String, dynamic> json) =>
-      _$$_SavedPlaceFromJson(json);
+  factory _$SavedPlaceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SavedPlaceImplFromJson(json);
 
   /// Название местоположения.
   @override
@@ -263,12 +263,12 @@ class _$_SavedPlace extends _SavedPlace {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SavedPlaceCopyWith<_$_SavedPlace> get copyWith =>
-      __$$_SavedPlaceCopyWithImpl<_$_SavedPlace>(this, _$identity);
+  _$$SavedPlaceImplCopyWith<_$SavedPlaceImpl> get copyWith =>
+      __$$SavedPlaceImplCopyWithImpl<_$SavedPlaceImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SavedPlaceToJson(
+    return _$$SavedPlaceImplToJson(
       this,
     );
   }
@@ -283,11 +283,11 @@ abstract class _SavedPlace extends Place {
       required final String? country,
       required final String? countryCode,
       required final String? state,
-      final String? note}) = _$_SavedPlace;
+      final String? note}) = _$SavedPlaceImpl;
   const _SavedPlace._() : super._();
 
   factory _SavedPlace.fromJson(Map<String, dynamic> json) =
-      _$_SavedPlace.fromJson;
+      _$SavedPlaceImpl.fromJson;
 
   @override
 
@@ -323,6 +323,6 @@ abstract class _SavedPlace extends Place {
   String? get note;
   @override
   @JsonKey(ignore: true)
-  _$$_SavedPlaceCopyWith<_$_SavedPlace> get copyWith =>
+  _$$SavedPlaceImplCopyWith<_$SavedPlaceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
