@@ -240,8 +240,8 @@ class _SearchBody extends ConsumerWidget {
 }
 
 class _BodyCard extends ConsumerWidget {
-  // ignore: unused_element
   const _BodyCard({
+    // ignore: unused_element
     super.key,
     required this.places,
     required this.tip,

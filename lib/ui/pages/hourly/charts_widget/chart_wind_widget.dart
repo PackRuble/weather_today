@@ -70,8 +70,7 @@ class ChartWindWidget extends ConsumerWidget {
           children: <TextSpan>[
             TextSpan(text: '${t.mainPageDRuble.hourlyPage.wind.subtitle} - '),
             TextSpan(
-                text:
-                    chart.valueMaxY!.toStringAsFixed(chart.precisionLeft ?? 1),
+                text: chart.valueMaxY!.toStringAsFixed(chart.precisionLeft),
                 style: styles.labelLarge),
             TextSpan(
                 text: ' ${MetricsHelper.getSpeedUnits(Speed.ms)}',
@@ -158,7 +157,7 @@ class ChartWindWidget extends ConsumerWidget {
     Widget _topTitles(double value, TitleMeta _) {
       final int topPoint = value.toInt();
 
-      if (chart.labelIntervalsTop!.contains(topPoint)) {
+      if (chart.labelIntervalsTop.contains(topPoint)) {
         return Center(
           child: Transform.scale(
             scale: 0.7,
@@ -179,10 +178,10 @@ class ChartWindWidget extends ConsumerWidget {
     // метки температуры по оси y
     Widget _leftTitles(double value, TitleMeta meta) {
       if (ChartUtils.isSuitYLabel(
-          value, meta.min, meta.max, chart.scaleDivisionLeft!)) {
+          value, meta.min, meta.max, chart.scaleDivisionLeft)) {
         return Center(
           child: Text(
-            value.toStringAsFixed(chart.precisionLeft!),
+            value.toStringAsFixed(chart.precisionLeft),
             style: styles.bodySmall,
           ),
         );
@@ -195,7 +194,7 @@ class ChartWindWidget extends ConsumerWidget {
     Widget _bottomTitles(double value, TitleMeta _) {
       final int bottomPoint = value.toInt();
 
-      if (chart.labelIntervalsBottomTime!.contains(bottomPoint)) {
+      if (chart.labelIntervalsBottomTime.contains(bottomPoint)) {
         if (chart.data[bottomPoint].date == null) {
           return const SizedBox.shrink();
         }
