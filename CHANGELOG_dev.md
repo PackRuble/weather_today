@@ -1,4 +1,16 @@
-## [3.3.0-pre.3+16] - 20-09-2023
+## [3.3.0-pre.4] - 00-09-2023
+- imp: large migration of files and folders over "some" clean architecture
+- add: reset buttons in VisualDesign and Themes pages
+- upd: refactoring folders in ui
+- upd: use `..Presenter` instead of `..Controller` in ui
+- opt: use getters on provider instead creating new provider anyway
+- opt: search widget|presenter
+- upd: increase custom rules in `analysis_options.yaml`
+- upd: translations
+- opt: api_page widget|presenter
+- fix: animation switch in visual page
+
+## [3.3.0-pre.3+16] - 18-09-2023
 - fea: slide effect when closing a page using gestures
 - upd: rebuild folders (win, mac, ios, android) using flutter version 3.14.0-0.2.pre
 - upd: setting build.gradle (new flavor dev_debug) and associated icons/names in the application itself

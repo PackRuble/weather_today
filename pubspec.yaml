@@ -2,7 +2,7 @@ name: weather_today
 description: Weather for every day.
 publish_to: none
 
-version: 3.3.0-pre.3+16
+version: 3.3.0-pre.4+18
 
 environment:
   sdk: ^3.0.0
@@ -46,12 +46,12 @@ dependencies:
     path: ../../cardoteka
 
   # State manager
-  hooks_riverpod: ^2.4.0
-  flutter_hooks: ^0.20.1
+  hooks_riverpod: ^2.4.2
+  flutter_hooks: ^0.20.2
 
   # Localization
-  slang: ^3.23.0
-  slang_flutter: ^3.23.0
+  slang: ^3.24.0
+  slang_flutter: ^3.24.0
   flutter_localizations:
     sdk: flutter
 
@@ -62,7 +62,7 @@ dependencies:
   url_launcher: ^6.1.14
   meta: ^1.9.1 # after bump [flutter_test] sdk
   package_info_plus: ^4.1.0
-  flutter_markdown: ^0.6.17+3
+  flutter_markdown: ^0.6.17+4
 
 dev_dependencies:
   flutter_test:
@@ -76,7 +76,7 @@ dev_dependencies:
 
   # linters
   custom_lint: ^0.5.3
-  riverpod_lint: ^2.1.0
+  riverpod_lint: ^2.2.1
   lint: ^2.1.2
 
 flutter:
