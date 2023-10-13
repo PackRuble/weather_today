@@ -39,9 +39,13 @@ class WrapperPage extends ConsumerWidget {
 
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: textScaleFactor),
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: _child,
+      child: FocusScope(
+        child: Builder(
+          builder: (context) => GestureDetector(
+            onTap: FocusScope.of(context, createDependency: false).unfocus,
+            child: _child,
+          ),
+        ),
       ),
     );
   }

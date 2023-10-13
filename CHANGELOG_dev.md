@@ -1,4 +1,7 @@
-## [3.3.0-pre.4] - 00-09-2023
+## [3.3.0-pre.5] - expected
+- fix: incorrect unfocused behavior in ApiPage
+
+## [3.3.0-pre.4] - 03-10-2023
 - imp: large migration of files and folders over "some" clean architecture
 - add: reset buttons in VisualDesign and Themes pages
 - upd: refactoring folders in ui
