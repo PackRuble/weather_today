@@ -10,23 +10,29 @@ import 'terms_conditions_widget.dart';
 const _padding = 16.0;
 
 // ignore: non_constant_identifier_names
-Widget _Divider() => const Divider(height: 0.0, thickness: 0.0);
+const _divider = Divider(height: 0.0, thickness: 0.0);
 
-// ignore: non_constant_identifier_names
-Widget _DecoratedWidget(BuildContext context, {required Widget child}) {
-  final theme = Theme.of(context);
+class _DecoratedWidget extends StatelessWidget {
+  const _DecoratedWidget({super.key, required this.child});
 
-  return Container(
-    margin: const EdgeInsets.all(_padding),
-    clipBehavior: Clip.antiAlias,
-    decoration: ShapeDecoration(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-        side: BorderSide(width: 1.0, color: theme.dividerColor),
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      margin: const EdgeInsets.all(_padding),
+      clipBehavior: Clip.antiAlias,
+      decoration: ShapeDecoration(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+          side: BorderSide(width: 1.0, color: theme.dividerColor),
+        ),
       ),
-    ),
-    child: child,
-  );
+      child: child,
+    );
+  }
 }
 
 class TermsConditionsWidget extends ConsumerWidget {
@@ -48,24 +54,23 @@ class TermsConditionsWidget extends ConsumerWidget {
             children: [
               if (!isAccepted) ...[
                 _DecoratedWidget(
-                  context,
                   child: Padding(
                     padding: const EdgeInsets.all(_padding),
                     child: Text(t.termsConditions.informationForAction),
                   ),
                 ),
-                _Divider(),
+                _divider,
               ],
               _TileDocWidget(
                 title: t.termsConditions.termsUseApp,
                 child: const TermsUseAppMarkdown(),
               ),
-              _Divider(),
+              _divider,
               _TileDocWidget(
                 title: t.termsConditions.termsAndConditions,
                 child: const TermsAndConditionsMarkdown(),
               ),
-              _Divider(),
+              _divider,
               _TileDocWidget(
                 title: t.termsConditions.privacyPolicy,
                 child: const PrivacyPolicyMarkdown(),
@@ -74,7 +79,7 @@ class TermsConditionsWidget extends ConsumerWidget {
           ),
         ),
         if (!isAccepted) ...[
-          _Divider(),
+          _divider,
           Padding(
             padding:
                 const EdgeInsets.fromLTRB(_padding, _padding, _padding, 0.0),
@@ -140,10 +145,7 @@ class _TileDocWidget extends ConsumerWidget {
         ),
         SizedBox(
           height: size.height / 3,
-          child: _DecoratedWidget(
-            context,
-            child: child,
-          ),
+          child: _DecoratedWidget(child: child),
         ),
       ],
     );
