@@ -4,6 +4,7 @@ import 'package:weather_today/application/const/app_info.dart';
 import 'package:weather_today/application/const/countries_code.dart';
 import 'package:weather_today/application/navigation/routes.gr.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
+import 'package:weather_today/ui/pages/settings/changelog/changelog_page.dart';
 
 import '../shared/dialogs_widget.dart';
 
@@ -142,6 +143,7 @@ class AppDialogs {
     BuildContext context,
   ) async {
     final theme = Theme.of(context);
+    final primaryColor = Theme.of(context).primaryColor;
 
     final installerStore = await AppInfo.get(AppInfoData.installerStore);
 
@@ -173,10 +175,23 @@ class AppDialogs {
           child: Text(
             'Terms&Conditions',
             style: theme.textTheme.titleMedium?.copyWith(
-              inherit: false,
               decoration: TextDecoration.underline,
-              color: theme.primaryColor,
-              decorationColor: theme.primaryColor,
+              color: primaryColor,
+              decorationColor: primaryColor,
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () => showDialog(
+            context: context,
+            builder: (context) => const ChangelogPage(),
+          ),
+          child: Text(
+            'Changelog',
+            style: theme.textTheme.titleMedium?.copyWith(
+              decoration: TextDecoration.underline,
+              color: primaryColor,
+              decorationColor: primaryColor,
             ),
           ),
         ),
@@ -265,7 +280,6 @@ class AppDialogs {
             Icons.settings_backup_restore_rounded,
             color: theme.iconTheme.color,
           ),
-          // todo translate
           title: tr.dialogs.titles.warning,
           subTitle: tr.dialogs.confirmResetSettings.subtitle,
           content: Text(tr.dialogs.confirmResetSettings.content),

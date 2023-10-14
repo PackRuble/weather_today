@@ -370,14 +370,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_markdown:
+  flutter_markdown_selectionarea:
     dependency: "direct main"
     description:
-      name: flutter_markdown
-      sha256: "519bf9e1d5df40dbb77d2f0a357a40fadf6b72e4dc44301916b81cad294db676"
+      name: flutter_markdown_selectionarea
+      sha256: d4bc27e70a5c40ebdab23a4b81f75d53696a214d4d1f13c12045b38a0ddc58a2
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.17+4"
+    version: "0.6.17+1"
   flutter_riverpod:
     dependency: transitive
     description:
@@ -461,7 +461,7 @@ packages:
     source: hosted
     version: "3.0.6"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       sha256: "759d1a329847dd0f39226c688d3e06a6b8679668e350e2891a6474f8b4bb8525"

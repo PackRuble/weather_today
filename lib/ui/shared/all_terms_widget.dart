@@ -13,6 +13,7 @@ const _padding = 16.0;
 const _divider = Divider(height: 0.0, thickness: 0.0);
 
 class _DecoratedWidget extends StatelessWidget {
+  // ignore: unused_element
   const _DecoratedWidget({super.key, required this.child});
 
   final Widget child;

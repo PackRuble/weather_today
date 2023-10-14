@@ -55,6 +55,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  # Network
+  http: any
+
   # Utility
   intl: ^0.18.1
   loggy: ^2.0.3
@@ -62,7 +65,10 @@ dependencies:
   url_launcher: ^6.1.14
   meta: ^1.9.1 # after bump [flutter_test] sdk
   package_info_plus: ^4.1.0
-  flutter_markdown: ^0.6.17+4
+
+  # todo: when don't resolve https://github.com/flutter/flutter/issues/107073
+#  flutter_markdown: ^0.6.18
+  flutter_markdown_selectionarea: ^0.6.17+1
 
 dev_dependencies:
   flutter_test:

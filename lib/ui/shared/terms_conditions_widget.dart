@@ -1,9 +1,9 @@
 // ignore_for_file: unnecessary_raw_strings
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import 'markdown_future_builder.dart';
 
 enum _TermsAsset {
   privacyPolicy(r'assets/doc/privacy_policy.md'),
@@ -16,7 +16,7 @@ enum _TermsAsset {
   final String filePath;
 }
 
-class TermsDocWidget extends ConsumerWidget {
+class TermsDocWidget extends StatelessWidget {
   const TermsDocWidget({
     required this.termsAsset,
     super.key,
@@ -29,26 +29,8 @@ class TermsDocWidget extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return FutureBuilder<String>(
-      // ignore: discarded_futures
-      future: loadAsset(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Markdown(
-            onTapLink: (String text, String? href, String title) async {
-              await launchUrl(
-                Uri.parse(text),
-                mode: LaunchMode.externalApplication,
-              );
-            },
-            selectable: true,
-            data: snapshot.data.toString(),
-          );
-        }
-        return const Center(child: CircularProgressIndicator());
-      },
-    );
+  Widget build(BuildContext context) {
+    return MarkdownFutureBuilder(loadAsset: loadAsset);
   }
 }
 
