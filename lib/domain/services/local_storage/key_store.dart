@@ -89,8 +89,11 @@ class DbStore {
   static const String appLocaleDefault = 'ru';
 
   // enum
-  @Deprecated('Been removed in next release (with migrating)') // todo:
+
+  // todo: del in new version
+  @Deprecated('Been removed in next release (with migrating)')
   static const String visualDesignApp = 'visualDesignApp';
+  @Deprecated('Been removed in next release (with migrating)')
   static const int visualDesignAppDefault = 0; // by ruble
 
   static const String textScaleFactor = 'textScaleFactor';

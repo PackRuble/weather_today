@@ -108,6 +108,14 @@ class DataBasePrefs with DbLogger implements DataBase {
   }
 
   @override
+  Future<bool> contains(String key) async {
+    final result = _prefs.containsKey(key);
+    loggy.info(
+        'Storage${result ? '' : " doesn't"} contains a key-value for key: [ key: <$key> ]');
+    return result;
+  }
+
+  @override
   Future<bool> clearAll() async {
     if (await _prefs.clear()) {
       loggy.info(

@@ -10,6 +10,9 @@ abstract class DataBase {
   /// Save a setting to service, using `key` as its storage key.
   Future<void> save<T>(String key, T value);
 
+  /// Is there a key-value record in the storage.
+  Future<bool> contains(String key);
+
   /// Ends with true after all records from storage are cleared.
   Future<bool> clearAll();
 

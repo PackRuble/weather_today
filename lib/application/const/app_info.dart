@@ -39,6 +39,9 @@ class AppInfo {
   static const String attributionOpenWeather =
       'Weather data provided by OpenWeather';
 
+  static Future<int> get buildNumber async =>
+      int.parse(await get(AppInfoData.buildNumber));
+
   /// Get all available information from package [package_info_plus].
   static Future<String> get(AppInfoData infoData) async {
     final packageInfo = await PackageInfo.fromPlatform()
