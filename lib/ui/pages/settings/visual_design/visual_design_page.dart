@@ -336,8 +336,6 @@ class _OverlayWeatherOnLongPress extends HookConsumerWidget with UiLoggy {
       overlay.insert(weatherOverlayEntry!);
     }
 
-    // todo: размер шрифта этого окна неправильный
-
     // todo: по хорошему переделать это нужно под один оверлеёный виджет, даваемый всем виджетам
 
     // next [AppLifecycleListener] Events not triggered #130566 - https://github.com/flutter/flutter/issues/130566
