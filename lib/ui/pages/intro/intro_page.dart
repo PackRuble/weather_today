@@ -29,6 +29,7 @@ class IntroPage extends HookConsumerWidget {
     return Scaffold(
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(
+          physics: const ClampingScrollPhysics(),
           dragDevices: {
             PointerDeviceKind.touch,
             PointerDeviceKind.mouse,
@@ -54,8 +55,9 @@ class IntroPage extends HookConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Expanded(
-                        flex: 1,
-                        child: _LeftButtonWidget(controller: pageController)),
+                      flex: 1,
+                      child: _LeftButtonWidget(controller: pageController),
+                    ),
                     Flexible(
                       flex: 2,
                       child: Column(
@@ -116,7 +118,17 @@ class _IntroTileWidget extends ConsumerWidget {
               Text(
                 tile.title,
                 textAlign: TextAlign.center,
-                style: theme.textTheme.headlineMedium,
+                style: theme.textTheme.headlineMedium?.copyWith(
+                  shadows: [
+                    Shadow(
+                      color: theme.primaryColor,
+                      offset: const Offset(4, 4),
+                      blurRadius: 24,
+                    ),
+                  ],
+                  letterSpacing: 4,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
               const Spacer(flex: 2),
               Text(
@@ -166,6 +178,9 @@ class _LeftButtonWidget extends ConsumerWidget {
         }
       },
       child: ElevatedButton(
+        style: const ButtonStyle(
+          padding: MaterialStatePropertyAll(EdgeInsets.all(8)),
+        ),
         onPressed: () async => controller.previousPage(
           duration: const Duration(milliseconds: _durationMill),
           curve: Curves.ease,
@@ -190,33 +205,23 @@ class _RightButtonWidget extends ConsumerWidget {
     final _lastIndex = ref.watch(IntroPagePresenter.introTiles).length - 1;
     final tr = ref.watch(IntroPagePresenter.tr);
 
-    Widget createButton(String text, void Function() onPressed) {
-      return ElevatedButton(
-        onPressed: onPressed,
-        child: Text(text, textAlign: TextAlign.center),
-      );
-    }
+    late final nextButton = _StepButton(
+      text: tr.introPage.nextButton,
+      onPressed: () async => controller.nextPage(
+        duration: const Duration(milliseconds: _durationMill),
+        curve: Curves.ease,
+      ),
+    );
 
-    Widget nextButton() {
-      return createButton(
-        tr.introPage.nextButton,
-        () async => controller.nextPage(
-          duration: const Duration(milliseconds: _durationMill),
-          curve: Curves.ease,
-        ),
-      );
-    }
-
-    Widget doneButton() {
-      return createButton(
-        tr.introPage.doneButton,
-        () async => ref.read(AppGeneralSettings.instance).setIsIntro(false),
-      );
-    }
+    late final doneButton = _StepButton(
+      text: tr.introPage.doneButton,
+      onPressed: () async =>
+          ref.read(AppGeneralSettings.instance).setIsIntro(false),
+    );
 
     return AnimatedBuilder(
       animation: controller,
-      builder: (BuildContext context, Widget? nextButton) {
+      builder: (BuildContext context, _) {
         final index = controller.page ?? 1;
 
         if (_lastIndex - 1 <= index && index <= _lastIndex - 0.5) {
@@ -227,13 +232,33 @@ class _RightButtonWidget extends ConsumerWidget {
         } else if (_lastIndex - 0.5 < index && index <= _lastIndex) {
           return Opacity(
             opacity: ((index - (_lastIndex - 1)) * 2) - 1,
-            child: doneButton(),
+            child: doneButton,
           );
         } else {
-          return nextButton!;
+          return nextButton;
         }
       },
-      child: nextButton(),
+    );
+  }
+}
+
+class _StepButton extends StatelessWidget {
+  // ignore: unused_element
+  const _StepButton({super.key, required this.onPressed, required this.text});
+
+  final VoidCallback onPressed;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: const ButtonStyle(
+        padding: MaterialStatePropertyAll(
+          EdgeInsets.all(8),
+        ),
+      ),
+      onPressed: onPressed,
+      child: Text(text, textAlign: TextAlign.center),
     );
   }
 }
@@ -243,7 +268,7 @@ class LocaleButtonWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locale = ref.watch(AppLocalization.currentLocale);
+    final currentLocale = ref.watch(AppLocalization.currentLocale);
 
     final theme = Theme.of(context);
 
@@ -252,36 +277,42 @@ class LocaleButtonWidget extends HookConsumerWidget {
     // bug: Selected item is correctly highlighted on the web and desktop, but on the android
     //  https://github.com/flutter/flutter/issues/70294
     return DropdownButton<AppLocale>(
-      value: locale,
+      value: currentLocale,
       onChanged: (_) => focus.unfocus(),
       focusNode: focus,
       alignment: Alignment.bottomCenter,
       isExpanded: true,
-      items: AppLocale.values
-          .map((e) => DropdownMenuItem<AppLocale>(
-                value: e,
-                onTap: () async =>
-                    ref.read(AppLocalization.instance).setLocale(e),
-                child: Text(
-                  e.nameTr,
-                  textAlign: TextAlign.center,
-                  // changed after _bug fixed
-                  style: theme.textTheme.titleMedium?.copyWith(
-                      color: e == locale ? theme.colorScheme.primary : null),
+      items: [
+        for (final locale in AppLocale.values)
+          DropdownMenuItem<AppLocale>(
+            value: locale,
+            onTap: () async =>
+                ref.read(AppLocalization.instance).setLocale(locale),
+            child: Text(
+              locale.nameTr,
+              textAlign: TextAlign.center,
+              // changed after _bug fixed
+              style: theme.textTheme.titleMedium?.copyWith(
+                  color: locale == currentLocale
+                      ? theme.colorScheme.primary
+                      : null),
+            ),
+          )
+      ],
+      selectedItemBuilder: (BuildContext context) {
+        final theme = Theme.of(context);
+        return [
+          for (final _ in AppLocale.values)
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                currentLocale.nameTr,
+                style: theme.textTheme.titleSmall?.copyWith(
+                  color: theme.colorScheme.primary,
                 ),
-              ))
-          .toList(),
-      selectedItemBuilder: (_) {
-        return AppLocale.values
-            .map((e) => FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  locale.nameTr,
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    color: theme.colorScheme.primary,
-                  ),
-                )))
-            .toList();
+              ),
+            )
+        ];
       },
     );
   }

@@ -1,5 +1,8 @@
 ## [3.3.0-pre.5] - expected
 - fix: incorrect unfocused behavior in ApiPage
+- add: changelog in about dialog
+- fix: eliminated the scrolling effect in markdown texts
+- imp: beautiful title text and reduced padding in buttons on the stepper page
 
 ## [3.3.0-pre.4] - 03-10-2023
 - imp: large migration of files and folders over "some" clean architecture
