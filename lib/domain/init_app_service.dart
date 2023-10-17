@@ -12,7 +12,7 @@ import '../utils/logger/loggy_printer.dart';
 import 'controllers/general_settings_controller.dart';
 import 'controllers/localization_controller.dart';
 import 'controllers/weather_service_controllers.dart';
-import 'services/cardoteka/cardoteka.dart';
+import 'services/cardoteka/settings_storage.dart';
 import 'services/migration_tool/sp_to_cardoteka.dart';
 
 /// Асинхронная инициализация всех сервисов приложения.

@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/domain/controllers/owm_controller.dart';
 import 'package:weather_today/domain/models/place/place_model.dart';
+import 'package:weather_today/domain/services/cardoteka/weather_storage.dart';
 import 'package:weather_today/domain/services/local_storage/data_base_controller.dart';
 import 'package:weather_today/domain/services/local_storage/interface/data_base.dart';
 import 'package:weather_today/domain/services/local_storage/key_store.dart';
@@ -42,20 +43,55 @@ class WeatherServices with Updater {
         DbStore.userWeatherLanguageDefault, _conversionCurrentLanguage);
   }
 
-  /// экземпляр.
+  /// Instance of current class.
   static final instance = Provider<WeatherServices>(
     WeatherServices.new,
     name: '$WeatherServices/instance',
   );
 
-  // Текущее место по которому приходят данные о погоде
+  // ignore: unused_element
+  WeatherStorage get _weatherStorage => ref.read(WeatherStorage.instance);
+
+  // Current location at which weather data is received
   //============================================================================
 
-  /// Текущее место.
+  /// Current location.
   static final currentPlace = StateProvider<Place>(
-    (ref) => Place.fromJson({}),
+    (ref) {
+      ref.listenSelf(
+        (previous, next) {
+          _autoUpdatePreviousPlace(
+            previous,
+            next,
+            ref.read(WeatherStorage.instance),
+          );
+        },
+      );
+      return Place.fromJson({});
+    },
     name: '$WeatherServices/currentPlace',
   );
+
+  static Future<void> _autoUpdatePreviousPlace(
+    Place? previous,
+    Place next,
+    WeatherStorage storage,
+  ) async {
+    if (previous == null) return;
+
+    await storage.set<Place>(WeatherCards.previousPlace, previous);
+
+    if (!next.isSamePlace(previous)) {
+      await storage.set<bool>(
+        WeatherCards.isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces,
+        true,
+      );
+      await storage.set<bool>(
+        WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces,
+        true,
+      );
+    }
+  }
 
   static Place _conversionCurrentPlace(String raw) {
     return raw != ''

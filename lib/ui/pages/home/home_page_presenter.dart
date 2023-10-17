@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/domain/controllers/app_theme/models/design_page.dart';
 import 'package:weather_today/domain/controllers/general_settings_controller.dart';
-import 'package:weather_today/domain/services/cardoteka/cardoteka.dart';
+import 'package:weather_today/domain/services/cardoteka/settings_storage.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
 /// [HomePage] page presenter.

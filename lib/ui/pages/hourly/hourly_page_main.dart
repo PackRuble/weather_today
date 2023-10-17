@@ -20,7 +20,8 @@ class HourlyWeatherPage extends ConsumerWidget {
       asyncValue: ref.watch(HourlyPagePresenter.hourly),
       onRefresh: () async =>
           ref.read(HourlyPagePresenter.instance).updateWeather(),
-      child: (List<WeatherHourly> hourly) => switch (design) {
+      child: (BuildContext context, List<WeatherHourly> hourly) =>
+          switch (design) {
         AppVisualDesign.byRuble => HourlyPageByRuble(hourly),
         AppVisualDesign.byTolskaya => HourlyPageByTolskaya(hourly)
       },

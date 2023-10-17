@@ -19,7 +19,8 @@ class DailyWeatherPage extends ConsumerWidget {
       asyncValue: ref.watch(DailyPagePresenter.daily),
       onRefresh: () async =>
           ref.read(DailyPagePresenter.instance).updateWeather(),
-      child: (List<WeatherDaily> daily) => switch (design) {
+      child: (BuildContext context, List<WeatherDaily> daily) =>
+          switch (design) {
         AppVisualDesign.byRuble => DailyWeatherPageByRuble(daily),
         _ => DailyWeatherPageByRuble(daily)
       },

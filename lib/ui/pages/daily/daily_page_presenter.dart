@@ -18,19 +18,22 @@ class DailyPagePresenter {
   );
 
   ///  Actual [WeatherOneCall] ONE_CALL-weather.
-  static StateNotifierProvider<WeatherOnecallNotifier,
-      AsyncValue<WeatherOneCall?>> get onecall => weatherOneCallController;
+  static AsyncNotifierProvider<WeatherOnecallNotifier, WeatherOneCall?>
+      get onecall => WeatherOnecallNotifier.instance;
 
   /// The ONE_CALL-weather for 7 days [WeatherDaily].
-  static final daily = Provider<AsyncValue<List<WeatherDaily>?>>((ref) {
-    final AsyncValue<WeatherOneCall?> asyncWeather = ref.watch(onecall);
+  static final daily = Provider<AsyncValue<List<WeatherDaily>?>>(
+    (ref) {
+      final WeatherOneCall? weather = ref.watch(onecall).value;
 
-    if (asyncWeather.isRefreshing || asyncWeather.isLoading) {
-      return const AsyncValue.loading();
-    }
-
-    return AsyncValue.data(asyncWeather.value?.daily);
-  });
+      if (weather != null) {
+        return AsyncValue.data(weather.daily);
+      } else {
+        return const AsyncValue.loading();
+      }
+    },
+    name: '$DailyPagePresenter->daily',
+  );
 
   /// Weather alerts from ONE_CALL-weather.
   static final alerts = Provider<AsyncValue<List<WeatherAlert>?>>((ref) {
@@ -55,5 +58,5 @@ class DailyPagePresenter {
 
   /// The ONE_CALL-weather update.
   Future<void> updateWeather() async =>
-      _ref.read(weatherOneCallController.notifier).updateWeather();
+      _ref.read(WeatherOnecallNotifier.instance.notifier).updateWeather();
 }

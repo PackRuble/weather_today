@@ -7,7 +7,7 @@ import 'package:weather_today/domain/controllers/app_theme/models/design_page.da
 import 'package:weather_today/domain/controllers/app_theme/models/models.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/controllers/weather/weather_onecall_controller.dart';
-import 'package:weather_today/domain/services/cardoteka/cardoteka.dart';
+import 'package:weather_today/domain/services/cardoteka/settings_storage.dart';
 import 'package:weather_today/ui/dialogs/app_dialogs.dart';
 
 /// Enumerations are needed to add to the list of modified data for the
@@ -40,8 +40,9 @@ class VisualDesignPresenter {
 
   /// Погода берется из заранее сохраненного json, который всегда доступен. (уже нет)
   static final weatherMock = FutureProvider.autoDispose<WeatherOneCall?>(
-      (ref) async =>
-          ref.watch(weatherOneCallController.notifier).getStoredWeather());
+      (ref) async => ref
+          .watch(WeatherOnecallNotifier.instance.notifier)
+          .getStoredWeather());
   // TestWeatherJson.getOneCallWeatherToTest()); //todo можно просто сделать модельку
 
   /// Apply the values when you finish editing the options.

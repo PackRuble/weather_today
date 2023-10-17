@@ -1,52 +1,50 @@
+// ignore_for_file: avoid_public_notifier_properties
+import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/domain/controllers/owm_controller.dart';
-import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 import 'package:weather_today/domain/models/place/place_model.dart';
+import 'package:weather_today/domain/services/cardoteka/weather_storage.dart';
 import 'package:weather_today/domain/services/local_storage/key_store.dart';
 
 import 'weather_controller.dart';
 
-/// Разрешенная частота запроса к сервису получения CURRENT-погоды с
-/// ключом API по умолчанию (ключ разработчика).
-const Duration _allowedRequestRateCurrentWithDefaultApi = Duration(seconds: 30);
-
-/// Разрешенная частота запроса к сервису получения CURRENT-погоды с
-/// пользовательским ключом API.
-const Duration _allowedRequestRateCurrentWithUserApi = Duration.zero;
-
-/// Контроллер сервиса CURRENT-погоды.
-final weatherCurrentController =
-    StateNotifierProvider<WeatherCurrentNotifier, AsyncValue<WeatherCurrent?>>(
-        (ref) {
-  final Place currentPlace = ref.watch(WeatherServices.currentPlace);
-  final Duration allowedRequestRate = ref.watch(OWMController.isUserApiKey)
-      ? _allowedRequestRateCurrentWithUserApi
-      : _allowedRequestRateCurrentWithDefaultApi;
-
-  return WeatherCurrentNotifier(
-    ref,
-    currentPlace: currentPlace,
-    allowedRequestRate: allowedRequestRate,
-  );
-}, name: '$WeatherCurrentNotifier');
-
+/// Notifier of the CURRENT weather service.
 class WeatherCurrentNotifier extends WeatherNotifier<WeatherCurrent> {
-  WeatherCurrentNotifier(
-    super._ref, {
-    required super.currentPlace,
-    required super.allowedRequestRate,
-  });
+  /// Instance of current class.
+  static final instance =
+      AsyncNotifierProvider<WeatherCurrentNotifier, WeatherCurrent?>(
+    WeatherCurrentNotifier.new,
+    name: '$WeatherCurrentNotifier',
+  );
 
   @override
-  @protected
+  late Duration allowedRequestRate;
+
+  @override
+  FutureOr<WeatherCurrent?> build() async {
+    allowedRequestRate = ref.watch(OWMController.isUserApiKey)
+        ? _allowedRequestRateCurrentWithUserApi
+        : _allowedRequestRateCurrentWithDefaultApi;
+
+    return super.build();
+  }
+
+  /// Allowed frequency of request to CURRENT weather retrieval service with
+  /// default API key (developer key).
+  static const Duration _allowedRequestRateCurrentWithDefaultApi =
+      Duration(seconds: 30);
+
+  /// Allowed frequency of request to CURRENT weather retrieval service with
+  /// by the API user key.
+  static const Duration _allowedRequestRateCurrentWithUserApi = Duration.zero;
+
+  @override
   Future<WeatherCurrent?> getStoredWeather() async {
-    final String jsonStr = await super
-        .db
-        .load(DbStore.weatherCurrent, DbStore.weatherCurrentDefault);
+    final String jsonStr =
+        await db.load(DbStore.weatherCurrent, DbStore.weatherCurrentDefault);
 
     if (jsonStr.isNotEmpty) {
       return WeatherCurrent.fromJson(
@@ -56,27 +54,36 @@ class WeatherCurrentNotifier extends WeatherNotifier<WeatherCurrent> {
   }
 
   @override
-  @protected
   Future<WeatherCurrent> getWeatherFromOWM(Place place) async =>
       super.weatherService.currentWeatherByLocation(
           latitude: place.latitude!, longitude: place.longitude!);
 
   @override
-  @protected
   Future<void> saveWeatherInDb(WeatherCurrent weather) async =>
       db.save(DbStore.weatherCurrent, jsonEncode(weather.toJson()));
 
   @override
-  @protected
   Future<void> saveLastRequestTimeInDb(DateTime dateTime) async =>
       db.save(DbStore.lastRequestTimeCurrent, dateTime.millisecondsSinceEpoch);
 
   @override
-  @protected
   Future<DateTime> getLastRequestTime() async {
     final int timeInMilliseconds = await db.load(
         DbStore.lastRequestTimeCurrent, DbStore.lastRequestTimeCurrentDefault);
 
     return DateTime.fromMillisecondsSinceEpoch(timeInMilliseconds);
   }
+
+  @override
+  Future<bool> isAbilityRequestOnDiffPlacesImpl() async {
+    return weatherStorage.get<bool>(
+        WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces);
+  }
+
+  @override
+  Future<bool> resetAbilityRequestOnDiffPlaces() async =>
+      weatherStorage.set<bool>(
+        WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces,
+        false,
+      );
 }

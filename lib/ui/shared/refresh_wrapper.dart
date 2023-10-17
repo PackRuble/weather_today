@@ -1,24 +1,22 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+typedef ValueBuilder<T> = Widget Function(BuildContext context, T value);
+
 /// Wrapper for pages with AsyncValue with handy utils.
-class RefreshWrapper<T> extends ConsumerWidget {
+class RefreshWrapper<T extends Object> extends ConsumerWidget {
   const RefreshWrapper({
     required this.asyncValue,
     required this.child,
     required this.onRefresh,
-    this.isUseRefreshIndicator = true,
-    this.valueIsNull,
-    this.valueIsError,
-    this.valueIsLoading,
-    this.valueIsRefreshing,
-    this.physicsListView,
+    this.childIsNull,
+    this.childIsError,
+    this.childIsLoading,
+    this.scrollPhysics,
   });
 
   /// A widget that represents data. Data == isNotNull.
-  final Widget Function(T) child;
+  final ValueBuilder<T> child;
 
   /// AsyncValue which is need to load and map.
   final AsyncValue<T?> asyncValue;
@@ -26,38 +24,17 @@ class RefreshWrapper<T> extends ConsumerWidget {
   /// Action to update data.
   final RefreshCallback onRefresh;
 
-  /// [_RefreshIndicatorMode] is never equal to [_RefreshIndicatorMode.refresh].
-  ///
-  /// Default to `true`.
-  final bool isUseRefreshIndicator;
-
   /// Show widget when data is [AsyncValue.data] = null.
-  final Widget? valueIsNull;
+  final Widget? childIsNull;
 
   /// Show widget when data is [AsyncValue.error].
-  final Widget? valueIsError;
+  final Widget? childIsError;
 
   /// Show widget when data is initialized.
-  final Widget? valueIsLoading;
+  final Widget? childIsLoading;
 
-  /// Show widget when data is refreshed.
-  ///
-  /// You can use this to shimmer effect.
-  final Widget? valueIsRefreshing;
-
-  /// Физика прокрутки.
-  final ScrollPhysics? physicsListView;
-
-  /// Универсальный listView.
-  // ignore: non_constant_identifier_names
-  Widget CustomListView({required List<Widget> children}) => ListView(
-        padding: const EdgeInsets.only(top: 50.0),
-        physics: physicsListView ??
-            const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics(),
-            ),
-        children: children,
-      );
+  /// The physics of scrolling.
+  final ScrollPhysics? scrollPhysics;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -65,36 +42,68 @@ class RefreshWrapper<T> extends ConsumerWidget {
     final TextStyle? textStyle = textTheme.headlineMedium;
 
     return RefreshIndicator(
-      onRefresh: () async {
-        if (isUseRefreshIndicator) return onRefresh();
-        return unawaited(onRefresh());
-      },
+      onRefresh: onRefresh,
       child: asyncValue.when(
+        skipLoadingOnReload:
+            true, // when dependent on another provider with [Ref.watch]
+        skipLoadingOnRefresh: false, // when [Ref.invalidate]/[Ref.refresh]
         data: (T? value) {
-          if (value != null) return child(value);
+          if (value != null) return child(context, value);
 
-          return CustomListView(
+          return _CustomListView(
+            scrollPhysics: scrollPhysics,
             children: [
-              valueIsNull ??
-                  Center(child: Text(r'¯\_(ツ)_/¯', style: textStyle)),
+              childIsNull ??
+                  Center(
+                    child: Text(
+                      r'¯\_(ツ)_/¯',
+                      style: textStyle,
+                    ),
+                  ),
             ],
           );
         },
         error: (Object e, __) {
-          return CustomListView(
+          return _CustomListView(
+            scrollPhysics: scrollPhysics,
             children: [
-              valueIsError ??
-                  Center(child: Text('(っ °Д °;)っ \n $e', style: textStyle)),
+              childIsError ??
+                  Center(
+                    child: Text(
+                      '(っ °Д °;)っ \n\n\n $e',
+                      style: textStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
             ],
           );
         },
-        loading: () {
-          return asyncValue.isRefreshing
-              ? valueIsRefreshing ?? const SizedBox.shrink()
-              : valueIsLoading ??
-                  const Center(child: CircularProgressIndicator());
-        },
+        loading: () =>
+            childIsLoading ?? const Center(child: CircularProgressIndicator()),
       ),
+    );
+  }
+}
+
+class _CustomListView extends StatelessWidget {
+  const _CustomListView({
+    super.key,
+    required this.scrollPhysics,
+    required this.children,
+  });
+
+  final ScrollPhysics? scrollPhysics;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.only(top: 50.0),
+      physics: scrollPhysics ??
+          const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
+      children: children,
     );
   }
 }

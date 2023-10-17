@@ -1,5 +1,5 @@
 import 'package:weather_today/domain/controllers/app_theme/models/design_page.dart';
-import 'package:weather_today/domain/services/cardoteka/cardoteka.dart';
+import 'package:weather_today/domain/services/cardoteka/settings_storage.dart';
 import 'package:weather_today/domain/services/local_storage/interface/data_base.dart';
 import 'package:weather_today/domain/services/local_storage/key_store.dart';
 

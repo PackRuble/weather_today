@@ -12,8 +12,8 @@ class CurrentPagePresenter {
   final Ref _ref;
 
   /// Actual [WeatherCurrent] CURRENT-weather.
-  static StateNotifierProvider<WeatherCurrentNotifier,
-      AsyncValue<WeatherCurrent?>> get current => weatherCurrentController;
+  static AsyncNotifierProvider<WeatherCurrentNotifier, WeatherCurrent?>
+      get current => WeatherCurrentNotifier.instance;
 
   /// Instance of current class.
   static final instance = Provider.autoDispose(
@@ -33,5 +33,5 @@ class CurrentPagePresenter {
 
   /// The CURRENT-weather update.
   Future<void> updateWeather() async =>
-      _ref.read(weatherCurrentController.notifier).updateWeather();
+      _ref.read(WeatherCurrentNotifier.instance.notifier).updateWeather();
 }

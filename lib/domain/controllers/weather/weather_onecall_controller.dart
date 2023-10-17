@@ -1,50 +1,50 @@
+// ignore_for_file: avoid_public_notifier_properties
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/domain/controllers/owm_controller.dart';
-import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 import 'package:weather_today/domain/models/place/place_model.dart';
+import 'package:weather_today/domain/services/cardoteka/weather_storage.dart';
 import 'package:weather_today/domain/services/local_storage/key_store.dart';
 
 import 'weather_controller.dart';
 
-/// Разрешенная частота запроса к сервису получения погоды Onecall с
-/// ключом API по умолчанию (ключ разработчика).
-const Duration _allowedRequestRateOnecallWithDefaultApi = Duration(days: 1);
-
-/// Разрешенная частота запроса к сервису получения погоды Onecall с
-/// пользовательским ключом API.
-const Duration _allowedRequestRateOnecallWithUserApi = Duration.zero;
-
-/// Контроллер сервиса ONECALL-погоды.
-final weatherOneCallController =
-    StateNotifierProvider<WeatherOnecallNotifier, AsyncValue<WeatherOneCall?>>(
-        (ref) {
-  final Place currentPlace = ref.watch(WeatherServices.currentPlace);
-  final Duration _allowedRequestRate = ref.watch(OWMController.isUserApiKey)
-      ? _allowedRequestRateOnecallWithUserApi
-      : _allowedRequestRateOnecallWithDefaultApi;
-
-  return WeatherOnecallNotifier(
-    ref,
-    currentPlace: currentPlace,
-    allowedRequestRate: _allowedRequestRate,
-  );
-}, name: '$WeatherOnecallNotifier');
-
+/// Notifier of the ONECALL weather service.
 class WeatherOnecallNotifier extends WeatherNotifier<WeatherOneCall> {
-  WeatherOnecallNotifier(
-    super._ref, {
-    required super.currentPlace,
-    required super.allowedRequestRate,
-  });
+  /// Instance of current class.
+  static final instance =
+      AsyncNotifierProvider<WeatherOnecallNotifier, WeatherOneCall?>(
+    WeatherOnecallNotifier.new,
+    name: '$WeatherOnecallNotifier',
+  );
+
+  @override
+  late Duration allowedRequestRate;
+
+  @override
+  FutureOr<WeatherOneCall?> build() async {
+    allowedRequestRate = ref.watch(OWMController.isUserApiKey)
+        ? _allowedRequestRateOnecallWithUserApi
+        : _allowedRequestRateOnecallWithDefaultApi;
+
+    return super.build();
+  }
+
+  /// Allowed frequency of request to ONECALL weather retrieval service with
+  /// default API key (developer key).
+  static const Duration _allowedRequestRateOnecallWithDefaultApi =
+      Duration(days: 1);
+
+  /// Allowed frequency of request to ONECALL weather retrieval service with
+  /// by the API user key.
+  static const Duration _allowedRequestRateOnecallWithUserApi = Duration.zero;
 
   @override
   Future<WeatherOneCall?> getStoredWeather() async {
-    final String jsonStr = await super
-        .db
-        .load(DbStore.weatherOneCall, DbStore.weatherOneCallDefault);
+    final String jsonStr =
+        await db.load(DbStore.weatherOneCall, DbStore.weatherOneCallDefault);
 
     if (jsonStr.isNotEmpty) {
       return WeatherOneCall.fromJson(
@@ -55,7 +55,7 @@ class WeatherOnecallNotifier extends WeatherNotifier<WeatherOneCall> {
 
   @override
   Future<WeatherOneCall> getWeatherFromOWM(Place place) async =>
-      super.weatherService.oneCallWeatherByLocation(
+      weatherService.oneCallWeatherByLocation(
           latitude: place.latitude!, longitude: place.longitude!);
 
   @override
@@ -73,4 +73,17 @@ class WeatherOnecallNotifier extends WeatherNotifier<WeatherOneCall> {
 
     return DateTime.fromMillisecondsSinceEpoch(timeInMilliseconds);
   }
+
+  @override
+  Future<bool> isAbilityRequestOnDiffPlacesImpl() async {
+    return weatherStorage.get<bool>(
+        WeatherCards.isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces);
+  }
+
+  @override
+  Future<bool> resetAbilityRequestOnDiffPlaces() async =>
+      weatherStorage.set<bool>(
+        WeatherCards.isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces,
+        false,
+      );
 }

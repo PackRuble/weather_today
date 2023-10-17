@@ -35,7 +35,7 @@ class Place with _$Place {
 
     /// Заметка об этом месте.
     String? note,
-  }) = _SavedPlace;
+  }) = _SavedPlace; // coldfix: use _Place
   const Place._();
 
   /// Внутренний метод десериализации json.
@@ -49,6 +49,7 @@ class Place with _$Place {
       longitude == otherPlace.longitude &&
       latitude == otherPlace.latitude;
 
+  // coldfix: remove and inspect affected areas
   @override
   bool operator ==(dynamic other) =>
       other is _SavedPlace &&
@@ -66,6 +67,7 @@ class Place with _$Place {
   //           latitude == other.latitude);
   // }
 
+  // coldfix: remove and inspect affected areas
   @override
   int get hashCode => Object.hash(
         runtimeType,

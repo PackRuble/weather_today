@@ -22,31 +22,37 @@ class HourlyPagePresenter {
       AppLocalization.currentTranslation;
 
   ///  Actual [WeatherOneCall] ONE_CALL-weather.
-  static StateNotifierProvider<WeatherOnecallNotifier,
-      AsyncValue<WeatherOneCall?>> get onecall => weatherOneCallController;
+  static AsyncNotifierProvider<WeatherOnecallNotifier, WeatherOneCall?>
+      get onecall => WeatherOnecallNotifier.instance;
 
   /// Weather ONE_CALL for 2 days hourly [WeatherHourly].
-  static final hourly = Provider<AsyncValue<List<WeatherHourly>?>>((ref) {
-    final AsyncValue<WeatherOneCall?> asyncWeather = ref.watch(onecall);
+  static final hourly = Provider<AsyncValue<List<WeatherHourly>?>>(
+    (ref) {
+      final WeatherOneCall? weather = ref.watch(onecall).value;
 
-    if (asyncWeather.isRefreshing || asyncWeather.isLoading) {
-      return const AsyncValue.loading();
-    }
-
-    return AsyncValue.data(asyncWeather.value?.hourly);
-  });
+      if (weather != null) {
+        return AsyncValue.data(weather.hourly);
+      } else {
+        return const AsyncValue.loading();
+      }
+    },
+    name: '$HourlyPagePresenter->hourly',
+  );
 
   /// Weather ONE_CALL for an hour per minute [WeatherHourly].
-  static final minutely = Provider<AsyncValue<List<WeatherMinutely>>>((ref) {
-    final AsyncValue<WeatherOneCall?> asyncWeather =
-        ref.watch(weatherOneCallController);
-
-    if (asyncWeather.isRefreshing || asyncWeather.isLoading) {
-      return const AsyncValue.loading();
-    }
-
-    return AsyncValue.data(asyncWeather.value?.minutely ?? []);
-  });
+  /*Uncomment if necessary*/
+  // static final minutely = Provider<AsyncValue<List<WeatherMinutely>>>(
+  //   (ref) {
+  //     final WeatherOneCall? weather = ref.watch(onecall).value;
+  //
+  //     if (weather != null) {
+  //       return AsyncValue.data(weather.minutely ?? []);
+  //     } else {
+  //       return const AsyncValue.loading();
+  //     }
+  //   },
+  //   name: '$HourlyPagePresenter->minutely',
+  // );
 
   /// Units of velocity measurement.
   static StateProvider<Speed> get speedUnits => WeatherServices.speedUnits;
@@ -56,5 +62,5 @@ class HourlyPagePresenter {
 
   /// The ONE_CALL-weather update.
   Future<void> updateWeather() async =>
-      _ref.read(weatherOneCallController.notifier).updateWeather();
+      _ref.read(WeatherOnecallNotifier.instance.notifier).updateWeather();
 }
