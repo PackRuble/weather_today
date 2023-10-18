@@ -207,6 +207,8 @@ class TranslationsApiWeatherPageRu {
 	// Translations
 	String get appbarTitle => 'Ваш ключ Api';
 	String get goToSite => 'Перейти на сайт openweathermap.org';
+	String get buttonCheckRelevance => 'Проверить актуальность';
+	String get buttonReset => 'Сбросить';
 	late final TranslationsApiWeatherPageTipsRu tips = TranslationsApiWeatherPageTipsRu._(_root);
 	late final TranslationsApiWeatherPageDefaultApiRu defaultApi = TranslationsApiWeatherPageDefaultApiRu._(_root);
 	late final TranslationsApiWeatherPageUserApiRu userApi = TranslationsApiWeatherPageUserApiRu._(_root);
@@ -221,7 +223,7 @@ class TranslationsIntroPageRu {
 
 	// Translations
 	String get tile1title => 'УЗНАВАЙ';
-	String get tile1subtitle => 'Сверхточная погода на 48 часов и актуальная на 7 дней. Не попадай под дождь - ведь есть предупреждения о погоде';
+	String get tile1subtitle => 'Сверхточная погода на 48 часов и актуальная на 7 дней. Не попадай под дождь – ведь есть предупреждения о погоде';
 	String get tile2title => 'ИЗМЕРЯЙ';
 	String get tile2subtitle => 'Используй удобные для СЕБЯ единицы измерения температуры, скорости и давления';
 	String get tile3title => 'СОХРАНЯЙ';
@@ -687,6 +689,7 @@ class TranslationsApiWeatherPageDefaultApiRu {
 	String get usingApi => 'Используется ключ разработчика';
 	String get numbOfCalls => 'Количество вызовов ограничено авторским тарифом WeatherOpenApi';
 	String get fieldTip => 'Введите Api...';
+	String countCalls({required Object currentInSeconds, required Object onecallInHours}) => 'Количество запросов:\n${_root.enums.homepage.today} – раз в ${currentInSeconds} секунд\n${_root.enums.homepage.hourly}, ${_root.enums.homepage.daily} – раз в ${onecallInHours} часа';
 }
 
 // Path: apiWeatherPage.userApi
@@ -699,6 +702,7 @@ class TranslationsApiWeatherPageUserApiRu {
 	String get usingApi => 'Используется Ваш ключ';
 	String get numbOfCalls => 'Количество вызовов ограничено Вашим тарифом WeatherOpenApi';
 	String get fieldTip => 'Используется...';
+	String get countCalls => 'Количество запросов неограничено (ограничено вашим тарифом)';
 }
 
 // Path: apiWeatherPage.tooltips

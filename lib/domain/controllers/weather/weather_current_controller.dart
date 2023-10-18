@@ -26,20 +26,20 @@ class WeatherCurrentNotifier extends WeatherNotifier<WeatherCurrent> {
   @override
   FutureOr<WeatherCurrent?> build() async {
     allowedRequestRate = ref.watch(OWMController.isUserApiKey)
-        ? _allowedRequestRateCurrentWithUserApi
-        : _allowedRequestRateCurrentWithDefaultApi;
+        ? allowedRequestRateCurrentWithUserApi
+        : allowedRequestRateCurrentWithDefaultApi;
 
     return super.build();
   }
 
   /// Allowed frequency of request to CURRENT weather retrieval service with
   /// default API key (developer key).
-  static const Duration _allowedRequestRateCurrentWithDefaultApi =
+  static const Duration allowedRequestRateCurrentWithDefaultApi =
       Duration(seconds: 30);
 
   /// Allowed frequency of request to CURRENT weather retrieval service with
   /// by the API user key.
-  static const Duration _allowedRequestRateCurrentWithUserApi = Duration.zero;
+  static const Duration allowedRequestRateCurrentWithUserApi = Duration.zero;
 
   @override
   Future<WeatherCurrent?> getStoredWeather() async {

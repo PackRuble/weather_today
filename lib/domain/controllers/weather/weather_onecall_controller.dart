@@ -26,20 +26,20 @@ class WeatherOnecallNotifier extends WeatherNotifier<WeatherOneCall> {
   @override
   FutureOr<WeatherOneCall?> build() async {
     allowedRequestRate = ref.watch(OWMController.isUserApiKey)
-        ? _allowedRequestRateOnecallWithUserApi
-        : _allowedRequestRateOnecallWithDefaultApi;
+        ? allowedRequestRateOnecallWithUserApi
+        : allowedRequestRateOnecallWithDefaultApi;
 
     return super.build();
   }
 
   /// Allowed frequency of request to ONECALL weather retrieval service with
   /// default API key (developer key).
-  static const Duration _allowedRequestRateOnecallWithDefaultApi =
+  static const Duration allowedRequestRateOnecallWithDefaultApi =
       Duration(days: 1);
 
   /// Allowed frequency of request to ONECALL weather retrieval service with
   /// by the API user key.
-  static const Duration _allowedRequestRateOnecallWithUserApi = Duration.zero;
+  static const Duration allowedRequestRateOnecallWithUserApi = Duration.zero;
 
   @override
   Future<WeatherOneCall?> getStoredWeather() async {

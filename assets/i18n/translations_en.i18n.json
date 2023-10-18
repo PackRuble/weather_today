@@ -203,6 +203,8 @@
   "api_weather_page": {
     "appbar_title": "Your api key",
     "go_to_site": "Go to openweathermap.org",
+    "button_check_relevance": "Check relevance",
+    "button_reset": "Reset",
     "tips": {
       "info": "To make requests more often, you need to have your Api key.",
       "free": "It's free, you can get it from the link below."
@@ -210,12 +212,14 @@
     "default_api": {
       "using_api": "Developer key is used",
       "numb_of_calls": "The number of calls is limited to the author's WeatherOpenApi rate",
-      "field_tip": "Enter Api..."
+      "field_tip": "Enter Api...",
+      "count_calls": "Number of requests:\n@:enums.homepage.today – once every {currentInSeconds} seconds\n@:enums.homepage.hourly, @:enums.homepage.daily – once every {onecallInHours} hours"
     },
     "user_api": {
       "using_api": "Your key is used",
       "numb_of_calls": "The number of calls is limited to your WeatherOpenApi rate.",
-      "field_tip": "Used..."
+      "field_tip": "Used...",
+      "count_calls": "The number of requests is unlimited (limited by your tariff)"
     },
     "tooltips": {
       "del_api_key": "Remove Api key",
@@ -227,7 +231,7 @@
   },
   "intro_page": {
     "tile1title": "CHECK",
-    "tile1subtitle": "Super-accurate weather for 48 hours and current for 7 days. Don't get caught in the rain - there are weather warnings",
+    "tile1subtitle": "Super-accurate weather for 48 hours and current for 7 days. Don't get caught in the rain – there are weather warnings",
     "tile2title": "MEASURE",
     "tile2subtitle": "Use your preferred units of temperature, speed, and pressure",
     "tile3title": "SAVE",

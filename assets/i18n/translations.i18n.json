@@ -203,6 +203,8 @@
   "api_weather_page": {
     "appbar_title": "Ваш ключ Api",
     "go_to_site": "Перейти на сайт openweathermap.org",
+    "button_check_relevance": "Проверить актуальность",
+    "button_reset": "Сбросить",
     "tips": {
       "info": "Чтобы делать запросы чаще, нужно иметь свой ключик Api.",
       "free": "Он бесплатный, получить его можно по ссылке ниже."
@@ -210,12 +212,14 @@
     "default_api": {
       "using_api": "Используется ключ разработчика",
       "numb_of_calls": "Количество вызовов ограничено авторским тарифом WeatherOpenApi",
-      "field_tip": "Введите Api..."
+      "field_tip": "Введите Api...",
+      "count_calls": "Количество запросов:\n@:enums.homepage.today – раз в {currentInSeconds} секунд\n@:enums.homepage.hourly, @:enums.homepage.daily – раз в {onecallInHours} часа"
     },
     "user_api": {
       "using_api": "Используется Ваш ключ",
       "numb_of_calls": "Количество вызовов ограничено Вашим тарифом WeatherOpenApi",
-      "field_tip": "Используется..."
+      "field_tip": "Используется...",
+      "count_calls": "Количество запросов неограничено (ограничено вашим тарифом)"
     },
     "tooltips": {
       "del_api_key": "Удалить Api-ключ",
@@ -227,7 +231,7 @@
   },
   "intro_page": {
     "tile1title": "УЗНАВАЙ",
-    "tile1subtitle": "Сверхточная погода на 48 часов и актуальная на 7 дней. Не попадай под дождь - ведь есть предупреждения о погоде",
+    "tile1subtitle": "Сверхточная погода на 48 часов и актуальная на 7 дней. Не попадай под дождь – ведь есть предупреждения о погоде",
     "tile2title": "ИЗМЕРЯЙ",
     "tile2subtitle": "Используй удобные для СЕБЯ единицы измерения температуры, скорости и давления",
     "tile3title": "СОХРАНЯЙ",

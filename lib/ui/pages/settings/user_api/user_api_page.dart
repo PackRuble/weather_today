@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,10 +7,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/link.dart';
 import 'package:weather_today/application/const/app_icons.dart';
+import 'package:weather_today/domain/controllers/weather/weather_current_controller.dart';
+import 'package:weather_today/domain/controllers/weather/weather_onecall_controller.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
 
 import '../../../shared/appbar_widget.dart';
 import 'user_api_page_presenter.dart';
+
+const Color _userApiColor = Colors.green;
+const Color _devApiColor = Colors.red;
 
 /// Страница по управлению пользовательским апи ключом.
 @RoutePage()
@@ -91,55 +98,65 @@ class _StatusTileWidget extends ConsumerWidget {
         ? t.apiWeatherPage.userApi.numbOfCalls
         : t.apiWeatherPage.defaultApi.numbOfCalls;
 
-    final Color color = isSetUserApi ? Colors.green : Colors.red;
+    final Color color = isSetUserApi ? _userApiColor : _devApiColor;
 
-    return Row(
-      children: [
-        Expanded(
-          child: ListTile(
-            title: Row(
-              children: [
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: theme.colorScheme.primary),
-                  ),
-                  child: Icon(
-                    Icons.circle_rounded,
-                    color: color,
+    return ListTile(
+      title: Row(
+        children: [
+          DecoratedBox(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: theme.colorScheme.primary),
+            ),
+            child: Icon(
+              Icons.circle_rounded,
+              color: color,
+            ),
+          ),
+          const SizedBox(width: 8.0),
+          Flexible(child: Text(title)),
+        ],
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(subtitle),
+          Row(
+            mainAxisAlignment: isSetUserApi
+                ? MainAxisAlignment.spaceEvenly
+                : MainAxisAlignment.start,
+            children: [
+              Flexible(
+                child: Tooltip(
+                  message: t.apiWeatherPage.tooltips.checkApiKey,
+                  child: TextButton(
+                    child: Text(
+                      t.apiWeatherPage.buttonCheckRelevance,
+                      textAlign: TextAlign.center,
+                    ),
+                    onPressed: () async =>
+                        ref.read(UserApiPagePresenter.instance).checkApi(),
                   ),
                 ),
-                const SizedBox(width: 8.0),
-                Flexible(child: Text(title)),
-              ],
-            ),
-            subtitle: Text(subtitle),
-            contentPadding: const EdgeInsets.all(8.0),
+              ),
+              if (isSetUserApi)
+                Tooltip(
+                  message: t.apiWeatherPage.tooltips.delApiKey,
+                  child: TextButton(
+                    child: Text(
+                      t.apiWeatherPage.buttonReset,
+                      textAlign: TextAlign.center,
+                    ),
+                    onPressed: () async => ref
+                        .read(UserApiPagePresenter.instance)
+                        .deleteUserApi(context),
+                  ),
+                ),
+            ],
           ),
-        ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (isSetUserApi)
-              IconButton(
-                padding: EdgeInsets.zero,
-                tooltip: t.apiWeatherPage.tooltips.delApiKey,
-                icon: const Icon(Icons.delete),
-                onPressed: () async => ref
-                    .watch(UserApiPagePresenter.instance)
-                    .deleteUserApi(context),
-              ),
-            Tooltip(
-              message: t.apiWeatherPage.tooltips.checkApiKey,
-              child: TextButton(
-                child: const Text('Check'),
-                onPressed: () async =>
-                    ref.watch(UserApiPagePresenter.instance).checkApi(),
-              ),
-            ),
-          ],
-        )
-      ],
+        ],
+      ),
+      contentPadding: const EdgeInsets.all(8.0),
     );
   }
 }
@@ -185,9 +202,10 @@ class _TextFieldApiWidget extends HookConsumerWidget {
                 : null,
           ),
           suffixIcon: _DoneAndLoadingWidget(
-              onDone: () async => ref
-                  .read(UserApiPagePresenter.instance)
-                  .setUserApi(textController.text)),
+            onDone: () async => ref
+                .read(UserApiPagePresenter.instance)
+                .setUserApi(textController.text),
+          ),
           enabled: !isSetUserApi && !isLoading,
           hintText: hint,
           border: const OutlineInputBorder(),
@@ -225,5 +243,58 @@ class _DoneAndLoadingWidget extends ConsumerWidget {
             icon: const Icon(Icons.check_circle_outline_rounded),
             onPressed: isEnabled ? onDone : null,
           );
+  }
+}
+
+class _AboutTariff extends ConsumerWidget {
+  const _AboutTariff({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(UserApiPagePresenter.tr);
+
+    final currentWeatherForDevApiInSeconds = WeatherCurrentNotifier
+        .allowedRequestRateCurrentWithDefaultApi.inSeconds;
+    final onecallWeatherForDevApiInHours =
+        WeatherOnecallNotifier.allowedRequestRateOnecallWithDefaultApi.inHours;
+
+    return Column(
+      children: [
+        InfoTile(
+          iconColor: _userApiColor,
+          text: t.apiWeatherPage.userApi.countCalls,
+        ),
+        InfoTile(
+            iconColor: _devApiColor,
+            text: t.apiWeatherPage.defaultApi.countCalls(
+              currentInSeconds: currentWeatherForDevApiInSeconds,
+              onecallInHours: onecallWeatherForDevApiInHours,
+            )),
+      ],
+    );
+  }
+}
+
+class InfoTile extends StatelessWidget {
+  const InfoTile({super.key, required this.iconColor, required this.text});
+
+  final Color iconColor;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return ListTile(
+      minVerticalPadding: 0,
+      leading: Icon(
+        Icons.circle_rounded,
+        color: iconColor,
+      ),
+      title: Text(text),
+      titleTextStyle: theme.textTheme.labelMedium,
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+    );
   }
 }

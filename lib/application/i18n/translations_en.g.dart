@@ -208,6 +208,8 @@ class TranslationsApiWeatherPageEn extends TranslationsApiWeatherPageRu {
 	// Translations
 	@override String get appbarTitle => 'Your api key';
 	@override String get goToSite => 'Go to openweathermap.org';
+	@override String get buttonCheckRelevance => 'Check relevance';
+	@override String get buttonReset => 'Reset';
 	@override late final TranslationsApiWeatherPageTipsEn tips = TranslationsApiWeatherPageTipsEn._(_root);
 	@override late final TranslationsApiWeatherPageDefaultApiEn defaultApi = TranslationsApiWeatherPageDefaultApiEn._(_root);
 	@override late final TranslationsApiWeatherPageUserApiEn userApi = TranslationsApiWeatherPageUserApiEn._(_root);
@@ -222,7 +224,7 @@ class TranslationsIntroPageEn extends TranslationsIntroPageRu {
 
 	// Translations
 	@override String get tile1title => 'CHECK';
-	@override String get tile1subtitle => 'Super-accurate weather for 48 hours and current for 7 days. Don\'t get caught in the rain - there are weather warnings';
+	@override String get tile1subtitle => 'Super-accurate weather for 48 hours and current for 7 days. Don\'t get caught in the rain – there are weather warnings';
 	@override String get tile2title => 'MEASURE';
 	@override String get tile2subtitle => 'Use your preferred units of temperature, speed, and pressure';
 	@override String get tile3title => 'SAVE';
@@ -691,6 +693,7 @@ class TranslationsApiWeatherPageDefaultApiEn extends TranslationsApiWeatherPageD
 	@override String get usingApi => 'Developer key is used';
 	@override String get numbOfCalls => 'The number of calls is limited to the author\'s WeatherOpenApi rate';
 	@override String get fieldTip => 'Enter Api...';
+	@override String countCalls({required Object currentInSeconds, required Object onecallInHours}) => 'Number of requests:\n${_root.enums.homepage.today} – once every ${currentInSeconds} seconds\n${_root.enums.homepage.hourly}, ${_root.enums.homepage.daily} – once every ${onecallInHours} hours';
 }
 
 // Path: apiWeatherPage.userApi
@@ -703,6 +706,7 @@ class TranslationsApiWeatherPageUserApiEn extends TranslationsApiWeatherPageUser
 	@override String get usingApi => 'Your key is used';
 	@override String get numbOfCalls => 'The number of calls is limited to your WeatherOpenApi rate.';
 	@override String get fieldTip => 'Used...';
+	@override String get countCalls => 'The number of requests is unlimited (limited by your tariff)';
 }
 
 // Path: apiWeatherPage.tooltips
