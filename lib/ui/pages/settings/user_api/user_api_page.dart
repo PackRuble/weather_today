@@ -26,13 +26,14 @@ class UserApiPage extends HookConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         controller: scrollController,
-        children: [
-          const _AboutApiWidget(),
-          const Divider(height: 4.0),
-          const _StatusTileWidget(),
-          const Divider(height: 4.0),
-          _TextFieldApiWidget(scrollController),
-          const SizedBox(height: 50.0),
+        children: const [
+          _AboutApiWidget(),
+          Divider(height: 4.0),
+          _StatusTileWidget(),
+          _TextFieldApiWidget(),
+          Divider(height: 4.0),
+          _AboutTariff(),
+          SizedBox(height: 50.0),
         ],
       ),
     );
@@ -144,28 +145,10 @@ class _StatusTileWidget extends ConsumerWidget {
 }
 
 class _TextFieldApiWidget extends HookConsumerWidget {
-  const _TextFieldApiWidget(this.scrollController);
-
-  final ScrollController scrollController;
-
-  void _moveScrollPosition(bool hasFocus) {
-    double offset = scrollController.position.maxScrollExtent;
-
-    if (hasFocus && offset == 0.0) {
-      offset = 50.0;
-    }
-
-    // ignore: discarded_futures
-    scrollController.animateTo(
-      offset,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.fastEaseInToSlowEaseOut,
-    );
-  }
+  const _TextFieldApiWidget();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final focusNode = useFocusNode();
     final textController = useTextEditingController();
 
     final t = ref.watch(UserApiPagePresenter.tr);
@@ -177,17 +160,10 @@ class _TextFieldApiWidget extends HookConsumerWidget {
         ? t.apiWeatherPage.userApi.fieldTip
         : t.apiWeatherPage.defaultApi.fieldTip;
 
-    useEffect(() {
-      focusNode.addListener(() => _moveScrollPosition(focusNode.hasFocus));
-
-      return null;
-    }, const []);
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextField(
         enabled: !isSetUserApi,
-        focusNode: focusNode,
         obscureText: isSetUserApi,
         controller: textController,
         decoration: InputDecoration(
