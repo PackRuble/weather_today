@@ -13,7 +13,8 @@ import 'package:weather_today/utils/logger/all_observers.dart';
 
 /// Notifier is designed to work with displaying found and saved places
 /// in body searchBar.
-class SearchWidgetNotifier extends AutoDisposeNotifier<SearchState> {
+class SearchWidgetNotifier extends AutoDisposeNotifier<SearchState>
+    with NotifierLogger {
   SearchWidgetNotifier();
 
   /// List of saved places.
@@ -25,15 +26,28 @@ class SearchWidgetNotifier extends AutoDisposeNotifier<SearchState> {
   /// Active request.
   String _query = '';
 
+  /// Bar controller.
+  late FloatingSearchBarController _controllerBar;
+
+  FloatingSearchBarController get controllerBar => _controllerBar;
+
   @override
   SearchState build() {
+    l.info('notifier build');
+
     _savedPlaces = ref.watch(savedPlacesController);
+    _controllerBar = FloatingSearchBarController();
     ref.onDispose(() {
-      controllerBar.dispose();
+      _controllerBar.dispose();
     });
 
+    return _init();
+  }
+
+  SearchState _init() {
     state = const SearchState.loading();
-    // если запроса нет, автоматически пустой _foundedPlaces.
+
+    // if there is no request, automatically empty _foundedPlaces.
     if (_query.isEmpty) {
       state = SearchState.saved(
         _savedPlaces.take(_countDisplayedPlaces).toList(),
@@ -81,6 +95,10 @@ class SearchWidgetNotifier extends AutoDisposeNotifier<SearchState> {
 
   // Working with a request
   // ===========================================================================
+
+  void onFocusChanged(bool isHasFocus) {
+    l.info(isHasFocus ? 'has focus' : 'lost focus');
+  }
 
   /// The function processes the request.
   Future<void> newRequest(String newQuery) async {
@@ -156,13 +174,10 @@ class SearchWidgetNotifier extends AutoDisposeNotifier<SearchState> {
   // Methods of working with places.
   // ===========================================================================
 
-  // ignore: avoid_public_notifier_properties
-  /// Bar controller.
-  final controllerBar = FloatingSearchBarController();
-
   /// Select location as current.
   Future<void> selectCurrentPlace(Place place) async {
-    controllerBar.close();
+    _controllerBar.close();
+    l.info('searchbar closed');
     unawaited(ref.read(WeatherServices.instance).setCurrentPlace(place));
   }
 

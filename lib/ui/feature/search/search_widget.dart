@@ -22,6 +22,10 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
     loggy.debug('build');
 
     final t = ref.watch(SearchWidgetNotifier.tr);
+
+    // is necessary, otherwise in the situation of adding to favorites and
+    // trying to select, the bar is not closed
+    ref.watch(SearchWidgetNotifier.instance);
     final notifier = ref.watch(SearchWidgetNotifier.instance.notifier);
 
     final widthScreen = MediaQuery.sizeOf(context).width;
@@ -56,10 +60,9 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       debounceDelay:
           Duration(milliseconds: SearchWidgetNotifier.debounceDelayMilSec),
       clearQueryOnClose: true,
+      onFocusChanged: notifier.onFocusChanged,
       onQueryChanged: (String query) async => notifier.newRequest(query),
       onSubmitted: (String query) async => notifier.newRequest(query),
-      // onFocusChanged: (bool isFocus) =>
-      //     ref.read(searchWidgetProvider.notifier).changeFocus(isFocus),
       transition: CircularFloatingSearchBarTransition(),
       automaticallyImplyBackButton: false,
       leadingActions: [
@@ -121,10 +124,10 @@ class _SavedBookmarkAction extends FloatingSearchBarAction {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, _) {
-        /// необходимо для отслеживания [isCurrentPlaceSaved]
-        ref.watch(SearchWidgetNotifier.savedPlaces);
         final Place currentPlace = ref.watch(SearchWidgetNotifier.currentPlace);
 
+        /// необходимо для отслеживания [isCurrentPlaceSaved]
+        ref.watch(SearchWidgetNotifier.savedPlaces);
         final bool isCurrentPlaceSaved = ref
             .watch(SearchWidgetNotifier.savedPlaces.notifier)
             .isSavedPlace(currentPlace);

@@ -7,6 +7,10 @@ analyzer:
     - '**/*.g.dart'
     - '**/*.freezed.dart'
 
+custom_lint:
+  rules:
+    - avoid_public_notifier_properties: false
+
 # If necessary, use (ignore: lint) and (ignore_for_file: lint)
 linter:
   rules:
