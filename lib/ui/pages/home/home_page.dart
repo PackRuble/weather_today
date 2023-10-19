@@ -82,6 +82,7 @@ class _BottomBarWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final t = ref.watch(AppLocalization.currentTranslation);
 
     final bars = ref.watch(HomePageController.designPages).indexed.map<Widget>(
@@ -112,7 +113,7 @@ class _BottomBarWidget extends ConsumerWidget {
     return BottomAppBar(
       padding: EdgeInsets.zero,
       height: AppInsets.heightBottomBar,
-      color: theme.colorScheme.background.darken(5),
+      color: colorScheme.background.blend(colorScheme.primary, 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [const BottomIcon(index: 0), ...bars],
