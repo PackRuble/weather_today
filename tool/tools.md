@@ -28,6 +28,11 @@ flutter pub run slang stats
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
+```shell
+fvm dart run build_runner build `
+                                --delete-conflicting-outputs
+```
+
 ## Generate Icons Launcher
 helping: https://pub.dev/packages/icons_launcher
 

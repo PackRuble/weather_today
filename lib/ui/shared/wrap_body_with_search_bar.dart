@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/const/app_insets.dart';
-import 'package:weather_today/ui/feature/search_widget_feature/search_widget_ui.dart';
+import 'package:weather_today/application/const/app_insets.dart';
+import 'package:weather_today/ui/feature/search/search_widget.dart';
 
 /// A wrapper for a page body with FSBar.
 ///
@@ -15,7 +15,8 @@ class WrapperBodyWithFSBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final double statusBarHeight = MediaQuery.of(context).viewPadding.top;
+    final theme = Theme.of(context);
+    final double statusBarHeight = MediaQuery.viewPaddingOf(context).top;
 
     final double paddingTop = statusBarHeight +
         AppInsets.aroundPaddingSearchBar +
@@ -37,8 +38,8 @@ class WrapperBodyWithFSBar extends ConsumerWidget {
         Align(
           alignment: Alignment.topCenter,
           child: ColoredBox(
-            color: Theme.of(context).appBarTheme.backgroundColor ??
-                Theme.of(context).colorScheme.primaryContainer,
+            color: theme.appBarTheme.backgroundColor ??
+                theme.colorScheme.primaryContainer,
             child: SizedBox(
               height: paddingTop,
               width: double.infinity,

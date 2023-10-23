@@ -22,7 +22,7 @@
         "title": "Осадки",
         "subtitle": "Общий объем осадков",
         "no_pop_expected": "Осадки не ожидаются",
-        "pop_expected": "Осадки с {startDate} по {endDate} не ожидаются",
+        "pop_expected": "Осадки с {startDate} по {endDate} не ожидаются",
         "units": "мм",
         "legend": {
           "rain": "дождь",
@@ -34,7 +34,7 @@
         "subtitle": "Максимальный ветер",
         "units": "м/с",
         "no_wind_expected": "Ожидается штиль",
-        "wind_expected": "С {startDate} по {endDate} штиль",
+        "wind_expected": "С {startDate} по {endDate} штиль",
         "legend": {
           "wind": "ветер",
           "gust": "порывы"
@@ -114,7 +114,7 @@
       "tile_title": "Стартовая страница",
       "tile_sub": "{homepage}",
       "dialog_title": "Стартовая страница",
-      "dialog_sub": "Нужная страница откроется сразу при загрузке приложения."
+      "dialog_sub": "Нужная страница откроется сразу при запуске приложения."
     },
     "locale_tile": {
       "tile_title": "Язык приложения",
@@ -134,6 +134,9 @@
   },
   "visual_design_page": {
     "appbar_title": "Визуальное оформление",
+    "tips": {
+      "info": "Удерживайте тайл, чтобы увидеть дизайн"
+    },
     "headers": {
       "design": "Оформление главных страниц погоды",
       "font_size": "Размер шрифта",
@@ -200,19 +203,23 @@
   "api_weather_page": {
     "appbar_title": "Ваш ключ Api",
     "go_to_site": "Перейти на сайт openweathermap.org",
+    "button_check_relevance": "Проверить актуальность",
+    "button_reset": "Сбросить",
     "tips": {
       "info": "Чтобы делать запросы чаще, нужно иметь свой ключик Api.",
       "free": "Он бесплатный, получить его можно по ссылке ниже."
     },
     "default_api": {
-      "using_api": "Используется Api по умолчанию",
+      "using_api": "Используется ключ разработчика",
       "numb_of_calls": "Количество вызовов ограничено авторским тарифом WeatherOpenApi",
-      "field_tip": "Введите Api..."
+      "field_tip": "Введите Api...",
+      "count_calls": "Количество запросов:\n@:enums.homepage.today – раз в {currentInSeconds} секунд\n@:enums.homepage.hourly, @:enums.homepage.daily – раз в {onecallInHours} часа"
     },
     "user_api": {
-      "using_api": "Установлен пользовательский Api",
-      "numb_of_calls": "Количество вызовов ограничено вашим тарифом WeatherOpenApi",
-      "field_tip": "Используется..."
+      "using_api": "Используется Ваш ключ",
+      "numb_of_calls": "Количество вызовов ограничено Вашим тарифом WeatherOpenApi",
+      "field_tip": "Используется...",
+      "count_calls": "Количество запросов неограничено (ограничено вашим тарифом)"
     },
     "tooltips": {
       "del_api_key": "Удалить Api-ключ",
@@ -224,7 +231,7 @@
   },
   "intro_page": {
     "tile1title": "УЗНАВАЙ",
-    "tile1subtitle": "Сверхточная погода на 48 часов и актуальная на 7 дней. Не попадай под дождь - ведь есть предупреждения о погоде",
+    "tile1subtitle": "Сверхточная погода на 48 часов и актуальная на 7 дней. Не попадай под дождь – ведь есть предупреждения о погоде",
     "tile2title": "ИЗМЕРЯЙ",
     "tile2subtitle": "Используй удобные для СЕБЯ единицы измерения температуры, скорости и давления",
     "tile3title": "СОХРАНЯЙ",
@@ -326,17 +333,17 @@
   },
   "global": {
     "time": {
-      "the_day_before_yesterday": "Позавчера",
+      "day_before_yesterday": "Позавчера",
       "yesterday": "Вчера",
       "today": "Сегодня",
       "tomorrow": "Завтра",
-      "theDayAfterTomorrow": "Послезавтра",
-      "time_to_hour_minute": "{hour} ч {minute} мин",
-      "time_to_minute": "{minute} мин",
-      "time_from_timeS_to_timeE": "{time} с {time_start} по {time_end}",
-      "from_time_to_time": "с {time_start} по {time_end}",
-      "time_from_timeS_to_timeEnl": "{time} \nс {time_start} по {time_end}",
-      "from_time_to_time_nl": "с {time_start} \nпо {time_end}"
+      "day_after_tomorrow": "Послезавтра",
+      "hm": "{hour} ч {minute} мин",
+      "m": "{minute} мин",
+      "date_from_to_with_nbsp": "{date} с {time_start} по {time_end}",
+      "date_from_to_with_nbsp_newline": "{date} \nс {time_start} по {time_end}",
+      "from_to_with_nbsp": "с {time_start} по {time_end}",
+      "from_to_with_nbsp_newline": "с {time_start} \nпо {time_end}"
     }
   },
   "dialogs": {
@@ -348,11 +355,16 @@
       "api_key_OWM_verification_fail": "Api ключ недействителен!",
       "weather_update_fail": "Сейчас недоступно..."
     },
+    "titles": {
+      "warning": "Предупреждение",
+      "info": "Информация"
+    },
     "buttons": {
       "ok": "Ок",
       "okay": "Понятно",
       "know": "Узнать",
       "save": "Сохранить",
+      "reset": "Сбросить",
       "cancel": "Отмена"
     },
     "place_search_info": {
@@ -364,21 +376,21 @@
       "coord": "55.75199, 37.61773"
     },
     "confirm_del_place": {
-      "title": "Предупреждение",
       "subtitle": "Удалить местоположение?",
-      "content": "Местоположение будет удалено из списка сохраненных"
+      "content": "Местоположение будет удалено из списка сохранённых"
     },
     "see_flag": {
-      "title": "Информация",
       "subtitle": "Вы можете увидеть полное наименование страны и её флаг"
     },
     "confirm_del_user_apikey": {
-      "title": "Предупреждение",
       "subtitle": "Ваш пользовательский ключ api будет удален"
     },
     "confirm_save_changes": {
-      "title": "Предупреждение",
       "subtitle": "Сохранить изменения?"
+    },
+    "confirm_reset_settings": {
+      "subtitle": "Сбросить настройки?",
+      "content": "Настройки этой страницы будут сброшены."
     },
     "make_note": {
       "title": "Заметка",

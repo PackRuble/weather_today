@@ -1,9 +1,18 @@
-import 'package:loggy/loggy.dart' show LoggyType, Loggy;
+import 'package:loggy/loggy.dart' show Loggy, LoggyType;
+
+mixin NotifierLogger implements LoggyType {
+  @override
+  Loggy<NotifierLogger> get loggy => Loggy<NotifierLogger>('[$runtimeType]');
+
+  Loggy<NotifierLogger> get l => loggy;
+}
 
 mixin GlobalLogger implements LoggyType {
   @override
   Loggy<GlobalLogger> get loggy =>
       Loggy<GlobalLogger>('[Global - $runtimeType]');
+
+  Loggy<GlobalLogger> get l => loggy;
 }
 
 Loggy<GlobalLogger> get _globalLoggy => Loggy<GlobalLogger>('[Global Logger]');

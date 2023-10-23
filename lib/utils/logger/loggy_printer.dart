@@ -1,8 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:loggy/loggy.dart';
-import 'package:weather_today/core/controllers/logger_controller.dart';
 
 // ignore_for_file: avoid_print
+
+/// A printer that doesn't do anything
+class StubPrinter extends LoggyPrinter {
+  @override
+  void onLog(_) {}
+}
 
 class SmartPrinter extends LoggyPrinter {
   const SmartPrinter({
@@ -10,32 +14,29 @@ class SmartPrinter extends LoggyPrinter {
     required this.userPrinter,
   });
 
-  /// Предназначен, чтобы выводить сообщения в консоль.
+  /// Designed to output messages to the console.
   ///
-  /// Для подробного ознакомления смотреть [ConsolePrinter.onLog].
-  final ConsolePrinter consolePrinter;
+  /// For detailed information, see [ConsolePrinter.onLog].
+  final ConsolePrinter? consolePrinter;
 
-  /// Предназначен, чтобы сохранять сообщения у пользователя.
+  /// Designed to save messages for the user.
   ///
-  /// Для подробного ознакомления смотреть [UserPrinter.onLog].
-  final UserPrinter userPrinter;
+  /// For detailed information, see [UserPrinter.onLog].
+  final UserPrinter? userPrinter;
 
   @override
   void onLog(LogRecord record) {
-    if (kDebugMode || kProfileMode) {
-      consolePrinter.onLog(record);
-    }
-
-    userPrinter.onLog(record);
+    consolePrinter?.onLog(record);
+    userPrinter?.onLog(record);
   }
 }
 
-/// Пропускает все записи уровня [LogLevel.debug].
 class UserPrinter extends LoggyPrinter {
-  const UserPrinter({required this.manager});
+  const UserPrinter({required this.onNewLog});
 
-  final AppLogsManager manager;
+  final void Function(Object? record) onNewLog;
 
+  /// (!) Skips all entries at level [LogLevel.debug].
   @override
   void onLog(LogRecord record) {
     if (record.level == LogLevel.debug) {
@@ -55,7 +56,7 @@ class UserPrinter extends LoggyPrinter {
       result.write('\n${record.stackTrace}');
     }
 
-    manager.addLogRecord(result.toString());
+    onNewLog.call(result.toString());
   }
 }
 

@@ -22,7 +22,7 @@
         "title": "Precipitation",
         "subtitle": "Total precipitation",
         "no_pop_expected": "No precipitation expected",
-        "pop_expected": "Precipitation from {startDate} to {endDate} is not expected",
+        "pop_expected": "Precipitation from {startDate} to {endDate} is not expected",
         "units": "mm",
         "legend": {
           "rain": "rain",
@@ -34,7 +34,7 @@
         "subtitle": "Maximum wind",
         "units": "m/s",
         "no_wind_expected": "Doldrums pending",
-        "wind_expected": "From {startDate} to {endDate} doldrums",
+        "wind_expected": "From {startDate} to {endDate} doldrums",
         "legend": {
           "wind": "wind",
           "gust": "gust"
@@ -114,7 +114,7 @@
       "tile_title": "Start Page",
       "tile_sub": "{homepage}",
       "dialog_title": "Start Page",
-      "dialog_sub": "The desired page will open immediately when the application loads."
+      "dialog_sub": "The desired page will open immediately when you launch the application."
     },
     "locale_tile": {
       "tile_title": "Application language",
@@ -125,15 +125,18 @@
     "gratitude_tile": {
       "tile_title": "Gratitude"
     },
-    "about_app_tile": {
-      "tile_title": "About the app"
-    },
     "system_settings_tile": {
       "tile_title": "System settings"
+    },
+    "about_app_tile": {
+      "tile_title": "About the app"
     }
   },
   "visual_design_page": {
     "appbar_title": "Visual design",
+    "tips": {
+      "info": "Hold down the tile to see the design"
+    },
     "headers": {
       "design": "Weather main page design",
       "font_size": "Font size",
@@ -200,19 +203,23 @@
   "api_weather_page": {
     "appbar_title": "Your api key",
     "go_to_site": "Go to openweathermap.org",
+    "button_check_relevance": "Check relevance",
+    "button_reset": "Reset",
     "tips": {
       "info": "To make requests more often, you need to have your Api key.",
       "free": "It's free, you can get it from the link below."
     },
     "default_api": {
-      "using_api": "The default Api is used.",
+      "using_api": "Developer key is used",
       "numb_of_calls": "The number of calls is limited to the author's WeatherOpenApi rate",
-      "field_tip": "Enter Api..."
+      "field_tip": "Enter Api...",
+      "count_calls": "Number of requests:\n@:enums.homepage.today – once every {currentInSeconds} seconds\n@:enums.homepage.hourly, @:enums.homepage.daily – once every {onecallInHours} hours"
     },
     "user_api": {
-      "using_api": "User Api installed",
+      "using_api": "Your key is used",
       "numb_of_calls": "The number of calls is limited to your WeatherOpenApi rate.",
-      "field_tip": "Used..."
+      "field_tip": "Used...",
+      "count_calls": "The number of requests is unlimited (limited by your tariff)"
     },
     "tooltips": {
       "del_api_key": "Remove Api key",
@@ -224,7 +231,7 @@
   },
   "intro_page": {
     "tile1title": "CHECK",
-    "tile1subtitle": "Super-accurate weather for 48 hours and current for 7 days. Don't get caught in the rain - there are weather warnings",
+    "tile1subtitle": "Super-accurate weather for 48 hours and current for 7 days. Don't get caught in the rain – there are weather warnings",
     "tile2title": "MEASURE",
     "tile2subtitle": "Use your preferred units of temperature, speed, and pressure",
     "tile3title": "SAVE",
@@ -234,6 +241,15 @@
     "previous_button": "Back",
     "next_button": "Next",
     "done_button": "Done"
+  },
+  "terms_conditions": {
+    "information_for_action": "Read and agree to all legal documents to use this application.",
+    "privacy_policy": "Privacy Policy",
+    "terms_and_conditions": "Terms and conditions",
+    "terms_use_app": "Application Terms of Use",
+    "confirmation_with_the_above": "After clicking \"@:termsConditions.buttonAccept\" you confirm that you have read and agree with all of the above",
+    "button_cancel": "Reject and exit",
+    "button_accept": "Accept"
   },
   "weather": {
     "condition": {
@@ -317,17 +333,17 @@
   },
   "global": {
     "time": {
-      "the_day_before_yesterday": "The day before yesterday",
+      "day_before_yesterday": "The day before yesterday",
       "yesterday": "Yesterday",
       "today": "Today",
       "tomorrow": "Tomorrow",
-      "theDayAfterTomorrow": "The day after tomorrow",
-      "time_to_hour_minute": "{hour} h {minute} min",
-      "time_to_minute": "{minute} min",
-      "time_from_timeS_to_timeE": "{time} from {time_start} to {time_end}",
-      "from_time_to_time": "from {time_start} to {time_end}",
-      "time_from_timeS_to_timeEnl": "{time} \nfrom {time_start} to {time_end}",
-      "from_time_to_time_nl": "from {time_start} \nto {time_end}"
+      "day_after_tomorrow": "The day after tomorrow",
+      "hm": "{hour} h {minute} min",
+      "m": "{minute} min",
+      "date_from_to_with_nbsp": "{date} from {time_start} to {time_end}",
+      "date_from_to_with_nbsp_newline": "{date} \nfrom {time_start} to {time_end}",
+      "from_to_with_nbsp": "from {time_start} to {time_end}",
+      "from_to_with_nbsp_newline": "from {time_start} \nto {time_end}"
     }
   },
   "dialogs": {
@@ -339,11 +355,16 @@
       "api_key_OWM_verification_fail": "Api key is invalid!",
       "weather_update_fail": "Not available right now..."
     },
+    "titles": {
+      "warning": "Warning",
+      "info": "Information"
+    },
     "buttons": {
       "ok": "Ok",
       "okay": "Okay",
       "know": "Know",
       "save": "Save",
+      "reset": "Reset",
       "cancel": "Cancel"
     },
     "place_search_info": {
@@ -356,21 +377,21 @@
       "coord": "55.75199, 37.61773"
     },
     "confirm_del_place": {
-      "title": "Warning",
       "subtitle": "Delete place?",
       "content": "The place will be removed from the list of saved places"
     },
     "see_flag": {
-      "title": "Information",
       "subtitle": "You can see the full name of the country and its flag"
     },
     "confirm_del_user_apikey": {
-      "title": "Warning",
       "subtitle": "Your user api key will be deleted."
     },
     "confirm_save_changes": {
-      "title": "Warning",
       "subtitle": "Save changes?"
+    },
+    "confirm_reset_settings": {
+      "subtitle": "Reset settings?",
+      "content": "This page's settings will be reset."
     },
     "make_note": {
       "title": "Note",
@@ -450,14 +471,5 @@
         "north_west": "North-West"
       }
     }
-  },
-  "terms_conditions": {
-    "information_for_action": "Read and agree to all legal documents to use this application.",
-    "privacy_policy": "Privacy Policy",
-    "terms_and_conditions": "Terms and conditions",
-    "terms_use_app": "Application Terms of Use",
-    "confirmation_with_the_above": "After clicking \"@:termsConditions.buttonAccept\" you confirm that you have read and agree with all of the above",
-    "button_cancel": "Reject and exit",
-    "button_accept": "Accept"
   }
 }

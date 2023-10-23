@@ -1,11 +1,11 @@
+// ignore_for_file: unused_field, prefer_interpolation_to_compose_strings
+
 import 'package:weather_pack/weather_pack.dart';
+import 'package:weather_today/application/i18n/translations.g.dart';
+import 'package:weather_today/application/i18n/translations_enum.dart';
 import 'package:weather_today/extension/string_extension.dart';
-import 'package:weather_today/i18n/translations.g.dart';
-import 'package:weather_today/i18n/translations_enum.dart';
 
-import '../../core/models/place/place_model.dart';
-
-// ignore_for_file: prefer_interpolation_to_compose_strings
+import '../../domain/models/place/place_model.dart';
 
 /// Вспомогательный класс для корректного отображения различных метрик.
 ///
@@ -17,6 +17,15 @@ import '../../core/models/place/place_model.dart';
 /// * преобразование давления
 class MetricsHelper {
   MetricsHelper._();
+
+  // `\u2212` или `String.fromCharCode(0x2212)` - знак минуса `−`
+  static const _minus = '\u2212';
+
+  // `\u2010` или `String.fromCharCode(0x2010)` - знак дефиса `-`
+  static const _hyphen = '\u2010';
+
+  // `\u002D` или `String.fromCharCode(0x002D)` - знак дефис-минус `-`
+  static const _hyphenMinus = '\u002D';
 
   /// Получить корректное название места следующего вида:
   /// --> '[countryCode], [state]' || [name] || null
@@ -112,10 +121,19 @@ class MetricsHelper {
   // ===========================================================================
   // temperature conversion
 
-  /// Получить темпрературу в строковом виде.
+  /// Заменяем дефис-минус на настоящий минус. Он просто больше :)
+  static String _fixMinus(String value) {
+    if (value == '${_hyphenMinus}0.0' || value == '${_hyphenMinus}0') {
+      return value.substring(1);
+    }
+
+    return value.contains(_hyphenMinus) ? _minus + value.substring(1) : value;
+  }
+
+  /// Получить температуру в строковом виде.
   ///
   /// Нюансы:
-  /// * знак [-] отрицательной температуры всегда заменяется на тире [–].
+  /// * знак дефис-минус всегда заменяется на минус.
   /// * при использовании [withFiller] всегда вернется [String].
   ///
   /// Аргументы:
@@ -124,7 +142,7 @@ class MetricsHelper {
   /// * [withFiller] - использовать заполнитель при [value]=null.
   /// * [filler] - заполнитель при [value]=null.
   /// * [precision] - количество знаков после запятой. Всегда >=0
-  static String? getTemp(
+  static String? getTempOrNull(
     double? value,
     Temp units, {
     bool withSign = false,
@@ -143,12 +161,7 @@ class MetricsHelper {
       result = units.valueToString(value, _precision);
       _value = units.value(value, _precision);
 
-      // заменяем минус на тире в обязательном порядке
-      if (_value < 0.0) {
-        result = '–' + result.substring(1);
-      } else if (_value.toString().contains('-')) {
-        result = result.substring(1);
-      }
+      result = _fixMinus(result);
 
       // температура со знаком +?
       if (withSign) {
@@ -170,6 +183,26 @@ class MetricsHelper {
 
     return result;
   }
+
+  /// Отличается от [getTempOrNull] только тем, что всегда использует [filler],
+  /// если [value] равно null.
+  static String getTemp(
+    double? value,
+    Temp units, {
+    bool withSign = false,
+    bool withUnits = true,
+    String filler = '–',
+    int? precision,
+  }) =>
+      getTempOrNull(
+        value,
+        units,
+        withSign: withSign,
+        withUnits: withUnits,
+        withFiller: true,
+        filler: filler,
+        precision: precision,
+      )!;
 
   /// Получить единицы температуры вида `°C`.
   static String getTempUnits(Temp units) => units.abbr;
@@ -268,14 +301,17 @@ class MetricsHelper {
     final List<WeatherAlert> newAlerts = [];
 
     for (final WeatherAlert alert in oldAlerts) {
-      // вопрос: возможно, пустое [alert.description] нам тоже подойдет?
-      // ответ: json подсказывает, если нет description - это не локальные
-      // уведомления. А нам такие не нужны :)
-      // if ((alert.event?.isEmpty ?? true)
-      // || (alert.description?.isEmpty ?? true)
-      //     ) {
-      //   continue;
-      // }
+      // отправитель mecom.ru дублирует информацию на английский, в котором отсутствует description
+      // coldfix: можно добавить также текущий язык
+      // проверить на содержание ещё одного английского аллерта с таким же временем
+      if ((alert.description?.isEmpty ?? true) &&
+          (alert.senderName?.contains('mecom.ru') ?? false) &&
+          oldAlerts.any((element) =>
+              element.start == alert.start &&
+              element.end == alert.end &&
+              element.hashCode != alert.hashCode)) {
+        continue;
+      }
 
       if (alert.start == null || alert.end == null) {
         continue;

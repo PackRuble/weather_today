@@ -1,3 +1,5 @@
+import 'dart:ui' show ImageFilter;
+
 import 'package:flutter/material.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
@@ -6,23 +8,6 @@ import 'package:weather_today/utils/logger/all_observers.dart';
 /// Удобен тем, что имеет обработку ошибок.
 class ImageHelper {
   ImageHelper._();
-
-  /// Получить иконку погоды по её коду.
-  ///
-  /// [onError] - если произошла ошибка загрузки.
-  static Widget getWeatherIcon(String? weatherIcon, [String onError = '🌈']) =>
-      Image.asset(
-        'assets/weather_icons/$weatherIcon.png',
-        // ImagePathWeather.getPathWeatherIcon('weatherIcon' ?? ''),
-        // package: ImagePathWeather.packageName,
-        filterQuality: FilterQuality.high,
-        errorBuilder: (_, e, s) {
-          // bug: await fix https://github.com/flutter/flutter/issues/107416
-          logWarning('*$weatherIcon* not found assets weatherIcon');
-
-          return FittedBox(fit: BoxFit.contain, child: Text(onError));
-        },
-      );
 
   /// Получить изображение флага из пакета.
   ///
@@ -43,8 +28,68 @@ class ImageHelper {
 }
 
 class ImagePaths {
+  const ImagePaths._();
+
   static String root = 'assets/images';
   static String icons = 'assets/icons';
 
-  static String iconAbout = '$icons/icon.png';
+  static String iconApp = '$icons/icon.png';
+  static String iconAppDev = '$icons/icon_dev.png';
+}
+
+/// Получить иконку погоды по её коду.
+class WeatherImageIcon extends StatelessWidget {
+  const WeatherImageIcon({
+    super.key,
+    required this.weatherIcon,
+  });
+
+  final String? weatherIcon;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    Widget getImage(bool isBackground) => Image.asset(
+          'assets/weather_icons/$weatherIcon.png',
+          // ImagePathWeather.getPathWeatherIcon('weatherIcon' ?? ''),
+          // package: ImagePathWeather.packageName,
+          color: isBackground ? theme.primaryColorDark : null,
+          filterQuality: FilterQuality.high,
+          errorBuilder: (_, e, s) {
+            // bug: await fix https://github.com/flutter/flutter/issues/107416
+            logWarning('$e: *$weatherIcon* not found assets weatherIcon');
+
+            // coldfix: осталась полоска сверху на главной странице
+            return Transform.scale(
+              filterQuality: FilterQuality.low,
+              scale: 0.5,
+              child: Image.asset(
+                filterQuality: FilterQuality.high,
+                'assets/images/rainbow.png',
+              ),
+            );
+          },
+        );
+
+    return Stack(
+      children: [
+        Opacity(
+          opacity: 0.6,
+          child: Transform.scale(
+            filterQuality: FilterQuality.low,
+            origin: const Offset(-48, -48),
+            scale: 1.1,
+            child: getImage(true),
+          ),
+        ),
+        ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
+            child: getImage(false),
+          ),
+        ),
+      ],
+    );
+  }
 }

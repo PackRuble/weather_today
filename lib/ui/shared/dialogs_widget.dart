@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_today/const/app_colors.dart';
+import 'package:weather_today/application/const/app_colors.dart';
 
 import 'wrapper_page.dart';
 
@@ -52,12 +52,12 @@ class DialogOption<T> extends StatelessWidget {
 
 class DialogSwitch extends StatefulWidget {
   const DialogSwitch({
-    Key? key,
+    super.key,
     required this.value,
     required this.title,
     this.subtitle,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   final String title;
   final String? subtitle;
@@ -92,11 +92,11 @@ class _DialogSwitchState extends State<DialogSwitch> {
 
 class DialogTile extends StatelessWidget {
   const DialogTile({
-    Key? key,
+    super.key,
     required this.title,
     this.subtitle,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final String title;
   final String? subtitle;

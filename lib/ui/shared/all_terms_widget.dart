@@ -2,39 +2,45 @@ import 'dart:io' show exit;
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/core/controllers/general_settings_controller.dart';
-import 'package:weather_today/core/controllers/localization_controller.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'package:weather_today/domain/controllers/general_settings_controller.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
 
 import 'terms_conditions_widget.dart';
 
 const _padding = 16.0;
 
 // ignore: non_constant_identifier_names
-Widget _Divider() => const Divider(height: 0.0, thickness: 0.0);
+const _divider = Divider(height: 0.0, thickness: 0.0);
 
-// ignore: non_constant_identifier_names
-Widget _DecoratedWidget(BuildContext context, {required Widget child}) {
-  final theme = Theme.of(context);
+class _DecoratedWidget extends StatelessWidget {
+  // ignore: unused_element
+  const _DecoratedWidget({super.key, required this.child});
 
-  return Container(
-    margin: const EdgeInsets.all(_padding),
-    clipBehavior: Clip.antiAlias,
-    decoration: ShapeDecoration(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-        side: BorderSide(width: 1.0, color: theme.dividerColor),
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      margin: const EdgeInsets.all(_padding),
+      clipBehavior: Clip.antiAlias,
+      decoration: ShapeDecoration(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+          side: BorderSide(width: 1.0, color: theme.dividerColor),
+        ),
       ),
-    ),
-    child: child,
-  );
+      child: child,
+    );
+  }
 }
 
 class TermsConditionsWidget extends ConsumerWidget {
   const TermsConditionsWidget({
-    Key? key,
+    super.key,
     this.isAccepted = false,
-  }) : super(key: key);
+  });
 
   final bool isAccepted;
 
@@ -46,28 +52,26 @@ class TermsConditionsWidget extends ConsumerWidget {
       children: [
         Expanded(
           child: ListView(
-            physics: ref.watch(AppTheme.scrollPhysics).scrollPhysics,
             children: [
               if (!isAccepted) ...[
                 _DecoratedWidget(
-                  context,
                   child: Padding(
                     padding: const EdgeInsets.all(_padding),
                     child: Text(t.termsConditions.informationForAction),
                   ),
                 ),
-                _Divider(),
+                _divider,
               ],
               _TileDocWidget(
                 title: t.termsConditions.termsUseApp,
                 child: const TermsUseAppMarkdown(),
               ),
-              _Divider(),
+              _divider,
               _TileDocWidget(
                 title: t.termsConditions.termsAndConditions,
                 child: const TermsAndConditionsMarkdown(),
               ),
-              _Divider(),
+              _divider,
               _TileDocWidget(
                 title: t.termsConditions.privacyPolicy,
                 child: const PrivacyPolicyMarkdown(),
@@ -76,7 +80,7 @@ class TermsConditionsWidget extends ConsumerWidget {
           ),
         ),
         if (!isAccepted) ...[
-          _Divider(),
+          _divider,
           Padding(
             padding:
                 const EdgeInsets.fromLTRB(_padding, _padding, _padding, 0.0),
@@ -91,8 +95,9 @@ class TermsConditionsWidget extends ConsumerWidget {
 
 class _ButtonBarWidget extends ConsumerWidget {
   const _ButtonBarWidget({
-    Key? key,
-  }) : super(key: key);
+    // ignore: unused_element
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -115,17 +120,18 @@ class _ButtonBarWidget extends ConsumerWidget {
 
 class _TileDocWidget extends ConsumerWidget {
   const _TileDocWidget({
-    Key? key,
+    // ignore: unused_element
+    super.key,
     required this.title,
     required this.child,
-  }) : super(key: key);
+  });
 
   final String title;
   final Widget child;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery.sizeOf(context);
     final theme = Theme.of(context);
 
     return Column(
@@ -140,10 +146,7 @@ class _TileDocWidget extends ConsumerWidget {
         ),
         SizedBox(
           height: size.height / 3,
-          child: _DecoratedWidget(
-            context,
-            child: child,
-          ),
+          child: _DecoratedWidget(child: child),
         ),
       ],
     );

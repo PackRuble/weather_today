@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/core/services/app_theme_service/controller/app_theme_controller.dart';
+import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
 
-import '../../const/app_colors.dart';
+import '../../application/const/app_colors.dart';
 
 class ChangerThemeButton extends ConsumerWidget {
   const ChangerThemeButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

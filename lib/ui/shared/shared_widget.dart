@@ -8,6 +8,7 @@ const double _indent = 16.0;
 class HeaderRWidget extends StatelessWidget {
   const HeaderRWidget(
     this.head, {
+    super.key,
     this.fontStyle,
     this.textStyle,
     this.padding = const EdgeInsets.only(left: _indent, top: _indent),
