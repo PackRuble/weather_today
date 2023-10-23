@@ -6,6 +6,7 @@
 - imp: the weather will be updated when the city is updated
 - add: info about api in api page
 - fix: printing to the console is disabled in the release
+- upd: gold sunset now theme by default
 
 ## [3.3.0-pre.4] - 03-10-2023
 - imp: large migration of files and folders over "some" clean architecture

@@ -63,7 +63,7 @@ class DbStore {
   // ===========================================================================
 
   static const String themeScheme = 'themeScheme';
-  static const int themeSchemeDefault = 8; //sakura
+  static const int themeSchemeDefault = 18; //8-sakura, 18-gold sunset
 
   // enum
   static const String themeMode = 'themeMode';
