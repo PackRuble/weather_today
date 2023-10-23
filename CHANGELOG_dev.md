@@ -1,4 +1,4 @@
-## [3.3.0-pre.5] - expected
+## [3.3.0-pre.5] - 23-10-2023
 - fix: incorrect unfocused behavior in ApiPage
 - add: changelog in about dialog
 - fix: eliminated the scrolling effect in markdown texts

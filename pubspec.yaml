@@ -2,7 +2,7 @@ name: weather_today
 description: Weather for every day.
 publish_to: none
 
-version: 3.3.0-pre.4+18
+version: 3.3.0-pre.5+19
 
 environment:
   sdk: ^3.0.0
