@@ -90,7 +90,8 @@ class _TileFoundedWidget extends ConsumerWidget {
 
     final bool isSelected = curPlace == place;
 
-    final AppColors colors = AppColors.of(context);
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return Padding(
       padding: const EdgeInsets.all(AppInsets.allPadding),
@@ -98,13 +99,12 @@ class _TileFoundedWidget extends ConsumerWidget {
         onLongPress: () async =>
             ref.read(SavedPlacesPagePresenter.instance).selectPlace(place),
         child: Card(
-          color: isSelected ? colors.cardSelectedColor : colors.cardColor,
+          color: isSelected ? colors.secondaryContainer : theme.cardColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),
             side: BorderSide(
-              color: isSelected
-                  ? colors.cardSelectedBorder
-                  : colors.cardBorderColor,
+              color: colors.secondary,
+              width: isSelected ? 2.0 : 1.0,
             ),
           ),
           margin: EdgeInsets.zero,
