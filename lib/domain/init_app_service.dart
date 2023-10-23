@@ -1,14 +1,11 @@
 import 'package:cardoteka/cardoteka.dart';
-import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/application/const/app_info.dart';
 import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
 import 'package:weather_today/domain/controllers/logger_controller.dart';
 import 'package:weather_today/domain/controllers/owm_controller.dart';
 import 'package:weather_today/domain/services/local_storage/data_base_controller.dart';
-import 'package:weather_today/utils/logger/all_observers.dart';
 
-import '../utils/logger/loggy_printer.dart';
 import 'controllers/general_settings_controller.dart';
 import 'controllers/localization_controller.dart';
 import 'controllers/weather_service_controllers.dart';
@@ -63,26 +60,8 @@ class ServiceInit {
       _container.read(OWMController.instance).init();
 
   Future<void> _initLogger() async {
-    final _loggerManager = _container.read(loggerManager);
+    final _loggerManager = _container.read(AppLogsManager.instance);
     await _loggerManager.init();
-
-    logInfo('Activate the logger...');
-    Loggy.initLoggy(
-      logPrinter: SmartPrinter(
-        consolePrinter: const ConsolePrinter(showColors: true),
-        userPrinter: UserPrinter(manager: _loggerManager),
-      ),
-      logOptions: const LogOptions(
-        LogLevel.all,
-        stackTraceLevel: LogLevel.off,
-      ),
-      filters: kDebugMode
-          ? [
-              BlacklistFilter([DbLogger])
-            ]
-          : [],
-    );
-    logInfo('Successful logger activation');
   }
 
   Future<void> _initLocalization() async {

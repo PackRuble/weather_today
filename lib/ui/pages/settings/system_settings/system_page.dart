@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -52,17 +50,17 @@ class EnableLogsSwitch extends ConsumerWidget {
             Flexible(
               child: SwitchTileWidget(
                 onChanged: (bool value) async {
-                  if (value) {
-                    unawaited(ref.read(loggerManager).enableLogging());
-                  } else {
-                    unawaited(ref.read(loggerManager).disableLogging());
-                  }
+                  final logger = ref.read(AppLogsManager.instance);
+
+                  await (value
+                      ? logger.enableLogging()
+                      : logger.disableLogging());
 
                   onChange?.call();
                 },
                 title: t.systemSettingsPage.enableLogsTile.tileTitle,
                 subtitle: t.systemSettingsPage.enableLogsTile.tileSub,
-                value: ref.watch(loggerManager).isEnableLogging,
+                value: ref.watch(AppLogsManager.instance).isEnableLogging,
               ),
             ),
 

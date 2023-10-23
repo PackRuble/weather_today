@@ -5,6 +5,7 @@
 - imp: beautiful title text and reduced padding in buttons on the stepper page
 - imp: the weather will be updated when the city is updated
 - add: info about api in api page
+- fix: printing to the console is disabled in the release
 
 ## [3.3.0-pre.4] - 03-10-2023
 - imp: large migration of files and folders over "some" clean architecture

@@ -17,7 +17,7 @@ class LogsPage extends ConsumerWidget with UiLoggy {
 
     final theme = Theme.of(context);
 
-    final logsManager = ref.watch(loggerManager);
+    final logsManager = ref.watch(AppLogsManager.instance);
 
     return Scaffold(
       appBar: const AppBarCustom('Logs'),

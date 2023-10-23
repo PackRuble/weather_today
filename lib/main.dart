@@ -17,8 +17,7 @@ void _loggingErrors() {
   // логгирование ошибок flutter framework
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
-    logError('Flutter Error', details.exception,
-        Trace.from(details.stack ?? Trace.current()).terse);
+    logError('Flutter Error', details.exception, Trace.current().terse);
     // exit(1);
   };
 
