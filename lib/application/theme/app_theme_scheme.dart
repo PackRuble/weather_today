@@ -97,7 +97,7 @@ class AppThemeScheme {
     required String fontFamily,
   }) =>
       FlexColorScheme.dark(
-        colors: usedTheme.dark.defaultError
+        colors: usedTheme.light.defaultError
             .toDark(darkLevel, swapDarkMainAndContainerColors),
         surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
         blendLevel: 10,
