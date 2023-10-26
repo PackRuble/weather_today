@@ -1,3 +1,6 @@
+## [3.3.1] - 26-10-2023
+- fix: skip the reload screen in the AlertsList
+
 ## [3.3.0-pre.5] - 23-10-2023
 - fix: incorrect unfocused behavior in ApiPage
 - add: changelog in about dialog

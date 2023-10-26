@@ -61,6 +61,8 @@ class _AlertsListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(DailyPagePresenter.alerts).maybeWhen(
+        skipLoadingOnReload: true,
+        skipLoadingOnRefresh: false,
         data: (List<WeatherAlert>? alerts) {
           if (alerts?.isEmpty ?? true) {
             return const SizedBox.shrink();

@@ -37,13 +37,13 @@ class DailyPagePresenter {
 
   /// Weather alerts from ONE_CALL-weather.
   static final alerts = Provider<AsyncValue<List<WeatherAlert>?>>((ref) {
-    final AsyncValue<WeatherOneCall?> asyncWeather = ref.watch(onecall);
+    final WeatherOneCall? weather = ref.watch(onecall).value;
 
-    if (asyncWeather.isRefreshing || asyncWeather.isLoading) {
+    if (weather != null) {
+      return AsyncValue.data(weather.alerts);
+    } else {
       return const AsyncValue.loading();
     }
-
-    return AsyncValue.data(asyncWeather.value?.alerts);
   });
 
   /// Provider returns translation.
