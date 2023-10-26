@@ -1,9 +1,9 @@
 import 'package:auto_route/annotations.dart';
 import 'package:expandable/expandable.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/application/const/app_colors.dart';
 import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/application/const/app_insets.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
@@ -99,12 +99,14 @@ class _TileFoundedWidget extends ConsumerWidget {
         onLongPress: () async =>
             ref.read(SavedPlacesPagePresenter.instance).selectPlace(place),
         child: Card(
-          color: isSelected ? colors.secondaryContainer : theme.cardColor,
+          color: isSelected
+              ? colors.secondary.blend(colors.background, 40)
+              : theme.cardColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),
             side: BorderSide(
-              color: colors.secondary,
-              width: isSelected ? 2.0 : 1.0,
+              color: colors.primaryContainer,
+              width: isSelected ? 1.8 : 1.0,
             ),
           ),
           margin: EdgeInsets.zero,
@@ -149,10 +151,7 @@ class _HeaderWidget extends ConsumerWidget {
       title: Text(title),
       subtitle: Text(subtitle),
       trailing: IconButton(
-        icon: Icon(
-          Icons.delete,
-          color: IconTheme.of(context).color,
-        ),
+        icon: const Icon(Icons.delete),
         onPressed: () async => ref
             .read(SavedPlacesPagePresenter.instance)
             .dialogAfterDeletingPlace(context, place),
@@ -172,19 +171,18 @@ class _ExpandedWidget extends ConsumerWidget {
 
     final Place curPlace = ref.watch(WeatherServices.currentPlace);
 
+    // ignore: unused_local_variable
     final bool isSelected = curPlace == place;
 
-    final AppColors colors = AppColors.of(context);
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return Padding(
       padding: const EdgeInsets.all(AppInsets.allPadding),
       child: DecoratedBox(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),
-            border: Border.all(
-                color: isSelected
-                    ? colors.cardSelectedBorder
-                    : colors.cardBorderColor)),
+            border: Border.all(color: colors.primaryContainer)),
         child: Padding(
           padding: const EdgeInsets.all(AppInsets.allPadding),
           child: Column(

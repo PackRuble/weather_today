@@ -91,6 +91,7 @@ class _AlertTileWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final tileColor = theme.colorScheme.secondary.withOpacity(.4);
 
     final t = ref.watch(DailyPagePresenter.tr);
 
@@ -118,9 +119,7 @@ class _AlertTileWidget extends ConsumerWidget {
               Flexible(
                 child: Text(
                   date,
-                  style: theme.textTheme.labelLarge?.copyWith(
-                    color: theme.colorScheme.onSecondaryContainer,
-                  ),
+                  style: theme.textTheme.labelLarge,
                   textAlign: TextAlign.end,
                 ),
               ),
@@ -167,7 +166,7 @@ class _AlertTileWidget extends ConsumerWidget {
         ],
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
-      tileColor: theme.colorScheme.secondary.withOpacity(.4),
+      tileColor: tileColor,
     );
   }
 }
