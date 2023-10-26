@@ -1,4 +1,3 @@
-
 ## [3.3.0] - 23-10-2023
 - customize each weather page to your liking: you can choose the position and design
 - improved behavior of navigation buttons
