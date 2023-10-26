@@ -20,7 +20,10 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   country_icons: ^2.0.2
   fluttertoast: ^8.2.2
-  fl_chart: ^0.64.0
+  # coldfix: this error was fixed in version 0.64
+  # https://github.com/imaNNeo/fl_chart/issues/1388
+  # causing my hourly temperature graphs to stop showing negative temps correctly
+  fl_chart: 0.63.0
   weather_animation: ^1.0.0
   sliver_tools: ^0.2.12
 
