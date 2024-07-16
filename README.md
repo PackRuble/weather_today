@@ -101,7 +101,7 @@ The  [icons_launcher](https://pub.dev/packages/icons_launcher) package is used f
 Or try use this command:
 
 ```shell
-flutter pub run icons_launcher:create
+`dart run icons_launcher:create
 ```
 
 

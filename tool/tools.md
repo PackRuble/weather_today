@@ -29,7 +29,7 @@ flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
 ```shell
-fvm dart run build_runner build `
+puro dart run build_runner build `
                                 --delete-conflicting-outputs
 ```
 
@@ -40,6 +40,6 @@ dev icons:
 ```shell
 flutter clean &&
 flutter pub get &&
-flutter pub run icons_launcher:create --flavor dev
+puro dart run icons_launcher:create --flavor dev
  
 ```
