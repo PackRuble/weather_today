@@ -14,7 +14,7 @@ class ImageHelper {
   /// [onError] - если произошла ошибка загрузки.
   static Widget getFlagIcon(String? flag, [String onError = '🗾']) =>
       Image.asset(
-        'icons/flags/png/${flag?.toLowerCase()}.png',
+        'icons/flags/png1000px/${flag?.toLowerCase()}.png',
         package: 'country_icons',
         filterQuality: FilterQuality.medium,
         errorBuilder: (_, e, s) {
