@@ -12,7 +12,7 @@ part of 'place_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Place _$PlaceFromJson(Map<String, dynamic> json) {
   return _SavedPlace.fromJson(json);
@@ -45,8 +45,12 @@ mixin _$Place {
   /// Заметка об этом месте.
   String? get note => throw _privateConstructorUsedError;
 
+  /// Serializes this Place to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Place
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PlaceCopyWith<Place> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -76,6 +80,8 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Place
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -151,6 +157,8 @@ class __$$SavedPlaceImplCopyWithImpl<$Res>
       _$SavedPlaceImpl _value, $Res Function(_$SavedPlaceImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Place
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -260,7 +268,9 @@ class _$SavedPlaceImpl extends _SavedPlace {
   @override
   final String? note;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Place
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SavedPlaceImplCopyWith<_$SavedPlaceImpl> get copyWith =>
@@ -289,40 +299,42 @@ abstract class _SavedPlace extends Place {
   factory _SavedPlace.fromJson(Map<String, dynamic> json) =
       _$SavedPlaceImpl.fromJson;
 
-  @override
-
   /// Название местоположения.
-  String? get name;
   @override
+  String? get name;
 
   /// Словарь локальных названий местоположения.
-  Map<WeatherLanguage, String>? get localNames;
   @override
+  Map<WeatherLanguage, String>? get localNames;
 
   /// Широта местоположения.
-  double? get latitude;
   @override
+  double? get latitude;
 
   /// Долгота местоположения.
-  double? get longitude;
   @override
+  double? get longitude;
 
   /// Название страны.
-  String? get country;
   @override
+  String? get country;
 
   /// Код страны в формате ISO 3166-alpha2.
-  String? get countryCode;
   @override
+  String? get countryCode;
 
   /// Штат или область.
-  String? get state;
   @override
+  String? get state;
 
   /// Заметка об этом месте.
-  String? get note;
   @override
-  @JsonKey(ignore: true)
+  String? get note;
+
+  /// Create a copy of Place
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SavedPlaceImplCopyWith<_$SavedPlaceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,7 +12,7 @@ part of 'design_page.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 DesignPage _$DesignPageFromJson(Map<String, dynamic> json) {
   return _DesignPage.fromJson(json);
@@ -23,8 +23,12 @@ mixin _$DesignPage {
   WeatherPage get page => throw _privateConstructorUsedError;
   AppVisualDesign get design => throw _privateConstructorUsedError;
 
+  /// Serializes this DesignPage to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DesignPage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DesignPageCopyWith<DesignPage> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$DesignPageCopyWithImpl<$Res, $Val extends DesignPage>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DesignPage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,6 +92,8 @@ class __$$DesignPageImplCopyWithImpl<$Res>
       _$DesignPageImpl _value, $Res Function(_$DesignPageImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DesignPage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -124,7 +132,7 @@ class _$DesignPageImpl implements _DesignPage {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DesignPageImpl &&
@@ -132,11 +140,13 @@ class _$DesignPageImpl implements _DesignPage {
             (identical(other.design, design) || other.design == design));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, page, design);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DesignPage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DesignPageImplCopyWith<_$DesignPageImpl> get copyWith =>
@@ -162,8 +172,11 @@ abstract class _DesignPage implements DesignPage {
   WeatherPage get page;
   @override
   AppVisualDesign get design;
+
+  /// Create a copy of DesignPage
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DesignPageImplCopyWith<_$DesignPageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
