@@ -147,8 +147,8 @@ class AppDialogs {
 
     final installerStore = await AppInfo.get(AppInfoData.installerStore);
 
-    // ignore: use_build_context_synchronously
     return showAboutAppDialog<void>(
+      // ignore: use_build_context_synchronously
       context,
       applicationName: await AppInfo.get(AppInfoData.appName),
       applicationIcon: Padding(

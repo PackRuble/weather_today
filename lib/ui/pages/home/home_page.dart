@@ -113,7 +113,7 @@ class _BottomBarWidget extends ConsumerWidget {
     return BottomAppBar(
       padding: EdgeInsets.zero,
       height: AppInsets.heightBottomBar,
-      color: colorScheme.background.blend(colorScheme.primary, 5),
+      color: colorScheme.surface.blend(colorScheme.primary, 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [const BottomIcon(index: 0), ...bars],
@@ -136,9 +136,9 @@ class BottomIcon extends ConsumerWidget {
       onPressed: () =>
           ref.read(HomePageController.instance).setIndexPageWhenClick(index),
       style: theme.textButtonTheme.style?.copyWith(
-        padding: const MaterialStatePropertyAll(EdgeInsets.zero),
-        minimumSize: const MaterialStatePropertyAll(Size.fromWidth(48.0)),
-        shape: const MaterialStatePropertyAll(LinearBorder.none),
+        padding: const WidgetStatePropertyAll(EdgeInsets.zero),
+        minimumSize: const WidgetStatePropertyAll(Size.fromWidth(48.0)),
+        shape: const WidgetStatePropertyAll(LinearBorder.none),
         splashFactory: theme.splashFactory,
       ),
       child: Consumer(

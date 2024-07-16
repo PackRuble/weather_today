@@ -187,6 +187,7 @@ class SettingPagePresenter {
 
   Future<void> dialogAppDebug(BuildContext context) async {
     await showSwitchedDialog(
+      // ignore: use_build_context_synchronously
       context,
       title: 'Debug menu',
       listDialogOption: [

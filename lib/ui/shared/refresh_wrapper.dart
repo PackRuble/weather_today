@@ -50,7 +50,7 @@ class RefreshWrapper<T extends Object> extends ConsumerWidget {
         data: (T? value) {
           if (value != null) return child(context, value);
 
-          return _CustomListView(
+          return CustomListView(
             scrollPhysics: scrollPhysics,
             children: [
               childIsNull ??
@@ -64,7 +64,7 @@ class RefreshWrapper<T extends Object> extends ConsumerWidget {
           );
         },
         error: (Object e, __) {
-          return _CustomListView(
+          return CustomListView(
             scrollPhysics: scrollPhysics,
             children: [
               childIsError ??
@@ -85,8 +85,8 @@ class RefreshWrapper<T extends Object> extends ConsumerWidget {
   }
 }
 
-class _CustomListView extends StatelessWidget {
-  const _CustomListView({
+class CustomListView extends StatelessWidget {
+  const CustomListView({
     super.key,
     required this.scrollPhysics,
     required this.children,

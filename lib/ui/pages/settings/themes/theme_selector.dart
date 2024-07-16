@@ -85,7 +85,7 @@ class ColorBox extends ConsumerWidget {
             color: theme.colorScheme.primary,
             width: AppInsets.outlineThickness,
           ),
-          backgroundColor: scheme.background,
+          backgroundColor: scheme.surface,
           width: _width,
           height: _height,
           padding: EdgeInsets.zero,

@@ -100,7 +100,7 @@ class _TileFoundedWidget extends ConsumerWidget {
             ref.read(SavedPlacesPagePresenter.instance).selectPlace(place),
         child: Card(
           color: isSelected
-              ? colors.secondary.blend(colors.background, 40)
+              ? colors.secondary.blend(colors.surface, 40)
               : theme.cardColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),

@@ -87,7 +87,7 @@ dev_dependencies:
   # linters
   custom_lint: ^0.6.4
   riverpod_lint: ^2.3.12
-  lint: ^2.1.2
+  lint: ^2.3.0
 
 flutter:
 

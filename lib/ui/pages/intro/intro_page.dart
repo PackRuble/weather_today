@@ -108,7 +108,7 @@ class _IntroTileWidget extends ConsumerWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        Opacity(opacity: 0.8, child: tile.scene.getWeather()),
+        Opacity(opacity: 0.8, child: tile.scene.sceneWidget),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -179,7 +179,7 @@ class _LeftButtonWidget extends ConsumerWidget {
       },
       child: ElevatedButton(
         style: const ButtonStyle(
-          padding: MaterialStatePropertyAll(EdgeInsets.all(8)),
+          padding: WidgetStatePropertyAll(EdgeInsets.all(8)),
         ),
         onPressed: () async => controller.previousPage(
           duration: const Duration(milliseconds: _durationMill),
@@ -253,7 +253,7 @@ class _StepButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: const ButtonStyle(
-        padding: MaterialStatePropertyAll(
+        padding: WidgetStatePropertyAll(
           EdgeInsets.all(8),
         ),
       ),
