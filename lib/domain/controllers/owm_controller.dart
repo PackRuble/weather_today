@@ -53,9 +53,25 @@ class OWMController with Updater {
   /// Проверить корректность ключа для запросов.
   Future<bool> _isCorrectApiKey(String apiString) async {
     try {
-      return OWMApiTest()
-          .isCorrectApiKey(apiString)
+      final testService = OWMTestService(apiString);
+
+      // futodo(16.07.2024): позволить в будущем делать отдельные проверки для разных страниц
+      bool ok = await testService
+          .isValidApikey()
           .timeout(const Duration(seconds: 10));
+
+      if (!ok) {
+        ok = await testService
+            .isValidApikeyForOneCall(OneCallApi.api_2_5)
+            .timeout(const Duration(seconds: 10));
+      }
+      if (!ok) {
+        ok = await testService
+            .isValidApikeyForOneCall(OneCallApi.api_3_0)
+            .timeout(const Duration(seconds: 10));
+      }
+
+      return ok;
     } catch (e, s) {
       logError(e, s);
       return false;
