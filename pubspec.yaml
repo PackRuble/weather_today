@@ -47,6 +47,8 @@ dependencies:
   shared_preferences: ^2.2.1
   cardoteka:
     path: ../../cardoteka
+  shared_preferences: ^2.2.3
+  cardoteka: ^1.0.1
 
   # State manager
   hooks_riverpod: ^2.4.3

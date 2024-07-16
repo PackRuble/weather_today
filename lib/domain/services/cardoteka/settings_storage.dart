@@ -30,7 +30,7 @@ enum SettingsCards<T extends Object> implements Card<T> {
   @override
   final DataType type;
 
-  static const _config = CardConfig(
+  static const _config = CardotekaConfig(
     name: 'SettingsCards',
     cards: values,
     converters: {
