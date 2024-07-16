@@ -47,7 +47,7 @@ class MyDismissiblePage extends DismissiblePage {
   @override
   Widget build(BuildContext context) {
     final contentPadding =
-        isFullScreen ? EdgeInsets.zero : MediaQuery.of(context).padding;
+        isFullScreen ? EdgeInsets.zero : MediaQuery.paddingOf(context);
 
     if (disabled) {
       return DecoratedBox(
