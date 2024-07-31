@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/application/const/app_colors.dart';
 
+// todo(31.07.2024): combine TipRWidget and TipWidget
+
 /// Виджет-подсказка.
 class TipRWidget extends ConsumerWidget {
   const TipRWidget({
@@ -36,6 +38,33 @@ class TipRWidget extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class TipWidget extends StatelessWidget {
+  const TipWidget({
+    super.key,
+    required this.child,
+    required this.color,
+  });
+
+  final Widget child;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8.0),
+      decoration: ShapeDecoration(
+        color: color ?? AppColors.of(context).tipBackgroundColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          side: BorderSide(color: AppColors.of(context).tipBorderColor),
+        ),
+      ),
+      child: child,
     );
   }
 }
