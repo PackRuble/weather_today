@@ -55,3 +55,4 @@ app.*.map.json
 # helpful generated files for translation
 /assets/i18n/_missing_translations.json
 /assets/i18n/_unused_translations.json
+/archives/
