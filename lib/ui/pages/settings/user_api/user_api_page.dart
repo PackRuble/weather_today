@@ -7,8 +7,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/link.dart';
 import 'package:weather_today/application/const/app_icons.dart';
-import 'package:weather_today/domain/controllers/weather/weather_current_controller.dart';
-import 'package:weather_today/domain/controllers/weather/weather_onecall_controller.dart';
+import 'package:weather_today/domain/controllers/weather/open_weather_map/weather_current_controller.dart';
+import 'package:weather_today/domain/controllers/weather/open_weather_map/weather_onecall_controller.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
 
 import '../../../shared/appbar_widget.dart';

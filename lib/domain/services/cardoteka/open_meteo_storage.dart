@@ -12,6 +12,7 @@ class OpenMeteoStorage extends Cardoteka {
 
 enum OpenMeteoCards<T extends Object?> implements Card<T> {
   latestWeatherForecast<WeatherOneCall?>(DataType.string, null),
+  latestRequestTimeForecast<DateTime?>(DataType.string, null),
   ;
 
   const OpenMeteoCards(this.type, this.defaultValue);
@@ -30,6 +31,7 @@ enum OpenMeteoCards<T extends Object?> implements Card<T> {
     cards: values,
     converters: {
       latestWeatherForecast: WeatherOneCallConverter(),
+      latestRequestTimeForecast: Converters.dateTimeAsString,
     },
   );
 }

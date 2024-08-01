@@ -141,6 +141,7 @@ abstract class WeatherNotifier<T> extends AsyncNotifier<T?> with GlobalLogger {
 
   Future<bool> isAbilityRequestOnDiffPlacesImpl();
 
+  // todo(01.08.2024): return void
   Future<bool> resetAbilityRequestOnDiffPlaces();
 
   /// Request the ability to get weather due to the difference of previous and current places.
@@ -220,7 +221,7 @@ abstract class WeatherNotifier<T> extends AsyncNotifier<T?> with GlobalLogger {
 
   /// Take the weather value from local storage.
   @protected
-  Future<T?> getStoredWeather();
+  FutureOr<T?> getStoredWeather();
 
   /// Get weather by location from a weather service.
   @protected

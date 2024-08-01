@@ -6,7 +6,7 @@ import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_
 import 'package:weather_today/domain/controllers/app_theme/models/design_page.dart';
 import 'package:weather_today/domain/controllers/app_theme/models/models.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
-import 'package:weather_today/domain/controllers/weather/weather_onecall_controller.dart';
+import 'package:weather_today/domain/controllers/weather/open_weather_map/weather_onecall_controller.dart';
 import 'package:weather_today/domain/services/cardoteka/settings_storage.dart';
 import 'package:weather_today/ui/dialogs/app_dialogs.dart';
 

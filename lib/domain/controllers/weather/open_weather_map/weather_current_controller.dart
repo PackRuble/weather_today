@@ -9,7 +9,7 @@ import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/domain/services/cardoteka/weather_storage.dart';
 import 'package:weather_today/domain/services/local_storage/key_store.dart';
 
-import 'weather_controller.dart';
+import '../weather_controller.dart';
 
 /// Notifier of the CURRENT weather service.
 class WeatherCurrentNotifier extends WeatherNotifier<WeatherCurrent> {
