@@ -99,6 +99,7 @@ flutter:
     - assets/images/
     - assets/weather_icons/
     - assets/images/attribution/owm/
+    - assets/images/attribution/open-meteo/
     - assets/doc/
 
   fonts:
