@@ -14,6 +14,439 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+ForecastOpenMeteoResponse _$ForecastOpenMeteoResponseFromJson(
+    Map<String, dynamic> json) {
+  return _ForecastOpenMeteoResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ForecastOpenMeteoResponse {
+  /// Geographical WGS84 coordinates of the location. Multiple coordinates can
+  /// be comma separated. E.g. &latitude=52.52,48.85&longitude=13.41,2.35.
+  /// To return data for multiple locations the JSON output changes to a list
+  /// of structures.
+  @JsonKey(name: 'latitude')
+  double get latitude => throw _privateConstructorUsedError;
+
+  /// Geographical WGS84 coordinates of the location. Multiple coordinates can
+  /// be comma separated. E.g. &latitude=52.52,48.85&longitude=13.41,2.35.
+  /// To return data for multiple locations the JSON output changes to a list
+  /// of structures.
+  @JsonKey(name: 'longitude')
+  double get longitude => throw _privateConstructorUsedError;
+
+  /// Data generation time, ms
+  @JsonKey(name: 'generationtime_ms')
+  double get genTimeMs => throw _privateConstructorUsedError;
+  @JsonKey(name: 'utc_offset_seconds')
+  int get utcOffsetSeconds => throw _privateConstructorUsedError;
+
+  /// If timezone is set, all timestamps are returned as local-time and data
+  /// is returned starting at 00:00 local-time. Any time zone name from the
+  /// time zone database is supported. If auto is set as a time zone, the
+  /// coordinates will be automatically resolved to the local time zone.
+  /// For multiple coordinates, a comma separated list of timezones can be
+  /// specified.
+  @JsonKey(name: 'timezone')
+  String get timezone => throw _privateConstructorUsedError;
+  @JsonKey(name: 'timezone_abbreviation')
+  String get timezoneAbbr => throw _privateConstructorUsedError;
+
+  /// The elevation used for statistical downscaling. Per default, a 90 meter
+  /// digital elevation model is used. You can manually set the elevation to
+  /// correctly match mountain peaks. If &elevation=nan is specified,
+  /// downscaling will be disabled and the API uses the average grid-cell height.
+  /// For multiple locations, elevation can also be comma separated.
+  @JsonKey(name: 'elevation')
+  double get elevation => throw _privateConstructorUsedError;
+
+  /// A list of weather variables to get current conditions.
+  @JsonKey(name: 'current')
+  CurrentWeatherOpenMeteo get currentWeather =>
+      throw _privateConstructorUsedError;
+
+  /// Serializes this ForecastOpenMeteoResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of ForecastOpenMeteoResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ForecastOpenMeteoResponseCopyWith<ForecastOpenMeteoResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ForecastOpenMeteoResponseCopyWith<$Res> {
+  factory $ForecastOpenMeteoResponseCopyWith(ForecastOpenMeteoResponse value,
+          $Res Function(ForecastOpenMeteoResponse) then) =
+      _$ForecastOpenMeteoResponseCopyWithImpl<$Res, ForecastOpenMeteoResponse>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
+      @JsonKey(name: 'generationtime_ms') double genTimeMs,
+      @JsonKey(name: 'utc_offset_seconds') int utcOffsetSeconds,
+      @JsonKey(name: 'timezone') String timezone,
+      @JsonKey(name: 'timezone_abbreviation') String timezoneAbbr,
+      @JsonKey(name: 'elevation') double elevation,
+      @JsonKey(name: 'current') CurrentWeatherOpenMeteo currentWeather});
+
+  $CurrentWeatherOpenMeteoCopyWith<$Res> get currentWeather;
+}
+
+/// @nodoc
+class _$ForecastOpenMeteoResponseCopyWithImpl<$Res,
+        $Val extends ForecastOpenMeteoResponse>
+    implements $ForecastOpenMeteoResponseCopyWith<$Res> {
+  _$ForecastOpenMeteoResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of ForecastOpenMeteoResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? genTimeMs = null,
+    Object? utcOffsetSeconds = null,
+    Object? timezone = null,
+    Object? timezoneAbbr = null,
+    Object? elevation = null,
+    Object? currentWeather = null,
+  }) {
+    return _then(_value.copyWith(
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      genTimeMs: null == genTimeMs
+          ? _value.genTimeMs
+          : genTimeMs // ignore: cast_nullable_to_non_nullable
+              as double,
+      utcOffsetSeconds: null == utcOffsetSeconds
+          ? _value.utcOffsetSeconds
+          : utcOffsetSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
+      timezone: null == timezone
+          ? _value.timezone
+          : timezone // ignore: cast_nullable_to_non_nullable
+              as String,
+      timezoneAbbr: null == timezoneAbbr
+          ? _value.timezoneAbbr
+          : timezoneAbbr // ignore: cast_nullable_to_non_nullable
+              as String,
+      elevation: null == elevation
+          ? _value.elevation
+          : elevation // ignore: cast_nullable_to_non_nullable
+              as double,
+      currentWeather: null == currentWeather
+          ? _value.currentWeather
+          : currentWeather // ignore: cast_nullable_to_non_nullable
+              as CurrentWeatherOpenMeteo,
+    ) as $Val);
+  }
+
+  /// Create a copy of ForecastOpenMeteoResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CurrentWeatherOpenMeteoCopyWith<$Res> get currentWeather {
+    return $CurrentWeatherOpenMeteoCopyWith<$Res>(_value.currentWeather,
+        (value) {
+      return _then(_value.copyWith(currentWeather: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$ForecastOpenMeteoResponseImplCopyWith<$Res>
+    implements $ForecastOpenMeteoResponseCopyWith<$Res> {
+  factory _$$ForecastOpenMeteoResponseImplCopyWith(
+          _$ForecastOpenMeteoResponseImpl value,
+          $Res Function(_$ForecastOpenMeteoResponseImpl) then) =
+      __$$ForecastOpenMeteoResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
+      @JsonKey(name: 'generationtime_ms') double genTimeMs,
+      @JsonKey(name: 'utc_offset_seconds') int utcOffsetSeconds,
+      @JsonKey(name: 'timezone') String timezone,
+      @JsonKey(name: 'timezone_abbreviation') String timezoneAbbr,
+      @JsonKey(name: 'elevation') double elevation,
+      @JsonKey(name: 'current') CurrentWeatherOpenMeteo currentWeather});
+
+  @override
+  $CurrentWeatherOpenMeteoCopyWith<$Res> get currentWeather;
+}
+
+/// @nodoc
+class __$$ForecastOpenMeteoResponseImplCopyWithImpl<$Res>
+    extends _$ForecastOpenMeteoResponseCopyWithImpl<$Res,
+        _$ForecastOpenMeteoResponseImpl>
+    implements _$$ForecastOpenMeteoResponseImplCopyWith<$Res> {
+  __$$ForecastOpenMeteoResponseImplCopyWithImpl(
+      _$ForecastOpenMeteoResponseImpl _value,
+      $Res Function(_$ForecastOpenMeteoResponseImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ForecastOpenMeteoResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? genTimeMs = null,
+    Object? utcOffsetSeconds = null,
+    Object? timezone = null,
+    Object? timezoneAbbr = null,
+    Object? elevation = null,
+    Object? currentWeather = null,
+  }) {
+    return _then(_$ForecastOpenMeteoResponseImpl(
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      genTimeMs: null == genTimeMs
+          ? _value.genTimeMs
+          : genTimeMs // ignore: cast_nullable_to_non_nullable
+              as double,
+      utcOffsetSeconds: null == utcOffsetSeconds
+          ? _value.utcOffsetSeconds
+          : utcOffsetSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
+      timezone: null == timezone
+          ? _value.timezone
+          : timezone // ignore: cast_nullable_to_non_nullable
+              as String,
+      timezoneAbbr: null == timezoneAbbr
+          ? _value.timezoneAbbr
+          : timezoneAbbr // ignore: cast_nullable_to_non_nullable
+              as String,
+      elevation: null == elevation
+          ? _value.elevation
+          : elevation // ignore: cast_nullable_to_non_nullable
+              as double,
+      currentWeather: null == currentWeather
+          ? _value.currentWeather
+          : currentWeather // ignore: cast_nullable_to_non_nullable
+              as CurrentWeatherOpenMeteo,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$ForecastOpenMeteoResponseImpl extends _ForecastOpenMeteoResponse {
+  const _$ForecastOpenMeteoResponseImpl(
+      {@JsonKey(name: 'latitude') required this.latitude,
+      @JsonKey(name: 'longitude') required this.longitude,
+      @JsonKey(name: 'generationtime_ms') required this.genTimeMs,
+      @JsonKey(name: 'utc_offset_seconds') required this.utcOffsetSeconds,
+      @JsonKey(name: 'timezone') required this.timezone,
+      @JsonKey(name: 'timezone_abbreviation') required this.timezoneAbbr,
+      @JsonKey(name: 'elevation') required this.elevation,
+      @JsonKey(name: 'current') required this.currentWeather})
+      : super._();
+
+  factory _$ForecastOpenMeteoResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ForecastOpenMeteoResponseImplFromJson(json);
+
+  /// Geographical WGS84 coordinates of the location. Multiple coordinates can
+  /// be comma separated. E.g. &latitude=52.52,48.85&longitude=13.41,2.35.
+  /// To return data for multiple locations the JSON output changes to a list
+  /// of structures.
+  @override
+  @JsonKey(name: 'latitude')
+  final double latitude;
+
+  /// Geographical WGS84 coordinates of the location. Multiple coordinates can
+  /// be comma separated. E.g. &latitude=52.52,48.85&longitude=13.41,2.35.
+  /// To return data for multiple locations the JSON output changes to a list
+  /// of structures.
+  @override
+  @JsonKey(name: 'longitude')
+  final double longitude;
+
+  /// Data generation time, ms
+  @override
+  @JsonKey(name: 'generationtime_ms')
+  final double genTimeMs;
+  @override
+  @JsonKey(name: 'utc_offset_seconds')
+  final int utcOffsetSeconds;
+
+  /// If timezone is set, all timestamps are returned as local-time and data
+  /// is returned starting at 00:00 local-time. Any time zone name from the
+  /// time zone database is supported. If auto is set as a time zone, the
+  /// coordinates will be automatically resolved to the local time zone.
+  /// For multiple coordinates, a comma separated list of timezones can be
+  /// specified.
+  @override
+  @JsonKey(name: 'timezone')
+  final String timezone;
+  @override
+  @JsonKey(name: 'timezone_abbreviation')
+  final String timezoneAbbr;
+
+  /// The elevation used for statistical downscaling. Per default, a 90 meter
+  /// digital elevation model is used. You can manually set the elevation to
+  /// correctly match mountain peaks. If &elevation=nan is specified,
+  /// downscaling will be disabled and the API uses the average grid-cell height.
+  /// For multiple locations, elevation can also be comma separated.
+  @override
+  @JsonKey(name: 'elevation')
+  final double elevation;
+
+  /// A list of weather variables to get current conditions.
+  @override
+  @JsonKey(name: 'current')
+  final CurrentWeatherOpenMeteo currentWeather;
+
+  @override
+  String toString() {
+    return 'ForecastOpenMeteoResponse(latitude: $latitude, longitude: $longitude, genTimeMs: $genTimeMs, utcOffsetSeconds: $utcOffsetSeconds, timezone: $timezone, timezoneAbbr: $timezoneAbbr, elevation: $elevation, currentWeather: $currentWeather)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ForecastOpenMeteoResponseImpl &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.genTimeMs, genTimeMs) ||
+                other.genTimeMs == genTimeMs) &&
+            (identical(other.utcOffsetSeconds, utcOffsetSeconds) ||
+                other.utcOffsetSeconds == utcOffsetSeconds) &&
+            (identical(other.timezone, timezone) ||
+                other.timezone == timezone) &&
+            (identical(other.timezoneAbbr, timezoneAbbr) ||
+                other.timezoneAbbr == timezoneAbbr) &&
+            (identical(other.elevation, elevation) ||
+                other.elevation == elevation) &&
+            (identical(other.currentWeather, currentWeather) ||
+                other.currentWeather == currentWeather));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, latitude, longitude, genTimeMs,
+      utcOffsetSeconds, timezone, timezoneAbbr, elevation, currentWeather);
+
+  /// Create a copy of ForecastOpenMeteoResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ForecastOpenMeteoResponseImplCopyWith<_$ForecastOpenMeteoResponseImpl>
+      get copyWith => __$$ForecastOpenMeteoResponseImplCopyWithImpl<
+          _$ForecastOpenMeteoResponseImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ForecastOpenMeteoResponseImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ForecastOpenMeteoResponse extends ForecastOpenMeteoResponse {
+  const factory _ForecastOpenMeteoResponse(
+      {@JsonKey(name: 'latitude') required final double latitude,
+      @JsonKey(name: 'longitude') required final double longitude,
+      @JsonKey(name: 'generationtime_ms') required final double genTimeMs,
+      @JsonKey(name: 'utc_offset_seconds') required final int utcOffsetSeconds,
+      @JsonKey(name: 'timezone') required final String timezone,
+      @JsonKey(name: 'timezone_abbreviation')
+      required final String timezoneAbbr,
+      @JsonKey(name: 'elevation') required final double elevation,
+      @JsonKey(name: 'current')
+      required final CurrentWeatherOpenMeteo
+          currentWeather}) = _$ForecastOpenMeteoResponseImpl;
+  const _ForecastOpenMeteoResponse._() : super._();
+
+  factory _ForecastOpenMeteoResponse.fromJson(Map<String, dynamic> json) =
+      _$ForecastOpenMeteoResponseImpl.fromJson;
+
+  /// Geographical WGS84 coordinates of the location. Multiple coordinates can
+  /// be comma separated. E.g. &latitude=52.52,48.85&longitude=13.41,2.35.
+  /// To return data for multiple locations the JSON output changes to a list
+  /// of structures.
+  @override
+  @JsonKey(name: 'latitude')
+  double get latitude;
+
+  /// Geographical WGS84 coordinates of the location. Multiple coordinates can
+  /// be comma separated. E.g. &latitude=52.52,48.85&longitude=13.41,2.35.
+  /// To return data for multiple locations the JSON output changes to a list
+  /// of structures.
+  @override
+  @JsonKey(name: 'longitude')
+  double get longitude;
+
+  /// Data generation time, ms
+  @override
+  @JsonKey(name: 'generationtime_ms')
+  double get genTimeMs;
+  @override
+  @JsonKey(name: 'utc_offset_seconds')
+  int get utcOffsetSeconds;
+
+  /// If timezone is set, all timestamps are returned as local-time and data
+  /// is returned starting at 00:00 local-time. Any time zone name from the
+  /// time zone database is supported. If auto is set as a time zone, the
+  /// coordinates will be automatically resolved to the local time zone.
+  /// For multiple coordinates, a comma separated list of timezones can be
+  /// specified.
+  @override
+  @JsonKey(name: 'timezone')
+  String get timezone;
+  @override
+  @JsonKey(name: 'timezone_abbreviation')
+  String get timezoneAbbr;
+
+  /// The elevation used for statistical downscaling. Per default, a 90 meter
+  /// digital elevation model is used. You can manually set the elevation to
+  /// correctly match mountain peaks. If &elevation=nan is specified,
+  /// downscaling will be disabled and the API uses the average grid-cell height.
+  /// For multiple locations, elevation can also be comma separated.
+  @override
+  @JsonKey(name: 'elevation')
+  double get elevation;
+
+  /// A list of weather variables to get current conditions.
+  @override
+  @JsonKey(name: 'current')
+  CurrentWeatherOpenMeteo get currentWeather;
+
+  /// Create a copy of ForecastOpenMeteoResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ForecastOpenMeteoResponseImplCopyWith<_$ForecastOpenMeteoResponseImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
 CurrentWeatherOpenMeteo _$CurrentWeatherOpenMeteoFromJson(
     Map<String, dynamic> json) {
   return _CurrentWeatherOpenMeteo.fromJson(json);
@@ -24,9 +457,9 @@ mixin _$CurrentWeatherOpenMeteo {
   /// iso8601
   @JsonKey(name: 'time')
   @DateTimeISO8601Converter()
-  String get time => throw _privateConstructorUsedError;
+  DateTime get time => throw _privateConstructorUsedError;
   @JsonKey(name: 'interval')
-  int? get interval => throw _privateConstructorUsedError;
+  int get interval => throw _privateConstructorUsedError;
   @JsonKey(name: 'temperature_2m')
   double get temperature2m => throw _privateConstructorUsedError;
   @JsonKey(name: 'relative_humidity_2m')
@@ -75,8 +508,8 @@ abstract class $CurrentWeatherOpenMeteoCopyWith<$Res> {
       _$CurrentWeatherOpenMeteoCopyWithImpl<$Res, CurrentWeatherOpenMeteo>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'time') @DateTimeISO8601Converter() String time,
-      @JsonKey(name: 'interval') int? interval,
+      {@JsonKey(name: 'time') @DateTimeISO8601Converter() DateTime time,
+      @JsonKey(name: 'interval') int interval,
       @JsonKey(name: 'temperature_2m') double temperature2m,
       @JsonKey(name: 'relative_humidity_2m') int relativeHumidity2m,
       @JsonKey(name: 'apparent_temperature') double apparentTemperature,
@@ -111,7 +544,7 @@ class _$CurrentWeatherOpenMeteoCopyWithImpl<$Res,
   @override
   $Res call({
     Object? time = null,
-    Object? interval = freezed,
+    Object? interval = null,
     Object? temperature2m = null,
     Object? relativeHumidity2m = null,
     Object? apparentTemperature = null,
@@ -132,11 +565,11 @@ class _$CurrentWeatherOpenMeteoCopyWithImpl<$Res,
       time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
-              as String,
-      interval: freezed == interval
+              as DateTime,
+      interval: null == interval
           ? _value.interval
           : interval // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       temperature2m: null == temperature2m
           ? _value.temperature2m
           : temperature2m // ignore: cast_nullable_to_non_nullable
@@ -211,8 +644,8 @@ abstract class _$$CurrentWeatherOpenMeteoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'time') @DateTimeISO8601Converter() String time,
-      @JsonKey(name: 'interval') int? interval,
+      {@JsonKey(name: 'time') @DateTimeISO8601Converter() DateTime time,
+      @JsonKey(name: 'interval') int interval,
       @JsonKey(name: 'temperature_2m') double temperature2m,
       @JsonKey(name: 'relative_humidity_2m') int relativeHumidity2m,
       @JsonKey(name: 'apparent_temperature') double apparentTemperature,
@@ -246,7 +679,7 @@ class __$$CurrentWeatherOpenMeteoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? time = null,
-    Object? interval = freezed,
+    Object? interval = null,
     Object? temperature2m = null,
     Object? relativeHumidity2m = null,
     Object? apparentTemperature = null,
@@ -267,11 +700,11 @@ class __$$CurrentWeatherOpenMeteoImplCopyWithImpl<$Res>
       time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
-              as String,
-      interval: freezed == interval
+              as DateTime,
+      interval: null == interval
           ? _value.interval
           : interval // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       temperature2m: null == temperature2m
           ? _value.temperature2m
           : temperature2m // ignore: cast_nullable_to_non_nullable
@@ -337,8 +770,9 @@ class __$$CurrentWeatherOpenMeteoImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$CurrentWeatherOpenMeteoImpl implements _CurrentWeatherOpenMeteo {
+
+@JsonSerializable(explicitToJson: true)
+class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
   const _$CurrentWeatherOpenMeteoImpl(
       {@JsonKey(name: 'time') @DateTimeISO8601Converter() required this.time,
       @JsonKey(name: 'interval') required this.interval,
@@ -356,7 +790,8 @@ class _$CurrentWeatherOpenMeteoImpl implements _CurrentWeatherOpenMeteo {
       @JsonKey(name: 'surface_pressure') required this.surfacePressure,
       @JsonKey(name: 'wind_speed_10m') required this.windSpeed10m,
       @JsonKey(name: 'wind_direction_10m') required this.windDirection10m,
-      @JsonKey(name: 'wind_gusts_10m') required this.windGusts10m});
+      @JsonKey(name: 'wind_gusts_10m') required this.windGusts10m})
+      : super._();
 
   factory _$CurrentWeatherOpenMeteoImpl.fromJson(Map<String, dynamic> json) =>
       _$$CurrentWeatherOpenMeteoImplFromJson(json);
@@ -365,10 +800,10 @@ class _$CurrentWeatherOpenMeteoImpl implements _CurrentWeatherOpenMeteo {
   @override
   @JsonKey(name: 'time')
   @DateTimeISO8601Converter()
-  final String time;
+  final DateTime time;
   @override
   @JsonKey(name: 'interval')
-  final int? interval;
+  final int interval;
   @override
   @JsonKey(name: 'temperature_2m')
   final double temperature2m;
@@ -496,12 +931,12 @@ class _$CurrentWeatherOpenMeteoImpl implements _CurrentWeatherOpenMeteo {
   }
 }
 
-abstract class _CurrentWeatherOpenMeteo implements CurrentWeatherOpenMeteo {
+abstract class _CurrentWeatherOpenMeteo extends CurrentWeatherOpenMeteo {
   const factory _CurrentWeatherOpenMeteo(
       {@JsonKey(name: 'time')
       @DateTimeISO8601Converter()
-      required final String time,
-      @JsonKey(name: 'interval') required final int? interval,
+      required final DateTime time,
+      @JsonKey(name: 'interval') required final int interval,
       @JsonKey(name: 'temperature_2m') required final double temperature2m,
       @JsonKey(name: 'relative_humidity_2m')
       required final int relativeHumidity2m,
@@ -520,6 +955,7 @@ abstract class _CurrentWeatherOpenMeteo implements CurrentWeatherOpenMeteo {
       @JsonKey(name: 'wind_direction_10m') required final int windDirection10m,
       @JsonKey(name: 'wind_gusts_10m')
       required final double windGusts10m}) = _$CurrentWeatherOpenMeteoImpl;
+  const _CurrentWeatherOpenMeteo._() : super._();
 
   factory _CurrentWeatherOpenMeteo.fromJson(Map<String, dynamic> json) =
       _$CurrentWeatherOpenMeteoImpl.fromJson;
@@ -528,10 +964,10 @@ abstract class _CurrentWeatherOpenMeteo implements CurrentWeatherOpenMeteo {
   @override
   @JsonKey(name: 'time')
   @DateTimeISO8601Converter()
-  String get time;
+  DateTime get time;
   @override
   @JsonKey(name: 'interval')
-  int? get interval;
+  int get interval;
   @override
   @JsonKey(name: 'temperature_2m')
   double get temperature2m;
