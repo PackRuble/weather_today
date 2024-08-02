@@ -2,11 +2,17 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/application/const/app_icons.dart';
+import 'package:weather_today/application/const/app_info.dart';
 import 'package:weather_today/application/navigation/routes.gr.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
+import 'package:weather_today/domain/controllers/owm_controller.dart';
+import 'package:weather_today/domain/controllers/weather_provider_nr.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
+import 'package:weather_today/domain/weather/models.dart';
 import 'package:weather_today/ui/shared/appbar_widget.dart';
+import 'package:weather_today/ui/shared/dialogs_widget.dart';
 import 'package:weather_today/ui/shared/settings_tile.dart';
+import 'package:weather_today/ui/shared/shared_widget.dart';
 
 @RoutePage()
 class WeatherProviderPage extends ConsumerWidget {
@@ -14,18 +20,65 @@ class WeatherProviderPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final weatherProviderPR = WeatherProviderNR.i;
+    final weatherProvider = ref.watch(weatherProviderPR);
+
     return Scaffold(
-      appBar: AppBarCustom(
+      appBar: const AppBarCustom(
         // todo(02.08.2024): tr
         'Погодный провайдер',
       ),
       body: ListView(
-        children: const [
-          _TileWeatherLanguageWidget(),
-          _TileUserApiWidget(),
-          Divider(),
+        children: [
+          const _SelectWeatherProviderTile(),
+          const Divider(height: 0),
+          // todo(02.08.2024): tr
+          if (weatherProvider case WeatherProvider.openWeatherMap) ...[
+            const HeaderRWidget('Дополнительные настройки'),
+            const _TileWeatherLanguageWidget(),
+            const _TileUserApiWidget(),
+          ]
         ],
       ),
+    );
+  }
+}
+
+class _SelectWeatherProviderTile extends ConsumerWidget {
+  const _SelectWeatherProviderTile();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(AppLocalization.currentTranslation);
+
+    final weatherProviderPR = WeatherProviderNR.i;
+    final weatherProviderNR = ref.watch(weatherProviderPR.notifier);
+    final weatherProvider = ref.watch(weatherProviderPR);
+
+    return TileSetting(
+      leading: AppIcons.weatherProvider,
+      // todo(02.08.2024): tr
+      title: 'Выбрать погодного провайдера',
+      subtitle: 'Используется: ${weatherProvider.website}',
+      onTap: () async {
+        final selected = await showChoosingDialog<WeatherProvider>(
+          context,
+          icon: const Icon(AppIcons.pressure),
+          // todo(02.08.2024): tr
+          title: 'Погодный провайдер',
+          subTitle: 'Выбранный параметр будет применен ко всем погодным данным',
+          listDialogOption: [
+            for (final provider in WeatherProvider.values)
+              DialogOption<WeatherProvider>(
+                groupValue: weatherProvider,
+                title: provider.website,
+                value: provider,
+              ),
+          ],
+        );
+
+        if (selected != null) await weatherProviderNR.change(selected);
+      },
     );
   }
 }
@@ -54,10 +107,14 @@ class _TileUserApiWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(AppLocalization.currentTranslation);
+    final isUsingCustomKeyApi = ref.watch(OWMController.isUserApiKey);
 
     return TileSetting(
       leading: AppIcons.apiTile,
       title: t.settingsPage.userApiTile.tileTitle,
+      subtitle: isUsingCustomKeyApi
+          ? t.apiWeatherPage.userApi.usingApi
+          : t.apiWeatherPage.defaultApi.usingApi,
       onTap: () async => context.router.push(const UserApiRoute()),
     );
   }
