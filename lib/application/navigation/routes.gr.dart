@@ -31,86 +31,6 @@ import 'package:weather_today/ui/pages/settings/weather_language/weather_languag
 import 'package:weather_today/ui/pages/settings/weather_provider/weather_provider_page.dart'
     as _i12;
 
-abstract class $AppRouter extends _i13.RootStackRouter {
-  $AppRouter({super.navigatorKey});
-
-  @override
-  final Map<String, _i13.PageFactory> pagesMap = {
-    CountryFlagsRoute.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i1.CountryFlagsPage(),
-      );
-    },
-    GratitudeRoute.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i2.GratitudePage(),
-      );
-    },
-    HomeRoute.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i3.HomePage(),
-      );
-    },
-    LogsRoute.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i4.LogsPage(),
-      );
-    },
-    SavedPlacesRoute.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i5.SavedPlacesPage(),
-      );
-    },
-    SystemSettingsRoute.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i6.SystemSettingsPage(),
-      );
-    },
-    TermsAppRoute.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i7.TermsAppPage(),
-      );
-    },
-    ThemeRoute.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i8.ThemePage(),
-      );
-    },
-    UserApiRoute.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i9.UserApiPage(),
-      );
-    },
-    VisualDesignRoute.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i10.VisualDesignPage(),
-      );
-    },
-    WeatherLanguageRoute.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i11.WeatherLanguagePage(),
-      );
-    },
-    WeatherProviderRoute.name: (routeData) {
-      return _i13.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i12.WeatherProviderPage(),
-      );
-    },
-  };
-}
-
 /// generated route for
 /// [_i1.CountryFlagsPage]
 class CountryFlagsRoute extends _i13.PageRouteInfo<void> {
@@ -122,7 +42,12 @@ class CountryFlagsRoute extends _i13.PageRouteInfo<void> {
 
   static const String name = 'CountryFlagsRoute';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static _i13.PageInfo page = _i13.PageInfo(
+    name,
+    builder: (data) {
+      return _i1.CountryFlagsPage();
+    },
+  );
 }
 
 /// generated route for
@@ -136,7 +61,12 @@ class GratitudeRoute extends _i13.PageRouteInfo<void> {
 
   static const String name = 'GratitudeRoute';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static _i13.PageInfo page = _i13.PageInfo(
+    name,
+    builder: (data) {
+      return _i2.GratitudePage();
+    },
+  );
 }
 
 /// generated route for
@@ -150,7 +80,12 @@ class HomeRoute extends _i13.PageRouteInfo<void> {
 
   static const String name = 'HomeRoute';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static _i13.PageInfo page = _i13.PageInfo(
+    name,
+    builder: (data) {
+      return _i3.HomePage();
+    },
+  );
 }
 
 /// generated route for
@@ -164,7 +99,12 @@ class LogsRoute extends _i13.PageRouteInfo<void> {
 
   static const String name = 'LogsRoute';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static _i13.PageInfo page = _i13.PageInfo(
+    name,
+    builder: (data) {
+      return _i4.LogsPage();
+    },
+  );
 }
 
 /// generated route for
@@ -178,7 +118,12 @@ class SavedPlacesRoute extends _i13.PageRouteInfo<void> {
 
   static const String name = 'SavedPlacesRoute';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static _i13.PageInfo page = _i13.PageInfo(
+    name,
+    builder: (data) {
+      return _i5.SavedPlacesPage();
+    },
+  );
 }
 
 /// generated route for
@@ -192,7 +137,12 @@ class SystemSettingsRoute extends _i13.PageRouteInfo<void> {
 
   static const String name = 'SystemSettingsRoute';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static _i13.PageInfo page = _i13.PageInfo(
+    name,
+    builder: (data) {
+      return _i6.SystemSettingsPage();
+    },
+  );
 }
 
 /// generated route for
@@ -206,7 +156,12 @@ class TermsAppRoute extends _i13.PageRouteInfo<void> {
 
   static const String name = 'TermsAppRoute';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static _i13.PageInfo page = _i13.PageInfo(
+    name,
+    builder: (data) {
+      return const _i7.TermsAppPage();
+    },
+  );
 }
 
 /// generated route for
@@ -220,7 +175,12 @@ class ThemeRoute extends _i13.PageRouteInfo<void> {
 
   static const String name = 'ThemeRoute';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static _i13.PageInfo page = _i13.PageInfo(
+    name,
+    builder: (data) {
+      return _i8.ThemePage();
+    },
+  );
 }
 
 /// generated route for
@@ -234,7 +194,12 @@ class UserApiRoute extends _i13.PageRouteInfo<void> {
 
   static const String name = 'UserApiRoute';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static _i13.PageInfo page = _i13.PageInfo(
+    name,
+    builder: (data) {
+      return _i9.UserApiPage();
+    },
+  );
 }
 
 /// generated route for
@@ -248,7 +213,12 @@ class VisualDesignRoute extends _i13.PageRouteInfo<void> {
 
   static const String name = 'VisualDesignRoute';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static _i13.PageInfo page = _i13.PageInfo(
+    name,
+    builder: (data) {
+      return _i10.VisualDesignPage();
+    },
+  );
 }
 
 /// generated route for
@@ -262,7 +232,12 @@ class WeatherLanguageRoute extends _i13.PageRouteInfo<void> {
 
   static const String name = 'WeatherLanguageRoute';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static _i13.PageInfo page = _i13.PageInfo(
+    name,
+    builder: (data) {
+      return _i11.WeatherLanguagePage();
+    },
+  );
 }
 
 /// generated route for
@@ -276,5 +251,10 @@ class WeatherProviderRoute extends _i13.PageRouteInfo<void> {
 
   static const String name = 'WeatherProviderRoute';
 
-  static const _i13.PageInfo<void> page = _i13.PageInfo<void>(name);
+  static _i13.PageInfo page = _i13.PageInfo(
+    name,
+    builder: (data) {
+      return _i12.WeatherProviderPage();
+    },
+  );
 }

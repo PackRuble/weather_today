@@ -1,20 +1,22 @@
 targets:
   $default:
     builders:
-    # not to be confused with
-    # auto_route_generator:auto_route_generator
-      auto_route_generator:auto_router_generator:
+      auto_route_generator:auto_route_generator: # this for @RoutePage
         enabled: true
         generate_for:
-            - lib/utils/routes/routes.dart
+          - lib/ui/pages/**.dart
+      auto_route_generator:auto_router_generator: # this for @AutoRouterConfig
+        enabled: true
+        generate_for:
+          - lib/application/navigation/routes.dart
       json_serializable:json_serializable:
         enabled: true
         generate_for:
-            - lib/**/models/**.dart
-            - lib/**/models.dart
+          - lib/**/models/**.dart
+          - lib/**/models.dart
       freezed:
         enabled: true
         generate_for:
-            - lib/**/models/**.dart
-            - lib/**/models.dart
-            - lib/**/search_state.dart
+          - lib/**/models/**.dart
+          - lib/**/models.dart
+          - lib/**/search_state.dart

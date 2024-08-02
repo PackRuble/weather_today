@@ -15,7 +15,6 @@ import 'package:weather_today/ui/pages/settings/settings_page_presenter.dart';
 import 'package:weather_today/ui/shared/settings_tile.dart';
 
 import '../../shared/shared_widget.dart';
-import 'weather_provider/weather_provider_page.dart';
 
 const double _dividerThickness = 8.0;
 
@@ -63,7 +62,7 @@ class _TileMyPlaceWidget extends ConsumerWidget {
     return TileSetting(
       leading: AppIcons.savedPlaceTile,
       title: t.settingsPage.savedPlacesTile.tileTitle,
-      onTap: () => context.router.push(const SavedPlacesRoute()),
+      onTap: () => context.pushRoute(const SavedPlacesRoute()),
     );
   }
 }
@@ -142,7 +141,7 @@ class _TileWeatherProviderWidget extends ConsumerWidget {
       // todo(02.08.2024): tr
       title: 'Погодный провайдер',
       subtitle: weatherProvider.website,
-      onTap: () => context.router.push(const WeatherProviderRoute()),
+      onTap: () => context.pushRoute(const WeatherProviderRoute()),
     );
   }
 }
@@ -159,7 +158,7 @@ class _VisualDesignTileWidget extends ConsumerWidget {
     return TileSetting(
       leading: AppIcons.visualDesignTile,
       title: t.settingsPage.visualDesignTile.tileTitle,
-      onTap: () => context.router.push(const VisualDesignRoute()),
+      onTap: () => context.pushRoute(const VisualDesignRoute()),
     );
   }
 }
@@ -177,7 +176,7 @@ class _TileThemeWidget extends ConsumerWidget {
       leading: AppIcons.themeTile,
       title: t.settingsPage.themeTile.tileTitle,
       subtitle: schemeData.name,
-      onTap: () => context.router.push(const ThemeRoute()),
+      onTap: () => context.pushRoute(const ThemeRoute()),
     );
   }
 }
@@ -194,7 +193,7 @@ class _TileCountryFlagsWidget extends ConsumerWidget {
     return TileSetting(
       leading: AppIcons.countryFlagsTile,
       title: t.settingsPage.countryFlagsTile.tileTitle,
-      onTap: () => context.router.push(const CountryFlagsRoute()),
+      onTap: () => context.pushRoute(const CountryFlagsRoute()),
     );
   }
 }
@@ -248,7 +247,7 @@ class _SystemSettingsWidget extends ConsumerWidget {
     return TileSetting(
       leading: AppIcons.systemSettingsTile,
       title: t.settingsPage.systemSettingsTile.tileTitle,
-      onTap: () => context.router.push(const SystemSettingsRoute()),
+      onTap: () => context.pushRoute(const SystemSettingsRoute()),
     );
   }
 }
@@ -263,7 +262,7 @@ class _TileGratitudeWidget extends ConsumerWidget {
     return TileSetting(
       leading: AppIcons.gratitudeTile,
       title: t.settingsPage.gratitudeTile.tileTitle,
-      onTap: () => context.router.push(const GratitudeRoute()),
+      onTap: () => context.pushRoute(const GratitudeRoute()),
     );
   }
 }

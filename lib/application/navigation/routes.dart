@@ -7,7 +7,7 @@ import 'routes.gr.dart';
 @AutoRouterConfig(
   replaceInRouteName: 'Page|Screen,Route',
 )
-class AppRouter extends $AppRouter {
+class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
         CustomRoute(page: HomeRoute.page, initial: true),

@@ -86,7 +86,7 @@ class HomePageController {
           stringMatch: '',
           key: const ValueKey(''),
           config: AutoRoute(
-            page: PageInfo(
+            page: EmptyShellRoute(
               switch (index) {
                 0 => 'SettingsTab',
                 1 => 'HourlyTab',
