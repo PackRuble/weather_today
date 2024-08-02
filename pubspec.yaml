@@ -9,7 +9,7 @@ environment:
 
 dependency_overrides:
   meta: ^1.15.0
-  web: ^1.0.0
+  web: ^1.0.0 # because of old fluttertoast
 
 dependencies:
   flutter:
@@ -33,7 +33,7 @@ dependencies:
 
   # Theme
   flex_color_scheme: ^7.3.1
-  flex_color_picker: ^3.3.0
+  flex_color_picker: ^3.4.1
 
   # Models and annotation
   json_annotation: ^4.9.0
@@ -42,13 +42,9 @@ dependencies:
   # Routing
   auto_route: ^9.1.0
   dismissible_page: ^1.0.2
-#  dismissible_page:
-#    git:
-#      url: https://github.com/Tkko/Flutter_dismissible_page
-#      ref: master
 
   # Database
-  shared_preferences: ^2.2.3
+  shared_preferences: ^2.3.1
   cardoteka: ^1.0.1
 
   # State manager
@@ -62,18 +58,16 @@ dependencies:
     sdk: flutter
 
   # Network
-  http: any
+  http: ^1.2.2
 
   # Utility
   intl: ^0.19.0
   loggy: ^2.0.3
   stack_trace: ^1.11.1
   url_launcher: ^6.3.0
-  package_info_plus: ^8.0.0
+  package_info_plus: ^8.0.1
 
-  # todo: when don't resolve https://github.com/flutter/flutter/issues/107073
-#  flutter_markdown: ^0.6.18
-  flutter_markdown_selectionarea: ^0.6.17+1
+  flutter_markdown: ^0.7.3
 
 dev_dependencies:
   flutter_test:
@@ -82,7 +76,7 @@ dev_dependencies:
   json_serializable: ^6.8.0
   auto_route_generator: ^9.0.0
   build_runner: ^2.4.11
-  icons_launcher: ^3.0.0-beta.2
+  icons_launcher: ^3.0.0-beta.3
   freezed: ^2.5.7
 
   # linters
