@@ -11,8 +11,10 @@ targets:
         enabled: true
         generate_for:
             - lib/**/models/**.dart
+            - lib/**/models.dart
       freezed:
         enabled: true
         generate_for:
             - lib/**/models/**.dart
+            - lib/**/models.dart
             - lib/**/search_state.dart
