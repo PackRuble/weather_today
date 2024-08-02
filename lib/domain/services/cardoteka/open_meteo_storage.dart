@@ -1,6 +1,6 @@
 import 'package:cardoteka/cardoteka.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_pack/weather_pack.dart';
+import 'package:weather_today/data/open_meteo/models/models.dart';
 
 import 'converters.dart';
 
@@ -11,7 +11,7 @@ class OpenMeteoStorage extends Cardoteka {
 }
 
 enum OpenMeteoCards<T extends Object?> implements Card<T> {
-  latestWeatherForecast<WeatherOneCall?>(DataType.string, null),
+  latestWeatherForecast<ForecastOpenMeteoResponse?>(DataType.string, null),
   latestRequestTimeForecast<DateTime?>(DataType.string, null),
   ;
 
@@ -30,7 +30,7 @@ enum OpenMeteoCards<T extends Object?> implements Card<T> {
     name: 'OpenMeteoCards',
     cards: values,
     converters: {
-      latestWeatherForecast: WeatherOneCallConverter(),
+      latestWeatherForecast: ForecastOpenMeteoResponseConverter(),
       latestRequestTimeForecast: Converters.dateTimeAsString,
     },
   );

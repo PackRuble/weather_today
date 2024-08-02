@@ -84,11 +84,12 @@ abstract class WeatherNotifier<T> extends AsyncNotifier<T?> with GlobalLogger {
       return null;
     }
 
-    if (_kDebugMode) {
-      logDebug('init in the debug mode');
-      state = AsyncValue.data(await getStoredWeather());
-      return state.valueOrNull;
-    }
+    // todo(02.08.2024):
+    // if (_kDebugMode) {
+    //   logDebug('init in the debug mode');
+    //   state = AsyncValue.data(await getStoredWeather());
+    //   return state.valueOrNull;
+    // }
 
     T? weather;
 

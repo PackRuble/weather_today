@@ -3,6 +3,7 @@ import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/application/i18n/translations.g.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/controllers/weather/open_weather_map/weather_current_controller.dart';
+import 'package:weather_today/domain/controllers/weather_current_delegacy_nr.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 
 /// CURRENT weather page presenter.
@@ -12,8 +13,8 @@ class CurrentPagePresenter {
   final Ref _ref;
 
   /// Actual [WeatherCurrent] CURRENT-weather.
-  static AsyncNotifierProvider<WeatherCurrentNotifier, WeatherCurrent?>
-      get current => WeatherCurrentNotifier.instance;
+  static AsyncNotifierProvider<WeatherCurrentDelegacyNR, WeatherCurrent?>
+      get current => WeatherCurrentDelegacyNR.i;
 
   /// Instance of current class.
   static final instance = Provider.autoDispose(
