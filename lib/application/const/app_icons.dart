@@ -24,6 +24,8 @@ class AppIcons {
 
   static const IconData weatherLangTile = Icons.wb_cloudy_rounded;
 
+  static const IconData weatherProvider = Icons.satellite_rounded;
+
   static const IconData apiTile = Icons.api_rounded;
 
   static const IconData visualDesignTile = Icons.view_quilt_rounded;

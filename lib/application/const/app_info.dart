@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:weather_today/domain/weather/models.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
 /// All available information from package [package_info_plus]. Learn more here [PackageInfo].
@@ -70,4 +71,25 @@ class AppInfo {
         return packageInfo.installerStore ?? '';
     }
   }
+}
+
+extension WeatherProviderX on WeatherProvider {
+  String logoAsset([bool forDark = false]) => switch (this) {
+        WeatherProvider.openWeatherMap =>
+          'assets/images/attribution/owm/openweather_${forDark ? 'negative' : 'master'}_logo.png',
+        WeatherProvider.openMeteo =>
+          'assets/images/attribution/open-meteo/openmeteo_logo.png',
+      };
+
+  String get nameService => switch (this) {
+        WeatherProvider.openWeatherMap => 'OpenWeather',
+        WeatherProvider.openMeteo => 'Open-Meteo',
+      };
+
+  String get website => switch (this) {
+        WeatherProvider.openWeatherMap => 'openweathermap.org',
+        WeatherProvider.openMeteo => 'open-meteo.com',
+      };
+
+  Uri get websiteUrl => Uri.parse('https://$website/');
 }

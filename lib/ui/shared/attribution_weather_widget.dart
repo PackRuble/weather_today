@@ -2,28 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:weather_today/application/const/app_colors.dart';
+import 'package:weather_today/application/const/app_info.dart';
 import 'package:weather_today/domain/controllers/weather_provider_nr.dart';
-import 'package:weather_today/domain/weather/models.dart';
-
-extension on WeatherProvider {
-  Uri get website => switch (this) {
-        WeatherProvider.openWeatherMap =>
-          Uri.parse('https://openweathermap.org/'),
-        WeatherProvider.openMeteo => Uri.parse('https://open-meteo.com/'),
-      };
-
-  String logoAsset([bool forDark = false]) => switch (this) {
-        WeatherProvider.openWeatherMap =>
-          'assets/images/attribution/owm/openweather_${forDark ? 'negative' : 'master'}_logo.png',
-        WeatherProvider.openMeteo =>
-          'assets/images/attribution/open-meteo/openmeteo_logo.png',
-      };
-
-  String get nameService => switch (this) {
-        WeatherProvider.openWeatherMap => 'OpenWeather',
-        WeatherProvider.openMeteo => 'Open-Meteo',
-      };
-}
 
 /// Weather provider attribution widget.
 class AttributionWeatherWidget extends ConsumerWidget {
@@ -65,7 +45,7 @@ class AttributionWeatherWidget extends ConsumerWidget {
             const SizedBox(width: 4),
             InkWell(
               onTap: () async {
-                final url = weatherProvider.website;
+                final url = weatherProvider.websiteUrl;
 
                 await launchUrl(
                   url,

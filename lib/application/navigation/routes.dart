@@ -21,6 +21,7 @@ class AppRouter extends $AppRouter {
         DismissibleRoute(page: LogsRoute.page),
         DismissibleRoute(page: SystemSettingsRoute.page),
         DismissibleRoute(page: TermsAppRoute.page),
+        DismissibleRoute(page: WeatherProviderRoute.page),
       ];
 
   @override
