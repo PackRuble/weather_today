@@ -15,16 +15,15 @@ import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_
 import 'package:weather_today/domain/controllers/app_theme/models/design_page.dart';
 import 'package:weather_today/domain/controllers/app_theme/models/models.dart';
 import 'package:weather_today/extension/enum_extension.dart';
-import 'package:weather_today/extension/value_notifier_x.dart';
 import 'package:weather_today/ui/pages/current/current_page_main.dart';
 import 'package:weather_today/ui/pages/daily/daily_page_by_ruble/daily_page.dart'
     as ruble_daily;
 import 'package:weather_today/ui/pages/daily/daily_page_main.dart';
 import 'package:weather_today/ui/pages/hourly/hourly_page_main.dart';
+import 'package:weather_today/ui/shared/bottom_bar.dart';
 import 'package:weather_today/ui/shared/reset_button.dart';
 import 'package:weather_today/ui/shared/theme_button.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
-import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../../shared/appbar_widget.dart';
 import '../../../shared/shared_widget.dart';
@@ -64,15 +63,11 @@ class VisualDesignPage extends ConsumerWidget {
           // if necessary padding, use MultiSliver
           // padding: const EdgeInsets.symmetric(horizontal: 4.0),
           slivers: [
-            _HeaderSliverText('Оформление погодных страниц (new)'),
+            // todo(02.08.2024): tr Оформление погодных страниц
+            _HeaderSliverText(t.visualDesignPage.headers.design),
             SliverToBoxAdapter(
               key: ValueKey('$_DesignPagesNew'),
               child: const _DesignPagesNew(),
-            ),
-            _HeaderSliverText(t.visualDesignPage.headers.design),
-            SliverToBoxAdapter(
-              key: ValueKey('$_DesignPagesWidget'),
-              child: const _DesignPagesWidget(),
             ),
             SliverPinnedHeader(
               key: ValueKey('$_ExampleTileDesign'),
@@ -203,17 +198,11 @@ class _DesignPagesNew extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(VisualDesignPresenter.tr);
-    final titleTr = t.mainPageDRuble.mainPage.bottomBar;
     final notifier = ref.watch(VisualDesignPresenter.instance);
-    final List<DesignPage> designPages =
-        ref.watch(VisualDesignPresenter.weatherDesignPages);
+    final designPages = ref.watch(VisualDesignPresenter.weatherDesignPages);
 
     return Column(
       children: [
-        TipRWidget(
-          text: Text('${AppSmiles.info} ${t.visualDesignPage.tips.info}'),
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-        ),
         ReorderableListView(
           buildDefaultDragHandles: false,
           shrinkWrap: true,
@@ -228,27 +217,76 @@ class _DesignPagesNew extends HookConsumerWidget {
               )
           ],
         ),
-        TipWidget(
-          color: AppColors.of(context)
-              .theme
-              .bottomNavigationBarTheme
-              .backgroundColor,
-          child: ButtonBar(
-            alignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Icon(Icons.settings),
-              for (final (index, designPage) in designPages.indexed)
-                Text(
-                  switch (designPage.page) {
-                    WeatherPage.hourly => titleTr.hourly,
-                    WeatherPage.currently => titleTr.today,
-                    WeatherPage.daily => titleTr.daily,
-                  },
-                ),
-            ],
-          ),
+        TipRWidget(
+          // todo(02.08.2024): tr
+          text: Text('${AppSmiles.info} Нажмите, чтобы увидеть'),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         ),
+        const _BottomBarTip(),
+        const SizedBox(height: 8),
       ],
+    );
+  }
+}
+
+class _BottomBarTip extends StatelessWidget {
+  const _BottomBarTip({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final overlay = Overlay.of(context);
+    final theme = Theme.of(context);
+
+    return DecoratedBox(
+      decoration: ShapeDecoration(
+        color: AppColors.of(context).tipBackgroundColor,
+        shape: LinearBorder(
+          top: const LinearBorderEdge(),
+          bottom: const LinearBorderEdge(),
+          side: BorderSide(color: AppColors.of(context).tipBorderColor),
+        ),
+      ),
+      child: BottomBarWidget(
+        mockTap: (designPage) {
+          final DesignPage(:page, :design) = designPage;
+
+          late OverlayEntry weatherOverlayEntry;
+
+          weatherOverlayEntry = OverlayEntry(
+            builder: (context) => GestureDetector(
+              onTap: weatherOverlayEntry.remove,
+              child: SafeArea(
+                child: ColoredBox(
+                  color: Colors.black54,
+                  child: Card(
+                    elevation: 8.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                      side: BorderSide(color: theme.primaryColor),
+                    ),
+                    margin: const EdgeInsets.all(16.0),
+                    child: WrapperPage(
+                      child: IgnorePointer(
+                        child: switch (page) {
+                          WeatherPage.hourly =>
+                            HourlyWeatherPage(design: design),
+                          WeatherPage.currently =>
+                            CurrentWeatherPage(design: design),
+                          WeatherPage.daily => DailyWeatherPage(design: design),
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+
+          overlay.insert(weatherOverlayEntry);
+        },
+      ),
     );
   }
 }
@@ -270,237 +308,45 @@ class _DesignTileNew extends HookConsumerWidget {
     final t = ref.watch(VisualDesignPresenter.tr);
     final titleTr = t.mainPageDRuble.mainPage.bottomBar;
 
-    final design = designPage.design;
-    final page = designPage.page;
+    final DesignPage(:page, :design) = designPage;
 
-    late final String title;
-    late String subTitle = 'design ${design.toWords()}';
-    late final WidgetBuilder overlayBuilder;
+    final title = switch (page) {
+      WeatherPage.currently => titleTr.today,
+      WeatherPage.hourly => titleTr.hourly,
+      WeatherPage.daily => titleTr.daily
+    };
 
-    switch (page) {
-      case WeatherPage.currently:
-        title = titleTr.today;
-        overlayBuilder = (_) => CurrentWeatherPage(design: design);
-      case WeatherPage.hourly:
-        title = titleTr.hourly;
-        overlayBuilder = (_) => HourlyWeatherPage(design: design);
-      case WeatherPage.daily:
-        title = titleTr.daily;
-        subTitle = 'only $subTitle';
-        overlayBuilder = (_) => DailyWeatherPage(design: design);
-    }
-
+    // todo(02.08.2024):
     final activatedTileState = useState(true);
     final activatedTile = activatedTileState.value;
 
-    final selectedDesignState = useState({AppVisualDesign.byRuble});
-    final selectedDesign = selectedDesignState.value;
-
-    return _OverlayWeatherOnLongPress(
-      overlayBuilder: overlayBuilder,
-      namePageDebug: title,
-      child: SwitchListTile(
-        value: activatedTile,
-        onChanged: (_) => activatedTileState.value = !activatedTile,
-        title: Text(title, textScaler: TextScaler.linear(textScaleFactor)),
-        subtitle: SegmentedButton<AppVisualDesign>(
-          segments: [
-            ButtonSegment(
-              value: AppVisualDesign.byRuble,
-              label: Text(AppVisualDesign.byRuble.toWords()),
-            ),
-            ButtonSegment(
-              value: AppVisualDesign.byTolskaya,
-              label: Text(AppVisualDesign.byTolskaya.toWords()),
-            ),
-          ],
-          selected: selectedDesign,
-          onSelectionChanged: activatedTile ? selectedDesignState.set : null,
-        ),
-        secondary: ReorderableDragStartListener(
-          index: index,
-          child: const Icon(Icons.drag_handle_rounded),
-        ),
-      ),
-    );
-  }
-}
-
-class _DesignPagesWidget extends HookConsumerWidget {
-  const _DesignPagesWidget();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(VisualDesignPresenter.tr);
-    final notifier = ref.watch(VisualDesignPresenter.instance);
-    final List<DesignPage> designPages =
-        ref.watch(VisualDesignPresenter.weatherDesignPages);
-
-    return Column(
-      children: [
-        TipRWidget(
-          text: Text('${AppSmiles.info} ${t.visualDesignPage.tips.info}'),
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-        ),
-        ReorderableListView(
-          buildDefaultDragHandles: false,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          onReorder: notifier.onReorderWeatherPage,
-          children: [
-            for (final (index, designPage) in designPages.indexed)
-              _DesignTile(
-                key: ValueKey(index),
-                designPage: designPage,
-                index: index,
-              )
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _DesignTile extends ConsumerWidget {
-  const _DesignTile({
-    super.key,
-    required this.designPage,
-    required this.index,
-  });
-
-  final DesignPage designPage;
-  final int index;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(VisualDesignPresenter.instance);
-    final textScaleFactor = ref.watch(AppTheme.textScaleFactor);
-    final t = ref.watch(VisualDesignPresenter.tr);
-    final titleTr = t.mainPageDRuble.mainPage.bottomBar;
-
-    final design = designPage.design;
-    final page = designPage.page;
-
-    late final String title;
-    late String subTitle = 'design ${design.toWords()}';
-    late final WidgetBuilder overlayBuilder;
-
-    switch (page) {
-      case WeatherPage.currently:
-        title = titleTr.today;
-        overlayBuilder = (_) => CurrentWeatherPage(design: design);
-      case WeatherPage.hourly:
-        title = titleTr.hourly;
-        overlayBuilder = (_) => HourlyWeatherPage(design: design);
-      case WeatherPage.daily:
-        title = titleTr.daily;
-        subTitle = 'only $subTitle';
-        overlayBuilder = (_) => DailyWeatherPage(design: design);
-    }
-
-    return _OverlayWeatherOnLongPress(
-      overlayBuilder: overlayBuilder,
-      namePageDebug: title,
-      child: SwitchListTile(
-        value: notifier.isSelectedDesign(design),
-        onChanged: page == WeatherPage.daily
-            ? (_) {}
-            : (value) async => notifier.onChangeDesignPage(value, index),
-        title: Text(title, textScaler: TextScaler.linear(textScaleFactor)),
-        subtitle:
-            Text(subTitle, textScaler: TextScaler.linear(textScaleFactor)),
-        secondary: ReorderableDragStartListener(
-          index: index,
-          child: const Icon(Icons.drag_handle_rounded),
-        ),
-      ),
-    );
-  }
-}
-
-class _OverlayWeatherOnLongPress extends HookConsumerWidget with UiLoggy {
-  const _OverlayWeatherOnLongPress({
-    super.key,
-    required this.child,
-    required this.overlayBuilder,
-    required this.namePageDebug,
-  });
-
-  final Widget child;
-  final String namePageDebug;
-  final WidgetBuilder overlayBuilder;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    loggy.info('build - $namePageDebug');
-
-    OverlayEntry? weatherOverlayEntry;
-
-    void hideOverlay() {
-      weatherOverlayEntry?.remove();
-      weatherOverlayEntry = null;
-    }
-
-    void showOverlay() {
-      final overlay = Overlay.of(context);
-      weatherOverlayEntry = OverlayEntry(
-        builder: (context) => GestureDetector(
-          onTap: hideOverlay,
-          child: SafeArea(
-            child: ColoredBox(
-              color: Colors.black54,
-              child: Card(
-                elevation: 8.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                  side: BorderSide(color: Theme.of(context).primaryColor),
-                ),
-                margin: const EdgeInsets.all(16.0),
-                child: WrapperPage(
-                  child: IgnorePointer(
-                    child: overlayBuilder(context),
-                  ),
-                ),
-              ),
-            ),
+    return SwitchListTile(
+      value: activatedTile,
+      onChanged: (_) => activatedTileState.value = !activatedTile,
+      title: Text(title, textScaler: TextScaler.linear(textScaleFactor)),
+      subtitle: SegmentedButton<AppVisualDesign>(
+        segments: [
+          ButtonSegment(
+            value: AppVisualDesign.byRuble,
+            label: Text(AppVisualDesign.byRuble.toWords()),
           ),
-        ),
-      );
-      overlay.insert(weatherOverlayEntry!);
-    }
-
-    // todo: по хорошему переделать это нужно под один оверлеёный виджет, даваемый всем виджетам
-
-    // next [AppLifecycleListener] Events not triggered #130566 - https://github.com/flutter/flutter/issues/130566
-    // does not work under windows even through WidgetsBindingObserver.didChangeAppLifecycleState
-    // next [☂️ flutter/lifecycle channel support for desktop platforms · Issue #103637 · flutter/flutter](https://github.com/flutter/flutter/issues/103637)
-
-    late final AppLifecycleListener _listener;
-
-    useEffect(() {
-      _listener = AppLifecycleListener(
-        // onDetach: () => print('onDetach'),
-        // onHide: () => print('onHide'),
-        // onInactive: () => print('onInactive'),
-        // onPause: () => print('onPause'),
-        // onRestart: () => print('onRestart'),
-        // onResume: () => print('onResume'),
-        // onShow: () => print('onShow'),
-        onStateChange: (_) => hideOverlay(),
-      );
-
-      return () {
-        _listener.dispose();
-
-        hideOverlay();
-        loggy.info('disposed - $namePageDebug');
-      };
-    }, const []);
-
-    return GestureDetector(
-      onLongPressStart: (_) => showOverlay(),
-      onLongPressEnd: (_) => hideOverlay(),
-      child: child,
+          ButtonSegment(
+            value: AppVisualDesign.byTolskaya,
+            label: Text(AppVisualDesign.byTolskaya.toWords()),
+          ),
+        ],
+        selected: {design},
+        onSelectionChanged: activatedTile && page != WeatherPage.daily
+            ? (value) async => notifier.onChangeDesignPage(
+                  value.first,
+                  index,
+                )
+            : null,
+      ),
+      secondary: ReorderableDragStartListener(
+        index: index,
+        child: const Icon(Icons.drag_handle_rounded),
+      ),
     );
   }
 }

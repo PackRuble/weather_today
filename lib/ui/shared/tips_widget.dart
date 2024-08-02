@@ -55,8 +55,8 @@ class TipWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(8.0),
       margin: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(2.0),
       decoration: ShapeDecoration(
         color: color ?? AppColors.of(context).tipBackgroundColor,
         shape: RoundedRectangleBorder(

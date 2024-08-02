@@ -101,12 +101,13 @@ class VisualDesignPresenter {
         AppVisualDesign.byTolskaya => false,
       };
 
-  Future<void> onChangeDesignPage(bool isActivate, int designPageIndex) async {
+  Future<void> onChangeDesignPage(
+      AppVisualDesign styleDesign, int designPageIndex) async {
     final pages = [..._ref.read(weatherDesignPages)];
 
     final designPage = pages[designPageIndex];
     pages[designPageIndex] = designPage.copyWith(
-      design: isActivate ? AppVisualDesign.byRuble : AppVisualDesign.byTolskaya,
+      design: styleDesign,
     );
 
     await _saveWeatherDesignPages(pages);
