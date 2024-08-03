@@ -35,6 +35,8 @@ class WeatherOnecallDelegacyNR extends AsyncNotifier<WeatherOneCall?> {
       dailyWeather: dailyOM,
     ) = forecast!;
 
+    const limitHours = Duration(days: 3);
+
     final oneCall = WeatherOneCall(
       {}, // корректно, поскольку мы только преобразуем в WeatherOneCall, но не сохраняем
       latitude: forecast.latitude,
@@ -64,14 +66,14 @@ class WeatherOnecallDelegacyNR extends AsyncNotifier<WeatherOneCall?> {
       ),
       minutely: null, // не используем в интерфейсе
       hourly: [
-        for (final hourly in hourlyOM)
+        for (final hourly in hourlyOM.sublist(0, limitHours.inHours + 1))
           WeatherHourly(
             {}, // корректно, упоминание выше
             date: hourly.time,
             temp: hourly.temp2m,
             tempFeelsLike: hourly.apparentTemp,
             pressure: hourly.pressureMsl,
-            humidity: null,
+            humidity: hourly.relativeHumidity2m.toDouble(),
             dewPoint: hourly.dewPoint2m,
             uvi: hourly.uvi,
             cloudiness: hourly.cloudCover.toDouble(),
