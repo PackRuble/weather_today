@@ -91,6 +91,5 @@ class WeatherOpenMeteoNR extends WeatherNR<ForecastOpenMeteoResponse> {
   Future<bool> isAbilityRequestOnDiffPlacesImpl() async => true;
 
   @override
-  Future<bool> resetAbilityRequestOnDiffPlaces() async =>
-      false; // todo(01.08.2024): return void
+  Future<void> resetAbilityRequestOnDiffPlaces() async => false;
 }

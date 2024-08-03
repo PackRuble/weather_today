@@ -65,6 +65,10 @@ class MessageController {
   /// показать Snack.
   void _showSnack(MessageSnack snack) => _ref.read(snacks).showSnack(snack);
 
+  /// Любая ошибка.
+  void showErrorSnack(String message) =>
+      _showSnack(MessageSnack(message: message));
+
   /// Ошибка сети.
   void tSocketException() => _showToast(_StoreMessages.toastSocketException);
 

@@ -80,7 +80,7 @@ class WeatherCurrentOwmNR extends BaseWeatherOwmNR<WeatherCurrent> {
   }
 
   @override
-  Future<bool> resetAbilityRequestOnDiffPlaces() async =>
+  Future<void> resetAbilityRequestOnDiffPlaces() async =>
       weatherStorage.set<bool>(
         WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces,
         false,

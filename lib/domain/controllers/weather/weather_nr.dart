@@ -26,7 +26,7 @@ const Duration _timeoutServiceOWM = Duration(seconds: 10);
 ///
 abstract class WeatherNR<T> extends AsyncNotifier<T?> with GlobalLogger {
   /// Get an instance of the message controller.
-  MessageController get messageNotifier => ref.read(MessageController.instance);
+  MessageController get _messagesNR => ref.read(MessageController.instance);
 
   /// Allowed frequency of request to the OWM weather retrieval service.
   Duration get allowedRequestRate;
@@ -41,28 +41,27 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with GlobalLogger {
   FutureOr<T?> build() async {
     _currentPlace = ref.watch(WeatherServices.currentPlace);
 
+    ref.listenSelf(
+      (_, __) {},
+      onError: (error, _) => l.info(error),
+    );
+
     return _init();
   }
 
   Future<T?> _init() async {
     l.info('$T: initialization');
 
-    // Make AsyncValue<T> assignable to AsyncValue<void>
-    // coldfix: https://github.com/rrousselGit/riverpod/issues/2120
-    state = AsyncValue<T?>.loading();
-
     if (_isPlaceCorrect(_currentPlace)) {
-      const contentError =
-          'The location is not correct. Choose a different location.';
-      l.info(contentError);
-      state = AsyncValue.error(contentError, StackTrace.current);
+      const error = 'The location is not correct. Choose a different location.';
+      state = AsyncValue.error(error, StackTrace.current);
       return null;
     }
 
     if (_kDebugMode) {
       l.debug('init in the debug mode');
-      state = AsyncValue.data(await getStoredWeather());
-      return state.valueOrNull;
+      final stored = await getStoredWeather();
+      if (stored != null) return state.value;
     }
 
     T? weather;
@@ -81,9 +80,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with GlobalLogger {
 
     weather ??= await getStoredWeather();
 
-    state = AsyncValue.data(weather);
-
-    return state.valueOrNull;
+    return weather;
   }
 
   /// The time of the last request to weather service.
@@ -99,10 +96,9 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with GlobalLogger {
 
   /// Defines the time after which a request to the weather service can be made.
   Future<Duration> _timeWhenWillBeAllowedMakeRequest() async {
-    final DateTime nowTime = DateTime.now();
-    final DateTime lastRequestTime = await getLastRequestTime();
-    final Duration diffTime =
-        allowedRequestRate - nowTime.difference(lastRequestTime);
+    final nowTime = DateTime.now();
+    final lastRequestTime = await getLastRequestTime();
+    final diffTime = allowedRequestRate - nowTime.difference(lastRequestTime);
 
     l.info(
       '$T: now: $nowTime, lastRequest: $lastRequestTime, diff: $diffTime, '
@@ -118,7 +114,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with GlobalLogger {
 
   /// Request the ability to get weather due to the difference of previous and current places.
   Future<bool> _isAbilityRequestOnDiffPlaces() async {
-    final bool isGranted = await isAbilityRequestOnDiffPlacesImpl();
+    final isGranted = await isAbilityRequestOnDiffPlacesImpl();
     l.info(
         '$T: Request the ability to get weather due to the difference of previous and current places. Granted: <$isGranted>');
 
@@ -132,10 +128,8 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with GlobalLogger {
     l.info('$T: Trying to update weather. DebugMode: $_kDebugMode');
 
     if (_isPlaceCorrect(_currentPlace)) {
-      const contentError =
-          'The location is not correct. Choose a different location.';
-      l.info(contentError);
-      state = AsyncValue.error(contentError, StackTrace.current);
+      const error = 'The location is not correct. Choose a different location.';
+      state = AsyncValue.error(error, StackTrace.current);
     }
 
     // is the update available now?
@@ -144,8 +138,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with GlobalLogger {
         _kDebugMode) {
       l.info('$T: Permission granted. Trying to get the weather.');
 
-      // coldfix: at this point the refresh indicator is running and that's enough
-      state = AsyncValue<T?>.loading();
+      state = const AsyncValue.loading();
 
       // get the weather from the server
       T? weather = await _getWeather(_currentPlace);
@@ -155,7 +148,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with GlobalLogger {
 
       state = AsyncData(weather);
     } else {
-      messageNotifier.sUpdateWeatherFail();
+      _messagesNR.sUpdateWeatherFail();
     }
   }
 
@@ -180,12 +173,13 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with GlobalLogger {
       await saveWeatherInDb(weather as T);
     } on SocketException catch (e, s) {
       l.info('No connection to the Internet or weather server.', e, s);
-      messageNotifier.tSocketException();
+      _messagesNR.tSocketException();
     } on TimeoutException catch (e, s) {
       l.info('The service waiting time has expired', e, s);
-      messageNotifier.tTimeoutException();
+      _messagesNR.tTimeoutException();
     } catch (e, s) {
       l.error('Another mistake', e, s);
+      _messagesNR.showErrorSnack(e.toString());
     }
 
     return weather;
