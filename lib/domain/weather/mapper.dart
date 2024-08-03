@@ -120,3 +120,189 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
     return oneCall;
   }
 }
+
+/// OWM weather conditions.
+enum OWMWeatherCode {
+  code200(200, 'Thunderstorm with light rain'),
+  code201(201, 'Thunderstorm with rain'),
+  code202(202, 'Thunderstorm with heavy rain'),
+  code210(210, 'Light thunderstorm'),
+  code211(211, 'Thunderstorm'),
+  code212(212, 'Heavy thunderstorm'),
+  code221(221, 'Ragged thunderstorm'),
+  code230(230, 'Thunderstorm with light drizzle'),
+  code231(231, 'Thunderstorm with drizzle'),
+  code232(232, 'Thunderstorm with heavy drizzle'),
+  code300(300, 'Light intensity drizzle'),
+  code301(301, 'Drizzle'),
+  code302(302, 'Heavy intensity drizzle'),
+  code310(310, 'Light intensity drizzle rain'),
+  code311(311, 'Drizzle rain'),
+  code312(312, 'Heavy intensity drizzle rain'),
+  code313(313, 'Shower rain and drizzle'),
+  code314(314, 'Heavy shower rain and drizzle'),
+  code321(321, 'Shower drizzle'),
+  code500(500, 'Light rain'),
+  code501(501, 'Moderate rain'),
+  code502(502, 'Heavy intensity rain'),
+  code503(503, 'Very heavy rain'),
+  code504(504, 'Extreme rain'),
+  code511(511, 'Freezing rain'),
+  code520(520, 'Light intensity shower rain'),
+  code521(521, 'Shower rain'),
+  code522(522, 'Heavy intensity shower rain'),
+  code531(531, 'Ragged shower rain'),
+  code600(600, 'Snow light snow'),
+  code601(601, 'Snow snow'),
+  code602(602, 'Snow heavy snow'),
+  code611(611, 'Snow sleet'),
+  code612(612, 'Snow light shower sleet'),
+  code613(613, 'Snow shower sleet'),
+  code615(615, 'Snow light rain and snow'),
+  code616(616, 'Snow rain and snow'),
+  code620(620, 'Snow light shower snow'),
+  code621(621, 'Snow shower snow'),
+  code622(622, 'Snow heavy shower snow'),
+  code701(701, 'Mist mist'),
+  code711(711, 'Smoke smoke'),
+  code721(721, 'Haze haze'),
+  code731(731, 'Dust sand/dust whirls'),
+  code741(741, 'Fog fog'),
+  code751(751, 'Sand sand'),
+  code761(761, 'Dust dust'),
+  code762(762, 'Ash volcanic ash'),
+  code771(771, 'Squall squalls'),
+  code781(781, 'Tornado tornado'),
+  code800(800, 'Clear clear sky'),
+  code801(801, 'Clouds few clouds: 11-25%'),
+  code802(802, 'Clouds scattered clouds: 25-50%'),
+  code803(803, 'Clouds broken clouds: 51-84%'),
+  code804(804, 'Clouds overcast clouds: 85-100%'),
+  ;
+
+  const OWMWeatherCode(this.code, this.desc);
+
+  /// 200-804.
+  final int code;
+
+  /// Main description.
+  final String desc;
+
+  String iconPath(bool isDay) =>
+      switch (this) {
+        code200 ||
+        code201 ||
+        code202 ||
+        code210 ||
+        code211 ||
+        code212 ||
+        code221 ||
+        code230 ||
+        code231 ||
+        code232 =>
+          '11',
+        code300 ||
+        code301 ||
+        code302 ||
+        code310 ||
+        code311 ||
+        code312 ||
+        code313 ||
+        code314 ||
+        code321 =>
+          '09',
+        code500 || code501 || code502 || code503 || code504 => '10',
+        code511 => '13',
+        code520 || code521 || code522 || code531 => '09',
+        code600 ||
+        code601 ||
+        code602 ||
+        code611 ||
+        code612 ||
+        code613 ||
+        code615 ||
+        code616 ||
+        code620 ||
+        code621 ||
+        code622 =>
+          '13',
+        code701 ||
+        code711 ||
+        code721 ||
+        code731 ||
+        code761 ||
+        code741 ||
+        code751 ||
+        code762 ||
+        code771 ||
+        code781 =>
+          '50',
+        code800 => '01',
+        code801 => '02',
+        code802 => '03',
+        code803 || code804 => '04',
+      } +
+      (isDay ? 'd' : 'n');
+
+  /// Short description.
+  String get shortDesc => switch (this) {
+        code200 ||
+        code201 ||
+        code202 ||
+        code210 ||
+        code211 ||
+        code212 ||
+        code221 ||
+        code230 ||
+        code231 ||
+        code232 =>
+          'Thunderstorm',
+        code300 ||
+        code301 ||
+        code302 ||
+        code310 ||
+        code311 ||
+        code312 ||
+        code313 ||
+        code314 ||
+        code321 =>
+          'Drizzle',
+        code500 ||
+        code501 ||
+        code502 ||
+        code503 ||
+        code504 ||
+        code511 ||
+        code520 ||
+        code521 ||
+        code522 ||
+        code531 =>
+          'Rain',
+        code600 ||
+        code601 ||
+        code602 ||
+        code611 ||
+        code612 ||
+        code613 ||
+        code615 ||
+        code616 ||
+        code620 ||
+        code621 ||
+        code622 =>
+          'Snow',
+        code701 => 'Mist',
+        code711 => 'Smoke',
+        code721 => 'Haze',
+        code731 || code761 => 'Dust',
+        code741 => 'Fog',
+        code751 => 'Sand',
+        code762 => 'Ash',
+        code771 => 'Squall',
+        code781 => 'Tornado',
+        code800 => 'Clear',
+        code801 || code802 || code803 || code804 => 'Clouds',
+      };
+
+  static OWMWeatherCode byCode(int code) =>
+      values.firstWhere((e) => e.code == code);
+}
