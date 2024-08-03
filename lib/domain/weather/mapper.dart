@@ -1,4 +1,5 @@
 import 'package:weather_pack/weather_pack.dart';
+import 'package:weather_today/data/open_meteo/models/enums.dart';
 import 'package:weather_today/data/open_meteo/models/models.dart';
 
 extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
@@ -38,8 +39,8 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
               windGust: currentOM.windGusts10m,
               cloudiness: currentOM.cloudCover.toDouble(),
               uvi: null,
-              weatherDescription: null, // todo(02.08.2024):
-              weatherMain: currentOM.weatherCode.desc, // todo(02.08.2024):
+              weatherMain: currentOM.weatherCode.desc,
+              weatherDescription: null,
               weatherIcon: null, // todo(02.08.2024):
               weatherConditionCode: null, // todo(02.08.2024):
             )
@@ -119,8 +120,43 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
 
     return oneCall;
   }
+
+  OWMWeatherCode convertOwmWeatherCode(OpenMeteoWeatherCode openMeteoCode) {
+    return switch (openMeteoCode) {
+      OpenMeteoWeatherCode.code0 => OWMWeatherCode.code800,
+      OpenMeteoWeatherCode.code1 => OWMWeatherCode.code801,
+      OpenMeteoWeatherCode.code2 => OWMWeatherCode.code802,
+      OpenMeteoWeatherCode.code3 => OWMWeatherCode.code804,
+      OpenMeteoWeatherCode.code45 => OWMWeatherCode.code741,
+      OpenMeteoWeatherCode.code48 => OWMWeatherCode.code701,
+      OpenMeteoWeatherCode.code51 => OWMWeatherCode.code300,
+      OpenMeteoWeatherCode.code53 => OWMWeatherCode.code301,
+      OpenMeteoWeatherCode.code55 => OWMWeatherCode.code302,
+      OpenMeteoWeatherCode.code56 => OWMWeatherCode.code310,
+      OpenMeteoWeatherCode.code57 => OWMWeatherCode.code312,
+      OpenMeteoWeatherCode.code61 => OWMWeatherCode.code500,
+      OpenMeteoWeatherCode.code63 => OWMWeatherCode.code501,
+      OpenMeteoWeatherCode.code65 => OWMWeatherCode.code502,
+      OpenMeteoWeatherCode.code66 => OWMWeatherCode.code511,
+      OpenMeteoWeatherCode.code67 => OWMWeatherCode.code504,
+      OpenMeteoWeatherCode.code71 => OWMWeatherCode.code600,
+      OpenMeteoWeatherCode.code73 => OWMWeatherCode.code601,
+      OpenMeteoWeatherCode.code75 => OWMWeatherCode.code602,
+      OpenMeteoWeatherCode.code77 => OWMWeatherCode.code621,
+      OpenMeteoWeatherCode.code80 => OWMWeatherCode.code520,
+      OpenMeteoWeatherCode.code81 => OWMWeatherCode.code521,
+      OpenMeteoWeatherCode.code82 => OWMWeatherCode.code522,
+      OpenMeteoWeatherCode.code85 => OWMWeatherCode.code620,
+      OpenMeteoWeatherCode.code86 => OWMWeatherCode.code622,
+      OpenMeteoWeatherCode.code95 => OWMWeatherCode.code211,
+      OpenMeteoWeatherCode.code96 => OWMWeatherCode.code200,
+      OpenMeteoWeatherCode.code99 => OWMWeatherCode.code202,
+    };
+  }
 }
 
+// fixdep(03.08.2024): [Create an enumeration of weather icons · Issue #20 · PackRuble/weather_pack](https://github.com/PackRuble/weather_pack/issues/20)
+//
 /// OWM weather conditions.
 enum OWMWeatherCode {
   code200(200, 'Thunderstorm with light rain'),
@@ -152,32 +188,32 @@ enum OWMWeatherCode {
   code521(521, 'Shower rain'),
   code522(522, 'Heavy intensity shower rain'),
   code531(531, 'Ragged shower rain'),
-  code600(600, 'Snow light snow'),
-  code601(601, 'Snow snow'),
-  code602(602, 'Snow heavy snow'),
-  code611(611, 'Snow sleet'),
-  code612(612, 'Snow light shower sleet'),
-  code613(613, 'Snow shower sleet'),
-  code615(615, 'Snow light rain and snow'),
-  code616(616, 'Snow rain and snow'),
-  code620(620, 'Snow light shower snow'),
-  code621(621, 'Snow shower snow'),
-  code622(622, 'Snow heavy shower snow'),
-  code701(701, 'Mist mist'),
-  code711(711, 'Smoke smoke'),
-  code721(721, 'Haze haze'),
-  code731(731, 'Dust sand/dust whirls'),
-  code741(741, 'Fog fog'),
-  code751(751, 'Sand sand'),
-  code761(761, 'Dust dust'),
-  code762(762, 'Ash volcanic ash'),
-  code771(771, 'Squall squalls'),
-  code781(781, 'Tornado tornado'),
-  code800(800, 'Clear clear sky'),
-  code801(801, 'Clouds few clouds: 11-25%'),
-  code802(802, 'Clouds scattered clouds: 25-50%'),
-  code803(803, 'Clouds broken clouds: 51-84%'),
-  code804(804, 'Clouds overcast clouds: 85-100%'),
+  code600(600, 'Light snow'),
+  code601(601, 'Snow'),
+  code602(602, 'Heavy snow'),
+  code611(611, 'Sleet'),
+  code612(612, 'Light shower sleet'),
+  code613(613, 'Shower sleet'),
+  code615(615, 'Light rain and snow'),
+  code616(616, 'Rain and snow'),
+  code620(620, 'Light shower snow'),
+  code621(621, 'Shower snow'),
+  code622(622, 'Heavy shower snow'),
+  code701(701, 'Mist'),
+  code711(711, 'Smoke'),
+  code721(721, 'Haze'),
+  code731(731, 'Sand/dust whirls'),
+  code741(741, 'Fog'),
+  code751(751, 'Sand'),
+  code761(761, 'Dust'),
+  code762(762, 'Volcanic ash'),
+  code771(771, 'Squalls'),
+  code781(781, 'Tornado'),
+  code800(800, 'Clear sky'),
+  code801(801, 'Few clouds: 11-25%'),
+  code802(802, 'Scattered clouds: 25-50%'),
+  code803(803, 'Broken clouds: 51-84%'),
+  code804(804, 'Overcast clouds: 85-100%'),
   ;
 
   const OWMWeatherCode(this.code, this.desc);
