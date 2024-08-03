@@ -41,8 +41,10 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
               uvi: null,
               weatherMain: currentOM.weatherCode.desc,
               weatherDescription: null,
-              weatherIcon: null, // todo(02.08.2024):
-              weatherConditionCode: null, // todo(02.08.2024):
+              weatherIcon: convertOwmWeatherCode(currentOM.weatherCode)
+                  .iconPath(true), // todo(03.08.2024): isDay
+              weatherConditionCode:
+                  convertOwmWeatherCode(currentOM.weatherCode).code,
             )
           : null,
       minutely: null, // не используем в интерфейсе
@@ -65,12 +67,14 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                   windGust: hourly.windGusts10m,
                   pop: hourly.pop * 0.01,
                   rain: hourly.rain,
-                  snow: hourly
-                      .snowfall, // todo: скорее всего, в той модели тоже см
-                  weatherDescription: null, // todo(02.08.2024):
-                  weatherMain: hourly.weatherCode.desc, // todo(02.08.2024):
-                  weatherIcon: null, // todo(02.08.2024):
-                  weatherConditionCode: null, // todo(02.08.2024):
+                  // todo: скорее всего, в той модели тоже см
+                  snow: hourly.snowfall,
+                  weatherDescription: null,
+                  weatherMain: hourly.weatherCode.desc,
+                  weatherIcon: convertOwmWeatherCode(hourly.weatherCode)
+                      .iconPath(true), // todo(03.08.2024): isDay
+                  weatherConditionCode:
+                      convertOwmWeatherCode(hourly.weatherCode).code,
                 ),
             ]
           : null,
@@ -106,12 +110,14 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                   windGust: daily.windGusts10mMax,
                   pop: daily.popMax * 0.01,
                   rain: daily.rainSum,
-                  snow: daily
-                      .snowfallSum, // todo: скорее всего, в той модели тоже см
-                  weatherDescription: null, // todo(02.08.2024):
-                  weatherMain: daily.weatherCode.desc, // todo(02.08.2024):
-                  weatherIcon: null, // todo(02.08.2024):
-                  weatherConditionCode: null, // todo(02.08.2024):
+                  // todo: скорее всего, в той модели тоже см
+                  snow: daily.snowfallSum,
+                  weatherDescription: null,
+                  weatherMain: daily.weatherCode.desc,
+                  weatherIcon: convertOwmWeatherCode(daily.weatherCode)
+                      .iconPath(true), // todo(03.08.2024): isDay
+                  weatherConditionCode:
+                      convertOwmWeatherCode(daily.weatherCode).code,
                 ),
             ]
           : null,
