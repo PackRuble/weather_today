@@ -2,7 +2,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/application/i18n/translations.g.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
-import 'package:weather_today/domain/controllers/weather/open_weather_map/weather_onecall_controller.dart';
 import 'package:weather_today/domain/controllers/weather_onecall_delegacy_nr.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 
@@ -49,5 +48,5 @@ class DailyPagePresenter {
 
   /// The ONE_CALL-weather update.
   Future<void> updateWeather() async =>
-      _ref.read(WeatherOnecallNotifier.instance.notifier).updateWeather();
+      _ref.read(WeatherOnecallDelegacyNR.i.notifier).updateWeather();
 }

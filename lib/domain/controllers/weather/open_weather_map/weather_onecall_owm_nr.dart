@@ -9,67 +9,66 @@ import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/domain/services/cardoteka/weather_storage.dart';
 import 'package:weather_today/domain/services/local_storage/key_store.dart';
 
-import '../weather_controller.dart';
+import 'base_weather_owm_nr.dart';
 
-/// Notifier of the CURRENT weather service.
-class WeatherCurrentNotifier extends WeatherNotifier<WeatherCurrent> {
+/// Notifier of the ONECALL weather service.
+class WeatherOnecallOwmNR extends BaseWeatherOwmNR<WeatherOneCall> {
   /// Instance of current class.
-  static final instance =
-      AsyncNotifierProvider<WeatherCurrentNotifier, WeatherCurrent?>(
-    WeatherCurrentNotifier.new,
-    name: '$WeatherCurrentNotifier',
+  static final i = AsyncNotifierProvider<WeatherOnecallOwmNR, WeatherOneCall?>(
+    WeatherOnecallOwmNR.new,
+    name: '$WeatherOnecallOwmNR',
   );
 
   @override
   late Duration allowedRequestRate;
 
   @override
-  FutureOr<WeatherCurrent?> build() async {
+  FutureOr<WeatherOneCall?> build() async {
     allowedRequestRate = ref.watch(OWMController.isUserApiKey)
-        ? allowedRequestRateCurrentWithUserApi
-        : allowedRequestRateCurrentWithDefaultApi;
+        ? allowedRequestRateOnecallWithUserApi
+        : allowedRequestRateOnecallWithDefaultApi;
 
     return super.build();
   }
 
-  /// Allowed frequency of request to CURRENT weather retrieval service with
+  /// Allowed frequency of request to ONECALL weather retrieval service with
   /// default API key (developer key).
-  static const Duration allowedRequestRateCurrentWithDefaultApi =
-      Duration(seconds: 30);
+  static const Duration allowedRequestRateOnecallWithDefaultApi =
+      Duration(days: 1);
 
-  /// Allowed frequency of request to CURRENT weather retrieval service with
+  /// Allowed frequency of request to ONECALL weather retrieval service with
   /// by the API user key.
-  static const Duration allowedRequestRateCurrentWithUserApi = Duration.zero;
+  static const Duration allowedRequestRateOnecallWithUserApi = Duration.zero;
 
   @override
-  Future<WeatherCurrent?> getStoredWeather() async {
+  Future<WeatherOneCall?> getStoredWeather() async {
     final String jsonStr =
-        await db.load(DbStore.weatherCurrent, DbStore.weatherCurrentDefault);
+        await db.load(DbStore.weatherOneCall, DbStore.weatherOneCallDefault);
 
     if (jsonStr.isNotEmpty) {
-      return WeatherCurrent.fromJson(
+      return WeatherOneCall.fromJson(
           jsonDecode(jsonStr) as Map<String, dynamic>);
     }
     return null;
   }
 
   @override
-  Future<WeatherCurrent> getWeatherFromOWM(Place place) async =>
-      super.weatherService.currentWeatherByLocation(
+  Future<WeatherOneCall> getWeatherFromOWM(Place place) async =>
+      weatherService.oneCallWeatherByLocation(
           latitude: place.latitude!, longitude: place.longitude!);
 
   @override
-  Future<void> saveWeatherInDb(WeatherCurrent weather) async =>
-      db.save(DbStore.weatherCurrent, jsonEncode(weather.toJson()));
+  Future<void> saveWeatherInDb(WeatherOneCall weather) async =>
+      db.save(DbStore.weatherOneCall, jsonEncode(weather.toJson()));
 
   @override
   Future<void> saveLastRequestTimeInDb(DateTime dateTime) async =>
-      db.save(DbStore.lastRequestTimeCurrent, dateTime.millisecondsSinceEpoch);
+      db.save(DbStore.lastRequestTimeOneCall, dateTime.millisecondsSinceEpoch);
 
   @override
   Future<DateTime> getLastRequestTime() async {
     final int timeInMilliseconds = await db.load(
-        DbStore.lastRequestTimeCurrent, DbStore.lastRequestTimeCurrentDefault);
+        DbStore.lastRequestTimeOneCall, DbStore.lastRequestTimeOneCallDefault);
 
     return DateTime.fromMillisecondsSinceEpoch(timeInMilliseconds);
   }
@@ -77,13 +76,13 @@ class WeatherCurrentNotifier extends WeatherNotifier<WeatherCurrent> {
   @override
   Future<bool> isAbilityRequestOnDiffPlacesImpl() async {
     return weatherStorage.get<bool>(
-        WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces);
+        WeatherCards.isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces);
   }
 
   @override
   Future<bool> resetAbilityRequestOnDiffPlaces() async =>
       weatherStorage.set<bool>(
-        WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces,
+        WeatherCards.isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces,
         false,
       );
 }

@@ -9,8 +9,7 @@ mixin NotifierLogger implements LoggyType {
 
 mixin GlobalLogger implements LoggyType {
   @override
-  Loggy<GlobalLogger> get loggy =>
-      Loggy<GlobalLogger>('[Global - $runtimeType]');
+  Loggy<GlobalLogger> get loggy => Loggy<GlobalLogger>('[$runtimeType]');
 
   Loggy<GlobalLogger> get l => loggy;
 }

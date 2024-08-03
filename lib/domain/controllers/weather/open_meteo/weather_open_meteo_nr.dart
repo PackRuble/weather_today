@@ -10,10 +10,10 @@ import 'package:weather_today/data/open_meteo/models/models.dart';
 import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/domain/services/cardoteka/open_meteo_storage.dart';
 
-import '../weather_controller.dart';
+import '../weather_nr.dart';
 
 /// Notifier of the [ForecastOpenMeteoResponse] weather service for https://open-meteo.com/.
-class WeatherOpenMeteoNR extends WeatherNotifier<ForecastOpenMeteoResponse> {
+class WeatherOpenMeteoNR extends WeatherNR<ForecastOpenMeteoResponse> {
   /// Instance of current class.
   static final i =
       AsyncNotifierProvider<WeatherOpenMeteoNR, ForecastOpenMeteoResponse?>(

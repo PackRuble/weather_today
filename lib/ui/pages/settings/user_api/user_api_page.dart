@@ -7,8 +7,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/link.dart';
 import 'package:weather_today/application/const/app_icons.dart';
-import 'package:weather_today/domain/controllers/weather/open_weather_map/weather_current_controller.dart';
-import 'package:weather_today/domain/controllers/weather/open_weather_map/weather_onecall_controller.dart';
+import 'package:weather_today/domain/controllers/weather/open_weather_map/weather_current_owm_nr.dart';
+import 'package:weather_today/domain/controllers/weather/open_weather_map/weather_onecall_owm_nr.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
 
 import '../../../shared/appbar_widget.dart';
@@ -253,10 +253,10 @@ class _AboutTariff extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(UserApiPagePresenter.tr);
 
-    final currentWeatherForDevApiInSeconds = WeatherCurrentNotifier
-        .allowedRequestRateCurrentWithDefaultApi.inSeconds;
+    final currentWeatherForDevApiInSeconds =
+        WeatherCurrentOwmNR.allowedRequestRateCurrentWithDefaultApi.inSeconds;
     final onecallWeatherForDevApiInHours =
-        WeatherOnecallNotifier.allowedRequestRateOnecallWithDefaultApi.inHours;
+        WeatherOnecallOwmNR.allowedRequestRateOnecallWithDefaultApi.inHours;
 
     return Column(
       children: [
