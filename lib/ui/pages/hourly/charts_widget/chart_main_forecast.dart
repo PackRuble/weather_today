@@ -78,7 +78,11 @@ class ChartForecastWidget extends ConsumerWidget {
   List<BarChartGroupData> _generateData(ChartModel chart) {
     // температура в цельсиях.
     BarChartGroupData _generateGroup(
-        int x, double temp, double tempFeelsLike, double dewPoint) {
+      int x,
+      double temp,
+      double tempFeelsLike,
+      double? dewPoint,
+    ) {
       // накладывается ли температура tempFeels на temp
       final bool isOverlap = temp * tempFeelsLike > 0;
 
@@ -101,12 +105,13 @@ class ChartForecastWidget extends ConsumerWidget {
             color: ChartTheme.fColorTemp,
             width: 3,
           ),
-          BarChartRodData(
-            fromY: dewPoint - chart.constantPrecisionPointLeft,
-            toY: dewPoint + chart.constantPrecisionPointLeft,
-            color: ChartTheme.fColorDewPoint,
-            width: 5,
-          ),
+          if (dewPoint != null)
+            BarChartRodData(
+              fromY: dewPoint - chart.constantPrecisionPointLeft,
+              toY: dewPoint + chart.constantPrecisionPointLeft,
+              color: ChartTheme.fColorDewPoint,
+              width: 5,
+            ),
         ]..insert(isOverlap ? 1 : 0, barTempFeels),
       );
     }
@@ -117,7 +122,9 @@ class ChartForecastWidget extends ConsumerWidget {
           i,
           ChartModel.tempUnits.value(item.temp ?? 0.0),
           ChartModel.tempUnits.value(item.tempFeelsLike ?? 0.0),
-          ChartModel.tempUnits.value(item.dewPoint ?? 0.0),
+          item.dewPoint != null
+              ? ChartModel.tempUnits.value(item.dewPoint!)
+              : null,
         )
     ];
   }

@@ -2,12 +2,20 @@ import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/data/open_meteo/models/enums.dart';
 import 'package:weather_today/data/open_meteo/models/models.dart';
 
+extension TempX on Temp {
+  static double celsiusToKelvin(double value) {
+    return double.parse((value + 273.15).toStringAsFixed(0));
+  }
+}
+
 extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
+  double tempCtoK(double value) => TempX.celsiusToKelvin(value);
+
   WeatherOneCall convertToOneCall({
     bool current = true,
     bool hourly = true,
     bool daily = true,
-    Duration limitHourly = const Duration(days: 3),
+    Duration limitHourly = const Duration(days: 2),
   }) {
     final ForecastOpenMeteoResponse(
       currentWeather: currentOM,
@@ -28,8 +36,8 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
               date: currentOM.time,
               sunrise: null,
               sunset: null,
-              temp: currentOM.temp2m,
-              tempFeelsLike: currentOM.apparentTemp,
+              temp: tempCtoK(currentOM.temp2m),
+              tempFeelsLike: tempCtoK(currentOM.apparentTemp),
               visibility: null,
               pressure: currentOM.pressureMsl,
               humidity: currentOM.relativeHumidity2m.toDouble(),
@@ -54,11 +62,11 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                 WeatherHourly(
                   {}, // корректно, упоминание выше
                   date: hourly.time,
-                  temp: hourly.temp2m,
-                  tempFeelsLike: hourly.apparentTemp,
+                  temp: tempCtoK(hourly.temp2m),
+                  tempFeelsLike: tempCtoK(hourly.apparentTemp),
                   pressure: hourly.pressureMsl,
                   humidity: hourly.relativeHumidity2m.toDouble(),
-                  dewPoint: hourly.dewPoint2m,
+                  dewPoint: tempCtoK(hourly.dewPoint2m),
                   uvi: hourly.uvi,
                   cloudiness: hourly.cloudCover.toDouble(),
                   visibility: hourly.visibility,
@@ -95,8 +103,8 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                   tempFeelsLikeNight: null,
                   tempMorning: null,
                   tempNight: null,
-                  tempMin: daily.temp2mMin,
-                  tempMax: daily.temp2mMax,
+                  tempMin: tempCtoK(daily.temp2mMin),
+                  tempMax: tempCtoK(daily.temp2mMax),
                   tempFeelsLikeDay: null,
                   pressure: null,
                   humidity: null,

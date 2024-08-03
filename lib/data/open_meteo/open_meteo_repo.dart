@@ -37,6 +37,12 @@ class OpenMeteoRepo {
         {
           'latitude': '${place.latitude}',
           'longitude': '${place.longitude}',
+          'temperature_unit': 'celsius', // celsius | fahrenheit
+          'wind_speed_unit': 'ms', // kmh | ms | mph | kn
+          'precipitation_unit': 'mm', // mm | inch
+          // todo(03.08.2024):
+          'timezone': 'auto', // GMT | auto
+          'past_days': '1', // for daily
           'current': OpenMeteoCurrentParam.values.map((e) => e.name).join(','),
           'hourly': OpenMeteoHourlyParam.values.map((e) => e.name).join(','),
           'daily': OpenMeteoDailyParam.values.map((e) => e.name).join(','),

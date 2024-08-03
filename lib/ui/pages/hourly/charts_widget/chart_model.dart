@@ -137,25 +137,34 @@ class ChartModel {
     const double startValue = -1000.0;
 
     // находим максимальное значение температур
+    double _dewPointMin = startValue * -1;
     double _dewPointMax = startValue;
+
     double _tempMax = startValue;
     double _tempFeelsMax = startValue;
-    double _dewPointMin = startValue * -1;
+
     double _tempMin = startValue * -1;
     double _tempFeelsMin = startValue * -1;
 
     for (final WeatherHourly h in data) {
-      _dewPointMax = max(_dewPointMax, h.dewPoint ?? _dewPointMax);
+      if (h.dewPoint != null) {
+        _dewPointMin = min(_dewPointMin, h.dewPoint ?? _dewPointMin);
+        _dewPointMax = max(_dewPointMax, h.dewPoint ?? _dewPointMax);
+      }
+
       _tempMax = max(_tempMax, h.temp ?? _tempMax);
       _tempFeelsMax = max(_tempFeelsMax, h.tempFeelsLike ?? _tempFeelsMax);
 
-      _dewPointMin = min(_dewPointMin, h.dewPoint ?? _dewPointMin);
       _tempMin = min(_tempMin, h.temp ?? _tempMin);
       _tempFeelsMin = min(_tempFeelsMin, h.tempFeelsLike ?? _tempFeelsMin);
     }
 
-    final double _maxValueY = max(max(_dewPointMax, _tempMax), _tempFeelsMax);
-    final double _minValueY = min(min(_dewPointMin, _tempMin), _tempFeelsMin);
+    final double _maxValueY = max(
+        _dewPointMax != startValue ? max(_dewPointMax, _tempMax) : _tempMax,
+        _tempFeelsMax);
+    final double _minValueY = min(
+        -_dewPointMin != startValue ? min(_dewPointMin, _tempMin) : _tempMax,
+        _tempFeelsMin);
 
     // доп проверка на корректность данных
     if (_maxValueY == startValue || _minValueY == startValue) {
