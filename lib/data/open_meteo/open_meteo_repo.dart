@@ -9,6 +9,8 @@ import 'models/enums.dart';
 import 'models/models.dart';
 
 class OpenMeteoRepo {
+  const OpenMeteoRepo();
+
   Future<ForecastOpenMeteoResponse> fetchForecast(Place place) async {
     ForecastOpenMeteoResponse result;
 
