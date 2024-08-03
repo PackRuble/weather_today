@@ -98,7 +98,9 @@ class CurrentWeatherOpenMeteo with _$CurrentWeatherOpenMeteo {
     @JsonKey(name: 'temperature_2m') required double temp2m,
     @JsonKey(name: 'relative_humidity_2m') required int relativeHumidity2m,
     @JsonKey(name: 'apparent_temperature') required double apparentTemp,
-    // @JsonKey(name: 'is_day') required int isDay,
+
+    /// 1 if the current time step has daylight, 0 at night.
+    @protected @JsonKey(name: 'is_day') required int isDayInt,
     @JsonKey(name: 'precipitation') required double precipitation,
     @JsonKey(name: 'rain') required double rain,
     @JsonKey(name: 'snowfall') required double snowfall,
@@ -116,6 +118,8 @@ class CurrentWeatherOpenMeteo with _$CurrentWeatherOpenMeteo {
       _$CurrentWeatherOpenMeteoFromJson(json);
 
   const CurrentWeatherOpenMeteo._();
+
+  bool get isDay => isDayInt == 1;
 }
 
 @freezed
@@ -137,6 +141,9 @@ abstract class HourlyWeatherOpenMeteo with _$HourlyWeatherOpenMeteo {
     /// Apparent temperature is the perceived feels-like temperature combining
     /// wind chill factor, relative humidity and solar radiation, °C
     @JsonKey(name: 'apparent_temperature') required double apparentTemp,
+
+    /// 1 if the current time step has daylight, 0 at night.
+    @protected @JsonKey(name: 'is_day') required int isDayInt,
 
     /// Probability of precipitation with more than 0.1 mm of the preceding hour.
     ///
@@ -194,6 +201,10 @@ abstract class HourlyWeatherOpenMeteo with _$HourlyWeatherOpenMeteo {
 
   factory HourlyWeatherOpenMeteo.fromJson(Map<String, dynamic> json) =>
       _$HourlyWeatherOpenMeteoFromJson(json);
+
+  const HourlyWeatherOpenMeteo._();
+
+  bool get isDay => isDayInt == 1;
 }
 
 @freezed

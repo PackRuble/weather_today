@@ -591,8 +591,12 @@ mixin _$CurrentWeatherOpenMeteo {
   @JsonKey(name: 'relative_humidity_2m')
   int get relativeHumidity2m => throw _privateConstructorUsedError;
   @JsonKey(name: 'apparent_temperature')
-  double get apparentTemp =>
-      throw _privateConstructorUsedError; // @JsonKey(name: 'is_day') required int isDay,
+  double get apparentTemp => throw _privateConstructorUsedError;
+
+  /// 1 if the current time step has daylight, 0 at night.
+  @protected
+  @JsonKey(name: 'is_day')
+  int get isDayInt => throw _privateConstructorUsedError;
   @JsonKey(name: 'precipitation')
   double get precipitation => throw _privateConstructorUsedError;
   @JsonKey(name: 'rain')
@@ -635,6 +639,7 @@ abstract class $CurrentWeatherOpenMeteoCopyWith<$Res> {
       @JsonKey(name: 'temperature_2m') double temp2m,
       @JsonKey(name: 'relative_humidity_2m') int relativeHumidity2m,
       @JsonKey(name: 'apparent_temperature') double apparentTemp,
+      @protected @JsonKey(name: 'is_day') int isDayInt,
       @JsonKey(name: 'precipitation') double precipitation,
       @JsonKey(name: 'rain') double rain,
       @JsonKey(name: 'snowfall') double snowfall,
@@ -669,6 +674,7 @@ class _$CurrentWeatherOpenMeteoCopyWithImpl<$Res,
     Object? temp2m = null,
     Object? relativeHumidity2m = null,
     Object? apparentTemp = null,
+    Object? isDayInt = null,
     Object? precipitation = null,
     Object? rain = null,
     Object? snowfall = null,
@@ -700,6 +706,10 @@ class _$CurrentWeatherOpenMeteoCopyWithImpl<$Res,
           ? _value.apparentTemp
           : apparentTemp // ignore: cast_nullable_to_non_nullable
               as double,
+      isDayInt: null == isDayInt
+          ? _value.isDayInt
+          : isDayInt // ignore: cast_nullable_to_non_nullable
+              as int,
       precipitation: null == precipitation
           ? _value.precipitation
           : precipitation // ignore: cast_nullable_to_non_nullable
@@ -755,6 +765,7 @@ abstract class _$$CurrentWeatherOpenMeteoImplCopyWith<$Res>
       @JsonKey(name: 'temperature_2m') double temp2m,
       @JsonKey(name: 'relative_humidity_2m') int relativeHumidity2m,
       @JsonKey(name: 'apparent_temperature') double apparentTemp,
+      @protected @JsonKey(name: 'is_day') int isDayInt,
       @JsonKey(name: 'precipitation') double precipitation,
       @JsonKey(name: 'rain') double rain,
       @JsonKey(name: 'snowfall') double snowfall,
@@ -788,6 +799,7 @@ class __$$CurrentWeatherOpenMeteoImplCopyWithImpl<$Res>
     Object? temp2m = null,
     Object? relativeHumidity2m = null,
     Object? apparentTemp = null,
+    Object? isDayInt = null,
     Object? precipitation = null,
     Object? rain = null,
     Object? snowfall = null,
@@ -819,6 +831,10 @@ class __$$CurrentWeatherOpenMeteoImplCopyWithImpl<$Res>
           ? _value.apparentTemp
           : apparentTemp // ignore: cast_nullable_to_non_nullable
               as double,
+      isDayInt: null == isDayInt
+          ? _value.isDayInt
+          : isDayInt // ignore: cast_nullable_to_non_nullable
+              as int,
       precipitation: null == precipitation
           ? _value.precipitation
           : precipitation // ignore: cast_nullable_to_non_nullable
@@ -869,6 +885,7 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
       @JsonKey(name: 'temperature_2m') required this.temp2m,
       @JsonKey(name: 'relative_humidity_2m') required this.relativeHumidity2m,
       @JsonKey(name: 'apparent_temperature') required this.apparentTemp,
+      @protected @JsonKey(name: 'is_day') required this.isDayInt,
       @JsonKey(name: 'precipitation') required this.precipitation,
       @JsonKey(name: 'rain') required this.rain,
       @JsonKey(name: 'snowfall') required this.snowfall,
@@ -902,7 +919,12 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
   @override
   @JsonKey(name: 'apparent_temperature')
   final double apparentTemp;
-// @JsonKey(name: 'is_day') required int isDay,
+
+  /// 1 if the current time step has daylight, 0 at night.
+  @override
+  @protected
+  @JsonKey(name: 'is_day')
+  final int isDayInt;
   @override
   @JsonKey(name: 'precipitation')
   final double precipitation;
@@ -934,7 +956,7 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
 
   @override
   String toString() {
-    return 'CurrentWeatherOpenMeteo(time: $time, interval: $interval, temp2m: $temp2m, relativeHumidity2m: $relativeHumidity2m, apparentTemp: $apparentTemp, precipitation: $precipitation, rain: $rain, snowfall: $snowfall, cloudCover: $cloudCover, pressureMsl: $pressureMsl, windSpeed10m: $windSpeed10m, windDirection10m: $windDirection10m, windGusts10m: $windGusts10m, weatherCode: $weatherCode)';
+    return 'CurrentWeatherOpenMeteo(time: $time, interval: $interval, temp2m: $temp2m, relativeHumidity2m: $relativeHumidity2m, apparentTemp: $apparentTemp, isDayInt: $isDayInt, precipitation: $precipitation, rain: $rain, snowfall: $snowfall, cloudCover: $cloudCover, pressureMsl: $pressureMsl, windSpeed10m: $windSpeed10m, windDirection10m: $windDirection10m, windGusts10m: $windGusts10m, weatherCode: $weatherCode)';
   }
 
   @override
@@ -950,6 +972,8 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
                 other.relativeHumidity2m == relativeHumidity2m) &&
             (identical(other.apparentTemp, apparentTemp) ||
                 other.apparentTemp == apparentTemp) &&
+            (identical(other.isDayInt, isDayInt) ||
+                other.isDayInt == isDayInt) &&
             (identical(other.precipitation, precipitation) ||
                 other.precipitation == precipitation) &&
             (identical(other.rain, rain) || other.rain == rain) &&
@@ -978,6 +1002,7 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
       temp2m,
       relativeHumidity2m,
       apparentTemp,
+      isDayInt,
       precipitation,
       rain,
       snowfall,
@@ -1015,6 +1040,7 @@ abstract class _CurrentWeatherOpenMeteo extends CurrentWeatherOpenMeteo {
       @JsonKey(name: 'relative_humidity_2m')
       required final int relativeHumidity2m,
       @JsonKey(name: 'apparent_temperature') required final double apparentTemp,
+      @protected @JsonKey(name: 'is_day') required final int isDayInt,
       @JsonKey(name: 'precipitation') required final double precipitation,
       @JsonKey(name: 'rain') required final double rain,
       @JsonKey(name: 'snowfall') required final double snowfall,
@@ -1048,7 +1074,13 @@ abstract class _CurrentWeatherOpenMeteo extends CurrentWeatherOpenMeteo {
   int get relativeHumidity2m;
   @override
   @JsonKey(name: 'apparent_temperature')
-  double get apparentTemp; // @JsonKey(name: 'is_day') required int isDay,
+  double get apparentTemp;
+
+  /// 1 if the current time step has daylight, 0 at night.
+  @override
+  @protected
+  @JsonKey(name: 'is_day')
+  int get isDayInt;
   @override
   @JsonKey(name: 'precipitation')
   double get precipitation;
@@ -1114,6 +1146,11 @@ mixin _$HourlyWeatherOpenMeteo {
   /// wind chill factor, relative humidity and solar radiation, °C
   @JsonKey(name: 'apparent_temperature')
   double get apparentTemp => throw _privateConstructorUsedError;
+
+  /// 1 if the current time step has daylight, 0 at night.
+  @protected
+  @JsonKey(name: 'is_day')
+  int get isDayInt => throw _privateConstructorUsedError;
 
   /// Probability of precipitation with more than 0.1 mm of the preceding hour.
   ///
@@ -1202,6 +1239,7 @@ abstract class $HourlyWeatherOpenMeteoCopyWith<$Res> {
       @JsonKey(name: 'relative_humidity_2m') int relativeHumidity2m,
       @JsonKey(name: 'dew_point_2m') double dewPoint2m,
       @JsonKey(name: 'apparent_temperature') double apparentTemp,
+      @protected @JsonKey(name: 'is_day') int isDayInt,
       @JsonKey(name: 'precipitation_probability') int pop,
       @JsonKey(name: 'precipitation') double precipitation,
       @JsonKey(name: 'rain') double rain,
@@ -1240,6 +1278,7 @@ class _$HourlyWeatherOpenMeteoCopyWithImpl<$Res,
     Object? relativeHumidity2m = null,
     Object? dewPoint2m = null,
     Object? apparentTemp = null,
+    Object? isDayInt = null,
     Object? pop = null,
     Object? precipitation = null,
     Object? rain = null,
@@ -1275,6 +1314,10 @@ class _$HourlyWeatherOpenMeteoCopyWithImpl<$Res,
           ? _value.apparentTemp
           : apparentTemp // ignore: cast_nullable_to_non_nullable
               as double,
+      isDayInt: null == isDayInt
+          ? _value.isDayInt
+          : isDayInt // ignore: cast_nullable_to_non_nullable
+              as int,
       pop: null == pop
           ? _value.pop
           : pop // ignore: cast_nullable_to_non_nullable
@@ -1346,6 +1389,7 @@ abstract class _$$HourlyWeatherOpenMeteoImplCopyWith<$Res>
       @JsonKey(name: 'relative_humidity_2m') int relativeHumidity2m,
       @JsonKey(name: 'dew_point_2m') double dewPoint2m,
       @JsonKey(name: 'apparent_temperature') double apparentTemp,
+      @protected @JsonKey(name: 'is_day') int isDayInt,
       @JsonKey(name: 'precipitation_probability') int pop,
       @JsonKey(name: 'precipitation') double precipitation,
       @JsonKey(name: 'rain') double rain,
@@ -1383,6 +1427,7 @@ class __$$HourlyWeatherOpenMeteoImplCopyWithImpl<$Res>
     Object? relativeHumidity2m = null,
     Object? dewPoint2m = null,
     Object? apparentTemp = null,
+    Object? isDayInt = null,
     Object? pop = null,
     Object? precipitation = null,
     Object? rain = null,
@@ -1418,6 +1463,10 @@ class __$$HourlyWeatherOpenMeteoImplCopyWithImpl<$Res>
           ? _value.apparentTemp
           : apparentTemp // ignore: cast_nullable_to_non_nullable
               as double,
+      isDayInt: null == isDayInt
+          ? _value.isDayInt
+          : isDayInt // ignore: cast_nullable_to_non_nullable
+              as int,
       pop: null == pop
           ? _value.pop
           : pop // ignore: cast_nullable_to_non_nullable
@@ -1477,13 +1526,14 @@ class __$$HourlyWeatherOpenMeteoImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$HourlyWeatherOpenMeteoImpl implements _HourlyWeatherOpenMeteo {
+class _$HourlyWeatherOpenMeteoImpl extends _HourlyWeatherOpenMeteo {
   const _$HourlyWeatherOpenMeteoImpl(
       {@JsonKey(name: 'time') @DateTimeISO8601Converter() required this.time,
       @JsonKey(name: 'temperature_2m') required this.temp2m,
       @JsonKey(name: 'relative_humidity_2m') required this.relativeHumidity2m,
       @JsonKey(name: 'dew_point_2m') required this.dewPoint2m,
       @JsonKey(name: 'apparent_temperature') required this.apparentTemp,
+      @protected @JsonKey(name: 'is_day') required this.isDayInt,
       @JsonKey(name: 'precipitation_probability') required this.pop,
       @JsonKey(name: 'precipitation') required this.precipitation,
       @JsonKey(name: 'rain') required this.rain,
@@ -1498,7 +1548,8 @@ class _$HourlyWeatherOpenMeteoImpl implements _HourlyWeatherOpenMeteo {
       @JsonKey(name: 'wind_gusts_10m') required this.windGusts10m,
       @JsonKey(name: 'weather_code')
       @OpenMeteoWeatherCodeConverter()
-      required this.weatherCode});
+      required this.weatherCode})
+      : super._();
 
   factory _$HourlyWeatherOpenMeteoImpl.fromJson(Map<String, dynamic> json) =>
       _$$HourlyWeatherOpenMeteoImplFromJson(json);
@@ -1529,6 +1580,12 @@ class _$HourlyWeatherOpenMeteoImpl implements _HourlyWeatherOpenMeteo {
   @override
   @JsonKey(name: 'apparent_temperature')
   final double apparentTemp;
+
+  /// 1 if the current time step has daylight, 0 at night.
+  @override
+  @protected
+  @JsonKey(name: 'is_day')
+  final int isDayInt;
 
   /// Probability of precipitation with more than 0.1 mm of the preceding hour.
   ///
@@ -1610,7 +1667,7 @@ class _$HourlyWeatherOpenMeteoImpl implements _HourlyWeatherOpenMeteo {
 
   @override
   String toString() {
-    return 'HourlyWeatherOpenMeteo(time: $time, temp2m: $temp2m, relativeHumidity2m: $relativeHumidity2m, dewPoint2m: $dewPoint2m, apparentTemp: $apparentTemp, pop: $pop, precipitation: $precipitation, rain: $rain, showers: $showers, snowfall: $snowfall, cloudCover: $cloudCover, pressureMsl: $pressureMsl, visibility: $visibility, uvi: $uvi, windSpeed10m: $windSpeed10m, windDirection10m: $windDirection10m, windGusts10m: $windGusts10m, weatherCode: $weatherCode)';
+    return 'HourlyWeatherOpenMeteo(time: $time, temp2m: $temp2m, relativeHumidity2m: $relativeHumidity2m, dewPoint2m: $dewPoint2m, apparentTemp: $apparentTemp, isDayInt: $isDayInt, pop: $pop, precipitation: $precipitation, rain: $rain, showers: $showers, snowfall: $snowfall, cloudCover: $cloudCover, pressureMsl: $pressureMsl, visibility: $visibility, uvi: $uvi, windSpeed10m: $windSpeed10m, windDirection10m: $windDirection10m, windGusts10m: $windGusts10m, weatherCode: $weatherCode)';
   }
 
   @override
@@ -1626,6 +1683,8 @@ class _$HourlyWeatherOpenMeteoImpl implements _HourlyWeatherOpenMeteo {
                 other.dewPoint2m == dewPoint2m) &&
             (identical(other.apparentTemp, apparentTemp) ||
                 other.apparentTemp == apparentTemp) &&
+            (identical(other.isDayInt, isDayInt) ||
+                other.isDayInt == isDayInt) &&
             (identical(other.pop, pop) || other.pop == pop) &&
             (identical(other.precipitation, precipitation) ||
                 other.precipitation == precipitation) &&
@@ -1652,26 +1711,28 @@ class _$HourlyWeatherOpenMeteoImpl implements _HourlyWeatherOpenMeteo {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      time,
-      temp2m,
-      relativeHumidity2m,
-      dewPoint2m,
-      apparentTemp,
-      pop,
-      precipitation,
-      rain,
-      showers,
-      snowfall,
-      cloudCover,
-      pressureMsl,
-      visibility,
-      uvi,
-      windSpeed10m,
-      windDirection10m,
-      windGusts10m,
-      weatherCode);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        time,
+        temp2m,
+        relativeHumidity2m,
+        dewPoint2m,
+        apparentTemp,
+        isDayInt,
+        pop,
+        precipitation,
+        rain,
+        showers,
+        snowfall,
+        cloudCover,
+        pressureMsl,
+        visibility,
+        uvi,
+        windSpeed10m,
+        windDirection10m,
+        windGusts10m,
+        weatherCode
+      ]);
 
   /// Create a copy of HourlyWeatherOpenMeteo
   /// with the given fields replaced by the non-null parameter values.
@@ -1690,7 +1751,7 @@ class _$HourlyWeatherOpenMeteoImpl implements _HourlyWeatherOpenMeteo {
   }
 }
 
-abstract class _HourlyWeatherOpenMeteo implements HourlyWeatherOpenMeteo {
+abstract class _HourlyWeatherOpenMeteo extends HourlyWeatherOpenMeteo {
   const factory _HourlyWeatherOpenMeteo(
       {@JsonKey(name: 'time')
       @DateTimeISO8601Converter()
@@ -1700,6 +1761,7 @@ abstract class _HourlyWeatherOpenMeteo implements HourlyWeatherOpenMeteo {
       required final int relativeHumidity2m,
       @JsonKey(name: 'dew_point_2m') required final double dewPoint2m,
       @JsonKey(name: 'apparent_temperature') required final double apparentTemp,
+      @protected @JsonKey(name: 'is_day') required final int isDayInt,
       @JsonKey(name: 'precipitation_probability') required final int pop,
       @JsonKey(name: 'precipitation') required final double precipitation,
       @JsonKey(name: 'rain') required final double rain,
@@ -1716,6 +1778,7 @@ abstract class _HourlyWeatherOpenMeteo implements HourlyWeatherOpenMeteo {
       @OpenMeteoWeatherCodeConverter()
       required final OpenMeteoWeatherCode
           weatherCode}) = _$HourlyWeatherOpenMeteoImpl;
+  const _HourlyWeatherOpenMeteo._() : super._();
 
   factory _HourlyWeatherOpenMeteo.fromJson(Map<String, dynamic> json) =
       _$HourlyWeatherOpenMeteoImpl.fromJson;
@@ -1746,6 +1809,12 @@ abstract class _HourlyWeatherOpenMeteo implements HourlyWeatherOpenMeteo {
   @override
   @JsonKey(name: 'apparent_temperature')
   double get apparentTemp;
+
+  /// 1 if the current time step has daylight, 0 at night.
+  @override
+  @protected
+  @JsonKey(name: 'is_day')
+  int get isDayInt;
 
   /// Probability of precipitation with more than 0.1 mm of the preceding hour.
   ///

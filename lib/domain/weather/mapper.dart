@@ -42,7 +42,7 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
               weatherMain: currentOM.weatherCode.desc,
               weatherDescription: null,
               weatherIcon: convertOwmWeatherCode(currentOM.weatherCode)
-                  .iconPath(true), // todo(03.08.2024): isDay
+                  .iconPath(currentOM.isDay),
               weatherConditionCode:
                   convertOwmWeatherCode(currentOM.weatherCode).code,
             )
@@ -72,7 +72,7 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                   weatherDescription: null,
                   weatherMain: hourly.weatherCode.desc,
                   weatherIcon: convertOwmWeatherCode(hourly.weatherCode)
-                      .iconPath(true), // todo(03.08.2024): isDay
+                      .iconPath(hourly.isDay),
                   weatherConditionCode:
                       convertOwmWeatherCode(hourly.weatherCode).code,
                 ),
@@ -114,8 +114,8 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                   snow: daily.snowfallSum,
                   weatherDescription: null,
                   weatherMain: daily.weatherCode.desc,
-                  weatherIcon: convertOwmWeatherCode(daily.weatherCode)
-                      .iconPath(true), // todo(03.08.2024): isDay
+                  weatherIcon:
+                      convertOwmWeatherCode(daily.weatherCode).iconPath(true),
                   weatherConditionCode:
                       convertOwmWeatherCode(daily.weatherCode).code,
                 ),
