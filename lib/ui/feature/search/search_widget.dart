@@ -19,8 +19,6 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    loggy.debug('build');
-
     final t = ref.watch(SearchWidgetNotifier.tr);
 
     // is necessary, otherwise in the situation of adding to favorites and

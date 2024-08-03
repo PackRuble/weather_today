@@ -16,15 +16,8 @@ const bool _kDebugMode = fl_service.kDebugMode;
 /// Waiting time for a call from the weather update service.
 const Duration _timeoutServiceOWM = Duration(seconds: 10);
 
-/// Allowed for OneCall API, пакет - Free:
-/// * 1,000 calls/day
-/// * 30,000 calls/month
-///
-/// Allowed for Weather API, пакет - Free:
-/// * 60 calls/minute
-/// * 1,000,000 calls/month
-///
-abstract class WeatherNR<T> extends AsyncNotifier<T?> with GlobalLogger {
+/// General weather notifier.
+abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
   /// Get an instance of the message controller.
   MessageController get _messagesNR => ref.read(MessageController.instance);
 
@@ -50,7 +43,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with GlobalLogger {
   }
 
   Future<T?> _init() async {
-    l.info('$T: initialization');
+    l.info('initialization with <$T>');
 
     if (_isPlaceCorrect(_currentPlace)) {
       const error = 'The location is not correct. Choose a different location.';
@@ -59,9 +52,9 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with GlobalLogger {
     }
 
     if (_kDebugMode) {
-      l.debug('init in the debug mode');
+      l.debug('init in debug mode');
       final stored = await getStoredWeather();
-      if (stored != null) return state.value;
+      if (stored != null) return stored;
     }
 
     T? weather;
