@@ -65,6 +65,19 @@ mixin _$ForecastOpenMeteoResponse {
   CurrentWeatherOpenMeteo get currentWeather =>
       throw _privateConstructorUsedError;
 
+  /// A list of weather variables which should be returned. Values can be comma
+  /// separated, or multiple &hourly= parameter in the URL can be used.
+  @JsonKey(name: 'hourly')
+  HourlyWeatherOpenMeteo get hourlyWeather =>
+      throw _privateConstructorUsedError;
+
+  /// A list of daily weather variable aggregations which should be returned.
+  /// Values can be comma separated, or multiple &daily= parameter in the URL
+  /// can be used. If daily weather variables are specified, parameter timezone
+  /// is required.
+  @JsonKey(name: 'daily')
+  DailyWeatherOpenMeteo get dailyWeather => throw _privateConstructorUsedError;
+
   /// Serializes this ForecastOpenMeteoResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -89,9 +102,13 @@ abstract class $ForecastOpenMeteoResponseCopyWith<$Res> {
       @JsonKey(name: 'timezone') String timezone,
       @JsonKey(name: 'timezone_abbreviation') String timezoneAbbr,
       @JsonKey(name: 'elevation') double elevation,
-      @JsonKey(name: 'current') CurrentWeatherOpenMeteo currentWeather});
+      @JsonKey(name: 'current') CurrentWeatherOpenMeteo currentWeather,
+      @JsonKey(name: 'hourly') HourlyWeatherOpenMeteo hourlyWeather,
+      @JsonKey(name: 'daily') DailyWeatherOpenMeteo dailyWeather});
 
   $CurrentWeatherOpenMeteoCopyWith<$Res> get currentWeather;
+  $HourlyWeatherOpenMeteoCopyWith<$Res> get hourlyWeather;
+  $DailyWeatherOpenMeteoCopyWith<$Res> get dailyWeather;
 }
 
 /// @nodoc
@@ -118,6 +135,8 @@ class _$ForecastOpenMeteoResponseCopyWithImpl<$Res,
     Object? timezoneAbbr = null,
     Object? elevation = null,
     Object? currentWeather = null,
+    Object? hourlyWeather = null,
+    Object? dailyWeather = null,
   }) {
     return _then(_value.copyWith(
       latitude: null == latitude
@@ -152,6 +171,14 @@ class _$ForecastOpenMeteoResponseCopyWithImpl<$Res,
           ? _value.currentWeather
           : currentWeather // ignore: cast_nullable_to_non_nullable
               as CurrentWeatherOpenMeteo,
+      hourlyWeather: null == hourlyWeather
+          ? _value.hourlyWeather
+          : hourlyWeather // ignore: cast_nullable_to_non_nullable
+              as HourlyWeatherOpenMeteo,
+      dailyWeather: null == dailyWeather
+          ? _value.dailyWeather
+          : dailyWeather // ignore: cast_nullable_to_non_nullable
+              as DailyWeatherOpenMeteo,
     ) as $Val);
   }
 
@@ -163,6 +190,26 @@ class _$ForecastOpenMeteoResponseCopyWithImpl<$Res,
     return $CurrentWeatherOpenMeteoCopyWith<$Res>(_value.currentWeather,
         (value) {
       return _then(_value.copyWith(currentWeather: value) as $Val);
+    });
+  }
+
+  /// Create a copy of ForecastOpenMeteoResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $HourlyWeatherOpenMeteoCopyWith<$Res> get hourlyWeather {
+    return $HourlyWeatherOpenMeteoCopyWith<$Res>(_value.hourlyWeather, (value) {
+      return _then(_value.copyWith(hourlyWeather: value) as $Val);
+    });
+  }
+
+  /// Create a copy of ForecastOpenMeteoResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DailyWeatherOpenMeteoCopyWith<$Res> get dailyWeather {
+    return $DailyWeatherOpenMeteoCopyWith<$Res>(_value.dailyWeather, (value) {
+      return _then(_value.copyWith(dailyWeather: value) as $Val);
     });
   }
 }
@@ -184,10 +231,16 @@ abstract class _$$ForecastOpenMeteoResponseImplCopyWith<$Res>
       @JsonKey(name: 'timezone') String timezone,
       @JsonKey(name: 'timezone_abbreviation') String timezoneAbbr,
       @JsonKey(name: 'elevation') double elevation,
-      @JsonKey(name: 'current') CurrentWeatherOpenMeteo currentWeather});
+      @JsonKey(name: 'current') CurrentWeatherOpenMeteo currentWeather,
+      @JsonKey(name: 'hourly') HourlyWeatherOpenMeteo hourlyWeather,
+      @JsonKey(name: 'daily') DailyWeatherOpenMeteo dailyWeather});
 
   @override
   $CurrentWeatherOpenMeteoCopyWith<$Res> get currentWeather;
+  @override
+  $HourlyWeatherOpenMeteoCopyWith<$Res> get hourlyWeather;
+  @override
+  $DailyWeatherOpenMeteoCopyWith<$Res> get dailyWeather;
 }
 
 /// @nodoc
@@ -213,6 +266,8 @@ class __$$ForecastOpenMeteoResponseImplCopyWithImpl<$Res>
     Object? timezoneAbbr = null,
     Object? elevation = null,
     Object? currentWeather = null,
+    Object? hourlyWeather = null,
+    Object? dailyWeather = null,
   }) {
     return _then(_$ForecastOpenMeteoResponseImpl(
       latitude: null == latitude
@@ -247,6 +302,14 @@ class __$$ForecastOpenMeteoResponseImplCopyWithImpl<$Res>
           ? _value.currentWeather
           : currentWeather // ignore: cast_nullable_to_non_nullable
               as CurrentWeatherOpenMeteo,
+      hourlyWeather: null == hourlyWeather
+          ? _value.hourlyWeather
+          : hourlyWeather // ignore: cast_nullable_to_non_nullable
+              as HourlyWeatherOpenMeteo,
+      dailyWeather: null == dailyWeather
+          ? _value.dailyWeather
+          : dailyWeather // ignore: cast_nullable_to_non_nullable
+              as DailyWeatherOpenMeteo,
     ));
   }
 }
@@ -263,7 +326,9 @@ class _$ForecastOpenMeteoResponseImpl extends _ForecastOpenMeteoResponse {
       @JsonKey(name: 'timezone') required this.timezone,
       @JsonKey(name: 'timezone_abbreviation') required this.timezoneAbbr,
       @JsonKey(name: 'elevation') required this.elevation,
-      @JsonKey(name: 'current') required this.currentWeather})
+      @JsonKey(name: 'current') required this.currentWeather,
+      @JsonKey(name: 'hourly') required this.hourlyWeather,
+      @JsonKey(name: 'daily') required this.dailyWeather})
       : super._();
 
   factory _$ForecastOpenMeteoResponseImpl.fromJson(Map<String, dynamic> json) =>
@@ -320,9 +385,23 @@ class _$ForecastOpenMeteoResponseImpl extends _ForecastOpenMeteoResponse {
   @JsonKey(name: 'current')
   final CurrentWeatherOpenMeteo currentWeather;
 
+  /// A list of weather variables which should be returned. Values can be comma
+  /// separated, or multiple &hourly= parameter in the URL can be used.
+  @override
+  @JsonKey(name: 'hourly')
+  final HourlyWeatherOpenMeteo hourlyWeather;
+
+  /// A list of daily weather variable aggregations which should be returned.
+  /// Values can be comma separated, or multiple &daily= parameter in the URL
+  /// can be used. If daily weather variables are specified, parameter timezone
+  /// is required.
+  @override
+  @JsonKey(name: 'daily')
+  final DailyWeatherOpenMeteo dailyWeather;
+
   @override
   String toString() {
-    return 'ForecastOpenMeteoResponse(latitude: $latitude, longitude: $longitude, genTimeMs: $genTimeMs, utcOffsetSeconds: $utcOffsetSeconds, timezone: $timezone, timezoneAbbr: $timezoneAbbr, elevation: $elevation, currentWeather: $currentWeather)';
+    return 'ForecastOpenMeteoResponse(latitude: $latitude, longitude: $longitude, genTimeMs: $genTimeMs, utcOffsetSeconds: $utcOffsetSeconds, timezone: $timezone, timezoneAbbr: $timezoneAbbr, elevation: $elevation, currentWeather: $currentWeather, hourlyWeather: $hourlyWeather, dailyWeather: $dailyWeather)';
   }
 
   @override
@@ -345,13 +424,27 @@ class _$ForecastOpenMeteoResponseImpl extends _ForecastOpenMeteoResponse {
             (identical(other.elevation, elevation) ||
                 other.elevation == elevation) &&
             (identical(other.currentWeather, currentWeather) ||
-                other.currentWeather == currentWeather));
+                other.currentWeather == currentWeather) &&
+            (identical(other.hourlyWeather, hourlyWeather) ||
+                other.hourlyWeather == hourlyWeather) &&
+            (identical(other.dailyWeather, dailyWeather) ||
+                other.dailyWeather == dailyWeather));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, latitude, longitude, genTimeMs,
-      utcOffsetSeconds, timezone, timezoneAbbr, elevation, currentWeather);
+  int get hashCode => Object.hash(
+      runtimeType,
+      latitude,
+      longitude,
+      genTimeMs,
+      utcOffsetSeconds,
+      timezone,
+      timezoneAbbr,
+      elevation,
+      currentWeather,
+      hourlyWeather,
+      dailyWeather);
 
   /// Create a copy of ForecastOpenMeteoResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -381,8 +474,12 @@ abstract class _ForecastOpenMeteoResponse extends ForecastOpenMeteoResponse {
       required final String timezoneAbbr,
       @JsonKey(name: 'elevation') required final double elevation,
       @JsonKey(name: 'current')
-      required final CurrentWeatherOpenMeteo
-          currentWeather}) = _$ForecastOpenMeteoResponseImpl;
+      required final CurrentWeatherOpenMeteo currentWeather,
+      @JsonKey(name: 'hourly')
+      required final HourlyWeatherOpenMeteo hourlyWeather,
+      @JsonKey(name: 'daily')
+      required final DailyWeatherOpenMeteo
+          dailyWeather}) = _$ForecastOpenMeteoResponseImpl;
   const _ForecastOpenMeteoResponse._() : super._();
 
   factory _ForecastOpenMeteoResponse.fromJson(Map<String, dynamic> json) =
@@ -439,6 +536,20 @@ abstract class _ForecastOpenMeteoResponse extends ForecastOpenMeteoResponse {
   @JsonKey(name: 'current')
   CurrentWeatherOpenMeteo get currentWeather;
 
+  /// A list of weather variables which should be returned. Values can be comma
+  /// separated, or multiple &hourly= parameter in the URL can be used.
+  @override
+  @JsonKey(name: 'hourly')
+  HourlyWeatherOpenMeteo get hourlyWeather;
+
+  /// A list of daily weather variable aggregations which should be returned.
+  /// Values can be comma separated, or multiple &daily= parameter in the URL
+  /// can be used. If daily weather variables are specified, parameter timezone
+  /// is required.
+  @override
+  @JsonKey(name: 'daily')
+  DailyWeatherOpenMeteo get dailyWeather;
+
   /// Create a copy of ForecastOpenMeteoResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
@@ -461,35 +572,32 @@ mixin _$CurrentWeatherOpenMeteo {
   @JsonKey(name: 'interval')
   int get interval => throw _privateConstructorUsedError;
   @JsonKey(name: 'temperature_2m')
-  double get temperature2m => throw _privateConstructorUsedError;
+  double get temp2m => throw _privateConstructorUsedError;
   @JsonKey(name: 'relative_humidity_2m')
   int get relativeHumidity2m => throw _privateConstructorUsedError;
   @JsonKey(name: 'apparent_temperature')
-  double get apparentTemperature => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_day')
-  int get isDay => throw _privateConstructorUsedError;
+  double get apparentTemp =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'is_day') required int isDay,
   @JsonKey(name: 'precipitation')
-  int get precipitation => throw _privateConstructorUsedError;
+  double get precipitation => throw _privateConstructorUsedError;
   @JsonKey(name: 'rain')
-  int get rain => throw _privateConstructorUsedError;
+  double get rain => throw _privateConstructorUsedError;
   @JsonKey(name: 'showers')
-  int get showers => throw _privateConstructorUsedError;
+  double get showers => throw _privateConstructorUsedError;
   @JsonKey(name: 'snowfall')
-  int get snowfall => throw _privateConstructorUsedError;
-  @JsonKey(name: 'weather_code')
-  int get weatherCode => throw _privateConstructorUsedError;
+  double get snowfall => throw _privateConstructorUsedError;
   @JsonKey(name: 'cloud_cover')
   int get cloudCover => throw _privateConstructorUsedError;
   @JsonKey(name: 'pressure_msl')
   double get pressureMsl => throw _privateConstructorUsedError;
-  @JsonKey(name: 'surface_pressure')
-  double get surfacePressure => throw _privateConstructorUsedError;
   @JsonKey(name: 'wind_speed_10m')
   double get windSpeed10m => throw _privateConstructorUsedError;
   @JsonKey(name: 'wind_direction_10m')
   int get windDirection10m => throw _privateConstructorUsedError;
   @JsonKey(name: 'wind_gusts_10m')
   double get windGusts10m => throw _privateConstructorUsedError;
+  @JsonKey(name: 'weather_code')
+  OpenMeteoWeatherCode get weatherCode => throw _privateConstructorUsedError;
 
   /// Serializes this CurrentWeatherOpenMeteo to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -510,21 +618,19 @@ abstract class $CurrentWeatherOpenMeteoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'time') @DateTimeISO8601Converter() DateTime time,
       @JsonKey(name: 'interval') int interval,
-      @JsonKey(name: 'temperature_2m') double temperature2m,
+      @JsonKey(name: 'temperature_2m') double temp2m,
       @JsonKey(name: 'relative_humidity_2m') int relativeHumidity2m,
-      @JsonKey(name: 'apparent_temperature') double apparentTemperature,
-      @JsonKey(name: 'is_day') int isDay,
-      @JsonKey(name: 'precipitation') int precipitation,
-      @JsonKey(name: 'rain') int rain,
-      @JsonKey(name: 'showers') int showers,
-      @JsonKey(name: 'snowfall') int snowfall,
-      @JsonKey(name: 'weather_code') int weatherCode,
+      @JsonKey(name: 'apparent_temperature') double apparentTemp,
+      @JsonKey(name: 'precipitation') double precipitation,
+      @JsonKey(name: 'rain') double rain,
+      @JsonKey(name: 'showers') double showers,
+      @JsonKey(name: 'snowfall') double snowfall,
       @JsonKey(name: 'cloud_cover') int cloudCover,
       @JsonKey(name: 'pressure_msl') double pressureMsl,
-      @JsonKey(name: 'surface_pressure') double surfacePressure,
       @JsonKey(name: 'wind_speed_10m') double windSpeed10m,
       @JsonKey(name: 'wind_direction_10m') int windDirection10m,
-      @JsonKey(name: 'wind_gusts_10m') double windGusts10m});
+      @JsonKey(name: 'wind_gusts_10m') double windGusts10m,
+      @JsonKey(name: 'weather_code') OpenMeteoWeatherCode weatherCode});
 }
 
 /// @nodoc
@@ -545,21 +651,19 @@ class _$CurrentWeatherOpenMeteoCopyWithImpl<$Res,
   $Res call({
     Object? time = null,
     Object? interval = null,
-    Object? temperature2m = null,
+    Object? temp2m = null,
     Object? relativeHumidity2m = null,
-    Object? apparentTemperature = null,
-    Object? isDay = null,
+    Object? apparentTemp = null,
     Object? precipitation = null,
     Object? rain = null,
     Object? showers = null,
     Object? snowfall = null,
-    Object? weatherCode = null,
     Object? cloudCover = null,
     Object? pressureMsl = null,
-    Object? surfacePressure = null,
     Object? windSpeed10m = null,
     Object? windDirection10m = null,
     Object? windGusts10m = null,
+    Object? weatherCode = null,
   }) {
     return _then(_value.copyWith(
       time: null == time
@@ -570,42 +674,34 @@ class _$CurrentWeatherOpenMeteoCopyWithImpl<$Res,
           ? _value.interval
           : interval // ignore: cast_nullable_to_non_nullable
               as int,
-      temperature2m: null == temperature2m
-          ? _value.temperature2m
-          : temperature2m // ignore: cast_nullable_to_non_nullable
+      temp2m: null == temp2m
+          ? _value.temp2m
+          : temp2m // ignore: cast_nullable_to_non_nullable
               as double,
       relativeHumidity2m: null == relativeHumidity2m
           ? _value.relativeHumidity2m
           : relativeHumidity2m // ignore: cast_nullable_to_non_nullable
               as int,
-      apparentTemperature: null == apparentTemperature
-          ? _value.apparentTemperature
-          : apparentTemperature // ignore: cast_nullable_to_non_nullable
+      apparentTemp: null == apparentTemp
+          ? _value.apparentTemp
+          : apparentTemp // ignore: cast_nullable_to_non_nullable
               as double,
-      isDay: null == isDay
-          ? _value.isDay
-          : isDay // ignore: cast_nullable_to_non_nullable
-              as int,
       precipitation: null == precipitation
           ? _value.precipitation
           : precipitation // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       rain: null == rain
           ? _value.rain
           : rain // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       showers: null == showers
           ? _value.showers
           : showers // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       snowfall: null == snowfall
           ? _value.snowfall
           : snowfall // ignore: cast_nullable_to_non_nullable
-              as int,
-      weatherCode: null == weatherCode
-          ? _value.weatherCode
-          : weatherCode // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       cloudCover: null == cloudCover
           ? _value.cloudCover
           : cloudCover // ignore: cast_nullable_to_non_nullable
@@ -613,10 +709,6 @@ class _$CurrentWeatherOpenMeteoCopyWithImpl<$Res,
       pressureMsl: null == pressureMsl
           ? _value.pressureMsl
           : pressureMsl // ignore: cast_nullable_to_non_nullable
-              as double,
-      surfacePressure: null == surfacePressure
-          ? _value.surfacePressure
-          : surfacePressure // ignore: cast_nullable_to_non_nullable
               as double,
       windSpeed10m: null == windSpeed10m
           ? _value.windSpeed10m
@@ -630,6 +722,10 @@ class _$CurrentWeatherOpenMeteoCopyWithImpl<$Res,
           ? _value.windGusts10m
           : windGusts10m // ignore: cast_nullable_to_non_nullable
               as double,
+      weatherCode: null == weatherCode
+          ? _value.weatherCode
+          : weatherCode // ignore: cast_nullable_to_non_nullable
+              as OpenMeteoWeatherCode,
     ) as $Val);
   }
 }
@@ -646,21 +742,19 @@ abstract class _$$CurrentWeatherOpenMeteoImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'time') @DateTimeISO8601Converter() DateTime time,
       @JsonKey(name: 'interval') int interval,
-      @JsonKey(name: 'temperature_2m') double temperature2m,
+      @JsonKey(name: 'temperature_2m') double temp2m,
       @JsonKey(name: 'relative_humidity_2m') int relativeHumidity2m,
-      @JsonKey(name: 'apparent_temperature') double apparentTemperature,
-      @JsonKey(name: 'is_day') int isDay,
-      @JsonKey(name: 'precipitation') int precipitation,
-      @JsonKey(name: 'rain') int rain,
-      @JsonKey(name: 'showers') int showers,
-      @JsonKey(name: 'snowfall') int snowfall,
-      @JsonKey(name: 'weather_code') int weatherCode,
+      @JsonKey(name: 'apparent_temperature') double apparentTemp,
+      @JsonKey(name: 'precipitation') double precipitation,
+      @JsonKey(name: 'rain') double rain,
+      @JsonKey(name: 'showers') double showers,
+      @JsonKey(name: 'snowfall') double snowfall,
       @JsonKey(name: 'cloud_cover') int cloudCover,
       @JsonKey(name: 'pressure_msl') double pressureMsl,
-      @JsonKey(name: 'surface_pressure') double surfacePressure,
       @JsonKey(name: 'wind_speed_10m') double windSpeed10m,
       @JsonKey(name: 'wind_direction_10m') int windDirection10m,
-      @JsonKey(name: 'wind_gusts_10m') double windGusts10m});
+      @JsonKey(name: 'wind_gusts_10m') double windGusts10m,
+      @JsonKey(name: 'weather_code') OpenMeteoWeatherCode weatherCode});
 }
 
 /// @nodoc
@@ -680,21 +774,19 @@ class __$$CurrentWeatherOpenMeteoImplCopyWithImpl<$Res>
   $Res call({
     Object? time = null,
     Object? interval = null,
-    Object? temperature2m = null,
+    Object? temp2m = null,
     Object? relativeHumidity2m = null,
-    Object? apparentTemperature = null,
-    Object? isDay = null,
+    Object? apparentTemp = null,
     Object? precipitation = null,
     Object? rain = null,
     Object? showers = null,
     Object? snowfall = null,
-    Object? weatherCode = null,
     Object? cloudCover = null,
     Object? pressureMsl = null,
-    Object? surfacePressure = null,
     Object? windSpeed10m = null,
     Object? windDirection10m = null,
     Object? windGusts10m = null,
+    Object? weatherCode = null,
   }) {
     return _then(_$CurrentWeatherOpenMeteoImpl(
       time: null == time
@@ -705,42 +797,34 @@ class __$$CurrentWeatherOpenMeteoImplCopyWithImpl<$Res>
           ? _value.interval
           : interval // ignore: cast_nullable_to_non_nullable
               as int,
-      temperature2m: null == temperature2m
-          ? _value.temperature2m
-          : temperature2m // ignore: cast_nullable_to_non_nullable
+      temp2m: null == temp2m
+          ? _value.temp2m
+          : temp2m // ignore: cast_nullable_to_non_nullable
               as double,
       relativeHumidity2m: null == relativeHumidity2m
           ? _value.relativeHumidity2m
           : relativeHumidity2m // ignore: cast_nullable_to_non_nullable
               as int,
-      apparentTemperature: null == apparentTemperature
-          ? _value.apparentTemperature
-          : apparentTemperature // ignore: cast_nullable_to_non_nullable
+      apparentTemp: null == apparentTemp
+          ? _value.apparentTemp
+          : apparentTemp // ignore: cast_nullable_to_non_nullable
               as double,
-      isDay: null == isDay
-          ? _value.isDay
-          : isDay // ignore: cast_nullable_to_non_nullable
-              as int,
       precipitation: null == precipitation
           ? _value.precipitation
           : precipitation // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       rain: null == rain
           ? _value.rain
           : rain // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       showers: null == showers
           ? _value.showers
           : showers // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       snowfall: null == snowfall
           ? _value.snowfall
           : snowfall // ignore: cast_nullable_to_non_nullable
-              as int,
-      weatherCode: null == weatherCode
-          ? _value.weatherCode
-          : weatherCode // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       cloudCover: null == cloudCover
           ? _value.cloudCover
           : cloudCover // ignore: cast_nullable_to_non_nullable
@@ -748,10 +832,6 @@ class __$$CurrentWeatherOpenMeteoImplCopyWithImpl<$Res>
       pressureMsl: null == pressureMsl
           ? _value.pressureMsl
           : pressureMsl // ignore: cast_nullable_to_non_nullable
-              as double,
-      surfacePressure: null == surfacePressure
-          ? _value.surfacePressure
-          : surfacePressure // ignore: cast_nullable_to_non_nullable
               as double,
       windSpeed10m: null == windSpeed10m
           ? _value.windSpeed10m
@@ -765,6 +845,10 @@ class __$$CurrentWeatherOpenMeteoImplCopyWithImpl<$Res>
           ? _value.windGusts10m
           : windGusts10m // ignore: cast_nullable_to_non_nullable
               as double,
+      weatherCode: null == weatherCode
+          ? _value.weatherCode
+          : weatherCode // ignore: cast_nullable_to_non_nullable
+              as OpenMeteoWeatherCode,
     ));
   }
 }
@@ -776,21 +860,19 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
   const _$CurrentWeatherOpenMeteoImpl(
       {@JsonKey(name: 'time') @DateTimeISO8601Converter() required this.time,
       @JsonKey(name: 'interval') required this.interval,
-      @JsonKey(name: 'temperature_2m') required this.temperature2m,
+      @JsonKey(name: 'temperature_2m') required this.temp2m,
       @JsonKey(name: 'relative_humidity_2m') required this.relativeHumidity2m,
-      @JsonKey(name: 'apparent_temperature') required this.apparentTemperature,
-      @JsonKey(name: 'is_day') required this.isDay,
+      @JsonKey(name: 'apparent_temperature') required this.apparentTemp,
       @JsonKey(name: 'precipitation') required this.precipitation,
       @JsonKey(name: 'rain') required this.rain,
       @JsonKey(name: 'showers') required this.showers,
       @JsonKey(name: 'snowfall') required this.snowfall,
-      @JsonKey(name: 'weather_code') required this.weatherCode,
       @JsonKey(name: 'cloud_cover') required this.cloudCover,
       @JsonKey(name: 'pressure_msl') required this.pressureMsl,
-      @JsonKey(name: 'surface_pressure') required this.surfacePressure,
       @JsonKey(name: 'wind_speed_10m') required this.windSpeed10m,
       @JsonKey(name: 'wind_direction_10m') required this.windDirection10m,
-      @JsonKey(name: 'wind_gusts_10m') required this.windGusts10m})
+      @JsonKey(name: 'wind_gusts_10m') required this.windGusts10m,
+      @JsonKey(name: 'weather_code') required this.weatherCode})
       : super._();
 
   factory _$CurrentWeatherOpenMeteoImpl.fromJson(Map<String, dynamic> json) =>
@@ -806,40 +888,32 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
   final int interval;
   @override
   @JsonKey(name: 'temperature_2m')
-  final double temperature2m;
+  final double temp2m;
   @override
   @JsonKey(name: 'relative_humidity_2m')
   final int relativeHumidity2m;
   @override
   @JsonKey(name: 'apparent_temperature')
-  final double apparentTemperature;
-  @override
-  @JsonKey(name: 'is_day')
-  final int isDay;
+  final double apparentTemp;
+// @JsonKey(name: 'is_day') required int isDay,
   @override
   @JsonKey(name: 'precipitation')
-  final int precipitation;
+  final double precipitation;
   @override
   @JsonKey(name: 'rain')
-  final int rain;
+  final double rain;
   @override
   @JsonKey(name: 'showers')
-  final int showers;
+  final double showers;
   @override
   @JsonKey(name: 'snowfall')
-  final int snowfall;
-  @override
-  @JsonKey(name: 'weather_code')
-  final int weatherCode;
+  final double snowfall;
   @override
   @JsonKey(name: 'cloud_cover')
   final int cloudCover;
   @override
   @JsonKey(name: 'pressure_msl')
   final double pressureMsl;
-  @override
-  @JsonKey(name: 'surface_pressure')
-  final double surfacePressure;
   @override
   @JsonKey(name: 'wind_speed_10m')
   final double windSpeed10m;
@@ -849,10 +923,13 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
   @override
   @JsonKey(name: 'wind_gusts_10m')
   final double windGusts10m;
+  @override
+  @JsonKey(name: 'weather_code')
+  final OpenMeteoWeatherCode weatherCode;
 
   @override
   String toString() {
-    return 'CurrentWeatherOpenMeteo(time: $time, interval: $interval, temperature2m: $temperature2m, relativeHumidity2m: $relativeHumidity2m, apparentTemperature: $apparentTemperature, isDay: $isDay, precipitation: $precipitation, rain: $rain, showers: $showers, snowfall: $snowfall, weatherCode: $weatherCode, cloudCover: $cloudCover, pressureMsl: $pressureMsl, surfacePressure: $surfacePressure, windSpeed10m: $windSpeed10m, windDirection10m: $windDirection10m, windGusts10m: $windGusts10m)';
+    return 'CurrentWeatherOpenMeteo(time: $time, interval: $interval, temp2m: $temp2m, relativeHumidity2m: $relativeHumidity2m, apparentTemp: $apparentTemp, precipitation: $precipitation, rain: $rain, showers: $showers, snowfall: $snowfall, cloudCover: $cloudCover, pressureMsl: $pressureMsl, windSpeed10m: $windSpeed10m, windDirection10m: $windDirection10m, windGusts10m: $windGusts10m, weatherCode: $weatherCode)';
   }
 
   @override
@@ -863,33 +940,29 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
             (identical(other.time, time) || other.time == time) &&
             (identical(other.interval, interval) ||
                 other.interval == interval) &&
-            (identical(other.temperature2m, temperature2m) ||
-                other.temperature2m == temperature2m) &&
+            (identical(other.temp2m, temp2m) || other.temp2m == temp2m) &&
             (identical(other.relativeHumidity2m, relativeHumidity2m) ||
                 other.relativeHumidity2m == relativeHumidity2m) &&
-            (identical(other.apparentTemperature, apparentTemperature) ||
-                other.apparentTemperature == apparentTemperature) &&
-            (identical(other.isDay, isDay) || other.isDay == isDay) &&
+            (identical(other.apparentTemp, apparentTemp) ||
+                other.apparentTemp == apparentTemp) &&
             (identical(other.precipitation, precipitation) ||
                 other.precipitation == precipitation) &&
             (identical(other.rain, rain) || other.rain == rain) &&
             (identical(other.showers, showers) || other.showers == showers) &&
             (identical(other.snowfall, snowfall) ||
                 other.snowfall == snowfall) &&
-            (identical(other.weatherCode, weatherCode) ||
-                other.weatherCode == weatherCode) &&
             (identical(other.cloudCover, cloudCover) ||
                 other.cloudCover == cloudCover) &&
             (identical(other.pressureMsl, pressureMsl) ||
                 other.pressureMsl == pressureMsl) &&
-            (identical(other.surfacePressure, surfacePressure) ||
-                other.surfacePressure == surfacePressure) &&
             (identical(other.windSpeed10m, windSpeed10m) ||
                 other.windSpeed10m == windSpeed10m) &&
             (identical(other.windDirection10m, windDirection10m) ||
                 other.windDirection10m == windDirection10m) &&
             (identical(other.windGusts10m, windGusts10m) ||
-                other.windGusts10m == windGusts10m));
+                other.windGusts10m == windGusts10m) &&
+            (identical(other.weatherCode, weatherCode) ||
+                other.weatherCode == weatherCode));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -898,21 +971,19 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
       runtimeType,
       time,
       interval,
-      temperature2m,
+      temp2m,
       relativeHumidity2m,
-      apparentTemperature,
-      isDay,
+      apparentTemp,
       precipitation,
       rain,
       showers,
       snowfall,
-      weatherCode,
       cloudCover,
       pressureMsl,
-      surfacePressure,
       windSpeed10m,
       windDirection10m,
-      windGusts10m);
+      windGusts10m,
+      weatherCode);
 
   /// Create a copy of CurrentWeatherOpenMeteo
   /// with the given fields replaced by the non-null parameter values.
@@ -937,24 +1008,22 @@ abstract class _CurrentWeatherOpenMeteo extends CurrentWeatherOpenMeteo {
       @DateTimeISO8601Converter()
       required final DateTime time,
       @JsonKey(name: 'interval') required final int interval,
-      @JsonKey(name: 'temperature_2m') required final double temperature2m,
+      @JsonKey(name: 'temperature_2m') required final double temp2m,
       @JsonKey(name: 'relative_humidity_2m')
       required final int relativeHumidity2m,
-      @JsonKey(name: 'apparent_temperature')
-      required final double apparentTemperature,
-      @JsonKey(name: 'is_day') required final int isDay,
-      @JsonKey(name: 'precipitation') required final int precipitation,
-      @JsonKey(name: 'rain') required final int rain,
-      @JsonKey(name: 'showers') required final int showers,
-      @JsonKey(name: 'snowfall') required final int snowfall,
-      @JsonKey(name: 'weather_code') required final int weatherCode,
+      @JsonKey(name: 'apparent_temperature') required final double apparentTemp,
+      @JsonKey(name: 'precipitation') required final double precipitation,
+      @JsonKey(name: 'rain') required final double rain,
+      @JsonKey(name: 'showers') required final double showers,
+      @JsonKey(name: 'snowfall') required final double snowfall,
       @JsonKey(name: 'cloud_cover') required final int cloudCover,
       @JsonKey(name: 'pressure_msl') required final double pressureMsl,
-      @JsonKey(name: 'surface_pressure') required final double surfacePressure,
       @JsonKey(name: 'wind_speed_10m') required final double windSpeed10m,
       @JsonKey(name: 'wind_direction_10m') required final int windDirection10m,
-      @JsonKey(name: 'wind_gusts_10m')
-      required final double windGusts10m}) = _$CurrentWeatherOpenMeteoImpl;
+      @JsonKey(name: 'wind_gusts_10m') required final double windGusts10m,
+      @JsonKey(name: 'weather_code')
+      required final OpenMeteoWeatherCode
+          weatherCode}) = _$CurrentWeatherOpenMeteoImpl;
   const _CurrentWeatherOpenMeteo._() : super._();
 
   factory _CurrentWeatherOpenMeteo.fromJson(Map<String, dynamic> json) =
@@ -970,40 +1039,31 @@ abstract class _CurrentWeatherOpenMeteo extends CurrentWeatherOpenMeteo {
   int get interval;
   @override
   @JsonKey(name: 'temperature_2m')
-  double get temperature2m;
+  double get temp2m;
   @override
   @JsonKey(name: 'relative_humidity_2m')
   int get relativeHumidity2m;
   @override
   @JsonKey(name: 'apparent_temperature')
-  double get apparentTemperature;
-  @override
-  @JsonKey(name: 'is_day')
-  int get isDay;
+  double get apparentTemp; // @JsonKey(name: 'is_day') required int isDay,
   @override
   @JsonKey(name: 'precipitation')
-  int get precipitation;
+  double get precipitation;
   @override
   @JsonKey(name: 'rain')
-  int get rain;
+  double get rain;
   @override
   @JsonKey(name: 'showers')
-  int get showers;
+  double get showers;
   @override
   @JsonKey(name: 'snowfall')
-  int get snowfall;
-  @override
-  @JsonKey(name: 'weather_code')
-  int get weatherCode;
+  double get snowfall;
   @override
   @JsonKey(name: 'cloud_cover')
   int get cloudCover;
   @override
   @JsonKey(name: 'pressure_msl')
   double get pressureMsl;
-  @override
-  @JsonKey(name: 'surface_pressure')
-  double get surfacePressure;
   @override
   @JsonKey(name: 'wind_speed_10m')
   double get windSpeed10m;
@@ -1013,11 +1073,1449 @@ abstract class _CurrentWeatherOpenMeteo extends CurrentWeatherOpenMeteo {
   @override
   @JsonKey(name: 'wind_gusts_10m')
   double get windGusts10m;
+  @override
+  @JsonKey(name: 'weather_code')
+  OpenMeteoWeatherCode get weatherCode;
 
   /// Create a copy of CurrentWeatherOpenMeteo
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CurrentWeatherOpenMeteoImplCopyWith<_$CurrentWeatherOpenMeteoImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+HourlyWeatherOpenMeteo _$HourlyWeatherOpenMeteoFromJson(
+    Map<String, dynamic> json) {
+  return _HourlyWeatherOpenMeteo.fromJson(json);
+}
+
+/// @nodoc
+mixin _$HourlyWeatherOpenMeteo {
+  /// iso8601
+  @JsonKey(name: 'time')
+  @DateTimeISO8601Converter()
+  DateTime get time => throw _privateConstructorUsedError;
+
+  /// Air temperature at 2 meters above ground, °C
+  @JsonKey(name: 'temperature_2m')
+  double get temp2m => throw _privateConstructorUsedError;
+
+  /// Relative humidity at 2 meters above ground, 0-100 %
+  @JsonKey(name: 'relative_humidity_2m')
+  int get relativeHumidity2m => throw _privateConstructorUsedError;
+
+  /// Dew point temperature at 2 meters above ground, °C
+  @JsonKey(name: 'dew_point_2m')
+  double get dewPoint2m => throw _privateConstructorUsedError;
+
+  /// Apparent temperature is the perceived feels-like temperature combining
+  /// wind chill factor, relative humidity and solar radiation, °C
+  @JsonKey(name: 'apparent_temperature')
+  double get apparentTemp => throw _privateConstructorUsedError;
+
+  /// Probability of precipitation with more than 0.1 mm of the preceding hour.
+  ///
+  /// Probability is based on ensemble weather models with 0.25° (~27 km) resolution.
+  /// 30 different simulations are computed to better represent future weather
+  /// conditions, 0-100 %
+  @JsonKey(name: 'precipitation_probability')
+  int get pop => throw _privateConstructorUsedError;
+
+  /// Total precipitation (rain, showers, snow) sum of the preceding hour, mm
+  @JsonKey(name: 'precipitation')
+  double get precipitation => throw _privateConstructorUsedError;
+
+  /// Rain from large scale weather systems of the preceding hour in millimeter, mm
+  @JsonKey(name: 'rain')
+  double get rain => throw _privateConstructorUsedError;
+
+  /// Showers from convective precipitation in millimeters from the preceding hour, mm
+  @JsonKey(name: 'showers')
+  double get showers => throw _privateConstructorUsedError;
+
+  /// Snowfall amount of the preceding hour in centimeters (cm). For the water
+  /// equivalent in millimeter, divide by 7.
+  /// E.g. 7 cm snow = 10 mm precipitation water equivalent.
+  @JsonKey(name: 'snowfall')
+  double get snowfall => throw _privateConstructorUsedError;
+
+  /// Cloudiness, 0-100 %
+  @JsonKey(name: 'cloud_cover')
+  int get cloudCover => throw _privateConstructorUsedError;
+
+  /// Atmospheric air pressure reduced to mean sea level (msl) or pressure
+  /// at surface, hPa
+  ///
+  /// Typically pressure on mean sea level is used in meteorology.
+  @JsonKey(name: 'pressure_msl')
+  double get pressureMsl => throw _privateConstructorUsedError;
+
+  /// Viewing distance in meters (m). Influenced by low clouds, humidity and aerosols.
+  /// Maximum visibility is approximately 24 km.
+  @JsonKey(name: 'visibility')
+  double get visibility => throw _privateConstructorUsedError;
+
+  ///	Daily maximum in UV Index starting from 0.
+  @JsonKey(name: 'uv_index')
+  double get uvi => throw _privateConstructorUsedError;
+
+  /// Wind speed at 10 meters above ground, m/s
+  ///
+  /// Wind speed on 10 meters is the standard level.
+  @JsonKey(name: 'wind_speed_10m')
+  double get windSpeed10m => throw _privateConstructorUsedError;
+
+  /// Wind direction at 10 meters above ground, 0-360°
+  @JsonKey(name: 'wind_direction_10m')
+  int get windDirection10m => throw _privateConstructorUsedError;
+
+  /// Gusts at 10 meters above ground as a maximum of the preceding hour, m/s
+  @JsonKey(name: 'wind_gusts_10m')
+  double get windGusts10m => throw _privateConstructorUsedError;
+
+  /// WMO Weather interpretation codes, 0-99
+  @JsonKey(name: 'weather_code')
+  OpenMeteoWeatherCode get weatherCode => throw _privateConstructorUsedError;
+
+  /// Serializes this HourlyWeatherOpenMeteo to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of HourlyWeatherOpenMeteo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $HourlyWeatherOpenMeteoCopyWith<HourlyWeatherOpenMeteo> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $HourlyWeatherOpenMeteoCopyWith<$Res> {
+  factory $HourlyWeatherOpenMeteoCopyWith(HourlyWeatherOpenMeteo value,
+          $Res Function(HourlyWeatherOpenMeteo) then) =
+      _$HourlyWeatherOpenMeteoCopyWithImpl<$Res, HourlyWeatherOpenMeteo>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'time') @DateTimeISO8601Converter() DateTime time,
+      @JsonKey(name: 'temperature_2m') double temp2m,
+      @JsonKey(name: 'relative_humidity_2m') int relativeHumidity2m,
+      @JsonKey(name: 'dew_point_2m') double dewPoint2m,
+      @JsonKey(name: 'apparent_temperature') double apparentTemp,
+      @JsonKey(name: 'precipitation_probability') int pop,
+      @JsonKey(name: 'precipitation') double precipitation,
+      @JsonKey(name: 'rain') double rain,
+      @JsonKey(name: 'showers') double showers,
+      @JsonKey(name: 'snowfall') double snowfall,
+      @JsonKey(name: 'cloud_cover') int cloudCover,
+      @JsonKey(name: 'pressure_msl') double pressureMsl,
+      @JsonKey(name: 'visibility') double visibility,
+      @JsonKey(name: 'uv_index') double uvi,
+      @JsonKey(name: 'wind_speed_10m') double windSpeed10m,
+      @JsonKey(name: 'wind_direction_10m') int windDirection10m,
+      @JsonKey(name: 'wind_gusts_10m') double windGusts10m,
+      @JsonKey(name: 'weather_code') OpenMeteoWeatherCode weatherCode});
+}
+
+/// @nodoc
+class _$HourlyWeatherOpenMeteoCopyWithImpl<$Res,
+        $Val extends HourlyWeatherOpenMeteo>
+    implements $HourlyWeatherOpenMeteoCopyWith<$Res> {
+  _$HourlyWeatherOpenMeteoCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of HourlyWeatherOpenMeteo
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? time = null,
+    Object? temp2m = null,
+    Object? relativeHumidity2m = null,
+    Object? dewPoint2m = null,
+    Object? apparentTemp = null,
+    Object? pop = null,
+    Object? precipitation = null,
+    Object? rain = null,
+    Object? showers = null,
+    Object? snowfall = null,
+    Object? cloudCover = null,
+    Object? pressureMsl = null,
+    Object? visibility = null,
+    Object? uvi = null,
+    Object? windSpeed10m = null,
+    Object? windDirection10m = null,
+    Object? windGusts10m = null,
+    Object? weatherCode = null,
+  }) {
+    return _then(_value.copyWith(
+      time: null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      temp2m: null == temp2m
+          ? _value.temp2m
+          : temp2m // ignore: cast_nullable_to_non_nullable
+              as double,
+      relativeHumidity2m: null == relativeHumidity2m
+          ? _value.relativeHumidity2m
+          : relativeHumidity2m // ignore: cast_nullable_to_non_nullable
+              as int,
+      dewPoint2m: null == dewPoint2m
+          ? _value.dewPoint2m
+          : dewPoint2m // ignore: cast_nullable_to_non_nullable
+              as double,
+      apparentTemp: null == apparentTemp
+          ? _value.apparentTemp
+          : apparentTemp // ignore: cast_nullable_to_non_nullable
+              as double,
+      pop: null == pop
+          ? _value.pop
+          : pop // ignore: cast_nullable_to_non_nullable
+              as int,
+      precipitation: null == precipitation
+          ? _value.precipitation
+          : precipitation // ignore: cast_nullable_to_non_nullable
+              as double,
+      rain: null == rain
+          ? _value.rain
+          : rain // ignore: cast_nullable_to_non_nullable
+              as double,
+      showers: null == showers
+          ? _value.showers
+          : showers // ignore: cast_nullable_to_non_nullable
+              as double,
+      snowfall: null == snowfall
+          ? _value.snowfall
+          : snowfall // ignore: cast_nullable_to_non_nullable
+              as double,
+      cloudCover: null == cloudCover
+          ? _value.cloudCover
+          : cloudCover // ignore: cast_nullable_to_non_nullable
+              as int,
+      pressureMsl: null == pressureMsl
+          ? _value.pressureMsl
+          : pressureMsl // ignore: cast_nullable_to_non_nullable
+              as double,
+      visibility: null == visibility
+          ? _value.visibility
+          : visibility // ignore: cast_nullable_to_non_nullable
+              as double,
+      uvi: null == uvi
+          ? _value.uvi
+          : uvi // ignore: cast_nullable_to_non_nullable
+              as double,
+      windSpeed10m: null == windSpeed10m
+          ? _value.windSpeed10m
+          : windSpeed10m // ignore: cast_nullable_to_non_nullable
+              as double,
+      windDirection10m: null == windDirection10m
+          ? _value.windDirection10m
+          : windDirection10m // ignore: cast_nullable_to_non_nullable
+              as int,
+      windGusts10m: null == windGusts10m
+          ? _value.windGusts10m
+          : windGusts10m // ignore: cast_nullable_to_non_nullable
+              as double,
+      weatherCode: null == weatherCode
+          ? _value.weatherCode
+          : weatherCode // ignore: cast_nullable_to_non_nullable
+              as OpenMeteoWeatherCode,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$HourlyWeatherOpenMeteoImplCopyWith<$Res>
+    implements $HourlyWeatherOpenMeteoCopyWith<$Res> {
+  factory _$$HourlyWeatherOpenMeteoImplCopyWith(
+          _$HourlyWeatherOpenMeteoImpl value,
+          $Res Function(_$HourlyWeatherOpenMeteoImpl) then) =
+      __$$HourlyWeatherOpenMeteoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'time') @DateTimeISO8601Converter() DateTime time,
+      @JsonKey(name: 'temperature_2m') double temp2m,
+      @JsonKey(name: 'relative_humidity_2m') int relativeHumidity2m,
+      @JsonKey(name: 'dew_point_2m') double dewPoint2m,
+      @JsonKey(name: 'apparent_temperature') double apparentTemp,
+      @JsonKey(name: 'precipitation_probability') int pop,
+      @JsonKey(name: 'precipitation') double precipitation,
+      @JsonKey(name: 'rain') double rain,
+      @JsonKey(name: 'showers') double showers,
+      @JsonKey(name: 'snowfall') double snowfall,
+      @JsonKey(name: 'cloud_cover') int cloudCover,
+      @JsonKey(name: 'pressure_msl') double pressureMsl,
+      @JsonKey(name: 'visibility') double visibility,
+      @JsonKey(name: 'uv_index') double uvi,
+      @JsonKey(name: 'wind_speed_10m') double windSpeed10m,
+      @JsonKey(name: 'wind_direction_10m') int windDirection10m,
+      @JsonKey(name: 'wind_gusts_10m') double windGusts10m,
+      @JsonKey(name: 'weather_code') OpenMeteoWeatherCode weatherCode});
+}
+
+/// @nodoc
+class __$$HourlyWeatherOpenMeteoImplCopyWithImpl<$Res>
+    extends _$HourlyWeatherOpenMeteoCopyWithImpl<$Res,
+        _$HourlyWeatherOpenMeteoImpl>
+    implements _$$HourlyWeatherOpenMeteoImplCopyWith<$Res> {
+  __$$HourlyWeatherOpenMeteoImplCopyWithImpl(
+      _$HourlyWeatherOpenMeteoImpl _value,
+      $Res Function(_$HourlyWeatherOpenMeteoImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of HourlyWeatherOpenMeteo
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? time = null,
+    Object? temp2m = null,
+    Object? relativeHumidity2m = null,
+    Object? dewPoint2m = null,
+    Object? apparentTemp = null,
+    Object? pop = null,
+    Object? precipitation = null,
+    Object? rain = null,
+    Object? showers = null,
+    Object? snowfall = null,
+    Object? cloudCover = null,
+    Object? pressureMsl = null,
+    Object? visibility = null,
+    Object? uvi = null,
+    Object? windSpeed10m = null,
+    Object? windDirection10m = null,
+    Object? windGusts10m = null,
+    Object? weatherCode = null,
+  }) {
+    return _then(_$HourlyWeatherOpenMeteoImpl(
+      time: null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      temp2m: null == temp2m
+          ? _value.temp2m
+          : temp2m // ignore: cast_nullable_to_non_nullable
+              as double,
+      relativeHumidity2m: null == relativeHumidity2m
+          ? _value.relativeHumidity2m
+          : relativeHumidity2m // ignore: cast_nullable_to_non_nullable
+              as int,
+      dewPoint2m: null == dewPoint2m
+          ? _value.dewPoint2m
+          : dewPoint2m // ignore: cast_nullable_to_non_nullable
+              as double,
+      apparentTemp: null == apparentTemp
+          ? _value.apparentTemp
+          : apparentTemp // ignore: cast_nullable_to_non_nullable
+              as double,
+      pop: null == pop
+          ? _value.pop
+          : pop // ignore: cast_nullable_to_non_nullable
+              as int,
+      precipitation: null == precipitation
+          ? _value.precipitation
+          : precipitation // ignore: cast_nullable_to_non_nullable
+              as double,
+      rain: null == rain
+          ? _value.rain
+          : rain // ignore: cast_nullable_to_non_nullable
+              as double,
+      showers: null == showers
+          ? _value.showers
+          : showers // ignore: cast_nullable_to_non_nullable
+              as double,
+      snowfall: null == snowfall
+          ? _value.snowfall
+          : snowfall // ignore: cast_nullable_to_non_nullable
+              as double,
+      cloudCover: null == cloudCover
+          ? _value.cloudCover
+          : cloudCover // ignore: cast_nullable_to_non_nullable
+              as int,
+      pressureMsl: null == pressureMsl
+          ? _value.pressureMsl
+          : pressureMsl // ignore: cast_nullable_to_non_nullable
+              as double,
+      visibility: null == visibility
+          ? _value.visibility
+          : visibility // ignore: cast_nullable_to_non_nullable
+              as double,
+      uvi: null == uvi
+          ? _value.uvi
+          : uvi // ignore: cast_nullable_to_non_nullable
+              as double,
+      windSpeed10m: null == windSpeed10m
+          ? _value.windSpeed10m
+          : windSpeed10m // ignore: cast_nullable_to_non_nullable
+              as double,
+      windDirection10m: null == windDirection10m
+          ? _value.windDirection10m
+          : windDirection10m // ignore: cast_nullable_to_non_nullable
+              as int,
+      windGusts10m: null == windGusts10m
+          ? _value.windGusts10m
+          : windGusts10m // ignore: cast_nullable_to_non_nullable
+              as double,
+      weatherCode: null == weatherCode
+          ? _value.weatherCode
+          : weatherCode // ignore: cast_nullable_to_non_nullable
+              as OpenMeteoWeatherCode,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$HourlyWeatherOpenMeteoImpl implements _HourlyWeatherOpenMeteo {
+  const _$HourlyWeatherOpenMeteoImpl(
+      {@JsonKey(name: 'time') @DateTimeISO8601Converter() required this.time,
+      @JsonKey(name: 'temperature_2m') required this.temp2m,
+      @JsonKey(name: 'relative_humidity_2m') required this.relativeHumidity2m,
+      @JsonKey(name: 'dew_point_2m') required this.dewPoint2m,
+      @JsonKey(name: 'apparent_temperature') required this.apparentTemp,
+      @JsonKey(name: 'precipitation_probability') required this.pop,
+      @JsonKey(name: 'precipitation') required this.precipitation,
+      @JsonKey(name: 'rain') required this.rain,
+      @JsonKey(name: 'showers') required this.showers,
+      @JsonKey(name: 'snowfall') required this.snowfall,
+      @JsonKey(name: 'cloud_cover') required this.cloudCover,
+      @JsonKey(name: 'pressure_msl') required this.pressureMsl,
+      @JsonKey(name: 'visibility') required this.visibility,
+      @JsonKey(name: 'uv_index') required this.uvi,
+      @JsonKey(name: 'wind_speed_10m') required this.windSpeed10m,
+      @JsonKey(name: 'wind_direction_10m') required this.windDirection10m,
+      @JsonKey(name: 'wind_gusts_10m') required this.windGusts10m,
+      @JsonKey(name: 'weather_code') required this.weatherCode});
+
+  factory _$HourlyWeatherOpenMeteoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HourlyWeatherOpenMeteoImplFromJson(json);
+
+  /// iso8601
+  @override
+  @JsonKey(name: 'time')
+  @DateTimeISO8601Converter()
+  final DateTime time;
+
+  /// Air temperature at 2 meters above ground, °C
+  @override
+  @JsonKey(name: 'temperature_2m')
+  final double temp2m;
+
+  /// Relative humidity at 2 meters above ground, 0-100 %
+  @override
+  @JsonKey(name: 'relative_humidity_2m')
+  final int relativeHumidity2m;
+
+  /// Dew point temperature at 2 meters above ground, °C
+  @override
+  @JsonKey(name: 'dew_point_2m')
+  final double dewPoint2m;
+
+  /// Apparent temperature is the perceived feels-like temperature combining
+  /// wind chill factor, relative humidity and solar radiation, °C
+  @override
+  @JsonKey(name: 'apparent_temperature')
+  final double apparentTemp;
+
+  /// Probability of precipitation with more than 0.1 mm of the preceding hour.
+  ///
+  /// Probability is based on ensemble weather models with 0.25° (~27 km) resolution.
+  /// 30 different simulations are computed to better represent future weather
+  /// conditions, 0-100 %
+  @override
+  @JsonKey(name: 'precipitation_probability')
+  final int pop;
+
+  /// Total precipitation (rain, showers, snow) sum of the preceding hour, mm
+  @override
+  @JsonKey(name: 'precipitation')
+  final double precipitation;
+
+  /// Rain from large scale weather systems of the preceding hour in millimeter, mm
+  @override
+  @JsonKey(name: 'rain')
+  final double rain;
+
+  /// Showers from convective precipitation in millimeters from the preceding hour, mm
+  @override
+  @JsonKey(name: 'showers')
+  final double showers;
+
+  /// Snowfall amount of the preceding hour in centimeters (cm). For the water
+  /// equivalent in millimeter, divide by 7.
+  /// E.g. 7 cm snow = 10 mm precipitation water equivalent.
+  @override
+  @JsonKey(name: 'snowfall')
+  final double snowfall;
+
+  /// Cloudiness, 0-100 %
+  @override
+  @JsonKey(name: 'cloud_cover')
+  final int cloudCover;
+
+  /// Atmospheric air pressure reduced to mean sea level (msl) or pressure
+  /// at surface, hPa
+  ///
+  /// Typically pressure on mean sea level is used in meteorology.
+  @override
+  @JsonKey(name: 'pressure_msl')
+  final double pressureMsl;
+
+  /// Viewing distance in meters (m). Influenced by low clouds, humidity and aerosols.
+  /// Maximum visibility is approximately 24 km.
+  @override
+  @JsonKey(name: 'visibility')
+  final double visibility;
+
+  ///	Daily maximum in UV Index starting from 0.
+  @override
+  @JsonKey(name: 'uv_index')
+  final double uvi;
+
+  /// Wind speed at 10 meters above ground, m/s
+  ///
+  /// Wind speed on 10 meters is the standard level.
+  @override
+  @JsonKey(name: 'wind_speed_10m')
+  final double windSpeed10m;
+
+  /// Wind direction at 10 meters above ground, 0-360°
+  @override
+  @JsonKey(name: 'wind_direction_10m')
+  final int windDirection10m;
+
+  /// Gusts at 10 meters above ground as a maximum of the preceding hour, m/s
+  @override
+  @JsonKey(name: 'wind_gusts_10m')
+  final double windGusts10m;
+
+  /// WMO Weather interpretation codes, 0-99
+  @override
+  @JsonKey(name: 'weather_code')
+  final OpenMeteoWeatherCode weatherCode;
+
+  @override
+  String toString() {
+    return 'HourlyWeatherOpenMeteo(time: $time, temp2m: $temp2m, relativeHumidity2m: $relativeHumidity2m, dewPoint2m: $dewPoint2m, apparentTemp: $apparentTemp, pop: $pop, precipitation: $precipitation, rain: $rain, showers: $showers, snowfall: $snowfall, cloudCover: $cloudCover, pressureMsl: $pressureMsl, visibility: $visibility, uvi: $uvi, windSpeed10m: $windSpeed10m, windDirection10m: $windDirection10m, windGusts10m: $windGusts10m, weatherCode: $weatherCode)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$HourlyWeatherOpenMeteoImpl &&
+            (identical(other.time, time) || other.time == time) &&
+            (identical(other.temp2m, temp2m) || other.temp2m == temp2m) &&
+            (identical(other.relativeHumidity2m, relativeHumidity2m) ||
+                other.relativeHumidity2m == relativeHumidity2m) &&
+            (identical(other.dewPoint2m, dewPoint2m) ||
+                other.dewPoint2m == dewPoint2m) &&
+            (identical(other.apparentTemp, apparentTemp) ||
+                other.apparentTemp == apparentTemp) &&
+            (identical(other.pop, pop) || other.pop == pop) &&
+            (identical(other.precipitation, precipitation) ||
+                other.precipitation == precipitation) &&
+            (identical(other.rain, rain) || other.rain == rain) &&
+            (identical(other.showers, showers) || other.showers == showers) &&
+            (identical(other.snowfall, snowfall) ||
+                other.snowfall == snowfall) &&
+            (identical(other.cloudCover, cloudCover) ||
+                other.cloudCover == cloudCover) &&
+            (identical(other.pressureMsl, pressureMsl) ||
+                other.pressureMsl == pressureMsl) &&
+            (identical(other.visibility, visibility) ||
+                other.visibility == visibility) &&
+            (identical(other.uvi, uvi) || other.uvi == uvi) &&
+            (identical(other.windSpeed10m, windSpeed10m) ||
+                other.windSpeed10m == windSpeed10m) &&
+            (identical(other.windDirection10m, windDirection10m) ||
+                other.windDirection10m == windDirection10m) &&
+            (identical(other.windGusts10m, windGusts10m) ||
+                other.windGusts10m == windGusts10m) &&
+            (identical(other.weatherCode, weatherCode) ||
+                other.weatherCode == weatherCode));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      time,
+      temp2m,
+      relativeHumidity2m,
+      dewPoint2m,
+      apparentTemp,
+      pop,
+      precipitation,
+      rain,
+      showers,
+      snowfall,
+      cloudCover,
+      pressureMsl,
+      visibility,
+      uvi,
+      windSpeed10m,
+      windDirection10m,
+      windGusts10m,
+      weatherCode);
+
+  /// Create a copy of HourlyWeatherOpenMeteo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$HourlyWeatherOpenMeteoImplCopyWith<_$HourlyWeatherOpenMeteoImpl>
+      get copyWith => __$$HourlyWeatherOpenMeteoImplCopyWithImpl<
+          _$HourlyWeatherOpenMeteoImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$HourlyWeatherOpenMeteoImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _HourlyWeatherOpenMeteo implements HourlyWeatherOpenMeteo {
+  const factory _HourlyWeatherOpenMeteo(
+      {@JsonKey(name: 'time')
+      @DateTimeISO8601Converter()
+      required final DateTime time,
+      @JsonKey(name: 'temperature_2m') required final double temp2m,
+      @JsonKey(name: 'relative_humidity_2m')
+      required final int relativeHumidity2m,
+      @JsonKey(name: 'dew_point_2m') required final double dewPoint2m,
+      @JsonKey(name: 'apparent_temperature') required final double apparentTemp,
+      @JsonKey(name: 'precipitation_probability') required final int pop,
+      @JsonKey(name: 'precipitation') required final double precipitation,
+      @JsonKey(name: 'rain') required final double rain,
+      @JsonKey(name: 'showers') required final double showers,
+      @JsonKey(name: 'snowfall') required final double snowfall,
+      @JsonKey(name: 'cloud_cover') required final int cloudCover,
+      @JsonKey(name: 'pressure_msl') required final double pressureMsl,
+      @JsonKey(name: 'visibility') required final double visibility,
+      @JsonKey(name: 'uv_index') required final double uvi,
+      @JsonKey(name: 'wind_speed_10m') required final double windSpeed10m,
+      @JsonKey(name: 'wind_direction_10m') required final int windDirection10m,
+      @JsonKey(name: 'wind_gusts_10m') required final double windGusts10m,
+      @JsonKey(name: 'weather_code')
+      required final OpenMeteoWeatherCode
+          weatherCode}) = _$HourlyWeatherOpenMeteoImpl;
+
+  factory _HourlyWeatherOpenMeteo.fromJson(Map<String, dynamic> json) =
+      _$HourlyWeatherOpenMeteoImpl.fromJson;
+
+  /// iso8601
+  @override
+  @JsonKey(name: 'time')
+  @DateTimeISO8601Converter()
+  DateTime get time;
+
+  /// Air temperature at 2 meters above ground, °C
+  @override
+  @JsonKey(name: 'temperature_2m')
+  double get temp2m;
+
+  /// Relative humidity at 2 meters above ground, 0-100 %
+  @override
+  @JsonKey(name: 'relative_humidity_2m')
+  int get relativeHumidity2m;
+
+  /// Dew point temperature at 2 meters above ground, °C
+  @override
+  @JsonKey(name: 'dew_point_2m')
+  double get dewPoint2m;
+
+  /// Apparent temperature is the perceived feels-like temperature combining
+  /// wind chill factor, relative humidity and solar radiation, °C
+  @override
+  @JsonKey(name: 'apparent_temperature')
+  double get apparentTemp;
+
+  /// Probability of precipitation with more than 0.1 mm of the preceding hour.
+  ///
+  /// Probability is based on ensemble weather models with 0.25° (~27 km) resolution.
+  /// 30 different simulations are computed to better represent future weather
+  /// conditions, 0-100 %
+  @override
+  @JsonKey(name: 'precipitation_probability')
+  int get pop;
+
+  /// Total precipitation (rain, showers, snow) sum of the preceding hour, mm
+  @override
+  @JsonKey(name: 'precipitation')
+  double get precipitation;
+
+  /// Rain from large scale weather systems of the preceding hour in millimeter, mm
+  @override
+  @JsonKey(name: 'rain')
+  double get rain;
+
+  /// Showers from convective precipitation in millimeters from the preceding hour, mm
+  @override
+  @JsonKey(name: 'showers')
+  double get showers;
+
+  /// Snowfall amount of the preceding hour in centimeters (cm). For the water
+  /// equivalent in millimeter, divide by 7.
+  /// E.g. 7 cm snow = 10 mm precipitation water equivalent.
+  @override
+  @JsonKey(name: 'snowfall')
+  double get snowfall;
+
+  /// Cloudiness, 0-100 %
+  @override
+  @JsonKey(name: 'cloud_cover')
+  int get cloudCover;
+
+  /// Atmospheric air pressure reduced to mean sea level (msl) or pressure
+  /// at surface, hPa
+  ///
+  /// Typically pressure on mean sea level is used in meteorology.
+  @override
+  @JsonKey(name: 'pressure_msl')
+  double get pressureMsl;
+
+  /// Viewing distance in meters (m). Influenced by low clouds, humidity and aerosols.
+  /// Maximum visibility is approximately 24 km.
+  @override
+  @JsonKey(name: 'visibility')
+  double get visibility;
+
+  ///	Daily maximum in UV Index starting from 0.
+  @override
+  @JsonKey(name: 'uv_index')
+  double get uvi;
+
+  /// Wind speed at 10 meters above ground, m/s
+  ///
+  /// Wind speed on 10 meters is the standard level.
+  @override
+  @JsonKey(name: 'wind_speed_10m')
+  double get windSpeed10m;
+
+  /// Wind direction at 10 meters above ground, 0-360°
+  @override
+  @JsonKey(name: 'wind_direction_10m')
+  int get windDirection10m;
+
+  /// Gusts at 10 meters above ground as a maximum of the preceding hour, m/s
+  @override
+  @JsonKey(name: 'wind_gusts_10m')
+  double get windGusts10m;
+
+  /// WMO Weather interpretation codes, 0-99
+  @override
+  @JsonKey(name: 'weather_code')
+  OpenMeteoWeatherCode get weatherCode;
+
+  /// Create a copy of HourlyWeatherOpenMeteo
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$HourlyWeatherOpenMeteoImplCopyWith<_$HourlyWeatherOpenMeteoImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+DailyWeatherOpenMeteo _$DailyWeatherOpenMeteoFromJson(
+    Map<String, dynamic> json) {
+  return _DailyWeatherOpenMeteo.fromJson(json);
+}
+
+/// @nodoc
+mixin _$DailyWeatherOpenMeteo {
+  /// iso8601
+  @JsonKey(name: 'time')
+  @DateTimeISO8601Converter()
+  DateTime get time => throw _privateConstructorUsedError;
+
+  /// Maximum daily air temperature at 2 meters above ground, °C
+  @JsonKey(name: 'temperature_2m_max')
+  double get temp2mMax => throw _privateConstructorUsedError;
+
+  /// Minimum daily air temperature at 2 meters above ground, °C
+  @JsonKey(name: 'temperature_2m_min')
+  double get temp2mMin => throw _privateConstructorUsedError;
+
+  /// Maximum daily apparent temperature, °C
+  @JsonKey(name: 'apparent_temperature_max')
+  double get apparentTempMax => throw _privateConstructorUsedError;
+
+  /// Minimum daily apparent temperature, °C
+  @JsonKey(name: 'apparent_temperature_min')
+  double get apparentTempMin => throw _privateConstructorUsedError;
+
+  /// Sunset time, iso8601
+  @JsonKey(name: 'sunrise')
+  @DateTimeISO8601Converter()
+  DateTime get sunrise => throw _privateConstructorUsedError;
+
+  /// Sunset time, iso8601
+  @JsonKey(name: 'sunset')
+  @DateTimeISO8601Converter()
+  DateTime get sunset => throw _privateConstructorUsedError;
+
+  /// Number of seconds of daylight per day, seconds
+  @JsonKey(name: 'daylight_duration')
+  @DurationSecConverter()
+  Duration get daylightDur => throw _privateConstructorUsedError;
+
+  ///	Daily maximum in UV Index starting from 0.
+  @JsonKey(name: 'uv_index_max')
+  double get uviMax => throw _privateConstructorUsedError;
+
+  /// Sum of daily precipitation (including rain, showers and snowfall), mm
+  @JsonKey(name: 'precipitation_sum')
+  double get precipitationSum => throw _privateConstructorUsedError;
+
+  /// Probability of precipitation, 0-100 %
+  @JsonKey(name: 'precipitation_probability_max')
+  double get popMax => throw _privateConstructorUsedError;
+
+  /// Sum of daily rain, mm
+  @JsonKey(name: 'rain_sum')
+  double get rainSum => throw _privateConstructorUsedError;
+
+  /// Sum of daily snowfall, cm
+  @JsonKey(name: 'snowfall_sum')
+  double get snowfallSum => throw _privateConstructorUsedError;
+
+  /// Maximum wind speed on a day, m/s
+  @JsonKey(name: 'wind_speed_10m_max')
+  double get windSpeed10mMax => throw _privateConstructorUsedError;
+
+  /// Maximum wind gusts on a day, m/s
+  @JsonKey(name: 'wind_gusts_10m_max')
+  double get windGusts10mMax => throw _privateConstructorUsedError;
+
+  /// Dominant wind direction, 0-360°
+  @JsonKey(name: 'wind_direction_10m_dominant')
+  int get windDirection10mDominant => throw _privateConstructorUsedError;
+
+  /// WMO Weather interpretation codes, 0-99
+  @JsonKey(name: 'weather_code')
+  OpenMeteoWeatherCode get weatherCode => throw _privateConstructorUsedError;
+
+  /// Serializes this DailyWeatherOpenMeteo to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of DailyWeatherOpenMeteo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $DailyWeatherOpenMeteoCopyWith<DailyWeatherOpenMeteo> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DailyWeatherOpenMeteoCopyWith<$Res> {
+  factory $DailyWeatherOpenMeteoCopyWith(DailyWeatherOpenMeteo value,
+          $Res Function(DailyWeatherOpenMeteo) then) =
+      _$DailyWeatherOpenMeteoCopyWithImpl<$Res, DailyWeatherOpenMeteo>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'time') @DateTimeISO8601Converter() DateTime time,
+      @JsonKey(name: 'temperature_2m_max') double temp2mMax,
+      @JsonKey(name: 'temperature_2m_min') double temp2mMin,
+      @JsonKey(name: 'apparent_temperature_max') double apparentTempMax,
+      @JsonKey(name: 'apparent_temperature_min') double apparentTempMin,
+      @JsonKey(name: 'sunrise') @DateTimeISO8601Converter() DateTime sunrise,
+      @JsonKey(name: 'sunset') @DateTimeISO8601Converter() DateTime sunset,
+      @JsonKey(name: 'daylight_duration')
+      @DurationSecConverter()
+      Duration daylightDur,
+      @JsonKey(name: 'uv_index_max') double uviMax,
+      @JsonKey(name: 'precipitation_sum') double precipitationSum,
+      @JsonKey(name: 'precipitation_probability_max') double popMax,
+      @JsonKey(name: 'rain_sum') double rainSum,
+      @JsonKey(name: 'snowfall_sum') double snowfallSum,
+      @JsonKey(name: 'wind_speed_10m_max') double windSpeed10mMax,
+      @JsonKey(name: 'wind_gusts_10m_max') double windGusts10mMax,
+      @JsonKey(name: 'wind_direction_10m_dominant')
+      int windDirection10mDominant,
+      @JsonKey(name: 'weather_code') OpenMeteoWeatherCode weatherCode});
+}
+
+/// @nodoc
+class _$DailyWeatherOpenMeteoCopyWithImpl<$Res,
+        $Val extends DailyWeatherOpenMeteo>
+    implements $DailyWeatherOpenMeteoCopyWith<$Res> {
+  _$DailyWeatherOpenMeteoCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of DailyWeatherOpenMeteo
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? time = null,
+    Object? temp2mMax = null,
+    Object? temp2mMin = null,
+    Object? apparentTempMax = null,
+    Object? apparentTempMin = null,
+    Object? sunrise = null,
+    Object? sunset = null,
+    Object? daylightDur = null,
+    Object? uviMax = null,
+    Object? precipitationSum = null,
+    Object? popMax = null,
+    Object? rainSum = null,
+    Object? snowfallSum = null,
+    Object? windSpeed10mMax = null,
+    Object? windGusts10mMax = null,
+    Object? windDirection10mDominant = null,
+    Object? weatherCode = null,
+  }) {
+    return _then(_value.copyWith(
+      time: null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      temp2mMax: null == temp2mMax
+          ? _value.temp2mMax
+          : temp2mMax // ignore: cast_nullable_to_non_nullable
+              as double,
+      temp2mMin: null == temp2mMin
+          ? _value.temp2mMin
+          : temp2mMin // ignore: cast_nullable_to_non_nullable
+              as double,
+      apparentTempMax: null == apparentTempMax
+          ? _value.apparentTempMax
+          : apparentTempMax // ignore: cast_nullable_to_non_nullable
+              as double,
+      apparentTempMin: null == apparentTempMin
+          ? _value.apparentTempMin
+          : apparentTempMin // ignore: cast_nullable_to_non_nullable
+              as double,
+      sunrise: null == sunrise
+          ? _value.sunrise
+          : sunrise // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      sunset: null == sunset
+          ? _value.sunset
+          : sunset // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      daylightDur: null == daylightDur
+          ? _value.daylightDur
+          : daylightDur // ignore: cast_nullable_to_non_nullable
+              as Duration,
+      uviMax: null == uviMax
+          ? _value.uviMax
+          : uviMax // ignore: cast_nullable_to_non_nullable
+              as double,
+      precipitationSum: null == precipitationSum
+          ? _value.precipitationSum
+          : precipitationSum // ignore: cast_nullable_to_non_nullable
+              as double,
+      popMax: null == popMax
+          ? _value.popMax
+          : popMax // ignore: cast_nullable_to_non_nullable
+              as double,
+      rainSum: null == rainSum
+          ? _value.rainSum
+          : rainSum // ignore: cast_nullable_to_non_nullable
+              as double,
+      snowfallSum: null == snowfallSum
+          ? _value.snowfallSum
+          : snowfallSum // ignore: cast_nullable_to_non_nullable
+              as double,
+      windSpeed10mMax: null == windSpeed10mMax
+          ? _value.windSpeed10mMax
+          : windSpeed10mMax // ignore: cast_nullable_to_non_nullable
+              as double,
+      windGusts10mMax: null == windGusts10mMax
+          ? _value.windGusts10mMax
+          : windGusts10mMax // ignore: cast_nullable_to_non_nullable
+              as double,
+      windDirection10mDominant: null == windDirection10mDominant
+          ? _value.windDirection10mDominant
+          : windDirection10mDominant // ignore: cast_nullable_to_non_nullable
+              as int,
+      weatherCode: null == weatherCode
+          ? _value.weatherCode
+          : weatherCode // ignore: cast_nullable_to_non_nullable
+              as OpenMeteoWeatherCode,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$DailyWeatherOpenMeteoImplCopyWith<$Res>
+    implements $DailyWeatherOpenMeteoCopyWith<$Res> {
+  factory _$$DailyWeatherOpenMeteoImplCopyWith(
+          _$DailyWeatherOpenMeteoImpl value,
+          $Res Function(_$DailyWeatherOpenMeteoImpl) then) =
+      __$$DailyWeatherOpenMeteoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'time') @DateTimeISO8601Converter() DateTime time,
+      @JsonKey(name: 'temperature_2m_max') double temp2mMax,
+      @JsonKey(name: 'temperature_2m_min') double temp2mMin,
+      @JsonKey(name: 'apparent_temperature_max') double apparentTempMax,
+      @JsonKey(name: 'apparent_temperature_min') double apparentTempMin,
+      @JsonKey(name: 'sunrise') @DateTimeISO8601Converter() DateTime sunrise,
+      @JsonKey(name: 'sunset') @DateTimeISO8601Converter() DateTime sunset,
+      @JsonKey(name: 'daylight_duration')
+      @DurationSecConverter()
+      Duration daylightDur,
+      @JsonKey(name: 'uv_index_max') double uviMax,
+      @JsonKey(name: 'precipitation_sum') double precipitationSum,
+      @JsonKey(name: 'precipitation_probability_max') double popMax,
+      @JsonKey(name: 'rain_sum') double rainSum,
+      @JsonKey(name: 'snowfall_sum') double snowfallSum,
+      @JsonKey(name: 'wind_speed_10m_max') double windSpeed10mMax,
+      @JsonKey(name: 'wind_gusts_10m_max') double windGusts10mMax,
+      @JsonKey(name: 'wind_direction_10m_dominant')
+      int windDirection10mDominant,
+      @JsonKey(name: 'weather_code') OpenMeteoWeatherCode weatherCode});
+}
+
+/// @nodoc
+class __$$DailyWeatherOpenMeteoImplCopyWithImpl<$Res>
+    extends _$DailyWeatherOpenMeteoCopyWithImpl<$Res,
+        _$DailyWeatherOpenMeteoImpl>
+    implements _$$DailyWeatherOpenMeteoImplCopyWith<$Res> {
+  __$$DailyWeatherOpenMeteoImplCopyWithImpl(_$DailyWeatherOpenMeteoImpl _value,
+      $Res Function(_$DailyWeatherOpenMeteoImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DailyWeatherOpenMeteo
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? time = null,
+    Object? temp2mMax = null,
+    Object? temp2mMin = null,
+    Object? apparentTempMax = null,
+    Object? apparentTempMin = null,
+    Object? sunrise = null,
+    Object? sunset = null,
+    Object? daylightDur = null,
+    Object? uviMax = null,
+    Object? precipitationSum = null,
+    Object? popMax = null,
+    Object? rainSum = null,
+    Object? snowfallSum = null,
+    Object? windSpeed10mMax = null,
+    Object? windGusts10mMax = null,
+    Object? windDirection10mDominant = null,
+    Object? weatherCode = null,
+  }) {
+    return _then(_$DailyWeatherOpenMeteoImpl(
+      time: null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      temp2mMax: null == temp2mMax
+          ? _value.temp2mMax
+          : temp2mMax // ignore: cast_nullable_to_non_nullable
+              as double,
+      temp2mMin: null == temp2mMin
+          ? _value.temp2mMin
+          : temp2mMin // ignore: cast_nullable_to_non_nullable
+              as double,
+      apparentTempMax: null == apparentTempMax
+          ? _value.apparentTempMax
+          : apparentTempMax // ignore: cast_nullable_to_non_nullable
+              as double,
+      apparentTempMin: null == apparentTempMin
+          ? _value.apparentTempMin
+          : apparentTempMin // ignore: cast_nullable_to_non_nullable
+              as double,
+      sunrise: null == sunrise
+          ? _value.sunrise
+          : sunrise // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      sunset: null == sunset
+          ? _value.sunset
+          : sunset // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      daylightDur: null == daylightDur
+          ? _value.daylightDur
+          : daylightDur // ignore: cast_nullable_to_non_nullable
+              as Duration,
+      uviMax: null == uviMax
+          ? _value.uviMax
+          : uviMax // ignore: cast_nullable_to_non_nullable
+              as double,
+      precipitationSum: null == precipitationSum
+          ? _value.precipitationSum
+          : precipitationSum // ignore: cast_nullable_to_non_nullable
+              as double,
+      popMax: null == popMax
+          ? _value.popMax
+          : popMax // ignore: cast_nullable_to_non_nullable
+              as double,
+      rainSum: null == rainSum
+          ? _value.rainSum
+          : rainSum // ignore: cast_nullable_to_non_nullable
+              as double,
+      snowfallSum: null == snowfallSum
+          ? _value.snowfallSum
+          : snowfallSum // ignore: cast_nullable_to_non_nullable
+              as double,
+      windSpeed10mMax: null == windSpeed10mMax
+          ? _value.windSpeed10mMax
+          : windSpeed10mMax // ignore: cast_nullable_to_non_nullable
+              as double,
+      windGusts10mMax: null == windGusts10mMax
+          ? _value.windGusts10mMax
+          : windGusts10mMax // ignore: cast_nullable_to_non_nullable
+              as double,
+      windDirection10mDominant: null == windDirection10mDominant
+          ? _value.windDirection10mDominant
+          : windDirection10mDominant // ignore: cast_nullable_to_non_nullable
+              as int,
+      weatherCode: null == weatherCode
+          ? _value.weatherCode
+          : weatherCode // ignore: cast_nullable_to_non_nullable
+              as OpenMeteoWeatherCode,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$DailyWeatherOpenMeteoImpl implements _DailyWeatherOpenMeteo {
+  const _$DailyWeatherOpenMeteoImpl(
+      {@JsonKey(name: 'time') @DateTimeISO8601Converter() required this.time,
+      @JsonKey(name: 'temperature_2m_max') required this.temp2mMax,
+      @JsonKey(name: 'temperature_2m_min') required this.temp2mMin,
+      @JsonKey(name: 'apparent_temperature_max') required this.apparentTempMax,
+      @JsonKey(name: 'apparent_temperature_min') required this.apparentTempMin,
+      @JsonKey(name: 'sunrise')
+      @DateTimeISO8601Converter()
+      required this.sunrise,
+      @JsonKey(name: 'sunset') @DateTimeISO8601Converter() required this.sunset,
+      @JsonKey(name: 'daylight_duration')
+      @DurationSecConverter()
+      required this.daylightDur,
+      @JsonKey(name: 'uv_index_max') required this.uviMax,
+      @JsonKey(name: 'precipitation_sum') required this.precipitationSum,
+      @JsonKey(name: 'precipitation_probability_max') required this.popMax,
+      @JsonKey(name: 'rain_sum') required this.rainSum,
+      @JsonKey(name: 'snowfall_sum') required this.snowfallSum,
+      @JsonKey(name: 'wind_speed_10m_max') required this.windSpeed10mMax,
+      @JsonKey(name: 'wind_gusts_10m_max') required this.windGusts10mMax,
+      @JsonKey(name: 'wind_direction_10m_dominant')
+      required this.windDirection10mDominant,
+      @JsonKey(name: 'weather_code') required this.weatherCode});
+
+  factory _$DailyWeatherOpenMeteoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DailyWeatherOpenMeteoImplFromJson(json);
+
+  /// iso8601
+  @override
+  @JsonKey(name: 'time')
+  @DateTimeISO8601Converter()
+  final DateTime time;
+
+  /// Maximum daily air temperature at 2 meters above ground, °C
+  @override
+  @JsonKey(name: 'temperature_2m_max')
+  final double temp2mMax;
+
+  /// Minimum daily air temperature at 2 meters above ground, °C
+  @override
+  @JsonKey(name: 'temperature_2m_min')
+  final double temp2mMin;
+
+  /// Maximum daily apparent temperature, °C
+  @override
+  @JsonKey(name: 'apparent_temperature_max')
+  final double apparentTempMax;
+
+  /// Minimum daily apparent temperature, °C
+  @override
+  @JsonKey(name: 'apparent_temperature_min')
+  final double apparentTempMin;
+
+  /// Sunset time, iso8601
+  @override
+  @JsonKey(name: 'sunrise')
+  @DateTimeISO8601Converter()
+  final DateTime sunrise;
+
+  /// Sunset time, iso8601
+  @override
+  @JsonKey(name: 'sunset')
+  @DateTimeISO8601Converter()
+  final DateTime sunset;
+
+  /// Number of seconds of daylight per day, seconds
+  @override
+  @JsonKey(name: 'daylight_duration')
+  @DurationSecConverter()
+  final Duration daylightDur;
+
+  ///	Daily maximum in UV Index starting from 0.
+  @override
+  @JsonKey(name: 'uv_index_max')
+  final double uviMax;
+
+  /// Sum of daily precipitation (including rain, showers and snowfall), mm
+  @override
+  @JsonKey(name: 'precipitation_sum')
+  final double precipitationSum;
+
+  /// Probability of precipitation, 0-100 %
+  @override
+  @JsonKey(name: 'precipitation_probability_max')
+  final double popMax;
+
+  /// Sum of daily rain, mm
+  @override
+  @JsonKey(name: 'rain_sum')
+  final double rainSum;
+
+  /// Sum of daily snowfall, cm
+  @override
+  @JsonKey(name: 'snowfall_sum')
+  final double snowfallSum;
+
+  /// Maximum wind speed on a day, m/s
+  @override
+  @JsonKey(name: 'wind_speed_10m_max')
+  final double windSpeed10mMax;
+
+  /// Maximum wind gusts on a day, m/s
+  @override
+  @JsonKey(name: 'wind_gusts_10m_max')
+  final double windGusts10mMax;
+
+  /// Dominant wind direction, 0-360°
+  @override
+  @JsonKey(name: 'wind_direction_10m_dominant')
+  final int windDirection10mDominant;
+
+  /// WMO Weather interpretation codes, 0-99
+  @override
+  @JsonKey(name: 'weather_code')
+  final OpenMeteoWeatherCode weatherCode;
+
+  @override
+  String toString() {
+    return 'DailyWeatherOpenMeteo(time: $time, temp2mMax: $temp2mMax, temp2mMin: $temp2mMin, apparentTempMax: $apparentTempMax, apparentTempMin: $apparentTempMin, sunrise: $sunrise, sunset: $sunset, daylightDur: $daylightDur, uviMax: $uviMax, precipitationSum: $precipitationSum, popMax: $popMax, rainSum: $rainSum, snowfallSum: $snowfallSum, windSpeed10mMax: $windSpeed10mMax, windGusts10mMax: $windGusts10mMax, windDirection10mDominant: $windDirection10mDominant, weatherCode: $weatherCode)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DailyWeatherOpenMeteoImpl &&
+            (identical(other.time, time) || other.time == time) &&
+            (identical(other.temp2mMax, temp2mMax) ||
+                other.temp2mMax == temp2mMax) &&
+            (identical(other.temp2mMin, temp2mMin) ||
+                other.temp2mMin == temp2mMin) &&
+            (identical(other.apparentTempMax, apparentTempMax) ||
+                other.apparentTempMax == apparentTempMax) &&
+            (identical(other.apparentTempMin, apparentTempMin) ||
+                other.apparentTempMin == apparentTempMin) &&
+            (identical(other.sunrise, sunrise) || other.sunrise == sunrise) &&
+            (identical(other.sunset, sunset) || other.sunset == sunset) &&
+            (identical(other.daylightDur, daylightDur) ||
+                other.daylightDur == daylightDur) &&
+            (identical(other.uviMax, uviMax) || other.uviMax == uviMax) &&
+            (identical(other.precipitationSum, precipitationSum) ||
+                other.precipitationSum == precipitationSum) &&
+            (identical(other.popMax, popMax) || other.popMax == popMax) &&
+            (identical(other.rainSum, rainSum) || other.rainSum == rainSum) &&
+            (identical(other.snowfallSum, snowfallSum) ||
+                other.snowfallSum == snowfallSum) &&
+            (identical(other.windSpeed10mMax, windSpeed10mMax) ||
+                other.windSpeed10mMax == windSpeed10mMax) &&
+            (identical(other.windGusts10mMax, windGusts10mMax) ||
+                other.windGusts10mMax == windGusts10mMax) &&
+            (identical(
+                    other.windDirection10mDominant, windDirection10mDominant) ||
+                other.windDirection10mDominant == windDirection10mDominant) &&
+            (identical(other.weatherCode, weatherCode) ||
+                other.weatherCode == weatherCode));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      time,
+      temp2mMax,
+      temp2mMin,
+      apparentTempMax,
+      apparentTempMin,
+      sunrise,
+      sunset,
+      daylightDur,
+      uviMax,
+      precipitationSum,
+      popMax,
+      rainSum,
+      snowfallSum,
+      windSpeed10mMax,
+      windGusts10mMax,
+      windDirection10mDominant,
+      weatherCode);
+
+  /// Create a copy of DailyWeatherOpenMeteo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DailyWeatherOpenMeteoImplCopyWith<_$DailyWeatherOpenMeteoImpl>
+      get copyWith => __$$DailyWeatherOpenMeteoImplCopyWithImpl<
+          _$DailyWeatherOpenMeteoImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DailyWeatherOpenMeteoImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _DailyWeatherOpenMeteo implements DailyWeatherOpenMeteo {
+  const factory _DailyWeatherOpenMeteo(
+          {@JsonKey(name: 'time')
+          @DateTimeISO8601Converter()
+          required final DateTime time,
+          @JsonKey(name: 'temperature_2m_max') required final double temp2mMax,
+          @JsonKey(name: 'temperature_2m_min') required final double temp2mMin,
+          @JsonKey(name: 'apparent_temperature_max')
+          required final double apparentTempMax,
+          @JsonKey(name: 'apparent_temperature_min')
+          required final double apparentTempMin,
+          @JsonKey(name: 'sunrise')
+          @DateTimeISO8601Converter()
+          required final DateTime sunrise,
+          @JsonKey(name: 'sunset')
+          @DateTimeISO8601Converter()
+          required final DateTime sunset,
+          @JsonKey(name: 'daylight_duration')
+          @DurationSecConverter()
+          required final Duration daylightDur,
+          @JsonKey(name: 'uv_index_max') required final double uviMax,
+          @JsonKey(name: 'precipitation_sum')
+          required final double precipitationSum,
+          @JsonKey(name: 'precipitation_probability_max')
+          required final double popMax,
+          @JsonKey(name: 'rain_sum') required final double rainSum,
+          @JsonKey(name: 'snowfall_sum') required final double snowfallSum,
+          @JsonKey(name: 'wind_speed_10m_max')
+          required final double windSpeed10mMax,
+          @JsonKey(name: 'wind_gusts_10m_max')
+          required final double windGusts10mMax,
+          @JsonKey(name: 'wind_direction_10m_dominant')
+          required final int windDirection10mDominant,
+          @JsonKey(name: 'weather_code')
+          required final OpenMeteoWeatherCode weatherCode}) =
+      _$DailyWeatherOpenMeteoImpl;
+
+  factory _DailyWeatherOpenMeteo.fromJson(Map<String, dynamic> json) =
+      _$DailyWeatherOpenMeteoImpl.fromJson;
+
+  /// iso8601
+  @override
+  @JsonKey(name: 'time')
+  @DateTimeISO8601Converter()
+  DateTime get time;
+
+  /// Maximum daily air temperature at 2 meters above ground, °C
+  @override
+  @JsonKey(name: 'temperature_2m_max')
+  double get temp2mMax;
+
+  /// Minimum daily air temperature at 2 meters above ground, °C
+  @override
+  @JsonKey(name: 'temperature_2m_min')
+  double get temp2mMin;
+
+  /// Maximum daily apparent temperature, °C
+  @override
+  @JsonKey(name: 'apparent_temperature_max')
+  double get apparentTempMax;
+
+  /// Minimum daily apparent temperature, °C
+  @override
+  @JsonKey(name: 'apparent_temperature_min')
+  double get apparentTempMin;
+
+  /// Sunset time, iso8601
+  @override
+  @JsonKey(name: 'sunrise')
+  @DateTimeISO8601Converter()
+  DateTime get sunrise;
+
+  /// Sunset time, iso8601
+  @override
+  @JsonKey(name: 'sunset')
+  @DateTimeISO8601Converter()
+  DateTime get sunset;
+
+  /// Number of seconds of daylight per day, seconds
+  @override
+  @JsonKey(name: 'daylight_duration')
+  @DurationSecConverter()
+  Duration get daylightDur;
+
+  ///	Daily maximum in UV Index starting from 0.
+  @override
+  @JsonKey(name: 'uv_index_max')
+  double get uviMax;
+
+  /// Sum of daily precipitation (including rain, showers and snowfall), mm
+  @override
+  @JsonKey(name: 'precipitation_sum')
+  double get precipitationSum;
+
+  /// Probability of precipitation, 0-100 %
+  @override
+  @JsonKey(name: 'precipitation_probability_max')
+  double get popMax;
+
+  /// Sum of daily rain, mm
+  @override
+  @JsonKey(name: 'rain_sum')
+  double get rainSum;
+
+  /// Sum of daily snowfall, cm
+  @override
+  @JsonKey(name: 'snowfall_sum')
+  double get snowfallSum;
+
+  /// Maximum wind speed on a day, m/s
+  @override
+  @JsonKey(name: 'wind_speed_10m_max')
+  double get windSpeed10mMax;
+
+  /// Maximum wind gusts on a day, m/s
+  @override
+  @JsonKey(name: 'wind_gusts_10m_max')
+  double get windGusts10mMax;
+
+  /// Dominant wind direction, 0-360°
+  @override
+  @JsonKey(name: 'wind_direction_10m_dominant')
+  int get windDirection10mDominant;
+
+  /// WMO Weather interpretation codes, 0-99
+  @override
+  @JsonKey(name: 'weather_code')
+  OpenMeteoWeatherCode get weatherCode;
+
+  /// Create a copy of DailyWeatherOpenMeteo
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DailyWeatherOpenMeteoImplCopyWith<_$DailyWeatherOpenMeteoImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

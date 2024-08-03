@@ -19,6 +19,9 @@ enum OpenMeteoCurrentParam {
   wind_gusts_10m,
 }
 
+/// WMO Weather interpretation codes, 0-99.
+///
+/// (*) Thunderstorm forecast with hail is only available in Central Europe.
 enum OpenMeteoWeatherCode {
   code0(0, 'Clear sky'),
   code1(1, 'Mainly clear'),
@@ -45,14 +48,17 @@ enum OpenMeteoWeatherCode {
   code82(82, 'Violent rain showers'),
   code85(85, 'Slight snow showers'),
   code86(86, 'Heavy snow showers'),
-  code95(95, 'Thunderstorm'),
-  code96(96, 'Thunderstorm with slight hail'),
-  code99(99, 'Thunderstorm with heavy hail'),
+  code95(95, 'Thunderstorm'), // (*)
+  code96(96, 'Thunderstorm with slight hail'), // (*)
+  code99(99, 'Thunderstorm with heavy hail'), // (*)
   ;
 
   const OpenMeteoWeatherCode(this.code, this.desc);
 
+  /// 0-99.
   final int code;
+
+  /// Short description.
   final String desc;
 
   static OpenMeteoWeatherCode byCode(int code) =>

@@ -3,6 +3,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:weather_today/data/converters.dart';
 
+import 'enums.dart';
+
 part 'models.freezed.dart';
 part 'models.g.dart';
 
@@ -44,6 +46,16 @@ class ForecastOpenMeteoResponse with _$ForecastOpenMeteoResponse {
 
     /// A list of weather variables to get current conditions.
     @JsonKey(name: 'current') required CurrentWeatherOpenMeteo currentWeather,
+
+    /// A list of weather variables which should be returned. Values can be comma
+    /// separated, or multiple &hourly= parameter in the URL can be used.
+    @JsonKey(name: 'hourly') required HourlyWeatherOpenMeteo hourlyWeather,
+
+    /// A list of daily weather variable aggregations which should be returned.
+    /// Values can be comma separated, or multiple &daily= parameter in the URL
+    /// can be used. If daily weather variables are specified, parameter timezone
+    /// is required.
+    @JsonKey(name: 'daily') required DailyWeatherOpenMeteo dailyWeather,
   }) = _ForecastOpenMeteoResponse;
 
   factory ForecastOpenMeteoResponse.fromJson(Map<String, Object?> json) =>
@@ -59,25 +71,166 @@ class CurrentWeatherOpenMeteo with _$CurrentWeatherOpenMeteo {
     /// iso8601
     @JsonKey(name: 'time') @DateTimeISO8601Converter() required DateTime time,
     @JsonKey(name: 'interval') required int interval,
-    @JsonKey(name: 'temperature_2m') required double temperature2m,
+    @JsonKey(name: 'temperature_2m') required double temp2m,
     @JsonKey(name: 'relative_humidity_2m') required int relativeHumidity2m,
-    @JsonKey(name: 'apparent_temperature') required double apparentTemperature,
-    @JsonKey(name: 'is_day') required int isDay,
-    @JsonKey(name: 'precipitation') required int precipitation,
-    @JsonKey(name: 'rain') required int rain,
-    @JsonKey(name: 'showers') required int showers,
-    @JsonKey(name: 'snowfall') required int snowfall,
-    @JsonKey(name: 'weather_code') required int weatherCode,
+    @JsonKey(name: 'apparent_temperature') required double apparentTemp,
+    // @JsonKey(name: 'is_day') required int isDay,
+    @JsonKey(name: 'precipitation') required double precipitation,
+    @JsonKey(name: 'rain') required double rain,
+    @JsonKey(name: 'showers') required double showers,
+    @JsonKey(name: 'snowfall') required double snowfall,
     @JsonKey(name: 'cloud_cover') required int cloudCover,
     @JsonKey(name: 'pressure_msl') required double pressureMsl,
-    @JsonKey(name: 'surface_pressure') required double surfacePressure,
     @JsonKey(name: 'wind_speed_10m') required double windSpeed10m,
     @JsonKey(name: 'wind_direction_10m') required int windDirection10m,
     @JsonKey(name: 'wind_gusts_10m') required double windGusts10m,
+    @JsonKey(name: 'weather_code') required OpenMeteoWeatherCode weatherCode,
   }) = _CurrentWeatherOpenMeteo;
 
   factory CurrentWeatherOpenMeteo.fromJson(Map<String, Object?> json) =>
       _$CurrentWeatherOpenMeteoFromJson(json);
 
   const CurrentWeatherOpenMeteo._();
+}
+
+@freezed
+abstract class HourlyWeatherOpenMeteo with _$HourlyWeatherOpenMeteo {
+  @JsonSerializable(explicitToJson: true)
+  const factory HourlyWeatherOpenMeteo({
+    /// iso8601
+    @JsonKey(name: 'time') @DateTimeISO8601Converter() required DateTime time,
+
+    /// Air temperature at 2 meters above ground, °C
+    @JsonKey(name: 'temperature_2m') required double temp2m,
+
+    /// Relative humidity at 2 meters above ground, 0-100 %
+    @JsonKey(name: 'relative_humidity_2m') required int relativeHumidity2m,
+
+    /// Dew point temperature at 2 meters above ground, °C
+    @JsonKey(name: 'dew_point_2m') required double dewPoint2m,
+
+    /// Apparent temperature is the perceived feels-like temperature combining
+    /// wind chill factor, relative humidity and solar radiation, °C
+    @JsonKey(name: 'apparent_temperature') required double apparentTemp,
+
+    /// Probability of precipitation with more than 0.1 mm of the preceding hour.
+    ///
+    /// Probability is based on ensemble weather models with 0.25° (~27 km) resolution.
+    /// 30 different simulations are computed to better represent future weather
+    /// conditions, 0-100 %
+    @JsonKey(name: 'precipitation_probability') required int pop,
+
+    /// Total precipitation (rain, showers, snow) sum of the preceding hour, mm
+    @JsonKey(name: 'precipitation') required double precipitation,
+
+    /// Rain from large scale weather systems of the preceding hour in millimeter, mm
+    @JsonKey(name: 'rain') required double rain,
+
+    /// Showers from convective precipitation in millimeters from the preceding hour, mm
+    @JsonKey(name: 'showers') required double showers,
+
+    /// Snowfall amount of the preceding hour in centimeters (cm). For the water
+    /// equivalent in millimeter, divide by 7.
+    /// E.g. 7 cm snow = 10 mm precipitation water equivalent.
+    @JsonKey(name: 'snowfall') required double snowfall,
+
+    /// Cloudiness, 0-100 %
+    @JsonKey(name: 'cloud_cover') required int cloudCover,
+
+    /// Atmospheric air pressure reduced to mean sea level (msl) or pressure
+    /// at surface, hPa
+    ///
+    /// Typically pressure on mean sea level is used in meteorology.
+    @JsonKey(name: 'pressure_msl') required double pressureMsl,
+
+    /// Viewing distance in meters (m). Influenced by low clouds, humidity and aerosols.
+    /// Maximum visibility is approximately 24 km.
+    @JsonKey(name: 'visibility') required double visibility,
+
+    ///	Daily maximum in UV Index starting from 0.
+    @JsonKey(name: 'uv_index') required double uvi,
+
+    /// Wind speed at 10 meters above ground, m/s
+    ///
+    /// Wind speed on 10 meters is the standard level.
+    @JsonKey(name: 'wind_speed_10m') required double windSpeed10m,
+
+    /// Wind direction at 10 meters above ground, 0-360°
+    @JsonKey(name: 'wind_direction_10m') required int windDirection10m,
+
+    /// Gusts at 10 meters above ground as a maximum of the preceding hour, m/s
+    @JsonKey(name: 'wind_gusts_10m') required double windGusts10m,
+
+    /// WMO Weather interpretation codes, 0-99
+    @JsonKey(name: 'weather_code') required OpenMeteoWeatherCode weatherCode,
+  }) = _HourlyWeatherOpenMeteo;
+
+  factory HourlyWeatherOpenMeteo.fromJson(Map<String, dynamic> json) =>
+      _$HourlyWeatherOpenMeteoFromJson(json);
+}
+
+@freezed
+class DailyWeatherOpenMeteo with _$DailyWeatherOpenMeteo {
+  const factory DailyWeatherOpenMeteo({
+    /// iso8601
+    @JsonKey(name: 'time') @DateTimeISO8601Converter() required DateTime time,
+
+    /// Maximum daily air temperature at 2 meters above ground, °C
+    @JsonKey(name: 'temperature_2m_max') required double temp2mMax,
+
+    /// Minimum daily air temperature at 2 meters above ground, °C
+    @JsonKey(name: 'temperature_2m_min') required double temp2mMin,
+
+    /// Maximum daily apparent temperature, °C
+    @JsonKey(name: 'apparent_temperature_max') required double apparentTempMax,
+
+    /// Minimum daily apparent temperature, °C
+    @JsonKey(name: 'apparent_temperature_min') required double apparentTempMin,
+
+    /// Sunset time, iso8601
+    @JsonKey(name: 'sunrise')
+    @DateTimeISO8601Converter()
+    required DateTime sunrise,
+
+    /// Sunset time, iso8601
+    @JsonKey(name: 'sunset')
+    @DateTimeISO8601Converter()
+    required DateTime sunset,
+
+    /// Number of seconds of daylight per day, seconds
+    @JsonKey(name: 'daylight_duration')
+    @DurationSecConverter()
+    required Duration daylightDur,
+
+    ///	Daily maximum in UV Index starting from 0.
+    @JsonKey(name: 'uv_index_max') required double uviMax,
+
+    /// Sum of daily precipitation (including rain, showers and snowfall), mm
+    @JsonKey(name: 'precipitation_sum') required double precipitationSum,
+
+    /// Probability of precipitation, 0-100 %
+    @JsonKey(name: 'precipitation_probability_max') required double popMax,
+
+    /// Sum of daily rain, mm
+    @JsonKey(name: 'rain_sum') required double rainSum,
+
+    /// Sum of daily snowfall, cm
+    @JsonKey(name: 'snowfall_sum') required double snowfallSum,
+
+    /// Maximum wind speed on a day, m/s
+    @JsonKey(name: 'wind_speed_10m_max') required double windSpeed10mMax,
+
+    /// Maximum wind gusts on a day, m/s
+    @JsonKey(name: 'wind_gusts_10m_max') required double windGusts10mMax,
+
+    /// Dominant wind direction, 0-360°
+    @JsonKey(name: 'wind_direction_10m_dominant')
+    required int windDirection10mDominant,
+
+    /// WMO Weather interpretation codes, 0-99
+    @JsonKey(name: 'weather_code') required OpenMeteoWeatherCode weatherCode,
+  }) = _DailyWeatherOpenMeteo;
+
+  factory DailyWeatherOpenMeteo.fromJson(Map<String, dynamic> json) =>
+      _$DailyWeatherOpenMeteoFromJson(json);
 }

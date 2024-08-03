@@ -10,3 +10,13 @@ class DateTimeISO8601Converter extends JsonConverter<DateTime, String> {
   @override
   String toJson(DateTime object) => Converters.dateTimeAsString.to(object);
 }
+
+class DurationSecConverter extends JsonConverter<Duration, int> {
+  const DurationSecConverter();
+
+  @override
+  Duration fromJson(int data) => Duration(seconds: data);
+
+  @override
+  int toJson(Duration object) => object.inSeconds;
+}
