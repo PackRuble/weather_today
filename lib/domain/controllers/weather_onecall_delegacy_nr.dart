@@ -94,10 +94,20 @@ class WeatherOnecallDelegacyNR extends AsyncNotifier<WeatherOneCall?> {
           WeatherDaily(
             {}, // корректно, упоминание выше
             date: daily.time,
+            moonPhase: null,
+            moonrise: null,
+            moonset: null,
+            summary: null,
+            tempDay: null,
+            tempEvening: null,
+            tempFeelsLikeEvening: null,
+            tempFeelsLikeMorning: null,
+            tempFeelsLikeNight: null,
+            tempMorning: null,
+            tempNight: null,
             tempMin: daily.temp2mMin,
             tempMax: daily.temp2mMax,
-            tempFeelsLikeDay: daily.apparentTempMin +
-                ((daily.apparentTempMax - daily.apparentTempMin) / 2),
+            tempFeelsLikeDay: null,
             pressure: null,
             humidity: null,
             dewPoint: null,

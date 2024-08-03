@@ -4,6 +4,6 @@ extension DoubleExt on double {
 }
 
 extension ExtDoubleNull on double? {
-  String toStringMaybe({String filler = '-', int fixed = 0}) =>
+  String toStringMaybe({String filler = '–', int fixed = 0}) =>
       this?.toStringAsFixed(fixed) ?? filler;
 }

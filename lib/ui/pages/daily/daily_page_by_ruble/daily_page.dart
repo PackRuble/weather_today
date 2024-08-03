@@ -252,27 +252,24 @@ class TileDailyWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
+    final styles = theme.textTheme;
     final t = ref.watch(AppLocalization.currentTranslation);
 
-    final TextTheme styles = theme.textTheme;
-
-    final Temp tempUnits = ref.watch(DailyPagePresenter.tempUnits);
-    final String _tempUnits = MetricsHelper.getTempUnits(tempUnits);
-    final String _tempMin =
+    final tempUnits = ref.watch(DailyPagePresenter.tempUnits);
+    final _tempUnits = MetricsHelper.getTempUnits(tempUnits);
+    final _tempMin =
         MetricsHelper.getTemp(weather.tempMin, tempUnits, withUnits: false);
-    final String _tempMax =
+    final _tempMax =
         MetricsHelper.getTemp(weather.tempMax, tempUnits, withUnits: false);
 
-    final String? _pop = MetricsHelper.withPrecision(
-        MetricsHelper.getPercentage(
-            weather.pop == 0.0 ? null : weather.pop, 1.0));
+    final _pop = MetricsHelper.withPrecision(MetricsHelper.getPercentage(
+        weather.pop == 0.0 ? null : weather.pop, 1.0));
 
-    final Speed speedUnits = ref.watch(DailyPagePresenter.speedUnits);
-    final String? _windSpeed = MetricsHelper.getSpeed(
-        weather.windSpeed, speedUnits,
+    final speedUnits = ref.watch(DailyPagePresenter.speedUnits);
+    final _windSpeed = MetricsHelper.getSpeed(weather.windSpeed, speedUnits,
         withUnits: false, precision: 0);
-    final String _speedUnits = MetricsHelper.getSpeedUnits(speedUnits);
+    final _speedUnits = MetricsHelper.getSpeedUnits(speedUnits);
 
     return ListTile(
       minLeadingWidth: 0.0,
@@ -308,7 +305,7 @@ class TileDailyWidget extends ConsumerWidget {
       title: weather.date?.day == DateTime.now().day
           ? Text(t.global.time.today.toLowerCase())
           : Text(DateFormat.MMMEd().format(weather.date ?? DateTime.now())),
-      subtitle: Text('${weather.weatherDescription}'),
+      subtitle: Text('${weather.weatherDescription ?? weather.weatherMain}'),
       trailing: Row(
         // mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
@@ -425,6 +422,24 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              _Title(t.weather.precipitation),
+              _TitleContent(
+                height: _minHeightRowTile,
+                left: [
+                  if (weather.rain != null)
+                    _OneTile('Дождь', weather.rain!.toString(), 'mm'),
+                ],
+                right: [
+                  if (weather.snow != null)
+                    _OneTile(
+                      // todo(03.08.2024): tr
+                      'Снег',
+                      weather.snow!.toString(),
+                      'cm',
+                    ),
+                ],
+              ),
+              _hDivider,
               _Title(t.weather.riseAndSetPl),
               _TitleContent(
                 height: _minHeightRowTile * 3,
@@ -435,11 +450,14 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
                       DateFormat.Hm().format(weather.sunset!)),
                 ],
                 right: [
-                  _OneTile(t.weather.moonrise,
-                      DateFormat.Hm().format(weather.moonrise!)),
-                  _OneTile(t.weather.moonset,
-                      DateFormat.Hm().format(weather.moonset!)),
-                  _OneTile(t.weather.moonPhase, weather.moonPhase.toString()),
+                  if (weather.moonrise != null)
+                    _OneTile(t.weather.moonrise,
+                        DateFormat.Hm().format(weather.moonrise!)),
+                  if (weather.moonset != null)
+                    _OneTile(t.weather.moonset,
+                        DateFormat.Hm().format(weather.moonset!)),
+                  if (weather.moonPhase != null)
+                    _OneTile(t.weather.moonPhase, weather.moonPhase.toString()),
                 ],
               ),
               _hDivider,
@@ -459,29 +477,53 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
               _TitleContent(
                 height: _minHeightRowTile * 5,
                 left: [
-                  _OneTile(t.weather.real),
-                  _OneTile(t.weather.atMorning, getTemp(weather.tempMorning),
-                      tempUnits.abbr),
-                  _OneTile(t.weather.atDay, getTemp(weather.tempDay),
-                      tempUnits.abbr),
-                  _OneTile(t.weather.atEvening, getTemp(weather.tempEvening),
-                      tempUnits.abbr),
-                  _OneTile(t.weather.atNight, getTemp(weather.tempNight),
-                      tempUnits.abbr),
+                  if (weather.tempMorning != null ||
+                      weather.tempDay != null ||
+                      weather.tempEvening != null ||
+                      weather.tempNight != null)
+                    _OneTile(t.weather.real),
+                  if (weather.tempMorning != null)
+                    _OneTile(t.weather.atMorning, getTemp(weather.tempMorning),
+                        tempUnits.abbr),
+                  if (weather.tempDay != null)
+                    _OneTile(t.weather.atDay, getTemp(weather.tempDay),
+                        tempUnits.abbr),
+                  if (weather.tempEvening != null)
+                    _OneTile(t.weather.atEvening, getTemp(weather.tempEvening),
+                        tempUnits.abbr),
+                  if (weather.tempNight != null)
+                    _OneTile(t.weather.atNight, getTemp(weather.tempNight),
+                        tempUnits.abbr),
                 ],
                 right: [
-                  _OneTile(t.weather.feels),
-                  _OneTile(t.weather.atMorning,
-                      getTemp(weather.tempFeelsLikeMorning), tempUnits.abbr),
-                  _OneTile(t.weather.atDay, getTemp(weather.tempFeelsLikeDay),
-                      tempUnits.abbr),
-                  _OneTile(t.weather.atEvening,
-                      getTemp(weather.tempFeelsLikeEvening), tempUnits.abbr),
-                  _OneTile(t.weather.atNight,
-                      getTemp(weather.tempFeelsLikeNight), tempUnits.abbr),
+                  if (weather.tempFeelsLikeMorning != null ||
+                      weather.tempFeelsLikeDay != null ||
+                      weather.tempFeelsLikeEvening != null ||
+                      weather.tempFeelsLikeNight != null)
+                    _OneTile(t.weather.feels),
+                  if (weather.tempFeelsLikeMorning != null)
+                    _OneTile(t.weather.atMorning,
+                        getTemp(weather.tempFeelsLikeMorning), tempUnits.abbr),
+                  if (weather.tempFeelsLikeDay != null)
+                    _OneTile(t.weather.atDay, getTemp(weather.tempFeelsLikeDay),
+                        tempUnits.abbr),
+                  if (weather.tempFeelsLikeEvening != null)
+                    _OneTile(t.weather.atEvening,
+                        getTemp(weather.tempFeelsLikeEvening), tempUnits.abbr),
+                  if (weather.tempFeelsLikeNight != null)
+                    _OneTile(t.weather.atNight,
+                        getTemp(weather.tempFeelsLikeNight), tempUnits.abbr),
                 ],
               ),
-              _hDivider,
+              if (weather.tempMorning != null ||
+                  weather.tempDay != null ||
+                  weather.tempEvening != null ||
+                  weather.tempNight != null ||
+                  weather.tempFeelsLikeMorning != null ||
+                  weather.tempFeelsLikeDay != null ||
+                  weather.tempFeelsLikeEvening != null ||
+                  weather.tempFeelsLikeNight != null)
+                _hDivider,
               _Title(t.weather.indicators),
               _TitleContent(
                 height: _minHeightRowTile * 3,
@@ -489,15 +531,19 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
                   if (_pressure != null)
                     _OneTile(t.weather.pressure, _pressure, ' $_pressureUnits',
                         true),
-                  _OneTile(t.weather.cloudiness,
-                      weather.cloudiness.toStringMaybe(), '%'),
-                  _OneTile(t.weather.uvi, weather.uvi.toStringMaybe()),
+                  if (weather.cloudiness != null)
+                    _OneTile(t.weather.cloudiness,
+                        weather.cloudiness.toStringMaybe(), '%'),
+                  if (weather.uvi != null)
+                    _OneTile(t.weather.uvi, weather.uvi.toStringMaybe()),
                 ],
                 right: [
-                  _OneTile(t.weather.humidity, weather.humidity.toStringMaybe(),
-                      '%'),
-                  _OneTile(t.weather.dewPoint, getTemp(weather.dewPoint),
-                      tempUnits.abbr),
+                  if (weather.humidity != null)
+                    _OneTile(t.weather.humidity,
+                        weather.humidity.toStringMaybe(), '%'),
+                  if (weather.dewPoint != null)
+                    _OneTile(t.weather.dewPoint, getTemp(weather.dewPoint),
+                        tempUnits.abbr),
                 ],
               ),
             ],
@@ -539,7 +585,6 @@ class _OneTile extends StatelessWidget {
       ),
     );
 
-    // todo: решить проблему с значением давления
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -579,26 +624,39 @@ class _TitleContent extends StatelessWidget {
   final List<Widget> right;
 
   @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: left,
+  Widget build(BuildContext context) => left.isEmpty || right.isEmpty
+      ? Row(
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [...left, ...right],
+              ),
             ),
-          ),
-          SizedBox(
-            height: height,
-            child: _vDivider,
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: right,
+            const SizedBox(width: 18.0),
+            const Spacer(),
+          ],
+        )
+      : Row(
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: left,
+              ),
             ),
-          ),
-        ],
-      );
+            SizedBox(
+              height: height,
+              child: _vDivider,
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: right,
+              ),
+            ),
+          ],
+        );
 }
 
 /// Заголовок показателей.
