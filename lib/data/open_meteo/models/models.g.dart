@@ -18,10 +18,12 @@ _$ForecastOpenMeteoResponseImpl _$$ForecastOpenMeteoResponseImplFromJson(
       elevation: (json['elevation'] as num).toDouble(),
       currentWeather: CurrentWeatherOpenMeteo.fromJson(
           json['current'] as Map<String, dynamic>),
-      hourlyWeather: HourlyWeatherOpenMeteo.fromJson(
-          json['hourly'] as Map<String, dynamic>),
-      dailyWeather:
-          DailyWeatherOpenMeteo.fromJson(json['daily'] as Map<String, dynamic>),
+      hourlyWeatherMap: (json['hourly'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, (e as List<dynamic>).map((e) => e as Object)),
+      ),
+      dailyWeatherMap: (json['daily'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, (e as List<dynamic>).map((e) => e as Object)),
+      ),
     );
 
 Map<String, dynamic> _$$ForecastOpenMeteoResponseImplToJson(
@@ -35,8 +37,9 @@ Map<String, dynamic> _$$ForecastOpenMeteoResponseImplToJson(
       'timezone_abbreviation': instance.timezoneAbbr,
       'elevation': instance.elevation,
       'current': instance.currentWeather.toJson(),
-      'hourly': instance.hourlyWeather.toJson(),
-      'daily': instance.dailyWeather.toJson(),
+      'hourly':
+          instance.hourlyWeatherMap.map((k, e) => MapEntry(k, e.toList())),
+      'daily': instance.dailyWeatherMap.map((k, e) => MapEntry(k, e.toList())),
     };
 
 _$CurrentWeatherOpenMeteoImpl _$$CurrentWeatherOpenMeteoImplFromJson(
@@ -49,15 +52,14 @@ _$CurrentWeatherOpenMeteoImpl _$$CurrentWeatherOpenMeteoImplFromJson(
       apparentTemp: (json['apparent_temperature'] as num).toDouble(),
       precipitation: (json['precipitation'] as num).toDouble(),
       rain: (json['rain'] as num).toDouble(),
-      showers: (json['showers'] as num).toDouble(),
       snowfall: (json['snowfall'] as num).toDouble(),
       cloudCover: (json['cloud_cover'] as num).toInt(),
       pressureMsl: (json['pressure_msl'] as num).toDouble(),
       windSpeed10m: (json['wind_speed_10m'] as num).toDouble(),
       windDirection10m: (json['wind_direction_10m'] as num).toInt(),
       windGusts10m: (json['wind_gusts_10m'] as num).toDouble(),
-      weatherCode:
-          $enumDecode(_$OpenMeteoWeatherCodeEnumMap, json['weather_code']),
+      weatherCode: const OpenMeteoWeatherCodeConverter()
+          .fromJson((json['weather_code'] as num).toInt()),
     );
 
 Map<String, dynamic> _$$CurrentWeatherOpenMeteoImplToJson(
@@ -70,46 +72,15 @@ Map<String, dynamic> _$$CurrentWeatherOpenMeteoImplToJson(
       'apparent_temperature': instance.apparentTemp,
       'precipitation': instance.precipitation,
       'rain': instance.rain,
-      'showers': instance.showers,
       'snowfall': instance.snowfall,
       'cloud_cover': instance.cloudCover,
       'pressure_msl': instance.pressureMsl,
       'wind_speed_10m': instance.windSpeed10m,
       'wind_direction_10m': instance.windDirection10m,
       'wind_gusts_10m': instance.windGusts10m,
-      'weather_code': _$OpenMeteoWeatherCodeEnumMap[instance.weatherCode]!,
+      'weather_code':
+          const OpenMeteoWeatherCodeConverter().toJson(instance.weatherCode),
     };
-
-const _$OpenMeteoWeatherCodeEnumMap = {
-  OpenMeteoWeatherCode.code0: 'code0',
-  OpenMeteoWeatherCode.code1: 'code1',
-  OpenMeteoWeatherCode.code2: 'code2',
-  OpenMeteoWeatherCode.code3: 'code3',
-  OpenMeteoWeatherCode.code45: 'code45',
-  OpenMeteoWeatherCode.code48: 'code48',
-  OpenMeteoWeatherCode.code51: 'code51',
-  OpenMeteoWeatherCode.code53: 'code53',
-  OpenMeteoWeatherCode.code55: 'code55',
-  OpenMeteoWeatherCode.code56: 'code56',
-  OpenMeteoWeatherCode.code57: 'code57',
-  OpenMeteoWeatherCode.code61: 'code61',
-  OpenMeteoWeatherCode.code63: 'code63',
-  OpenMeteoWeatherCode.code65: 'code65',
-  OpenMeteoWeatherCode.code66: 'code66',
-  OpenMeteoWeatherCode.code67: 'code67',
-  OpenMeteoWeatherCode.code71: 'code71',
-  OpenMeteoWeatherCode.code73: 'code73',
-  OpenMeteoWeatherCode.code75: 'code75',
-  OpenMeteoWeatherCode.code77: 'code77',
-  OpenMeteoWeatherCode.code80: 'code80',
-  OpenMeteoWeatherCode.code81: 'code81',
-  OpenMeteoWeatherCode.code82: 'code82',
-  OpenMeteoWeatherCode.code85: 'code85',
-  OpenMeteoWeatherCode.code86: 'code86',
-  OpenMeteoWeatherCode.code95: 'code95',
-  OpenMeteoWeatherCode.code96: 'code96',
-  OpenMeteoWeatherCode.code99: 'code99',
-};
 
 _$HourlyWeatherOpenMeteoImpl _$$HourlyWeatherOpenMeteoImplFromJson(
         Map<String, dynamic> json) =>
@@ -131,8 +102,8 @@ _$HourlyWeatherOpenMeteoImpl _$$HourlyWeatherOpenMeteoImplFromJson(
       windSpeed10m: (json['wind_speed_10m'] as num).toDouble(),
       windDirection10m: (json['wind_direction_10m'] as num).toInt(),
       windGusts10m: (json['wind_gusts_10m'] as num).toDouble(),
-      weatherCode:
-          $enumDecode(_$OpenMeteoWeatherCodeEnumMap, json['weather_code']),
+      weatherCode: const OpenMeteoWeatherCodeConverter()
+          .fromJson((json['weather_code'] as num).toInt()),
     );
 
 Map<String, dynamic> _$$HourlyWeatherOpenMeteoImplToJson(
@@ -155,7 +126,8 @@ Map<String, dynamic> _$$HourlyWeatherOpenMeteoImplToJson(
       'wind_speed_10m': instance.windSpeed10m,
       'wind_direction_10m': instance.windDirection10m,
       'wind_gusts_10m': instance.windGusts10m,
-      'weather_code': _$OpenMeteoWeatherCodeEnumMap[instance.weatherCode]!,
+      'weather_code':
+          const OpenMeteoWeatherCodeConverter().toJson(instance.weatherCode),
     };
 
 _$DailyWeatherOpenMeteoImpl _$$DailyWeatherOpenMeteoImplFromJson(
@@ -181,8 +153,8 @@ _$DailyWeatherOpenMeteoImpl _$$DailyWeatherOpenMeteoImplFromJson(
       windGusts10mMax: (json['wind_gusts_10m_max'] as num).toDouble(),
       windDirection10mDominant:
           (json['wind_direction_10m_dominant'] as num).toInt(),
-      weatherCode:
-          $enumDecode(_$OpenMeteoWeatherCodeEnumMap, json['weather_code']),
+      weatherCode: const OpenMeteoWeatherCodeConverter()
+          .fromJson((json['weather_code'] as num).toInt()),
     );
 
 Map<String, dynamic> _$$DailyWeatherOpenMeteoImplToJson(
@@ -205,5 +177,6 @@ Map<String, dynamic> _$$DailyWeatherOpenMeteoImplToJson(
       'wind_speed_10m_max': instance.windSpeed10mMax,
       'wind_gusts_10m_max': instance.windGusts10mMax,
       'wind_direction_10m_dominant': instance.windDirection10mDominant,
-      'weather_code': _$OpenMeteoWeatherCodeEnumMap[instance.weatherCode]!,
+      'weather_code':
+          const OpenMeteoWeatherCodeConverter().toJson(instance.weatherCode),
     };

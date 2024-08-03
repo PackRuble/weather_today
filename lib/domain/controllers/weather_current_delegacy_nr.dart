@@ -19,8 +19,8 @@ class WeatherCurrentDelegacyNR extends AsyncNotifier<WeatherCurrent?> {
     final weatherProvider = ref.watch(WeatherProviderNR.i);
 
     final WeatherCurrent? current = await switch (weatherProvider) {
-      WeatherProvider.openMeteo => _convertForecastOpenMeteoToWeatherOneCall(
-          await ref.watch(WeatherOpenMeteoNR.i.future)),
+      WeatherProvider.openMeteo =>
+        _convertToWeatherCurrent(await ref.watch(WeatherOpenMeteoNR.i.future)),
       WeatherProvider.openWeatherMap =>
         ref.watch(WeatherCurrentNotifier.instance.future),
     };
@@ -28,30 +28,26 @@ class WeatherCurrentDelegacyNR extends AsyncNotifier<WeatherCurrent?> {
     return current;
   }
 
-  WeatherCurrent _convertForecastOpenMeteoToWeatherOneCall(
-      ForecastOpenMeteoResponse? forecast) {
-    // todo(02.08.2024): в конечном итоге взять из моковых данных гитхаба
-    forecast = forecast!;
-
-    final currentOpenMeteo = forecast.currentWeather;
+  WeatherCurrent _convertToWeatherCurrent(ForecastOpenMeteoResponse? forecast) {
+    final currentOM = forecast!.currentWeather;
     final currentWeather = WeatherCurrent(
-      {},
-      date: currentOpenMeteo.time,
+      {}, // корректно, упоминание выше
+      date: currentOM.time,
       sunrise: null,
       sunset: null,
-      temp: currentOpenMeteo.temperature2m,
-      tempFeelsLike: currentOpenMeteo.apparentTemperature,
+      temp: currentOM.temp2m,
+      tempFeelsLike: currentOM.apparentTemp,
       visibility: null,
-      pressure: currentOpenMeteo.surfacePressure,
-      humidity: currentOpenMeteo.relativeHumidity2m.toDouble(),
+      pressure: currentOM.pressureMsl,
+      humidity: currentOM.relativeHumidity2m.toDouble(),
       dewPoint: null,
-      windSpeed: currentOpenMeteo.windSpeed10m,
-      windDegree: currentOpenMeteo.windDirection10m.toDouble(),
-      windGust: currentOpenMeteo.windGusts10m,
-      cloudiness: currentOpenMeteo.cloudCover.toDouble(),
+      windSpeed: currentOM.windSpeed10m,
+      windDegree: currentOM.windDirection10m.toDouble(),
+      windGust: currentOM.windGusts10m,
+      cloudiness: currentOM.cloudCover.toDouble(),
       uvi: null,
       weatherDescription: null, // todo(02.08.2024):
-      weatherMain: null, // todo(02.08.2024):
+      weatherMain: currentOM.weatherCode.desc, // todo(02.08.2024):
       weatherIcon: null, // todo(02.08.2024):
       weatherConditionCode: null, // todo(02.08.2024):
     );

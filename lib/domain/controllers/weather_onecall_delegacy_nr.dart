@@ -19,8 +19,8 @@ class WeatherOnecallDelegacyNR extends AsyncNotifier<WeatherOneCall?> {
     final weatherProvider = ref.watch(WeatherProviderNR.i);
 
     final WeatherOneCall? oneCall = await switch (weatherProvider) {
-      WeatherProvider.openMeteo => _convertForecastOpenMeteoToWeatherOneCall(
-          await ref.watch(WeatherOpenMeteoNR.i.future)),
+      WeatherProvider.openMeteo =>
+        _convertToOnecall(await ref.watch(WeatherOpenMeteoNR.i.future)),
       WeatherProvider.openWeatherMap =>
         ref.watch(WeatherOnecallNotifier.instance.future),
     };
@@ -28,45 +28,96 @@ class WeatherOnecallDelegacyNR extends AsyncNotifier<WeatherOneCall?> {
     return oneCall;
   }
 
-  WeatherOneCall _convertForecastOpenMeteoToWeatherOneCall(
-      ForecastOpenMeteoResponse? forecast) {
-    // todo(02.08.2024): в конечном итоге взять из моковых данных гитхаба
-    forecast = forecast!;
-
-    final currentOpenMeteo = forecast.currentWeather;
-    final currentWeather = WeatherCurrent(
-      {},
-      date: currentOpenMeteo.time,
-      sunrise: null,
-      sunset: null,
-      temp: currentOpenMeteo.temperature2m,
-      tempFeelsLike: currentOpenMeteo.apparentTemperature,
-      visibility: null,
-      pressure: currentOpenMeteo.surfacePressure,
-      humidity: currentOpenMeteo.relativeHumidity2m.toDouble(),
-      dewPoint: null,
-      windSpeed: currentOpenMeteo.windSpeed10m,
-      windDegree: currentOpenMeteo.windDirection10m.toDouble(),
-      windGust: currentOpenMeteo.windGusts10m,
-      cloudiness: currentOpenMeteo.cloudCover.toDouble(),
-      uvi: null,
-      weatherDescription: null, // todo(02.08.2024):
-      weatherMain: null, // todo(02.08.2024):
-      weatherIcon: null, // todo(02.08.2024):
-      weatherConditionCode: null, // todo(02.08.2024):
-    );
+  WeatherOneCall _convertToOnecall(ForecastOpenMeteoResponse? forecast) {
+    final ForecastOpenMeteoResponse(
+      currentWeather: currentOM,
+      hourlyWeather: hourlyOM,
+      dailyWeather: dailyOM,
+    ) = forecast!;
 
     final oneCall = WeatherOneCall(
-      {}, // todo(02.08.2024):
+      {}, // корректно, поскольку мы только преобразуем в WeatherOneCall, но не сохраняем
       latitude: forecast.latitude,
       longitude: forecast.longitude,
       timezone: forecast.timezone,
       timezoneOffset: null, // todo(02.08.2024):
-      current: currentWeather,
-      minutely: null, // todo(02.08.2024):
-      hourly: null, // todo(02.08.2024):
-      daily: null, // todo(02.08.2024):
-      alerts: null, // todo(02.08.2024):
+      current: WeatherCurrent(
+        {}, // корректно, упоминание выше
+        date: currentOM.time,
+        sunrise: null,
+        sunset: null,
+        temp: currentOM.temp2m,
+        tempFeelsLike: currentOM.apparentTemp,
+        visibility: null,
+        pressure: currentOM.pressureMsl,
+        humidity: currentOM.relativeHumidity2m.toDouble(),
+        dewPoint: null,
+        windSpeed: currentOM.windSpeed10m,
+        windDegree: currentOM.windDirection10m.toDouble(),
+        windGust: currentOM.windGusts10m,
+        cloudiness: currentOM.cloudCover.toDouble(),
+        uvi: null,
+        weatherDescription: null, // todo(02.08.2024):
+        weatherMain: currentOM.weatherCode.desc, // todo(02.08.2024):
+        weatherIcon: null, // todo(02.08.2024):
+        weatherConditionCode: null, // todo(02.08.2024):
+      ),
+      minutely: null, // не используем в интерфейсе
+      hourly: [
+        for (final hourly in hourlyOM)
+          WeatherHourly(
+            {}, // корректно, упоминание выше
+            date: hourly.time,
+            temp: hourly.temp2m,
+            tempFeelsLike: hourly.apparentTemp,
+            pressure: hourly.pressureMsl,
+            humidity: null,
+            dewPoint: hourly.dewPoint2m,
+            uvi: hourly.uvi,
+            cloudiness: hourly.cloudCover.toDouble(),
+            visibility: hourly.visibility,
+            windSpeed: hourly.windSpeed10m,
+            windDegree: hourly.windDirection10m.toDouble(),
+            windGust: hourly.windGusts10m,
+            pop: hourly.pop * 0.01,
+            rain: hourly.rain,
+            snow: hourly.snowfall, // todo: скорее всего, в той модели тоже см
+            weatherDescription: null, // todo(02.08.2024):
+            weatherMain: hourly.weatherCode.desc, // todo(02.08.2024):
+            weatherIcon: null, // todo(02.08.2024):
+            weatherConditionCode: null, // todo(02.08.2024):
+          ),
+      ],
+
+      daily: [
+        for (final daily in dailyOM)
+          WeatherDaily(
+            {}, // корректно, упоминание выше
+            date: daily.time,
+            tempMin: daily.temp2mMin,
+            tempMax: daily.temp2mMax,
+            tempFeelsLikeDay: daily.apparentTempMin +
+                ((daily.apparentTempMax - daily.apparentTempMin) / 2),
+            pressure: null,
+            humidity: null,
+            dewPoint: null,
+            uvi: daily.uviMax,
+            cloudiness: null,
+            sunrise: daily.sunrise,
+            sunset: daily.sunset,
+            windSpeed: daily.windSpeed10mMax,
+            windDegree: daily.windDirection10mDominant.toDouble(),
+            windGust: daily.windGusts10mMax,
+            pop: daily.popMax * 0.01,
+            rain: daily.rainSum,
+            snow: daily.snowfallSum, // todo: скорее всего, в той модели тоже см
+            weatherDescription: null, // todo(02.08.2024):
+            weatherMain: daily.weatherCode.desc, // todo(02.08.2024):
+            weatherIcon: null, // todo(02.08.2024):
+            weatherConditionCode: null, // todo(02.08.2024):
+          ),
+      ],
+      alerts: null, // open-meteo не имеет событий-оповещений
     );
 
     return oneCall;

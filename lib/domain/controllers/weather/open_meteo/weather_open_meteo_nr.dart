@@ -48,6 +48,8 @@ class WeatherOpenMeteoNR extends WeatherNotifier<ForecastOpenMeteoResponse> {
           'latitude': '${place.latitude}',
           'longitude': '${place.longitude}',
           'current': OpenMeteoCurrentParam.values.map((e) => e.name).join(','),
+          'hourly': OpenMeteoHourlyParam.values.map((e) => e.name).join(','),
+          'daily': OpenMeteoDailyParam.values.map((e) => e.name).join(','),
         },
       );
 
@@ -63,7 +65,6 @@ class WeatherOpenMeteoNR extends WeatherNotifier<ForecastOpenMeteoResponse> {
       result = json.decode(response.body) as Map<String, dynamic>;
 
       print(uri);
-      print(result);
     } catch (error, stackTrace) {
       throw OwmApiException.error(error, stackTrace);
     }

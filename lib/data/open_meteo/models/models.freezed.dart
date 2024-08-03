@@ -67,16 +67,19 @@ mixin _$ForecastOpenMeteoResponse {
 
   /// A list of weather variables which should be returned. Values can be comma
   /// separated, or multiple &hourly= parameter in the URL can be used.
+  @protected
   @JsonKey(name: 'hourly')
-  HourlyWeatherOpenMeteo get hourlyWeather =>
+  Map<String, Iterable<Object>> get hourlyWeatherMap =>
       throw _privateConstructorUsedError;
 
   /// A list of daily weather variable aggregations which should be returned.
   /// Values can be comma separated, or multiple &daily= parameter in the URL
   /// can be used. If daily weather variables are specified, parameter timezone
   /// is required.
+  @protected
   @JsonKey(name: 'daily')
-  DailyWeatherOpenMeteo get dailyWeather => throw _privateConstructorUsedError;
+  Map<String, Iterable<Object>> get dailyWeatherMap =>
+      throw _privateConstructorUsedError;
 
   /// Serializes this ForecastOpenMeteoResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -103,12 +106,14 @@ abstract class $ForecastOpenMeteoResponseCopyWith<$Res> {
       @JsonKey(name: 'timezone_abbreviation') String timezoneAbbr,
       @JsonKey(name: 'elevation') double elevation,
       @JsonKey(name: 'current') CurrentWeatherOpenMeteo currentWeather,
-      @JsonKey(name: 'hourly') HourlyWeatherOpenMeteo hourlyWeather,
-      @JsonKey(name: 'daily') DailyWeatherOpenMeteo dailyWeather});
+      @protected
+      @JsonKey(name: 'hourly')
+      Map<String, Iterable<Object>> hourlyWeatherMap,
+      @protected
+      @JsonKey(name: 'daily')
+      Map<String, Iterable<Object>> dailyWeatherMap});
 
   $CurrentWeatherOpenMeteoCopyWith<$Res> get currentWeather;
-  $HourlyWeatherOpenMeteoCopyWith<$Res> get hourlyWeather;
-  $DailyWeatherOpenMeteoCopyWith<$Res> get dailyWeather;
 }
 
 /// @nodoc
@@ -135,8 +140,8 @@ class _$ForecastOpenMeteoResponseCopyWithImpl<$Res,
     Object? timezoneAbbr = null,
     Object? elevation = null,
     Object? currentWeather = null,
-    Object? hourlyWeather = null,
-    Object? dailyWeather = null,
+    Object? hourlyWeatherMap = null,
+    Object? dailyWeatherMap = null,
   }) {
     return _then(_value.copyWith(
       latitude: null == latitude
@@ -171,14 +176,14 @@ class _$ForecastOpenMeteoResponseCopyWithImpl<$Res,
           ? _value.currentWeather
           : currentWeather // ignore: cast_nullable_to_non_nullable
               as CurrentWeatherOpenMeteo,
-      hourlyWeather: null == hourlyWeather
-          ? _value.hourlyWeather
-          : hourlyWeather // ignore: cast_nullable_to_non_nullable
-              as HourlyWeatherOpenMeteo,
-      dailyWeather: null == dailyWeather
-          ? _value.dailyWeather
-          : dailyWeather // ignore: cast_nullable_to_non_nullable
-              as DailyWeatherOpenMeteo,
+      hourlyWeatherMap: null == hourlyWeatherMap
+          ? _value.hourlyWeatherMap
+          : hourlyWeatherMap // ignore: cast_nullable_to_non_nullable
+              as Map<String, Iterable<Object>>,
+      dailyWeatherMap: null == dailyWeatherMap
+          ? _value.dailyWeatherMap
+          : dailyWeatherMap // ignore: cast_nullable_to_non_nullable
+              as Map<String, Iterable<Object>>,
     ) as $Val);
   }
 
@@ -190,26 +195,6 @@ class _$ForecastOpenMeteoResponseCopyWithImpl<$Res,
     return $CurrentWeatherOpenMeteoCopyWith<$Res>(_value.currentWeather,
         (value) {
       return _then(_value.copyWith(currentWeather: value) as $Val);
-    });
-  }
-
-  /// Create a copy of ForecastOpenMeteoResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $HourlyWeatherOpenMeteoCopyWith<$Res> get hourlyWeather {
-    return $HourlyWeatherOpenMeteoCopyWith<$Res>(_value.hourlyWeather, (value) {
-      return _then(_value.copyWith(hourlyWeather: value) as $Val);
-    });
-  }
-
-  /// Create a copy of ForecastOpenMeteoResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $DailyWeatherOpenMeteoCopyWith<$Res> get dailyWeather {
-    return $DailyWeatherOpenMeteoCopyWith<$Res>(_value.dailyWeather, (value) {
-      return _then(_value.copyWith(dailyWeather: value) as $Val);
     });
   }
 }
@@ -232,15 +217,15 @@ abstract class _$$ForecastOpenMeteoResponseImplCopyWith<$Res>
       @JsonKey(name: 'timezone_abbreviation') String timezoneAbbr,
       @JsonKey(name: 'elevation') double elevation,
       @JsonKey(name: 'current') CurrentWeatherOpenMeteo currentWeather,
-      @JsonKey(name: 'hourly') HourlyWeatherOpenMeteo hourlyWeather,
-      @JsonKey(name: 'daily') DailyWeatherOpenMeteo dailyWeather});
+      @protected
+      @JsonKey(name: 'hourly')
+      Map<String, Iterable<Object>> hourlyWeatherMap,
+      @protected
+      @JsonKey(name: 'daily')
+      Map<String, Iterable<Object>> dailyWeatherMap});
 
   @override
   $CurrentWeatherOpenMeteoCopyWith<$Res> get currentWeather;
-  @override
-  $HourlyWeatherOpenMeteoCopyWith<$Res> get hourlyWeather;
-  @override
-  $DailyWeatherOpenMeteoCopyWith<$Res> get dailyWeather;
 }
 
 /// @nodoc
@@ -266,8 +251,8 @@ class __$$ForecastOpenMeteoResponseImplCopyWithImpl<$Res>
     Object? timezoneAbbr = null,
     Object? elevation = null,
     Object? currentWeather = null,
-    Object? hourlyWeather = null,
-    Object? dailyWeather = null,
+    Object? hourlyWeatherMap = null,
+    Object? dailyWeatherMap = null,
   }) {
     return _then(_$ForecastOpenMeteoResponseImpl(
       latitude: null == latitude
@@ -302,14 +287,14 @@ class __$$ForecastOpenMeteoResponseImplCopyWithImpl<$Res>
           ? _value.currentWeather
           : currentWeather // ignore: cast_nullable_to_non_nullable
               as CurrentWeatherOpenMeteo,
-      hourlyWeather: null == hourlyWeather
-          ? _value.hourlyWeather
-          : hourlyWeather // ignore: cast_nullable_to_non_nullable
-              as HourlyWeatherOpenMeteo,
-      dailyWeather: null == dailyWeather
-          ? _value.dailyWeather
-          : dailyWeather // ignore: cast_nullable_to_non_nullable
-              as DailyWeatherOpenMeteo,
+      hourlyWeatherMap: null == hourlyWeatherMap
+          ? _value._hourlyWeatherMap
+          : hourlyWeatherMap // ignore: cast_nullable_to_non_nullable
+              as Map<String, Iterable<Object>>,
+      dailyWeatherMap: null == dailyWeatherMap
+          ? _value._dailyWeatherMap
+          : dailyWeatherMap // ignore: cast_nullable_to_non_nullable
+              as Map<String, Iterable<Object>>,
     ));
   }
 }
@@ -327,9 +312,15 @@ class _$ForecastOpenMeteoResponseImpl extends _ForecastOpenMeteoResponse {
       @JsonKey(name: 'timezone_abbreviation') required this.timezoneAbbr,
       @JsonKey(name: 'elevation') required this.elevation,
       @JsonKey(name: 'current') required this.currentWeather,
-      @JsonKey(name: 'hourly') required this.hourlyWeather,
-      @JsonKey(name: 'daily') required this.dailyWeather})
-      : super._();
+      @protected
+      @JsonKey(name: 'hourly')
+      required final Map<String, Iterable<Object>> hourlyWeatherMap,
+      @protected
+      @JsonKey(name: 'daily')
+      required final Map<String, Iterable<Object>> dailyWeatherMap})
+      : _hourlyWeatherMap = hourlyWeatherMap,
+        _dailyWeatherMap = dailyWeatherMap,
+        super._();
 
   factory _$ForecastOpenMeteoResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$ForecastOpenMeteoResponseImplFromJson(json);
@@ -387,21 +378,41 @@ class _$ForecastOpenMeteoResponseImpl extends _ForecastOpenMeteoResponse {
 
   /// A list of weather variables which should be returned. Values can be comma
   /// separated, or multiple &hourly= parameter in the URL can be used.
+  final Map<String, Iterable<Object>> _hourlyWeatherMap;
+
+  /// A list of weather variables which should be returned. Values can be comma
+  /// separated, or multiple &hourly= parameter in the URL can be used.
   @override
+  @protected
   @JsonKey(name: 'hourly')
-  final HourlyWeatherOpenMeteo hourlyWeather;
+  Map<String, Iterable<Object>> get hourlyWeatherMap {
+    if (_hourlyWeatherMap is EqualUnmodifiableMapView) return _hourlyWeatherMap;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_hourlyWeatherMap);
+  }
+
+  /// A list of daily weather variable aggregations which should be returned.
+  /// Values can be comma separated, or multiple &daily= parameter in the URL
+  /// can be used. If daily weather variables are specified, parameter timezone
+  /// is required.
+  final Map<String, Iterable<Object>> _dailyWeatherMap;
 
   /// A list of daily weather variable aggregations which should be returned.
   /// Values can be comma separated, or multiple &daily= parameter in the URL
   /// can be used. If daily weather variables are specified, parameter timezone
   /// is required.
   @override
+  @protected
   @JsonKey(name: 'daily')
-  final DailyWeatherOpenMeteo dailyWeather;
+  Map<String, Iterable<Object>> get dailyWeatherMap {
+    if (_dailyWeatherMap is EqualUnmodifiableMapView) return _dailyWeatherMap;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_dailyWeatherMap);
+  }
 
   @override
   String toString() {
-    return 'ForecastOpenMeteoResponse(latitude: $latitude, longitude: $longitude, genTimeMs: $genTimeMs, utcOffsetSeconds: $utcOffsetSeconds, timezone: $timezone, timezoneAbbr: $timezoneAbbr, elevation: $elevation, currentWeather: $currentWeather, hourlyWeather: $hourlyWeather, dailyWeather: $dailyWeather)';
+    return 'ForecastOpenMeteoResponse(latitude: $latitude, longitude: $longitude, genTimeMs: $genTimeMs, utcOffsetSeconds: $utcOffsetSeconds, timezone: $timezone, timezoneAbbr: $timezoneAbbr, elevation: $elevation, currentWeather: $currentWeather, hourlyWeatherMap: $hourlyWeatherMap, dailyWeatherMap: $dailyWeatherMap)';
   }
 
   @override
@@ -425,10 +436,10 @@ class _$ForecastOpenMeteoResponseImpl extends _ForecastOpenMeteoResponse {
                 other.elevation == elevation) &&
             (identical(other.currentWeather, currentWeather) ||
                 other.currentWeather == currentWeather) &&
-            (identical(other.hourlyWeather, hourlyWeather) ||
-                other.hourlyWeather == hourlyWeather) &&
-            (identical(other.dailyWeather, dailyWeather) ||
-                other.dailyWeather == dailyWeather));
+            const DeepCollectionEquality()
+                .equals(other._hourlyWeatherMap, _hourlyWeatherMap) &&
+            const DeepCollectionEquality()
+                .equals(other._dailyWeatherMap, _dailyWeatherMap));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -443,8 +454,8 @@ class _$ForecastOpenMeteoResponseImpl extends _ForecastOpenMeteoResponse {
       timezoneAbbr,
       elevation,
       currentWeather,
-      hourlyWeather,
-      dailyWeather);
+      const DeepCollectionEquality().hash(_hourlyWeatherMap),
+      const DeepCollectionEquality().hash(_dailyWeatherMap));
 
   /// Create a copy of ForecastOpenMeteoResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -475,11 +486,13 @@ abstract class _ForecastOpenMeteoResponse extends ForecastOpenMeteoResponse {
       @JsonKey(name: 'elevation') required final double elevation,
       @JsonKey(name: 'current')
       required final CurrentWeatherOpenMeteo currentWeather,
+      @protected
       @JsonKey(name: 'hourly')
-      required final HourlyWeatherOpenMeteo hourlyWeather,
+      required final Map<String, Iterable<Object>> hourlyWeatherMap,
+      @protected
       @JsonKey(name: 'daily')
-      required final DailyWeatherOpenMeteo
-          dailyWeather}) = _$ForecastOpenMeteoResponseImpl;
+      required final Map<String, Iterable<Object>>
+          dailyWeatherMap}) = _$ForecastOpenMeteoResponseImpl;
   const _ForecastOpenMeteoResponse._() : super._();
 
   factory _ForecastOpenMeteoResponse.fromJson(Map<String, dynamic> json) =
@@ -539,16 +552,18 @@ abstract class _ForecastOpenMeteoResponse extends ForecastOpenMeteoResponse {
   /// A list of weather variables which should be returned. Values can be comma
   /// separated, or multiple &hourly= parameter in the URL can be used.
   @override
+  @protected
   @JsonKey(name: 'hourly')
-  HourlyWeatherOpenMeteo get hourlyWeather;
+  Map<String, Iterable<Object>> get hourlyWeatherMap;
 
   /// A list of daily weather variable aggregations which should be returned.
   /// Values can be comma separated, or multiple &daily= parameter in the URL
   /// can be used. If daily weather variables are specified, parameter timezone
   /// is required.
   @override
+  @protected
   @JsonKey(name: 'daily')
-  DailyWeatherOpenMeteo get dailyWeather;
+  Map<String, Iterable<Object>> get dailyWeatherMap;
 
   /// Create a copy of ForecastOpenMeteoResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -582,8 +597,6 @@ mixin _$CurrentWeatherOpenMeteo {
   double get precipitation => throw _privateConstructorUsedError;
   @JsonKey(name: 'rain')
   double get rain => throw _privateConstructorUsedError;
-  @JsonKey(name: 'showers')
-  double get showers => throw _privateConstructorUsedError;
   @JsonKey(name: 'snowfall')
   double get snowfall => throw _privateConstructorUsedError;
   @JsonKey(name: 'cloud_cover')
@@ -597,6 +610,7 @@ mixin _$CurrentWeatherOpenMeteo {
   @JsonKey(name: 'wind_gusts_10m')
   double get windGusts10m => throw _privateConstructorUsedError;
   @JsonKey(name: 'weather_code')
+  @OpenMeteoWeatherCodeConverter()
   OpenMeteoWeatherCode get weatherCode => throw _privateConstructorUsedError;
 
   /// Serializes this CurrentWeatherOpenMeteo to a JSON map.
@@ -623,14 +637,15 @@ abstract class $CurrentWeatherOpenMeteoCopyWith<$Res> {
       @JsonKey(name: 'apparent_temperature') double apparentTemp,
       @JsonKey(name: 'precipitation') double precipitation,
       @JsonKey(name: 'rain') double rain,
-      @JsonKey(name: 'showers') double showers,
       @JsonKey(name: 'snowfall') double snowfall,
       @JsonKey(name: 'cloud_cover') int cloudCover,
       @JsonKey(name: 'pressure_msl') double pressureMsl,
       @JsonKey(name: 'wind_speed_10m') double windSpeed10m,
       @JsonKey(name: 'wind_direction_10m') int windDirection10m,
       @JsonKey(name: 'wind_gusts_10m') double windGusts10m,
-      @JsonKey(name: 'weather_code') OpenMeteoWeatherCode weatherCode});
+      @JsonKey(name: 'weather_code')
+      @OpenMeteoWeatherCodeConverter()
+      OpenMeteoWeatherCode weatherCode});
 }
 
 /// @nodoc
@@ -656,7 +671,6 @@ class _$CurrentWeatherOpenMeteoCopyWithImpl<$Res,
     Object? apparentTemp = null,
     Object? precipitation = null,
     Object? rain = null,
-    Object? showers = null,
     Object? snowfall = null,
     Object? cloudCover = null,
     Object? pressureMsl = null,
@@ -693,10 +707,6 @@ class _$CurrentWeatherOpenMeteoCopyWithImpl<$Res,
       rain: null == rain
           ? _value.rain
           : rain // ignore: cast_nullable_to_non_nullable
-              as double,
-      showers: null == showers
-          ? _value.showers
-          : showers // ignore: cast_nullable_to_non_nullable
               as double,
       snowfall: null == snowfall
           ? _value.snowfall
@@ -747,14 +757,15 @@ abstract class _$$CurrentWeatherOpenMeteoImplCopyWith<$Res>
       @JsonKey(name: 'apparent_temperature') double apparentTemp,
       @JsonKey(name: 'precipitation') double precipitation,
       @JsonKey(name: 'rain') double rain,
-      @JsonKey(name: 'showers') double showers,
       @JsonKey(name: 'snowfall') double snowfall,
       @JsonKey(name: 'cloud_cover') int cloudCover,
       @JsonKey(name: 'pressure_msl') double pressureMsl,
       @JsonKey(name: 'wind_speed_10m') double windSpeed10m,
       @JsonKey(name: 'wind_direction_10m') int windDirection10m,
       @JsonKey(name: 'wind_gusts_10m') double windGusts10m,
-      @JsonKey(name: 'weather_code') OpenMeteoWeatherCode weatherCode});
+      @JsonKey(name: 'weather_code')
+      @OpenMeteoWeatherCodeConverter()
+      OpenMeteoWeatherCode weatherCode});
 }
 
 /// @nodoc
@@ -779,7 +790,6 @@ class __$$CurrentWeatherOpenMeteoImplCopyWithImpl<$Res>
     Object? apparentTemp = null,
     Object? precipitation = null,
     Object? rain = null,
-    Object? showers = null,
     Object? snowfall = null,
     Object? cloudCover = null,
     Object? pressureMsl = null,
@@ -816,10 +826,6 @@ class __$$CurrentWeatherOpenMeteoImplCopyWithImpl<$Res>
       rain: null == rain
           ? _value.rain
           : rain // ignore: cast_nullable_to_non_nullable
-              as double,
-      showers: null == showers
-          ? _value.showers
-          : showers // ignore: cast_nullable_to_non_nullable
               as double,
       snowfall: null == snowfall
           ? _value.snowfall
@@ -865,14 +871,15 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
       @JsonKey(name: 'apparent_temperature') required this.apparentTemp,
       @JsonKey(name: 'precipitation') required this.precipitation,
       @JsonKey(name: 'rain') required this.rain,
-      @JsonKey(name: 'showers') required this.showers,
       @JsonKey(name: 'snowfall') required this.snowfall,
       @JsonKey(name: 'cloud_cover') required this.cloudCover,
       @JsonKey(name: 'pressure_msl') required this.pressureMsl,
       @JsonKey(name: 'wind_speed_10m') required this.windSpeed10m,
       @JsonKey(name: 'wind_direction_10m') required this.windDirection10m,
       @JsonKey(name: 'wind_gusts_10m') required this.windGusts10m,
-      @JsonKey(name: 'weather_code') required this.weatherCode})
+      @JsonKey(name: 'weather_code')
+      @OpenMeteoWeatherCodeConverter()
+      required this.weatherCode})
       : super._();
 
   factory _$CurrentWeatherOpenMeteoImpl.fromJson(Map<String, dynamic> json) =>
@@ -903,9 +910,6 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
   @JsonKey(name: 'rain')
   final double rain;
   @override
-  @JsonKey(name: 'showers')
-  final double showers;
-  @override
   @JsonKey(name: 'snowfall')
   final double snowfall;
   @override
@@ -925,11 +929,12 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
   final double windGusts10m;
   @override
   @JsonKey(name: 'weather_code')
+  @OpenMeteoWeatherCodeConverter()
   final OpenMeteoWeatherCode weatherCode;
 
   @override
   String toString() {
-    return 'CurrentWeatherOpenMeteo(time: $time, interval: $interval, temp2m: $temp2m, relativeHumidity2m: $relativeHumidity2m, apparentTemp: $apparentTemp, precipitation: $precipitation, rain: $rain, showers: $showers, snowfall: $snowfall, cloudCover: $cloudCover, pressureMsl: $pressureMsl, windSpeed10m: $windSpeed10m, windDirection10m: $windDirection10m, windGusts10m: $windGusts10m, weatherCode: $weatherCode)';
+    return 'CurrentWeatherOpenMeteo(time: $time, interval: $interval, temp2m: $temp2m, relativeHumidity2m: $relativeHumidity2m, apparentTemp: $apparentTemp, precipitation: $precipitation, rain: $rain, snowfall: $snowfall, cloudCover: $cloudCover, pressureMsl: $pressureMsl, windSpeed10m: $windSpeed10m, windDirection10m: $windDirection10m, windGusts10m: $windGusts10m, weatherCode: $weatherCode)';
   }
 
   @override
@@ -948,7 +953,6 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
             (identical(other.precipitation, precipitation) ||
                 other.precipitation == precipitation) &&
             (identical(other.rain, rain) || other.rain == rain) &&
-            (identical(other.showers, showers) || other.showers == showers) &&
             (identical(other.snowfall, snowfall) ||
                 other.snowfall == snowfall) &&
             (identical(other.cloudCover, cloudCover) ||
@@ -976,7 +980,6 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
       apparentTemp,
       precipitation,
       rain,
-      showers,
       snowfall,
       cloudCover,
       pressureMsl,
@@ -1014,7 +1017,6 @@ abstract class _CurrentWeatherOpenMeteo extends CurrentWeatherOpenMeteo {
       @JsonKey(name: 'apparent_temperature') required final double apparentTemp,
       @JsonKey(name: 'precipitation') required final double precipitation,
       @JsonKey(name: 'rain') required final double rain,
-      @JsonKey(name: 'showers') required final double showers,
       @JsonKey(name: 'snowfall') required final double snowfall,
       @JsonKey(name: 'cloud_cover') required final int cloudCover,
       @JsonKey(name: 'pressure_msl') required final double pressureMsl,
@@ -1022,6 +1024,7 @@ abstract class _CurrentWeatherOpenMeteo extends CurrentWeatherOpenMeteo {
       @JsonKey(name: 'wind_direction_10m') required final int windDirection10m,
       @JsonKey(name: 'wind_gusts_10m') required final double windGusts10m,
       @JsonKey(name: 'weather_code')
+      @OpenMeteoWeatherCodeConverter()
       required final OpenMeteoWeatherCode
           weatherCode}) = _$CurrentWeatherOpenMeteoImpl;
   const _CurrentWeatherOpenMeteo._() : super._();
@@ -1053,9 +1056,6 @@ abstract class _CurrentWeatherOpenMeteo extends CurrentWeatherOpenMeteo {
   @JsonKey(name: 'rain')
   double get rain;
   @override
-  @JsonKey(name: 'showers')
-  double get showers;
-  @override
   @JsonKey(name: 'snowfall')
   double get snowfall;
   @override
@@ -1075,6 +1075,7 @@ abstract class _CurrentWeatherOpenMeteo extends CurrentWeatherOpenMeteo {
   double get windGusts10m;
   @override
   @JsonKey(name: 'weather_code')
+  @OpenMeteoWeatherCodeConverter()
   OpenMeteoWeatherCode get weatherCode;
 
   /// Create a copy of CurrentWeatherOpenMeteo
@@ -1176,6 +1177,7 @@ mixin _$HourlyWeatherOpenMeteo {
 
   /// WMO Weather interpretation codes, 0-99
   @JsonKey(name: 'weather_code')
+  @OpenMeteoWeatherCodeConverter()
   OpenMeteoWeatherCode get weatherCode => throw _privateConstructorUsedError;
 
   /// Serializes this HourlyWeatherOpenMeteo to a JSON map.
@@ -1212,7 +1214,9 @@ abstract class $HourlyWeatherOpenMeteoCopyWith<$Res> {
       @JsonKey(name: 'wind_speed_10m') double windSpeed10m,
       @JsonKey(name: 'wind_direction_10m') int windDirection10m,
       @JsonKey(name: 'wind_gusts_10m') double windGusts10m,
-      @JsonKey(name: 'weather_code') OpenMeteoWeatherCode weatherCode});
+      @JsonKey(name: 'weather_code')
+      @OpenMeteoWeatherCodeConverter()
+      OpenMeteoWeatherCode weatherCode});
 }
 
 /// @nodoc
@@ -1354,7 +1358,9 @@ abstract class _$$HourlyWeatherOpenMeteoImplCopyWith<$Res>
       @JsonKey(name: 'wind_speed_10m') double windSpeed10m,
       @JsonKey(name: 'wind_direction_10m') int windDirection10m,
       @JsonKey(name: 'wind_gusts_10m') double windGusts10m,
-      @JsonKey(name: 'weather_code') OpenMeteoWeatherCode weatherCode});
+      @JsonKey(name: 'weather_code')
+      @OpenMeteoWeatherCodeConverter()
+      OpenMeteoWeatherCode weatherCode});
 }
 
 /// @nodoc
@@ -1490,7 +1496,9 @@ class _$HourlyWeatherOpenMeteoImpl implements _HourlyWeatherOpenMeteo {
       @JsonKey(name: 'wind_speed_10m') required this.windSpeed10m,
       @JsonKey(name: 'wind_direction_10m') required this.windDirection10m,
       @JsonKey(name: 'wind_gusts_10m') required this.windGusts10m,
-      @JsonKey(name: 'weather_code') required this.weatherCode});
+      @JsonKey(name: 'weather_code')
+      @OpenMeteoWeatherCodeConverter()
+      required this.weatherCode});
 
   factory _$HourlyWeatherOpenMeteoImpl.fromJson(Map<String, dynamic> json) =>
       _$$HourlyWeatherOpenMeteoImplFromJson(json);
@@ -1597,6 +1605,7 @@ class _$HourlyWeatherOpenMeteoImpl implements _HourlyWeatherOpenMeteo {
   /// WMO Weather interpretation codes, 0-99
   @override
   @JsonKey(name: 'weather_code')
+  @OpenMeteoWeatherCodeConverter()
   final OpenMeteoWeatherCode weatherCode;
 
   @override
@@ -1704,6 +1713,7 @@ abstract class _HourlyWeatherOpenMeteo implements HourlyWeatherOpenMeteo {
       @JsonKey(name: 'wind_direction_10m') required final int windDirection10m,
       @JsonKey(name: 'wind_gusts_10m') required final double windGusts10m,
       @JsonKey(name: 'weather_code')
+      @OpenMeteoWeatherCodeConverter()
       required final OpenMeteoWeatherCode
           weatherCode}) = _$HourlyWeatherOpenMeteoImpl;
 
@@ -1812,6 +1822,7 @@ abstract class _HourlyWeatherOpenMeteo implements HourlyWeatherOpenMeteo {
   /// WMO Weather interpretation codes, 0-99
   @override
   @JsonKey(name: 'weather_code')
+  @OpenMeteoWeatherCodeConverter()
   OpenMeteoWeatherCode get weatherCode;
 
   /// Create a copy of HourlyWeatherOpenMeteo
@@ -1899,6 +1910,7 @@ mixin _$DailyWeatherOpenMeteo {
 
   /// WMO Weather interpretation codes, 0-99
   @JsonKey(name: 'weather_code')
+  @OpenMeteoWeatherCodeConverter()
   OpenMeteoWeatherCode get weatherCode => throw _privateConstructorUsedError;
 
   /// Serializes this DailyWeatherOpenMeteo to a JSON map.
@@ -1937,7 +1949,9 @@ abstract class $DailyWeatherOpenMeteoCopyWith<$Res> {
       @JsonKey(name: 'wind_gusts_10m_max') double windGusts10mMax,
       @JsonKey(name: 'wind_direction_10m_dominant')
       int windDirection10mDominant,
-      @JsonKey(name: 'weather_code') OpenMeteoWeatherCode weatherCode});
+      @JsonKey(name: 'weather_code')
+      @OpenMeteoWeatherCodeConverter()
+      OpenMeteoWeatherCode weatherCode});
 }
 
 /// @nodoc
@@ -2076,7 +2090,9 @@ abstract class _$$DailyWeatherOpenMeteoImplCopyWith<$Res>
       @JsonKey(name: 'wind_gusts_10m_max') double windGusts10mMax,
       @JsonKey(name: 'wind_direction_10m_dominant')
       int windDirection10mDominant,
-      @JsonKey(name: 'weather_code') OpenMeteoWeatherCode weatherCode});
+      @JsonKey(name: 'weather_code')
+      @OpenMeteoWeatherCodeConverter()
+      OpenMeteoWeatherCode weatherCode});
 }
 
 /// @nodoc
@@ -2209,7 +2225,9 @@ class _$DailyWeatherOpenMeteoImpl implements _DailyWeatherOpenMeteo {
       @JsonKey(name: 'wind_gusts_10m_max') required this.windGusts10mMax,
       @JsonKey(name: 'wind_direction_10m_dominant')
       required this.windDirection10mDominant,
-      @JsonKey(name: 'weather_code') required this.weatherCode});
+      @JsonKey(name: 'weather_code')
+      @OpenMeteoWeatherCodeConverter()
+      required this.weatherCode});
 
   factory _$DailyWeatherOpenMeteoImpl.fromJson(Map<String, dynamic> json) =>
       _$$DailyWeatherOpenMeteoImplFromJson(json);
@@ -2301,6 +2319,7 @@ class _$DailyWeatherOpenMeteoImpl implements _DailyWeatherOpenMeteo {
   /// WMO Weather interpretation codes, 0-99
   @override
   @JsonKey(name: 'weather_code')
+  @OpenMeteoWeatherCodeConverter()
   final OpenMeteoWeatherCode weatherCode;
 
   @override
@@ -2417,6 +2436,7 @@ abstract class _DailyWeatherOpenMeteo implements DailyWeatherOpenMeteo {
           @JsonKey(name: 'wind_direction_10m_dominant')
           required final int windDirection10mDominant,
           @JsonKey(name: 'weather_code')
+          @OpenMeteoWeatherCodeConverter()
           required final OpenMeteoWeatherCode weatherCode}) =
       _$DailyWeatherOpenMeteoImpl;
 
@@ -2510,6 +2530,7 @@ abstract class _DailyWeatherOpenMeteo implements DailyWeatherOpenMeteo {
   /// WMO Weather interpretation codes, 0-99
   @override
   @JsonKey(name: 'weather_code')
+  @OpenMeteoWeatherCodeConverter()
   OpenMeteoWeatherCode get weatherCode;
 
   /// Create a copy of DailyWeatherOpenMeteo
