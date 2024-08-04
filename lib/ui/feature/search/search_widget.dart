@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:weather_today/application/const/app_colors.dart';
 import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/application/const/app_insets.dart';
+import 'package:weather_today/application/navigation/routes.gr.dart';
 import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
 import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/ui/dialogs/app_dialogs.dart';
@@ -91,9 +93,13 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
         FloatingSearchBarAction.icon(
           showIfClosed: true,
           showIfOpened: false,
-          icon: Icon(
-            isLight ? Icons.light_mode_rounded : Icons.nightlight_round,
-            color: colors.scheme.primary,
+          icon: GestureDetector(
+            onLongPress: () async =>
+                await context.router.push(const ThemeRoute()),
+            child: Icon(
+              isLight ? Icons.light_mode_rounded : Icons.nightlight_round,
+              color: colors.scheme.primary,
+            ),
           ),
           onTap: () async => ref
               .read(AppTheme.instance)
