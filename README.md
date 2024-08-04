@@ -11,11 +11,13 @@ Weather for every day. Try it now on Google Play:
 
 <a href='https://play.google.com/store/apps/details?id=com.Ruble.Pack.weather_today&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt="Get it on Google Play" width="20%" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"/></a>
 
+
 ## Weather Today
 
 ✨ Handy application for tracking weather conditions with an amazing design.
 
 Some interesting features:
+- two weather providers are supported: open-meteo.com and openweathermap.org
 - track hourly, current and 7-day weather
 - save the necessary locations
 - two languages are available: English and Russian
@@ -107,6 +109,9 @@ Or try use this command:
 
 ## Articles and materials for study
 
+- [Я сделал Cardoteka и вот как её использовать \[кто любит черпать\] / Хабр](https://habr.com/ru/articles/783712/)
+- [Cardoteka — техническая начинка и аналитика решений типобезопасной SP \[кто любит вдаваться\] / Хабр](https://habr.com/ru/articles/801089/)
+- [SharedPreferences отличное хранилище для вашего flutter-приложения. Но есть нюансы… / Хабр](https://habr.com/ru/articles/724706/)
 - [Как быстро и легко локализовать приложение на flutter. Riverpod + slang](https://habr.com/ru/post/718310/)
 
 
@@ -136,7 +141,7 @@ You can:
 Weather Today source code is licensed under the Apache License, Version 2.0  License. Check [LICENSE](LICENSE) for more details.
 
 ```
-Copyright 2022-2023 Ruble
+Copyright 2022-2024 Ruble
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

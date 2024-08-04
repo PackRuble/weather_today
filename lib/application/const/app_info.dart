@@ -18,9 +18,9 @@ class AppInfo {
   const AppInfo._();
 
   static const String appName = 'Weather Today';
-  static const String appVersion =
-      '<stable>'; // there's no other way to get the version
-  static const String copyright = '© 2022-2023 $author';
+  // there's no other way to get the version
+  static const String appVersion = '<stable>';
+  static const String copyright = '© 2022-2024 $author';
   static const String author = 'Ruble Pack';
   static const String mailAuthor = 'pack.ruble@gmail.com';
   static const String telegramGroup = 'https://t.me/+GFFZ8Lk1Bz5kMTEy';
@@ -33,12 +33,6 @@ class AppInfo {
     // пока что pre-версия это и есть dev-версия
     return version.contains('pre') || version.contains('dev');
   }
-
-  /// the name of the service that presents the weather
-  static const String weatherService = 'openweathermap.org';
-
-  static const String attributionOpenWeather =
-      'Weather data provided by OpenWeather';
 
   static Future<int> get buildNumber async =>
       int.parse(await get(AppInfoData.buildNumber));

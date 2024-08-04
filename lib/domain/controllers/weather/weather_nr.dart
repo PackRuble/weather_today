@@ -145,7 +145,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
     }
   }
 
-  /// An internal method for retrieving weather from the OWM service [weatherService].
+  /// An internal method for retrieving weather from the weather service.
   ///
   /// Includes:
   /// * error handling.
