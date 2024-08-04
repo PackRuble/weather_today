@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
 
 import '../../domain/controllers/message_controller.dart';
 import '../../domain/models/toasts_model.dart';
@@ -24,6 +25,9 @@ class ListenMessageWrapper extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final tr = ref.watch(AppLocalization.currentTranslation);
+    final scaffold = ScaffoldMessenger.of(context);
+
     // слушаем наш контроллер по тостам
     if (isListenToast) {
       ref.listen<ToastController>(MessageController.toasts,
@@ -39,7 +43,7 @@ class ListenMessageWrapper extends ConsumerWidget {
                 backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                 textColor: Theme.of(context).textTheme.titleMedium?.color);
           } else {
-            ScaffoldMessenger.of(context).showSnackBar(CustomSnack(
+            scaffold.showSnackBar(CustomSnack(
               context,
               snack: MessageSnack(message: toast.message),
             ));
@@ -50,15 +54,61 @@ class ListenMessageWrapper extends ConsumerWidget {
 
     // слушаем наш контроллер по снэкам
     if (isListenSnack) {
-      ref.listen<SnackController>(MessageController.snacks,
-          (_, SnackController controller) async {
-        if (controller.snack != null) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(CustomSnack(context, snack: controller.snack!));
-        }
-      });
+      ref.listen<SnackController>(
+        MessageController.snacks,
+        (_, SnackController controller) async {
+          if (controller.snack == null) return;
+
+          final SnackController(snack: MessageSnack(:message)!) = controller;
+
+          final snack = CustomSnack(
+            context,
+            snack: controller.snack!.copyWith(
+              action: MapEntry(
+                tr.dialogs.buttons.know,
+                () => showDialog(
+                  useSafeArea: true,
+                  context: context,
+                  builder: (_) => ErrorInfoDialog(message),
+                ),
+              ),
+            ),
+          );
+
+          scaffold.showSnackBar(snack);
+        },
+      );
     }
 
     return child;
+  }
+}
+
+class ErrorInfoDialog extends ConsumerWidget {
+  const ErrorInfoDialog(this.message, {super.key});
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+
+    return Dialog.fullscreen(
+      backgroundColor: theme.scaffoldBackgroundColor,
+      child: Column(
+        children: [
+          AppBar(
+            leading: const CloseButton(),
+            title: const Text('Error screen'),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(message),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

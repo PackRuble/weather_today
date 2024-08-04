@@ -38,6 +38,18 @@ class MessageSnack {
   /// Действие.
   final MapEntry<String, Function()>? action;
 
+  MessageSnack copyWith({
+    String? message,
+    Duration? duration,
+    MapEntry<String, Function()>? action,
+  }) {
+    return MessageSnack(
+      message: message ?? this.message,
+      duration: duration ?? this.duration,
+      action: action ?? this.action,
+    );
+  }
+
   @override
   String toString() => 'Snack: [ $message ]';
 }
