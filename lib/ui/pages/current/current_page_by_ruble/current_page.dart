@@ -37,6 +37,7 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
         const AttributionWeatherWidget(
           padding:
               EdgeInsets.only(left: 8.0, right: 8.0, top: 0.0, bottom: 4.0),
+          withIcon: false,
         ),
         divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.wind),

@@ -43,22 +43,24 @@ class BottomBarWidget extends ConsumerWidget {
             onTap: () => mockTap != null
                 ? mockTap!.call(designPage)
                 : homePageCR.setIndexPageWhenClick(index + 1),
-            onLongPress: () async {
-              final result = await showChoosingDesign(
-                context,
-                getLabel(designPage.page),
-                designPage: designPage,
-              );
-
-              if (result != null) {
-                await ref
-                    .read(VisualDesignPresenter.instance)
-                    .onChangeDesignPage(
-                      result,
-                      index,
+            onLongPress: designPage.page != WeatherPage.daily
+                ? () async {
+                    final result = await showChoosingDesign(
+                      context,
+                      getLabel(designPage.page),
+                      designPage: designPage,
                     );
-              }
-            },
+
+                    if (result != null) {
+                      await ref
+                          .read(VisualDesignPresenter.instance)
+                          .onChangeDesignPage(
+                            result,
+                            index,
+                          );
+                    }
+                  }
+                : null,
           ),
         ),
     ];

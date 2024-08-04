@@ -10,10 +10,12 @@ class AttributionWeatherWidget extends ConsumerWidget {
   const AttributionWeatherWidget({
     this.padding = const EdgeInsets.all(5.0),
     this.alignment = Alignment.centerRight,
+    this.withIcon = true,
   });
 
   final Alignment alignment;
   final EdgeInsets padding;
+  final bool withIcon;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,11 +40,6 @@ class AttributionWeatherWidget extends ConsumerWidget {
                 style: textStyle,
               ),
             ),
-            Image.asset(
-              weatherProvider.logoAsset(!isLight),
-              height: 20,
-            ),
-            const SizedBox(width: 4),
             InkWell(
               onTap: () async {
                 final url = weatherProvider.websiteUrl;
@@ -61,6 +58,13 @@ class AttributionWeatherWidget extends ConsumerWidget {
                 ),
               ),
             ),
+            if (withIcon) ...[
+              const SizedBox(width: 4),
+              Image.asset(
+                weatherProvider.logoAsset(!isLight),
+                height: 16,
+              ),
+            ],
           ],
         ),
       ),
