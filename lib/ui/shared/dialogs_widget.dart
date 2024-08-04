@@ -3,7 +3,7 @@ import 'package:weather_today/application/const/app_colors.dart';
 
 import 'wrapper_page.dart';
 
-ShapeBorder _shape(BuildContext context) => RoundedRectangleBorder(
+ShapeBorder getDialogShape(BuildContext context) => RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(16.0),
       side: BorderSide(
         color: AppColors.of(context).cardBorderColor,
@@ -131,7 +131,7 @@ Future<T?> infoDialogCustom<T>(
       builder: (BuildContext context) {
         return WrapperPage(
           child: AlertDialog(
-            shape: _shape(context),
+            shape: getDialogShape(context),
             title: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -169,7 +169,7 @@ Future<T?> showAboutAppDialog<T>(
       return Theme(
         data: Theme.of(context).copyWith(
           dialogTheme: DialogTheme(
-            shape: _shape(context),
+            shape: getDialogShape(context),
           ),
         ),
         child: WrapperPage(
@@ -188,9 +188,9 @@ Future<T?> showAboutAppDialog<T>(
 
 Future<T?> showChoosingDialog<T>(
   BuildContext context, {
-  required Icon icon,
+  Icon? icon,
   required String title,
-  required String subTitle,
+  String? subTitle,
   required List<DialogOption<T>> listDialogOption,
 }) async {
   return showDialog<T>(
@@ -198,19 +198,20 @@ Future<T?> showChoosingDialog<T>(
       builder: (BuildContext context) {
         return WrapperPage(
           child: SimpleDialog(
-            shape: _shape(context),
+            shape: getDialogShape(context),
             title: Column(
               children: [
-                icon,
+                if (icon != null) icon,
                 Text(title, textAlign: TextAlign.center),
               ],
             ),
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
-                child: Text(subTitle),
-              ),
+              if (subTitle != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 24.0),
+                  child: Text(subTitle),
+                ),
               ...listDialogOption.map((DialogOption option) {
                 return Column(
                   children: [
@@ -237,7 +238,7 @@ Future<void> showSwitchedDialog(
       builder: (BuildContext context) {
         return WrapperPage(
           child: SimpleDialog(
-            shape: _shape(context),
+            shape: getDialogShape(context),
             title: Column(
               children: [
                 if (icon != null) icon,
