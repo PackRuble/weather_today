@@ -60,7 +60,7 @@ class OpenMeteoRepo {
         default:
           throw OpenMeteoApiException(
             response.statusCode,
-            json["reason"].toString(),
+            json["reason"]?.toString() ?? '$json',
           );
       }
 

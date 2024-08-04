@@ -601,6 +601,12 @@ mixin _$CurrentWeatherOpenMeteo {
   double get precipitation => throw _privateConstructorUsedError;
   @JsonKey(name: 'rain')
   double get rain => throw _privateConstructorUsedError;
+
+  /// Showers from convective precipitation in millimeters from the preceding hour, mm
+  ///
+  /// Preceding hour sum.
+  @JsonKey(name: 'showers')
+  double get showers => throw _privateConstructorUsedError;
   @JsonKey(name: 'snowfall')
   double get snowfall => throw _privateConstructorUsedError;
   @JsonKey(name: 'cloud_cover')
@@ -642,6 +648,7 @@ abstract class $CurrentWeatherOpenMeteoCopyWith<$Res> {
       @protected @JsonKey(name: 'is_day') int isDayInt,
       @JsonKey(name: 'precipitation') double precipitation,
       @JsonKey(name: 'rain') double rain,
+      @JsonKey(name: 'showers') double showers,
       @JsonKey(name: 'snowfall') double snowfall,
       @JsonKey(name: 'cloud_cover') int cloudCover,
       @JsonKey(name: 'pressure_msl') double pressureMsl,
@@ -677,6 +684,7 @@ class _$CurrentWeatherOpenMeteoCopyWithImpl<$Res,
     Object? isDayInt = null,
     Object? precipitation = null,
     Object? rain = null,
+    Object? showers = null,
     Object? snowfall = null,
     Object? cloudCover = null,
     Object? pressureMsl = null,
@@ -717,6 +725,10 @@ class _$CurrentWeatherOpenMeteoCopyWithImpl<$Res,
       rain: null == rain
           ? _value.rain
           : rain // ignore: cast_nullable_to_non_nullable
+              as double,
+      showers: null == showers
+          ? _value.showers
+          : showers // ignore: cast_nullable_to_non_nullable
               as double,
       snowfall: null == snowfall
           ? _value.snowfall
@@ -768,6 +780,7 @@ abstract class _$$CurrentWeatherOpenMeteoImplCopyWith<$Res>
       @protected @JsonKey(name: 'is_day') int isDayInt,
       @JsonKey(name: 'precipitation') double precipitation,
       @JsonKey(name: 'rain') double rain,
+      @JsonKey(name: 'showers') double showers,
       @JsonKey(name: 'snowfall') double snowfall,
       @JsonKey(name: 'cloud_cover') int cloudCover,
       @JsonKey(name: 'pressure_msl') double pressureMsl,
@@ -802,6 +815,7 @@ class __$$CurrentWeatherOpenMeteoImplCopyWithImpl<$Res>
     Object? isDayInt = null,
     Object? precipitation = null,
     Object? rain = null,
+    Object? showers = null,
     Object? snowfall = null,
     Object? cloudCover = null,
     Object? pressureMsl = null,
@@ -842,6 +856,10 @@ class __$$CurrentWeatherOpenMeteoImplCopyWithImpl<$Res>
       rain: null == rain
           ? _value.rain
           : rain // ignore: cast_nullable_to_non_nullable
+              as double,
+      showers: null == showers
+          ? _value.showers
+          : showers // ignore: cast_nullable_to_non_nullable
               as double,
       snowfall: null == snowfall
           ? _value.snowfall
@@ -888,6 +906,7 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
       @protected @JsonKey(name: 'is_day') required this.isDayInt,
       @JsonKey(name: 'precipitation') required this.precipitation,
       @JsonKey(name: 'rain') required this.rain,
+      @JsonKey(name: 'showers') required this.showers,
       @JsonKey(name: 'snowfall') required this.snowfall,
       @JsonKey(name: 'cloud_cover') required this.cloudCover,
       @JsonKey(name: 'pressure_msl') required this.pressureMsl,
@@ -931,6 +950,13 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
   @override
   @JsonKey(name: 'rain')
   final double rain;
+
+  /// Showers from convective precipitation in millimeters from the preceding hour, mm
+  ///
+  /// Preceding hour sum.
+  @override
+  @JsonKey(name: 'showers')
+  final double showers;
   @override
   @JsonKey(name: 'snowfall')
   final double snowfall;
@@ -956,7 +982,7 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
 
   @override
   String toString() {
-    return 'CurrentWeatherOpenMeteo(time: $time, interval: $interval, temp2m: $temp2m, relativeHumidity2m: $relativeHumidity2m, apparentTemp: $apparentTemp, isDayInt: $isDayInt, precipitation: $precipitation, rain: $rain, snowfall: $snowfall, cloudCover: $cloudCover, pressureMsl: $pressureMsl, windSpeed10m: $windSpeed10m, windDirection10m: $windDirection10m, windGusts10m: $windGusts10m, weatherCode: $weatherCode)';
+    return 'CurrentWeatherOpenMeteo(time: $time, interval: $interval, temp2m: $temp2m, relativeHumidity2m: $relativeHumidity2m, apparentTemp: $apparentTemp, isDayInt: $isDayInt, precipitation: $precipitation, rain: $rain, showers: $showers, snowfall: $snowfall, cloudCover: $cloudCover, pressureMsl: $pressureMsl, windSpeed10m: $windSpeed10m, windDirection10m: $windDirection10m, windGusts10m: $windGusts10m, weatherCode: $weatherCode)';
   }
 
   @override
@@ -977,6 +1003,7 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
             (identical(other.precipitation, precipitation) ||
                 other.precipitation == precipitation) &&
             (identical(other.rain, rain) || other.rain == rain) &&
+            (identical(other.showers, showers) || other.showers == showers) &&
             (identical(other.snowfall, snowfall) ||
                 other.snowfall == snowfall) &&
             (identical(other.cloudCover, cloudCover) ||
@@ -1005,6 +1032,7 @@ class _$CurrentWeatherOpenMeteoImpl extends _CurrentWeatherOpenMeteo {
       isDayInt,
       precipitation,
       rain,
+      showers,
       snowfall,
       cloudCover,
       pressureMsl,
@@ -1043,6 +1071,7 @@ abstract class _CurrentWeatherOpenMeteo extends CurrentWeatherOpenMeteo {
       @protected @JsonKey(name: 'is_day') required final int isDayInt,
       @JsonKey(name: 'precipitation') required final double precipitation,
       @JsonKey(name: 'rain') required final double rain,
+      @JsonKey(name: 'showers') required final double showers,
       @JsonKey(name: 'snowfall') required final double snowfall,
       @JsonKey(name: 'cloud_cover') required final int cloudCover,
       @JsonKey(name: 'pressure_msl') required final double pressureMsl,
@@ -1087,6 +1116,13 @@ abstract class _CurrentWeatherOpenMeteo extends CurrentWeatherOpenMeteo {
   @override
   @JsonKey(name: 'rain')
   double get rain;
+
+  /// Showers from convective precipitation in millimeters from the preceding hour, mm
+  ///
+  /// Preceding hour sum.
+  @override
+  @JsonKey(name: 'showers')
+  double get showers;
   @override
   @JsonKey(name: 'snowfall')
   double get snowfall;
@@ -1961,6 +1997,10 @@ mixin _$DailyWeatherOpenMeteo {
   @JsonKey(name: 'rain_sum')
   double get rainSum => throw _privateConstructorUsedError;
 
+  /// Sum of daily showers, mm
+  @JsonKey(name: 'showers_sum')
+  double get showersSum => throw _privateConstructorUsedError;
+
   /// Sum of daily snowfall, cm
   @JsonKey(name: 'snowfall_sum')
   double get snowfallSum => throw _privateConstructorUsedError;
@@ -2013,6 +2053,7 @@ abstract class $DailyWeatherOpenMeteoCopyWith<$Res> {
       @JsonKey(name: 'precipitation_sum') double precipitationSum,
       @JsonKey(name: 'precipitation_probability_max') double popMax,
       @JsonKey(name: 'rain_sum') double rainSum,
+      @JsonKey(name: 'showers_sum') double showersSum,
       @JsonKey(name: 'snowfall_sum') double snowfallSum,
       @JsonKey(name: 'wind_speed_10m_max') double windSpeed10mMax,
       @JsonKey(name: 'wind_gusts_10m_max') double windGusts10mMax,
@@ -2051,6 +2092,7 @@ class _$DailyWeatherOpenMeteoCopyWithImpl<$Res,
     Object? precipitationSum = null,
     Object? popMax = null,
     Object? rainSum = null,
+    Object? showersSum = null,
     Object? snowfallSum = null,
     Object? windSpeed10mMax = null,
     Object? windGusts10mMax = null,
@@ -2106,6 +2148,10 @@ class _$DailyWeatherOpenMeteoCopyWithImpl<$Res,
           ? _value.rainSum
           : rainSum // ignore: cast_nullable_to_non_nullable
               as double,
+      showersSum: null == showersSum
+          ? _value.showersSum
+          : showersSum // ignore: cast_nullable_to_non_nullable
+              as double,
       snowfallSum: null == snowfallSum
           ? _value.snowfallSum
           : snowfallSum // ignore: cast_nullable_to_non_nullable
@@ -2154,6 +2200,7 @@ abstract class _$$DailyWeatherOpenMeteoImplCopyWith<$Res>
       @JsonKey(name: 'precipitation_sum') double precipitationSum,
       @JsonKey(name: 'precipitation_probability_max') double popMax,
       @JsonKey(name: 'rain_sum') double rainSum,
+      @JsonKey(name: 'showers_sum') double showersSum,
       @JsonKey(name: 'snowfall_sum') double snowfallSum,
       @JsonKey(name: 'wind_speed_10m_max') double windSpeed10mMax,
       @JsonKey(name: 'wind_gusts_10m_max') double windGusts10mMax,
@@ -2190,6 +2237,7 @@ class __$$DailyWeatherOpenMeteoImplCopyWithImpl<$Res>
     Object? precipitationSum = null,
     Object? popMax = null,
     Object? rainSum = null,
+    Object? showersSum = null,
     Object? snowfallSum = null,
     Object? windSpeed10mMax = null,
     Object? windGusts10mMax = null,
@@ -2245,6 +2293,10 @@ class __$$DailyWeatherOpenMeteoImplCopyWithImpl<$Res>
           ? _value.rainSum
           : rainSum // ignore: cast_nullable_to_non_nullable
               as double,
+      showersSum: null == showersSum
+          ? _value.showersSum
+          : showersSum // ignore: cast_nullable_to_non_nullable
+              as double,
       snowfallSum: null == snowfallSum
           ? _value.snowfallSum
           : snowfallSum // ignore: cast_nullable_to_non_nullable
@@ -2289,6 +2341,7 @@ class _$DailyWeatherOpenMeteoImpl implements _DailyWeatherOpenMeteo {
       @JsonKey(name: 'precipitation_sum') required this.precipitationSum,
       @JsonKey(name: 'precipitation_probability_max') required this.popMax,
       @JsonKey(name: 'rain_sum') required this.rainSum,
+      @JsonKey(name: 'showers_sum') required this.showersSum,
       @JsonKey(name: 'snowfall_sum') required this.snowfallSum,
       @JsonKey(name: 'wind_speed_10m_max') required this.windSpeed10mMax,
       @JsonKey(name: 'wind_gusts_10m_max') required this.windGusts10mMax,
@@ -2365,6 +2418,11 @@ class _$DailyWeatherOpenMeteoImpl implements _DailyWeatherOpenMeteo {
   @JsonKey(name: 'rain_sum')
   final double rainSum;
 
+  /// Sum of daily showers, mm
+  @override
+  @JsonKey(name: 'showers_sum')
+  final double showersSum;
+
   /// Sum of daily snowfall, cm
   @override
   @JsonKey(name: 'snowfall_sum')
@@ -2393,7 +2451,7 @@ class _$DailyWeatherOpenMeteoImpl implements _DailyWeatherOpenMeteo {
 
   @override
   String toString() {
-    return 'DailyWeatherOpenMeteo(time: $time, temp2mMax: $temp2mMax, temp2mMin: $temp2mMin, apparentTempMax: $apparentTempMax, apparentTempMin: $apparentTempMin, sunrise: $sunrise, sunset: $sunset, daylightDur: $daylightDur, uviMax: $uviMax, precipitationSum: $precipitationSum, popMax: $popMax, rainSum: $rainSum, snowfallSum: $snowfallSum, windSpeed10mMax: $windSpeed10mMax, windGusts10mMax: $windGusts10mMax, windDirection10mDominant: $windDirection10mDominant, weatherCode: $weatherCode)';
+    return 'DailyWeatherOpenMeteo(time: $time, temp2mMax: $temp2mMax, temp2mMin: $temp2mMin, apparentTempMax: $apparentTempMax, apparentTempMin: $apparentTempMin, sunrise: $sunrise, sunset: $sunset, daylightDur: $daylightDur, uviMax: $uviMax, precipitationSum: $precipitationSum, popMax: $popMax, rainSum: $rainSum, showersSum: $showersSum, snowfallSum: $snowfallSum, windSpeed10mMax: $windSpeed10mMax, windGusts10mMax: $windGusts10mMax, windDirection10mDominant: $windDirection10mDominant, weatherCode: $weatherCode)';
   }
 
   @override
@@ -2419,6 +2477,8 @@ class _$DailyWeatherOpenMeteoImpl implements _DailyWeatherOpenMeteo {
                 other.precipitationSum == precipitationSum) &&
             (identical(other.popMax, popMax) || other.popMax == popMax) &&
             (identical(other.rainSum, rainSum) || other.rainSum == rainSum) &&
+            (identical(other.showersSum, showersSum) ||
+                other.showersSum == showersSum) &&
             (identical(other.snowfallSum, snowfallSum) ||
                 other.snowfallSum == snowfallSum) &&
             (identical(other.windSpeed10mMax, windSpeed10mMax) ||
@@ -2448,6 +2508,7 @@ class _$DailyWeatherOpenMeteoImpl implements _DailyWeatherOpenMeteo {
       precipitationSum,
       popMax,
       rainSum,
+      showersSum,
       snowfallSum,
       windSpeed10mMax,
       windGusts10mMax,
@@ -2497,6 +2558,7 @@ abstract class _DailyWeatherOpenMeteo implements DailyWeatherOpenMeteo {
           @JsonKey(name: 'precipitation_probability_max')
           required final double popMax,
           @JsonKey(name: 'rain_sum') required final double rainSum,
+          @JsonKey(name: 'showers_sum') required final double showersSum,
           @JsonKey(name: 'snowfall_sum') required final double snowfallSum,
           @JsonKey(name: 'wind_speed_10m_max')
           required final double windSpeed10mMax,
@@ -2575,6 +2637,11 @@ abstract class _DailyWeatherOpenMeteo implements DailyWeatherOpenMeteo {
   @override
   @JsonKey(name: 'rain_sum')
   double get rainSum;
+
+  /// Sum of daily showers, mm
+  @override
+  @JsonKey(name: 'showers_sum')
+  double get showersSum;
 
   /// Sum of daily snowfall, cm
   @override

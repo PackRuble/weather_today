@@ -103,6 +103,11 @@ class CurrentWeatherOpenMeteo with _$CurrentWeatherOpenMeteo {
     @protected @JsonKey(name: 'is_day') required int isDayInt,
     @JsonKey(name: 'precipitation') required double precipitation,
     @JsonKey(name: 'rain') required double rain,
+
+    /// Showers from convective precipitation in millimeters from the preceding hour, mm
+    ///
+    /// Preceding hour sum.
+    @JsonKey(name: 'showers') required double showers,
     @JsonKey(name: 'snowfall') required double snowfall,
     @JsonKey(name: 'cloud_cover') required int cloudCover,
     @JsonKey(name: 'pressure_msl') required double pressureMsl,
@@ -251,6 +256,9 @@ class DailyWeatherOpenMeteo with _$DailyWeatherOpenMeteo {
 
     /// Sum of daily rain, mm
     @JsonKey(name: 'rain_sum') required double rainSum,
+
+    /// Sum of daily showers, mm
+    @JsonKey(name: 'showers_sum') required double showersSum,
 
     /// Sum of daily snowfall, cm
     @JsonKey(name: 'snowfall_sum') required double snowfallSum,

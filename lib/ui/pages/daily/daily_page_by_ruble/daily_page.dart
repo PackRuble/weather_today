@@ -10,6 +10,7 @@ import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 import 'package:weather_today/extension/double_extension.dart';
+import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/shared/attribution_weather_widget.dart';
 import 'package:weather_today/ui/shared/shared_widget.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
@@ -423,31 +424,43 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _Title(t.weather.precipitation),
-              _TitleContent(
-                height: _minHeightRowTile,
-                left: [
-                  if (weather.rain != null)
-                    _OneTile('Дождь', weather.rain!.toString(), 'mm'),
-                ],
-                right: [
-                  if (weather.snow != null)
+              if (weather.rain == 0.0 && weather.snow == 0.0)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(t.mainPageDRuble.hourlyPage.pop.noPopExpected),
+                )
+              else
+                _TitleContent(
+                  height: _minHeightRowTile,
+                  left: [
+                    _OneTile(
+                      t.weather.rain.toCapitalize,
+                      weather.rain.toStringMaybe(fixed: 1),
+                      // единицы верные, проверял в OM
+                      'mm',
+                    ),
+                  ],
+                  right: [
                     _OneTile(
                       // todo(03.08.2024): tr
-                      'Снег',
-                      weather.snow!.toString(),
+                      t.weather.snow.toCapitalize,
+                      weather.snow.toString(),
+                      // единицы верные, проверял в OM
                       'cm',
                     ),
-                ],
-              ),
+                  ],
+                ),
               _hDivider,
               _Title(t.weather.riseAndSetPl),
               _TitleContent(
                 height: _minHeightRowTile * 3,
                 left: [
-                  _OneTile(t.weather.sunrise,
-                      DateFormat.Hm().format(weather.sunrise!)),
-                  _OneTile(t.weather.sunset,
-                      DateFormat.Hm().format(weather.sunset!)),
+                  if (weather.sunrise != null)
+                    _OneTile(t.weather.sunrise,
+                        DateFormat.Hm().format(weather.sunrise!)),
+                  if (weather.sunset != null)
+                    _OneTile(t.weather.sunset,
+                        DateFormat.Hm().format(weather.sunset!)),
                 ],
                 right: [
                   if (weather.moonrise != null)

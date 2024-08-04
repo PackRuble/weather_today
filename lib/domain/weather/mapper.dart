@@ -74,8 +74,7 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                   windDegree: hourly.windDirection10m.toDouble(),
                   windGust: hourly.windGusts10m,
                   pop: hourly.pop * 0.01,
-                  rain: hourly.rain,
-                  // todo: скорее всего, в той модели тоже см
+                  rain: hourly.rain != 0.0 ? hourly.rain : hourly.showers,
                   snow: hourly.snowfall,
                   weatherDescription: null,
                   weatherMain: hourly.weatherCode.desc,
@@ -117,8 +116,7 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                   windDegree: daily.windDirection10mDominant.toDouble(),
                   windGust: daily.windGusts10mMax,
                   pop: daily.popMax * 0.01,
-                  rain: daily.rainSum,
-                  // todo: скорее всего, в той модели тоже см
+                  rain: daily.rainSum != 0.0 ? daily.rainSum : daily.showersSum,
                   snow: daily.snowfallSum,
                   weatherDescription: null,
                   weatherMain: daily.weatherCode.desc,
