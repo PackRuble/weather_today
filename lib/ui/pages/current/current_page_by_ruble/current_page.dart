@@ -25,7 +25,9 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(CurrentPagePresenter.tr);
 
-    const Divider divider = Divider(thickness: 1.0);
+    final WeatherCurrent(:sunrise, :sunset) = currently;
+
+    const divider = Divider(thickness: 1.0);
 
     return ListView(
       children: [
@@ -37,12 +39,14 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
               EdgeInsets.only(left: 8.0, right: 8.0, top: 0.0, bottom: 4.0),
         ),
         divider,
-        _TitleWidget(t.mainPageDRuble.currentPage.headers.sun),
-        _customPadding(child: const _SunriseInfoWidget()),
-        divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.wind),
         _customPadding(child: const _WindWidget()),
         divider,
+        if (sunrise != null || sunset != null) ...[
+          _TitleWidget(t.mainPageDRuble.currentPage.headers.sun),
+          _customPadding(child: const _SunriseInfoWidget()),
+          divider,
+        ],
         _TitleWidget(t.mainPageDRuble.currentPage.headers.clouds),
         _customPadding(child: const CloudinessWidget()),
         divider,
@@ -237,7 +241,6 @@ class _MainDescriptionWidget extends ConsumerWidget {
   }
 }
 
-// todo edit time
 class _SunriseInfoWidget extends ConsumerWidget {
   const _SunriseInfoWidget();
 
@@ -245,10 +248,10 @@ class _SunriseInfoWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(CurrentPagePresenter.tr);
 
-    final WeatherCurrent wCur = ref.watch(CurrentPagePresenter.current).value!;
+    final wCur = ref.watch(CurrentPagePresenter.current).value!;
 
-    final DateTime? sunriseD = wCur.sunrise;
-    final DateTime? sunsetD = wCur.sunset;
+    final sunriseD = wCur.sunrise;
+    final sunsetD = wCur.sunset;
 
     String sunrise = '${t.mainPageDRuble.currentPage.sunrise} – ';
     String sunset = '${t.mainPageDRuble.currentPage.sunset} – ';
@@ -257,7 +260,7 @@ class _SunriseInfoWidget extends ConsumerWidget {
         '${t.mainPageDRuble.currentPage.timeBeforeSunset} – ';
 
     if (sunriseD != null && sunsetD != null) {
-      final Duration diff = sunsetD.difference(sunriseD);
+      final diff = sunsetD.difference(sunriseD);
 
       if (diff.inHours == 0) {
         dayLength += t.global.time.m(
@@ -270,8 +273,7 @@ class _SunriseInfoWidget extends ConsumerWidget {
         );
       }
 
-      final Duration diffSunset =
-          sunsetD.difference(wCur.date ?? DateTime.now());
+      final diffSunset = sunsetD.difference(wCur.date ?? DateTime.now());
 
       if (diffSunset.isNegative) {
         timeBeforeSunset += t.weather.sunAlreadySet;
@@ -314,30 +316,27 @@ class _WindWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final styles = Theme.of(context).textTheme;
     final t = ref.watch(CurrentPagePresenter.tr);
 
-    final WeatherCurrent weather =
-        ref.watch(CurrentPagePresenter.current).value!;
+    final weather = ref.watch(CurrentPagePresenter.current).value!;
 
-    final double windDegreeAngle =
+    final windDegreeAngle =
         MetricsHelper.fromRadiansToDegrees(weather.windDegree ?? 0);
 
-    final Speed speedUnits = ref.watch(CurrentPagePresenter.speedUnits);
-    final String _windSpeed = MetricsHelper.getSpeed(
-        weather.windSpeed, speedUnits,
+    final speedUnits = ref.watch(CurrentPagePresenter.speedUnits);
+    final _windSpeed = MetricsHelper.getSpeed(weather.windSpeed, speedUnits,
         withUnits: false, withFiller: true)!;
-    final String _speedUnits = MetricsHelper.getSpeedUnits(speedUnits);
+    final _speedUnits = MetricsHelper.getSpeedUnits(speedUnits);
 
-    final String? _windSide =
+    final _windSide =
         MetricsHelper.getSideOfTheWorldAdjective(weather.windDegree);
 
-    final String? _windGust = (weather.windGust != null &&
+    final _windGust = (weather.windGust != null &&
             weather.windSpeed != null &&
             weather.windGust! > weather.windSpeed!)
         ? MetricsHelper.getSpeed(weather.windGust, speedUnits, withUnits: false)
         : null;
-
-    final TextTheme styles = Theme.of(context).textTheme;
 
     return Row(
       mainAxisSize: MainAxisSize.max,
