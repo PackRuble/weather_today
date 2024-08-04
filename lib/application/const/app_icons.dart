@@ -48,7 +48,9 @@ class AppIcons {
   // weather icons
   static const IconData pressure = Icons.scale_rounded;
 
-  static const IconData dewPoint = Icons.opacity_rounded;
+  static const IconData dewPoint = Icons.dew_point;
+
+  static const IconData pop = Icons.opacity_rounded;
 
   static const IconData cloudiness = Icons.wb_cloudy_rounded;
 

@@ -5,7 +5,6 @@ import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
-import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
@@ -29,11 +28,12 @@ class CurrentWeatherPageByTolskaya extends ConsumerWidget {
         children: [
           _DateWidget(currently.date),
           _MainInfoWidget(
-              weatherMain: currently.weatherMain,
-              weatherDescription: currently.weatherDescription,
-              weatherIcon: currently.weatherIcon,
-              temp: currently.temp,
-              tempFeelsLike: currently.tempFeelsLike),
+            weatherMain: currently.weatherMain,
+            weatherDescription: currently.weatherDescription,
+            weatherIcon: currently.weatherIcon,
+            temp: currently.temp,
+            tempFeelsLike: currently.tempFeelsLike,
+          ),
           const Divider(),
           _WindWidget(
             windSpeed: currently.windSpeed,
@@ -42,11 +42,13 @@ class CurrentWeatherPageByTolskaya extends ConsumerWidget {
           ),
           const Divider(),
           _OtherInfoWidget(currently),
-          const Divider(),
-          _SunriseInfoWidget(
-            sunrise: currently.sunrise,
-            sunset: currently.sunset,
-          ),
+          if (currently.sunrise != null || currently.sunset != null) ...[
+            const Divider(),
+            _SunriseInfoWidget(
+              sunrise: currently.sunrise,
+              sunset: currently.sunset,
+            ),
+          ],
           const AttributionWeatherWidget(alignment: Alignment.center),
         ],
       ),
@@ -62,17 +64,17 @@ class _DateWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TextTheme styles = Theme.of(context).textTheme;
+    final styles = Theme.of(context).textTheme;
     final t = ref.watch(AppLocalization.currentTranslation);
 
-    final Place place = ref.watch(WeatherServices.currentPlace);
+    final place = ref.watch(WeatherServices.currentPlace);
 
-    final String languageCode = Localizations.localeOf(context).languageCode;
+    final languageCode = Localizations.localeOf(context).languageCode;
 
-    final String countryName =
+    final countryName =
         MetricsHelper.getLocalNameOrName(place, languageCode) ?? 'Ghost-town';
 
-    final DateTime date = this.date ?? DateTime.now();
+    final date = this.date ?? DateTime.now();
 
     return Column(
       children: [
@@ -120,23 +122,29 @@ class _MainInfoWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TextTheme styles = Theme.of(context).textTheme;
+    final styles = Theme.of(context).textTheme;
 
     final t = ref.watch(CurrentPagePresenter.tr);
 
-    final String _weatherMain =
+    final _weatherMain =
         MetricsHelper.getWeatherMainTr(weatherMain, t) ?? r'¯\_(ツ)_/¯';
 
-    final String _weatherDescription =
-        weatherDescription?.toCapitalized() ?? '';
+    final _weatherDescription = weatherDescription?.toCapitalized() ?? '';
 
-    final Temp tempUnits = ref.watch(CurrentPagePresenter.tempUnits);
-    final String _temp = MetricsHelper.getTemp(temp, tempUnits,
-        withUnits: false, withSign: true);
-    final String _tempUnits = MetricsHelper.getTempUnits(tempUnits);
-    final String _tempFeelsLike = MetricsHelper.getTemp(
-        tempFeelsLike, tempUnits,
-        withUnits: false, withSign: true);
+    final tempUnits = ref.watch(CurrentPagePresenter.tempUnits);
+    final _temp = MetricsHelper.getTemp(
+      temp,
+      tempUnits,
+      withUnits: false,
+      withSign: true,
+    );
+    final _tempUnits = MetricsHelper.getTempUnits(tempUnits);
+    final _tempFeelsLike = MetricsHelper.getTemp(
+      tempFeelsLike,
+      tempUnits,
+      withUnits: false,
+      withSign: true,
+    );
 
     return Column(
       children: [
@@ -342,7 +350,7 @@ class _SunriseInfoWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // ignore: unused_local_variable
-    final TextTheme styles = Theme.of(context).textTheme;
+    final styles = Theme.of(context).textTheme;
 
     final t = ref.watch(CurrentPagePresenter.tr);
 
@@ -351,14 +359,17 @@ class _SunriseInfoWidget extends ConsumerWidget {
     String _dayLength = '–';
 
     if (sunrise != null && sunset != null) {
-      final Duration diff = sunset!.difference(sunrise!);
+      final diff = sunset!.difference(sunrise!);
 
       if (diff.inHours == 0) {
-        _dayLength =
-            t.global.time.m(minute: diff.inMinutes - (diff.inHours * 60));
+        _dayLength = t.global.time.m(
+          minute: diff.inMinutes - (diff.inHours * 60),
+        );
       } else {
         _dayLength = t.global.time.hm(
-            hour: diff.inHours, minute: diff.inMinutes - (diff.inHours * 60));
+          hour: diff.inHours,
+          minute: diff.inMinutes - (diff.inHours * 60),
+        );
       }
 
       _sunrise = DateFormat.Hm().format(sunrise!);

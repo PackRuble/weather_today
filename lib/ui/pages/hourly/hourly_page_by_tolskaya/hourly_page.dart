@@ -21,43 +21,41 @@ class HourlyPageByTolskaya extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TextTheme styles = Theme.of(context).textTheme;
+    final styles = Theme.of(context).textTheme;
 
     return ListView.separated(
-        itemCount: hourly.length,
-        separatorBuilder: (BuildContext context, int index) {
-          if (hourly[index].date?.hour == 23) {
-            return Column(
-              children: [
-                // const Divider(height: 5.0),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    DateFormat.MMMMEEEEd().format(
-                        hourly[index].date?.add(const Duration(days: 1)) ??
-                            DateTime.now()),
-                    style: styles.titleSmall,
-                  ),
-                ),
-                // const Divider(height: 5.0),
-              ],
-            );
-          }
-          return const SizedBox.shrink();
-        },
-        itemBuilder: (BuildContext context, int index) {
-          if (index + 1 == hourly.length) {
-            return const AttributionWeatherWidget();
-          }
+      itemCount: hourly.length,
+      separatorBuilder: (BuildContext context, int index) {
+        if (hourly[index].date?.hour == 23 && index + 1 != hourly.length - 1) {
           return Column(
             children: [
-              if (index == 0) _DateWidget(hourly.first.date),
-              _GroupExpansionWidget(hourly[index]),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  DateFormat.MMMMEEEEd().format(
+                    hourly[index].date?.add(const Duration(days: 1)) ??
+                        DateTime.now(),
+                  ),
+                  style: styles.titleSmall,
+                ),
+              ),
             ],
           );
         }
-        // children: [for (final h in hourly) _GroupExpansionWidget(h)],
+        return const SizedBox.shrink();
+      },
+      itemBuilder: (BuildContext context, int index) {
+        if (index + 1 == hourly.length) {
+          return const AttributionWeatherWidget();
+        }
+        return Column(
+          children: [
+            if (index == 0) _DateWidget(hourly.first.date),
+            _GroupExpansionWidget(hourly[index]),
+          ],
         );
+      },
+    );
   }
 }
 
@@ -70,7 +68,7 @@ class _DateWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(HourlyPagePresenter.tr);
 
-    final TextTheme styles = Theme.of(context).textTheme;
+    final styles = Theme.of(context).textTheme;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -91,12 +89,6 @@ class _DateWidget extends ConsumerWidget {
               ],
             ),
           ),
-          // Text(
-          //   DateFormat.MMMd().add_Hm().format(DateTime.now()),
-          //   style: styles.bodyMedium?.copyWith(
-          //     fontStyle: FontStyle.italic,
-          //   ),
-          // ),
         ],
       ),
     );
@@ -149,24 +141,21 @@ class TileHourlyWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TextTheme styles = Theme.of(context).textTheme;
+    final styles = Theme.of(context).textTheme;
 
     final t = ref.watch(AppLocalization.currentTranslation);
 
-    final Temp tempUnits = ref.watch(HourlyPagePresenter.tempUnits);
+    final tempUnits = ref.watch(HourlyPagePresenter.tempUnits);
 
-    final String _temp =
+    final _temp =
         MetricsHelper.getTemp(weather.temp, tempUnits, withUnits: false);
 
-    final String? _pop = MetricsHelper.withPrecision(
-        MetricsHelper.getPercentage(
-            weather.pop == 0.0 ? null : weather.pop, 1.0));
+    final _pop = MetricsHelper.withPrecision(MetricsHelper.getPercentage(
+        weather.pop == 0.0 ? null : weather.pop, 1.0));
 
-    // ignore: unused_local_variable
-    final String? _uvi = weather.uvi?.toStringAsFixed(0);
+    // final uvi = weather.uvi?.toStringAsFixed(0);
 
-    final String _weatherMain =
-        MetricsHelper.getWeatherMainTr(weather.weatherMain, t) ?? '';
+    final weatherMain = MetricsHelper.getWeatherMainTr(weather.weatherMain, t);
 
     return ListTile(
       minVerticalPadding: 0.0,
@@ -207,7 +196,7 @@ class TileHourlyWidget extends ConsumerWidget {
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               TextSpan(
-                text: _weatherMain,
+                text: weatherMain,
                 style: styles.bodyMedium,
               ),
             ),
@@ -225,9 +214,9 @@ class TileHourlyWidget extends ConsumerWidget {
                 ],
               ),
             ),
-          // const SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           // Text.rich(
-          //   TextSpan(text: _uvi),
+          //   TextSpan(text: uvi),
           //   style: styles.bodyMedium?.copyWith(color: Colors.orange),
           // ),
         ],
@@ -245,32 +234,51 @@ class _ExpandedWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(AppLocalization.currentTranslation);
 
-    final String? _pressure = MetricsHelper.getPressure(
-        weather.pressure, ref.watch(WeatherServices.pressureUnits));
+    final WeatherHourly(
+      :pressure,
+      :humidity,
+      :visibility,
+      :cloudiness,
+      :dewPoint,
+      :weatherDescription,
+      :weatherMain,
+      :pop,
+      :windSpeed,
+    ) = weather;
 
-    final String? _humidity = MetricsHelper.withPrecision(weather.humidity);
+    final _pressure = MetricsHelper.getPressure(
+        pressure, ref.watch(WeatherServices.pressureUnits));
 
-    final String? _visibility = MetricsHelper.withPrecision(
-        MetricsHelper.getPercentage(weather.visibility, 10000.0));
+    final _humidity = MetricsHelper.withPrecision(humidity);
 
-    final String? _cloudiness = MetricsHelper.withPrecision(weather.cloudiness);
+    final _visibility = MetricsHelper.withPrecision(
+      MetricsHelper.getPercentage(visibility, 10000.0),
+    );
 
-    final Temp tempUnits = ref.watch(HourlyPagePresenter.tempUnits);
-    final String? _dewPoint =
-        MetricsHelper.getTempOrNull(weather.dewPoint, tempUnits);
+    final _cloudiness = MetricsHelper.withPrecision(cloudiness);
 
-    final Speed speedUnits = ref.watch(HourlyPagePresenter.speedUnits);
-    final String? _windSpeed =
-        MetricsHelper.getSpeed(weather.windSpeed, speedUnits);
+    final tempUnits = ref.watch(HourlyPagePresenter.tempUnits);
+    final _dewPoint = MetricsHelper.getTempOrNull(dewPoint, tempUnits);
 
-    final String? _uvi = weather.uvi?.toStringAsFixed(0);
+    final speedUnits = ref.watch(HourlyPagePresenter.speedUnits);
+    final _windSpeed = MetricsHelper.getSpeed(windSpeed, speedUnits);
+
+    final _uvi = weather.uvi?.toStringAsFixed(0);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text.rich(TextSpan(text: weather.weatherDescription)),
-          const Divider(),
+          if ((weatherDescription?.isNotEmpty ?? false) ||
+              (weatherMain?.isNotEmpty ?? false)) ...[
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child:
+                  Text.rich(TextSpan(text: weatherDescription ?? weatherMain)),
+            ),
+            const Divider(),
+          ],
           if (_windSpeed != null)
             RowItem(AppIcons.wind, t.weather.wind, _windSpeed),
           if (_uvi != null) RowItem(AppIcons.uvi, t.weather.uvi, _uvi),

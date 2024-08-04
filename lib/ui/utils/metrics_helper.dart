@@ -109,13 +109,14 @@ class MetricsHelper {
   }
 
   /// Вернуть процентное число от максимального значения.
-  static double? getPercentage(double? value, double maxValue,
-      [double minValue = 0.0]) {
-    assert(0.0 <= minValue && minValue < maxValue);
-    if (value != null) assert(minValue <= value && value <= maxValue);
+  static double? getPercentage(
+    double? value,
+    double maxValue, [
+    double minValue = 0.0,
+  ]) {
+    if (value == null) return null;
 
-    if (value != null) return (value / (maxValue - minValue)) * 100.0;
-    return null;
+    return (value.clamp(minValue, maxValue) / (maxValue - minValue)) * 100.0;
   }
 
   // ===========================================================================
