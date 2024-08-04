@@ -192,7 +192,7 @@
   },
   "gratitude_page": {
     "appbar_title": "I want to say thank you...",
-    "text(rich)": "  A year earlier I became interested in a new programming language, dart, and at the same time I learned flutter. To sharpen my skills in the substance of the new, I realized that I wanted to create a simple (it seemed to me at the time, hoho) application - a weather aggregator. And after half a year there appeared an application called 'Weather Today' - everyday weather.\n  During the developing process I had a lot of people (and their solutions) helping and supporting me.\n  I am eternally grateful to my girlfriend for her patience, understanding and acceptance of the rare evening hours I spent working on the app instead of spending them with my family.\n  I would also like to pay tribute to fellow developers who put out interesting and, importantly, useful products. In particular I want to mention {Dart(dart)} and {Flutter(flutter)} team for a great platform to build truly cool applications; {RemiRousselet(Remi Rousselet)} for the delightful {Riverpod(riverpod)} and {Freezed(freezed)} packages; {TienDoNam(Tien Do Nam)} for the beautiful {Slang(slang)}; {RydMike(Ryd Mike)} for the charming {FlexColorScheme(flexColorScheme)} package. \n  I'm always open to communication and would appreciate it if, after using this app, you could write a few lines about its practicality and competence, and share your opinion on possible features that would be worth doing.\n  I can be contacted:\n    - email: {myEmail(pack.ruble@gmail.com)}\n    - telegram: {tgGroup(Telegram group)}"
+    "text(rich)": "  A year earlier I became interested in a new programming language, dart, and at the same time I learned flutter. To sharpen my skills in the substance of the new, I realized that I wanted to create a simple (it seemed to me at the time, hoho) application - a weather aggregator. And after half a year there appeared an application called \"Weather Today — погода на каждый день\".\n  During the developing process I had a lot of people (and their solutions) helping and supporting me.\n  I am eternally grateful to my girlfriend for her patience, understanding and acceptance of the rare evening hours I spent working on the app instead of spending them with my family.\n  I would also like to pay tribute to fellow developers who put out interesting and, importantly, useful products. In particular I want to mention {Dart(dart)} and {Flutter(flutter)} team for a great platform to build truly cool applications; {RemiRousselet(Remi Rousselet)} for the delightful {Riverpod(riverpod)} and {Freezed(freezed)} packages; {TienDoNam(Tien Do Nam)} for the beautiful {Slang(slang)}; {RydMike(Ryd Mike)} for the charming {FlexColorScheme(flexColorScheme)} package. \n  I'm always open to communication and would appreciate it if, after using this app, you could write a few lines about its practicality and competence, and share your opinion on possible features that would be worth doing.\n  I can be contacted:\n    - email: {myEmail(pack.ruble@gmail.com)}\n    - telegram: {tgGroup(Telegram group)}"
   },
   "weather_lang_page": {
     "appbar_title": "Language of weather conditions",
@@ -282,7 +282,6 @@
     "rise_and_set_pl": "Sunrises and sunsets",
     "sun": "Sun",
     "moon": "Moon",
-    "@rise": "It is correct?",
     "rise": "Sunrise",
     "set": "Sunset",
     "sunrise": "Sunrise",
@@ -371,7 +370,6 @@
       "title": "Did you know that...",
       "subtitle": "There are several ways to find a place",
       "way1": "1 way - by city name. For example:",
-      "@@city": "you can suggest your city. Don't forget to correct the coordinates below.",
       "city": "Moscow",
       "way2": "2 way - by coordinates, like this:",
       "coord": "55.75199, 37.61773"

@@ -6,7 +6,7 @@
 /// Locales: 2
 /// Strings: 620 (310 per locale)
 ///
-/// Built on 2023-10-18 at 08:15 UTC
+/// Built on 2024-08-04 at 06:30 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -27,8 +27,8 @@ const AppLocale _baseLocale = AppLocale.ru;
 /// - LocaleSettings.setLocale(AppLocale.ru) // set locale
 /// - Locale locale = AppLocale.ru.flutterLocale // get flutter locale from enum
 /// - if (LocaleSettings.currentLocale == AppLocale.ru) // locale check
-enum AppLocale with BaseAppLocale<AppLocale, TranslationsRu> {
-	ru(languageCode: 'ru', build: TranslationsRu.build),
+enum AppLocale with BaseAppLocale<AppLocale, Translations> {
+	ru(languageCode: 'ru', build: Translations.build),
 	en(languageCode: 'en', build: TranslationsEn.build);
 
 	const AppLocale({required this.languageCode, this.scriptCode, this.countryCode, required this.build}); // ignore: unused_element
@@ -36,11 +36,11 @@ enum AppLocale with BaseAppLocale<AppLocale, TranslationsRu> {
 	@override final String languageCode;
 	@override final String? scriptCode;
 	@override final String? countryCode;
-	@override final TranslationBuilder<AppLocale, TranslationsRu> build;
+	@override final TranslationBuilder<AppLocale, Translations> build;
 }
 
 /// Provides utility functions without any side effects.
-class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, TranslationsRu> {
+class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, Translations> {
 	AppLocaleUtils._() : super(baseLocale: _baseLocale, locales: AppLocale.values);
 
 	static final instance = AppLocaleUtils._();

@@ -1,11 +1,17 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 part of 'translations.g.dart';
 
 // Path: <root>
-class TranslationsRu implements BaseTranslations<AppLocale, TranslationsRu> {
-
+typedef TranslationsRu = Translations; // ignore: unused_element
+class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsRu.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	Translations.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
 		  $meta = TranslationMetadata(
 		    locale: AppLocale.ru,
@@ -15,9 +21,9 @@ class TranslationsRu implements BaseTranslations<AppLocale, TranslationsRu> {
 		  );
 
 	/// Metadata for the translations of <ru>.
-	@override final TranslationMetadata<AppLocale, TranslationsRu> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
-	late final TranslationsRu _root = this; // ignore: unused_field
+	late final Translations _root = this; // ignore: unused_field
 
 	// Translations
 	late final TranslationsMainPageDRubleRu mainPageDRuble = TranslationsMainPageDRubleRu._(_root);
@@ -44,7 +50,7 @@ class TranslationsRu implements BaseTranslations<AppLocale, TranslationsRu> {
 class TranslationsMainPageDRubleRu {
 	TranslationsMainPageDRubleRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsMainPageDRubleMainPageRu mainPage = TranslationsMainPageDRubleMainPageRu._(_root);
@@ -56,7 +62,7 @@ class TranslationsMainPageDRubleRu {
 class TranslationsSettingsPageRu {
 	TranslationsSettingsPageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsSettingsPageHeadersRu headers = TranslationsSettingsPageHeadersRu._(_root);
@@ -80,7 +86,7 @@ class TranslationsSettingsPageRu {
 class TranslationsVisualDesignPageRu {
 	TranslationsVisualDesignPageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get appbarTitle => 'Визуальное оформление';
@@ -92,7 +98,7 @@ class TranslationsVisualDesignPageRu {
 class TranslationsThemesPageRu {
 	TranslationsThemesPageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get appbarTitle => 'Цветовое решение';
@@ -111,7 +117,7 @@ class TranslationsThemesPageRu {
 class TranslationsSavedPlacesPageRu {
 	TranslationsSavedPlacesPageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsSavedPlacesPageTipsRu tips = TranslationsSavedPlacesPageTipsRu._(_root);
@@ -125,7 +131,7 @@ class TranslationsSavedPlacesPageRu {
 class TranslationsSearchBarRu {
 	TranslationsSearchBarRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get hintTextField => 'Введите название места';
@@ -136,7 +142,7 @@ class TranslationsSearchBarRu {
 class TranslationsFlagsPageRu {
 	TranslationsFlagsPageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get appbarTitle => 'Флаги разных стран';
@@ -146,7 +152,7 @@ class TranslationsFlagsPageRu {
 class TranslationsSystemSettingsPageRu {
 	TranslationsSystemSettingsPageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get appbarTitle => 'Системные настройки';
@@ -157,16 +163,16 @@ class TranslationsSystemSettingsPageRu {
 class TranslationsGratitudePageRu {
 	TranslationsGratitudePageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get appbarTitle => 'Хочу сказать спасибо...';
 	TextSpan text({required InlineSpanBuilder dart, required InlineSpanBuilder flutter, required InlineSpanBuilder remiRousselet, required InlineSpanBuilder riverpod, required InlineSpanBuilder freezed, required InlineSpanBuilder tienDoNam, required InlineSpanBuilder slang, required InlineSpanBuilder rydMike, required InlineSpanBuilder flexColorScheme, required InlineSpanBuilder myEmail, required InlineSpanBuilder tgGroup}) => TextSpan(children: [
-		const TextSpan(text: '  Годом ранее я увлекся новым языком программирования dart, попутно изучив flutter. Для оттачивания своих навыков в субстанции нового я понял, что хочу создать простенькое (казалось мне тогда, хохо) приложение – агрегатор погоды. И вот, минуя полгода, на свет появилось приложение под названием – \'Weather Today\' – погода на каждый день.\n  За время разработки со мной были рядом люди (и их решения), оказывающие большую помощь и поддержку.\n  Я бесконечно благодарен своей девушке за её терпение, понимание и принятие того, что редкие вечерние часы я тратил на работу над приложением, вместо того, чтобы провести их с семьёй.\n  Также я хотел бы отдать должное коллегам-разработчикам, кто выкладывает интересные и, немаловажно, полезные разработки. В особенности я хочу отметить команду '),
+		const TextSpan(text: '  Годом ранее я увлекся новым языком программирования Dart, попутно изучив Flutter. Для оттачивания своих навыков в субстанции нового я понял, что хочу создать простенькое (казалось мне тогда, хохо) приложение — агрегатор погоды. И вот, минуя полгода, на свет появилось приложение под названием "Weather Today — погода на каждый день".\n  За время разработки со мной были рядом люди (и их решения), оказывающие большую помощь и поддержку.\n  Я бесконечно благодарен своей девушке за её терпение, понимание и принятие того, что редкие вечерние часы я тратил на работу над приложением, вместо того, чтобы провести их с семьёй.\n  Также я хотел бы отдать должное коллегам-разработчикам, кто выкладывает интересные и, немаловажно, полезные разработки. В особенности я хочу отметить команду '),
 		dart('dart'),
 		const TextSpan(text: ' и '),
 		flutter('flutter'),
-		const TextSpan(text: ' за прекрасную платформу для построения поистине крутых приложений; '),
+		const TextSpan(text: ' за прекрасную платформу для построения хороших приложений; '),
 		remiRousselet('Remi Rousselet'),
 		const TextSpan(text: ' за восхитительные пакеты '),
 		riverpod('riverpod'),
@@ -180,7 +186,7 @@ class TranslationsGratitudePageRu {
 		rydMike('Ryd Mike'),
 		const TextSpan(text: ' за очаровательный пакет '),
 		flexColorScheme('flexColorScheme'),
-		const TextSpan(text: '.\n  Я всегда открыт для общения и буду благодарен, если, попользовавшись данным приложением, вы напишите пару строк о его практичности и компетентности, а также поделитесь мнением о возможных функциях, которые стоило бы сделать.\n  Со мной можно связаться:\n    - email: '),
+		const TextSpan(text: '.\n  Я всегда открыт для общения и буду благодарен, вы напишите пару строк о сим творении, а также поделитесь мнением о возможных функциях, которые стоило бы сделать.\n  Со мной можно связаться:\n    - email: '),
 		myEmail('pack.ruble@gmail.com'),
 		const TextSpan(text: '\n    - telegram: '),
 		tgGroup('группа Telegram'),
@@ -191,7 +197,7 @@ class TranslationsGratitudePageRu {
 class TranslationsWeatherLangPageRu {
 	TranslationsWeatherLangPageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get appbarTitle => 'Язык погодных условий';
@@ -202,7 +208,7 @@ class TranslationsWeatherLangPageRu {
 class TranslationsApiWeatherPageRu {
 	TranslationsApiWeatherPageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get appbarTitle => 'Ваш ключ Api';
@@ -219,7 +225,7 @@ class TranslationsApiWeatherPageRu {
 class TranslationsIntroPageRu {
 	TranslationsIntroPageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tile1title => 'УЗНАВАЙ';
@@ -239,7 +245,7 @@ class TranslationsIntroPageRu {
 class TranslationsTermsConditionsRu {
 	TranslationsTermsConditionsRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get informationForAction => 'Ознакомьтесь и согласитесь со всеми юридическими документами для использования данного приложения.';
@@ -255,7 +261,7 @@ class TranslationsTermsConditionsRu {
 class TranslationsWeatherRu {
 	TranslationsWeatherRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	Map<String, String> get condition => {
@@ -341,7 +347,7 @@ class TranslationsWeatherRu {
 class TranslationsGlobalRu {
 	TranslationsGlobalRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsGlobalTimeRu time = TranslationsGlobalTimeRu._(_root);
@@ -351,7 +357,7 @@ class TranslationsGlobalRu {
 class TranslationsDialogsRu {
 	TranslationsDialogsRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsDialogsMessagesRu messages = TranslationsDialogsMessagesRu._(_root);
@@ -370,7 +376,7 @@ class TranslationsDialogsRu {
 class TranslationsEnumsRu {
 	TranslationsEnumsRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsEnumsHomepageRu homepage = TranslationsEnumsHomepageRu._(_root);
@@ -380,7 +386,7 @@ class TranslationsEnumsRu {
 class TranslationsUnitsRu {
 	TranslationsUnitsRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsUnitsTempRu temp = TranslationsUnitsTempRu._(_root);
@@ -393,7 +399,7 @@ class TranslationsUnitsRu {
 class TranslationsMainPageDRubleMainPageRu {
 	TranslationsMainPageDRubleMainPageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsMainPageDRubleMainPageBottomBarRu bottomBar = TranslationsMainPageDRubleMainPageBottomBarRu._(_root);
@@ -403,7 +409,7 @@ class TranslationsMainPageDRubleMainPageRu {
 class TranslationsMainPageDRubleHourlyPageRu {
 	TranslationsMainPageDRubleHourlyPageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsMainPageDRubleHourlyPageForecastRu forecast = TranslationsMainPageDRubleHourlyPageForecastRu._(_root);
@@ -416,7 +422,7 @@ class TranslationsMainPageDRubleHourlyPageRu {
 class TranslationsMainPageDRubleCurrentPageRu {
 	TranslationsMainPageDRubleCurrentPageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get sunrise => 'Восход';
@@ -432,7 +438,7 @@ class TranslationsMainPageDRubleCurrentPageRu {
 class TranslationsSettingsPageHeadersRu {
 	TranslationsSettingsPageHeadersRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get weather => 'Погода';
@@ -444,7 +450,7 @@ class TranslationsSettingsPageHeadersRu {
 class TranslationsSettingsPageSavedPlacesTileRu {
 	TranslationsSettingsPageSavedPlacesTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Мои места';
@@ -454,7 +460,7 @@ class TranslationsSettingsPageSavedPlacesTileRu {
 class TranslationsSettingsPageTempTileRu {
 	TranslationsSettingsPageTempTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Единицы измерения температуры';
@@ -467,7 +473,7 @@ class TranslationsSettingsPageTempTileRu {
 class TranslationsSettingsPagePressureTileRu {
 	TranslationsSettingsPagePressureTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Единицы измерения давления';
@@ -480,7 +486,7 @@ class TranslationsSettingsPagePressureTileRu {
 class TranslationsSettingsPageSpeedTileRu {
 	TranslationsSettingsPageSpeedTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Единицы измерения скорости';
@@ -493,7 +499,7 @@ class TranslationsSettingsPageSpeedTileRu {
 class TranslationsSettingsPageWeatherLangTileRu {
 	TranslationsSettingsPageWeatherLangTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Язык погодных условий';
@@ -503,7 +509,7 @@ class TranslationsSettingsPageWeatherLangTileRu {
 class TranslationsSettingsPageUserApiTileRu {
 	TranslationsSettingsPageUserApiTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Пользовательское Api';
@@ -513,7 +519,7 @@ class TranslationsSettingsPageUserApiTileRu {
 class TranslationsSettingsPageVisualDesignTileRu {
 	TranslationsSettingsPageVisualDesignTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Визуальное оформление';
@@ -523,7 +529,7 @@ class TranslationsSettingsPageVisualDesignTileRu {
 class TranslationsSettingsPageThemeTileRu {
 	TranslationsSettingsPageThemeTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Цветовое решение';
@@ -533,7 +539,7 @@ class TranslationsSettingsPageThemeTileRu {
 class TranslationsSettingsPageCountryFlagsTileRu {
 	TranslationsSettingsPageCountryFlagsTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Флаги разных стран';
@@ -543,7 +549,7 @@ class TranslationsSettingsPageCountryFlagsTileRu {
 class TranslationsSettingsPageHomepageTileRu {
 	TranslationsSettingsPageHomepageTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Стартовая страница';
@@ -556,7 +562,7 @@ class TranslationsSettingsPageHomepageTileRu {
 class TranslationsSettingsPageLocaleTileRu {
 	TranslationsSettingsPageLocaleTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Язык приложения';
@@ -569,7 +575,7 @@ class TranslationsSettingsPageLocaleTileRu {
 class TranslationsSettingsPageGratitudeTileRu {
 	TranslationsSettingsPageGratitudeTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Благодарности';
@@ -579,7 +585,7 @@ class TranslationsSettingsPageGratitudeTileRu {
 class TranslationsSettingsPageSystemSettingsTileRu {
 	TranslationsSettingsPageSystemSettingsTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Системные настройки';
@@ -589,7 +595,7 @@ class TranslationsSettingsPageSystemSettingsTileRu {
 class TranslationsSettingsPageAboutAppTileRu {
 	TranslationsSettingsPageAboutAppTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'О приложении';
@@ -599,7 +605,7 @@ class TranslationsSettingsPageAboutAppTileRu {
 class TranslationsVisualDesignPageTipsRu {
 	TranslationsVisualDesignPageTipsRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get info => 'Удерживайте тайл, чтобы увидеть дизайн';
@@ -609,7 +615,7 @@ class TranslationsVisualDesignPageTipsRu {
 class TranslationsVisualDesignPageHeadersRu {
 	TranslationsVisualDesignPageHeadersRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get design => 'Оформление главных страниц погоды';
@@ -623,7 +629,7 @@ class TranslationsVisualDesignPageHeadersRu {
 class TranslationsSavedPlacesPageTipsRu {
 	TranslationsSavedPlacesPageTipsRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get clickToMore => 'Нажмите, чтобы узнать больше.';
@@ -634,7 +640,7 @@ class TranslationsSavedPlacesPageTipsRu {
 class TranslationsSearchBarTipsRu {
 	TranslationsSearchBarTipsRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get clickToSet => 'Кликните, чтобы выбрать место.';
@@ -650,7 +656,7 @@ class TranslationsSearchBarTipsRu {
 class TranslationsSystemSettingsPageEnableLogsTileRu {
 	TranslationsSystemSettingsPageEnableLogsTileRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get tileTitle => 'Включить логирование';
@@ -662,7 +668,7 @@ class TranslationsSystemSettingsPageEnableLogsTileRu {
 class TranslationsWeatherLangPageTipsRu {
 	TranslationsWeatherLangPageTipsRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get info => 'Некоторые погодные условия будут предоставляться на выбранном языке.';
@@ -672,7 +678,7 @@ class TranslationsWeatherLangPageTipsRu {
 class TranslationsApiWeatherPageTipsRu {
 	TranslationsApiWeatherPageTipsRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get info => 'Чтобы делать запросы чаще, нужно иметь свой ключик Api.';
@@ -683,7 +689,7 @@ class TranslationsApiWeatherPageTipsRu {
 class TranslationsApiWeatherPageDefaultApiRu {
 	TranslationsApiWeatherPageDefaultApiRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get usingApi => 'Используется ключ разработчика';
@@ -696,7 +702,7 @@ class TranslationsApiWeatherPageDefaultApiRu {
 class TranslationsApiWeatherPageUserApiRu {
 	TranslationsApiWeatherPageUserApiRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get usingApi => 'Используется Ваш ключ';
@@ -709,7 +715,7 @@ class TranslationsApiWeatherPageUserApiRu {
 class TranslationsApiWeatherPageTooltipsRu {
 	TranslationsApiWeatherPageTooltipsRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get delApiKey => 'Удалить Api-ключ';
@@ -723,7 +729,7 @@ class TranslationsApiWeatherPageTooltipsRu {
 class TranslationsGlobalTimeRu {
 	TranslationsGlobalTimeRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get dayBeforeYesterday => 'Позавчера';
@@ -743,7 +749,7 @@ class TranslationsGlobalTimeRu {
 class TranslationsDialogsMessagesRu {
 	TranslationsDialogsMessagesRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get socketException => 'Отсутствует подключение к интернету или сервис погоды не доступен';
@@ -758,7 +764,7 @@ class TranslationsDialogsMessagesRu {
 class TranslationsDialogsTitlesRu {
 	TranslationsDialogsTitlesRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get warning => 'Предупреждение';
@@ -769,7 +775,7 @@ class TranslationsDialogsTitlesRu {
 class TranslationsDialogsButtonsRu {
 	TranslationsDialogsButtonsRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get ok => 'Ок';
@@ -784,7 +790,7 @@ class TranslationsDialogsButtonsRu {
 class TranslationsDialogsPlaceSearchInfoRu {
 	TranslationsDialogsPlaceSearchInfoRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get title => 'А вы знали, что...';
@@ -799,7 +805,7 @@ class TranslationsDialogsPlaceSearchInfoRu {
 class TranslationsDialogsConfirmDelPlaceRu {
 	TranslationsDialogsConfirmDelPlaceRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get subtitle => 'Удалить местоположение?';
@@ -810,7 +816,7 @@ class TranslationsDialogsConfirmDelPlaceRu {
 class TranslationsDialogsSeeFlagRu {
 	TranslationsDialogsSeeFlagRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get subtitle => 'Вы можете увидеть полное наименование страны и её флаг';
@@ -820,7 +826,7 @@ class TranslationsDialogsSeeFlagRu {
 class TranslationsDialogsConfirmDelUserApikeyRu {
 	TranslationsDialogsConfirmDelUserApikeyRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get subtitle => 'Ваш пользовательский ключ api будет удален';
@@ -830,7 +836,7 @@ class TranslationsDialogsConfirmDelUserApikeyRu {
 class TranslationsDialogsConfirmSaveChangesRu {
 	TranslationsDialogsConfirmSaveChangesRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get subtitle => 'Сохранить изменения?';
@@ -840,7 +846,7 @@ class TranslationsDialogsConfirmSaveChangesRu {
 class TranslationsDialogsConfirmResetSettingsRu {
 	TranslationsDialogsConfirmResetSettingsRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get subtitle => 'Сбросить настройки?';
@@ -851,7 +857,7 @@ class TranslationsDialogsConfirmResetSettingsRu {
 class TranslationsDialogsMakeNoteRu {
 	TranslationsDialogsMakeNoteRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get title => 'Заметка';
@@ -862,7 +868,7 @@ class TranslationsDialogsMakeNoteRu {
 class TranslationsEnumsHomepageRu {
 	TranslationsEnumsHomepageRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get settings => 'Настройки';
@@ -875,7 +881,7 @@ class TranslationsEnumsHomepageRu {
 class TranslationsUnitsTempRu {
 	TranslationsUnitsTempRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsUnitsTempFullNameRu fullName = TranslationsUnitsTempFullNameRu._(_root);
@@ -885,7 +891,7 @@ class TranslationsUnitsTempRu {
 class TranslationsUnitsSpeedRu {
 	TranslationsUnitsSpeedRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsUnitsSpeedAbbrRu abbr = TranslationsUnitsSpeedAbbrRu._(_root);
@@ -895,7 +901,7 @@ class TranslationsUnitsSpeedRu {
 class TranslationsUnitsPressureRu {
 	TranslationsUnitsPressureRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsUnitsPressureAbbrRu abbr = TranslationsUnitsPressureAbbrRu._(_root);
@@ -906,7 +912,7 @@ class TranslationsUnitsPressureRu {
 class TranslationsUnitsSideOfTheWorldRu {
 	TranslationsUnitsSideOfTheWorldRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsUnitsSideOfTheWorldAbbrRu abbr = TranslationsUnitsSideOfTheWorldAbbrRu._(_root);
@@ -918,7 +924,7 @@ class TranslationsUnitsSideOfTheWorldRu {
 class TranslationsMainPageDRubleMainPageBottomBarRu {
 	TranslationsMainPageDRubleMainPageBottomBarRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get settings => 'Настройки';
@@ -931,7 +937,7 @@ class TranslationsMainPageDRubleMainPageBottomBarRu {
 class TranslationsMainPageDRubleHourlyPageForecastRu {
 	TranslationsMainPageDRubleHourlyPageForecastRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get title => 'Погода';
@@ -943,7 +949,7 @@ class TranslationsMainPageDRubleHourlyPageForecastRu {
 class TranslationsMainPageDRubleHourlyPagePopRu {
 	TranslationsMainPageDRubleHourlyPagePopRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get title => 'Осадки';
@@ -958,7 +964,7 @@ class TranslationsMainPageDRubleHourlyPagePopRu {
 class TranslationsMainPageDRubleHourlyPageWindRu {
 	TranslationsMainPageDRubleHourlyPageWindRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get title => 'Ветер';
@@ -973,11 +979,11 @@ class TranslationsMainPageDRubleHourlyPageWindRu {
 class TranslationsMainPageDRubleHourlyPageMoreRu {
 	TranslationsMainPageDRubleHourlyPageMoreRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get title => 'Ещё';
-	String get unitsRight => 'мм.\nрт.\nст.';
+	String get unitsRight => 'мм\nрт.\nст.';
 	String get noData => 'Нет других данных';
 	late final TranslationsMainPageDRubleHourlyPageMoreLegendRu legend = TranslationsMainPageDRubleHourlyPageMoreLegendRu._(_root);
 }
@@ -986,7 +992,7 @@ class TranslationsMainPageDRubleHourlyPageMoreRu {
 class TranslationsMainPageDRubleCurrentPageHeadersRu {
 	TranslationsMainPageDRubleCurrentPageHeadersRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get sun => 'Восход и закат';
@@ -1000,7 +1006,7 @@ class TranslationsMainPageDRubleCurrentPageHeadersRu {
 class TranslationsUnitsTempFullNameRu {
 	TranslationsUnitsTempFullNameRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get celsius => 'По шкале Цельсия';
@@ -1012,7 +1018,7 @@ class TranslationsUnitsTempFullNameRu {
 class TranslationsUnitsSpeedAbbrRu {
 	TranslationsUnitsSpeedAbbrRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get ms => 'м/с';
@@ -1024,22 +1030,22 @@ class TranslationsUnitsSpeedAbbrRu {
 class TranslationsUnitsPressureAbbrRu {
 	TranslationsUnitsPressureAbbrRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get hectoPa => 'гПа';
 	String get mbar => 'мБар';
-	String get mmHg => 'мм. рт. ст.';
+	String get mmHg => 'мм рт. ст.';
 	String get kPa => 'кПа';
 	String get atm => 'атм';
-	String get inHg => 'дюйм рт. ст.';
+	String get inHg => 'дюйм рт. ст.';
 }
 
 // Path: units.pressure.name
 class TranslationsUnitsPressureNameRu {
 	TranslationsUnitsPressureNameRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get hectoPa => 'ГектоПаскали';
@@ -1054,7 +1060,7 @@ class TranslationsUnitsPressureNameRu {
 class TranslationsUnitsSideOfTheWorldAbbrRu {
 	TranslationsUnitsSideOfTheWorldAbbrRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get north => 'С';
@@ -1071,7 +1077,7 @@ class TranslationsUnitsSideOfTheWorldAbbrRu {
 class TranslationsUnitsSideOfTheWorldNameAdjRu {
 	TranslationsUnitsSideOfTheWorldNameAdjRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get north => 'Северный';
@@ -1088,7 +1094,7 @@ class TranslationsUnitsSideOfTheWorldNameAdjRu {
 class TranslationsUnitsSideOfTheWorldNameRu {
 	TranslationsUnitsSideOfTheWorldNameRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get north => 'Север';
@@ -1105,7 +1111,7 @@ class TranslationsUnitsSideOfTheWorldNameRu {
 class TranslationsMainPageDRubleHourlyPageForecastLegendRu {
 	TranslationsMainPageDRubleHourlyPageForecastLegendRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get realTemp => 'реальная';
@@ -1117,7 +1123,7 @@ class TranslationsMainPageDRubleHourlyPageForecastLegendRu {
 class TranslationsMainPageDRubleHourlyPagePopLegendRu {
 	TranslationsMainPageDRubleHourlyPagePopLegendRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get rain => 'дождь';
@@ -1128,7 +1134,7 @@ class TranslationsMainPageDRubleHourlyPagePopLegendRu {
 class TranslationsMainPageDRubleHourlyPageWindLegendRu {
 	TranslationsMainPageDRubleHourlyPageWindLegendRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get wind => 'ветер';
@@ -1139,7 +1145,7 @@ class TranslationsMainPageDRubleHourlyPageWindLegendRu {
 class TranslationsMainPageDRubleHourlyPageMoreLegendRu {
 	TranslationsMainPageDRubleHourlyPageMoreLegendRu._(this._root);
 
-	final TranslationsRu _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get clouds => 'облачность';

@@ -1,8 +1,13 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint
+
 part of 'translations.g.dart';
 
 // Path: <root>
-class TranslationsEn extends TranslationsRu {
-
+class TranslationsEn extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsEn.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -16,7 +21,7 @@ class TranslationsEn extends TranslationsRu {
 		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <en>.
-	@override final TranslationMetadata<AppLocale, TranslationsRu> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	@override late final TranslationsEn _root = this; // ignore: unused_field
 
@@ -163,7 +168,7 @@ class TranslationsGratitudePageEn extends TranslationsGratitudePageRu {
 	// Translations
 	@override String get appbarTitle => 'I want to say thank you...';
 	@override TextSpan text({required InlineSpanBuilder dart, required InlineSpanBuilder flutter, required InlineSpanBuilder remiRousselet, required InlineSpanBuilder riverpod, required InlineSpanBuilder freezed, required InlineSpanBuilder tienDoNam, required InlineSpanBuilder slang, required InlineSpanBuilder rydMike, required InlineSpanBuilder flexColorScheme, required InlineSpanBuilder myEmail, required InlineSpanBuilder tgGroup}) => TextSpan(children: [
-		const TextSpan(text: '  A year earlier I became interested in a new programming language, dart, and at the same time I learned flutter. To sharpen my skills in the substance of the new, I realized that I wanted to create a simple (it seemed to me at the time, hoho) application - a weather aggregator. And after half a year there appeared an application called \'Weather Today\' - everyday weather.\n  During the developing process I had a lot of people (and their solutions) helping and supporting me.\n  I am eternally grateful to my girlfriend for her patience, understanding and acceptance of the rare evening hours I spent working on the app instead of spending them with my family.\n  I would also like to pay tribute to fellow developers who put out interesting and, importantly, useful products. In particular I want to mention '),
+		const TextSpan(text: '  A year earlier I became interested in a new programming language, dart, and at the same time I learned flutter. To sharpen my skills in the substance of the new, I realized that I wanted to create a simple (it seemed to me at the time, hoho) application - a weather aggregator. And after half a year there appeared an application called "Weather Today — погода на каждый день".\n  During the developing process I had a lot of people (and their solutions) helping and supporting me.\n  I am eternally grateful to my girlfriend for her patience, understanding and acceptance of the rare evening hours I spent working on the app instead of spending them with my family.\n  I would also like to pay tribute to fellow developers who put out interesting and, importantly, useful products. In particular I want to mention '),
 		dart('dart'),
 		const TextSpan(text: ' and '),
 		flutter('flutter'),
@@ -289,10 +294,7 @@ class TranslationsWeatherEn extends TranslationsWeatherRu {
 	@override String get riseAndSetPl => 'Sunrises and sunsets';
 	@override String get sun => 'Sun';
 	@override String get moon => 'Moon';
-
-	/// It is correct?
 	@override String get rise => 'Sunrise';
-
 	@override String get set => 'Sunset';
 	@override String get sunrise => 'Sunrise';
 	@override String get sunset => 'Sunset';
