@@ -44,9 +44,10 @@ class RefreshWrapper<T extends Object> extends ConsumerWidget {
     return RefreshIndicator(
       onRefresh: onRefresh,
       child: asyncValue.when(
-        skipLoadingOnReload:
-            true, // when dependent on another provider with [Ref.watch]
-        skipLoadingOnRefresh: false, // when [Ref.invalidate]/[Ref.refresh]
+        // when dependent on another provider with [Ref.watch]
+        skipLoadingOnReload: true,
+        // when [Ref.invalidate]/[Ref.refresh]
+        skipLoadingOnRefresh: false,
         data: (T? value) {
           if (value != null) return child(context, value);
 

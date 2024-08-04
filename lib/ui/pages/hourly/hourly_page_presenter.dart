@@ -23,6 +23,7 @@ class HourlyPagePresenter {
 
   static final hourly = Provider<AsyncValue<List<WeatherHourly>?>>(
     (ref) => ref.watch(WeatherOnecallDelegacyNR.i).when(
+          skipLoadingOnReload: true,
           data: (weather) => AsyncValue.data(weather?.hourly),
           error: (e, st) => AsyncValue.error(e, st),
           loading: () => const AsyncValue.loading(),
