@@ -46,7 +46,7 @@ class VisualDesignPresenter {
 
   /// Apply the values when you finish editing the options.
   static final changesProvider =
-      StateProvider.autoDispose<Set<_SavedChanges>>((ref) => {});
+      StateProvider.autoDispose((_) => <_SavedChanges>{});
 
   // ---------------------------------------------------------------------------
   // TextScaleFactor
@@ -186,14 +186,15 @@ class VisualDesignPresenter {
   // Main
   // ---------------------------------------------------------------------------
 
+  StateController<Set<_SavedChanges>> get changesCR =>
+      _ref.read(changesProvider.notifier);
+
   /// Кнопка "Назад".
   Future<bool> onWillPop(BuildContext context) async {
-    if (_ref.read(changesProvider.notifier).state.isNotEmpty) {
-      final bool isSave = await AppDialogs.confirmSaveChanges(context);
+    if (changesCR.state.isNotEmpty) {
+      final canSave = await AppDialogs.confirmSaveChanges(context);
 
-      if (isSave) {
-        await saveAllChanges(); // сохранить и выйти
-      }
+      if (canSave) await saveAllChanges();
     }
 
     return true;
@@ -202,9 +203,8 @@ class VisualDesignPresenter {
   /// Добавить действие в [changesProvider], которое подлежит
   /// дальнейшему вызову [saveAllChanges].
   ///
-  void _saveNewAction(_SavedChanges change) => _ref
-      .read(changesProvider.notifier)
-      .update((state) => Set.of({...state, change}));
+  void _saveNewAction(_SavedChanges change) =>
+      changesCR.update((state) => Set.of({...state, change}));
 
   /// Call all save functions. May be as follows:
   ///
@@ -214,8 +214,7 @@ class VisualDesignPresenter {
   /// * [_saveScrollPhysics]
   ///
   Future<void> saveAllChanges() async {
-    for (final _SavedChanges change
-        in _ref.read(changesProvider.notifier).state) {
+    for (final _SavedChanges change in changesCR.state) {
       await switch (change) {
         _SavedChanges.textScaleFactor => _saveTextScaleFactor,
         _SavedChanges.fontFamily => _saveFontFamily,

@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import 'theme_button.dart';
@@ -47,7 +48,7 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
         color: theme.appBarTheme.foregroundColor,
       ),
       leading: IconButton(
-        onPressed: () async => Navigator.maybePop(context),
+        onPressed: context.router.maybePop,
         icon: const BackButtonIcon(),
       ),
       actions: actionsWidget,

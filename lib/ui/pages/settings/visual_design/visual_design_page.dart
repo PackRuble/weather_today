@@ -39,12 +39,16 @@ class VisualDesignPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(VisualDesignPresenter.tr);
 
-    final ScrollPhysics scrollPhysics =
+    final scrollPhysics =
         ref.watch(VisualDesignPresenter.selectedScrollPhysic).scrollPhysics;
 
-    return PopScope(
-      onPopInvoked: (_) async =>
-          ref.watch(VisualDesignPresenter.instance).onWillPop(context),
+    return WillPopScope(
+      onWillPop: () async =>
+          ref.read(VisualDesignPresenter.instance).onWillPop(context),
+      // fixdep(04.08.2024): [On dialog pop + page pop after unawaited async method called ('!_debugLocked': is not true.) · Issue #2017 · Milad-Akarie/auto_route_library](https://github.com/Milad-Akarie/auto_route_library/issues/2017)
+      // PopScope(
+      // onPopInvoked: (_) async =>
+      //     ref.read(VisualDesignPresenter.instance).onWillPop(context),
       child: Scaffold(
         appBar: AppBarCustom(
           t.visualDesignPage.appbarTitle,

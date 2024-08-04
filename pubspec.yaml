@@ -23,6 +23,7 @@ dependencies:
   expandable: ^5.0.1
   smooth_page_indicator: ^1.2.0
   country_icons: ^3.0.0
+  # coldfix: refuse in favor of Snack
   fluttertoast: ^8.2.6
   # coldfix: this error was fixed in version 0.64
   # https://github.com/imaNNeo/fl_chart/issues/1388
@@ -40,7 +41,7 @@ dependencies:
   freezed_annotation: ^2.4.4
 
   # Routing
-  auto_route: ^9.1.0
+  auto_route: ^9.2.0
   dismissible_page: ^1.0.2
 
   # Database
