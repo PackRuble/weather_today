@@ -23,7 +23,7 @@ class WeatherOpenMeteoNR extends WeatherNR<ForecastOpenMeteoResponse> {
   OpenMeteoRepo get _openMeteoRepo => ref.read(OpenMeteoRepoPR.i);
 
   @override
-  Duration get allowedRequestRate => Duration.zero;
+  Duration get allowedRequestRate => const Duration(minutes: 15);
 
   @override
   FutureOr<ForecastOpenMeteoResponse?> build() async {
@@ -36,8 +36,35 @@ class WeatherOpenMeteoNR extends WeatherNR<ForecastOpenMeteoResponse> {
       _openMeteoStorage.getOrNull(OpenMeteoCards.latestWeatherForecast);
 
   @override
-  Future<ForecastOpenMeteoResponse> getWeatherFromOWM(Place place) async =>
-      await _openMeteoRepo.fetchForecast(place);
+  Future<ForecastOpenMeteoResponse> fetchWeather(Place place) async {
+    final last = getLastRequestTime();
+    final now = DateTime.now();
+
+    ForecastOpenMeteoResponse? weather = await getStoredWeather();
+
+    // it was today?
+    if (weather != null &&
+        last != null &&
+        last.year == now.year &&
+        last.month == now.month &&
+        last.day == now.day) {
+      // hourly and daily are updated once a day for open-meteo, so it doesn't
+      // make sense to make more requests
+      // todo(05.08.2024): however, this trick does not take into account possible
+      //  differences in locations, etc.
+      final res = await _openMeteoRepo.fetchForecast(
+        place,
+        hourlyParams: null,
+        dailyParams: null,
+      );
+
+      weather = weather.copyWith(currentWeather: res.currentWeather);
+    } else {
+      weather = await _openMeteoRepo.fetchForecast(place);
+    }
+
+    return weather;
+  }
 
   @override
   Future<void> saveWeatherInDb(ForecastOpenMeteoResponse weather) async =>
@@ -48,13 +75,24 @@ class WeatherOpenMeteoNR extends WeatherNR<ForecastOpenMeteoResponse> {
       _openMeteoStorage.set(OpenMeteoCards.latestRequestTimeForecast, dateTime);
 
   @override
-  Future<DateTime> getLastRequestTime() async =>
-      _openMeteoStorage.getOrNull(OpenMeteoCards.latestRequestTimeForecast) ??
-      DateTime.fromMillisecondsSinceEpoch(0);
+  DateTime? getLastRequestTime() =>
+      _openMeteoStorage.getOrNull(OpenMeteoCards.latestRequestTimeForecast);
 
   @override
-  Future<bool> isAbilityRequestOnDiffPlacesImpl() async => true;
+  bool isAbilityRequestOnDiffPlacesImpl() =>
+      _openMeteoStorage.get<bool>(OpenMeteoCards.isAllowUpdateDueToDiffPlaces);
 
   @override
-  Future<void> resetAbilityRequestOnDiffPlaces() async => false;
+  Future<void> resetAbilityRequestOnDiffPlaces() async =>
+      _openMeteoStorage.set<bool>(
+        OpenMeteoCards.isAllowUpdateDueToDiffPlaces,
+        false,
+      );
+
+  @override
+  FutureOr<void> whenUpdateNotAllowed() {
+    // allowedRequestRate=15min => data on the server is not updated more often
+    // todo(05.08.2024): tr
+    messagesNR.showSnack('Данные актуальны');
+  }
 }

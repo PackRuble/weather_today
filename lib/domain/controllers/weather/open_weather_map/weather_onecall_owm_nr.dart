@@ -49,7 +49,7 @@ class WeatherOnecallOwmNR extends BaseWeatherOwmNR<WeatherOneCall> {
   }
 
   @override
-  Future<WeatherOneCall> getWeatherFromOWM(Place place) async =>
+  Future<WeatherOneCall> fetchWeather(Place place) async =>
       weatherService.oneCallWeatherByLocation(
           latitude: place.latitude!, longitude: place.longitude!);
 

@@ -10,8 +10,8 @@ import 'models/models.dart';
 class OpenMeteoApiException implements Exception {
   const OpenMeteoApiException(this.code, this.message);
 
-  const OpenMeteoApiException.error(Object error, StackTrace stackTrace)
-      : message = '$error\n$stackTrace',
+  const OpenMeteoApiException.error(Object error)
+      : message = '$error',
         code = 0;
 
   /// Message about error.
@@ -21,13 +21,18 @@ class OpenMeteoApiException implements Exception {
   final int code;
 
   @override
-  String toString() => '$this(code: $code, message: $message)';
+  String toString() => '$OpenMeteoApiException(code: $code, message: $message)';
 }
 
 class OpenMeteoRepo {
   const OpenMeteoRepo();
 
-  Future<ForecastOpenMeteoResponse> fetchForecast(Place place) async {
+  Future<ForecastOpenMeteoResponse> fetchForecast(
+    Place place, {
+    List<OpenMeteoCurrentParam> currentParams = OpenMeteoCurrentParam.values,
+    List<OpenMeteoHourlyParam>? hourlyParams = OpenMeteoHourlyParam.values,
+    List<OpenMeteoDailyParam>? dailyParams = OpenMeteoDailyParam.values,
+  }) async {
     ForecastOpenMeteoResponse result;
 
     try {
@@ -42,10 +47,13 @@ class OpenMeteoRepo {
           'precipitation_unit': 'mm', // mm | inch
           // todo(03.08.2024):
           'timezone': 'auto', // GMT | auto
-          'past_days': '1', // for daily
-          'current': OpenMeteoCurrentParam.values.map((e) => e.name).join(','),
-          'hourly': OpenMeteoHourlyParam.values.map((e) => e.name).join(','),
-          'daily': OpenMeteoDailyParam.values.map((e) => e.name).join(','),
+          'current': currentParams.map((e) => e.name).join(','),
+          if (hourlyParams != null)
+            'hourly': hourlyParams.map((e) => e.name).join(','),
+          if (dailyParams != null) ...{
+            'past_days': '0', // for daily
+            'daily': dailyParams.map((e) => e.name).join(','),
+          },
         },
       );
       logInfo(uri);
@@ -64,9 +72,14 @@ class OpenMeteoRepo {
           );
       }
 
+      print(json);
+
       result = ForecastOpenMeteoResponse.fromJson(json);
+    } on OpenMeteoApiException {
+      // ignore
+      rethrow;
     } catch (error, stackTrace) {
-      throw OpenMeteoApiException.error(error, stackTrace);
+      throw OpenMeteoApiException.error(error);
     }
 
     return result;

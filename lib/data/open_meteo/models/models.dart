@@ -51,7 +51,7 @@ class ForecastOpenMeteoResponse with _$ForecastOpenMeteoResponse {
     /// separated, or multiple &hourly= parameter in the URL can be used.
     @protected
     @JsonKey(name: 'hourly')
-    required Map<String, Iterable<Object>> hourlyWeatherMap,
+    Map<String, Iterable<Object>>? hourlyWeatherMap,
 
     /// A list of daily weather variable aggregations which should be returned.
     /// Values can be comma separated, or multiple &daily= parameter in the URL
@@ -59,7 +59,7 @@ class ForecastOpenMeteoResponse with _$ForecastOpenMeteoResponse {
     /// is required.
     @protected
     @JsonKey(name: 'daily')
-    required Map<String, Iterable<Object>> dailyWeatherMap,
+    Map<String, Iterable<Object>>? dailyWeatherMap,
   }) = _ForecastOpenMeteoResponse;
 
   factory ForecastOpenMeteoResponse.fromJson(Map<String, Object?> json) =>
@@ -69,9 +69,9 @@ class ForecastOpenMeteoResponse with _$ForecastOpenMeteoResponse {
 
   List<HourlyWeatherOpenMeteo> get hourlyWeather => [
         for (final (index, _)
-            in hourlyWeatherMap.values.firstOrNull?.indexed ?? [].indexed)
+            in hourlyWeatherMap?.values.firstOrNull?.indexed ?? [].indexed)
           HourlyWeatherOpenMeteo.fromJson(
-            hourlyWeatherMap.map(
+            hourlyWeatherMap!.map(
               (key, values) => MapEntry(key, values.elementAt(index)),
             ),
           ),
@@ -79,9 +79,9 @@ class ForecastOpenMeteoResponse with _$ForecastOpenMeteoResponse {
 
   List<DailyWeatherOpenMeteo> get dailyWeather => [
         for (final (index, _)
-            in dailyWeatherMap.values.firstOrNull?.indexed ?? [].indexed)
+            in dailyWeatherMap?.values.firstOrNull?.indexed ?? [].indexed)
           DailyWeatherOpenMeteo.fromJson(
-            dailyWeatherMap.map(
+            dailyWeatherMap!.map(
               (key, values) => MapEntry(key, values.elementAt(index)),
             ),
           ),

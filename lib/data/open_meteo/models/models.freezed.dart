@@ -69,7 +69,7 @@ mixin _$ForecastOpenMeteoResponse {
   /// separated, or multiple &hourly= parameter in the URL can be used.
   @protected
   @JsonKey(name: 'hourly')
-  Map<String, Iterable<Object>> get hourlyWeatherMap =>
+  Map<String, Iterable<Object>>? get hourlyWeatherMap =>
       throw _privateConstructorUsedError;
 
   /// A list of daily weather variable aggregations which should be returned.
@@ -78,7 +78,7 @@ mixin _$ForecastOpenMeteoResponse {
   /// is required.
   @protected
   @JsonKey(name: 'daily')
-  Map<String, Iterable<Object>> get dailyWeatherMap =>
+  Map<String, Iterable<Object>>? get dailyWeatherMap =>
       throw _privateConstructorUsedError;
 
   /// Serializes this ForecastOpenMeteoResponse to a JSON map.
@@ -108,10 +108,10 @@ abstract class $ForecastOpenMeteoResponseCopyWith<$Res> {
       @JsonKey(name: 'current') CurrentWeatherOpenMeteo currentWeather,
       @protected
       @JsonKey(name: 'hourly')
-      Map<String, Iterable<Object>> hourlyWeatherMap,
+      Map<String, Iterable<Object>>? hourlyWeatherMap,
       @protected
       @JsonKey(name: 'daily')
-      Map<String, Iterable<Object>> dailyWeatherMap});
+      Map<String, Iterable<Object>>? dailyWeatherMap});
 
   $CurrentWeatherOpenMeteoCopyWith<$Res> get currentWeather;
 }
@@ -140,8 +140,8 @@ class _$ForecastOpenMeteoResponseCopyWithImpl<$Res,
     Object? timezoneAbbr = null,
     Object? elevation = null,
     Object? currentWeather = null,
-    Object? hourlyWeatherMap = null,
-    Object? dailyWeatherMap = null,
+    Object? hourlyWeatherMap = freezed,
+    Object? dailyWeatherMap = freezed,
   }) {
     return _then(_value.copyWith(
       latitude: null == latitude
@@ -176,14 +176,14 @@ class _$ForecastOpenMeteoResponseCopyWithImpl<$Res,
           ? _value.currentWeather
           : currentWeather // ignore: cast_nullable_to_non_nullable
               as CurrentWeatherOpenMeteo,
-      hourlyWeatherMap: null == hourlyWeatherMap
+      hourlyWeatherMap: freezed == hourlyWeatherMap
           ? _value.hourlyWeatherMap
           : hourlyWeatherMap // ignore: cast_nullable_to_non_nullable
-              as Map<String, Iterable<Object>>,
-      dailyWeatherMap: null == dailyWeatherMap
+              as Map<String, Iterable<Object>>?,
+      dailyWeatherMap: freezed == dailyWeatherMap
           ? _value.dailyWeatherMap
           : dailyWeatherMap // ignore: cast_nullable_to_non_nullable
-              as Map<String, Iterable<Object>>,
+              as Map<String, Iterable<Object>>?,
     ) as $Val);
   }
 
@@ -219,10 +219,10 @@ abstract class _$$ForecastOpenMeteoResponseImplCopyWith<$Res>
       @JsonKey(name: 'current') CurrentWeatherOpenMeteo currentWeather,
       @protected
       @JsonKey(name: 'hourly')
-      Map<String, Iterable<Object>> hourlyWeatherMap,
+      Map<String, Iterable<Object>>? hourlyWeatherMap,
       @protected
       @JsonKey(name: 'daily')
-      Map<String, Iterable<Object>> dailyWeatherMap});
+      Map<String, Iterable<Object>>? dailyWeatherMap});
 
   @override
   $CurrentWeatherOpenMeteoCopyWith<$Res> get currentWeather;
@@ -251,8 +251,8 @@ class __$$ForecastOpenMeteoResponseImplCopyWithImpl<$Res>
     Object? timezoneAbbr = null,
     Object? elevation = null,
     Object? currentWeather = null,
-    Object? hourlyWeatherMap = null,
-    Object? dailyWeatherMap = null,
+    Object? hourlyWeatherMap = freezed,
+    Object? dailyWeatherMap = freezed,
   }) {
     return _then(_$ForecastOpenMeteoResponseImpl(
       latitude: null == latitude
@@ -287,14 +287,14 @@ class __$$ForecastOpenMeteoResponseImplCopyWithImpl<$Res>
           ? _value.currentWeather
           : currentWeather // ignore: cast_nullable_to_non_nullable
               as CurrentWeatherOpenMeteo,
-      hourlyWeatherMap: null == hourlyWeatherMap
+      hourlyWeatherMap: freezed == hourlyWeatherMap
           ? _value._hourlyWeatherMap
           : hourlyWeatherMap // ignore: cast_nullable_to_non_nullable
-              as Map<String, Iterable<Object>>,
-      dailyWeatherMap: null == dailyWeatherMap
+              as Map<String, Iterable<Object>>?,
+      dailyWeatherMap: freezed == dailyWeatherMap
           ? _value._dailyWeatherMap
           : dailyWeatherMap // ignore: cast_nullable_to_non_nullable
-              as Map<String, Iterable<Object>>,
+              as Map<String, Iterable<Object>>?,
     ));
   }
 }
@@ -314,10 +314,10 @@ class _$ForecastOpenMeteoResponseImpl extends _ForecastOpenMeteoResponse {
       @JsonKey(name: 'current') required this.currentWeather,
       @protected
       @JsonKey(name: 'hourly')
-      required final Map<String, Iterable<Object>> hourlyWeatherMap,
+      final Map<String, Iterable<Object>>? hourlyWeatherMap,
       @protected
       @JsonKey(name: 'daily')
-      required final Map<String, Iterable<Object>> dailyWeatherMap})
+      final Map<String, Iterable<Object>>? dailyWeatherMap})
       : _hourlyWeatherMap = hourlyWeatherMap,
         _dailyWeatherMap = dailyWeatherMap,
         super._();
@@ -378,24 +378,26 @@ class _$ForecastOpenMeteoResponseImpl extends _ForecastOpenMeteoResponse {
 
   /// A list of weather variables which should be returned. Values can be comma
   /// separated, or multiple &hourly= parameter in the URL can be used.
-  final Map<String, Iterable<Object>> _hourlyWeatherMap;
+  final Map<String, Iterable<Object>>? _hourlyWeatherMap;
 
   /// A list of weather variables which should be returned. Values can be comma
   /// separated, or multiple &hourly= parameter in the URL can be used.
   @override
   @protected
   @JsonKey(name: 'hourly')
-  Map<String, Iterable<Object>> get hourlyWeatherMap {
+  Map<String, Iterable<Object>>? get hourlyWeatherMap {
+    final value = _hourlyWeatherMap;
+    if (value == null) return null;
     if (_hourlyWeatherMap is EqualUnmodifiableMapView) return _hourlyWeatherMap;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_hourlyWeatherMap);
+    return EqualUnmodifiableMapView(value);
   }
 
   /// A list of daily weather variable aggregations which should be returned.
   /// Values can be comma separated, or multiple &daily= parameter in the URL
   /// can be used. If daily weather variables are specified, parameter timezone
   /// is required.
-  final Map<String, Iterable<Object>> _dailyWeatherMap;
+  final Map<String, Iterable<Object>>? _dailyWeatherMap;
 
   /// A list of daily weather variable aggregations which should be returned.
   /// Values can be comma separated, or multiple &daily= parameter in the URL
@@ -404,10 +406,12 @@ class _$ForecastOpenMeteoResponseImpl extends _ForecastOpenMeteoResponse {
   @override
   @protected
   @JsonKey(name: 'daily')
-  Map<String, Iterable<Object>> get dailyWeatherMap {
+  Map<String, Iterable<Object>>? get dailyWeatherMap {
+    final value = _dailyWeatherMap;
+    if (value == null) return null;
     if (_dailyWeatherMap is EqualUnmodifiableMapView) return _dailyWeatherMap;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_dailyWeatherMap);
+    return EqualUnmodifiableMapView(value);
   }
 
   @override
@@ -488,10 +492,10 @@ abstract class _ForecastOpenMeteoResponse extends ForecastOpenMeteoResponse {
       required final CurrentWeatherOpenMeteo currentWeather,
       @protected
       @JsonKey(name: 'hourly')
-      required final Map<String, Iterable<Object>> hourlyWeatherMap,
+      final Map<String, Iterable<Object>>? hourlyWeatherMap,
       @protected
       @JsonKey(name: 'daily')
-      required final Map<String, Iterable<Object>>
+      final Map<String, Iterable<Object>>?
           dailyWeatherMap}) = _$ForecastOpenMeteoResponseImpl;
   const _ForecastOpenMeteoResponse._() : super._();
 
@@ -554,7 +558,7 @@ abstract class _ForecastOpenMeteoResponse extends ForecastOpenMeteoResponse {
   @override
   @protected
   @JsonKey(name: 'hourly')
-  Map<String, Iterable<Object>> get hourlyWeatherMap;
+  Map<String, Iterable<Object>>? get hourlyWeatherMap;
 
   /// A list of daily weather variable aggregations which should be returned.
   /// Values can be comma separated, or multiple &daily= parameter in the URL
@@ -563,7 +567,7 @@ abstract class _ForecastOpenMeteoResponse extends ForecastOpenMeteoResponse {
   @override
   @protected
   @JsonKey(name: 'daily')
-  Map<String, Iterable<Object>> get dailyWeatherMap;
+  Map<String, Iterable<Object>>? get dailyWeatherMap;
 
   /// Create a copy of ForecastOpenMeteoResponse
   /// with the given fields replaced by the non-null parameter values.

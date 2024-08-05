@@ -18,10 +18,10 @@ _$ForecastOpenMeteoResponseImpl _$$ForecastOpenMeteoResponseImplFromJson(
       elevation: (json['elevation'] as num).toDouble(),
       currentWeather: CurrentWeatherOpenMeteo.fromJson(
           json['current'] as Map<String, dynamic>),
-      hourlyWeatherMap: (json['hourly'] as Map<String, dynamic>).map(
+      hourlyWeatherMap: (json['hourly'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, (e as List<dynamic>).map((e) => e as Object)),
       ),
-      dailyWeatherMap: (json['daily'] as Map<String, dynamic>).map(
+      dailyWeatherMap: (json['daily'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, (e as List<dynamic>).map((e) => e as Object)),
       ),
     );
@@ -38,8 +38,8 @@ Map<String, dynamic> _$$ForecastOpenMeteoResponseImplToJson(
       'elevation': instance.elevation,
       'current': instance.currentWeather.toJson(),
       'hourly':
-          instance.hourlyWeatherMap.map((k, e) => MapEntry(k, e.toList())),
-      'daily': instance.dailyWeatherMap.map((k, e) => MapEntry(k, e.toList())),
+          instance.hourlyWeatherMap?.map((k, e) => MapEntry(k, e.toList())),
+      'daily': instance.dailyWeatherMap?.map((k, e) => MapEntry(k, e.toList())),
     };
 
 _$CurrentWeatherOpenMeteoImpl _$$CurrentWeatherOpenMeteoImplFromJson(

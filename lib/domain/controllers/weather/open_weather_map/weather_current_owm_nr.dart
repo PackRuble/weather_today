@@ -53,7 +53,7 @@ class WeatherCurrentOwmNR extends BaseWeatherOwmNR<WeatherCurrent> {
   }
 
   @override
-  Future<WeatherCurrent> getWeatherFromOWM(Place place) async =>
+  Future<WeatherCurrent> fetchWeather(Place place) async =>
       super.weatherService.currentWeatherByLocation(
           latitude: place.latitude!, longitude: place.longitude!);
 

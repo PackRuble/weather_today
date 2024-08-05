@@ -14,14 +14,14 @@ import '../message_controller.dart';
 const bool _kDebugMode = fl_service.kDebugMode;
 
 /// Waiting time for a call from the weather update service.
-const Duration _timeoutServiceOWM = Duration(seconds: 10);
+const _timeoutRequest = Duration(seconds: 10);
 
 /// General weather notifier.
 abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
   /// Get an instance of the message controller.
-  MessageController get _messagesNR => ref.read(MessageController.instance);
+  MessageController get messagesNR => ref.read(MessageController.instance);
 
-  /// Allowed frequency of request to the OWM weather retrieval service.
+  /// Allowed frequency of request to weather retrieval service.
   Duration get allowedRequestRate;
 
   /// The currently selected place for which a weather query is being performed.
@@ -78,7 +78,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
 
   /// The time of the last request to weather service.
   @protected
-  Future<DateTime> getLastRequestTime();
+  FutureOr<DateTime?> getLastRequestTime();
 
   /// Permission to query the weather service.
   Future<bool> _isAllowedMakeRequest() async {
@@ -89,8 +89,13 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
 
   /// Defines the time after which a request to the weather service can be made.
   Future<Duration> _timeWhenWillBeAllowedMakeRequest() async {
-    final nowTime = DateTime.now();
     final lastRequestTime = await getLastRequestTime();
+    if (lastRequestTime == null) {
+      l.info('$T: lastRequest is null: $lastRequestTime. Granted');
+      return Duration.zero;
+    }
+
+    final nowTime = DateTime.now();
     final diffTime = allowedRequestRate - nowTime.difference(lastRequestTime);
 
     l.info(
@@ -101,7 +106,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
     return diffTime;
   }
 
-  Future<bool> isAbilityRequestOnDiffPlacesImpl();
+  FutureOr<bool> isAbilityRequestOnDiffPlacesImpl();
 
   Future<void> resetAbilityRequestOnDiffPlaces();
 
@@ -118,7 +123,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
 
   /// Weather update.
   Future<void> updateWeather() async {
-    l.info('$T: Trying to update weather. DebugMode: $_kDebugMode');
+    l.info('$T: Trying to update weather.');
 
     if (_isPlaceCorrect(_currentPlace)) {
       const error = 'The location is not correct. Choose a different location.';
@@ -127,8 +132,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
 
     // is the update available now?
     if (await _isAllowedMakeRequest() ||
-        await _isAbilityRequestOnDiffPlaces() ||
-        _kDebugMode) {
+        await _isAbilityRequestOnDiffPlaces()) {
       l.info('$T: Permission granted. Trying to get the weather.');
 
       state = const AsyncValue.loading();
@@ -141,9 +145,11 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
 
       state = AsyncData(weather);
     } else {
-      _messagesNR.sUpdateWeatherFail();
+      whenUpdateNotAllowed();
     }
   }
+
+  FutureOr<void> whenUpdateNotAllowed();
 
   /// An internal method for retrieving weather from the weather service.
   ///
@@ -157,7 +163,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
 
     try {
       // weather service request
-      weather = await getWeatherFromOWM(place).timeout(_timeoutServiceOWM);
+      weather = await fetchWeather(place).timeout(_timeoutRequest);
 
       // if we have received data, record the time of receipt
       await saveLastRequestTimeInDb(DateTime.now());
@@ -166,16 +172,16 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
       await saveWeatherInDb(weather as T);
     } on SocketException catch (e, s) {
       l.info('No connection to the Internet or weather server.', e, s);
-      _messagesNR.tSocketException();
+      messagesNR.tSocketException();
     } on TimeoutException catch (e, s) {
       l.info('The service waiting time has expired', e, s);
-      _messagesNR.tTimeoutException();
+      messagesNR.tTimeoutException();
     } catch (e, s) {
       // fixdep(05.08.2024): [No need to pass `StackTrace` to API error message · Issue #21 · PackRuble/weather_pack](https://github.com/PackRuble/weather_pack/issues/21)
       final message = e.toString().split('#0').firstOrNull;
 
       l.error('Another mistake', message, s);
-      _messagesNR.showErrorSnack(message ?? e.toString());
+      messagesNR.showErrorSnack(message ?? e.toString());
     }
 
     return weather;
@@ -187,7 +193,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
 
   /// Get weather by location from a weather service.
   @protected
-  Future<T> getWeatherFromOWM(Place place);
+  Future<T> fetchWeather(Place place);
 
   /// Save the received weather to local storage.
   @protected

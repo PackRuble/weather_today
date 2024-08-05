@@ -59,20 +59,9 @@ class ListenMessageWrapper extends ConsumerWidget {
         (_, SnackController controller) async {
           if (controller.snack == null) return;
 
-          final SnackController(snack: MessageSnack(:message)!) = controller;
-
           final snack = CustomSnack(
             context,
-            snack: controller.snack!.copyWith(
-              action: MapEntry(
-                tr.dialogs.buttons.know,
-                () => showDialog(
-                  useSafeArea: true,
-                  context: context,
-                  builder: (_) => ErrorInfoDialog(message),
-                ),
-              ),
-            ),
+            snack: controller.snack!,
           );
 
           scaffold.showSnackBar(snack);

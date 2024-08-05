@@ -13,6 +13,7 @@ class OpenMeteoStorage extends Cardoteka {
 enum OpenMeteoCards<T extends Object?> implements Card<T> {
   latestWeatherForecast<ForecastOpenMeteoResponse?>(DataType.string, null),
   latestRequestTimeForecast<DateTime?>(DataType.string, null),
+  isAllowUpdateDueToDiffPlaces(DataType.bool, true),
   ;
 
   const OpenMeteoCards(this.type, this.defaultValue);

@@ -186,7 +186,7 @@ class TranslationsGratitudePageRu {
 		rydMike('Ryd Mike'),
 		const TextSpan(text: ' за очаровательный пакет '),
 		flexColorScheme('flexColorScheme'),
-		const TextSpan(text: '.\n  Я всегда открыт для общения и буду благодарен, вы напишите пару строк о сим творении, а также поделитесь мнением о возможных функциях, которые стоило бы сделать.\n  Со мной можно связаться:\n    - email: '),
+		const TextSpan(text: '.\n  Я всегда открыт для общения и буду благодарен, если вы напишите пару строк о сим творении, а также поделитесь мнением о возможных функциях, которые стоит сделать.\n  Со мной можно связаться:\n    - email: '),
 		myEmail('pack.ruble@gmail.com'),
 		const TextSpan(text: '\n    - telegram: '),
 		tgGroup('группа Telegram'),

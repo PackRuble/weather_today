@@ -46,4 +46,9 @@ abstract class BaseWeatherOwmNR<T> extends WeatherNR<T> {
 
     return super.build();
   }
+
+  @override
+  FutureOr<void> whenUpdateNotAllowed() {
+    messagesNR.sUpdateWeatherNotAllowed();
+  }
 }

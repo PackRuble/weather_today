@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/application/navigation/routes.gr.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/models/toasts_model.dart';
+import 'package:weather_today/ui/shared/listen_message_widget.dart';
 import 'package:weather_today/utils/log'
     'ger/all_observers.dart';
 
@@ -66,8 +67,26 @@ class MessageController {
   void _showSnack(MessageSnack snack) => _ref.read(snacks).showSnack(snack);
 
   /// Любая ошибка.
-  void showErrorSnack(String message) =>
-      _showSnack(MessageSnack(message: message));
+  void showErrorSnack(String message) => _showSnack(
+        MessageSnack(
+          message: message,
+          action: MapEntry(
+            tr.dialogs.buttons.know,
+            () async => showDialog(
+              useSafeArea: true,
+              context: materialKeyProvider.currentContext!,
+              builder: (_) => ErrorInfoDialog(message),
+            ),
+          ),
+        ),
+      );
+
+  /// Любое сообщение.
+  void showSnack(String message) => _showSnack(
+        MessageSnack(
+          message: message,
+        ),
+      );
 
   /// Ошибка сети.
   void tSocketException() => _showToast(_StoreMessages.toastSocketException);
@@ -84,7 +103,7 @@ class MessageController {
       _showToast(_StoreMessages.toastApiKeyWeatherSetFalse);
 
   /// Обновить погоду сейчас не разрешено.
-  void sUpdateWeatherFail() =>
+  void sUpdateWeatherNotAllowed() =>
       _showSnack(_StoreMessages.snackUpdateWeatherFail);
 
   /// Апи ключ для сервиса OWM действителен.
