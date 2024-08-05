@@ -171,8 +171,11 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
       l.info('The service waiting time has expired', e, s);
       _messagesNR.tTimeoutException();
     } catch (e, s) {
-      l.error('Another mistake', e, s);
-      _messagesNR.showErrorSnack(e.toString());
+      // fixdep(05.08.2024): [No need to pass `StackTrace` to API error message · Issue #21 · PackRuble/weather_pack](https://github.com/PackRuble/weather_pack/issues/21)
+      final message = e.toString().split('#0').firstOrNull;
+
+      l.error('Another mistake', message, s);
+      _messagesNR.showErrorSnack(message ?? e.toString());
     }
 
     return weather;

@@ -693,7 +693,7 @@ class TranslationsApiWeatherPageDefaultApiRu {
 
 	// Translations
 	String get usingApi => 'Используется ключ разработчика';
-	String get numbOfCalls => 'Количество вызовов ограничено авторским тарифом WeatherOpenApi';
+	String get numbOfCalls => 'Количество вызовов ограничено тарифом разработчика';
 	String get fieldTip => 'Введите Api...';
 	String countCalls({required Object currentInSeconds, required Object onecallInHours}) => 'Количество запросов:\n${_root.enums.homepage.today} – раз в ${currentInSeconds} секунд\n${_root.enums.homepage.hourly}, ${_root.enums.homepage.daily} – раз в ${onecallInHours} часа';
 }
@@ -708,7 +708,7 @@ class TranslationsApiWeatherPageUserApiRu {
 	String get usingApi => 'Используется Ваш ключ';
 	String get numbOfCalls => 'Количество вызовов ограничено Вашим тарифом WeatherOpenApi';
 	String get fieldTip => 'Используется...';
-	String get countCalls => 'Количество запросов неограничено (ограничено вашим тарифом)';
+	String get countCalls => 'Количество запросов ограничено Вашим тарифом';
 }
 
 // Path: apiWeatherPage.tooltips

@@ -693,7 +693,7 @@ class TranslationsApiWeatherPageDefaultApiEn extends TranslationsApiWeatherPageD
 
 	// Translations
 	@override String get usingApi => 'Developer key is used';
-	@override String get numbOfCalls => 'The number of calls is limited to the author\'s WeatherOpenApi rate';
+	@override String get numbOfCalls => 'The number of calls is limited by the developer\'s tariff';
 	@override String get fieldTip => 'Enter Api...';
 	@override String countCalls({required Object currentInSeconds, required Object onecallInHours}) => 'Number of requests:\n${_root.enums.homepage.today} – once every ${currentInSeconds} seconds\n${_root.enums.homepage.hourly}, ${_root.enums.homepage.daily} – once every ${onecallInHours} hours';
 }
@@ -708,7 +708,7 @@ class TranslationsApiWeatherPageUserApiEn extends TranslationsApiWeatherPageUser
 	@override String get usingApi => 'Your key is used';
 	@override String get numbOfCalls => 'The number of calls is limited to your WeatherOpenApi rate.';
 	@override String get fieldTip => 'Used...';
-	@override String get countCalls => 'The number of requests is unlimited (limited by your tariff)';
+	@override String get countCalls => 'The number of requests is limited to your tariff';
 }
 
 // Path: apiWeatherPage.tooltips

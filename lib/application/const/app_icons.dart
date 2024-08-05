@@ -28,6 +28,8 @@ class AppIcons {
 
   static const IconData apiTile = Icons.api_rounded;
 
+  static const IconData oneCallApiTile = Icons.generating_tokens_rounded;
+
   static const IconData visualDesignTile = Icons.view_quilt_rounded;
 
   static const IconData themeTile = Icons.palette_rounded;

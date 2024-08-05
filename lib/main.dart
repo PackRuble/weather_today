@@ -23,7 +23,7 @@ void _loggingErrors() {
 
   // логгирование ошибок платформы
   PlatformDispatcher.instance.onError = (error, stack) {
-    logError('PlatformDispatcher Error', error, stack);
+    logError('PlatformDispatcher Error', error, Trace.current().terse);
     return true;
   };
 }
@@ -63,7 +63,7 @@ Future<void> main() async {
     },
     onError: (error, stackTrace) {
       // здесь ловим ошибки от асинхронных вызовов
-      logError('Async Error', error, Trace.from(stackTrace).terse);
+      logError('Async Error', error, stackTrace);
     },
   );
 }

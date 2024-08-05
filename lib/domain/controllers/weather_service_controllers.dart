@@ -11,6 +11,7 @@ import 'package:weather_today/domain/services/local_storage/key_store.dart';
 
 import '../../application/const/first_run_saved_places.dart';
 import 'utils/state_updater.dart';
+import 'weather/open_weather_map/onecall_endpoint_nr.dart';
 
 /// Общее состояние сервиса получения погоды для приложения.
 ///
@@ -178,12 +179,17 @@ class WeatherServices with Updater {
   /// Доступ к экземпляру сервиса погоды.
   static final weatherService = Provider<WeatherService>((ref) {
     // отслеживаем и устанавливаем apikey weather
-    final String apiKey = ref.watch(OWMController.apiKey);
+    final apiKey = ref.watch(OWMController.apiKey);
 
     // отслеживаем и устанавливаем язык запросов для погодных условий.
-    final WeatherLanguage currentLanguage =
-        ref.watch(WeatherServices.currentLanguage);
+    final currentLanguage = ref.watch(WeatherServices.currentLanguage);
 
-    return WeatherService(apiKey, language: currentLanguage);
+    final oneCallApi = ref.watch(OnecallEndpointNR.i);
+
+    return WeatherService(
+      apiKey,
+      language: currentLanguage,
+      oneCallApi: oneCallApi,
+    );
   });
 }

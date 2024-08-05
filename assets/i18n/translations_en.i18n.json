@@ -211,7 +211,7 @@
     },
     "default_api": {
       "using_api": "Developer key is used",
-      "numb_of_calls": "The number of calls is limited to the author's WeatherOpenApi rate",
+      "numb_of_calls": "The number of calls is limited by the developer's tariff",
       "field_tip": "Enter Api...",
       "count_calls": "Number of requests:\n@:enums.homepage.today – once every {currentInSeconds} seconds\n@:enums.homepage.hourly, @:enums.homepage.daily – once every {onecallInHours} hours"
     },
@@ -219,7 +219,7 @@
       "using_api": "Your key is used",
       "numb_of_calls": "The number of calls is limited to your WeatherOpenApi rate.",
       "field_tip": "Used...",
-      "count_calls": "The number of requests is unlimited (limited by your tariff)"
+      "count_calls": "The number of requests is limited to your tariff"
     },
     "tooltips": {
       "del_api_key": "Remove Api key",

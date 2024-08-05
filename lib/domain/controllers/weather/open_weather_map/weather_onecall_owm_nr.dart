@@ -33,23 +33,19 @@ class WeatherOnecallOwmNR extends BaseWeatherOwmNR<WeatherOneCall> {
 
   /// Allowed frequency of request to ONECALL weather retrieval service with
   /// default API key (developer key).
-  static const Duration allowedRequestRateOnecallWithDefaultApi =
-      Duration(days: 1);
+  static const allowedRequestRateOnecallWithDefaultApi = Duration(days: 1);
 
   /// Allowed frequency of request to ONECALL weather retrieval service with
   /// by the API user key.
-  static const Duration allowedRequestRateOnecallWithUserApi = Duration.zero;
+  static const allowedRequestRateOnecallWithUserApi = Duration.zero;
 
   @override
   Future<WeatherOneCall?> getStoredWeather() async {
-    final String jsonStr =
+    final json =
         await db.load(DbStore.weatherOneCall, DbStore.weatherOneCallDefault);
 
-    if (jsonStr.isNotEmpty) {
-      return WeatherOneCall.fromJson(
-          jsonDecode(jsonStr) as Map<String, dynamic>);
-    }
-    return null;
+    if (json.isEmpty) return null;
+    return WeatherOneCall.fromJson(jsonDecode(json) as Map<String, dynamic>);
   }
 
   @override
@@ -67,17 +63,17 @@ class WeatherOnecallOwmNR extends BaseWeatherOwmNR<WeatherOneCall> {
 
   @override
   Future<DateTime> getLastRequestTime() async {
-    final int timeInMilliseconds = await db.load(
+    final timeInMilliseconds = await db.load(
         DbStore.lastRequestTimeOneCall, DbStore.lastRequestTimeOneCallDefault);
 
     return DateTime.fromMillisecondsSinceEpoch(timeInMilliseconds);
   }
 
   @override
-  Future<bool> isAbilityRequestOnDiffPlacesImpl() async {
-    return weatherStorage.get<bool>(
-        WeatherCards.isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces);
-  }
+  Future<bool> isAbilityRequestOnDiffPlacesImpl() async =>
+      weatherStorage.get<bool>(
+        WeatherCards.isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces,
+      );
 
   @override
   Future<void> resetAbilityRequestOnDiffPlaces() async =>

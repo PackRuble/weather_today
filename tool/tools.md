@@ -7,6 +7,9 @@ flutter build apk --target-platform=android-arm64 --split-per-abi
 ## Localization
 https://pub.dev/packages/slang#tools
 ```shell
+puro dart pub run slang build
+```
+```shell
 flutter pub run slang watch
 ```
 ```shell

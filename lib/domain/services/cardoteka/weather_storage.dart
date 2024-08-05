@@ -1,5 +1,6 @@
 import 'package:cardoteka/cardoteka.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/domain/weather/models.dart';
 
@@ -14,6 +15,7 @@ class WeatherStorage extends Cardoteka with WatcherImpl {
 enum WeatherCards<T extends Object?> implements Card<T> {
   previousPlace<Place?>(DataType.string, null),
   weatherProvider(DataType.string, WeatherProvider.openMeteo),
+  oneCallApiVersion(DataType.string, OneCallApi.api_2_5),
   isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces(DataType.bool, false),
   isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces(DataType.bool, false),
   ;
@@ -35,6 +37,7 @@ enum WeatherCards<T extends Object?> implements Card<T> {
     converters: {
       previousPlace: const PlaceConverter(),
       weatherProvider: Converters.enumAsString(WeatherProvider.values),
+      oneCallApiVersion: Converters.enumAsString(OneCallApi.values),
     },
   );
 }

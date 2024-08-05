@@ -5,6 +5,7 @@ class TileSetting extends StatelessWidget {
     super.key,
     required this.leading,
     required this.title,
+    this.padding = const EdgeInsets.symmetric(horizontal: 16.0),
     this.subtitle,
     this.trailing,
     required this.onTap,
@@ -12,6 +13,7 @@ class TileSetting extends StatelessWidget {
   });
 
   final IconData leading;
+  final EdgeInsets padding;
   final String title;
   final String? subtitle;
   final IconData? trailing;
@@ -22,7 +24,7 @@ class TileSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     final iconColor = IconTheme.of(context).color;
     return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+      contentPadding: padding,
       horizontalTitleGap: 16.0,
       leading: Column(
         mainAxisAlignment: MainAxisAlignment.center,
