@@ -30,26 +30,16 @@ class DailyWeatherPageByRuble extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListView.separated(
-      itemBuilder: (BuildContext context, int index) {
-        if (index + 1 == daily.length) {
-          return const AttributionWeatherWidget();
-        }
-
-        List<Widget> content = [];
-
-        if (index == 0) {
-          content = [...content, const _AlertsListWidget()];
-        }
-
-        content = [...content, _GroupExpansionWidget(daily[index])];
+      separatorBuilder: (_, index) =>
+          index + 1 == daily.length ? const SizedBox.shrink() : _divider,
+      itemBuilder: (context, index) {
+        final content = <Widget>[
+          if (index == 0) const _AlertsListWidget(),
+          _GroupExpansionWidget(daily[index]),
+          if (index + 1 == daily.length) const AttributionWeatherWidget(),
+        ];
 
         return Column(children: content);
-      },
-      separatorBuilder: (_, int index) {
-        if (index + 2 == daily.length) {
-          return const SizedBox.shrink();
-        }
-        return _divider;
       },
       itemCount: daily.length,
     );
