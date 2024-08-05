@@ -414,7 +414,8 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _Title(t.weather.precipitation),
-              if (weather.rain == 0.0 && weather.snow == 0.0)
+              if ((weather.rain == 0.0 && weather.snow == 0.0) ||
+                  (weather.rain == null && weather.snow == null))
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(t.mainPageDRuble.hourlyPage.pop.noPopExpected),
@@ -434,7 +435,7 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
                     _OneTile(
                       // todo(03.08.2024): tr
                       t.weather.snow.toCapitalize,
-                      weather.snow.toString(),
+                      weather.snow.toStringMaybe(fixed: 1),
                       // единицы верные, проверял в OM
                       'cm',
                     ),
