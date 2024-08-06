@@ -24,7 +24,3 @@ flat_map: false # нет необходимости в создании Map пе
 namespaces: false # удобство перевода постранично
 locale_handling: false # remove unused t variable, LocaleSettings, etc.
 translation_class_visibility: public
-
-# генерация map по данным путям
-maps:
-  - weather.condition

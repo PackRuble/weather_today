@@ -264,7 +264,7 @@ class TranslationsWeatherEn extends TranslationsWeatherRu {
 	@override final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override Map<String, String> get condition => {
+	@override Map<String, String> get owmConditionsMain => {
 		'thunderstorm': 'Thunderstorm',
 		'drizzle': 'Drizzle',
 		'rain': 'Rain',
@@ -280,6 +280,36 @@ class TranslationsWeatherEn extends TranslationsWeatherRu {
 		'tornado': 'Tornado',
 		'clear': 'Clear',
 		'clouds': 'Clouds',
+	};
+	@override Map<String, String> get omConditionsDesc => {
+		'code0': 'Clear sky',
+		'code1': 'Mainly clear',
+		'code2': 'Partly cloudy',
+		'code3': 'Overcast',
+		'code45': 'Fog',
+		'code48': 'Depositing rime fog',
+		'code51': 'Light drizzle',
+		'code53': 'Moderate drizzle',
+		'code55': 'Dense drizzle',
+		'code56': 'Light freezing drizzle',
+		'code57': 'Dense freezing drizzle',
+		'code61': 'Slight rain',
+		'code63': 'Moderate rain',
+		'code65': 'Heavy rain',
+		'code66': 'Light freezing rain',
+		'code67': 'Heavy freezing rain',
+		'code71': 'Slight snow fall',
+		'code73': 'Moderate snow fall',
+		'code75': 'Heavy snow fall',
+		'code77': 'Snow grains',
+		'code80': 'Slight rain showers',
+		'code81': 'Moderate rain showers',
+		'code82': 'Violent rain showers',
+		'code85': 'Slight snow showers',
+		'code86': 'Heavy snow showers',
+		'code95': 'Thunderstorm',
+		'code96': 'Thunderstorm with slight hail',
+		'code99': 'Thunderstorm with heavy hail',
 	};
 	@override String get quietlyOnTheHorizon => 'On the horizon quietly';
 	@override String get noDataProvided => 'No data provided';

@@ -119,7 +119,8 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                   rain: daily.rainSum != 0.0 ? daily.rainSum : daily.showersSum,
                   snow: daily.snowfallSum,
                   weatherDescription: null,
-                  weatherMain: daily.weatherCode.desc,
+                  weatherMain: null,
+                  // fixme(06.08.2024): optimize convertOwmWeatherCode
                   weatherIcon:
                       convertOwmWeatherCode(daily.weatherCode).iconPath(true),
                   weatherConditionCode:
@@ -222,10 +223,10 @@ enum OWMWeatherCode {
   code771(771, 'Squalls'),
   code781(781, 'Tornado'),
   code800(800, 'Clear sky'),
-  code801(801, 'Few clouds: 11-25%'),
-  code802(802, 'Scattered clouds: 25-50%'),
-  code803(803, 'Broken clouds: 51-84%'),
-  code804(804, 'Overcast clouds: 85-100%'),
+  code801(801, 'Few clouds'), // 11-25%
+  code802(802, 'Scattered clouds'), // 25-50%
+  code803(803, 'Broken clouds'), // 51-84%
+  code804(804, 'Overcast clouds'), // 85-100%
   ;
 
   const OWMWeatherCode(this.code, this.desc);
