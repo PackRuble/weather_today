@@ -36,32 +36,41 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
         const _MainInfoWidget(),
         const _WeatherDescriptionTile(),
         const AttributionWeatherWidget(
-          padding:
-              EdgeInsets.only(left: 8.0, right: 8.0, top: 0.0, bottom: 4.0),
+          padding: EdgeInsets.only(
+            left: 8.0,
+            right: 8.0,
+            top: 0.0,
+            bottom: 4.0,
+          ),
           withIcon: false,
         ),
         divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.wind),
-        _customPadding(child: const _WindWidget()),
+        const Padding(
+          padding: EdgeInsets.all(_inset),
+          child: _WindWidget(),
+        ),
         divider,
         if (sunrise != null || sunset != null) ...[
           _TitleWidget(t.mainPageDRuble.currentPage.headers.sun),
-          _customPadding(child: const _SunriseInfoWidget()),
+          const Padding(
+            padding: EdgeInsets.all(_inset),
+            child: _SunriseInfoWidget(),
+          ),
           divider,
         ],
         _TitleWidget(t.mainPageDRuble.currentPage.headers.clouds),
-        _customPadding(child: const CloudinessWidget()),
+        const Padding(
+          padding: EdgeInsets.all(_inset),
+          child: CloudinessWidget(),
+        ),
         divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.more),
-        _customPadding(child: const _ExtendedInfoWidget()),
+        const Padding(
+          padding: EdgeInsets.all(_inset),
+          child: _ExtendedInfoWidget(),
+        ),
       ],
-    );
-  }
-
-  Padding _customPadding({required Widget child}) {
-    return Padding(
-      padding: const EdgeInsets.all(_inset),
-      child: child,
     );
   }
 }
@@ -84,17 +93,16 @@ class _TitleWidget extends ConsumerWidget {
   }
 }
 
-// todo edit time
 class _DateWidget extends ConsumerWidget {
   const _DateWidget();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TextTheme styles = Theme.of(context).textTheme;
+    final styles = Theme.of(context).textTheme;
 
     final t = ref.watch(CurrentPagePresenter.tr);
 
-    final DateTime? _date = ref.watch(CurrentPagePresenter.current).value!.date;
+    final _date = ref.watch(CurrentPagePresenter.current).value!.date;
 
     return Padding(
       padding: const EdgeInsets.only(top: 10.0, right: 15.0, left: 15.0),
@@ -455,15 +463,14 @@ class _ExtendedInfoWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(CurrentPagePresenter.tr);
 
-    final WeatherCurrent weather =
-        ref.watch(CurrentPagePresenter.current).value!;
+    final weather = ref.watch(CurrentPagePresenter.current).value!;
 
-    final String? _pressure = MetricsHelper.getPressure(
+    final _pressure = MetricsHelper.getPressure(
         weather.pressure, ref.watch(WeatherServices.pressureUnits));
 
-    final String? _humidity = MetricsHelper.withPrecision(weather.humidity);
+    final _humidity = MetricsHelper.withPrecision(weather.humidity);
 
-    final String? _visibility = MetricsHelper.withPrecision(
+    final _visibility = MetricsHelper.withPrecision(
         MetricsHelper.getPercentage(weather.visibility, 10000.0));
 
     return Column(
