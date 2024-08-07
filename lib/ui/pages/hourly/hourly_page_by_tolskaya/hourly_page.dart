@@ -6,7 +6,9 @@ import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/application/const/app_insets.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
+import 'package:weather_today/domain/controllers/weather_provider_nr.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
+import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/pages/hourly/hourly_page_presenter.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
@@ -155,7 +157,12 @@ class TileHourlyWidget extends ConsumerWidget {
 
     // final uvi = weather.uvi?.toStringAsFixed(0);
 
-    final weatherMain = MetricsHelper.getWeatherMainTr(weather.weatherMain, t);
+    final _brief = MetricsHelper.weatherBriefTrByCode(
+          weatherCode: weather.weatherConditionCode!,
+          provider: ref.watch(WeatherProviderNR.i),
+          tr: tr,
+        ) ??
+        '';
 
     return ListTile(
       minVerticalPadding: 0.0,
@@ -196,7 +203,7 @@ class TileHourlyWidget extends ConsumerWidget {
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               TextSpan(
-                text: weatherMain,
+                text: _brief,
                 style: styles.bodyMedium,
               ),
             ),
@@ -240,11 +247,17 @@ class _ExpandedWidget extends ConsumerWidget {
       :visibility,
       :cloudiness,
       :dewPoint,
-      :weatherDescription,
-      :weatherMain,
-      :pop,
+      weatherConditionCode: weatherCode,
+      weatherDescription: weatherDesc,
       :windSpeed,
     ) = weather;
+
+    final _weatherDesc = MetricsHelper.weatherDescTrByCode(
+          weatherCode: weatherCode!,
+          provider: ref.watch(WeatherProviderNR.i),
+          tr: tr,
+        ) ??
+        weatherDesc?.toCapitalize;
 
     final _pressure = MetricsHelper.getPressure(
         pressure, ref.watch(WeatherServices.pressureUnits));
@@ -270,12 +283,10 @@ class _ExpandedWidget extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if ((weatherDescription?.isNotEmpty ?? false) ||
-              (weatherMain?.isNotEmpty ?? false)) ...[
+          if (_weatherDesc != null) ...[
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
-              child:
-                  Text.rich(TextSpan(text: weatherDescription ?? weatherMain)),
+              child: Text.rich(TextSpan(text: _weatherDesc)),
             ),
             const Divider(),
           ],

@@ -253,7 +253,7 @@
   },
   "weather": {
     "@@condition": "Это будет Map<String, String>",
-    "owm_conditions_main(map)": {
+    "owm_conditions_brief_by_name(map)": {
       "thunderstorm": "Гроза",
       "drizzle": "Морось",
       "rain": "Дождь",
@@ -272,7 +272,7 @@
     },
     "om_conditions_brief(map)": {
       "code0": "Ясно",
-      "code1": "В основном ясно",
+      "code1": "Ясно",
       "code2": "Облачно",
       "code3": "Пасмурно",
       "code45": "Туман",

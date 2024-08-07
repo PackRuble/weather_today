@@ -47,12 +47,11 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
               windGust: currentOM.windGusts10m,
               cloudiness: currentOM.cloudCover.toDouble(),
               uvi: null,
-              weatherMain: currentOM.weatherCode.desc,
+              weatherMain: null,
               weatherDescription: null,
               weatherIcon: convertOwmWeatherCode(currentOM.weatherCode)
                   .iconPath(currentOM.isDay),
-              weatherConditionCode:
-                  convertOwmWeatherCode(currentOM.weatherCode).code,
+              weatherConditionCode: currentOM.weatherCode.code,
             )
           : null,
       minutely: null, // не используем в интерфейсе
@@ -77,11 +76,10 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                   rain: hourly.rain != 0.0 ? hourly.rain : hourly.showers,
                   snow: hourly.snowfall,
                   weatherDescription: null,
-                  weatherMain: hourly.weatherCode.desc,
+                  weatherMain: null,
                   weatherIcon: convertOwmWeatherCode(hourly.weatherCode)
                       .iconPath(hourly.isDay),
-                  weatherConditionCode:
-                      convertOwmWeatherCode(hourly.weatherCode).code,
+                  weatherConditionCode: hourly.weatherCode.code,
                 ),
             ]
           : null,
@@ -123,8 +121,7 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                   // fixme(06.08.2024): optimize convertOwmWeatherCode
                   weatherIcon:
                       convertOwmWeatherCode(daily.weatherCode).iconPath(true),
-                  weatherConditionCode:
-                      convertOwmWeatherCode(daily.weatherCode).code,
+                  weatherConditionCode: daily.weatherCode.code,
                 ),
             ]
           : null,
@@ -294,7 +291,7 @@ enum OWMWeatherCode {
       (isDay ? 'd' : 'n');
 
   /// Short description.
-  String get shortDesc => switch (this) {
+  String get brief => switch (this) {
         code200 ||
         code201 ||
         code202 ||

@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
+import 'package:weather_today/domain/controllers/weather_provider_nr.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 import 'package:weather_today/extension/double_extension.dart';
 import 'package:weather_today/extension/string_extension.dart';
@@ -247,6 +248,26 @@ class TileDailyWidget extends ConsumerWidget {
     final styles = theme.textTheme;
     final t = ref.watch(AppLocalization.currentTranslation);
 
+    final WeatherDaily(
+      weatherConditionCode: weatherCode,
+      weatherDescription: desc,
+      weatherMain: brief,
+    ) = weather;
+
+    final _brief = MetricsHelper.weatherBriefTrByCode(
+          weatherCode: weatherCode!,
+          provider: ref.watch(WeatherProviderNR.i),
+          tr: tr,
+        ) ??
+        brief;
+
+    final _desc = MetricsHelper.weatherDescTrByCode(
+          weatherCode: weatherCode,
+          provider: ref.watch(WeatherProviderNR.i),
+          tr: tr,
+        ) ??
+        desc;
+
     final tempUnits = ref.watch(DailyPagePresenter.tempUnits);
     final _tempUnits = MetricsHelper.getTempUnits(tempUnits);
     final _tempMin =
@@ -296,7 +317,7 @@ class TileDailyWidget extends ConsumerWidget {
       title: weather.date?.day == DateTime.now().day
           ? Text(t.global.time.today.toLowerCase())
           : Text(DateFormat.MMMEd().format(weather.date ?? DateTime.now())),
-      subtitle: Text('${weather.weatherDescription ?? weather.weatherMain}'),
+      subtitle: Text(_desc ?? _brief ?? ''),
       trailing: Row(
         // mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,

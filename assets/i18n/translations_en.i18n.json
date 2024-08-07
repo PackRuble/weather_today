@@ -252,7 +252,7 @@
     "button_accept": "Accept"
   },
   "weather": {
-    "owm_conditions_main(map)": {
+    "owm_conditions_brief_by_name(map)": {
       "thunderstorm": "Thunderstorm",
       "drizzle": "Drizzle",
       "rain": "Rain",
@@ -268,6 +268,36 @@
       "tornado": "Tornado",
       "clear": "Clear",
       "clouds": "Clouds"
+    },
+    "om_conditions_brief(map)": {
+      "code0": "Clear",
+      "code1": "Clear",
+      "code2": "Cloudy",
+      "code3": "Overcast",
+      "code45": "Fog",
+      "code48": "Fog",
+      "code51": "Drizzle",
+      "code53": "Drizzle",
+      "code55": "Drizzle",
+      "code56": "Freezing drizzle",
+      "code57": "Freezing drizzle",
+      "code61": "Rain",
+      "code63": "Rain",
+      "code65": "Rain",
+      "code66": "Freezing rain",
+      "code67": "Freezing rain",
+      "code71": "Snow fall",
+      "code73": "Snow fall",
+      "code75": "Snow fall",
+      "code77": "Snow grains",
+      "code80": "Rain showers",
+      "code81": "Rain showers",
+      "code82": "Rain showers",
+      "code85": "Snow showers",
+      "code86": "Snow showers",
+      "code95": "Thunderstorm",
+      "code96": "Thunderstorm with hail",
+      "code99": "Thunderstorm with hail"
     },
     "om_conditions_desc(map)": {
       "code0": "Clear sky",

@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/application/const/app_icons.dart';
+import 'package:weather_today/domain/controllers/weather_provider_nr.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/pages/current/current_page_presenter.dart';
@@ -33,7 +34,7 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
       children: [
         const _DateWidget(),
         const _MainInfoWidget(),
-        const _MainDescriptionWidget(),
+        const _WeatherDescriptionTile(),
         const AttributionWeatherWidget(
           padding:
               EdgeInsets.only(left: 8.0, right: 8.0, top: 0.0, bottom: 4.0),
@@ -118,23 +119,36 @@ class _MainInfoWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final TextTheme styles = theme.textTheme;
+    final styles = theme.textTheme;
 
     final t = ref.watch(CurrentPagePresenter.tr);
 
-    final WeatherCurrent weather =
-        ref.watch(CurrentPagePresenter.current).value!;
+    final weather = ref.watch(CurrentPagePresenter.current).requireValue!;
+    final WeatherCurrent(
+      weatherMain: brief,
+      weatherConditionCode: weatherCode,
+    ) = weather;
 
     final Temp tempUnits = ref.watch(CurrentPagePresenter.tempUnits);
-    final String _temp =
-        MetricsHelper.getTemp(weather.temp, tempUnits, withUnits: false);
-    final String _tempUnits = MetricsHelper.getTempUnits(tempUnits);
-    final String _tempFeelsLike = MetricsHelper.getTemp(
-        weather.tempFeelsLike, tempUnits,
-        withUnits: false);
+    final _temp = MetricsHelper.getTemp(
+      weather.temp,
+      tempUnits,
+      withUnits: false,
+    );
+    final _tempUnits = MetricsHelper.getTempUnits(tempUnits);
+    final _tempFeelsLike = MetricsHelper.getTemp(
+      weather.tempFeelsLike,
+      tempUnits,
+      withUnits: false,
+    );
 
-    final String _weatherMain =
-        MetricsHelper.getWeatherMainTr(weather.weatherMain, t) ?? r'¯\_(ツ)_/¯';
+    final _brief = MetricsHelper.weatherBriefTrByCode(
+          weatherCode: weatherCode!,
+          provider: ref.watch(WeatherProviderNR.i),
+          tr: t,
+        ) ??
+        brief ??
+        r'¯\_(ツ)_/¯';
 
     final tempWidget = Text.rich(
       TextSpan(
@@ -161,12 +175,6 @@ class _MainInfoWidget extends ConsumerWidget {
           ),
         ],
       ),
-    );
-
-    final descriptionWidget = Text(
-      _weatherMain,
-      style: styles.bodyMedium,
-      textAlign: TextAlign.center,
     );
 
     const _height1block = 150.0;
@@ -201,7 +209,11 @@ class _MainInfoWidget extends ConsumerWidget {
                   child: WeatherImageIcon(weatherIcon: weather.weatherIcon),
                 ),
               ),
-              descriptionWidget,
+              Text(
+                _brief,
+                style: styles.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
@@ -211,21 +223,35 @@ class _MainInfoWidget extends ConsumerWidget {
   }
 }
 
-class _MainDescriptionWidget extends ConsumerWidget {
-  const _MainDescriptionWidget();
+class _WeatherDescriptionTile extends ConsumerWidget {
+  const _WeatherDescriptionTile();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TextTheme styles = Theme.of(context).textTheme;
-    final t = ref.watch(CurrentPagePresenter.tr);
+    final styles = Theme.of(context).textTheme;
+    final tr = ref.watch(CurrentPagePresenter.tr);
 
-    final weather = ref.watch(CurrentPagePresenter.current).value!;
-    final String? description = weather.weatherDescription;
-    final String? _weatherMain =
-        MetricsHelper.getWeatherMainTr(weather.weatherMain, t);
+    final WeatherCurrent(
+      weatherDescription: desc,
+      weatherMain: brief,
+      weatherConditionCode: weatherCode,
+    ) = ref.watch(CurrentPagePresenter.current).requireValue!;
 
-    if (description == null ||
-        _weatherMain?.toLowerCase() == description.toLowerCase()) {
+    final _brief = MetricsHelper.weatherBriefTrByCode(
+          weatherCode: weatherCode!,
+          provider: ref.watch(WeatherProviderNR.i),
+          tr: tr,
+        ) ??
+        brief;
+
+    final _desc = MetricsHelper.weatherDescTrByCode(
+          weatherCode: weatherCode,
+          provider: ref.watch(WeatherProviderNR.i),
+          tr: tr,
+        ) ??
+        desc;
+
+    if (_desc == null || _brief?.toLowerCase() == _desc.toLowerCase()) {
       return const SizedBox(height: 6);
     }
 
@@ -233,7 +259,7 @@ class _MainDescriptionWidget extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: Text(
-          description.toCapitalized(),
+          _desc.toCapitalized(),
           textAlign: TextAlign.center,
           style: styles.bodyMedium,
         ),

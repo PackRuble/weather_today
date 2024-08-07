@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
+import 'package:weather_today/domain/controllers/weather_provider_nr.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
@@ -28,8 +29,9 @@ class CurrentWeatherPageByTolskaya extends ConsumerWidget {
         children: [
           _DateWidget(currently.date),
           _MainInfoWidget(
-            weatherMain: currently.weatherMain,
-            weatherDescription: currently.weatherDescription,
+            weatherBrief: currently.weatherMain,
+            weatherCode: currently.weatherConditionCode!,
+            weatherDesc: currently.weatherDescription,
             weatherIcon: currently.weatherIcon,
             temp: currently.temp,
             tempFeelsLike: currently.tempFeelsLike,
@@ -81,21 +83,28 @@ class _DateWidget extends ConsumerWidget {
         Row(
           children: [
             Expanded(
+              child: Text(
+                DateFormat.Hm().format(date),
+                style: styles.bodyMedium,
+              ),
+            ),
+            Expanded(
+              child: Center(
                 child: Text(
-              DateFormat.Hm().format(date),
-              style: styles.bodyMedium,
-            )),
+                  t.global.time.today.toLowerCase(),
+                  style: styles.titleMedium,
+                ),
+              ),
+            ),
             Expanded(
-                child: Center(
-                    child: Text(t.global.time.today.toLowerCase(),
-                        style: styles.titleMedium))),
-            Expanded(
-                child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      DateFormat.yMd().format(date),
-                      style: styles.bodyMedium,
-                    ))),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  DateFormat.yMd().format(date),
+                  style: styles.bodyMedium,
+                ),
+              ),
+            ),
           ],
         ),
         const SizedBox(height: _indent),
@@ -107,15 +116,18 @@ class _DateWidget extends ConsumerWidget {
 }
 
 class _MainInfoWidget extends ConsumerWidget {
-  const _MainInfoWidget(
-      {required this.weatherMain,
-      required this.weatherDescription,
-      required this.weatherIcon,
-      required this.temp,
-      required this.tempFeelsLike});
+  const _MainInfoWidget({
+    required this.weatherCode,
+    required this.weatherBrief,
+    required this.weatherDesc,
+    required this.weatherIcon,
+    required this.temp,
+    required this.tempFeelsLike,
+  });
 
-  final String? weatherMain;
-  final String? weatherDescription;
+  final int weatherCode;
+  final String? weatherBrief;
+  final String? weatherDesc;
   final String? weatherIcon;
   final double? temp;
   final double? tempFeelsLike;
@@ -126,10 +138,20 @@ class _MainInfoWidget extends ConsumerWidget {
 
     final t = ref.watch(CurrentPagePresenter.tr);
 
-    final _weatherMain =
-        MetricsHelper.getWeatherMainTr(weatherMain, t) ?? r'¯\_(ツ)_/¯';
+    final _brief = MetricsHelper.weatherBriefTrByCode(
+          weatherCode: weatherCode,
+          provider: ref.watch(WeatherProviderNR.i),
+          tr: tr,
+        ) ??
+        weatherBrief ??
+        '';
 
-    final _weatherDescription = weatherDescription?.toCapitalized() ?? '';
+    final _weatherDesc = MetricsHelper.weatherDescTrByCode(
+          weatherCode: weatherCode,
+          provider: ref.watch(WeatherProviderNR.i),
+          tr: tr,
+        ) ??
+        weatherDesc?.toCapitalized();
 
     final tempUnits = ref.watch(CurrentPagePresenter.tempUnits);
     final _temp = MetricsHelper.getTemp(
@@ -153,7 +175,7 @@ class _MainInfoWidget extends ConsumerWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  _weatherMain,
+                  _brief,
                   style: styles.bodyMedium,
                   textAlign: TextAlign.center,
                 ),
@@ -195,7 +217,7 @@ class _MainInfoWidget extends ConsumerWidget {
           ],
         ),
         const SizedBox(height: _indent),
-        Text(_weatherDescription, style: styles.bodyMedium),
+        if (_weatherDesc != null) Text(_weatherDesc, style: styles.bodyMedium),
         const SizedBox(height: _indent),
         Text.rich(
           TextSpan(

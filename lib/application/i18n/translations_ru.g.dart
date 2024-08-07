@@ -264,7 +264,7 @@ class TranslationsWeatherRu {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	Map<String, String> get owmConditionsMain => {
+	Map<String, String> get owmConditionsBriefByName => {
 		'thunderstorm': 'Гроза',
 		'drizzle': 'Морось',
 		'rain': 'Дождь',
@@ -283,7 +283,7 @@ class TranslationsWeatherRu {
 	};
 	Map<String, String> get omConditionsBrief => {
 		'code0': 'Ясно',
-		'code1': 'В основном ясно',
+		'code1': 'Ясно',
 		'code2': 'Облачно',
 		'code3': 'Пасмурно',
 		'code45': 'Туман',

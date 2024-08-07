@@ -264,7 +264,7 @@ class TranslationsWeatherEn extends TranslationsWeatherRu {
 	@override final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override Map<String, String> get owmConditionsMain => {
+	@override Map<String, String> get owmConditionsBriefByName => {
 		'thunderstorm': 'Thunderstorm',
 		'drizzle': 'Drizzle',
 		'rain': 'Rain',
@@ -280,6 +280,36 @@ class TranslationsWeatherEn extends TranslationsWeatherRu {
 		'tornado': 'Tornado',
 		'clear': 'Clear',
 		'clouds': 'Clouds',
+	};
+	@override Map<String, String> get omConditionsBrief => {
+		'code0': 'Clear',
+		'code1': 'Clear',
+		'code2': 'Cloudy',
+		'code3': 'Overcast',
+		'code45': 'Fog',
+		'code48': 'Fog',
+		'code51': 'Drizzle',
+		'code53': 'Drizzle',
+		'code55': 'Drizzle',
+		'code56': 'Freezing drizzle',
+		'code57': 'Freezing drizzle',
+		'code61': 'Rain',
+		'code63': 'Rain',
+		'code65': 'Rain',
+		'code66': 'Freezing rain',
+		'code67': 'Freezing rain',
+		'code71': 'Snow fall',
+		'code73': 'Snow fall',
+		'code75': 'Snow fall',
+		'code77': 'Snow grains',
+		'code80': 'Rain showers',
+		'code81': 'Rain showers',
+		'code82': 'Rain showers',
+		'code85': 'Snow showers',
+		'code86': 'Snow showers',
+		'code95': 'Thunderstorm',
+		'code96': 'Thunderstorm with hail',
+		'code99': 'Thunderstorm with hail',
 	};
 	@override Map<String, String> get omConditionsDesc => {
 		'code0': 'Clear sky',

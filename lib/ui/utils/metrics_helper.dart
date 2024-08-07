@@ -3,6 +3,7 @@
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/application/i18n/translations.g.dart';
 import 'package:weather_today/application/i18n/translations_enum.dart';
+import 'package:weather_today/domain/weather/mapper.dart';
 import 'package:weather_today/domain/weather/models.dart';
 import 'package:weather_today/extension/string_extension.dart';
 
@@ -347,22 +348,14 @@ class MetricsHelper {
     return newAlerts;
   }
 
-  /// Получить перевод короткого [WeatherCurrent.weatherMain] описания погоды.
-  @Deprecated('use weatherBriefTrByCode and weatherDescTrByCode')
-  static String? getWeatherMainTr(String? weatherMain, TranslationsRu t) {
-    if (weatherMain == null) return null;
-
-    return t.weather.owmConditionsMain[weatherMain.toLowerCase()] ??
-        weatherMain;
-  }
-
   static String? weatherBriefTrByCode({
     required int weatherCode,
     required TranslationsRu tr,
     required WeatherProvider provider,
   }) {
     return switch (provider) {
-      WeatherProvider.openWeatherMap => throw UnimplementedError(),
+      WeatherProvider.openWeatherMap => tr.weather.owmConditionsBriefByName[
+          OWMWeatherCode.byCode(weatherCode).brief.toLowerCase()],
       WeatherProvider.openMeteo =>
         tr.weather.omConditionsBrief['code$weatherCode'],
     };
@@ -374,7 +367,7 @@ class MetricsHelper {
     required WeatherProvider provider,
   }) {
     return switch (provider) {
-      WeatherProvider.openWeatherMap => throw UnimplementedError(),
+      WeatherProvider.openWeatherMap => null,
       WeatherProvider.openMeteo =>
         tr.weather.omConditionsDesc['code$weatherCode'],
     };
