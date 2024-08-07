@@ -1,6 +1,5 @@
 // ignore_for_file: unused_element
 
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,6 +12,7 @@ import 'package:weather_today/domain/controllers/weather_service_controllers.dar
 import 'package:weather_today/extension/double_extension.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/shared/attribution_weather_widget.dart';
+import 'package:weather_today/ui/shared/expandable_builder.dart';
 import 'package:weather_today/ui/shared/shared_widget.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
@@ -34,13 +34,18 @@ class DailyWeatherPageByRuble extends ConsumerWidget {
       separatorBuilder: (_, index) =>
           index + 1 == daily.length ? const SizedBox.shrink() : _divider,
       itemBuilder: (context, index) {
-        final content = <Widget>[
-          if (index == 0) const _AlertsListWidget(),
-          _GroupExpansionWidget(daily[index]),
-          if (index + 1 == daily.length) const AttributionWeatherWidget(),
-        ];
+        final day = daily[index];
 
-        return Column(children: content);
+        return Column(
+          children: <Widget>[
+            if (index == 0) const _AlertsListWidget(),
+            ExpandablePanelCustom(
+              expanded: _ExpandedWidget(day),
+              header: TileDailyWidget(day),
+            ),
+            if (index + 1 == daily.length) const AttributionWeatherWidget(),
+          ],
+        );
       },
       itemCount: daily.length,
     );
@@ -159,79 +164,6 @@ class _AlertTileWidget extends ConsumerWidget {
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
       tileColor: tileColor,
-    );
-  }
-}
-
-class _GroupExpansionWidget extends ConsumerWidget {
-  const _GroupExpansionWidget(this.daily);
-
-  final WeatherDaily daily;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return ExpandableNotifier(
-      child: ScrollOnExpand(
-        child: ExpandablePanel(
-          theme: const ExpandableThemeData(
-            headerAlignment: ExpandablePanelHeaderAlignment.center,
-            tapHeaderToExpand: true,
-            tapBodyToExpand: false,
-            tapBodyToCollapse: false,
-            hasIcon: false,
-          ),
-          header: TileDailyWidget(daily),
-          collapsed: const SizedBox.shrink(),
-          builder: (_, collapsed, expanded) => Expandable(
-            collapsed: collapsed,
-            expanded: expanded,
-          ),
-          // optimized! will be build only at the time of expansion
-          expanded: _ExpandedWidget(daily),
-        ),
-      ),
-    );
-  }
-}
-
-class Expandable extends StatelessWidget {
-  const Expandable({
-    super.key,
-    required this.expanded,
-    required this.collapsed,
-  });
-
-  final Widget collapsed;
-  final Widget expanded;
-
-  @override
-  Widget build(BuildContext context) {
-    final controller = ExpandableController.of(context);
-    final theme = ExpandableThemeData.of(context);
-
-    return ClipRect(
-      child: AnimatedSize(
-        duration: theme.animationDuration!,
-        curve: theme.sizeCurve!,
-        child: AnimatedSwitcher(
-          duration: theme.animationDuration!,
-          switchInCurve: Interval(
-              theme.collapsedFadeStart, theme.collapsedFadeEnd,
-              curve: theme.fadeCurve!),
-          switchOutCurve: Interval(
-              theme.expandedFadeStart, theme.expandedFadeEnd,
-              curve: theme.fadeCurve!),
-          layoutBuilder: (currentChild, previousChildren) => Stack(
-            clipBehavior: Clip.none,
-            alignment: theme.alignment!,
-            children: <Widget>[
-              ...previousChildren,
-              if (currentChild != null) currentChild,
-            ],
-          ),
-          child: controller!.expanded ? expanded : collapsed,
-        ),
-      ),
     );
   }
 }
@@ -405,7 +337,7 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    loggy.debug('build');
+    loggy.debug('build only Expanded');
 
     final t = ref.watch(AppLocalization.currentTranslation);
 
