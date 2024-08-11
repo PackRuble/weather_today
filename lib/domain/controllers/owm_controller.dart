@@ -2,12 +2,14 @@
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
+import 'package:weather_today/domain/controllers/message_controller.dart';
 import 'package:weather_today/domain/controllers/utils/state_updater.dart';
 import 'package:weather_today/domain/services/local_storage/data_base_controller.dart';
 import 'package:weather_today/domain/services/local_storage/interface/data_base.dart';
 import 'package:weather_today/domain/services/local_storage/key_store.dart';
 
 import '../../utils/logger/all_observers.dart';
+import 'weather/open_weather_map/onecall_endpoint_nr.dart';
 
 // Api-key. See more https://home.openweathermap.org/api_keys.
 const String _apiWeather = String.fromEnvironment('API_WEATHER');
@@ -52,30 +54,30 @@ class OWMController with Updater {
 
   /// Проверить корректность ключа для запросов.
   Future<bool> _isCorrectApiKey(String apiString) async {
+    bool ok = false;
+
     try {
       final testService = OWMTestService(apiString);
 
-      // futodo(16.07.2024): позволить в будущем делать отдельные проверки для разных страниц
-      bool ok = await testService
-          .isValidApikey()
+      final onecallEndpoint = ref.read(OnecallEndpointNR.i);
+      ok = await testService
+          .isValidApikeyForOneCall(onecallEndpoint)
           .timeout(const Duration(seconds: 10));
 
       if (!ok) {
-        ok = await testService
-            .isValidApikeyForOneCall(OneCallApi.api_2_5)
-            .timeout(const Duration(seconds: 10));
-      }
-      if (!ok) {
-        ok = await testService
-            .isValidApikeyForOneCall(OneCallApi.api_3_0)
-            .timeout(const Duration(seconds: 10));
-      }
+        ref
+            .read(MessageController.instance)
+            .showSnack('Onecall v${onecallEndpoint.version} not available');
 
-      return ok;
+        ok = await testService
+            .isValidApikey()
+            .timeout(const Duration(seconds: 10));
+      }
     } catch (e, s) {
       logError(e, s);
-      return false;
     }
+
+    return ok;
   }
 
   /// Сбросить значение ключа к дефолтным.
