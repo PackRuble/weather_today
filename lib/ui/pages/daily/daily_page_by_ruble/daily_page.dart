@@ -1,5 +1,7 @@
 // ignore_for_file: unused_element
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -397,17 +399,13 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
                 ),
               _hDivider,
               _Title(t.weather.riseAndSetPl),
-              _TitleContent(
-                height: _minHeightRowTile * 3,
-                left: [
+              Builder(builder: (context) {
+                final left = [
                   if (weather.sunrise != null)
                     _OneTile(t.weather.sunrise,
                         DateFormat.Hm().format(weather.sunrise!)),
-                  if (weather.sunset != null)
-                    _OneTile(t.weather.sunset,
-                        DateFormat.Hm().format(weather.sunset!)),
-                ],
-                right: [
+                ];
+                final right = [
                   if (weather.moonrise != null)
                     _OneTile(t.weather.moonrise,
                         DateFormat.Hm().format(weather.moonrise!)),
@@ -416,8 +414,27 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
                         DateFormat.Hm().format(weather.moonset!)),
                   if (weather.moonPhase != null)
                     _OneTile(t.weather.moonPhase, weather.moonPhase.toString()),
-                ],
-              ),
+                ];
+
+                if (weather.sunset != null) {
+                  final sunsetTile = _OneTile(
+                    t.weather.sunset,
+                    DateFormat.Hm().format(weather.sunset!),
+                  );
+
+                  weather.moonrise == null &&
+                          weather.moonPhase == null &&
+                          weather.moonPhase == null
+                      ? right.add(sunsetTile)
+                      : left.add(sunsetTile);
+                }
+
+                return _TitleContent(
+                  height: _minHeightRowTile * min(left.length, right.length),
+                  left: left,
+                  right: right,
+                );
+              }),
               _hDivider,
               _Title(t.weather.temp),
               _TitleContent(
