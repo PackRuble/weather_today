@@ -1,3 +1,10 @@
+## [3.4.0] - 11-08-2024
+- new weather provider - https://open-meteo.com/ - and ability to select a provider in settings
+- hold down the desired bottom tab to quickly change the weather design
+- hold down the theme mode icon for go to "Color scheme" page
+- improved user agreements page
+- optimized opening/closing expandable tiles
+
 ## [3.3.0] - 23-10-2023
 - customize each weather page to your liking: you can choose the position and design
 - improved behavior of navigation buttons

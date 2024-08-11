@@ -1,3 +1,13 @@
+☝️ This changelog talks about significant events for developers.
+For the user version, see [CHANGELOG.md](CHANGELOG.md).
+
+## [3.4.0] - 11-08-2024
+- added the choice of a new weather provider, which forced us to find a way to combine different weather schemes
+- make sure that the `Cardoteka` performs well with `Notifier` classes. We can now set course for a complete switch to `cardoteka` bypassing `sp`. This also means replacing `StateProvider` and `Provider` with `Notifier`
+- own implementation of expandable tiles
+- open the ability to put any documents on the Internet (-weight, +changes at any time)
+- building with Flutter v3.24.0 (Dart v3.5.0)
+
 ## [3.3.1] - 26-10-2023
 - fix: skip the reload screen in the AlertsList
 - fix: graphics when negative temp
