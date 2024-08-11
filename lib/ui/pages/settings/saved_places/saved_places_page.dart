@@ -1,5 +1,4 @@
 import 'package:auto_route/annotations.dart';
-import 'package:expandable/expandable.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import 'package:weather_today/application/const/app_insets.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/ui/pages/settings/saved_places/saved_places_page_presenter.dart';
+import 'package:weather_today/ui/shared/expandable_custom.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
 import '../../../shared/tips_widget.dart';
@@ -110,21 +110,10 @@ class _TileFoundedWidget extends ConsumerWidget {
             ),
           ),
           margin: EdgeInsets.zero,
-          child: ExpandableNotifier(
-            child: ScrollOnExpand(
-              child: ExpandablePanel(
-                theme: const ExpandableThemeData(
-                  headerAlignment: ExpandablePanelHeaderAlignment.center,
-                  tapHeaderToExpand: true,
-                  tapBodyToExpand: false,
-                  tapBodyToCollapse: false,
-                  hasIcon: false,
-                ),
-                header: _HeaderWidget(place),
-                collapsed: const SizedBox.shrink(),
-                expanded: _ExpandedWidget(place),
-              ),
-            ),
+          child: ExpPanel(
+            hasIcon: true,
+            header: _HeaderWidget(place),
+            expanded: _ExpandedWidget(place),
           ),
         ),
       ),

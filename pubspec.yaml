@@ -20,7 +20,6 @@ dependencies:
 
   # Widgets
   material_floating_search_bar_2: ^0.5.0
-  expandable: ^5.0.1
   smooth_page_indicator: ^1.2.0
   country_icons: ^3.0.0
   # coldfix: refuse in favor of Snack

@@ -1,4 +1,3 @@
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -10,6 +9,7 @@ import 'package:weather_today/domain/controllers/weather_provider_nr.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/pages/hourly/hourly_page_presenter.dart';
+import 'package:weather_today/ui/shared/expandable_custom.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
 import '../../../shared/attribution_weather_widget.dart';
@@ -114,23 +114,10 @@ class _GroupExpansionWidget extends ConsumerWidget {
           color: theme.primaryColor,
         ),
       ),
-      child: ExpandableNotifier(
-        child: ScrollOnExpand(
-          child: ExpandablePanel(
-            theme: ExpandableThemeData(
-              headerAlignment: ExpandablePanelHeaderAlignment.center,
-              tapHeaderToExpand: true,
-              tapBodyToExpand: false,
-              tapBodyToCollapse: false,
-              hasIcon: true,
-              iconColor: theme.iconTheme.color,
-              iconPadding: const EdgeInsets.all(8.0),
-            ),
-            header: TileHourlyWidget(weather),
-            collapsed: const SizedBox.shrink(),
-            expanded: _ExpandedWidget(weather),
-          ),
-        ),
+      child: ExpPanel(
+        hasIcon: true,
+        header: TileHourlyWidget(weather),
+        expanded: _ExpandedWidget(weather),
       ),
     );
   }

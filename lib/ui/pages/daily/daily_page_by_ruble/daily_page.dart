@@ -12,7 +12,7 @@ import 'package:weather_today/domain/controllers/weather_service_controllers.dar
 import 'package:weather_today/extension/double_extension.dart';
 import 'package:weather_today/extension/string_extension.dart';
 import 'package:weather_today/ui/shared/attribution_weather_widget.dart';
-import 'package:weather_today/ui/shared/expandable_builder.dart';
+import 'package:weather_today/ui/shared/expandable_custom.dart';
 import 'package:weather_today/ui/shared/shared_widget.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
@@ -39,9 +39,10 @@ class DailyWeatherPageByRuble extends ConsumerWidget {
         return Column(
           children: <Widget>[
             if (index == 0) const _AlertsListWidget(),
-            ExpandablePanelCustom(
-              expanded: _ExpandedWidget(day),
+            ExpPanel(
+              hasIcon: false,
               header: TileDailyWidget(day),
+              expanded: _ExpandedWidget(day),
             ),
             if (index + 1 == daily.length) const AttributionWeatherWidget(),
           ],
