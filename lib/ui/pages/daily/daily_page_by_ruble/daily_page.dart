@@ -24,7 +24,7 @@ import '../daily_page_presenter.dart';
 
 const Widget _divider = Divider(height: 0.0, thickness: 1.0);
 
-/// Страница погоды на 7 дней.
+/// 7-day weather page.
 class DailyWeatherPageByRuble extends ConsumerWidget {
   const DailyWeatherPageByRuble(this.daily);
 
@@ -95,7 +95,7 @@ class _AlertTileWidget extends ConsumerWidget {
 
     final t = ref.watch(DailyPagePresenter.tr);
 
-    final String date = alert.start!.day == alert.end!.day
+    final date = alert.start!.day == alert.end!.day
         ? t.global.time.dateFromToWithNbsp(
             date: DateFormat.MMMMd().format(alert.start!).replaceAll(' ', ' '),
             timeStart: DateFormat.H().format(alert.start!),
@@ -107,7 +107,7 @@ class _AlertTileWidget extends ConsumerWidget {
             timeEnd: DateFormat.MMMMd().format(alert.end!).replaceAll(' ', ' '),
           );
 
-    final String? description = alert.description;
+    final description = alert.description;
 
     return ListTile(
       title: Column(
@@ -171,7 +171,6 @@ class _AlertTileWidget extends ConsumerWidget {
   }
 }
 
-/// Заголовок раскрывающегося тайла.
 class TileDailyWidget extends ConsumerWidget {
   const TileDailyWidget(this.weather);
 
@@ -322,8 +321,6 @@ class TileDailyWidget extends ConsumerWidget {
   }
 }
 
-/// Высота одного тайла с показателем погоды.
-const double _minHeightRowTile = 24.0;
 const Widget _hDivider = Divider(height: 8.0, thickness: 1.0);
 const Widget _vDivider = VerticalDivider(
   indent: 4.0,
@@ -332,7 +329,7 @@ const Widget _vDivider = VerticalDivider(
   width: 20.0,
 );
 
-/// Информация в расширяющемся боксе. Все погодные характеристики здесь.
+/// Information in an expanding box. All weather characteristics are here.
 class _ExpandedWidget extends ConsumerWidget with UiLoggy {
   const _ExpandedWidget(this.weather);
 
@@ -342,9 +339,35 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
   Widget build(BuildContext context, WidgetRef ref) {
     loggy.debug('build only Expanded');
 
+    final WeatherDaily(
+      :dewPoint,
+      :rain,
+      :sunset,
+      :sunrise,
+      :cloudiness,
+      :humidity,
+      :moonPhase,
+      :moonset,
+      :moonrise,
+      :pressure,
+      :uvi,
+      :snow,
+      :summary,
+      :tempMorning,
+      :tempMax,
+      :tempMin,
+      :tempDay,
+      :tempEvening,
+      :tempNight,
+      :tempFeelsLikeMorning,
+      :tempFeelsLikeDay,
+      :tempFeelsLikeEvening,
+      :tempFeelsLikeNight,
+    ) = weather;
+
     final t = ref.watch(AppLocalization.currentTranslation);
 
-    final Temp tempUnits = ref.watch(DailyPagePresenter.tempUnits);
+    final tempUnits = ref.watch(DailyPagePresenter.tempUnits);
 
     String getTemp(double? value) => MetricsHelper.getTemp(
           value,
@@ -352,14 +375,14 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
           withUnits: false,
         );
 
-    final Pressure pressureUnits = ref.watch(WeatherServices.pressureUnits);
-    final String? _pressure = MetricsHelper.getPressure(
-      weather.pressure,
+    final pressureUnits = ref.watch(WeatherServices.pressureUnits);
+    final _pressure = MetricsHelper.getPressure(
+      pressure,
       pressureUnits,
       withUnits: false,
       precision: 0,
     );
-    final String _pressureUnits = MetricsHelper.getPressureUnits(pressureUnits);
+    final _pressureUnits = MetricsHelper.getPressureUnits(pressureUnits);
 
     return Column(
       children: [
@@ -370,155 +393,179 @@ class _ExpandedWidget extends ConsumerWidget with UiLoggy {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _Title(t.weather.precipitation),
-              if ((weather.rain == 0.0 && weather.snow == 0.0) ||
-                  (weather.rain == null && weather.snow == null))
+              if ((rain == 0.0 && snow == 0.0) ||
+                  (rain == null && snow == null))
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(t.mainPageDRuble.hourlyPage.pop.noPopExpected),
                 )
               else
                 _TitleContent(
-                  height: _minHeightRowTile,
                   left: [
                     _OneTile(
                       t.weather.rain.toCapitalize,
-                      weather.rain.toStringMaybe(fixed: 1),
+                      rain.toStringMaybe(fixed: 1),
                       // единицы верные, проверял в OM
                       'mm',
                     ),
                   ],
                   right: [
-                    _OneTile(
-                      // todo(03.08.2024): tr
-                      t.weather.snow.toCapitalize,
-                      weather.snow.toStringMaybe(fixed: 1),
-                      // единицы верные, проверял в OM
-                      'cm',
-                    ),
+                    if (snow != 0.0)
+                      _OneTile(
+                        t.weather.snow.toCapitalize,
+                        snow.toStringMaybe(fixed: 1),
+                        // единицы верные, проверял в OM
+                        'cm',
+                      ),
                   ],
                 ),
               _hDivider,
               _Title(t.weather.riseAndSetPl),
-              Builder(builder: (context) {
-                final left = [
-                  if (weather.sunrise != null)
-                    _OneTile(t.weather.sunrise,
-                        DateFormat.Hm().format(weather.sunrise!)),
-                ];
-                final right = [
-                  if (weather.moonrise != null)
-                    _OneTile(t.weather.moonrise,
-                        DateFormat.Hm().format(weather.moonrise!)),
-                  if (weather.moonset != null)
-                    _OneTile(t.weather.moonset,
-                        DateFormat.Hm().format(weather.moonset!)),
-                  if (weather.moonPhase != null)
-                    _OneTile(t.weather.moonPhase, weather.moonPhase.toString()),
-                ];
+              Builder(
+                builder: (context) {
+                  final left = [
+                    if (sunrise != null)
+                      _OneTile(
+                        t.weather.sunrise,
+                        DateFormat.Hm().format(sunrise),
+                      ),
+                  ];
+                  final right = [
+                    if (moonrise != null)
+                      _OneTile(
+                        t.weather.moonrise,
+                        DateFormat.Hm().format(moonrise),
+                      ),
+                    if (moonset != null)
+                      _OneTile(
+                        t.weather.moonset,
+                        DateFormat.Hm().format(moonset),
+                      ),
+                    if (moonPhase != null)
+                      _OneTile(
+                        t.weather.moonPhase,
+                        moonPhase.toString(),
+                      ),
+                  ];
 
-                if (weather.sunset != null) {
-                  final sunsetTile = _OneTile(
-                    t.weather.sunset,
-                    DateFormat.Hm().format(weather.sunset!),
+                  if (sunset != null) {
+                    final sunsetTile = _OneTile(
+                      t.weather.sunset,
+                      DateFormat.Hm().format(sunset),
+                    );
+
+                    moonrise == null && moonPhase == null && moonPhase == null
+                        ? right.add(sunsetTile)
+                        : left.add(sunsetTile);
+                  }
+
+                  return _TitleContent(
+                    left: left,
+                    right: right,
                   );
-
-                  weather.moonrise == null &&
-                          weather.moonPhase == null &&
-                          weather.moonPhase == null
-                      ? right.add(sunsetTile)
-                      : left.add(sunsetTile);
-                }
-
-                return _TitleContent(
-                  height: _minHeightRowTile * min(left.length, right.length),
-                  left: left,
-                  right: right,
-                );
-              }),
+                },
+              ),
               _hDivider,
               _Title(t.weather.temp),
               _TitleContent(
-                height: _minHeightRowTile * 1,
                 left: [
-                  _OneTile(t.weather.minimum, getTemp(weather.tempMin),
-                      tempUnits.abbr)
+                  _OneTile(t.weather.minimum, getTemp(tempMin), tempUnits.abbr)
                 ],
                 right: [
-                  _OneTile(t.weather.maximum, getTemp(weather.tempMax),
-                      tempUnits.abbr)
+                  _OneTile(t.weather.maximum, getTemp(tempMax), tempUnits.abbr)
                 ],
               ),
               _hDivider,
               _TitleContent(
-                height: _minHeightRowTile * 5,
                 left: [
-                  if (weather.tempMorning != null ||
-                      weather.tempDay != null ||
-                      weather.tempEvening != null ||
-                      weather.tempNight != null)
+                  if (tempMorning != null ||
+                      tempDay != null ||
+                      tempEvening != null ||
+                      tempNight != null)
                     _OneTile(t.weather.real),
-                  if (weather.tempMorning != null)
-                    _OneTile(t.weather.atMorning, getTemp(weather.tempMorning),
+                  if (tempMorning != null)
+                    _OneTile(t.weather.atMorning, getTemp(tempMorning),
                         tempUnits.abbr),
-                  if (weather.tempDay != null)
-                    _OneTile(t.weather.atDay, getTemp(weather.tempDay),
+                  if (tempDay != null)
+                    _OneTile(t.weather.atDay, getTemp(tempDay), tempUnits.abbr),
+                  if (tempEvening != null)
+                    _OneTile(t.weather.atEvening, getTemp(tempEvening),
                         tempUnits.abbr),
-                  if (weather.tempEvening != null)
-                    _OneTile(t.weather.atEvening, getTemp(weather.tempEvening),
-                        tempUnits.abbr),
-                  if (weather.tempNight != null)
-                    _OneTile(t.weather.atNight, getTemp(weather.tempNight),
-                        tempUnits.abbr),
+                  if (tempNight != null)
+                    _OneTile(
+                      t.weather.atNight,
+                      getTemp(tempNight),
+                      tempUnits.abbr,
+                    ),
                 ],
                 right: [
-                  if (weather.tempFeelsLikeMorning != null ||
-                      weather.tempFeelsLikeDay != null ||
-                      weather.tempFeelsLikeEvening != null ||
-                      weather.tempFeelsLikeNight != null)
+                  if (tempFeelsLikeMorning != null ||
+                      tempFeelsLikeDay != null ||
+                      tempFeelsLikeEvening != null ||
+                      tempFeelsLikeNight != null)
                     _OneTile(t.weather.feels),
-                  if (weather.tempFeelsLikeMorning != null)
-                    _OneTile(t.weather.atMorning,
-                        getTemp(weather.tempFeelsLikeMorning), tempUnits.abbr),
-                  if (weather.tempFeelsLikeDay != null)
-                    _OneTile(t.weather.atDay, getTemp(weather.tempFeelsLikeDay),
-                        tempUnits.abbr),
-                  if (weather.tempFeelsLikeEvening != null)
-                    _OneTile(t.weather.atEvening,
-                        getTemp(weather.tempFeelsLikeEvening), tempUnits.abbr),
-                  if (weather.tempFeelsLikeNight != null)
-                    _OneTile(t.weather.atNight,
-                        getTemp(weather.tempFeelsLikeNight), tempUnits.abbr),
+                  if (tempFeelsLikeMorning != null)
+                    _OneTile(
+                      t.weather.atMorning,
+                      getTemp(tempFeelsLikeMorning),
+                      tempUnits.abbr,
+                    ),
+                  if (tempFeelsLikeDay != null)
+                    _OneTile(
+                      t.weather.atDay,
+                      getTemp(tempFeelsLikeDay),
+                      tempUnits.abbr,
+                    ),
+                  if (tempFeelsLikeEvening != null)
+                    _OneTile(
+                      t.weather.atEvening,
+                      getTemp(tempFeelsLikeEvening),
+                      tempUnits.abbr,
+                    ),
+                  if (tempFeelsLikeNight != null)
+                    _OneTile(
+                      t.weather.atNight,
+                      getTemp(tempFeelsLikeNight),
+                      tempUnits.abbr,
+                    ),
                 ],
               ),
-              if (weather.tempMorning != null ||
-                  weather.tempDay != null ||
-                  weather.tempEvening != null ||
-                  weather.tempNight != null ||
-                  weather.tempFeelsLikeMorning != null ||
-                  weather.tempFeelsLikeDay != null ||
-                  weather.tempFeelsLikeEvening != null ||
-                  weather.tempFeelsLikeNight != null)
+              if (tempMorning != null ||
+                  tempDay != null ||
+                  tempEvening != null ||
+                  tempNight != null ||
+                  tempFeelsLikeMorning != null ||
+                  tempFeelsLikeDay != null ||
+                  tempFeelsLikeEvening != null ||
+                  tempFeelsLikeNight != null)
                 _hDivider,
               _Title(t.weather.indicators),
               _TitleContent(
-                height: _minHeightRowTile * 3,
                 left: [
                   if (_pressure != null)
-                    _OneTile(t.weather.pressure, _pressure, ' $_pressureUnits',
-                        true),
-                  if (weather.cloudiness != null)
-                    _OneTile(t.weather.cloudiness,
-                        weather.cloudiness.toStringMaybe(), '%'),
-                  if (weather.uvi != null)
-                    _OneTile(t.weather.uvi, weather.uvi.toStringMaybe()),
+                    _OneTile(
+                      t.weather.pressure,
+                      _pressure,
+                      ' $_pressureUnits',
+                      true,
+                    ),
+                  if (cloudiness != null)
+                    _OneTile(
+                      t.weather.cloudiness,
+                      cloudiness.toStringMaybe(),
+                      '%',
+                    ),
+                  if (uvi != null) _OneTile(t.weather.uvi, uvi.toStringMaybe()),
                 ],
                 right: [
-                  if (weather.humidity != null)
-                    _OneTile(t.weather.humidity,
-                        weather.humidity.toStringMaybe(), '%'),
-                  if (weather.dewPoint != null)
-                    _OneTile(t.weather.dewPoint, getTemp(weather.dewPoint),
-                        tempUnits.abbr),
+                  if (humidity != null)
+                    _OneTile(t.weather.humidity, humidity.toStringMaybe(), '%'),
+                  if (dewPoint != null)
+                    _OneTile(
+                      t.weather.dewPoint,
+                      getTemp(dewPoint),
+                      tempUnits.abbr,
+                    ),
                 ],
               ),
             ],
@@ -589,14 +636,15 @@ class _OneTile extends StatelessWidget {
 class _TitleContent extends StatelessWidget {
   const _TitleContent({
     super.key,
-    required this.height,
     required this.left,
     required this.right,
   });
 
-  final double height;
   final List<Widget> left;
   final List<Widget> right;
+
+  /// The height of one tile with a weather indicator.
+  static const double _minHeightRowTile = 24.0;
 
   @override
   Widget build(BuildContext context) => left.isEmpty || right.isEmpty
@@ -621,7 +669,7 @@ class _TitleContent extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: height,
+              height: _minHeightRowTile * min(left.length, right.length),
               child: _vDivider,
             ),
             Expanded(
