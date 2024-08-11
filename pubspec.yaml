@@ -2,7 +2,7 @@ name: weather_today
 description: Weather for every day.
 publish_to: none
 
-version: 3.3.1-dev.1+21
+version: 3.3.1-dev.2+22
 
 environment:
   sdk: ^3.0.0
@@ -10,6 +10,8 @@ environment:
 dependency_overrides:
   meta: ^1.15.0
   web: ^1.0.0 # because of old fluttertoast
+  win32: ^5.5.3 # error on Flutter 3.24.0
+  flex_seed_scheme: ^3.1.2 # because of flex_color_picker
 
 dependencies:
   flutter:
@@ -33,7 +35,7 @@ dependencies:
 
   # Theme
   flex_color_scheme: ^7.3.1
-  flex_color_picker: ^3.4.1
+  flex_color_picker: ^3.5.1
 
   # Models and annotation
   json_annotation: ^4.9.0
@@ -67,7 +69,7 @@ dependencies:
   url_launcher: ^6.3.0
   package_info_plus: ^8.0.1
 
-  flutter_markdown: ^0.7.3
+  flutter_markdown: ^0.7.3+1
 
 dev_dependencies:
   flutter_test:
@@ -95,7 +97,6 @@ flutter:
     - assets/weather_icons/
     - assets/images/attribution/owm/
     - assets/images/attribution/open-meteo/
-    - assets/doc/
 
   fonts:
     # see https://flutter.dev/custom-fonts/#from-packages
