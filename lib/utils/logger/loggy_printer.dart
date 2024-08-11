@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:loggy/loggy.dart';
+import 'package:weather_today/application/const/app_utils.dart';
 
 // ignore_for_file: avoid_print
 
@@ -39,24 +41,17 @@ class UserPrinter extends LoggyPrinter {
   /// (!) Skips all entries at level [LogLevel.debug].
   @override
   void onLog(LogRecord record) {
-    if (record.level == LogLevel.debug) {
-      return;
-    }
+    if (record.level == LogLevel.debug) return;
 
-    final result = StringBuffer();
+    final buffer = StringBuffer();
 
-    result.write('${record.time}: ');
-    result.write(record.toString());
+    buffer.write('${record.time}: ');
+    buffer.write(record.toString());
 
-    if (record.error != null) {
-      result.write('\n${record.error}');
-    }
+    if (record.error != null) buffer.writeln(record.error);
+    if (record.stackTrace != null) buffer.writeln(record.stackTrace);
 
-    if (record.stackTrace != null) {
-      result.write('\n${record.stackTrace}');
-    }
-
-    onNewLog.call(result.toString());
+    onNewLog.call(kDebugMode ? buffer : AppUtils.clearSecrets(buffer));
   }
 }
 
@@ -108,16 +103,21 @@ class ConsolePrinter extends LoggyPrinter {
         showColors ? levelColor(record.level) ?? AnsiColor() : AnsiColor();
     final _prefix = levelPrefix(record.level) ?? _defaultPrefix;
 
-    print(_color(
-        '$_prefix$_time $_logLevel ${record.loggerName} $_callerFrame ${record.message}'));
+    final buffer = StringBuffer();
+    buffer.write(
+      _color.call(
+        '$_prefix$_time '
+        '$_logLevel '
+        '${record.loggerName} '
+        '$_callerFrame '
+        '${record.message}',
+      ),
+    );
 
-    if (record.error != null) {
-      print(record.error);
-    }
+    if (record.error != null) buffer.writeln(record.error);
+    if (record.stackTrace != null) buffer.writeln(record.stackTrace);
 
-    if (record.stackTrace != null) {
-      print(record.stackTrace);
-    }
+    print(kDebugMode ? buffer : AppUtils.clearSecrets(buffer));
   }
 
   String? levelPrefix(LogLevel level) {

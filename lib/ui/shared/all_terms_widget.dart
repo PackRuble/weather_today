@@ -115,6 +115,7 @@ class TermsConditionsWidget extends HookConsumerWidget {
             child: Text(t.termsConditions.confirmationWithTheAbove),
           ),
           const _ButtonBarWidget(),
+          const SizedBox(height: 12),
         ]
       ],
     );
