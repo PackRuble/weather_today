@@ -107,7 +107,7 @@ class TermsConditionsWidget extends HookConsumerWidget {
               ),
             ),
           ),
-        if (isAccepted) ...[
+        if (!isAccepted) ...[
           // if (!hasAnyExpanded) const Spacer(),
           const Divider(height: 0.0, thickness: 0.0),
           Padding(
