@@ -41,6 +41,7 @@ class VisualDesignPage extends ConsumerWidget {
     final scrollPhysics =
         ref.watch(VisualDesignPresenter.selectedScrollPhysic).scrollPhysics;
 
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async =>
           ref.read(VisualDesignPresenter.instance).onWillPop(context),

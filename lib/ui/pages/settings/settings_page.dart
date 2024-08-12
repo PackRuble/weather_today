@@ -133,7 +133,6 @@ class _TileWeatherProviderWidget extends ConsumerWidget {
     final t = ref.watch(SettingPagePresenter.tr);
 
     final weatherProviderPR = WeatherProviderNR.i;
-    final weatherProviderNR = ref.watch(weatherProviderPR.notifier);
     final weatherProvider = ref.watch(weatherProviderPR);
 
     return TileSetting(

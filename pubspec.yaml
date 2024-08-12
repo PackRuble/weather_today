@@ -8,7 +8,6 @@ environment:
   sdk: ^3.0.0
 
 dependency_overrides:
-  meta: ^1.15.0
   web: ^1.0.0 # because of old fluttertoast
   win32: ^5.5.3 # error on Flutter 3.24.0
   flex_seed_scheme: ^3.1.2 # because of flex_color_picker

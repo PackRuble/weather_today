@@ -72,13 +72,11 @@ class OpenMeteoRepo {
           );
       }
 
-      print(json);
-
       result = ForecastOpenMeteoResponse.fromJson(json);
     } on OpenMeteoApiException {
       // ignore
       rethrow;
-    } catch (error, stackTrace) {
+    } catch (error, _) {
       throw OpenMeteoApiException.error(error);
     }
 

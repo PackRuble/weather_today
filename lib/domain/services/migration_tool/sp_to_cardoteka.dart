@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:weather_today/domain/controllers/app_theme/models/design_page.dart';
 import 'package:weather_today/domain/services/cardoteka/settings_storage.dart';
 import 'package:weather_today/domain/services/local_storage/interface/data_base.dart';
