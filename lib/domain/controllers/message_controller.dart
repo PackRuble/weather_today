@@ -78,7 +78,7 @@ class MessageController {
             () async => showDialog(
               useSafeArea: true,
               context: materialKeyProvider.currentContext!,
-              builder: (_) => ErrorInfoDialog(message),
+              builder: (_) => ErrorInfoDialog(AppUtils.clearSecrets(message)),
             ),
           ),
         ),

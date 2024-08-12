@@ -88,7 +88,7 @@ class ErrorInfoDialog extends ConsumerWidget {
         children: [
           AppBar(
             leading: const CloseButton(),
-            title: const Text('Error screen'),
+            title: const Text('Oops... screen'),
           ),
           Expanded(
             child: SingleChildScrollView(
