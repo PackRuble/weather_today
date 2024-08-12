@@ -65,9 +65,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
       l.info('$T: Permission granted. Trying to get the weather.');
 
       weather = await _getWeather(_currentPlace);
-    }
-    // making a request to the db. If it's empty return null
-    else {
+    } else {
       l.info('$T: Permission NOT granted. Trying to get the weather in db.');
     }
 
@@ -126,19 +124,26 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
     l.info('$T: Trying to update weather.');
 
     if (_isPlaceCorrect(_currentPlace)) {
-      const error = 'The location is not correct. Choose a different location.';
-      state = AsyncValue.error(error, StackTrace.current);
+      state = AsyncValue.error(
+        'The location is not correct. Choose a different location.',
+        StackTrace.current,
+      );
     }
 
     // is the update available now?
-    if (await _isAllowedMakeRequest() ||
-        await _isAbilityRequestOnDiffPlaces()) {
+    if (await _isAllowedMakeRequest()) {
       l.info('$T: Permission granted. Trying to get the weather.');
 
       state = const AsyncValue.loading();
 
+      T? weather;
+
+      if (await _isAbilityRequestOnDiffPlaces()) {
+        weather = await optimizedFetchWeather(_currentPlace);
+      }
+
       // get the weather from the server
-      T? weather = await _getWeather(_currentPlace);
+      weather ??= await _getWeather(_currentPlace);
 
       // if data is null, try to get data from the database
       weather ??= await getStoredWeather();
@@ -194,6 +199,10 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
   /// Get weather by location from a weather service.
   @protected
   Future<T> fetchWeather(Place place);
+
+  /// Receive only the missing, up-to-date weather data
+  @protected
+  Future<T?> optimizedFetchWeather(Place place) async => null;
 
   /// Save the received weather to local storage.
   @protected

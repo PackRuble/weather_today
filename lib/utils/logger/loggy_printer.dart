@@ -48,8 +48,8 @@ class UserPrinter extends LoggyPrinter {
     buffer.write('${record.time}: ');
     buffer.write(record.toString());
 
-    if (record.error != null) buffer.writeln(record.error);
-    if (record.stackTrace != null) buffer.writeln(record.stackTrace);
+    if (record.error != null) buffer.write('\n${record.error}');
+    if (record.stackTrace != null) buffer.write('\n${record.stackTrace}');
 
     onNewLog.call(kDebugMode ? buffer : AppUtils.clearSecrets(buffer));
   }
@@ -114,8 +114,8 @@ class ConsolePrinter extends LoggyPrinter {
       ),
     );
 
-    if (record.error != null) buffer.writeln(record.error);
-    if (record.stackTrace != null) buffer.writeln(record.stackTrace);
+    if (record.error != null) buffer.write('\n${record.error}');
+    if (record.stackTrace != null) buffer.write('\n${record.stackTrace}');
 
     print(kDebugMode ? buffer : AppUtils.clearSecrets(buffer));
   }

@@ -33,39 +33,39 @@ class WeatherOpenMeteoNR extends WeatherNR<ForecastOpenMeteoResponse> {
   }
 
   @override
-  Future<ForecastOpenMeteoResponse?> getStoredWeather() async =>
+  ForecastOpenMeteoResponse? getStoredWeather() =>
       _openMeteoStorage.getOrNull(OpenMeteoCards.latestWeatherForecast);
 
   @override
-  Future<ForecastOpenMeteoResponse> fetchWeather(Place place) async {
+  Future<ForecastOpenMeteoResponse?> optimizedFetchWeather(Place place) async {
     final last = getLastRequestTime();
     final now = DateTime.now();
 
-    ForecastOpenMeteoResponse? weather = await getStoredWeather();
+    final storedWeather = getStoredWeather();
 
     // it was today?
-    if (weather != null &&
+    if (storedWeather != null &&
         last != null &&
         last.year == now.year &&
         last.month == now.month &&
         last.day == now.day) {
       // hourly and daily are updated once a day for open-meteo, so it doesn't
       // make sense to make more requests
-      // todo(05.08.2024): however, this trick does not take into account possible
-      //  differences in locations, etc.
       final res = await _openMeteoRepo.fetchForecast(
         place,
         hourlyParams: null,
         dailyParams: null,
       );
 
-      weather = weather.copyWith(currentWeather: res.currentWeather);
+      return storedWeather.copyWith(currentWeather: res.currentWeather);
     } else {
-      weather = await _openMeteoRepo.fetchForecast(place);
+      return null;
     }
-
-    return weather;
   }
+
+  @override
+  Future<ForecastOpenMeteoResponse> fetchWeather(Place place) async =>
+      await _openMeteoRepo.fetchForecast(place);
 
   @override
   Future<void> saveWeatherInDb(ForecastOpenMeteoResponse weather) async =>
@@ -91,7 +91,7 @@ class WeatherOpenMeteoNR extends WeatherNR<ForecastOpenMeteoResponse> {
       );
 
   @override
-  FutureOr<void> whenUpdateNotAllowed() {
+  void whenUpdateNotAllowed() {
     // allowedRequestRate=15min => data on the server is not updated more often
     messagesNR.showSnack(ref.tr.messages.weatherDataIsActual);
   }
