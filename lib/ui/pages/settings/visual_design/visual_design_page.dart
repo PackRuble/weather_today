@@ -5,7 +5,6 @@ import 'dart:collection';
 import 'package:auto_route/annotations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:weather_pack/weather_pack.dart';
@@ -320,13 +319,13 @@ class _DesignTileNew extends HookConsumerWidget {
       WeatherPage.daily => titleTr.daily
     };
 
-    // todo(02.08.2024):
-    final activatedTileState = useState(true);
-    final activatedTile = activatedTileState.value;
+    // todo(02.08.2024): https://github.com/PackRuble/weather_today/issues/39
+    // final activatedTileState = useState(true);
+    // final activatedTile = activatedTileState.value;
 
-    return SwitchListTile(
-      value: activatedTile,
-      onChanged: (_) => activatedTileState.value = !activatedTile,
+    return ListTile(
+      // value: activatedTile,
+      // onChanged: (_) => activatedTileState.value = !activatedTile,
       title: Text(title, textScaler: TextScaler.linear(textScaleFactor)),
       subtitle: SegmentedButton<AppVisualDesign>(
         segments: [
@@ -334,20 +333,24 @@ class _DesignTileNew extends HookConsumerWidget {
             value: AppVisualDesign.byRuble,
             label: Text(AppVisualDesign.byRuble.toWords()),
           ),
-          ButtonSegment(
-            value: AppVisualDesign.byTolskaya,
-            label: Text(AppVisualDesign.byTolskaya.toWords()),
-          ),
+          if (page case WeatherPage.currently || WeatherPage.hourly)
+            ButtonSegment(
+              value: AppVisualDesign.byTolskaya,
+              label: Text(AppVisualDesign.byTolskaya.toWords()),
+            ),
         ],
         selected: {design},
-        onSelectionChanged: activatedTile && page != WeatherPage.daily
-            ? (value) async => notifier.onChangeDesignPage(
-                  value.first,
-                  index,
-                )
-            : null,
+        onSelectionChanged:
+            // activatedTile &&
+            page != WeatherPage.daily
+                ? (value) async => notifier.onChangeDesignPage(
+                      value.first,
+                      index,
+                    )
+                : (_) {},
       ),
-      secondary: ReorderableDragStartListener(
+      // secondary: ReorderableDragStartListener(
+      leading: ReorderableDragStartListener(
         index: index,
         child: const Icon(Icons.drag_handle_rounded),
       ),
