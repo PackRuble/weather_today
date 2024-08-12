@@ -28,15 +28,17 @@ class SnackController extends ChangeNotifier {
   }
 }
 
-/// Центр по управлению высплывающими тостами!
+/// Центр по управлению всплывающими тостами!
 class ToastController extends ChangeNotifier {
   MessageToast? toast;
 
   void showToast(MessageToast toast) {
-    this.toast = toast;
+    final result =
+        toast.copyWith(message: AppUtils.clearSecrets(toast.message));
+    this.toast = result;
     notifyListeners();
 
-    logInfo(toast);
+    logInfo(result);
   }
 }
 
@@ -46,7 +48,7 @@ class MessageController {
 
   final Ref _ref;
 
-  static final instance = Provider(
+  static final instance = Provider.autoDispose(
     MessageController.new,
     name: '$MessageController/instance',
   );
@@ -125,61 +127,63 @@ class _StoreMessages {
   /// Возникает если:
   /// - Нет соединения с сервером погоды;
   /// - Нет соединения с интернетом.
-  static final MessageToast toastSocketException = MessageToast(
-    message: tr.dialogs.messages.socketException,
-    toastTime: Toast.LENGTH_LONG,
-    gravity: ToastGravity.TOP,
-  );
+  static MessageToast get toastSocketException => MessageToast(
+        message: tr.dialogs.messages.socketException,
+        toastTime: Toast.LENGTH_LONG,
+        gravity: ToastGravity.TOP,
+      );
 
   /// Уведомление о невозможности установить соединение с сервером.
   ///
   /// Возникает если:
   /// - Нет удается установить соединение с сервером погоды;
-  static final MessageToast toastTimeoutException = MessageToast(
-    message: '🕐🕜🕑👈',
-    toastTime: Toast.LENGTH_LONG,
-    gravity: ToastGravity.TOP,
-  );
+  static MessageToast get toastTimeoutException => MessageToast(
+        message: '🕐🕜🕑👈',
+        toastTime: Toast.LENGTH_LONG,
+        gravity: ToastGravity.TOP,
+      );
 
   /// Уведомление об успехе установки apiKey weather.
   ///
-  static final MessageToast toastApiKeyWeatherSetTrue = MessageToast(
-    message: tr.dialogs.messages.apiKeyWeatherSetTrue,
-    toastTime: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-  );
+  static MessageToast get toastApiKeyWeatherSetTrue => MessageToast(
+        message: tr.dialogs.messages.apiKeyWeatherSetTrue,
+        toastTime: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
 
   /// Уведомление об провале установки apiKey weather.
   ///
-  static final MessageToast toastApiKeyWeatherSetFalse = MessageToast(
-    message: tr.dialogs.messages.apiKeyWeatherSetFalse,
-    toastTime: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-  );
+  static MessageToast get toastApiKeyWeatherSetFalse => MessageToast(
+        message: tr.dialogs.messages.apiKeyWeatherSetFalse,
+        toastTime: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
 
   /// Уведомление об успешной проверке api ключа погоды.
   ///
-  static MessageToast toastApikeyOWMSuccess = MessageToast(
-    message: tr.dialogs.messages.apiKeyOWMVerificationSuccess,
-    toastTime: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-  );
+  static MessageToast get toastApikeyOWMSuccess => MessageToast(
+        message: tr.dialogs.messages.apiKeyOWMVerificationSuccess,
+        toastTime: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
 
   /// Уведомление об провальной проверке api ключа погоды.
   ///
-  static final MessageToast toastApikeyOWMFail = MessageToast(
-    message: tr.dialogs.messages.apiKeyOWMVerificationFail,
-    toastTime: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-  );
+  static MessageToast get toastApikeyOWMFail => MessageToast(
+        message: tr.dialogs.messages.apiKeyOWMVerificationFail,
+        toastTime: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
 
   /// Уведомление о неудачном обновлении погоды.
   ///
-  static MessageSnack snackUpdateWeatherFail = MessageSnack(
-    message: tr.dialogs.messages.weatherUpdateFail,
-    action: MapEntry(tr.dialogs.buttons.know, () {
-      return AutoRouter.of(materialKeyProvider.currentContext!)
-          .push(const UserApiRoute());
-    }),
-  );
+  static MessageSnack get snackUpdateWeatherFail => MessageSnack(
+        message: tr.dialogs.messages.weatherUpdateFail,
+        action: MapEntry(
+          tr.dialogs.buttons.know,
+          () async => AutoRouter.of(materialKeyProvider.currentContext!).push(
+            const UserApiRoute(),
+          ),
+        ),
+      );
 }

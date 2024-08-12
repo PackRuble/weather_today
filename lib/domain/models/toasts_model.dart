@@ -19,6 +19,18 @@ class MessageToast {
 
   @override
   String toString() => 'Toast: [ $message ]';
+
+  MessageToast copyWith({
+    String? message,
+    Toast? toastTime,
+    ToastGravity? gravity,
+  }) {
+    return MessageToast(
+      message: message ?? this.message,
+      toastTime: toastTime ?? this.toastTime,
+      gravity: gravity ?? this.gravity,
+    );
+  }
 }
 
 /// Уведомление с действиями.
