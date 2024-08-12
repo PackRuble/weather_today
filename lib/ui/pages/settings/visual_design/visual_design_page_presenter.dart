@@ -6,7 +6,7 @@ import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_
 import 'package:weather_today/domain/controllers/app_theme/models/design_page.dart';
 import 'package:weather_today/domain/controllers/app_theme/models/models.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
-import 'package:weather_today/domain/controllers/weather/open_weather_map/weather_onecall_owm_nr.dart';
+import 'package:weather_today/domain/controllers/weather_onecall_delegacy_nr.dart';
 import 'package:weather_today/domain/services/cardoteka/settings_storage.dart';
 import 'package:weather_today/ui/dialogs/app_dialogs.dart';
 
@@ -40,9 +40,10 @@ class VisualDesignPresenter {
 
   /// Погода берется из заранее сохраненного json, который всегда доступен. (уже нет)
   static final weatherMock = FutureProvider.autoDispose<WeatherOneCall?>(
-      (ref) async =>
-          ref.watch(WeatherOnecallOwmNR.i.notifier).getStoredWeather());
-  // TestWeatherJson.getOneCallWeatherToTest()); //todo можно просто сделать модельку
+      // todo(12.08.2024): можно сделать тайл с параметрами и передать свои моковые постоянные
+      //  или
+      //  оставить это как есть
+      (ref) async => ref.watch(WeatherOnecallDelegacyNR.i.future));
 
   /// Apply the values when you finish editing the options.
   static final changesProvider =
