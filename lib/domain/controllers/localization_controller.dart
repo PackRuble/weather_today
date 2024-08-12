@@ -10,6 +10,10 @@ import 'package:weather_today/domain/services/local_storage/key_store.dart';
 
 import '../../application/i18n/translations.g.dart';
 
+extension WidgetRefTr on WidgetRef {
+  Translations get tr => watch(AppLocalization.currentTranslation);
+}
+
 /// Быстрый доступ к переменной перевода.
 ///
 /// No rebuild after locale change.
