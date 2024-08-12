@@ -44,6 +44,9 @@ class TranslationsEn extends Translations {
 	@override late final TranslationsDialogsEn dialogs = TranslationsDialogsEn._(_root);
 	@override late final TranslationsEnumsEn enums = TranslationsEnumsEn._(_root);
 	@override late final TranslationsUnitsEn units = TranslationsUnitsEn._(_root);
+	@override late final TranslationsMessagesEn messages = TranslationsMessagesEn._(_root);
+	@override late final TranslationsUiEn ui = TranslationsUiEn._(_root);
+	@override late final TranslationsOtherEn other = TranslationsOtherEn._(_root);
 }
 
 // Path: mainPageDRuble
@@ -455,6 +458,43 @@ class TranslationsUnitsEn extends TranslationsUnitsRu {
 	@override late final TranslationsUnitsSideOfTheWorldEn sideOfTheWorld = TranslationsUnitsSideOfTheWorldEn._(_root);
 }
 
+// Path: messages
+class TranslationsMessagesEn extends TranslationsMessagesRu {
+	TranslationsMessagesEn._(TranslationsEn root) : this._root = root, super._(root);
+
+	@override final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get clickToSee => 'Click to see';
+	@override String get weatherDataIsActual => 'Weather data is up to date';
+	@override String get selectedParamWillBeApplied => 'The selected parameter will be applied immediately';
+}
+
+// Path: ui
+class TranslationsUiEn extends TranslationsUiRu {
+	TranslationsUiEn._(TranslationsEn root) : this._root = root, super._(root);
+
+	@override final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get advancedSettings => 'Advanced Settings';
+	@override String get used => 'Used';
+	@override String get selectWeatherProvider => 'Select a weather provider';
+	@override String get chooseWeatherDesignForPage => 'Choose a weather design for page';
+	@override String get weatherProvider => 'Weather provider';
+}
+
+// Path: other
+class TranslationsOtherEn extends TranslationsOtherRu {
+	TranslationsOtherEn._(TranslationsEn root) : this._root = root, super._(root);
+
+	@override final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get selectVersion => 'Select version';
+	@override String get version => 'Version';
+}
+
 // Path: mainPageDRuble.mainPage
 class TranslationsMainPageDRubleMainPageEn extends TranslationsMainPageDRubleMainPageRu {
 	TranslationsMainPageDRubleMainPageEn._(TranslationsEn root) : this._root = root, super._(root);
@@ -678,7 +718,7 @@ class TranslationsVisualDesignPageHeadersEn extends TranslationsVisualDesignPage
 	@override final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get design => 'Weather main page design';
+	@override String get design => 'Design of weather pages';
 	@override String get fontSize => 'Font size';
 	@override String get scroll => 'Scroll';
 	@override String get typography => 'Typography';

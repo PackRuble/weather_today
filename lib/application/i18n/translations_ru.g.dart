@@ -44,6 +44,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsDialogsRu dialogs = TranslationsDialogsRu._(_root);
 	late final TranslationsEnumsRu enums = TranslationsEnumsRu._(_root);
 	late final TranslationsUnitsRu units = TranslationsUnitsRu._(_root);
+	late final TranslationsMessagesRu messages = TranslationsMessagesRu._(_root);
+	late final TranslationsUiRu ui = TranslationsUiRu._(_root);
+	late final TranslationsOtherRu other = TranslationsOtherRu._(_root);
 }
 
 // Path: mainPageDRuble
@@ -455,6 +458,43 @@ class TranslationsUnitsRu {
 	late final TranslationsUnitsSideOfTheWorldRu sideOfTheWorld = TranslationsUnitsSideOfTheWorldRu._(_root);
 }
 
+// Path: messages
+class TranslationsMessagesRu {
+	TranslationsMessagesRu._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get clickToSee => 'Нажмите, чтобы увидеть';
+	String get weatherDataIsActual => 'Погодные данные актуальны';
+	String get selectedParamWillBeApplied => 'Выбранный параметр будет сразу применён';
+}
+
+// Path: ui
+class TranslationsUiRu {
+	TranslationsUiRu._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get advancedSettings => 'Дополнительные настройки';
+	String get used => 'Используется';
+	String get selectWeatherProvider => 'Выбрать погодного провайдера';
+	String get chooseWeatherDesignForPage => 'Выберите погодный дизайн для страницы';
+	String get weatherProvider => 'Погодный провайдер';
+}
+
+// Path: other
+class TranslationsOtherRu {
+	TranslationsOtherRu._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get selectVersion => 'Выберите версию';
+	String get version => 'Версия';
+}
+
 // Path: mainPageDRuble.mainPage
 class TranslationsMainPageDRubleMainPageRu {
 	TranslationsMainPageDRubleMainPageRu._(this._root);
@@ -678,7 +718,7 @@ class TranslationsVisualDesignPageHeadersRu {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get design => 'Оформление главных страниц погоды';
+	String get design => 'Оформление погодных страниц';
 	String get fontSize => 'Размер шрифта';
 	String get scroll => 'Скролл';
 	String get typography => 'Типографика';

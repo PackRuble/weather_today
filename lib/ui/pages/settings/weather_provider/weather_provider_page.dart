@@ -24,17 +24,15 @@ class WeatherProviderPage extends ConsumerWidget {
     final weatherProvider = ref.watch(weatherProviderPR);
 
     return Scaffold(
-      appBar: const AppBarCustom(
-        // todo(02.08.2024): tr
-        'Погодный провайдер',
+      appBar: AppBarCustom(
+        ref.tr.ui.weatherProvider,
       ),
       body: ListView(
         children: [
           const _SelectWeatherProviderTile(),
           const Divider(height: 0),
-          // todo(02.08.2024): tr
           if (weatherProvider case WeatherProvider.openWeatherMap) ...[
-            const HeaderRWidget('Дополнительные настройки'),
+            HeaderRWidget(ref.tr.ui.advancedSettings),
             const _TileWeatherLanguageWidget(),
             const _TileUserApiWidget(),
           ]
@@ -57,16 +55,14 @@ class _SelectWeatherProviderTile extends ConsumerWidget {
 
     return TileSetting(
       leading: AppIcons.weatherProvider,
-      // todo(02.08.2024): tr
-      title: 'Выбрать погодного провайдера',
-      subtitle: 'Используется: ${weatherProvider.website}',
+      title: ref.tr.ui.selectWeatherProvider,
+      subtitle: '${ref.tr.ui.used}: ${weatherProvider.website}',
       onTap: () async {
         final selected = await showChoosingDialog<WeatherProvider>(
           context,
           icon: const Icon(AppIcons.pressure),
-          // todo(02.08.2024): tr
-          title: 'Погодный провайдер',
-          subTitle: 'Выбранный параметр будет применен ко всем погодным данным',
+          title: ref.tr.ui.weatherProvider,
+          subTitle: ref.tr.messages.selectedParamWillBeApplied,
           listDialogOption: [
             for (final provider in WeatherProvider.values)
               DialogOption<WeatherProvider>(

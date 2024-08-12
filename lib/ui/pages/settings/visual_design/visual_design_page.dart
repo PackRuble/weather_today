@@ -13,6 +13,7 @@ import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
 import 'package:weather_today/domain/controllers/app_theme/models/design_page.dart';
 import 'package:weather_today/domain/controllers/app_theme/models/models.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/extension/enum_extension.dart';
 import 'package:weather_today/ui/pages/current/current_page_main.dart';
 import 'package:weather_today/ui/pages/daily/daily_page_by_ruble/daily_page.dart'
@@ -67,8 +68,7 @@ class VisualDesignPage extends ConsumerWidget {
           // if necessary padding, use MultiSliver
           // padding: const EdgeInsets.symmetric(horizontal: 4.0),
           slivers: [
-            // todo(02.08.2024): tr Оформление погодных страниц
-            _HeaderSliverText(t.visualDesignPage.headers.design),
+            _HeaderSliverText(ref.tr.visualDesignPage.headers.design),
             SliverToBoxAdapter(
               key: ValueKey('$_DesignPagesNew'),
               child: const _DesignPagesNew(),
@@ -222,8 +222,7 @@ class _DesignPagesNew extends HookConsumerWidget {
           ],
         ),
         TipRWidget(
-          // todo(02.08.2024): tr
-          text: Text('${AppSmiles.info} Нажмите, чтобы увидеть'),
+          text: Text('${AppSmiles.info} ${tr.messages.clickToSee}'),
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         ),
         const _BottomBarTip(),

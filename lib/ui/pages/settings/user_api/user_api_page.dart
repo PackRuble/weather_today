@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/link.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/application/const/app_icons.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/controllers/weather/open_weather_map/onecall_endpoint_nr.dart';
 import 'package:weather_today/domain/controllers/weather/open_weather_map/weather_current_owm_nr.dart';
 import 'package:weather_today/domain/controllers/weather/open_weather_map/weather_onecall_owm_nr.dart';
@@ -99,12 +100,12 @@ class _EndpointOnecall extends ConsumerWidget {
     return TileSetting(
       padding: const EdgeInsets.only(left: 8, right: 8),
       leading: AppIcons.oneCallApiTile,
-      // todo(05.08.2024): tr
-      title: 'Версия One Call API',
+      title: '${ref.tr.other.version} One Call API',
       subtitle: onecallEndpoint.version,
       onTap: () async {
         final result = await showChoosingDesign(
           context,
+          ref,
           selected: onecallEndpoint,
         );
 
@@ -115,18 +116,18 @@ class _EndpointOnecall extends ConsumerWidget {
 }
 
 Future<OneCallApi?> showChoosingDesign(
-  BuildContext context, {
+  BuildContext context,
+  WidgetRef ref, {
   required OneCallApi selected,
 }) async =>
     await showChoosingDialog<OneCallApi>(
       context,
-      // todo(05.08.2024): tr
-      title: 'Выберите версию One Call API',
+      title: '${ref.tr.other.selectVersion} One Call API',
       listDialogOption: [
         for (final d in OneCallApi.values)
           DialogOption(
             groupValue: selected,
-            title: 'Версия ${d.version}',
+            title: '${ref.tr.other.version} ${d.version}',
             value: d,
           ),
       ],

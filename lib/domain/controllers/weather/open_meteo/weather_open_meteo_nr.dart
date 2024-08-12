@@ -8,6 +8,7 @@ import 'package:weather_today/domain/controllers/weather/open_meteo/open_meteo_r
 import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/domain/services/cardoteka/open_meteo_storage.dart';
 
+import '../../localization_controller.dart';
 import '../weather_nr.dart';
 
 /// Notifier of the [ForecastOpenMeteoResponse] weather service for https://open-meteo.com/.
@@ -92,7 +93,6 @@ class WeatherOpenMeteoNR extends WeatherNR<ForecastOpenMeteoResponse> {
   @override
   FutureOr<void> whenUpdateNotAllowed() {
     // allowedRequestRate=15min => data on the server is not updated more often
-    // todo(05.08.2024): tr
-    messagesNR.showSnack('Данные актуальны');
+    messagesNR.showSnack(ref.tr.messages.weatherDataIsActual);
   }
 }

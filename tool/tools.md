@@ -1,34 +1,39 @@
 
 ## Building app for test
 ```shell
-flutter build apk --target-platform=android-arm64 --split-per-abi
+flutter build apk
 ```
 
 ## Localization
 https://pub.dev/packages/slang#tools
 ```shell
-puro dart pub run slang build
+puro dart run slang build
 ```
+
 ```shell
-flutter pub run slang watch
+puro dart run slang watch
 ```
+
 ```shell
-flutter pub run slang build
+puro dart run slang analyze
 ```
+
 ```shell
-flutter pub run slang analyze
+puro dart run slang apply
 ```
+
 ```shell
-flutter pub run slang apply
+puro dart run slang normalize
 ```
+
 There is a command to quickly get the number of words, characters, etc.
 ```shell
-flutter pub run slang stats
+puro dart run slang stats
 ```
 
 ## Build files
 ```shell
-flutter pub run build_runner build --delete-conflicting-outputs
+puro dart run slang build_runner build --delete-conflicting-outputs
 ```
 
 ```shell

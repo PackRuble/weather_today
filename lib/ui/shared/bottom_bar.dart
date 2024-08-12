@@ -22,8 +22,7 @@ class BottomBarWidget extends ConsumerWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    final t = ref.watch(AppLocalization.currentTranslation);
-    final bottomBarTr = t.mainPageDRuble.mainPage.bottomBar;
+    final bottomBarTr = ref.tr.mainPageDRuble.mainPage.bottomBar;
 
     String getLabel(WeatherPage page) => switch (page) {
           WeatherPage.hourly => bottomBarTr.hourly,
@@ -47,6 +46,7 @@ class BottomBarWidget extends ConsumerWidget {
                 ? () async {
                     final result = await showChoosingDesign(
                       context,
+                      ref,
                       getLabel(designPage.page),
                       designPage: designPage,
                     );
@@ -160,13 +160,14 @@ class BottomIcon extends ConsumerWidget {
 
 Future<AppVisualDesign?> showChoosingDesign(
   BuildContext context,
+  WidgetRef ref,
   String label, {
   required DesignPage designPage,
 }) async =>
     await showChoosingDialog<AppVisualDesign>(
       context,
-      // todo(04.08.2024): tr
-      title: 'Выберите стиль для\n$label',
+      title: '${ref.tr.ui.chooseWeatherDesignForPage}\n$label',
+      subTitle: ref.tr.messages.selectedParamWillBeApplied,
       listDialogOption: [
         for (final d in AppVisualDesign.values)
           DialogOption(

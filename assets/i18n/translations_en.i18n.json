@@ -138,7 +138,7 @@
       "info": "Hold down the tile to see the design"
     },
     "headers": {
-      "design": "Weather main page design",
+      "design": "Design of weather pages",
       "font_size": "Font size",
       "scroll": "Scroll",
       "typography": "Typography",
@@ -529,5 +529,21 @@
         "north_west": "North-West"
       }
     }
+  },
+  "messages": {
+    "click_to_see": "Click to see",
+    "weather_data_is_actual": "Weather data is up to date",
+    "selected_param_will_be_applied": "The selected parameter will be applied immediately"
+  },
+  "ui": {
+    "advanced_settings": "Advanced Settings",
+    "used": "Used",
+    "select_weather_provider": "Select a weather provider",
+    "choose_weather_design_for_page": "Choose a weather design for page",
+    "weather_provider": "Weather provider"
+  },
+  "other": {
+    "select_version": "Select version",
+    "version": "Version"
   }
 }
