@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:weather_pack/weather_pack.dart';
-import 'package:weather_today/data/json_converters.dart';
 import 'package:weather_today/data/open_meteo/models/enums.dart';
+import 'package:weather_today/data/utils/json_converters.dart';
 
 part 'models.freezed.dart';
 part 'models.g.dart';

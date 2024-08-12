@@ -1,7 +1,7 @@
 import 'package:cardoteka/cardoteka.dart' show Converters;
 import 'package:json_annotation/json_annotation.dart';
 
-import 'open_meteo/models/enums.dart';
+import '../open_meteo/models/enums.dart';
 
 class DateTimeISO8601Converter extends JsonConverter<DateTime, String> {
   const DateTimeISO8601Converter();

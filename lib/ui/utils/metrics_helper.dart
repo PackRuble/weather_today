@@ -3,8 +3,8 @@
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/application/i18n/translations.g.dart';
 import 'package:weather_today/application/i18n/translations_enum.dart';
-import 'package:weather_today/domain/weather/mapper.dart';
-import 'package:weather_today/domain/weather/models.dart';
+import 'package:weather_today/data/weather_base/mapper.dart';
+import 'package:weather_today/data/weather_base/models.dart';
 import 'package:weather_today/extension/string_extension.dart';
 
 import '../../domain/models/place/place_model.dart';

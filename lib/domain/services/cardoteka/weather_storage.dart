@@ -1,8 +1,8 @@
 import 'package:cardoteka/cardoteka.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
+import 'package:weather_today/data/weather_base/models.dart';
 import 'package:weather_today/domain/models/place/place_model.dart';
-import 'package:weather_today/domain/weather/models.dart';
 
 import 'converters.dart';
 

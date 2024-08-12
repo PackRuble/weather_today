@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:weather_today/data/weather_base/models.dart';
 import 'package:weather_today/domain/services/cardoteka/weather_storage.dart';
-import 'package:weather_today/domain/weather/models.dart';
 
 class WeatherProviderNR extends Notifier<WeatherProvider> {
   static final i = NotifierProvider<WeatherProviderNR, WeatherProvider>(

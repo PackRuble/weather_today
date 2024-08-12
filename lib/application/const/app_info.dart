@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:weather_today/domain/weather/models.dart';
+import 'package:weather_today/data/weather_base/models.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
 /// All available information from package [package_info_plus]. Learn more here [PackageInfo].

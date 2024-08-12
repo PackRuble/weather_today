@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
-import 'package:weather_today/domain/weather/mapper.dart';
-import 'package:weather_today/domain/weather/models.dart';
+import 'package:weather_today/data/weather_base/mapper.dart';
+import 'package:weather_today/data/weather_base/models.dart';
 
 import 'weather/open_meteo/weather_open_meteo_nr.dart';
 import 'weather/open_weather_map/weather_onecall_owm_nr.dart';
