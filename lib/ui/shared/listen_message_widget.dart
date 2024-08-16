@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:weather_today/domain/controllers/localization_controller.dart';
 
 import '../../domain/controllers/message_controller.dart';
 import '../../domain/models/toasts_model.dart';
@@ -25,7 +24,6 @@ class ListenMessageWrapper extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tr = ref.watch(AppLocalization.currentTranslation);
     final scaffold = ScaffoldMessenger.of(context);
 
     // слушаем наш контроллер по тостам

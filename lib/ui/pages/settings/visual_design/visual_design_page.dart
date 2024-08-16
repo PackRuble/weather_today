@@ -201,7 +201,6 @@ class _DesignPagesNew extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(VisualDesignPresenter.tr);
     final notifier = ref.watch(VisualDesignPresenter.instance);
     final designPages = ref.watch(VisualDesignPresenter.weatherDesignPages);
 

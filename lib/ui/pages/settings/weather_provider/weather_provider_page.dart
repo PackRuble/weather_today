@@ -47,8 +47,6 @@ class _SelectWeatherProviderTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(AppLocalization.currentTranslation);
-
     final weatherProviderPR = WeatherProviderNR.i;
     final weatherProviderNR = ref.watch(weatherProviderPR.notifier);
     final weatherProvider = ref.watch(weatherProviderPR);

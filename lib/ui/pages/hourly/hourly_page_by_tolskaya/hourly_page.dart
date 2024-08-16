@@ -132,8 +132,6 @@ class TileHourlyWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final styles = Theme.of(context).textTheme;
 
-    final t = ref.watch(AppLocalization.currentTranslation);
-
     final tempUnits = ref.watch(HourlyPagePresenter.tempUnits);
 
     final _temp =

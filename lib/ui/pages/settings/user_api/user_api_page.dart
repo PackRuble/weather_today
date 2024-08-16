@@ -91,8 +91,6 @@ class _EndpointOnecall extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(UserApiPagePresenter.tr);
-
     final onecallEndpointPR = OnecallEndpointNR.i;
     final onecallEndpointNR = ref.watch(onecallEndpointPR.notifier);
     final onecallEndpoint = ref.watch(onecallEndpointPR);
