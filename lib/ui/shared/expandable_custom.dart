@@ -180,7 +180,7 @@ class ScrollOnExpand extends HookWidget {
           () {
             if (!context.mounted) return;
 
-            if (scrollOnExpand || scrollOnExpand) {
+            if (scrollOnExpand || scrollOnCollapse) {
               context.findRenderObject()?.showOnScreen(duration: duration);
             }
           },
