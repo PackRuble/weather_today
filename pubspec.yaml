@@ -44,7 +44,7 @@ dependencies:
 
   # Database
   shared_preferences: ^2.3.2
-  cardoteka: ^1.0.1
+  cardoteka: ^1.1.0
 
   # State manager
   hooks_riverpod: ^2.5.1

@@ -146,10 +146,10 @@ packages:
     dependency: "direct main"
     description:
       name: cardoteka
-      sha256: "297bd3b2342fe310453f966540e39a3df684bb9f9e7253c8037514578348066b"
+      sha256: f26b176b18fb3bda58843573bdad25bece257d9fb114165d0f7a6c825e62d72a
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "1.1.0"
   characters:
     dependency: transitive
     description:
@@ -1131,10 +1131,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: f652077d0bdf60abe4c1f6377448e8655008eef28f128bc023f7b5e8dfeb48fc
+      sha256: "5c5f338a667b4c644744b661f309fb8080bb94b18a7e91ef1dbd343bed00ed6d"
       url: "https://pub.dev"
     source: hosted
-    version: "14.2.4"
+    version: "14.2.5"
   watcher:
     dependency: transitive
     description:

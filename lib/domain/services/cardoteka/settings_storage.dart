@@ -39,7 +39,7 @@ enum SettingsCards<T extends Object> implements Card<T> {
   );
 }
 
-class _DesignPagesConverter extends ListConverter<DesignPage> {
+final class _DesignPagesConverter extends ListConverter<DesignPage> {
   const _DesignPagesConverter();
 
   @override
