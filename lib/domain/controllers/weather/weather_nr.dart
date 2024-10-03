@@ -45,7 +45,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
   Future<T?> _init() async {
     l.info('initialization with <$T>');
 
-    if (_isPlaceCorrect(_currentPlace)) {
+    if (!_isLatLonCorrect(_currentPlace)) {
       const error = 'The location is not correct. Choose a different location.';
       state = AsyncValue.error(error, StackTrace.current);
       return null;
@@ -123,7 +123,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
   Future<void> updateWeather() async {
     l.info('$T: Trying to update weather.');
 
-    if (_isPlaceCorrect(_currentPlace)) {
+    if (!_isLatLonCorrect(_currentPlace)) {
       state = AsyncValue.error(
         'The location is not correct. Choose a different location.',
         StackTrace.current,
@@ -213,6 +213,6 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
   Future<void> saveLastRequestTimeInDb(DateTime dateTime);
 
   /// Is the location correct for getting weather from it?
-  bool _isPlaceCorrect(Place place) =>
-      place.latitude == null || place.longitude == null;
+  bool _isLatLonCorrect(Place place) =>
+      place.latitude != null && place.longitude != null;
 }
