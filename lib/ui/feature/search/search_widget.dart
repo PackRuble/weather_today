@@ -148,9 +148,11 @@ class _SavedBookmarkAction extends FloatingSearchBarAction {
           showIfOpened: true,
           showIfClosed: true,
           child: CircularButton(
-            icon: Icon(isCurrentPlaceSaved
-                ? AppIcons.savedPlaceBookmark
-                : AppIcons.notSavedPlaceBookmark),
+            icon: Icon(
+              isCurrentPlaceSaved
+                  ? AppIcons.savedPlaceBookmark
+                  : AppIcons.notSavedPlaceBookmark,
+            ),
             onPressed: () async => ref
                 .read(SearchNR.instance.notifier)
                 .changePlaceToSavedPlaces(isCurrentPlaceSaved, currentPlace),

@@ -36,7 +36,8 @@ class WeatherLanguagePage extends ConsumerWidget with UiLoggy {
                       padding:
                           const EdgeInsets.only(bottom: AppInsets.allPadding),
                       text: Text(
-                          '${AppSmiles.set} ${t.weatherLangPage.tips.info}'),
+                        '${AppSmiles.set} ${t.weatherLangPage.tips.info}',
+                      ),
                     ),
                   _TileWidget(WeatherLanguage.values[index]),
                 ],

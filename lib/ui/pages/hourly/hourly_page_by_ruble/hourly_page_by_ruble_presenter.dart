@@ -21,11 +21,13 @@ class HourlyPageByRublePresenter {
 
   /// Hourly weather data instance.
   static final hourly = Provider<List<WeatherHourly>?>(
-      (ref) => ref.watch(HourlyPagePresenter.hourly).valueOrNull);
+    (ref) => ref.watch(HourlyPagePresenter.hourly).valueOrNull,
+  );
 
   /// Basic weather chart.
   static final chartMainForecast = Provider<ChartModel>(
-      (ref) => ChartModel.forecast(ref.watch(hourly) ?? []));
+    (ref) => ChartModel.forecast(ref.watch(hourly) ?? []),
+  );
 
   /// Wind chart.
   static final chartWind =

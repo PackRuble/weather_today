@@ -119,7 +119,7 @@ final class OpenMeteoGeocodingRepo {
       if (json case {'results': final List places}) {
         result = [
           for (final place in places)
-            OpenMeteoPlace.fromJson(place as Map<String, Object?>)
+            OpenMeteoPlace.fromJson(place as Map<String, Object?>),
         ];
       } else if (response.statusCode case 200) {
         result = [];

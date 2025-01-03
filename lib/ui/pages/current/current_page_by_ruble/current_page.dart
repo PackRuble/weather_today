@@ -113,7 +113,7 @@ class _DateWidget extends ConsumerWidget {
             TextSpan(text: '${t.weather.currentAsOf} '),
             _date != null
                 ? TextSpan(text: DateFormat('EEE, d MMMM, HH:mm').format(_date))
-                : const TextSpan(text: '–')
+                : const TextSpan(text: '–'),
           ],
         ),
       ),
@@ -360,8 +360,12 @@ class _WindWidget extends ConsumerWidget {
         MetricsHelper.fromRadiansToDegrees(weather.windDegree ?? 0);
 
     final speedUnits = ref.watch(CurrentPagePresenter.speedUnits);
-    final _windSpeed = MetricsHelper.getSpeed(weather.windSpeed, speedUnits,
-        withUnits: false, withFiller: true)!;
+    final _windSpeed = MetricsHelper.getSpeed(
+      weather.windSpeed,
+      speedUnits,
+      withUnits: false,
+      withFiller: true,
+    )!;
     final _speedUnits = MetricsHelper.getSpeedUnits(speedUnits);
 
     final _windSide =
@@ -416,7 +420,7 @@ class _WindWidget extends ConsumerWidget {
                       TextSpan(text: ' $_speedUnits'),
                     ],
                   ),
-                )
+                ),
             ],
           ),
         ),
@@ -446,8 +450,10 @@ class CloudinessWidget extends ConsumerWidget {
               fit: BoxFit.scaleDown,
               child: cloudiness >= index * 10
                   ? const Icon(Icons.cloud, color: Colors.lightBlueAccent)
-                  : const Icon(Icons.cloud_outlined,
-                      color: Colors.lightBlueAccent),
+                  : const Icon(
+                      Icons.cloud_outlined,
+                      color: Colors.lightBlueAccent,
+                    ),
             ),
           ),
         );
@@ -466,12 +472,15 @@ class _ExtendedInfoWidget extends ConsumerWidget {
     final weather = ref.watch(CurrentPagePresenter.current).value!;
 
     final _pressure = MetricsHelper.getPressure(
-        weather.pressure, ref.watch(WeatherServices.pressureUnits));
+      weather.pressure,
+      ref.watch(WeatherServices.pressureUnits),
+    );
 
     final _humidity = MetricsHelper.withPrecision(weather.humidity);
 
     final _visibility = MetricsHelper.withPrecision(
-        MetricsHelper.getPercentage(weather.visibility, 10000.0));
+      MetricsHelper.getPercentage(weather.visibility, 10000.0),
+    );
 
     return Column(
       children: [

@@ -103,8 +103,12 @@ class MetricsHelper {
   /// * [precision] - количество цифр после десятичной точки. =0 - целое число
   /// * [withFiller] - использовать заполнитель при [value]=null.
   /// * [filler] - заполнитель при [value]=null.
-  static String? withPrecision(double? value,
-      {bool withFiller = false, String filler = '–', int precision = 0}) {
+  static String? withPrecision(
+    double? value, {
+    bool withFiller = false,
+    String filler = '–',
+    int precision = 0,
+  }) {
     if (value != null) return value.toStringAsFixed(precision);
     if (withFiller) return filler;
     return null;
@@ -309,10 +313,12 @@ class MetricsHelper {
       // проверить на содержание ещё одного английского аллерта с таким же временем
       if ((alert.description?.isEmpty ?? true) &&
           (alert.senderName?.contains('mecom.ru') ?? false) &&
-          oldAlerts.any((element) =>
-              element.start == alert.start &&
-              element.end == alert.end &&
-              element.hashCode != alert.hashCode)) {
+          oldAlerts.any(
+            (element) =>
+                element.start == alert.start &&
+                element.end == alert.end &&
+                element.hashCode != alert.hashCode,
+          )) {
         continue;
       }
 
@@ -330,19 +336,21 @@ class MetricsHelper {
         end = alert.end;
       }
 
-      newAlerts.add(WeatherAlert(
-        alert.toJson(),
-        senderName: (alert.senderName?.isNotEmpty ?? false)
-            ? alert.senderName!.toCapitalized()
-            : null,
-        event: alert.event!.toCapitalized(),
-        start: start,
-        end: end,
-        description: (alert.description?.isNotEmpty ?? false)
-            ? alert.description!.toCapitalized()
-            : null,
-        tags: alert.tags,
-      ));
+      newAlerts.add(
+        WeatherAlert(
+          alert.toJson(),
+          senderName: (alert.senderName?.isNotEmpty ?? false)
+              ? alert.senderName!.toCapitalized()
+              : null,
+          event: alert.event!.toCapitalized(),
+          start: start,
+          end: end,
+          description: (alert.description?.isNotEmpty ?? false)
+              ? alert.description!.toCapitalized()
+              : null,
+          tags: alert.tags,
+        ),
+      );
     }
 
     return newAlerts;

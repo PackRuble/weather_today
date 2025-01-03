@@ -56,19 +56,25 @@ class TermsConditionsWidget extends HookConsumerWidget {
                 expandsCR.value = now.toList();
               },
               header: ListTile(
-                title: Text(switch (index) {
-                  0 => t.termsConditions.termsUseApp,
-                  1 => t.termsConditions.termsAndConditions,
-                  2 || _ => t.termsConditions.privacyPolicy,
-                }),
+                title: Text(
+                  switch (index) {
+                    0 => t.termsConditions.termsUseApp,
+                    1 => t.termsConditions.termsAndConditions,
+                    2 || _ => t.termsConditions.privacyPolicy,
+                  },
+                ),
               ),
               expanded: HookConsumer(
                 builder: (context, ref, child) {
-                  final dataAsync = ref.watch(DataLoaderNR.i(switch (index) {
-                    0 => AppLinks.termsOfUseAppUrl,
-                    1 => AppLinks.termsAndConditionsUrl,
-                    2 || _ => AppLinks.privacyPolicyUrl,
-                  }));
+                  final dataAsync = ref.watch(
+                    DataLoaderNR.i(
+                      switch (index) {
+                        0 => AppLinks.termsOfUseAppUrl,
+                        1 => AppLinks.termsAndConditionsUrl,
+                        2 || _ => AppLinks.privacyPolicyUrl,
+                      },
+                    ),
+                  );
 
                   final hExpanded = useRef(0.0);
 
@@ -116,7 +122,7 @@ class TermsConditionsWidget extends HookConsumerWidget {
           ),
           const _ButtonBarWidget(),
           const SizedBox(height: 12),
-        ]
+        ],
       ],
     );
   }

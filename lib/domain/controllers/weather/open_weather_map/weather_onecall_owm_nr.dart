@@ -51,7 +51,9 @@ class WeatherOnecallOwmNR extends BaseWeatherOwmNR<WeatherOneCall> {
   @override
   Future<WeatherOneCall> fetchWeather(Place place) async =>
       weatherService.oneCallWeatherByLocation(
-          latitude: place.latitude!, longitude: place.longitude!);
+        latitude: place.latitude!,
+        longitude: place.longitude!,
+      );
 
   @override
   Future<void> saveWeatherInDb(WeatherOneCall weather) async =>
@@ -64,7 +66,9 @@ class WeatherOnecallOwmNR extends BaseWeatherOwmNR<WeatherOneCall> {
   @override
   Future<DateTime> getLastRequestTime() async {
     final timeInMilliseconds = await db.load(
-        DbStore.lastRequestTimeOneCall, DbStore.lastRequestTimeOneCallDefault);
+      DbStore.lastRequestTimeOneCall,
+      DbStore.lastRequestTimeOneCallDefault,
+    );
 
     return DateTime.fromMillisecondsSinceEpoch(timeInMilliseconds);
   }

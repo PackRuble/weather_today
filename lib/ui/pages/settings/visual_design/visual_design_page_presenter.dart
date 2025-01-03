@@ -40,10 +40,11 @@ class VisualDesignPresenter {
 
   /// Погода берется из заранее сохраненного json, который всегда доступен. (уже нет)
   static final weatherMock = FutureProvider.autoDispose<WeatherOneCall?>(
-      // todo(12.08.2024): можно сделать тайл с параметрами и передать свои моковые постоянные
-      //  или
-      //  оставить это как есть
-      (ref) async => ref.watch(WeatherOnecallDelegacyNR.i.future));
+    // todo(12.08.2024): можно сделать тайл с параметрами и передать свои моковые постоянные
+    //  или
+    //  оставить это как есть
+    (ref) async => ref.watch(WeatherOnecallDelegacyNR.i.future),
+  );
 
   /// Apply the values when you finish editing the options.
   static final changesProvider =
@@ -56,7 +57,8 @@ class VisualDesignPresenter {
   /// Значение [textScaleFactor], отвечает за увеличение размера шрифта.
   ///
   static final textScaleFactorProvider = StateProvider.autoDispose<double>(
-      (ref) => ref.watch(AppTheme.textScaleFactor));
+    (ref) => ref.watch(AppTheme.textScaleFactor),
+  );
 
   /// Установить новое значение [textScaleFactorProvider].
   void setTextScaleFactor(double newValue) {
@@ -102,7 +104,9 @@ class VisualDesignPresenter {
       };
 
   Future<void> onChangeDesignPage(
-      AppVisualDesign styleDesign, int designPageIndex) async {
+    AppVisualDesign styleDesign,
+    int designPageIndex,
+  ) async {
     final pages = [..._ref.read(weatherDesignPages)];
 
     final designPage = pages[designPageIndex];
@@ -127,7 +131,8 @@ class VisualDesignPresenter {
 
   /// Выбранный шрифт.
   static final selectedFontFamily = StateProvider.autoDispose<AppFontFamily>(
-      (ref) => ref.watch(AppTheme.fontFamily));
+    (ref) => ref.watch(AppTheme.fontFamily),
+  );
 
   /// Установить новое значение [selectedFontFamily].
   void setFontFamily(AppFontFamily font) {
@@ -149,7 +154,8 @@ class VisualDesignPresenter {
   /// Выбранный скролл.
   static final selectedScrollPhysic =
       StateProvider.autoDispose<AppScrollPhysics>(
-          (ref) => ref.watch(AppTheme.scrollPhysics));
+    (ref) => ref.watch(AppTheme.scrollPhysics),
+  );
 
   /// Установить новое значение [selectedScrollPhysic].
   void setScrollPhysic(AppScrollPhysics scrollPhysic) {
@@ -171,7 +177,8 @@ class VisualDesignPresenter {
 
   /// Выбранная Типографика.
   static final selectedTypography = StateProvider.autoDispose<AppTypography>(
-      (ref) => ref.watch(AppTheme.typography));
+    (ref) => ref.watch(AppTheme.typography),
+  );
 
   /// Установить новое значение [selectedTypography].
   void setTypography(AppTypography typography) {

@@ -28,7 +28,8 @@ class DataBasePrefs with DbLogger implements DataBase {
       // значения ещё нет в бд
       if (value == null) {
         loggy.info(
-            'For <$key> value is null, loaded the `defaultValue`: <$defaultValue>');
+          'For <$key> value is null, loaded the `defaultValue`: <$defaultValue>',
+        );
         return defaultValue;
       }
 
@@ -41,9 +42,10 @@ class DataBasePrefs with DbLogger implements DataBase {
       return value as T;
     } catch (e, s) {
       loggy.error(
-          'Not loaded for key: <$key>! Has been loaded the `defaultValue`: <$defaultValue> | type: <$T>',
-          e,
-          s);
+        'Not loaded for key: <$key>! Has been loaded the `defaultValue`: <$defaultValue> | type: <$T>',
+        e,
+        s,
+      );
 
       return defaultValue;
     }
@@ -90,9 +92,10 @@ class DataBasePrefs with DbLogger implements DataBase {
           loggy.error('NOT Saved: [ key: <$key> | type: <$T> ]', e, s);
         } else {
           loggy.error(
-              'NOT Saved: [ key: <$key> | value: <$value> | type: <$T> ]',
-              e,
-              s);
+            'NOT Saved: [ key: <$key> | value: <$value> | type: <$T> ]',
+            e,
+            s,
+          );
         }
         return false;
       }
@@ -111,7 +114,8 @@ class DataBasePrefs with DbLogger implements DataBase {
   Future<bool> contains(String key) async {
     final result = _prefs.containsKey(key);
     loggy.info(
-        'Storage${result ? '' : " doesn't"} contains a key-value for key: [ key: <$key> ]');
+      'Storage${result ? '' : " doesn't"} contains a key-value for key: [ key: <$key> ]',
+    );
     return result;
   }
 
@@ -119,11 +123,13 @@ class DataBasePrefs with DbLogger implements DataBase {
   Future<bool> clearAll() async {
     if (await _prefs.clear()) {
       loggy.info(
-          'The user storage has been cleared: [ AllKeys: ${_prefs.getKeys()} ]');
+        'The user storage has been cleared: [ AllKeys: ${_prefs.getKeys()} ]',
+      );
       return true;
     } else {
       loggy.error(
-          'An error occurred while clearing the user storage: [ prefs: $_prefs ]');
+        'An error occurred while clearing the user storage: [ prefs: $_prefs ]',
+      );
       return false;
     }
   }
@@ -132,11 +138,13 @@ class DataBasePrefs with DbLogger implements DataBase {
   Future<bool> clearKey(String key) async {
     if (await _prefs.remove(key)) {
       loggy.info(
-          'The record has been deleted from the storage: [ key: <$key> | value: <${_prefs.get(key)}> ]');
+        'The record has been deleted from the storage: [ key: <$key> | value: <${_prefs.get(key)}> ]',
+      );
       return true;
     } else {
       loggy.error(
-          'Failed to delete a record from the storage: [ key: <$key> | value: <${_prefs.get(key)}> ]');
+        'Failed to delete a record from the storage: [ key: <$key> | value: <${_prefs.get(key)}> ]',
+      );
       return false;
     }
   }

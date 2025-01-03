@@ -31,7 +31,7 @@ class WrapperPage extends ConsumerWidget {
           ...scrollTheme.dragDevices,
           if (defaultTargetPlatform == TargetPlatform.windows) ...{
             PointerDeviceKind.mouse,
-          }
+          },
         },
       ),
       child: child,

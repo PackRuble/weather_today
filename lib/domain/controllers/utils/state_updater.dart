@@ -35,7 +35,10 @@ mixin Updater {
   /// допустимым для сохранения в бд.
   @protected
   Future<void> saveAndUpdate<S>(
-      StateProvider<S> pr, String key, S value) async {
+    StateProvider<S> pr,
+    String key,
+    S value,
+  ) async {
     update<S>(pr, value);
     await saveDb<S>(key, value);
   }
@@ -56,8 +59,11 @@ mixin Updater {
   /// Удобное обновление состояния провайдеров асинхронным значением.
   @protected
   Future<void> loadAndUpdate<S, V>(
-      StateProvider<S> pr, String key, V defaultValue,
-      [S Function(V)? conversion]) async {
+    StateProvider<S> pr,
+    String key,
+    V defaultValue, [
+    S Function(V)? conversion,
+  ]) async {
     final V loaded = await loadDb<V>(key, defaultValue);
     update<S>(pr, conversion == null ? loaded as S : conversion(loaded));
   }

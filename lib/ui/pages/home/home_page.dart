@@ -58,11 +58,13 @@ class _BodyWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final designPages = ref
         .watch(HomePageController.designPages)
-        .map((e) => switch (e.page) {
-              WeatherPage.hourly => HourlyWeatherPage(design: e.design),
-              WeatherPage.currently => CurrentWeatherPage(design: e.design),
-              WeatherPage.daily => DailyWeatherPage(design: e.design),
-            })
+        .map(
+          (e) => switch (e.page) {
+            WeatherPage.hourly => HourlyWeatherPage(design: e.design),
+            WeatherPage.currently => CurrentWeatherPage(design: e.design),
+            WeatherPage.daily => DailyWeatherPage(design: e.design),
+          },
+        )
         .toList();
 
     return PageView(

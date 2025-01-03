@@ -35,7 +35,7 @@ class WeatherProviderPage extends ConsumerWidget {
             HeaderRWidget(ref.tr.ui.advancedSettings),
             const _TileWeatherLanguageWidget(),
             const _TileUserApiWidget(),
-          ]
+          ],
         ],
       ),
     );

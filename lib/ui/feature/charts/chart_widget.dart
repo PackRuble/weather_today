@@ -116,7 +116,7 @@ class CustomChartWidget extends StatelessWidget {
                           titlesData: generateLabelsData,
                           barGroups: generateData,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

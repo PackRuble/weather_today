@@ -34,7 +34,8 @@ class ForecastOpenMeteoResponseConverter
   @override
   ForecastOpenMeteoResponse from(String element) =>
       ForecastOpenMeteoResponse.fromJson(
-          jsonDecode(element) as Map<String, dynamic>);
+        jsonDecode(element) as Map<String, dynamic>,
+      );
 
   @override
   String to(ForecastOpenMeteoResponse object) => jsonEncode(object.toJson());

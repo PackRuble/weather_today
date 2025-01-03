@@ -112,7 +112,8 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
   Future<bool> _isAbilityRequestOnDiffPlaces() async {
     final isGranted = await isAbilityRequestOnDiffPlacesImpl();
     l.info(
-        '$T: Request the ability to get weather due to the difference of previous and current places. Granted: <$isGranted>');
+      '$T: Request the ability to get weather due to the difference of previous and current places. Granted: <$isGranted>',
+    );
 
     if (isGranted) await resetAbilityRequestOnDiffPlaces();
 

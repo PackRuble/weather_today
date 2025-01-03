@@ -15,7 +15,8 @@ class NavigationObserver extends AutoRouterObserver implements LoggyType {
     }
 
     loggy.info(
-        'New route pushed: <${route.settings.name}>, prev <${previousRoute?.settings.name}>');
+      'New route pushed: <${route.settings.name}>, prev <${previousRoute?.settings.name}>',
+    );
   }
 
   @override
@@ -26,12 +27,14 @@ class NavigationObserver extends AutoRouterObserver implements LoggyType {
     }
 
     loggy.info(
-        'Route pop: <${previousRoute?.settings.name}>, prev <${route.settings.name}>');
+      'Route pop: <${previousRoute?.settings.name}>, prev <${route.settings.name}>',
+    );
   }
 
   @override
   void didChangeTabRoute(TabPageRoute route, TabPageRoute? previousRoute) {
     loggy.info(
-        'Tab route re-visited:  ${route.name}, prev <${previousRoute?.name}>');
+      'Tab route re-visited:  ${route.name}, prev <${previousRoute?.name}>',
+    );
   }
 }

@@ -35,8 +35,10 @@ class ChartOtherWidget extends ConsumerWidget {
         generateData: const [],
         generateLabelsData: const FlTitlesData(),
         titleWidget: titleWidget,
-        ifEmptyDataWidget: Text(t.mainPageDRuble.hourlyPage.more.noData,
-            style: styles.bodyMedium),
+        ifEmptyDataWidget: Text(
+          t.mainPageDRuble.hourlyPage.more.noData,
+          style: styles.bodyMedium,
+        ),
       );
     }
 
@@ -46,14 +48,17 @@ class ChartOtherWidget extends ConsumerWidget {
 
     final List<LegendWidget> legends = [
       LegendWidget(
-          color: ChartTheme.oColorClouds,
-          description: t.mainPageDRuble.hourlyPage.more.legend.clouds),
+        color: ChartTheme.oColorClouds,
+        description: t.mainPageDRuble.hourlyPage.more.legend.clouds,
+      ),
       LegendWidget(
-          color: ChartTheme.oColorHumidity,
-          description: t.mainPageDRuble.hourlyPage.more.legend.humidity),
+        color: ChartTheme.oColorHumidity,
+        description: t.mainPageDRuble.hourlyPage.more.legend.humidity,
+      ),
       LegendWidget(
-          color: ChartTheme.oColorPressure,
-          description: t.mainPageDRuble.hourlyPage.more.legend.pressure),
+        color: ChartTheme.oColorPressure,
+        description: t.mainPageDRuble.hourlyPage.more.legend.pressure,
+      ),
     ];
 
     final Widget unitsRight = Align(
@@ -61,10 +66,11 @@ class ChartOtherWidget extends ConsumerWidget {
       child: OverflowBox(
         maxWidth: 40.0,
         maxHeight: 100.0,
-        child: Text(t.mainPageDRuble.hourlyPage.more.unitsRight,
-            textAlign: TextAlign.center,
-            style:
-                styles.bodySmall?.copyWith(color: ChartTheme.oColorPressure)),
+        child: Text(
+          t.mainPageDRuble.hourlyPage.more.unitsRight,
+          textAlign: TextAlign.center,
+          style: styles.bodySmall?.copyWith(color: ChartTheme.oColorPressure),
+        ),
       ),
     );
 
@@ -113,7 +119,7 @@ class ChartOtherWidget extends ConsumerWidget {
           i,
           item.cloudiness ?? 0.0,
           item.humidity ?? 0.0,
-        )
+        ),
     ];
   }
 
@@ -143,7 +149,11 @@ class ChartOtherWidget extends ConsumerWidget {
     // метки температуры по оси y
     Widget _leftTitles(double value, TitleMeta meta) {
       if (ChartUtils.isSuitYLabel(
-          value, meta.min, meta.max, chart.scaleDivisionLeft)) {
+        value,
+        meta.min,
+        meta.max,
+        chart.scaleDivisionLeft,
+      )) {
         return Center(
           child: Text(
             value.toStringAsFixed(chart.precisionLeft),
@@ -182,10 +192,11 @@ class ChartOtherWidget extends ConsumerWidget {
     return FlTitlesData(
       leftTitles: AxisTitles(
         sideTitles: SideTitles(
-            interval: chart.scaleDivisionLeft,
-            showTitles: true,
-            getTitlesWidget: _leftTitles,
-            reservedSize: ChartTheme.oPaddingChart.left),
+          interval: chart.scaleDivisionLeft,
+          showTitles: true,
+          getTitlesWidget: _leftTitles,
+          reservedSize: ChartTheme.oPaddingChart.left,
+        ),
       ),
       rightTitles: AxisTitles(
         sideTitles: SideTitles(
@@ -203,9 +214,10 @@ class ChartOtherWidget extends ConsumerWidget {
       ),
       bottomTitles: AxisTitles(
         sideTitles: SideTitles(
-            showTitles: true,
-            getTitlesWidget: _bottomTitles,
-            reservedSize: ChartTheme.oPaddingChart.bottom),
+          showTitles: true,
+          getTitlesWidget: _bottomTitles,
+          reservedSize: ChartTheme.oPaddingChart.bottom,
+        ),
       ),
     );
   }

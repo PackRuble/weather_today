@@ -51,12 +51,16 @@ class HomePageController {
   /// * 3 - страница прогнозов погоды на ближайшие дни (на 7 дней);
   static final currentIndex = Provider<int>(
     (ref) {
-      final index = ref.watch(pageController.select(
-          (controller) => controller.page?.round() ?? controller.initialPage));
+      final index = ref.watch(
+        pageController.select(
+          (controller) => controller.page?.round() ?? controller.initialPage,
+        ),
+      );
 
       // ignore: deprecated_member_use
       ref.listenSelf(
-          (previous, next) => _notifyObservers(previous ?? index, next));
+        (previous, next) => _notifyObservers(previous ?? index, next),
+      );
 
       return index;
     },
@@ -68,8 +72,11 @@ class HomePageController {
     final controller = _ref.read(pageController);
     if ((_ref.read(currentIndex) - index).abs() == 1) {
       // ignore: discarded_futures
-      controller.animateToPage(index,
-          duration: _durationSlide, curve: Curves.ease);
+      controller.animateToPage(
+        index,
+        duration: _durationSlide,
+        curve: Curves.ease,
+      );
     } else {
       controller.jumpToPage(index);
     }

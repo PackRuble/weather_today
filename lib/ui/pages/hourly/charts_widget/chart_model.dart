@@ -160,11 +160,13 @@ class ChartModel {
     }
 
     final double _maxValueY = max(
-        _dewPointMax != startValue ? max(_dewPointMax, _tempMax) : _tempMax,
-        _tempFeelsMax);
+      _dewPointMax != startValue ? max(_dewPointMax, _tempMax) : _tempMax,
+      _tempFeelsMax,
+    );
     final double _minValueY = min(
-        -_dewPointMin != startValue ? min(_dewPointMin, _tempMin) : _tempMax,
-        _tempFeelsMin);
+      -_dewPointMin != startValue ? min(_dewPointMin, _tempMin) : _tempMax,
+      _tempFeelsMin,
+    );
 
     // доп проверка на корректность данных
     if (_maxValueY == startValue || _minValueY == startValue) {
@@ -178,7 +180,10 @@ class ChartModel {
 
     // интервал между метками слева от графика
     scaleDivisionLeft = ChartUtils.getYIntervalBetweenLabel(
-        valueMinY, valueMaxY!, countLabel.left);
+      valueMinY,
+      valueMaxY!,
+      countLabel.left,
+    );
 
     // точность меток слева от графика
     precisionLeft = ChartUtils.getYPrecision(scaleDivisionLeft);

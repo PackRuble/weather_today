@@ -85,7 +85,7 @@ class ExpPanel extends HookWidget {
           ),
           Flexible(
             child: child,
-          )
+          ),
         ],
       ),
     );
@@ -130,10 +130,13 @@ class RotatedIcon extends HookWidget {
       reverseDuration: Durations.medium2,
     );
 
-    useEffect(() {
-      isExpanded ? animCR.forward() : animCR.reverse();
-      return null;
-    }, [isExpanded]);
+    useEffect(
+      () {
+        isExpanded ? animCR.forward() : animCR.reverse();
+        return null;
+      },
+      [isExpanded],
+    );
 
     return AnimatedBuilder(
       animation: animCR,
@@ -173,24 +176,27 @@ class ScrollOnExpand extends HookWidget {
   Widget build(BuildContext context) {
     final scroll = useRef<bool>(false);
 
-    useEffect(() {
-      if (scroll.value) {
-        Future.delayed(
-          duration,
-          () {
-            if (!context.mounted) return;
+    useEffect(
+      () {
+        if (scroll.value) {
+          Future.delayed(
+            duration,
+            () {
+              if (!context.mounted) return;
 
-            if (scrollOnExpand || scrollOnCollapse) {
-              context.findRenderObject()?.showOnScreen(duration: duration);
-            }
-          },
-        );
-      }
+              if (scrollOnExpand || scrollOnCollapse) {
+                context.findRenderObject()?.showOnScreen(duration: duration);
+              }
+            },
+          );
+        }
 
-      scroll.value = true;
+        scroll.value = true;
 
-      return null;
-    }, [isExpanded]);
+        return null;
+      },
+      [isExpanded],
+    );
 
     return child;
   }

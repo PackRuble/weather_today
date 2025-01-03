@@ -40,7 +40,7 @@ class ThemeSelector extends ConsumerWidget {
                 );
               },
             ),
-          )
+          ),
       ],
       child: Consumer(
         builder: (context, ref, _) {

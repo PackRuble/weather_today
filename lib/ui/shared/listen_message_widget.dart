@@ -34,17 +34,20 @@ class ListenMessageWrapper extends ConsumerWidget {
         if (toast != null) {
           if (Platform.isAndroid || Platform.isIOS || kIsWeb) {
             await Fluttertoast.showToast(
-                msg: toast.message,
-                fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
-                toastLength: toast.toastTime,
-                gravity: toast.gravity,
-                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-                textColor: Theme.of(context).textTheme.titleMedium?.color);
+              msg: toast.message,
+              fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
+              toastLength: toast.toastTime,
+              gravity: toast.gravity,
+              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+              textColor: Theme.of(context).textTheme.titleMedium?.color,
+            );
           } else {
-            scaffold.showSnackBar(CustomSnack(
-              context,
-              snack: MessageSnack(message: toast.message),
-            ));
+            scaffold.showSnackBar(
+              CustomSnack(
+                context,
+                snack: MessageSnack(message: toast.message),
+              ),
+            );
           }
         }
       });

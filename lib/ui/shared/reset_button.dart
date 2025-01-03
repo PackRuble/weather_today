@@ -9,8 +9,10 @@ class ResetButton extends StatelessWidget {
     required this.onConfirm,
     this.onCancel,
     this.customDialog,
-  }) : assert(!(!withAlert && customDialog != null),
-            'You specified a $customDialog, but it will not be shown');
+  }) : assert(
+          !(!withAlert && customDialog != null),
+          'You specified a $customDialog, but it will not be shown',
+        );
 
   final bool withAlert;
   final Future<bool> Function(BuildContext context)? customDialog;

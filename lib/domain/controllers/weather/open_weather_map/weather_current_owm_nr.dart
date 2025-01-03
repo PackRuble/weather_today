@@ -47,7 +47,8 @@ class WeatherCurrentOwmNR extends BaseWeatherOwmNR<WeatherCurrent> {
 
     if (jsonStr.isNotEmpty) {
       return WeatherCurrent.fromJson(
-          jsonDecode(jsonStr) as Map<String, dynamic>);
+        jsonDecode(jsonStr) as Map<String, dynamic>,
+      );
     }
     return null;
   }
@@ -55,7 +56,9 @@ class WeatherCurrentOwmNR extends BaseWeatherOwmNR<WeatherCurrent> {
   @override
   Future<WeatherCurrent> fetchWeather(Place place) async =>
       super.weatherService.currentWeatherByLocation(
-          latitude: place.latitude!, longitude: place.longitude!);
+            latitude: place.latitude!,
+            longitude: place.longitude!,
+          );
 
   @override
   Future<void> saveWeatherInDb(WeatherCurrent weather) async =>
@@ -68,7 +71,9 @@ class WeatherCurrentOwmNR extends BaseWeatherOwmNR<WeatherCurrent> {
   @override
   Future<DateTime> getLastRequestTime() async {
     final int timeInMilliseconds = await db.load(
-        DbStore.lastRequestTimeCurrent, DbStore.lastRequestTimeCurrentDefault);
+      DbStore.lastRequestTimeCurrent,
+      DbStore.lastRequestTimeCurrentDefault,
+    );
 
     return DateTime.fromMillisecondsSinceEpoch(timeInMilliseconds);
   }
@@ -76,7 +81,8 @@ class WeatherCurrentOwmNR extends BaseWeatherOwmNR<WeatherCurrent> {
   @override
   Future<bool> isAbilityRequestOnDiffPlacesImpl() async {
     return weatherStorage.get<bool>(
-        WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces);
+      WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces,
+    );
   }
 
   @override

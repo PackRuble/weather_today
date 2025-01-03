@@ -68,8 +68,9 @@ class SavedPlacesPagePresenter {
       context,
       place.countryCode!,
       FittedBox(
-          fit: BoxFit.contain,
-          child: ImageHelper.getFlagIcon(place.countryCode)),
+        fit: BoxFit.contain,
+        child: ImageHelper.getFlagIcon(place.countryCode),
+      ),
     );
   }
 

@@ -126,33 +126,34 @@ Future<T?> infoDialogCustom<T>(
   required List<TextButton> listActions,
 }) async {
   return showDialog<T>(
-      context: context,
-      barrierDismissible: barrierDismissible ?? true,
-      builder: (BuildContext context) {
-        return WrapperPage(
-          child: AlertDialog(
-            shape: getDialogShape(context),
-            title: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (icon != null) icon,
-                Text(title, textAlign: TextAlign.center),
-                if (subTitle != null) ...[
-                  const SizedBox(height: 5.0),
-                  Text(
-                    subTitle,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 14.0),
-                  ),
-                ],
+    context: context,
+    barrierDismissible: barrierDismissible ?? true,
+    builder: (BuildContext context) {
+      return WrapperPage(
+        child: AlertDialog(
+          shape: getDialogShape(context),
+          title: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (icon != null) icon,
+              Text(title, textAlign: TextAlign.center),
+              if (subTitle != null) ...[
+                const SizedBox(height: 5.0),
+                Text(
+                  subTitle,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 14.0),
+                ),
               ],
-            ),
-            content: content,
-            actions: listActions,
-            scrollable: scrollable ?? false,
+            ],
           ),
-        );
-      });
+          content: content,
+          actions: listActions,
+          scrollable: scrollable ?? false,
+        ),
+      );
+    },
+  );
 }
 
 Future<T?> showAboutAppDialog<T>(
@@ -194,36 +195,39 @@ Future<T?> showChoosingDialog<T>(
   required List<DialogOption<T>> listDialogOption,
 }) async {
   return showDialog<T>(
-      context: context,
-      builder: (BuildContext context) {
-        return WrapperPage(
-          child: SimpleDialog(
-            shape: getDialogShape(context),
-            title: Column(
-              children: [
-                if (icon != null) icon,
-                Text(title, textAlign: TextAlign.center),
-              ],
-            ),
+    context: context,
+    builder: (BuildContext context) {
+      return WrapperPage(
+        child: SimpleDialog(
+          shape: getDialogShape(context),
+          title: Column(
             children: [
-              if (subTitle != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 24.0),
-                  child: Text(subTitle),
-                ),
-              ...listDialogOption.map((DialogOption option) {
-                return Column(
-                  children: [
-                    const Divider(height: 0.0),
-                    option,
-                  ],
-                );
-              }),
+              if (icon != null) icon,
+              Text(title, textAlign: TextAlign.center),
             ],
           ),
-        );
-      });
+          children: [
+            if (subTitle != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 24.0,
+                ),
+                child: Text(subTitle),
+              ),
+            ...listDialogOption.map((DialogOption option) {
+              return Column(
+                children: [
+                  const Divider(height: 0.0),
+                  option,
+                ],
+              );
+            }),
+          ],
+        ),
+      );
+    },
+  );
 }
 
 Future<void> showSwitchedDialog(
@@ -234,33 +238,34 @@ Future<void> showSwitchedDialog(
   required List<Widget> listDialogOption,
 }) async {
   return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return WrapperPage(
-          child: SimpleDialog(
-            shape: getDialogShape(context),
-            title: Column(
-              children: [
-                if (icon != null) icon,
-                Text(title, textAlign: TextAlign.center),
-              ],
-            ),
+    context: context,
+    builder: (BuildContext context) {
+      return WrapperPage(
+        child: SimpleDialog(
+          shape: getDialogShape(context),
+          title: Column(
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
-                child: subTitle != null ? Text(subTitle) : null,
-              ),
-              ...listDialogOption.map((Widget option) {
-                return Column(
-                  children: [
-                    const Divider(height: 0.0),
-                    option,
-                  ],
-                );
-              }),
+              if (icon != null) icon,
+              Text(title, textAlign: TextAlign.center),
             ],
           ),
-        );
-      });
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
+              child: subTitle != null ? Text(subTitle) : null,
+            ),
+            ...listDialogOption.map((Widget option) {
+              return Column(
+                children: [
+                  const Divider(height: 0.0),
+                  option,
+                ],
+              );
+            }),
+          ],
+        ),
+      );
+    },
+  );
 }

@@ -137,8 +137,12 @@ class TileHourlyWidget extends ConsumerWidget {
     final _temp =
         MetricsHelper.getTemp(weather.temp, tempUnits, withUnits: false);
 
-    final _pop = MetricsHelper.withPrecision(MetricsHelper.getPercentage(
-        weather.pop == 0.0 ? null : weather.pop, 1.0));
+    final _pop = MetricsHelper.withPrecision(
+      MetricsHelper.getPercentage(
+        weather.pop == 0.0 ? null : weather.pop,
+        1.0,
+      ),
+    );
 
     // final uvi = weather.uvi?.toStringAsFixed(0);
 
@@ -201,8 +205,9 @@ class TileHourlyWidget extends ConsumerWidget {
                 children: <TextSpan>[
                   TextSpan(text: _pop),
                   TextSpan(
-                      text: '%',
-                      style: styles.bodySmall?.copyWith(color: Colors.blue)),
+                    text: '%',
+                    style: styles.bodySmall?.copyWith(color: Colors.blue),
+                  ),
                 ],
               ),
             ),
@@ -245,7 +250,9 @@ class _ExpandedWidget extends ConsumerWidget {
         weatherDesc?.toCapitalize;
 
     final _pressure = MetricsHelper.getPressure(
-        pressure, ref.watch(WeatherServices.pressureUnits));
+      pressure,
+      ref.watch(WeatherServices.pressureUnits),
+    );
 
     final _humidity = MetricsHelper.withPrecision(humidity);
 
@@ -280,12 +287,18 @@ class _ExpandedWidget extends ConsumerWidget {
           if (_uvi != null) RowItem(AppIcons.uvi, t.weather.uvi, _uvi),
           if (_cloudiness != null)
             RowItem(
-                AppIcons.cloudiness, t.weather.cloudiness, '$_cloudiness %'),
+              AppIcons.cloudiness,
+              t.weather.cloudiness,
+              '$_cloudiness %',
+            ),
           if (_humidity != null)
             RowItem(AppIcons.humidity, t.weather.humidity, '$_humidity %'),
           if (_visibility != null)
             RowItem(
-                AppIcons.visibility, t.weather.visibility, '$_visibility %'),
+              AppIcons.visibility,
+              t.weather.visibility,
+              '$_visibility %',
+            ),
           if (_pressure != null)
             RowItem(AppIcons.pressure, t.weather.pressure, _pressure),
           if (_dewPoint != null)

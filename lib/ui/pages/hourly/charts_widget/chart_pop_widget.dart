@@ -39,12 +39,15 @@ class ChartPopWidget extends ConsumerWidget {
         generateLabelsData: const FlTitlesData(),
         titleWidget: titleWidget,
         ifEmptyDataWidget: (startDate == null || endDate == null)
-            ? Text(t.mainPageDRuble.hourlyPage.pop.noPopExpected,
-                style: styles.bodyMedium)
+            ? Text(
+                t.mainPageDRuble.hourlyPage.pop.noPopExpected,
+                style: styles.bodyMedium,
+              )
             : Text(
                 t.mainPageDRuble.hourlyPage.pop.popExpected(
-                    startDate: DateFormat.MMMMd().format(startDate),
-                    endDate: DateFormat.MMMMd().format(endDate)),
+                  startDate: DateFormat.MMMMd().format(startDate),
+                  endDate: DateFormat.MMMMd().format(endDate),
+                ),
                 style: styles.bodyMedium,
               ),
       );
@@ -67,11 +70,13 @@ class ChartPopWidget extends ConsumerWidget {
             TextSpan(text: t.mainPageDRuble.hourlyPage.pop.subtitle),
             const TextSpan(text: ' - '),
             TextSpan(
-                text: rainfall.toStringAsFixed(chart.precisionLeft),
-                style: styles.labelLarge),
+              text: rainfall.toStringAsFixed(chart.precisionLeft),
+              style: styles.labelLarge,
+            ),
             TextSpan(
-                text: ' ${t.mainPageDRuble.hourlyPage.pop.units}',
-                style: styles.bodySmall),
+              text: ' ${t.mainPageDRuble.hourlyPage.pop.units}',
+              style: styles.bodySmall,
+            ),
           ],
         ),
       );
@@ -84,17 +89,21 @@ class ChartPopWidget extends ConsumerWidget {
 
     final List<LegendWidget> legends = [
       LegendWidget(
-          color: ChartTheme.pColorRain,
-          description: t.mainPageDRuble.hourlyPage.pop.legend.rain),
+        color: ChartTheme.pColorRain,
+        description: t.mainPageDRuble.hourlyPage.pop.legend.rain,
+      ),
       LegendWidget(
-          color: ChartTheme.pColorSnow,
-          description: t.mainPageDRuble.hourlyPage.pop.legend.snow),
+        color: ChartTheme.pColorSnow,
+        description: t.mainPageDRuble.hourlyPage.pop.legend.snow,
+      ),
     ];
 
     final Widget unitsRight = Align(
       alignment: Alignment.center,
-      child: Text('%',
-          style: styles.bodySmall?.copyWith(color: ChartTheme.pColorIcon)),
+      child: Text(
+        '%',
+        style: styles.bodySmall?.copyWith(color: ChartTheme.pColorIcon),
+      ),
     );
 
     final bool isPortrait =
@@ -143,7 +152,7 @@ class ChartPopWidget extends ConsumerWidget {
           i,
           item.rain ?? 0.0,
           item.snow ?? 0.0,
-        )
+        ),
     ];
   }
 
@@ -218,7 +227,11 @@ class ChartPopWidget extends ConsumerWidget {
     // метки температуры по оси y
     Widget _leftTitles(double value, TitleMeta meta) {
       if (ChartUtils.isSuitYLabel(
-          value, meta.min, meta.max, chart.scaleDivisionLeft)) {
+        value,
+        meta.min,
+        meta.max,
+        chart.scaleDivisionLeft,
+      )) {
         return Center(
           child: Text(
             value.toStringAsFixed(chart.precisionLeft),
@@ -259,10 +272,11 @@ class ChartPopWidget extends ConsumerWidget {
     return FlTitlesData(
       leftTitles: AxisTitles(
         sideTitles: SideTitles(
-            interval: chart.scaleDivisionLeft,
-            showTitles: true,
-            getTitlesWidget: _leftTitles,
-            reservedSize: ChartTheme.pPaddingChart.left),
+          interval: chart.scaleDivisionLeft,
+          showTitles: true,
+          getTitlesWidget: _leftTitles,
+          reservedSize: ChartTheme.pPaddingChart.left,
+        ),
       ),
       rightTitles: AxisTitles(
         sideTitles: SideTitles(
@@ -280,9 +294,10 @@ class ChartPopWidget extends ConsumerWidget {
       ),
       bottomTitles: AxisTitles(
         sideTitles: SideTitles(
-            showTitles: true,
-            getTitlesWidget: _bottomTitles,
-            reservedSize: ChartTheme.pPaddingChart.bottom),
+          showTitles: true,
+          getTitlesWidget: _bottomTitles,
+          reservedSize: ChartTheme.pPaddingChart.bottom,
+        ),
       ),
     );
   }

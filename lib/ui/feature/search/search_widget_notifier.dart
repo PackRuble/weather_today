@@ -147,14 +147,17 @@ class SearchNR extends AutoDisposeNotifier<SearchState> with NotifierLogger {
 
         if (latitude != null && longitude != null) {
           return _getPlacesByCoordinates(
-              latitude: latitude, longitude: longitude);
+            latitude: latitude,
+            longitude: longitude,
+          );
         }
       }
     }
     // иначе поиск по местоположению
     else {
       return _getPlacesByName(
-          rawQuery[0].toUpperCase() + rawQuery.substring(1));
+        rawQuery[0].toUpperCase() + rawQuery.substring(1),
+      );
     }
 
     return [];
@@ -165,8 +168,10 @@ class SearchNR extends AutoDisposeNotifier<SearchState> with NotifierLogger {
       ref.read(geocodingNR).getPlacesByName(name);
 
   /// We get a list of places by their coordinates.
-  Future<List<Place>> _getPlacesByCoordinates(
-      {required double latitude, required double longitude}) async {
+  Future<List<Place>> _getPlacesByCoordinates({
+    required double latitude,
+    required double longitude,
+  }) async {
     if (ref.read(GeocodingProviderNR.i) case GeocodingProvider.openMeteo) {
       // todo(03.01.2025): send the message "It is not possible to use coordinates for openMeteo"
       return [];

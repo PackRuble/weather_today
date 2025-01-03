@@ -17,10 +17,6 @@ custom_lint:
 # If necessary, use (ignore: lint) and (ignore_for_file: lint)
 linter:
   rules:
-
-    # Personal preference.
-    require_trailing_commas: false
-
     # todo: migrate it
     # In build method don't correct
     no_leading_underscores_for_local_identifiers: false

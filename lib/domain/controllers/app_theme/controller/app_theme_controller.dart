@@ -22,36 +22,66 @@ class AppTheme with Updater {
   static final instance = Provider(AppTheme.new, name: '$AppTheme/instance');
 
   Future<void> init() async {
-    await loadAndUpdate<double, double>(textScaleFactor,
-        DbStore.textScaleFactor, DbStore.textScaleFactorDefault);
+    await loadAndUpdate<double, double>(
+      textScaleFactor,
+      DbStore.textScaleFactor,
+      DbStore.textScaleFactorDefault,
+    );
     await loadAndUpdate<AppScrollPhysics, int>(
-        scrollPhysics,
-        DbStore.scrollPhysics,
-        DbStore.scrollPhysicsDefault,
-        _conversionScrollPhysics);
-    await loadAndUpdate<AppTypography, int>(typography, DbStore.typography,
-        DbStore.typographyDefault, _conversionTypography);
-    await loadAndUpdate<AppFontFamily, String>(fontFamily, DbStore.fontFamily,
-        DbStore.fontFamilyDefault, _conversionFontFamily);
+      scrollPhysics,
+      DbStore.scrollPhysics,
+      DbStore.scrollPhysicsDefault,
+      _conversionScrollPhysics,
+    );
+    await loadAndUpdate<AppTypography, int>(
+      typography,
+      DbStore.typography,
+      DbStore.typographyDefault,
+      _conversionTypography,
+    );
+    await loadAndUpdate<AppFontFamily, String>(
+      fontFamily,
+      DbStore.fontFamily,
+      DbStore.fontFamilyDefault,
+      _conversionFontFamily,
+    );
     await loadAndUpdate<FlexSchemeData, int>(
-        currentThemeScheme,
-        DbStore.themeScheme,
-        DbStore.themeSchemeDefault,
-        _conversionThemeScheme);
-    await loadAndUpdate<ThemeMode, int>(themeMode, DbStore.themeMode,
-        DbStore.themeModeDefault, _conversionThemeMode);
+      currentThemeScheme,
+      DbStore.themeScheme,
+      DbStore.themeSchemeDefault,
+      _conversionThemeScheme,
+    );
+    await loadAndUpdate<ThemeMode, int>(
+      themeMode,
+      DbStore.themeMode,
+      DbStore.themeModeDefault,
+      _conversionThemeMode,
+    );
     await loadAndUpdate<bool, bool>(
-        swapColors, DbStore.swapColorsTheme, DbStore.swapColorsThemeDefault);
+      swapColors,
+      DbStore.swapColorsTheme,
+      DbStore.swapColorsThemeDefault,
+    );
     await loadAndUpdate<bool, bool>(
-        swapDarkMainAndContainerColors,
-        DbStore.swapDarkMainAndContainerColors,
-        DbStore.swapDarkMainAndContainerColorsDefault);
+      swapDarkMainAndContainerColors,
+      DbStore.swapDarkMainAndContainerColors,
+      DbStore.swapDarkMainAndContainerColorsDefault,
+    );
     await loadAndUpdate<int, int>(
-        darkLevel, DbStore.darkLevelTheme, DbStore.darkLevelThemeDefault);
-    await loadAndUpdate<bool, bool>(darkIsTrueBlack, DbStore.darkIsTrueBlack,
-        DbStore.darkIsTrueBlackDefault);
+      darkLevel,
+      DbStore.darkLevelTheme,
+      DbStore.darkLevelThemeDefault,
+    );
     await loadAndUpdate<bool, bool>(
-        useMaterial3, DbStore.useMaterial3, DbStore.useMaterial3Default);
+      darkIsTrueBlack,
+      DbStore.darkIsTrueBlack,
+      DbStore.darkIsTrueBlackDefault,
+    );
+    await loadAndUpdate<bool, bool>(
+      useMaterial3,
+      DbStore.useMaterial3,
+      DbStore.useMaterial3Default,
+    );
   }
 
   // TextScaleFactor
@@ -188,9 +218,10 @@ class AppTheme with Updater {
   );
 
   Future<void> toggleDarkSwapColors(bool swap) async => saveAndUpdate<bool>(
-      swapDarkMainAndContainerColors,
-      DbStore.swapDarkMainAndContainerColors,
-      swap);
+        swapDarkMainAndContainerColors,
+        DbStore.swapDarkMainAndContainerColors,
+        swap,
+      );
 
   // Оттенки черного.
   // ---------------------------------------------------------------------------

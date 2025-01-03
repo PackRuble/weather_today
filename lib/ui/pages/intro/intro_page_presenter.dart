@@ -36,14 +36,26 @@ class IntroPagePresenter {
 
   static List<IntroTile> _getIntroTiles(TranslationsRu t) {
     return [
-      IntroTile(t.introPage.tile1title, t.introPage.tile1subtitle,
-          WeatherScene.sunset),
-      IntroTile(t.introPage.tile2title, t.introPage.tile2subtitle,
-          WeatherScene.snowfall),
-      IntroTile(t.introPage.tile3title, t.introPage.tile3subtitle,
-          WeatherScene.frosty),
-      IntroTile(t.introPage.tile4title, t.introPage.tile4subtitle,
-          WeatherScene.stormy),
+      IntroTile(
+        t.introPage.tile1title,
+        t.introPage.tile1subtitle,
+        WeatherScene.sunset,
+      ),
+      IntroTile(
+        t.introPage.tile2title,
+        t.introPage.tile2subtitle,
+        WeatherScene.snowfall,
+      ),
+      IntroTile(
+        t.introPage.tile3title,
+        t.introPage.tile3subtitle,
+        WeatherScene.frosty,
+      ),
+      IntroTile(
+        t.introPage.tile4title,
+        t.introPage.tile4subtitle,
+        WeatherScene.stormy,
+      ),
     ];
   }
 }

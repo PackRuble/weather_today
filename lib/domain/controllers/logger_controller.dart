@@ -42,7 +42,7 @@ class _AppLogsManager with GlobalLogger {
       ),
       filters: kDebugMode
           ? [
-              BlacklistFilter([DbLogger])
+              BlacklistFilter([DbLogger]),
             ]
           : const [],
       hierarchicalLogging: false,
@@ -90,12 +90,14 @@ class _AppLogsManager with GlobalLogger {
     final oldRecords = getLogs() ?? [];
 
     // no need to wait
-    unawaited(_prefs.setStringList(
-      DbStore.logsApp,
-      (oldRecords..insert(0, record.toString()))
-          .take(_maxCountRecords)
-          .toList(),
-    ));
+    unawaited(
+      _prefs.setStringList(
+        DbStore.logsApp,
+        (oldRecords..insert(0, record.toString()))
+            .take(_maxCountRecords)
+            .toList(),
+      ),
+    );
   }
 
   /// Clear all logs

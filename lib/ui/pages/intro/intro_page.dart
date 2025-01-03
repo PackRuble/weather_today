@@ -80,7 +80,7 @@ class IntroPage extends HookConsumerWidget {
                     Expanded(
                       flex: 1,
                       child: _RightButtonWidget(controller: pageController),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -293,11 +293,11 @@ class LocaleButtonWidget extends HookConsumerWidget {
               textAlign: TextAlign.center,
               // changed after _bug fixed
               style: theme.textTheme.titleMedium?.copyWith(
-                  color: locale == currentLocale
-                      ? theme.colorScheme.primary
-                      : null),
+                color:
+                    locale == currentLocale ? theme.colorScheme.primary : null,
+              ),
             ),
-          )
+          ),
       ],
       selectedItemBuilder: (BuildContext context) {
         final theme = Theme.of(context);
@@ -311,7 +311,7 @@ class LocaleButtonWidget extends HookConsumerWidget {
                   color: theme.colorScheme.primary,
                 ),
               ),
-            )
+            ),
         ];
       },
     );

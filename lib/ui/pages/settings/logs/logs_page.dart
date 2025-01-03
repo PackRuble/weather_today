@@ -21,42 +21,44 @@ class LogsPage extends ConsumerWidget with UiLoggy {
 
     return Scaffold(
       appBar: const AppBarCustom('Logs'),
-      body: StatefulBuilder(builder: (context, setState) {
-        final logs = logsManager.getLogs()?.reversed.toList() ?? [];
-        return Column(
-          children: [
-            // coldfix: пока что костыль, так как логи не реактивны
-            EnableLogsSwitch(onChange: () => setState(() {})),
-            const Divider(height: 0.0, thickness: 1.0),
-            logs.isEmpty
-                ? const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Center(child: Text('There are no logs')),
-                  )
-                : Expanded(
-                    child: SelectionArea(
-                      child: ListView.separated(
-                        itemCount: logs.length,
-                        padding: const EdgeInsets.all(8.0),
-                        itemBuilder: (BuildContext _, int index) {
-                          return Row(
-                            children: [
-                              Text(
-                                index.toString(),
-                                style: theme.textTheme.titleMedium,
-                              ),
-                              const SizedBox(width: 10),
-                              Flexible(child: Text(logs[index])),
-                            ],
-                          );
-                        },
-                        separatorBuilder: (_, __) => const Divider(),
+      body: StatefulBuilder(
+        builder: (context, setState) {
+          final logs = logsManager.getLogs()?.reversed.toList() ?? [];
+          return Column(
+            children: [
+              // coldfix: пока что костыль, так как логи не реактивны
+              EnableLogsSwitch(onChange: () => setState(() {})),
+              const Divider(height: 0.0, thickness: 1.0),
+              logs.isEmpty
+                  ? const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Center(child: Text('There are no logs')),
+                    )
+                  : Expanded(
+                      child: SelectionArea(
+                        child: ListView.separated(
+                          itemCount: logs.length,
+                          padding: const EdgeInsets.all(8.0),
+                          itemBuilder: (BuildContext _, int index) {
+                            return Row(
+                              children: [
+                                Text(
+                                  index.toString(),
+                                  style: theme.textTheme.titleMedium,
+                                ),
+                                const SizedBox(width: 10),
+                                Flexible(child: Text(logs[index])),
+                              ],
+                            );
+                          },
+                          separatorBuilder: (_, __) => const Divider(),
+                        ),
                       ),
                     ),
-                  ),
-          ],
-        );
-      }),
+            ],
+          );
+        },
+      ),
     );
   }
 }

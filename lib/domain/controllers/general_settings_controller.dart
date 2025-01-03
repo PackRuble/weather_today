@@ -21,18 +21,23 @@ class AppGeneralSettings with Updater {
 
   Future<void> init() async {
     await loadAndUpdate<HomepageIndex, int>(
-        startPageIndex,
-        DbStore.startPageIndex,
-        DbStore.startPageIndexDefault,
-        _conversionStartPageIndex);
+      startPageIndex,
+      DbStore.startPageIndex,
+      DbStore.startPageIndexDefault,
+      _conversionStartPageIndex,
+    );
 
     await loadAndUpdate<bool, bool>(
-        showIntro, DbStore.showIntro, DbStore.showIntroDefault);
+      showIntro,
+      DbStore.showIntro,
+      DbStore.showIntroDefault,
+    );
 
     await loadAndUpdate<bool, bool>(
-        isAcceptedTermsConditions,
-        DbStore.isAcceptedTermsConditions,
-        DbStore.isAcceptedTermsConditionsDefault);
+      isAcceptedTermsConditions,
+      DbStore.isAcceptedTermsConditions,
+      DbStore.isAcceptedTermsConditionsDefault,
+    );
   }
 
   /// Access to an instance of a class.
@@ -82,6 +87,9 @@ class AppGeneralSettings with Updater {
 
   Future<void> setAcceptedTermsConditions(bool value) async {
     await saveAndUpdate<bool>(
-        isAcceptedTermsConditions, DbStore.isAcceptedTermsConditions, value);
+      isAcceptedTermsConditions,
+      DbStore.isAcceptedTermsConditions,
+      value,
+    );
   }
 }

@@ -50,7 +50,10 @@ class SettingPagePresenter {
       listDialogOption: List.generate(Temp.values.length, (int index) {
         final Temp item = Temp.values[index];
         return DialogOption<Temp>(
-            groupValue: units, title: item.fullNameTr, value: item);
+          groupValue: units,
+          title: item.fullNameTr,
+          value: item,
+        );
       }),
     );
 
@@ -76,7 +79,10 @@ class SettingPagePresenter {
       listDialogOption: List.generate(Pressure.values.length, (int index) {
         final Pressure item = Pressure.values[index];
         return DialogOption<Pressure>(
-            groupValue: units, title: item.nameTr, value: item);
+          groupValue: units,
+          title: item.nameTr,
+          value: item,
+        );
       }),
     );
 
@@ -103,7 +109,10 @@ class SettingPagePresenter {
       listDialogOption: List.generate(Speed.values.length, (int index) {
         final Speed item = Speed.values[index];
         return DialogOption<Speed>(
-            groupValue: units, title: item.abbrTr, value: item);
+          groupValue: units,
+          title: item.abbrTr,
+          value: item,
+        );
       }),
     );
 
@@ -131,7 +140,10 @@ class SettingPagePresenter {
       listDialogOption: List.generate(AppLocale.values.length, (int index) {
         final AppLocale item = AppLocale.values[index];
         return DialogOption<AppLocale>(
-            groupValue: locale, title: item.nameTr, value: item);
+          groupValue: locale,
+          title: item.nameTr,
+          value: item,
+        );
       }),
     );
 
@@ -158,7 +170,10 @@ class SettingPagePresenter {
       listDialogOption: List.generate(HomepageIndex.values.length, (int index) {
         final HomepageIndex item = HomepageIndex.values[index];
         return DialogOption<HomepageIndex>(
-            groupValue: page, title: item.nameTr, value: item);
+          groupValue: page,
+          title: item.nameTr,
+          value: item,
+        );
       }),
     );
 
@@ -192,7 +207,7 @@ class SettingPagePresenter {
           title: 'Open logs screen',
           subtitle: 'You can see all the logs the application collects',
           onTap: () => context.router.push(const LogsRoute()),
-        )
+        ),
       ],
     );
   }

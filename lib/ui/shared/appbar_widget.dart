@@ -33,7 +33,7 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
         LinkedHashMap.of({ActionButton.themeMode: const ChangerThemeButton()});
 
     final actionsWidget = <Widget>[
-      for (final MapEntry(value: widget) in actions.entries) widget
+      for (final MapEntry(value: widget) in actions.entries) widget,
     ];
 
     return AppBar(

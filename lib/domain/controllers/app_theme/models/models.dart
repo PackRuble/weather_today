@@ -48,9 +48,11 @@ enum AppTypography {
 /// 1 - ClampingScrollPhysics. По умолчанию используется на Android.
 enum AppScrollPhysics {
   bouncingScrollPhysics(
-      BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics())),
+    BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+  ),
   clampingScrollPhysics(
-      ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()));
+    ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+  );
 
   const AppScrollPhysics(this.scrollPhysics);
 

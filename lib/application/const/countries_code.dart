@@ -260,5 +260,5 @@ const Map<String, String> countriesCode = <String, String>{
   'YT': 'Mayotte',
   'ZA': 'South Africa',
   'ZM': 'Zambia',
-  'ZW': 'Zimbabwe'
+  'ZW': 'Zimbabwe',
 };

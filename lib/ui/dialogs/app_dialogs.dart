@@ -52,11 +52,13 @@ class AppDialogs {
         content: Text(tr.dialogs.confirmDelPlace.content),
         listActions: [
           TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text(tr.dialogs.buttons.cancel)),
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(tr.dialogs.buttons.cancel),
+          ),
           TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: Text(tr.dialogs.buttons.ok)),
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(tr.dialogs.buttons.ok),
+          ),
         ],
       ) ??
       false;
@@ -81,7 +83,7 @@ class AppDialogs {
           if (countryName != null) ...[
             const SizedBox(height: 8.0),
             Center(child: Text(countryName, textAlign: TextAlign.center)),
-          ]
+          ],
         ],
       ),
       listActions: [
@@ -125,11 +127,13 @@ class AppDialogs {
       ),
       listActions: [
         TextButton(
-            onPressed: () => Navigator.pop(context, oldNote),
-            child: Text(tr.dialogs.buttons.cancel)),
+          onPressed: () => Navigator.pop(context, oldNote),
+          child: Text(tr.dialogs.buttons.cancel),
+        ),
         TextButton(
-            onPressed: () => Navigator.pop(context, controller.value.text),
-            child: Text(tr.dialogs.buttons.ok)),
+          onPressed: () => Navigator.pop(context, controller.value.text),
+          child: Text(tr.dialogs.buttons.ok),
+        ),
       ],
     );
 
@@ -144,7 +148,8 @@ class AppDialogs {
   /// --> true: удалить
   /// --> false: отменить удаление
   static Future<bool> confirmDeletionUserApiKeyWeather(
-          BuildContext context) async =>
+    BuildContext context,
+  ) async =>
       await infoDialogCustom<bool>(
         context,
         icon: const Icon(Icons.delete),
@@ -152,11 +157,13 @@ class AppDialogs {
         subTitle: tr.dialogs.confirmDelUserApikey.subtitle,
         listActions: [
           TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text(tr.dialogs.buttons.cancel)),
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(tr.dialogs.buttons.cancel),
+          ),
           TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: Text(tr.dialogs.buttons.ok)),
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(tr.dialogs.buttons.ok),
+          ),
         ],
       ) ??
       false;
@@ -239,11 +246,13 @@ class AppDialogs {
         subTitle: tr.dialogs.confirmSaveChanges.subtitle,
         listActions: [
           TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text(tr.dialogs.buttons.cancel)),
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(tr.dialogs.buttons.cancel),
+          ),
           TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: Text(tr.dialogs.buttons.save)),
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(tr.dialogs.buttons.save),
+          ),
         ],
       ) ??
       false;
@@ -287,8 +296,9 @@ class AppDialogs {
       ),
       listActions: [
         TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(tr.dialogs.buttons.okay)),
+          onPressed: () => Navigator.pop(context),
+          child: Text(tr.dialogs.buttons.okay),
+        ),
       ],
     );
   }
@@ -308,11 +318,13 @@ class AppDialogs {
           content: Text(tr.dialogs.confirmResetSettings.content),
           listActions: [
             TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: Text(tr.dialogs.buttons.cancel)),
+              onPressed: () => Navigator.pop(context, false),
+              child: Text(tr.dialogs.buttons.cancel),
+            ),
             TextButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: Text(tr.dialogs.buttons.reset)),
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(tr.dialogs.buttons.reset),
+            ),
           ],
         ) ??
         false;

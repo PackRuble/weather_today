@@ -43,12 +43,15 @@ class ChartWindWidget extends ConsumerWidget {
         generateLabelsData: const FlTitlesData(),
         titleWidget: titleWidget,
         ifEmptyDataWidget: (startDate == null || endDate == null)
-            ? Text(t.mainPageDRuble.hourlyPage.wind.noWindExpected,
-                style: styles.bodyMedium)
+            ? Text(
+                t.mainPageDRuble.hourlyPage.wind.noWindExpected,
+                style: styles.bodyMedium,
+              )
             : Text(
                 t.mainPageDRuble.hourlyPage.wind.windExpected(
-                    startDate: DateFormat.Hm().format(startDate),
-                    endDate: DateFormat.Hm().format(endDate)),
+                  startDate: DateFormat.Hm().format(startDate),
+                  endDate: DateFormat.Hm().format(endDate),
+                ),
                 style: styles.bodyMedium,
               ),
       );
@@ -70,11 +73,13 @@ class ChartWindWidget extends ConsumerWidget {
           children: <TextSpan>[
             TextSpan(text: '${t.mainPageDRuble.hourlyPage.wind.subtitle} - '),
             TextSpan(
-                text: chart.valueMaxY!.toStringAsFixed(chart.precisionLeft),
-                style: styles.labelLarge),
+              text: chart.valueMaxY!.toStringAsFixed(chart.precisionLeft),
+              style: styles.labelLarge,
+            ),
             TextSpan(
-                text: ' ${MetricsHelper.getSpeedUnits(Speed.ms)}',
-                style: styles.bodySmall),
+              text: ' ${MetricsHelper.getSpeedUnits(Speed.ms)}',
+              style: styles.bodySmall,
+            ),
           ],
         ),
       );
@@ -87,11 +92,13 @@ class ChartWindWidget extends ConsumerWidget {
 
     final List<LegendWidget> legends = [
       LegendWidget(
-          color: ChartTheme.wColorWind,
-          description: t.mainPageDRuble.hourlyPage.wind.legend.wind),
+        color: ChartTheme.wColorWind,
+        description: t.mainPageDRuble.hourlyPage.wind.legend.wind,
+      ),
       LegendWidget(
-          color: ChartTheme.wColorWindGust,
-          description: t.mainPageDRuble.hourlyPage.wind.legend.gust),
+        color: ChartTheme.wColorWindGust,
+        description: t.mainPageDRuble.hourlyPage.wind.legend.gust,
+      ),
     ];
 
     final bool isPortrait =
@@ -142,7 +149,7 @@ class ChartWindWidget extends ConsumerWidget {
           i,
           chart.data[i].windSpeed ?? 0.0,
           chart.data[i].windGust ?? 0.0,
-        )
+        ),
       ]);
     }
 
@@ -163,7 +170,8 @@ class ChartWindWidget extends ConsumerWidget {
             scale: 0.7,
             child: Transform.rotate(
               angle: MetricsHelper.fromRadiansToDegrees(
-                  chart.data[topPoint].windDegree ?? 0),
+                chart.data[topPoint].windDegree ?? 0,
+              ),
               child: Icon(
                 AppIcons.directWind,
                 color: Theme.of(context).iconTheme.color,
@@ -178,7 +186,11 @@ class ChartWindWidget extends ConsumerWidget {
     // метки температуры по оси y
     Widget _leftTitles(double value, TitleMeta meta) {
       if (ChartUtils.isSuitYLabel(
-          value, meta.min, meta.max, chart.scaleDivisionLeft)) {
+        value,
+        meta.min,
+        meta.max,
+        chart.scaleDivisionLeft,
+      )) {
         return Center(
           child: Text(
             value.toStringAsFixed(chart.precisionLeft),
@@ -219,10 +231,11 @@ class ChartWindWidget extends ConsumerWidget {
     return FlTitlesData(
       leftTitles: AxisTitles(
         sideTitles: SideTitles(
-            interval: chart.scaleDivisionLeft,
-            showTitles: true,
-            getTitlesWidget: _leftTitles,
-            reservedSize: ChartTheme.wPaddingChart.left),
+          interval: chart.scaleDivisionLeft,
+          showTitles: true,
+          getTitlesWidget: _leftTitles,
+          reservedSize: ChartTheme.wPaddingChart.left,
+        ),
       ),
       rightTitles: AxisTitles(
         sideTitles: SideTitles(
@@ -240,9 +253,10 @@ class ChartWindWidget extends ConsumerWidget {
       ),
       bottomTitles: AxisTitles(
         sideTitles: SideTitles(
-            showTitles: true,
-            getTitlesWidget: _bottomTitles,
-            reservedSize: ChartTheme.wPaddingChart.bottom),
+          showTitles: true,
+          getTitlesWidget: _bottomTitles,
+          reservedSize: ChartTheme.wPaddingChart.bottom,
+        ),
       ),
     );
   }

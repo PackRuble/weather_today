@@ -23,6 +23,6 @@ class CountryFlagsPagePresenter {
   /// Получить страны вида:
   /// [[countryCode, countryName], ...]
   List<List<String>> getCountries() => [
-        for (final e in countriesCode.entries) [e.key, e.value]
+        for (final e in countriesCode.entries) [e.key, e.value],
       ];
 }

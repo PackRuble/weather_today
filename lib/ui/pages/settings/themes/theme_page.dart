@@ -29,8 +29,11 @@ class ThemePage extends ConsumerWidget {
     final ThemeData currentTheme = Theme.of(context);
 
     final ThemeData testedDarkLevelTheme = ref
-        .watch(AppTheme.darkThemeTestedDarkLevel(
-            ref.watch(ThemePagePresenter.darkLevel)))
+        .watch(
+          AppTheme.darkThemeTestedDarkLevel(
+            ref.watch(ThemePagePresenter.darkLevel),
+          ),
+        )
         .toTheme;
 
     return Theme(

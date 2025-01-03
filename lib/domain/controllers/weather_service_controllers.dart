@@ -32,16 +32,36 @@ class WeatherServices with Updater {
 
   /// Инициализация. Переопределяем значения провайдеров на значения из бд.
   Future<void> init() async {
-    await loadAndUpdate(currentPlace, DbStore.currentPlace,
-        DbStore.currentPlaceDefault, _conversionCurrentPlace);
-    await loadAndUpdate(speedUnits, DbStore.speedUnits,
-        DbStore.speedUnitsDefault, _conversionSpeedUnits);
-    await loadAndUpdate(pressureUnits, DbStore.pressureUnits,
-        DbStore.pressureUnitsDefault, _conversionPressureUnits);
-    await loadAndUpdate(tempUnits, DbStore.temperatureUnits,
-        DbStore.temperatureUnitsDefault, _conversionTempUnits);
-    await loadAndUpdate(currentLanguage, DbStore.userWeatherLanguage,
-        DbStore.userWeatherLanguageDefault, _conversionCurrentLanguage);
+    await loadAndUpdate(
+      currentPlace,
+      DbStore.currentPlace,
+      DbStore.currentPlaceDefault,
+      _conversionCurrentPlace,
+    );
+    await loadAndUpdate(
+      speedUnits,
+      DbStore.speedUnits,
+      DbStore.speedUnitsDefault,
+      _conversionSpeedUnits,
+    );
+    await loadAndUpdate(
+      pressureUnits,
+      DbStore.pressureUnits,
+      DbStore.pressureUnitsDefault,
+      _conversionPressureUnits,
+    );
+    await loadAndUpdate(
+      tempUnits,
+      DbStore.temperatureUnits,
+      DbStore.temperatureUnitsDefault,
+      _conversionTempUnits,
+    );
+    await loadAndUpdate(
+      currentLanguage,
+      DbStore.userWeatherLanguage,
+      DbStore.userWeatherLanguageDefault,
+      _conversionCurrentLanguage,
+    );
   }
 
   /// Instance of current class.

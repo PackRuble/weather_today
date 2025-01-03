@@ -11,7 +11,11 @@ class ChartUtils {
   /// Необходимо для того, чтобы лэйблы очень близкие друг к другу,
   /// игнорировались и не отрисовывались.
   static bool isSuitYLabel(
-      double value, double min, double max, double interval) {
+    double value,
+    double min,
+    double max,
+    double interval,
+  ) {
     final double tolerance = interval / 2;
 
     if (value == 0.0 || value == min || value == max) return true;
@@ -45,7 +49,10 @@ class ChartUtils {
   /// * [upperValue] - максимальное значение метки;
   /// * [lowerValue] - минимальное значение метки;
   static double getYIntervalBetweenLabel(
-      double lowerValue, double upperValue, int count) {
+    double lowerValue,
+    double upperValue,
+    int count,
+  ) {
     assert(upperValue > lowerValue);
     assert(count > 1);
 
@@ -81,8 +88,11 @@ class ChartUtils {
   /// [edgePoints] - обязательно использовать краевые точки.
   /// Чтобы разделить оптимально, нужно проверить по формуле:
   /// (длина списка - кол-во точек) / (кол-во точек - 1) = целое число.
-  static List<int> getXInterval(int count, int length,
-      [bool edgePoints = false]) {
+  static List<int> getXInterval(
+    int count,
+    int length, [
+    bool edgePoints = false,
+  ]) {
     assert(length >= count && count >= 2);
 
     final int lastPoints = length - 1;
@@ -107,6 +117,8 @@ class ChartUtils {
     final int lengthInterval = (length - 1) ~/ (count - 1);
 
     return List.generate(
-        count, (int index) => startPlus + (index * lengthInterval));
+      count,
+      (int index) => startPlus + (index * lengthInterval),
+    );
   }
 }

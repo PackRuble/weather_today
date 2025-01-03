@@ -45,20 +45,25 @@ class ChartForecastWidget extends ConsumerWidget {
 
     final List<LegendWidget> legends = [
       LegendWidget(
-          color: ChartTheme.fColorTemp,
-          description: t.mainPageDRuble.hourlyPage.forecast.legend.realTemp),
+        color: ChartTheme.fColorTemp,
+        description: t.mainPageDRuble.hourlyPage.forecast.legend.realTemp,
+      ),
       LegendWidget(
-          color: ChartTheme.fColorTempFeels,
-          description: t.mainPageDRuble.hourlyPage.forecast.legend.feelTemp),
+        color: ChartTheme.fColorTempFeels,
+        description: t.mainPageDRuble.hourlyPage.forecast.legend.feelTemp,
+      ),
       LegendWidget(
-          color: ChartTheme.fColorDewPoint,
-          description: t.mainPageDRuble.hourlyPage.forecast.legend.dewPoint),
+        color: ChartTheme.fColorDewPoint,
+        description: t.mainPageDRuble.hourlyPage.forecast.legend.dewPoint,
+      ),
     ];
 
     final Widget unitsRight = Align(
       alignment: Alignment.center,
-      child: Text(t.mainPageDRuble.hourlyPage.forecast.uvi,
-          style: styles.bodySmall?.copyWith(color: ChartTheme.fColorUvi)),
+      child: Text(
+        t.mainPageDRuble.hourlyPage.forecast.uvi,
+        style: styles.bodySmall?.copyWith(color: ChartTheme.fColorUvi),
+      ),
     );
 
     return CustomChartWidget(
@@ -125,7 +130,7 @@ class ChartForecastWidget extends ConsumerWidget {
           item.dewPoint != null
               ? ChartModel.tempUnits.value(item.dewPoint!)
               : null,
-        )
+        ),
     ];
   }
 
@@ -154,7 +159,11 @@ class ChartForecastWidget extends ConsumerWidget {
     // метки температуры по оси y
     Widget _leftTitles(double value, TitleMeta meta) {
       if (ChartUtils.isSuitYLabel(
-          value, meta.min, meta.max, chart.scaleDivisionLeft)) {
+        value,
+        meta.min,
+        meta.max,
+        chart.scaleDivisionLeft,
+      )) {
         return Center(
           child: Text(
             value.toStringAsFixed(chart.precisionLeft),
@@ -240,10 +249,11 @@ class ChartForecastWidget extends ConsumerWidget {
     return FlTitlesData(
       leftTitles: AxisTitles(
         sideTitles: SideTitles(
-            interval: chart.scaleDivisionLeft,
-            showTitles: true,
-            getTitlesWidget: _leftTitles,
-            reservedSize: ChartTheme.fPaddingChart.left),
+          interval: chart.scaleDivisionLeft,
+          showTitles: true,
+          getTitlesWidget: _leftTitles,
+          reservedSize: ChartTheme.fPaddingChart.left,
+        ),
       ),
       rightTitles: AxisTitles(
         sideTitles: SideTitles(
@@ -261,9 +271,10 @@ class ChartForecastWidget extends ConsumerWidget {
       ),
       bottomTitles: AxisTitles(
         sideTitles: SideTitles(
-            showTitles: true,
-            getTitlesWidget: _bottomTitles,
-            reservedSize: ChartTheme.fPaddingChart.bottom),
+          showTitles: true,
+          getTitlesWidget: _bottomTitles,
+          reservedSize: ChartTheme.fPaddingChart.bottom,
+        ),
       ),
     );
   }

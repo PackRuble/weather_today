@@ -217,7 +217,7 @@ class _DesignPagesNew extends HookConsumerWidget {
                 key: ValueKey(index),
                 designPage: designPage,
                 index: index,
-              )
+              ),
           ],
         ),
         TipRWidget(
@@ -467,8 +467,10 @@ class _ScrollPhysicsWidget extends ConsumerWidget {
       items: List<ChipInCloud>.generate(items.length, (int index) {
         return ChipInCloud(
           selected: selected == items[index],
-          label: Text(items[index]
-              .toWords(startWithSmall: false, stringCase: StringCase.lower)),
+          label: Text(
+            items[index]
+                .toWords(startWithSmall: false, stringCase: StringCase.lower),
+          ),
           onSelected: (_) => ref
               .read(VisualDesignPresenter.instance)
               .setScrollPhysic(items[index]),

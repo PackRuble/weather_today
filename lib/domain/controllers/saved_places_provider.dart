@@ -27,9 +27,11 @@ class SavedPlacesNotifier extends StateNotifier<List<Place>> {
 
   /// Запустить при создании класса.
   Future<void> _init() async {
-    state = _conversionSavedPlacesDb(await _ref
-        .read(dbService)
-        .load(DbStore.savedPlaces, DbStore.savedPlacesDefault));
+    state = _conversionSavedPlacesDb(
+      await _ref
+          .read(dbService)
+          .load(DbStore.savedPlaces, DbStore.savedPlacesDefault),
+    );
   }
 
   // coldfix: create freezed states
@@ -104,6 +106,8 @@ class SavedPlacesNotifier extends StateNotifier<List<Place>> {
 
   /// Сохранить любимый список мест в бд.
   Future<void> _saveInDatabase(List<Place> places) async =>
-      _ref.read(dbService).save(DbStore.savedPlaces,
-          places.map((e) => jsonEncode(e.toJson())).toList());
+      _ref.read(dbService).save(
+            DbStore.savedPlaces,
+            places.map((e) => jsonEncode(e.toJson())).toList(),
+          );
 }

@@ -204,9 +204,9 @@ class _MainInfoWidget extends ConsumerWidget {
                         children: <TextSpan>[
                           TextSpan(text: _temp),
                           TextSpan(
-                              text: _tempUnits,
-                              style:
-                                  styles.bodyMedium?.copyWith(fontSize: 28.0)),
+                            text: _tempUnits,
+                            style: styles.bodyMedium?.copyWith(fontSize: 28.0),
+                          ),
                         ],
                       ),
                     ),
@@ -225,7 +225,7 @@ class _MainInfoWidget extends ConsumerWidget {
             children: <TextSpan>[
               TextSpan(text: t.weather.feelsLikeAs),
               TextSpan(text: ' $_tempFeelsLike', style: styles.bodyLarge),
-              TextSpan(text: _tempUnits)
+              TextSpan(text: _tempUnits),
             ],
           ),
         ),
@@ -284,7 +284,7 @@ class _WindWidget extends ConsumerWidget {
               if (_windGust != null) ...[
                 const SizedBox(height: _indent),
                 Text(_windGust, style: styles.bodyMedium),
-              ]
+              ],
             ],
           ),
         ),
@@ -321,15 +321,18 @@ class _OtherInfoWidget extends ConsumerWidget {
 
     final Pressure pressureUnits = ref.watch(WeatherServices.pressureUnits);
     final String _pressure = MetricsHelper.getPressure(
-        currently.pressure, pressureUnits,
-        withFiller: true)!;
+      currently.pressure,
+      pressureUnits,
+      withFiller: true,
+    )!;
 
     final String _humidity =
         MetricsHelper.withPrecision(currently.humidity, withFiller: true)!;
 
     final String _visibility = MetricsHelper.withPrecision(
-        MetricsHelper.getPercentage(currently.visibility, 10000.0),
-        withFiller: true)!;
+      MetricsHelper.getPercentage(currently.visibility, 10000.0),
+      withFiller: true,
+    )!;
 
     final String _cloudiness =
         MetricsHelper.withPrecision(100.0, withFiller: true)!;
@@ -339,19 +342,31 @@ class _OtherInfoWidget extends ConsumerWidget {
         Row(
           children: [
             Expanded(
-                child: buildTile(Icons.cloud_rounded, '$_cloudiness%',
-                    t.weather.cloudiness)),
+              child: buildTile(
+                Icons.cloud_rounded,
+                '$_cloudiness%',
+                t.weather.cloudiness,
+              ),
+            ),
             Expanded(child: buildTile(AppIcons.pressure, _pressure, '')),
           ],
         ),
         Row(
           children: [
             Expanded(
-                child: buildTile(
-                    Icons.water_drop, '$_humidity%', t.weather.humidity)),
+              child: buildTile(
+                Icons.water_drop,
+                '$_humidity%',
+                t.weather.humidity,
+              ),
+            ),
             Expanded(
-                child: buildTile(
-                    Icons.water, '$_visibility%', t.weather.visibility)),
+              child: buildTile(
+                Icons.water,
+                '$_visibility%',
+                t.weather.visibility,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: _indent),
@@ -425,7 +440,7 @@ class _SunriseInfoWidget extends ConsumerWidget {
                   t.weather.daylightHoursNl,
                   textAlign: TextAlign.center,
                 ),
-                Text(_dayLength)
+                Text(_dayLength),
               ],
             ),
           ),

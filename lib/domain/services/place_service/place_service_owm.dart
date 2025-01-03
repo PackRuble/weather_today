@@ -17,11 +17,15 @@ class PlaceServiceOWM with CallWrapper implements PlaceService {
   final GeocodingService _service;
 
   @override
-  Future<List<Place>> getPlacesByCoordinates(
-      {required double latitude, required double longitude}) async {
+  Future<List<Place>> getPlacesByCoordinates({
+    required double latitude,
+    required double longitude,
+  }) async {
     final List<PlaceGeocode> placesDirect = (await callSafely(
           () => _service.getLocationByCoordinates(
-              latitude: latitude, longitude: longitude),
+            latitude: latitude,
+            longitude: longitude,
+          ),
         )) ??
         [];
 

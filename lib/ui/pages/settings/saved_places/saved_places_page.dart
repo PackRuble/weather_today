@@ -59,7 +59,7 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
                             ),
                           _TileFoundedWidget(listPlaces[index]),
                           if (index == listPlaces.length - 1)
-                            const SizedBox(height: 50.0)
+                            const SizedBox(height: 50.0),
                         ],
                       );
                     },
@@ -72,7 +72,7 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
             const Align(
               alignment: Alignment.bottomLeft,
               child: BackButton(),
-            )
+            ),
         ],
       ),
     );
@@ -170,8 +170,9 @@ class _ExpandedWidget extends ConsumerWidget {
       padding: const EdgeInsets.all(AppInsets.allPadding),
       child: DecoratedBox(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),
-            border: Border.all(color: colors.primaryContainer)),
+          borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),
+          border: Border.all(color: colors.primaryContainer),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(AppInsets.allPadding),
           child: Column(
