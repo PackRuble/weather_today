@@ -51,7 +51,7 @@ class Place with _$Place {
 
   // coldfix: remove and inspect affected areas
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       other is _SavedPlace &&
       name == other.name &&
       longitude == other.longitude &&

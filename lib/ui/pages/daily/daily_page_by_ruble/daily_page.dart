@@ -91,7 +91,7 @@ class _AlertTileWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final tileColor = theme.colorScheme.secondary.withOpacity(.4);
+    final tileColor = theme.colorScheme.secondary.withValues(alpha: .4);
 
     final t = ref.watch(DailyPagePresenter.tr);
 

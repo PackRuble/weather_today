@@ -59,6 +59,7 @@ class WeatherServices with Updater {
   /// Current location.
   static final currentPlace = StateProvider<Place>(
     (ref) {
+      // ignore: deprecated_member_use
       ref.listenSelf(
         (previous, next) {
           _autoUpdatePreviousPlace(

@@ -55,5 +55,6 @@ class AppColors {
   /// Цвет тени.
   Color get shadowColorSearchbar => scheme.shadow;
 
-  Color get borderColorSearchbar => scheme.primaryContainer.withOpacity(0.75);
+  Color get borderColorSearchbar =>
+      scheme.primaryContainer.withValues(alpha: 0.75);
 }

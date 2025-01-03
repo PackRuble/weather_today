@@ -3,6 +3,7 @@ include: package:lint/strict.yaml
 analyzer:
   errors:
     invalid_annotation_target: ignore
+    curly_braces_in_flow_control_structures: ignore
   plugins:
     - custom_lint
   exclude:

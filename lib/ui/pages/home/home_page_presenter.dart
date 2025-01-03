@@ -54,6 +54,7 @@ class HomePageController {
       final index = ref.watch(pageController.select(
           (controller) => controller.page?.round() ?? controller.initialPage));
 
+      // ignore: deprecated_member_use
       ref.listenSelf(
           (previous, next) => _notifyObservers(previous ?? index, next));
 
