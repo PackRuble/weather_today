@@ -36,11 +36,11 @@ late TranslationsRu _tr;
 /// * изменение провайдеров для реактивных изменений интерфейса;
 /// * любая работа с локалью;
 class AppLocalization {
-  AppLocalization(this.ref);
+  AppLocalization(this._ref);
 
-  final Ref ref;
+  final Ref _ref;
 
-  DataBase get _dbService => ref.read(dbService);
+  DataBase get _dbService => _ref.read(dbService);
 
   static final instance = Provider<AppLocalization>(
     AppLocalization.new,
@@ -48,14 +48,14 @@ class AppLocalization {
   );
 
   /// Текущая локаль приложения.
-  static final currentLocale = StateProvider<AppLocale>((ref) => AppLocale.ru);
+  static final currentLocale = StateProvider((_) => AppLocale.ru);
 
   /// загрузить из бд локаль.
   Future<void> init() async {
     final AppLocale locale = _parseRawLocale(await _getUserStoredLocale());
     Intl.defaultLocale = locale.languageCode;
-    _tr = locale.build();
-    ref.read(currentLocale.notifier).update((_) => locale);
+    _tr = await locale.build();
+    _ref.read(currentLocale.notifier).update((_) => locale);
   }
 
   /// перевести сырые строки.
@@ -70,8 +70,11 @@ class AppLocalization {
   static final currentTranslation = StateProvider<TranslationsRu>(
     (ref) {
       final AppLocale locale = ref.watch(currentLocale);
-      // ignore: join_return_with_assignment
-      _tr = locale.build(); // we need to assign
+
+      Future(() async {
+        _tr = await locale.build();
+        ref.controller.state = _tr;
+      });
       return tr;
     },
     name: '$AppLocalization/currentTranslation',
@@ -92,7 +95,7 @@ class AppLocalization {
     unawaited(_saveLocale(locale.flutterLocale));
     Intl.defaultLocale = locale.languageCode;
 
-    ref.read(currentLocale.notifier).update((_) => locale);
+    _ref.read(currentLocale.notifier).update((_) => locale);
     return locale;
   }
 

@@ -1,26 +1,31 @@
-# Для настройки ознакомиться с slang doc:
 # https://pub.dev/packages/slang#configuration
 
-base_locale: ru # базовый язык
-fallback_strategy: base_locale # в случае ошибки возвращаемся к базовой локали
+base_locale: ru
+fallback_strategy: base_locale
 
-input_directory: assets/i18n # путь хранения переводов
+input_directory: assets/i18n
 input_file_pattern: .i18n.json
-output_directory: lib/application/i18n # путь генерации переводов
+output_directory: lib/application/i18n
 output_file_name: translations.g.dart
-output_format: multiple_files
 
 string_interpolation: braces
 
-#translate_var: translate  # название переменной
-enumName: AppLocale  # название перечисления
+#translate_var: translate
+enumName: AppLocale
 
 key_case: camel
 key_map_case: null
 param_case: camel
 
-flat_map: false # нет необходимости в создании Map переводов
+flat_map: false # no need to create Map of translations
 
-namespaces: false # удобство перевода постранично
 locale_handling: false # remove unused t variable, LocaleSettings, etc.
 translation_class_visibility: public
+
+format:
+  enabled: true
+  width: 80
+sanitization:
+  enabled: true
+  prefix: k
+  case: camel
