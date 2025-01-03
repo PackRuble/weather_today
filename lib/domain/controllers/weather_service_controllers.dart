@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/domain/controllers/owm_controller.dart';
-import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/domain/services/cardoteka/weather_storage.dart';
 import 'package:weather_today/domain/services/local_storage/data_base_controller.dart';
 import 'package:weather_today/domain/services/local_storage/interface/data_base.dart';
 import 'package:weather_today/domain/services/local_storage/key_store.dart';
+import 'package:weather_today/domain/services/place_service/models/place_model.dart';
 
 import '../../application/const/first_run_saved_places.dart';
 import 'utils/state_updater.dart';

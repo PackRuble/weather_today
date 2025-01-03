@@ -9,6 +9,9 @@ part 'models.g.dart';
 /// Не переименовывать, используется в Cardoteka!
 enum WeatherProvider { openWeatherMap, openMeteo }
 
+/// Не переименовывать, используется в Cardoteka!
+enum GeocodingProvider { openWeatherMap, openMeteo }
+
 // todo(05.08.2024): Классы моделей ниже не используется, однако показывают
 //  возможность объединения нескольких погодных моделей от разных провайдеров
 

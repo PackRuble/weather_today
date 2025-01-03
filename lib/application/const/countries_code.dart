@@ -1,4 +1,4 @@
-/// Сопоставление кода-страны с её полным наименованием.
+/// Comparison of the country code with its full name.
 ///
 /// The flags are named by their 2-letter ISO-3166 country code, except for
 /// the constituent countries of Great Britain which have 6-letter codes "GB-ENG" etc).

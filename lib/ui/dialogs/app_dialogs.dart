@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/application/const/app_info.dart';
 import 'package:weather_today/application/const/countries_code.dart';
 import 'package:weather_today/application/navigation/routes.gr.dart';
+import 'package:weather_today/data/weather_base/models.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/ui/pages/settings/changelog/changelog_page.dart';
 
@@ -13,6 +16,26 @@ import '../shared/dialogs_widget.dart';
 /// Класс представляет список диалогов приложения.
 class AppDialogs {
   AppDialogs._();
+
+  static Future<GeocodingProvider?> selectGeocodingProvider(
+    BuildContext context,
+    WidgetRef ref,
+    GeocodingProvider geocodingProvider,
+  ) async =>
+      await showChoosingDialog<GeocodingProvider>(
+        context,
+        icon: const Icon(AppIcons.geocodingProvider),
+        title: ref.tr.ui.geocodingProvider,
+        subTitle: ref.tr.messages.selectedParamWillBeApplied,
+        listDialogOption: [
+          for (final provider in GeocodingProvider.values)
+            DialogOption<GeocodingProvider>(
+              groupValue: geocodingProvider,
+              title: provider.website,
+              value: provider,
+            ),
+        ],
+      );
 
   /// Вызов диалога, подтверждающего удаление [Place] из базы данных.
   ///

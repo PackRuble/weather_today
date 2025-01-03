@@ -8,7 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
-import '../../models/place/place_model.dart';
+import '../../services/place_service/models/place_model.dart';
 import '../message_controller.dart';
 
 const bool _kDebugMode = fl_service.kDebugMode;

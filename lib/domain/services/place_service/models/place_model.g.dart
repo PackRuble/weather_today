@@ -6,8 +6,7 @@ part of 'place_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SavedPlaceImpl _$$SavedPlaceImplFromJson(Map<String, dynamic> json) =>
-    _$SavedPlaceImpl(
+_$PlaceImpl _$$PlaceImplFromJson(Map<String, dynamic> json) => _$PlaceImpl(
       name: json['name'] as String?,
       localNames: (json['local_names'] as Map<String, dynamic>?)?.map(
         (k, e) =>
@@ -21,7 +20,7 @@ _$SavedPlaceImpl _$$SavedPlaceImplFromJson(Map<String, dynamic> json) =>
       note: json['note'] as String?,
     );
 
-Map<String, dynamic> _$$SavedPlaceImplToJson(_$SavedPlaceImpl instance) =>
+Map<String, dynamic> _$$PlaceImplToJson(_$PlaceImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'local_names': instance.localNames

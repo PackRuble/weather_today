@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:cardoteka/cardoteka.dart';
 import 'package:weather_pack/weather_pack.dart' show WeatherOneCall;
 import 'package:weather_today/data/open_meteo/models/models.dart';
-import 'package:weather_today/domain/models/place/place_model.dart';
+import 'package:weather_today/domain/services/place_service/models/place_model.dart';
 
 class PlaceConverter extends Converter<Place, String> {
   const PlaceConverter();

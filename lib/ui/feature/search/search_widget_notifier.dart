@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:weather_today/application/i18n/translations.g.dart';
+import 'package:weather_today/data/weather_base/models.dart';
+import 'package:weather_today/domain/controllers/geocoding_nr.dart';
+import 'package:weather_today/domain/controllers/geocoding_provider_nr.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
-import 'package:weather_today/domain/controllers/place_service_controller.dart';
 import 'package:weather_today/domain/controllers/saved_places_provider.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
-import 'package:weather_today/domain/models/place/place_model.dart';
+import 'package:weather_today/domain/services/place_service/models/place_model.dart';
 import 'package:weather_today/ui/feature/search/models/search_state.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
@@ -162,14 +164,20 @@ class SearchWidgetNotifier extends AutoDisposeNotifier<SearchState>
 
   /// We get a list of places by their presumed name.
   Future<List<Place>> _getPlacesByName(String name) async =>
-      ref.read(placeServiceOWMPr).getPlacesByName(name);
+      ref.read(geocodingNR).getPlacesByName(name);
 
   /// We get a list of places by their coordinates.
   Future<List<Place>> _getPlacesByCoordinates(
-          {required double latitude, required double longitude}) async =>
-      ref
-          .read(placeServiceOWMPr)
-          .getPlacesByCoordinates(latitude: latitude, longitude: longitude);
+      {required double latitude, required double longitude}) async {
+    if (ref.read(GeocodingProviderNR.i) case GeocodingProvider.openMeteo) {
+      // todo(03.01.2025): send the message "It is not possible to use coordinates for openMeteo"
+      return [];
+    }
+
+    return ref
+        .read(geocodingNR)
+        .getPlacesByCoordinates(latitude: latitude, longitude: longitude);
+  }
 
   // Methods of working with places.
   // ===========================================================================

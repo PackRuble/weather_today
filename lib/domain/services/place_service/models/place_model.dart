@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:weather_pack/weather_pack.dart';
+import 'package:weather_pack/weather_pack.dart' show WeatherLanguage;
 
 part 'place_model.freezed.dart';
 part 'place_model.g.dart';
@@ -7,7 +7,6 @@ part 'place_model.g.dart';
 // ignore_for_file: invalid_annotation_target
 
 /// Местоположение и его характеристики.
-///
 @freezed
 class Place with _$Place {
   @JsonSerializable(fieldRename: FieldRename.snake)
@@ -35,7 +34,7 @@ class Place with _$Place {
 
     /// Заметка об этом месте.
     String? note,
-  }) = _SavedPlace; // coldfix: use _Place
+  }) = _Place;
   const Place._();
 
   /// Внутренний метод десериализации json.
@@ -49,25 +48,13 @@ class Place with _$Place {
       longitude == otherPlace.longitude &&
       latitude == otherPlace.latitude;
 
-  // coldfix: remove and inspect affected areas
   @override
   bool operator ==(Object other) =>
-      other is _SavedPlace &&
+      other is _Place &&
       name == other.name &&
       longitude == other.longitude &&
       latitude == other.latitude;
 
-  // @override
-  // bool operator ==(dynamic other) {
-  //   return identical(this, other) ||
-  //       (other.runtimeType == runtimeType &&
-  //           other is _SavedPlace &&
-  //           name == other.name &&
-  //           longitude == other.longitude &&
-  //           latitude == other.latitude);
-  // }
-
-  // coldfix: remove and inspect affected areas
   @override
   int get hashCode => Object.hash(
         runtimeType,
@@ -75,8 +62,4 @@ class Place with _$Place {
         latitude,
         longitude,
       );
-
-  @override
-  String toString() =>
-      '$Place(name: $name, lat: $latitude, lon: $longitude, note: $note, hashCode: $hashCode)';
 }

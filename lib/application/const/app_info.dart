@@ -87,3 +87,10 @@ extension WeatherProviderX on WeatherProvider {
 
   Uri get websiteUrl => Uri.parse('https://$website/');
 }
+
+extension GeocodingProviderX on GeocodingProvider {
+  String get website => switch (this) {
+        GeocodingProvider.openWeatherMap => 'openweathermap.org',
+        GeocodingProvider.openMeteo => 'open-meteo.com',
+      };
+}

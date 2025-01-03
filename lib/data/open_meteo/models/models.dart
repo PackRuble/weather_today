@@ -282,3 +282,32 @@ class DailyWeatherOpenMeteo with _$DailyWeatherOpenMeteo {
   factory DailyWeatherOpenMeteo.fromJson(Map<String, dynamic> json) =>
       _$DailyWeatherOpenMeteoFromJson(json);
 }
+
+@freezed
+class OpenMeteoPlace with _$OpenMeteoPlace {
+  const factory OpenMeteoPlace({
+    @JsonKey(name: 'id') required int id,
+    @JsonKey(name: 'name') required String name,
+    @JsonKey(name: 'latitude') required double latitude,
+    @JsonKey(name: 'longitude') required double longitude,
+    @JsonKey(name: 'elevation') required double elevation,
+    @JsonKey(name: 'feature_code') required String featureCode,
+    @JsonKey(name: 'country_code') required String countryCode,
+    @JsonKey(name: 'admin1_id') int? admin1Id,
+    @JsonKey(name: 'admin2_id') int? admin2Id,
+    @JsonKey(name: 'admin3_id') int? admin3Id,
+    @JsonKey(name: 'admin4_id') int? admin4Id,
+    @JsonKey(name: 'timezone') required String timezone,
+    @JsonKey(name: 'population') int? population,
+    @JsonKey(name: 'postcodes') @Default([]) List<String> postcodes,
+    @JsonKey(name: 'country_id') required int countryID,
+    @JsonKey(name: 'country') required String country,
+    @JsonKey(name: 'admin1') String? admin1,
+    @JsonKey(name: 'admin2') String? admin2,
+    @JsonKey(name: 'admin3') String? admin3,
+    @JsonKey(name: 'admin4') String? admin4,
+  }) = _OpenMeteoPlace;
+
+  factory OpenMeteoPlace.fromJson(Map<String, Object?> json) =>
+      _$OpenMeteoPlaceFromJson(json);
+}

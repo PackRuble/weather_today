@@ -790,6 +790,8 @@ class TranslationsUiEn extends TranslationsUiRu {
   @override
   String get chooseWeatherDesignForPage => 'Choose a weather design for page';
   @override
+  String get geocodingProvider => 'Geocoding provider';
+  @override
   String get weatherProvider => 'Weather provider';
 }
 

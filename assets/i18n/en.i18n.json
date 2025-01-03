@@ -540,6 +540,7 @@
     "used": "Used",
     "select_weather_provider": "Select a weather provider",
     "choose_weather_design_for_page": "Choose a weather design for page",
+    "geocoding_provider": "Geocoding provider",
     "weather_provider": "Weather provider"
   },
   "other": {

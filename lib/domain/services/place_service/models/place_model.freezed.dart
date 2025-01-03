@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Place _$PlaceFromJson(Map<String, dynamic> json) {
-  return _SavedPlace.fromJson(json);
+  return _Place.fromJson(json);
 }
 
 /// @nodoc
@@ -132,10 +132,10 @@ class _$PlaceCopyWithImpl<$Res, $Val extends Place>
 }
 
 /// @nodoc
-abstract class _$$SavedPlaceImplCopyWith<$Res> implements $PlaceCopyWith<$Res> {
-  factory _$$SavedPlaceImplCopyWith(
-          _$SavedPlaceImpl value, $Res Function(_$SavedPlaceImpl) then) =
-      __$$SavedPlaceImplCopyWithImpl<$Res>;
+abstract class _$$PlaceImplCopyWith<$Res> implements $PlaceCopyWith<$Res> {
+  factory _$$PlaceImplCopyWith(
+          _$PlaceImpl value, $Res Function(_$PlaceImpl) then) =
+      __$$PlaceImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -150,11 +150,11 @@ abstract class _$$SavedPlaceImplCopyWith<$Res> implements $PlaceCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$SavedPlaceImplCopyWithImpl<$Res>
-    extends _$PlaceCopyWithImpl<$Res, _$SavedPlaceImpl>
-    implements _$$SavedPlaceImplCopyWith<$Res> {
-  __$$SavedPlaceImplCopyWithImpl(
-      _$SavedPlaceImpl _value, $Res Function(_$SavedPlaceImpl) _then)
+class __$$PlaceImplCopyWithImpl<$Res>
+    extends _$PlaceCopyWithImpl<$Res, _$PlaceImpl>
+    implements _$$PlaceImplCopyWith<$Res> {
+  __$$PlaceImplCopyWithImpl(
+      _$PlaceImpl _value, $Res Function(_$PlaceImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of Place
@@ -171,7 +171,7 @@ class __$$SavedPlaceImplCopyWithImpl<$Res>
     Object? state = freezed,
     Object? note = freezed,
   }) {
-    return _then(_$SavedPlaceImpl(
+    return _then(_$PlaceImpl(
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -211,8 +211,8 @@ class __$$SavedPlaceImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$SavedPlaceImpl extends _SavedPlace {
-  const _$SavedPlaceImpl(
+class _$PlaceImpl extends _Place {
+  const _$PlaceImpl(
       {required this.name,
       required final Map<WeatherLanguage, String>? localNames,
       required this.latitude,
@@ -224,8 +224,8 @@ class _$SavedPlaceImpl extends _SavedPlace {
       : _localNames = localNames,
         super._();
 
-  factory _$SavedPlaceImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SavedPlaceImplFromJson(json);
+  factory _$PlaceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PlaceImplFromJson(json);
 
   /// Название местоположения.
   @override
@@ -268,24 +268,29 @@ class _$SavedPlaceImpl extends _SavedPlace {
   @override
   final String? note;
 
+  @override
+  String toString() {
+    return 'Place(name: $name, localNames: $localNames, latitude: $latitude, longitude: $longitude, country: $country, countryCode: $countryCode, state: $state, note: $note)';
+  }
+
   /// Create a copy of Place
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$SavedPlaceImplCopyWith<_$SavedPlaceImpl> get copyWith =>
-      __$$SavedPlaceImplCopyWithImpl<_$SavedPlaceImpl>(this, _$identity);
+  _$$PlaceImplCopyWith<_$PlaceImpl> get copyWith =>
+      __$$PlaceImplCopyWithImpl<_$PlaceImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SavedPlaceImplToJson(
+    return _$$PlaceImplToJson(
       this,
     );
   }
 }
 
-abstract class _SavedPlace extends Place {
-  const factory _SavedPlace(
+abstract class _Place extends Place {
+  const factory _Place(
       {required final String? name,
       required final Map<WeatherLanguage, String>? localNames,
       required final double? latitude,
@@ -293,11 +298,10 @@ abstract class _SavedPlace extends Place {
       required final String? country,
       required final String? countryCode,
       required final String? state,
-      final String? note}) = _$SavedPlaceImpl;
-  const _SavedPlace._() : super._();
+      final String? note}) = _$PlaceImpl;
+  const _Place._() : super._();
 
-  factory _SavedPlace.fromJson(Map<String, dynamic> json) =
-      _$SavedPlaceImpl.fromJson;
+  factory _Place.fromJson(Map<String, dynamic> json) = _$PlaceImpl.fromJson;
 
   /// Название местоположения.
   @override
@@ -335,6 +339,6 @@ abstract class _SavedPlace extends Place {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SavedPlaceImplCopyWith<_$SavedPlaceImpl> get copyWith =>
+  _$$PlaceImplCopyWith<_$PlaceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

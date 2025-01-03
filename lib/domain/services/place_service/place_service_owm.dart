@@ -3,37 +3,23 @@
 import 'dart:async';
 
 import 'package:weather_pack/weather_pack.dart';
-import 'package:weather_today/domain/models/place/place_model.dart';
-import 'package:weather_today/utils/logger/all_observers.dart';
+import 'package:weather_today/domain/controllers/utils/call_wrapper.dart';
+import 'package:weather_today/domain/services/place_service/models/place_model.dart';
 
 import '../../../application/const/countries_code.dart';
 import 'interface/place_service.dart';
 
 /// Implementation of the "openweathermap.org == OWM" service.
-class PlaceServiceOWM implements PlaceService {
+class PlaceServiceOWM with CallWrapper implements PlaceService {
   PlaceServiceOWM(this._service);
 
   /// Сервис для подключения погоды.
   final GeocodingService _service;
 
-  /// Включает логгирование и безопасное общение с сервисом получения мест.
-  /// coldfix: Это должно работать иначе во всём приложении.
-  Future<T?> _safelyCall<T>(Future<T> Function() func) async {
-    try {
-      return func.call().timeout(const Duration(seconds: 10));
-    } on TimeoutException catch (e, s) {
-      logInfo('TimeoutException', e, s);
-      return null;
-    } catch (e, s) {
-      logError(func.runtimeType.toString(), e, s);
-      return null;
-    }
-  }
-
   @override
   Future<List<Place>> getPlacesByCoordinates(
       {required double latitude, required double longitude}) async {
-    final List<PlaceGeocode> placesDirect = (await _safelyCall(
+    final List<PlaceGeocode> placesDirect = (await callSafely(
           () => _service.getLocationByCoordinates(
               latitude: latitude, longitude: longitude),
         )) ??
@@ -46,7 +32,7 @@ class PlaceServiceOWM implements PlaceService {
 
   @override
   Future<List<Place>> getPlacesByName(String queryCity) async {
-    final List<PlaceGeocode> placesDirect = (await _safelyCall(
+    final List<PlaceGeocode> placesDirect = (await callSafely(
           () => _service.getLocationByCityName(queryCity),
         )) ??
         [];
@@ -56,7 +42,7 @@ class PlaceServiceOWM implements PlaceService {
     return places;
   }
 
-  /// Конвертировать сущность местоположения в собственную сущность.
+  /// Convert the location entity to its own entity.
   Place _convertGeocodePlaces(PlaceGeocode placeGeocode) {
     return Place(
       name: placeGeocode.name,

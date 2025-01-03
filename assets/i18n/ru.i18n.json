@@ -535,7 +535,6 @@
   "messages":{
     "click_to_see": "Нажмите, чтобы увидеть",
     "weather_data_is_actual": "Погодные данные актуальны",
-
     "selected_param_will_be_applied": "Выбранный параметр будет сразу применён"
   },
   "ui": {
@@ -543,6 +542,7 @@
     "used": "Используется",
     "select_weather_provider": "Выбрать погодного провайдера",
     "choose_weather_design_for_page": "Выберите погодный дизайн для страницы",
+    "geocoding_provider": "Провайдер геокодирования",
     "weather_provider": "Погодный провайдер"
   },
   "other": {

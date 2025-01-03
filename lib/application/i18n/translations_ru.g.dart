@@ -573,6 +573,7 @@ class TranslationsUiRu {
   String get selectWeatherProvider => 'Выбрать погодного провайдера';
   String get chooseWeatherDesignForPage =>
       'Выберите погодный дизайн для страницы';
+  String get geocodingProvider => 'Провайдер геокодирования';
   String get weatherProvider => 'Погодный провайдер';
 }
 

@@ -5,9 +5,9 @@ import 'dart:convert';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/domain/controllers/owm_controller.dart';
-import 'package:weather_today/domain/models/place/place_model.dart';
 import 'package:weather_today/domain/services/cardoteka/weather_storage.dart';
 import 'package:weather_today/domain/services/local_storage/key_store.dart';
+import 'package:weather_today/domain/services/place_service/models/place_model.dart';
 
 import 'base_weather_owm_nr.dart';
 

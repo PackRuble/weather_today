@@ -26,6 +26,8 @@ class AppIcons {
 
   static const IconData weatherProvider = Icons.satellite_rounded;
 
+  static const IconData geocodingProvider = Icons.map_rounded;
+
   static const IconData apiTile = Icons.api_rounded;
 
   static const IconData oneCallApiTile = Icons.generating_tokens_rounded;

@@ -1,7 +1,7 @@
 import 'dart:convert' show jsonDecode;
 
 import 'package:http/http.dart' as http;
-import 'package:weather_today/domain/models/place/place_model.dart';
+import 'package:weather_today/domain/services/place_service/models/place_model.dart';
 import 'package:weather_today/utils/logger/_observers/global_logger.dart';
 
 import 'models/enums.dart';
@@ -78,6 +78,62 @@ class OpenMeteoRepo {
       rethrow;
     } catch (error, _) {
       throw OpenMeteoApiException.error(error);
+    }
+
+    return result;
+  }
+}
+
+/// [Geocoding API | Open-Meteo.com](https://open-meteo.com/en/docs/geocoding-api)
+final class OpenMeteoGeocodingRepo {
+  const OpenMeteoGeocodingRepo();
+
+  /// [text] String to search for. An empty string or only 1 character will return an empty result. 2 characters will only match exact matching locations. 3 and more characters will perform fuzzy matching. The search string can be a location name or a postal code.
+  /// [count] The number of search results to return. Up to 100 results can be retrieved.
+  /// [lang] Return translated results, if available, otherwise return english or the native location name. Lower-cased.
+  Future<List<OpenMeteoPlace>> geocode({
+    required String text,
+    int count = 5,
+    String lang = 'en',
+  }) async {
+    final List<OpenMeteoPlace> result;
+    final uri = Uri.https(
+      'geocoding-api.open-meteo.com',
+      '/v1/search',
+      <String, String>{
+        'name': text,
+        'count': '$count', // Up to 100
+        'format': 'json', // json | protobuf
+        'language': lang,
+        // 'apikey': '',
+      },
+    );
+
+    logInfo(uri);
+
+    try {
+      final http.Response response = await http.get(uri);
+
+      final json = jsonDecode(response.body) as Map<String, dynamic>;
+
+      if (json case {'results': final List places}) {
+        result = [
+          for (final place in places)
+            OpenMeteoPlace.fromJson(place as Map<String, Object?>)
+        ];
+      } else if (response.statusCode case 200) {
+        result = [];
+      } else if (json
+          case {
+            'error': true,
+            'reason': final String reason,
+          }) {
+        throw OpenMeteoApiException(response.statusCode, reason);
+      } else {
+        throw OpenMeteoApiException(response.statusCode, json.toString());
+      }
+    } catch (_) {
+      rethrow;
     }
 
     return result;

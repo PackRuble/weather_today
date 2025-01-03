@@ -2680,3 +2680,639 @@ abstract class _DailyWeatherOpenMeteo implements DailyWeatherOpenMeteo {
   _$$DailyWeatherOpenMeteoImplCopyWith<_$DailyWeatherOpenMeteoImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+OpenMeteoPlace _$OpenMeteoPlaceFromJson(Map<String, dynamic> json) {
+  return _OpenMeteoPlace.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OpenMeteoPlace {
+  @JsonKey(name: 'id')
+  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name')
+  String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'latitude')
+  double get latitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'longitude')
+  double get longitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'elevation')
+  double get elevation => throw _privateConstructorUsedError;
+  @JsonKey(name: 'feature_code')
+  String get featureCode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'country_code')
+  String get countryCode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'admin1_id')
+  int? get admin1Id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'admin2_id')
+  int? get admin2Id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'admin3_id')
+  int? get admin3Id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'admin4_id')
+  int? get admin4Id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'timezone')
+  String get timezone => throw _privateConstructorUsedError;
+  @JsonKey(name: 'population')
+  int? get population => throw _privateConstructorUsedError;
+  @JsonKey(name: 'postcodes')
+  List<String> get postcodes => throw _privateConstructorUsedError;
+  @JsonKey(name: 'country_id')
+  int get countryID => throw _privateConstructorUsedError;
+  @JsonKey(name: 'country')
+  String get country => throw _privateConstructorUsedError;
+  @JsonKey(name: 'admin1')
+  String? get admin1 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'admin2')
+  String? get admin2 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'admin3')
+  String? get admin3 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'admin4')
+  String? get admin4 => throw _privateConstructorUsedError;
+
+  /// Serializes this OpenMeteoPlace to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of OpenMeteoPlace
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $OpenMeteoPlaceCopyWith<OpenMeteoPlace> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OpenMeteoPlaceCopyWith<$Res> {
+  factory $OpenMeteoPlaceCopyWith(
+          OpenMeteoPlace value, $Res Function(OpenMeteoPlace) then) =
+      _$OpenMeteoPlaceCopyWithImpl<$Res, OpenMeteoPlace>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
+      @JsonKey(name: 'elevation') double elevation,
+      @JsonKey(name: 'feature_code') String featureCode,
+      @JsonKey(name: 'country_code') String countryCode,
+      @JsonKey(name: 'admin1_id') int? admin1Id,
+      @JsonKey(name: 'admin2_id') int? admin2Id,
+      @JsonKey(name: 'admin3_id') int? admin3Id,
+      @JsonKey(name: 'admin4_id') int? admin4Id,
+      @JsonKey(name: 'timezone') String timezone,
+      @JsonKey(name: 'population') int? population,
+      @JsonKey(name: 'postcodes') List<String> postcodes,
+      @JsonKey(name: 'country_id') int countryID,
+      @JsonKey(name: 'country') String country,
+      @JsonKey(name: 'admin1') String? admin1,
+      @JsonKey(name: 'admin2') String? admin2,
+      @JsonKey(name: 'admin3') String? admin3,
+      @JsonKey(name: 'admin4') String? admin4});
+}
+
+/// @nodoc
+class _$OpenMeteoPlaceCopyWithImpl<$Res, $Val extends OpenMeteoPlace>
+    implements $OpenMeteoPlaceCopyWith<$Res> {
+  _$OpenMeteoPlaceCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of OpenMeteoPlace
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? elevation = null,
+    Object? featureCode = null,
+    Object? countryCode = null,
+    Object? admin1Id = freezed,
+    Object? admin2Id = freezed,
+    Object? admin3Id = freezed,
+    Object? admin4Id = freezed,
+    Object? timezone = null,
+    Object? population = freezed,
+    Object? postcodes = null,
+    Object? countryID = null,
+    Object? country = null,
+    Object? admin1 = freezed,
+    Object? admin2 = freezed,
+    Object? admin3 = freezed,
+    Object? admin4 = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      elevation: null == elevation
+          ? _value.elevation
+          : elevation // ignore: cast_nullable_to_non_nullable
+              as double,
+      featureCode: null == featureCode
+          ? _value.featureCode
+          : featureCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      countryCode: null == countryCode
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      admin1Id: freezed == admin1Id
+          ? _value.admin1Id
+          : admin1Id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      admin2Id: freezed == admin2Id
+          ? _value.admin2Id
+          : admin2Id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      admin3Id: freezed == admin3Id
+          ? _value.admin3Id
+          : admin3Id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      admin4Id: freezed == admin4Id
+          ? _value.admin4Id
+          : admin4Id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      timezone: null == timezone
+          ? _value.timezone
+          : timezone // ignore: cast_nullable_to_non_nullable
+              as String,
+      population: freezed == population
+          ? _value.population
+          : population // ignore: cast_nullable_to_non_nullable
+              as int?,
+      postcodes: null == postcodes
+          ? _value.postcodes
+          : postcodes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      countryID: null == countryID
+          ? _value.countryID
+          : countryID // ignore: cast_nullable_to_non_nullable
+              as int,
+      country: null == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String,
+      admin1: freezed == admin1
+          ? _value.admin1
+          : admin1 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      admin2: freezed == admin2
+          ? _value.admin2
+          : admin2 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      admin3: freezed == admin3
+          ? _value.admin3
+          : admin3 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      admin4: freezed == admin4
+          ? _value.admin4
+          : admin4 // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$OpenMeteoPlaceImplCopyWith<$Res>
+    implements $OpenMeteoPlaceCopyWith<$Res> {
+  factory _$$OpenMeteoPlaceImplCopyWith(_$OpenMeteoPlaceImpl value,
+          $Res Function(_$OpenMeteoPlaceImpl) then) =
+      __$$OpenMeteoPlaceImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
+      @JsonKey(name: 'elevation') double elevation,
+      @JsonKey(name: 'feature_code') String featureCode,
+      @JsonKey(name: 'country_code') String countryCode,
+      @JsonKey(name: 'admin1_id') int? admin1Id,
+      @JsonKey(name: 'admin2_id') int? admin2Id,
+      @JsonKey(name: 'admin3_id') int? admin3Id,
+      @JsonKey(name: 'admin4_id') int? admin4Id,
+      @JsonKey(name: 'timezone') String timezone,
+      @JsonKey(name: 'population') int? population,
+      @JsonKey(name: 'postcodes') List<String> postcodes,
+      @JsonKey(name: 'country_id') int countryID,
+      @JsonKey(name: 'country') String country,
+      @JsonKey(name: 'admin1') String? admin1,
+      @JsonKey(name: 'admin2') String? admin2,
+      @JsonKey(name: 'admin3') String? admin3,
+      @JsonKey(name: 'admin4') String? admin4});
+}
+
+/// @nodoc
+class __$$OpenMeteoPlaceImplCopyWithImpl<$Res>
+    extends _$OpenMeteoPlaceCopyWithImpl<$Res, _$OpenMeteoPlaceImpl>
+    implements _$$OpenMeteoPlaceImplCopyWith<$Res> {
+  __$$OpenMeteoPlaceImplCopyWithImpl(
+      _$OpenMeteoPlaceImpl _value, $Res Function(_$OpenMeteoPlaceImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of OpenMeteoPlace
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? elevation = null,
+    Object? featureCode = null,
+    Object? countryCode = null,
+    Object? admin1Id = freezed,
+    Object? admin2Id = freezed,
+    Object? admin3Id = freezed,
+    Object? admin4Id = freezed,
+    Object? timezone = null,
+    Object? population = freezed,
+    Object? postcodes = null,
+    Object? countryID = null,
+    Object? country = null,
+    Object? admin1 = freezed,
+    Object? admin2 = freezed,
+    Object? admin3 = freezed,
+    Object? admin4 = freezed,
+  }) {
+    return _then(_$OpenMeteoPlaceImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      elevation: null == elevation
+          ? _value.elevation
+          : elevation // ignore: cast_nullable_to_non_nullable
+              as double,
+      featureCode: null == featureCode
+          ? _value.featureCode
+          : featureCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      countryCode: null == countryCode
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      admin1Id: freezed == admin1Id
+          ? _value.admin1Id
+          : admin1Id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      admin2Id: freezed == admin2Id
+          ? _value.admin2Id
+          : admin2Id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      admin3Id: freezed == admin3Id
+          ? _value.admin3Id
+          : admin3Id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      admin4Id: freezed == admin4Id
+          ? _value.admin4Id
+          : admin4Id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      timezone: null == timezone
+          ? _value.timezone
+          : timezone // ignore: cast_nullable_to_non_nullable
+              as String,
+      population: freezed == population
+          ? _value.population
+          : population // ignore: cast_nullable_to_non_nullable
+              as int?,
+      postcodes: null == postcodes
+          ? _value._postcodes
+          : postcodes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      countryID: null == countryID
+          ? _value.countryID
+          : countryID // ignore: cast_nullable_to_non_nullable
+              as int,
+      country: null == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String,
+      admin1: freezed == admin1
+          ? _value.admin1
+          : admin1 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      admin2: freezed == admin2
+          ? _value.admin2
+          : admin2 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      admin3: freezed == admin3
+          ? _value.admin3
+          : admin3 // ignore: cast_nullable_to_non_nullable
+              as String?,
+      admin4: freezed == admin4
+          ? _value.admin4
+          : admin4 // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$OpenMeteoPlaceImpl implements _OpenMeteoPlace {
+  const _$OpenMeteoPlaceImpl(
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'name') required this.name,
+      @JsonKey(name: 'latitude') required this.latitude,
+      @JsonKey(name: 'longitude') required this.longitude,
+      @JsonKey(name: 'elevation') required this.elevation,
+      @JsonKey(name: 'feature_code') required this.featureCode,
+      @JsonKey(name: 'country_code') required this.countryCode,
+      @JsonKey(name: 'admin1_id') this.admin1Id,
+      @JsonKey(name: 'admin2_id') this.admin2Id,
+      @JsonKey(name: 'admin3_id') this.admin3Id,
+      @JsonKey(name: 'admin4_id') this.admin4Id,
+      @JsonKey(name: 'timezone') required this.timezone,
+      @JsonKey(name: 'population') this.population,
+      @JsonKey(name: 'postcodes') final List<String> postcodes = const [],
+      @JsonKey(name: 'country_id') required this.countryID,
+      @JsonKey(name: 'country') required this.country,
+      @JsonKey(name: 'admin1') this.admin1,
+      @JsonKey(name: 'admin2') this.admin2,
+      @JsonKey(name: 'admin3') this.admin3,
+      @JsonKey(name: 'admin4') this.admin4})
+      : _postcodes = postcodes;
+
+  factory _$OpenMeteoPlaceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OpenMeteoPlaceImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'id')
+  final int id;
+  @override
+  @JsonKey(name: 'name')
+  final String name;
+  @override
+  @JsonKey(name: 'latitude')
+  final double latitude;
+  @override
+  @JsonKey(name: 'longitude')
+  final double longitude;
+  @override
+  @JsonKey(name: 'elevation')
+  final double elevation;
+  @override
+  @JsonKey(name: 'feature_code')
+  final String featureCode;
+  @override
+  @JsonKey(name: 'country_code')
+  final String countryCode;
+  @override
+  @JsonKey(name: 'admin1_id')
+  final int? admin1Id;
+  @override
+  @JsonKey(name: 'admin2_id')
+  final int? admin2Id;
+  @override
+  @JsonKey(name: 'admin3_id')
+  final int? admin3Id;
+  @override
+  @JsonKey(name: 'admin4_id')
+  final int? admin4Id;
+  @override
+  @JsonKey(name: 'timezone')
+  final String timezone;
+  @override
+  @JsonKey(name: 'population')
+  final int? population;
+  final List<String> _postcodes;
+  @override
+  @JsonKey(name: 'postcodes')
+  List<String> get postcodes {
+    if (_postcodes is EqualUnmodifiableListView) return _postcodes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_postcodes);
+  }
+
+  @override
+  @JsonKey(name: 'country_id')
+  final int countryID;
+  @override
+  @JsonKey(name: 'country')
+  final String country;
+  @override
+  @JsonKey(name: 'admin1')
+  final String? admin1;
+  @override
+  @JsonKey(name: 'admin2')
+  final String? admin2;
+  @override
+  @JsonKey(name: 'admin3')
+  final String? admin3;
+  @override
+  @JsonKey(name: 'admin4')
+  final String? admin4;
+
+  @override
+  String toString() {
+    return 'OpenMeteoPlace(id: $id, name: $name, latitude: $latitude, longitude: $longitude, elevation: $elevation, featureCode: $featureCode, countryCode: $countryCode, admin1Id: $admin1Id, admin2Id: $admin2Id, admin3Id: $admin3Id, admin4Id: $admin4Id, timezone: $timezone, population: $population, postcodes: $postcodes, countryID: $countryID, country: $country, admin1: $admin1, admin2: $admin2, admin3: $admin3, admin4: $admin4)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OpenMeteoPlaceImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.elevation, elevation) ||
+                other.elevation == elevation) &&
+            (identical(other.featureCode, featureCode) ||
+                other.featureCode == featureCode) &&
+            (identical(other.countryCode, countryCode) ||
+                other.countryCode == countryCode) &&
+            (identical(other.admin1Id, admin1Id) ||
+                other.admin1Id == admin1Id) &&
+            (identical(other.admin2Id, admin2Id) ||
+                other.admin2Id == admin2Id) &&
+            (identical(other.admin3Id, admin3Id) ||
+                other.admin3Id == admin3Id) &&
+            (identical(other.admin4Id, admin4Id) ||
+                other.admin4Id == admin4Id) &&
+            (identical(other.timezone, timezone) ||
+                other.timezone == timezone) &&
+            (identical(other.population, population) ||
+                other.population == population) &&
+            const DeepCollectionEquality()
+                .equals(other._postcodes, _postcodes) &&
+            (identical(other.countryID, countryID) ||
+                other.countryID == countryID) &&
+            (identical(other.country, country) || other.country == country) &&
+            (identical(other.admin1, admin1) || other.admin1 == admin1) &&
+            (identical(other.admin2, admin2) || other.admin2 == admin2) &&
+            (identical(other.admin3, admin3) || other.admin3 == admin3) &&
+            (identical(other.admin4, admin4) || other.admin4 == admin4));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        name,
+        latitude,
+        longitude,
+        elevation,
+        featureCode,
+        countryCode,
+        admin1Id,
+        admin2Id,
+        admin3Id,
+        admin4Id,
+        timezone,
+        population,
+        const DeepCollectionEquality().hash(_postcodes),
+        countryID,
+        country,
+        admin1,
+        admin2,
+        admin3,
+        admin4
+      ]);
+
+  /// Create a copy of OpenMeteoPlace
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OpenMeteoPlaceImplCopyWith<_$OpenMeteoPlaceImpl> get copyWith =>
+      __$$OpenMeteoPlaceImplCopyWithImpl<_$OpenMeteoPlaceImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$OpenMeteoPlaceImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenMeteoPlace implements OpenMeteoPlace {
+  const factory _OpenMeteoPlace(
+      {@JsonKey(name: 'id') required final int id,
+      @JsonKey(name: 'name') required final String name,
+      @JsonKey(name: 'latitude') required final double latitude,
+      @JsonKey(name: 'longitude') required final double longitude,
+      @JsonKey(name: 'elevation') required final double elevation,
+      @JsonKey(name: 'feature_code') required final String featureCode,
+      @JsonKey(name: 'country_code') required final String countryCode,
+      @JsonKey(name: 'admin1_id') final int? admin1Id,
+      @JsonKey(name: 'admin2_id') final int? admin2Id,
+      @JsonKey(name: 'admin3_id') final int? admin3Id,
+      @JsonKey(name: 'admin4_id') final int? admin4Id,
+      @JsonKey(name: 'timezone') required final String timezone,
+      @JsonKey(name: 'population') final int? population,
+      @JsonKey(name: 'postcodes') final List<String> postcodes,
+      @JsonKey(name: 'country_id') required final int countryID,
+      @JsonKey(name: 'country') required final String country,
+      @JsonKey(name: 'admin1') final String? admin1,
+      @JsonKey(name: 'admin2') final String? admin2,
+      @JsonKey(name: 'admin3') final String? admin3,
+      @JsonKey(name: 'admin4') final String? admin4}) = _$OpenMeteoPlaceImpl;
+
+  factory _OpenMeteoPlace.fromJson(Map<String, dynamic> json) =
+      _$OpenMeteoPlaceImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'id')
+  int get id;
+  @override
+  @JsonKey(name: 'name')
+  String get name;
+  @override
+  @JsonKey(name: 'latitude')
+  double get latitude;
+  @override
+  @JsonKey(name: 'longitude')
+  double get longitude;
+  @override
+  @JsonKey(name: 'elevation')
+  double get elevation;
+  @override
+  @JsonKey(name: 'feature_code')
+  String get featureCode;
+  @override
+  @JsonKey(name: 'country_code')
+  String get countryCode;
+  @override
+  @JsonKey(name: 'admin1_id')
+  int? get admin1Id;
+  @override
+  @JsonKey(name: 'admin2_id')
+  int? get admin2Id;
+  @override
+  @JsonKey(name: 'admin3_id')
+  int? get admin3Id;
+  @override
+  @JsonKey(name: 'admin4_id')
+  int? get admin4Id;
+  @override
+  @JsonKey(name: 'timezone')
+  String get timezone;
+  @override
+  @JsonKey(name: 'population')
+  int? get population;
+  @override
+  @JsonKey(name: 'postcodes')
+  List<String> get postcodes;
+  @override
+  @JsonKey(name: 'country_id')
+  int get countryID;
+  @override
+  @JsonKey(name: 'country')
+  String get country;
+  @override
+  @JsonKey(name: 'admin1')
+  String? get admin1;
+  @override
+  @JsonKey(name: 'admin2')
+  String? get admin2;
+  @override
+  @JsonKey(name: 'admin3')
+  String? get admin3;
+  @override
+  @JsonKey(name: 'admin4')
+  String? get admin4;
+
+  /// Create a copy of OpenMeteoPlace
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OpenMeteoPlaceImplCopyWith<_$OpenMeteoPlaceImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

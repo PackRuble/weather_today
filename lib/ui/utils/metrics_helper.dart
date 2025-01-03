@@ -7,7 +7,7 @@ import 'package:weather_today/data/weather_base/mapper.dart';
 import 'package:weather_today/data/weather_base/models.dart';
 import 'package:weather_today/extension/string_extension.dart';
 
-import '../../domain/models/place/place_model.dart';
+import '../../domain/services/place_service/models/place_model.dart';
 
 /// Вспомогательный класс для корректного отображения различных метрик.
 ///

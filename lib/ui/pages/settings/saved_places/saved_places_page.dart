@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/application/const/app_insets.dart';
 import 'package:weather_today/domain/controllers/weather_service_controllers.dart';
-import 'package:weather_today/domain/models/place/place_model.dart';
+import 'package:weather_today/domain/services/place_service/models/place_model.dart';
 import 'package:weather_today/ui/pages/settings/saved_places/saved_places_page_presenter.dart';
 import 'package:weather_today/ui/shared/expandable_custom.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
