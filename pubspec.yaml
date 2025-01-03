@@ -8,8 +8,8 @@ environment:
   sdk: ^3.6.0
 
 dependency_overrides:
-  source_gen: ^2.0.0
-  intl: ^0.20.1
+  #  fixdep(03.01.2025): [build_runner failed after upgrading my flutter · Issue #1427 · google/json_serializable.dart](https://github.com/google/json_serializable.dart/issues/1427)
+  frontend_server_client: 4.0.0
 
 dependencies:
   flutter:
@@ -52,6 +52,7 @@ dependencies:
   flutter_hooks: ^0.20.5
 
   # Localization
+  intl: ^0.19.0
   slang: ^4.4.1
   slang_flutter: ^4.4.0
   flutter_localizations:
@@ -72,7 +73,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  json_serializable: ^6.9.2
+  json_serializable: ^6.9.0
   auto_route_generator: ^9.0.0
   build_runner: ^2.4.14
   icons_launcher: ^3.0.0-beta.3

@@ -9,7 +9,7 @@ targets:
         enabled: true
         generate_for:
           - lib/application/navigation/routes.dart
-      json_serializable:json_serializable:
+      json_serializable:
         enabled: true
         generate_for:
           - lib/**/models/**.dart
