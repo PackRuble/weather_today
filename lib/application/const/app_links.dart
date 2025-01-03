@@ -17,4 +17,9 @@ class AppLinks {
     'raw.githubusercontent.com',
     '$_weatherDoc/terms&conditions.md',
   );
+
+  static final changelogUrl = Uri.https(
+    'raw.githubusercontent.com',
+    'PackRuble/weather_today/master/CHANGELOG.md',
+  );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:weather_today/application/const/app_links.dart';
 import 'package:weather_today/ui/shared/markdown_future_builder.dart';
 
 class ChangelogPage extends StatelessWidget {
@@ -27,13 +28,8 @@ class ChangelogPage extends StatelessWidget {
           ),
           Expanded(
             child: MarkdownFutureBuilder(
-              loadAsset: () async {
-                final url = Uri.https(
-                  'raw.githubusercontent.com',
-                  'PackRuble/weather_today/master/CHANGELOG.md',
-                );
-                return (await http.get(url)).body;
-              },
+              loadAsset: () async =>
+                  (await http.get(AppLinks.changelogUrl)).body,
             ),
           ),
         ],
