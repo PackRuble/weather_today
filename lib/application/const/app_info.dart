@@ -20,7 +20,7 @@ class AppInfo {
   static const String appName = 'Weather Today';
   // there's no other way to get the version
   static const String appVersion = '<stable>';
-  static const String copyright = '© 2022-2024 $author';
+  static const String copyright = '© 2022-2025 $author';
   static const String author = 'Ruble Pack';
   static const String mailAuthor = 'pack.ruble@gmail.com';
   static const String telegramGroup = 'https://t.me/+GFFZ8Lk1Bz5kMTEy';
