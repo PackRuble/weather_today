@@ -15,9 +15,8 @@ import 'package:weather_today/utils/logger/all_observers.dart';
 
 /// Notifier is designed to work with displaying found and saved places
 /// in body searchBar.
-class SearchWidgetNotifier extends AutoDisposeNotifier<SearchState>
-    with NotifierLogger {
-  SearchWidgetNotifier();
+class SearchNR extends AutoDisposeNotifier<SearchState> with NotifierLogger {
+  SearchNR();
 
   /// List of saved places.
   late List<Place> _savedPlaces;
@@ -78,10 +77,9 @@ class SearchWidgetNotifier extends AutoDisposeNotifier<SearchState>
   // List of providers
   // ===========================================================================
 
-  static final instance =
-      AutoDisposeNotifierProvider<SearchWidgetNotifier, SearchState>(
-    SearchWidgetNotifier.new,
-    name: '$SearchWidgetNotifier',
+  static final instance = AutoDisposeNotifierProvider<SearchNR, SearchState>(
+    SearchNR.new,
+    name: '$SearchNR',
   );
 
   // ignore: avoid_public_notifier_properties

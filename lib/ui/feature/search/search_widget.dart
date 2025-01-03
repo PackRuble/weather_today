@@ -7,6 +7,8 @@ import 'package:weather_today/application/const/app_icons.dart';
 import 'package:weather_today/application/const/app_insets.dart';
 import 'package:weather_today/application/navigation/routes.gr.dart';
 import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_controller.dart';
+import 'package:weather_today/domain/controllers/geocoding_provider_nr.dart';
+import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/services/place_service/models/place_model.dart';
 import 'package:weather_today/ui/dialogs/app_dialogs.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
@@ -21,12 +23,14 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SearchWidgetNotifier.tr);
+    final geocodingProviderPR = GeocodingProviderNR.i;
+    final geocodingProviderNR = ref.watch(geocodingProviderPR.notifier);
 
+    final searchPR = SearchNR.instance;
+    final searchNR = ref.watch(searchPR.notifier);
     // is necessary, otherwise in the situation of adding to favorites and
     // trying to select, the bar is not closed
-    ref.watch(SearchWidgetNotifier.instance);
-    final notifier = ref.watch(SearchWidgetNotifier.instance.notifier);
+    ref.watch(searchPR);
 
     final widthScreen = MediaQuery.sizeOf(context).width;
 
@@ -40,9 +44,9 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       backgroundColor: colors.backgroundColorSearchbar,
       shadowColor: colors.shadowColorSearchbar,
       backdropColor: barrierColor,
-      controller: notifier.controllerBar,
+      controller: searchNR.controllerBar,
       title: const _TitleSearch(),
-      hint: t.searchBar.hintTextField,
+      hint: ref.tr.searchBar.hintTextField,
       borderRadius:
           const BorderRadius.all(Radius.circular(AppInsets.cornerRadiusCard)),
       border: BorderSide(color: colors.borderColorSearchbar),
@@ -57,22 +61,27 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       ),
       height: AppInsets.heightSearchBar,
       width: widthScreen - AppInsets.aroundPaddingSearchBar * 2,
-      debounceDelay:
-          Duration(milliseconds: SearchWidgetNotifier.debounceDelayMilSec),
+      debounceDelay: Duration(milliseconds: SearchNR.debounceDelayMilSec),
       clearQueryOnClose: true,
-      onFocusChanged: notifier.onFocusChanged,
-      onQueryChanged: (String query) async => notifier.newRequest(query),
-      onSubmitted: (String query) async => notifier.newRequest(query),
+      onFocusChanged: searchNR.onFocusChanged,
+      onQueryChanged: (String query) async => searchNR.newRequest(query),
+      onSubmitted: (String query) async => searchNR.newRequest(query),
       transition: CircularFloatingSearchBarTransition(),
       automaticallyImplyBackButton: false,
       leadingActions: [
-        IgnorePointer(
-          ignoring: true,
-          child: FloatingSearchBarAction.icon(
-            showIfOpened: false,
-            icon: const Icon(Icons.place),
-            onTap: () {},
-          ),
+        FloatingSearchBarAction.icon(
+          showIfOpened: true,
+          icon: const Icon(Icons.place),
+          onTap: () async {
+            final selected = await AppDialogs.selectGeocodingProvider(
+              context,
+              ref,
+              // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+              geocodingProviderNR.state,
+            );
+
+            if (selected != null) await geocodingProviderNR.change(selected);
+          },
         ),
       ],
       actions: [
@@ -128,13 +137,12 @@ class _SavedBookmarkAction extends FloatingSearchBarAction {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, _) {
-        final Place currentPlace = ref.watch(SearchWidgetNotifier.currentPlace);
+        final Place currentPlace = ref.watch(SearchNR.currentPlace);
 
         /// необходимо для отслеживания [isCurrentPlaceSaved]
-        ref.watch(SearchWidgetNotifier.savedPlaces);
-        final bool isCurrentPlaceSaved = ref
-            .watch(SearchWidgetNotifier.savedPlaces.notifier)
-            .isSavedPlace(currentPlace);
+        ref.watch(SearchNR.savedPlaces);
+        final bool isCurrentPlaceSaved =
+            ref.watch(SearchNR.savedPlaces.notifier).isSavedPlace(currentPlace);
 
         return FloatingSearchBarAction(
           showIfOpened: true,
@@ -144,7 +152,7 @@ class _SavedBookmarkAction extends FloatingSearchBarAction {
                 ? AppIcons.savedPlaceBookmark
                 : AppIcons.notSavedPlaceBookmark),
             onPressed: () async => ref
-                .read(SearchWidgetNotifier.instance.notifier)
+                .read(SearchNR.instance.notifier)
                 .changePlaceToSavedPlaces(isCurrentPlaceSaved, currentPlace),
           ),
         );
@@ -197,7 +205,7 @@ class _TitleSearch extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Place place = ref.watch(SearchWidgetNotifier.currentPlace);
+    final Place place = ref.watch(SearchNR.currentPlace);
 
     final String languageCode = Localizations.localeOf(context).languageCode;
 
@@ -215,9 +223,9 @@ class _SearchBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SearchWidgetNotifier.tr);
+    final t = ref.watch(SearchNR.tr);
 
-    final searchState = ref.watch(SearchWidgetNotifier.instance);
+    final searchState = ref.watch(SearchNR.instance);
 
     final AppColors colors = AppColors.of(context);
 
@@ -261,7 +269,7 @@ class _BodyCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(SearchWidgetNotifier.tr);
+    final t = ref.watch(SearchNR.tr);
 
     final String _baseTooltip =
         '${AppSmiles.pinned} ${t.searchBar.tips.holdToAction}\n'
@@ -306,13 +314,12 @@ class _TileSearchWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Place curPlace = ref.watch(SearchWidgetNotifier.currentPlace);
+    final Place curPlace = ref.watch(SearchNR.currentPlace);
 
     final String languageCode = Localizations.localeOf(context).languageCode;
 
-    final bool isSaved = ref
-        .watch(SearchWidgetNotifier.savedPlaces.notifier)
-        .isSavedPlace(place);
+    final bool isSaved =
+        ref.watch(SearchNR.savedPlaces.notifier).isSavedPlace(place);
 
     final bool isCurrent = curPlace == place;
 
@@ -324,11 +331,10 @@ class _TileSearchWidget extends ConsumerWidget {
     title += name.isNotEmpty ? ', $name' : '';
 
     return ListTile(
-      onTap: () async => ref
-          .read(SearchWidgetNotifier.instance.notifier)
-          .selectCurrentPlace(place),
+      onTap: () async =>
+          ref.read(SearchNR.instance.notifier).selectCurrentPlace(place),
       onLongPress: () async => ref
-          .read(SearchWidgetNotifier.instance.notifier)
+          .read(SearchNR.instance.notifier)
           .changePlaceToSavedPlaces(isSaved, place),
       title: Text(title),
       horizontalTitleGap: 0.0,
