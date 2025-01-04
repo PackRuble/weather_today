@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,7 +16,7 @@ class LogsPage extends ConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    logDebug('build');
+    loggy.debug('build');
 
     final theme = Theme.of(context);
 
@@ -34,7 +36,12 @@ class LogsPage extends ConsumerWidget with UiLoggy {
                 child: IconButton(
                   padding: const EdgeInsets.all(16.0),
                   onPressed: () {
-                    Clipboard.setData(ClipboardData(text: logs.toString()));
+                    final result = const JsonEncoder.withIndent('  ')
+                        .convert(logs.toList());
+
+                    Clipboard.setData(
+                      ClipboardData(text: result),
+                    );
                   },
                   icon: const Icon(Icons.copy_all_rounded),
                 ),
@@ -54,7 +61,7 @@ class LogsPage extends ConsumerWidget with UiLoggy {
                             return Row(
                               children: [
                                 Text(
-                                  index.toString(),
+                                  '$index',
                                   style: theme.textTheme.titleMedium,
                                 ),
                                 const SizedBox(width: 10),
