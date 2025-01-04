@@ -1,8 +1,9 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:stack_trace/stack_trace.dart';
 import 'package:weather_today/application/i18n/translations.g.dart';
 import 'package:weather_today/domain/init_app_service.dart';
 import 'package:weather_today/ui/shared/wrapper_page.dart';
@@ -14,23 +15,21 @@ import 'domain/controllers/localization_controller.dart';
 import 'utils/logger/all_observers.dart';
 
 void _loggingErrors() {
-  // логгирование ошибок flutter framework
+  // flutter framework error logging
   FlutterError.onError = (details) {
-    FlutterError.presentError(details);
-    logError('Flutter Error', details.exception, Trace.current().terse);
-    // exit(1);
+    kDebugMode
+        ? FlutterError.presentError(details)
+        : logError('Flutter Error', details.exception, details.stack);
   };
 
-  // логгирование ошибок платформы
+  // platform error logging
   PlatformDispatcher.instance.onError = (error, stack) {
-    logError('PlatformDispatcher Error', error, Trace.current().terse);
+    logError('PlatformDispatcher Error', error, stack);
     return true;
   };
 }
 
 Future<void> main() async {
-  _loggingErrors();
-
   // coldfix: add custom font licenses to the project
   // LicenseRegistry.addLicense(() async* {
   //   final String license =
@@ -38,8 +37,10 @@ Future<void> main() async {
   //   yield LicenseEntryWithLineBreaks(<String>['google_fonts'], license);
   // });
 
-  await Chain.capture(
+  await runZonedGuarded(
     () async {
+      _loggingErrors();
+
       final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
       // Keep native splash screen up until app is finished bootstrapping
@@ -61,8 +62,8 @@ Future<void> main() async {
       // Remove splash screen when bootstrap is complete
       widgetsBinding.allowFirstFrame();
     },
-    onError: (error, stackTrace) {
-      // здесь ловим ошибки от асинхронных вызовов
+    (error, stackTrace) {
+      // here we catch errors from asynchronous calls
       logError('Async Error', error, stackTrace);
     },
   );
