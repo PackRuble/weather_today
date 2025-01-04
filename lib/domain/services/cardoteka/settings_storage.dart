@@ -7,8 +7,7 @@ import 'package:weather_today/domain/controllers/app_theme/models/design_page.da
 class SettingsStorage extends Cardoteka with WatcherImpl {
   SettingsStorage._() : super(config: SettingsCards._config);
 
-  static final instance =
-      Provider<SettingsStorage>((ref) => SettingsStorage._());
+  static final instance = Provider((_) => SettingsStorage._());
 }
 
 enum SettingsCards<T extends Object> implements Card<T> {
@@ -17,6 +16,9 @@ enum SettingsCards<T extends Object> implements Card<T> {
     DesignPage(page: WeatherPage.currently, design: AppVisualDesign.byRuble),
     DesignPage(page: WeatherPage.daily, design: AppVisualDesign.byRuble),
   ]),
+  userLogs(DataType.stringList, <String>[]),
+  enableUserLogs(DataType.bool, false),
+  errorLogs(DataType.stringList, <String>[]),
   ;
 
   const SettingsCards(this.type, this.defaultValue);

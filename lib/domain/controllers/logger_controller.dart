@@ -3,26 +3,32 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:weather_today/domain/services/local_storage/key_store.dart';
+import 'package:weather_today/domain/services/cardoteka/settings_storage.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 import 'package:weather_today/utils/logger/loggy_printer.dart';
 
-/// Implementation
-class AppLogsManager extends _AppLogsManager {
-  static final instance = Provider<AppLogsManager>((_) => AppLogsManager());
-}
-
-/// Call async [init] before use.
-class _AppLogsManager with GlobalLogger {
-  _AppLogsManager();
-
-  late final SharedPreferences _prefs;
+class AppLogsManager extends AsyncNotifier<void> with NotifierLogger {
+  static final i = AsyncNotifierProvider<AppLogsManager, void>(
+    AppLogsManager.new,
+    name: '$AppLogsManager',
+  );
 
   /// Maximum number of records stored.
   ///
   /// We must not forget that in this way of logging (via [SharedPreferences])
   /// all logs are stored in RAM.
-  static const _maxCountRecords = 1000;
+  static const _maxCountRecords = 500;
+
+  static const _maxCountErrorRecords = 10;
+
+  late SettingsStorage _storage;
+
+  @override
+  Future<void> build() async {
+    _storage = ref.watch(SettingsStorage.instance);
+    _initLogger(isEnableUserLogs);
+    l.info('Logger successfully activated');
+  }
 
   void _initLogger(bool enableLogging) {
     // so we can get singleton
@@ -34,8 +40,9 @@ class _AppLogsManager with GlobalLogger {
               consolePrinter:
                   kDebugMode ? const ConsolePrinter(showColors: true) : null,
               userPrinter: UserPrinter(onNewLog: addLogRecord),
+              errorPrinter: ErrorPrinter(onErrorLog: addErrorLogRecord),
             )
-          : StubPrinter(),
+          : ErrorPrinter(onErrorLog: addErrorLogRecord),
       logOptions: const LogOptions(
         LogLevel.all,
         stackTraceLevel: LogLevel.off,
@@ -49,20 +56,12 @@ class _AppLogsManager with GlobalLogger {
     );
   }
 
-  Future<void> init() async {
-    _prefs = await SharedPreferences.getInstance();
-    _initLogger(isEnableLogging);
-    l.info('Logger successfully activated');
-  }
-
-  bool get isEnableLogging =>
-      _prefs.getBool(DbStore.enableLoggingApp) ??
-      DbStore.enableLoggingAppDefault;
+  bool get isEnableUserLogs => _storage.get(SettingsCards.enableUserLogs);
 
   Future<void> enableLogging() async {
     _initLogger(true);
 
-    await _prefs.setBool(DbStore.enableLoggingApp, true);
+    await _storage.set(SettingsCards.enableUserLogs, true);
     loggy.info('Enable logger.');
   }
 
@@ -70,36 +69,52 @@ class _AppLogsManager with GlobalLogger {
   Future<void> disableLogging() async {
     _initLogger(false);
 
-    await _prefs.setBool(DbStore.enableLoggingApp, false);
-    await clearLogs();
+    await _storage.set(SettingsCards.enableUserLogs, false);
+    clearLogs();
 
     loggy.info('Disable logger. Clear all logs.');
   }
 
   /// Get all collected logs.
-  List<String>? getLogs() => _prefs.getStringList(DbStore.logsApp);
+  List<String> getLogs() => _storage.get(SettingsCards.userLogs).toList();
+
+  /// Get all error logs.
+  List<String> getErrorLogs() => _storage.get(SettingsCards.errorLogs).toList();
 
   /// Add new log.
   void addLogRecord(Object? record) {
     if (record == null) return;
+    if (!isEnableUserLogs) return;
 
-    if (!isEnableLogging) {
-      return;
-    }
-
-    final oldRecords = getLogs() ?? [];
+    final oldRecords = getLogs();
 
     // no need to wait
     unawaited(
-      _prefs.setStringList(
-        DbStore.logsApp,
-        (oldRecords..insert(0, record.toString()))
-            .take(_maxCountRecords)
-            .toList(),
+      _storage.set<List<String>>(
+        SettingsCards.userLogs,
+        oldRecords.take(_maxCountRecords - 1).toList()..insert(0, '$record'),
+      ),
+    );
+  }
+
+  /// Add new error log.
+  void addErrorLogRecord(Object? record) {
+    if (record == null) return;
+
+    final oldErrorRecords = getErrorLogs();
+
+    unawaited(
+      _storage.set<List<String>>(
+        SettingsCards.errorLogs,
+        oldErrorRecords.take(_maxCountErrorRecords - 1).toList()
+          ..insert(0, '$record'),
       ),
     );
   }
 
   /// Clear all logs
-  Future clearLogs() => _prefs.remove(DbStore.logsApp);
+  void clearLogs() {
+    _storage.remove(SettingsCards.errorLogs);
+    _storage.remove(SettingsCards.userLogs);
+  }
 }

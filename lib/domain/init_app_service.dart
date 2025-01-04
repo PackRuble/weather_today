@@ -21,10 +21,10 @@ class ServiceInit {
   Future<void> init() async => _initServices();
 
   Future<void> _initServices() async {
-    await _initLogger();
-    // local storage
-    await _initDBService();
     await _initCardoteka();
+    await _initLogger();
+    // ---
+    await _initDBService();
     await _initMigrationTool();
     // ---
     await _initApiOWMService();
@@ -58,8 +58,7 @@ class ServiceInit {
       _container.read(OWMController.instance).init();
 
   Future<void> _initLogger() async {
-    final _loggerManager = _container.read(AppLogsManager.instance);
-    await _loggerManager.init();
+    await _container.read(AppLogsManager.i.future);
   }
 
   Future<void> _initLocalization() async {

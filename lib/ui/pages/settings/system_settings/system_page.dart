@@ -41,6 +41,9 @@ class EnableLogsSwitch extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(AppLocalization.currentTranslation);
 
+    final appLogsPR = AppLogsManager.i;
+    final appLogsNR = ref.watch(appLogsPR.notifier);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -50,17 +53,17 @@ class EnableLogsSwitch extends ConsumerWidget {
             Flexible(
               child: SwitchTileWidget(
                 onChanged: (bool value) async {
-                  final logger = ref.read(AppLogsManager.instance);
-
-                  await (value
-                      ? logger.enableLogging()
-                      : logger.disableLogging());
+                  await Future.value(
+                    value
+                        ? appLogsNR.enableLogging()
+                        : appLogsNR.disableLogging(),
+                  );
 
                   onChange?.call();
                 },
                 title: t.systemSettingsPage.enableLogsTile.tileTitle,
                 subtitle: t.systemSettingsPage.enableLogsTile.tileSub,
-                value: ref.watch(AppLogsManager.instance).isEnableLogging,
+                value: appLogsNR.isEnableUserLogs,
               ),
             ),
 

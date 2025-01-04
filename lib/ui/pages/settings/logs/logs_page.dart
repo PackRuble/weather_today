@@ -20,31 +20,48 @@ class LogsPage extends ConsumerWidget with UiLoggy {
 
     final theme = Theme.of(context);
 
-    final logsManager = ref.watch(AppLogsManager.instance);
+    final logsManager = ref.watch(AppLogsManager.i.notifier);
 
     return Scaffold(
       appBar: const AppBarCustom('Logs'),
       body: StatefulBuilder(
         builder: (context, setState) {
-          final logs = logsManager.getLogs()?.reversed ?? [];
+          final logs = logsManager.getLogs().reversed;
           return Column(
             children: [
               // coldfix: пока что костыль, так как логи не реактивны
               EnableLogsSwitch(onChange: () => setState(() {})),
-              Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                  padding: const EdgeInsets.all(16.0),
-                  onPressed: () {
-                    final result = const JsonEncoder.withIndent('  ')
-                        .convert(logs.toList());
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    padding: const EdgeInsets.all(16.0),
+                    onPressed: () {
+                      final result = const JsonEncoder.withIndent('  ')
+                          .convert(logsManager.getErrorLogs().toList());
 
-                    Clipboard.setData(
-                      ClipboardData(text: result),
-                    );
-                  },
-                  icon: const Icon(Icons.copy_all_rounded),
-                ),
+                      Clipboard.setData(
+                        ClipboardData(text: result),
+                      );
+                    },
+                    icon: Badge(
+                      label: Text(logsManager.getErrorLogs().length.toString()),
+                      child: const Icon(Icons.copy_rounded),
+                    ),
+                  ),
+                  IconButton(
+                    padding: const EdgeInsets.all(16.0),
+                    onPressed: () {
+                      final result = const JsonEncoder.withIndent('  ')
+                          .convert(logs.toList());
+
+                      Clipboard.setData(
+                        ClipboardData(text: result),
+                      );
+                    },
+                    icon: const Icon(Icons.copy_all_rounded),
+                  ),
+                ],
               ),
               const Divider(height: 0.0, thickness: 1.0),
               logs.isEmpty

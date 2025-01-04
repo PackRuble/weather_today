@@ -14,6 +14,7 @@ class SmartPrinter extends LoggyPrinter {
   const SmartPrinter({
     required this.consolePrinter,
     required this.userPrinter,
+    required this.errorPrinter,
   });
 
   /// Designed to output messages to the console.
@@ -26,10 +27,38 @@ class SmartPrinter extends LoggyPrinter {
   /// For detailed information, see [UserPrinter.onLog].
   final UserPrinter? userPrinter;
 
+  /// Designed to save all error messages.
+  ///
+  /// For detailed information, see [ErrorPrinter.onLog].
+  final ErrorPrinter? errorPrinter;
+
   @override
   void onLog(LogRecord record) {
     consolePrinter?.onLog(record);
     userPrinter?.onLog(record);
+    errorPrinter?.onLog(record);
+  }
+}
+
+class ErrorPrinter extends LoggyPrinter {
+  const ErrorPrinter({required this.onErrorLog});
+
+  final void Function(Object? record) onErrorLog;
+
+  /// (!) Skips all entries except at level [LogLevel.error].
+  @override
+  void onLog(LogRecord record) {
+    if (record.level != LogLevel.error) return;
+
+    final buffer = StringBuffer();
+
+    buffer.write('${record.time}: ');
+    buffer.write(record.toString());
+
+    if (record.error != null) buffer.write('\n${record.error}');
+    if (record.stackTrace != null) buffer.write('\n${record.stackTrace}');
+
+    onErrorLog.call(kDebugMode ? buffer : AppUtils.clearSecrets(buffer));
   }
 }
 

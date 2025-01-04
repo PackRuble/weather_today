@@ -110,11 +110,4 @@ class DbStore {
   // enum
   static const String scrollPhysics = 'scrollPhysics';
   static const int scrollPhysicsDefault = 0; // bouncingScrollPhysics
-
-  // logs
-  static const String logsApp = 'logsApp';
-
-  static const String enableLoggingApp = 'enableLoggingApp';
-  // todo: turn-ON when we set up the ability to easily copy the logs to send them by email
-  static const bool enableLoggingAppDefault = false;
 }
