@@ -7,6 +7,9 @@
 [![code_size_badge]][github_link]
 
 
+> Subscribe to the [channel](https://t.me/+AkGV73kZi_Q1YTMy) on Telegram and favorite ⭐ on [Github][github_link] to keep up with changes and not miss new releases!
+
+
 Weather for every day. Try it now on Google Play:
 
 <a href='https://play.google.com/store/apps/details?id=com.Ruble.Pack.weather_today&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt="Get it on Google Play" width="20%" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"/></a>

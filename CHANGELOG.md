@@ -1,3 +1,10 @@
+
+[weather_today/CHANGELOG.md at master · PackRuble/weather_today](https://github.com/PackRuble/weather_today/blob/master/CHANGELOG.md)
+
+## [3.5.0] - 04-01-2025
+- new geocoding provider - https://open-meteo.com/en/docs/geocoding-api - and ability to select a provider in settings
+- clicking on the button next to the search bar will bring up a dialog for selecting a geocoding provider
+
 ## [3.4.0] - 11-08-2024
 - new weather provider - https://open-meteo.com/ - and ability to select a provider in settings
 - hold down the desired bottom tab to quickly change the weather design

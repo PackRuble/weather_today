@@ -1,6 +1,13 @@
 ☝️ This changelog talks about significant events for developers.
 For the user version, see [CHANGELOG.md](CHANGELOG.md).
 
+## [3.5.0] - 04-01-2025
+- added the choice of a new geocoding provider (Open Meteo Geocoding API), #46
+- use lint `require_trailing_commas`
+- updated dependencies to latest versions
+- improve logging; use cardoteka for logs; add error logs
+- building with Flutter v3.27.1 (Dart v3.6.0)
+
 ## [3.4.0] - 11-08-2024
 - added the choice of a new weather provider, which forced us to find a way to combine different weather schemes
 - make sure that the `Cardoteka` performs well with `Notifier` classes. We can now set course for a complete switch to `cardoteka` bypassing `sp`. This also means replacing `StateProvider` and `Provider` with `Notifier`
