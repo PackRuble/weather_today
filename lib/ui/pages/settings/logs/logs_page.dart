@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/domain/controllers/logger_controller.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
@@ -23,11 +24,21 @@ class LogsPage extends ConsumerWidget with UiLoggy {
       appBar: const AppBarCustom('Logs'),
       body: StatefulBuilder(
         builder: (context, setState) {
-          final logs = logsManager.getLogs()?.reversed.toList() ?? [];
+          final logs = logsManager.getLogs()?.reversed ?? [];
           return Column(
             children: [
               // coldfix: пока что костыль, так как логи не реактивны
               EnableLogsSwitch(onChange: () => setState(() {})),
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  padding: const EdgeInsets.all(16.0),
+                  onPressed: () {
+                    Clipboard.setData(ClipboardData(text: logs.toString()));
+                  },
+                  icon: const Icon(Icons.copy_all_rounded),
+                ),
+              ),
               const Divider(height: 0.0, thickness: 1.0),
               logs.isEmpty
                   ? const Padding(
@@ -47,7 +58,7 @@ class LogsPage extends ConsumerWidget with UiLoggy {
                                   style: theme.textTheme.titleMedium,
                                 ),
                                 const SizedBox(width: 10),
-                                Flexible(child: Text(logs[index])),
+                                Flexible(child: Text(logs.elementAt(index))),
                               ],
                             );
                           },
