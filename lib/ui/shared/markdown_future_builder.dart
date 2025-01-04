@@ -25,7 +25,7 @@ class MarkdownFutureBuilder extends HookWidget {
             child: Markdown(
               onTapLink: (String text, String? href, String title) async {
                 await launchUrl(
-                  Uri.parse(text),
+                  Uri.parse(href ?? text),
                   mode: LaunchMode.externalApplication,
                 );
               },
