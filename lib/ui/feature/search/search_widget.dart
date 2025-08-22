@@ -129,7 +129,6 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
 /// Где-то в недрах пакета [material_floating_search_bar] есть проверка *is FloatingSearchBarAction*,
 /// тогда обычный ConsumerWidget не подошёл бы.
 class _SavedBookmarkAction extends FloatingSearchBarAction {
-  // ignore: unused_element
   const _SavedBookmarkAction({super.key})
       : super(child: const SizedBox.shrink());
 
@@ -202,7 +201,6 @@ class _SavedBookmarkAction extends FloatingSearchBarAction {
 // }
 
 class _TitleSearch extends ConsumerWidget {
-  // ignore: unused_element
   const _TitleSearch({super.key});
 
   @override
@@ -220,7 +218,6 @@ class _TitleSearch extends ConsumerWidget {
 }
 
 class _SearchBody extends ConsumerWidget {
-  // ignore: unused_element
   const _SearchBody({super.key});
 
   @override
@@ -258,7 +255,6 @@ class _SearchBody extends ConsumerWidget {
 
 class _BodyCard extends ConsumerWidget {
   const _BodyCard({
-    // ignore: unused_element
     super.key,
     required this.places,
     required this.tip,
@@ -295,7 +291,6 @@ class _BodyCard extends ConsumerWidget {
 }
 
 class _TipWidget extends ConsumerWidget {
-  // ignore: unused_element
   const _TipWidget(this.tip, {super.key});
 
   final String tip;
@@ -309,7 +304,6 @@ class _TipWidget extends ConsumerWidget {
 }
 
 class _TileSearchWidget extends ConsumerWidget {
-  // ignore: unused_element
   const _TileSearchWidget(this.place, {super.key});
 
   final Place place;

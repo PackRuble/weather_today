@@ -29,22 +29,24 @@ class DialogOption<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return SimpleDialogOption(
       padding: EdgeInsets.zero,
-      child: RadioListTile<T>(
-        dense: false,
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (icon != null) ...[Icon(icon), const SizedBox(width: 5.0)],
-            Flexible(child: Text.rich(TextSpan(text: title))),
-          ],
-        ),
-        selected: groupValue == value,
-        value: value,
-        groupValue: groupValue,
-        toggleable: true,
+      child: RadioGroup(
         onChanged: (_) {
           Navigator.pop(context, value);
         },
+        groupValue: groupValue,
+        child: RadioListTile<T>(
+          dense: false,
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (icon != null) ...[Icon(icon), const SizedBox(width: 5.0)],
+              Flexible(child: Text.rich(TextSpan(text: title))),
+            ],
+          ),
+          selected: groupValue == value,
+          value: value,
+          toggleable: true,
+        ),
       ),
     );
   }
@@ -169,7 +171,7 @@ Future<T?> showAboutAppDialog<T>(
     builder: (BuildContext context) {
       return Theme(
         data: Theme.of(context).copyWith(
-          dialogTheme: DialogTheme(
+          dialogTheme: DialogThemeData(
             shape: getDialogShape(context),
           ),
         ),

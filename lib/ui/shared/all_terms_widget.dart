@@ -130,7 +130,6 @@ class TermsConditionsWidget extends HookConsumerWidget {
 
 class _ButtonBarWidget extends ConsumerWidget {
   const _ButtonBarWidget({
-    // ignore: unused_element
     super.key,
   });
 

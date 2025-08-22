@@ -95,7 +95,6 @@ class IntroPage extends HookConsumerWidget {
 class _IntroTileWidget extends ConsumerWidget {
   const _IntroTileWidget(
     this.tile, {
-    // ignore: unused_element
     super.key,
   });
 
@@ -147,7 +146,6 @@ class _IntroTileWidget extends ConsumerWidget {
 
 class _LeftButtonWidget extends ConsumerWidget {
   const _LeftButtonWidget({
-    // ignore: unused_element
     super.key,
     required this.controller,
   });
@@ -193,7 +191,6 @@ class _LeftButtonWidget extends ConsumerWidget {
 
 class _RightButtonWidget extends ConsumerWidget {
   const _RightButtonWidget({
-    // ignore: unused_element
     super.key,
     required this.controller,
   });
@@ -243,7 +240,6 @@ class _RightButtonWidget extends ConsumerWidget {
 }
 
 class _StepButton extends StatelessWidget {
-  // ignore: unused_element
   const _StepButton({super.key, required this.onPressed, required this.text});
 
   final VoidCallback onPressed;
