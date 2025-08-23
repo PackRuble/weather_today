@@ -6,7 +6,7 @@ part 'design_page.g.dart';
 // ignore_for_file: avoid_final_parameters
 
 @freezed
-class DesignPage with _$DesignPage {
+abstract class DesignPage with _$DesignPage {
   const factory DesignPage({
     required final WeatherPage page,
     required final AppVisualDesign design,

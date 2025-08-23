@@ -34,10 +34,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
   FutureOr<T?> build() async {
     _currentPlace = ref.watch(WeatherServices.currentPlace);
 
-    listenSelf(
-      (_, __) {},
-      onError: (error, _) => l.info(error),
-    );
+    listenSelf((_, _) {}, onError: (error, _) => l.info(error));
 
     return _init();
   }

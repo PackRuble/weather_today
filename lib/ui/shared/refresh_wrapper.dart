@@ -55,16 +55,11 @@ class RefreshWrapper<T extends Object> extends ConsumerWidget {
             scrollPhysics: scrollPhysics,
             children: [
               childIsNull ??
-                  Center(
-                    child: Text(
-                      r'¯\_(ツ)_/¯',
-                      style: textStyle,
-                    ),
-                  ),
+                  Center(child: Text(r'¯\_(ツ)_/¯', style: textStyle)),
             ],
           );
         },
-        error: (Object e, __) {
+        error: (Object e, _) {
           return CustomListView(
             scrollPhysics: scrollPhysics,
             children: [
@@ -100,10 +95,9 @@ class CustomListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.only(top: 50.0),
-      physics: scrollPhysics ??
-          const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics(),
-          ),
+      physics:
+          scrollPhysics ??
+          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       children: children,
     );
   }

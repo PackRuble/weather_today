@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,174 +9,272 @@ part of 'design_page.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-DesignPage _$DesignPageFromJson(Map<String, dynamic> json) {
-  return _DesignPage.fromJson(json);
-}
 
 /// @nodoc
 mixin _$DesignPage {
-  WeatherPage get page => throw _privateConstructorUsedError;
-  AppVisualDesign get design => throw _privateConstructorUsedError;
+
+ WeatherPage get page; AppVisualDesign get design;
+/// Create a copy of DesignPage
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DesignPageCopyWith<DesignPage> get copyWith => _$DesignPageCopyWithImpl<DesignPage>(this as DesignPage, _$identity);
 
   /// Serializes this DesignPage to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of DesignPage
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $DesignPageCopyWith<DesignPage> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DesignPage&&(identical(other.page, page) || other.page == page)&&(identical(other.design, design) || other.design == design));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,page,design);
+
+@override
+String toString() {
+  return 'DesignPage(page: $page, design: $design)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $DesignPageCopyWith<$Res> {
-  factory $DesignPageCopyWith(
-          DesignPage value, $Res Function(DesignPage) then) =
-      _$DesignPageCopyWithImpl<$Res, DesignPage>;
-  @useResult
-  $Res call({WeatherPage page, AppVisualDesign design});
-}
+abstract mixin class $DesignPageCopyWith<$Res>  {
+  factory $DesignPageCopyWith(DesignPage value, $Res Function(DesignPage) _then) = _$DesignPageCopyWithImpl;
+@useResult
+$Res call({
+ WeatherPage page, AppVisualDesign design
+});
 
+
+
+
+}
 /// @nodoc
-class _$DesignPageCopyWithImpl<$Res, $Val extends DesignPage>
+class _$DesignPageCopyWithImpl<$Res>
     implements $DesignPageCopyWith<$Res> {
-  _$DesignPageCopyWithImpl(this._value, this._then);
+  _$DesignPageCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final DesignPage _self;
+  final $Res Function(DesignPage) _then;
 
-  /// Create a copy of DesignPage
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? page = null,
-    Object? design = null,
-  }) {
-    return _then(_value.copyWith(
-      page: null == page
-          ? _value.page
-          : page // ignore: cast_nullable_to_non_nullable
-              as WeatherPage,
-      design: null == design
-          ? _value.design
-          : design // ignore: cast_nullable_to_non_nullable
-              as AppVisualDesign,
-    ) as $Val);
-  }
+/// Create a copy of DesignPage
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? page = null,Object? design = null,}) {
+  return _then(_self.copyWith(
+page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as WeatherPage,design: null == design ? _self.design : design // ignore: cast_nullable_to_non_nullable
+as AppVisualDesign,
+  ));
 }
 
-/// @nodoc
-abstract class _$$DesignPageImplCopyWith<$Res>
-    implements $DesignPageCopyWith<$Res> {
-  factory _$$DesignPageImplCopyWith(
-          _$DesignPageImpl value, $Res Function(_$DesignPageImpl) then) =
-      __$$DesignPageImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({WeatherPage page, AppVisualDesign design});
 }
 
-/// @nodoc
-class __$$DesignPageImplCopyWithImpl<$Res>
-    extends _$DesignPageCopyWithImpl<$Res, _$DesignPageImpl>
-    implements _$$DesignPageImplCopyWith<$Res> {
-  __$$DesignPageImplCopyWithImpl(
-      _$DesignPageImpl _value, $Res Function(_$DesignPageImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of DesignPage
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? page = null,
-    Object? design = null,
-  }) {
-    return _then(_$DesignPageImpl(
-      page: null == page
-          ? _value.page
-          : page // ignore: cast_nullable_to_non_nullable
-              as WeatherPage,
-      design: null == design
-          ? _value.design
-          : design // ignore: cast_nullable_to_non_nullable
-              as AppVisualDesign,
-    ));
-  }
+/// Adds pattern-matching-related methods to [DesignPage].
+extension DesignPagePatterns on DesignPage {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _DesignPage value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _DesignPage() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _DesignPage value)  $default,){
+final _that = this;
+switch (_that) {
+case _DesignPage():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _DesignPage value)?  $default,){
+final _that = this;
+switch (_that) {
+case _DesignPage() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( WeatherPage page,  AppVisualDesign design)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _DesignPage() when $default != null:
+return $default(_that.page,_that.design);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( WeatherPage page,  AppVisualDesign design)  $default,) {final _that = this;
+switch (_that) {
+case _DesignPage():
+return $default(_that.page,_that.design);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( WeatherPage page,  AppVisualDesign design)?  $default,) {final _that = this;
+switch (_that) {
+case _DesignPage() when $default != null:
+return $default(_that.page,_that.design);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DesignPageImpl implements _DesignPage {
-  const _$DesignPageImpl({required this.page, required this.design});
 
-  factory _$DesignPageImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DesignPageImplFromJson(json);
+class _DesignPage implements DesignPage {
+  const _DesignPage({required this.page, required this.design});
+  factory _DesignPage.fromJson(Map<String, dynamic> json) => _$DesignPageFromJson(json);
 
-  @override
-  final WeatherPage page;
-  @override
-  final AppVisualDesign design;
+@override final  WeatherPage page;
+@override final  AppVisualDesign design;
 
-  @override
-  String toString() {
-    return 'DesignPage(page: $page, design: $design)';
-  }
+/// Create a copy of DesignPage
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DesignPageCopyWith<_DesignPage> get copyWith => __$DesignPageCopyWithImpl<_DesignPage>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DesignPageImpl &&
-            (identical(other.page, page) || other.page == page) &&
-            (identical(other.design, design) || other.design == design));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, page, design);
-
-  /// Create a copy of DesignPage
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DesignPageImplCopyWith<_$DesignPageImpl> get copyWith =>
-      __$$DesignPageImplCopyWithImpl<_$DesignPageImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DesignPageImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$DesignPageToJson(this, );
 }
 
-abstract class _DesignPage implements DesignPage {
-  const factory _DesignPage(
-      {required final WeatherPage page,
-      required final AppVisualDesign design}) = _$DesignPageImpl;
-
-  factory _DesignPage.fromJson(Map<String, dynamic> json) =
-      _$DesignPageImpl.fromJson;
-
-  @override
-  WeatherPage get page;
-  @override
-  AppVisualDesign get design;
-
-  /// Create a copy of DesignPage
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DesignPageImplCopyWith<_$DesignPageImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DesignPage&&(identical(other.page, page) || other.page == page)&&(identical(other.design, design) || other.design == design));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,page,design);
+
+@override
+String toString() {
+  return 'DesignPage(page: $page, design: $design)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$DesignPageCopyWith<$Res> implements $DesignPageCopyWith<$Res> {
+  factory _$DesignPageCopyWith(_DesignPage value, $Res Function(_DesignPage) _then) = __$DesignPageCopyWithImpl;
+@override @useResult
+$Res call({
+ WeatherPage page, AppVisualDesign design
+});
+
+
+
+
+}
+/// @nodoc
+class __$DesignPageCopyWithImpl<$Res>
+    implements _$DesignPageCopyWith<$Res> {
+  __$DesignPageCopyWithImpl(this._self, this._then);
+
+  final _DesignPage _self;
+  final $Res Function(_DesignPage) _then;
+
+/// Create a copy of DesignPage
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? page = null,Object? design = null,}) {
+  return _then(_DesignPage(
+page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as WeatherPage,design: null == design ? _self.design : design // ignore: cast_nullable_to_non_nullable
+as AppVisualDesign,
+  ));
+}
+
+
+}
+
+// dart format on

@@ -6,32 +6,31 @@ part of 'place_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PlaceImpl _$$PlaceImplFromJson(Map<String, dynamic> json) => _$PlaceImpl(
-      name: json['name'] as String?,
-      localNames: (json['local_names'] as Map<String, dynamic>?)?.map(
-        (k, e) =>
-            MapEntry($enumDecode(_$WeatherLanguageEnumMap, k), e as String),
-      ),
-      latitude: (json['latitude'] as num?)?.toDouble(),
-      longitude: (json['longitude'] as num?)?.toDouble(),
-      country: json['country'] as String?,
-      countryCode: json['country_code'] as String?,
-      state: json['state'] as String?,
-      note: json['note'] as String?,
-    );
+_Place _$PlaceFromJson(Map<String, dynamic> json) => _Place(
+  name: json['name'] as String?,
+  localNames: (json['local_names'] as Map<String, dynamic>?)?.map(
+    (k, e) => MapEntry($enumDecode(_$WeatherLanguageEnumMap, k), e as String),
+  ),
+  latitude: (json['latitude'] as num?)?.toDouble(),
+  longitude: (json['longitude'] as num?)?.toDouble(),
+  country: json['country'] as String?,
+  countryCode: json['country_code'] as String?,
+  state: json['state'] as String?,
+  note: json['note'] as String?,
+);
 
-Map<String, dynamic> _$$PlaceImplToJson(_$PlaceImpl instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'local_names': instance.localNames
-          ?.map((k, e) => MapEntry(_$WeatherLanguageEnumMap[k]!, e)),
-      'latitude': instance.latitude,
-      'longitude': instance.longitude,
-      'country': instance.country,
-      'country_code': instance.countryCode,
-      'state': instance.state,
-      'note': instance.note,
-    };
+Map<String, dynamic> _$PlaceToJson(_Place instance) => <String, dynamic>{
+  'name': instance.name,
+  'local_names': instance.localNames?.map(
+    (k, e) => MapEntry(_$WeatherLanguageEnumMap[k]!, e),
+  ),
+  'latitude': instance.latitude,
+  'longitude': instance.longitude,
+  'country': instance.country,
+  'country_code': instance.countryCode,
+  'state': instance.state,
+  'note': instance.note,
+};
 
 const _$WeatherLanguageEnumMap = {
   WeatherLanguage.afrikaans: 'afrikaans',

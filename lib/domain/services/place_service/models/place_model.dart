@@ -8,7 +8,7 @@ part 'place_model.g.dart';
 
 /// Местоположение и его характеристики.
 @freezed
-class Place with _$Place {
+abstract class Place with _$Place {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Place({
     /// Название местоположения.
@@ -56,10 +56,5 @@ class Place with _$Place {
       latitude == other.latitude;
 
   @override
-  int get hashCode => Object.hash(
-        runtimeType,
-        name,
-        latitude,
-        longitude,
-      );
+  int get hashCode => Object.hash(runtimeType, name, latitude, longitude);
 }

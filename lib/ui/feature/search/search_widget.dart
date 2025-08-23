@@ -11,6 +11,7 @@ import 'package:weather_today/domain/controllers/geocoding_provider_nr.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/domain/services/place_service/models/place_model.dart';
 import 'package:weather_today/ui/dialogs/app_dialogs.dart';
+import 'package:weather_today/ui/feature/search/models/search_state.dart';
 import 'package:weather_today/ui/shared/tips_widget.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
@@ -47,8 +48,9 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       controller: searchNR.controllerBar,
       title: const _TitleSearch(),
       hint: ref.tr.searchBar.hintTextField,
-      borderRadius:
-          const BorderRadius.all(Radius.circular(AppInsets.cornerRadiusCard)),
+      borderRadius: const BorderRadius.all(
+        Radius.circular(AppInsets.cornerRadiusCard),
+      ),
       border: BorderSide(color: colors.borderColorSearchbar),
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
       transitionDuration: const Duration(milliseconds: 800),
@@ -56,7 +58,8 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       axisAlignment: 0.0,
       openAxisAlignment: 0.0,
       margins: EdgeInsets.only(
-        top: MediaQuery.viewPaddingOf(context).top +
+        top:
+            MediaQuery.viewPaddingOf(context).top +
             AppInsets.aroundPaddingSearchBar,
       ),
       height: AppInsets.heightSearchBar,
@@ -89,9 +92,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
         // todo кнопка поиска закрывает бар, что нелогично
         // попытка починить это отдельной виджетом-кнопкой не увенчалась успехом
         // будет полностью переработано при переходе на Search от flutter sdk
-        FloatingSearchBarAction.searchToClear(
-          showIfClosed: false,
-        ),
+        FloatingSearchBarAction.searchToClear(showIfClosed: false),
         FloatingSearchBarAction.icon(
           showIfClosed: false,
           showIfOpened: true,
@@ -115,7 +116,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
               .setThemeMode(isLight ? ThemeMode.dark : ThemeMode.light),
         ),
       ],
-      builder: (_, __) => const _SearchBody(),
+      builder: (_, _) => const _SearchBody(),
     );
   }
 }
@@ -130,7 +131,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
 /// тогда обычный ConsumerWidget не подошёл бы.
 class _SavedBookmarkAction extends FloatingSearchBarAction {
   const _SavedBookmarkAction({super.key})
-      : super(child: const SizedBox.shrink());
+    : super(child: const SizedBox.shrink());
 
   @override
   Widget build(BuildContext context) {
@@ -140,8 +141,9 @@ class _SavedBookmarkAction extends FloatingSearchBarAction {
 
         /// необходимо для отслеживания [isCurrentPlaceSaved]
         ref.watch(SearchNR.savedPlaces);
-        final bool isCurrentPlaceSaved =
-            ref.watch(SearchNR.savedPlaces.notifier).isSavedPlace(currentPlace);
+        final bool isCurrentPlaceSaved = ref
+            .watch(SearchNR.savedPlaces.notifier)
+            .isSavedPlace(currentPlace);
 
         return FloatingSearchBarAction(
           showIfOpened: true,
@@ -211,7 +213,7 @@ class _TitleSearch extends ConsumerWidget {
 
     final String title =
         MetricsHelper.getCountryCodeAndNameOrName(place, languageCode) ??
-            'Ghost-town';
+        'Ghost-town';
 
     return Text(title);
   }
@@ -297,9 +299,7 @@ class _TipWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return TipRWidget(
-      text: Text(tip),
-    );
+    return TipRWidget(text: Text(tip));
   }
 }
 
@@ -314,8 +314,9 @@ class _TileSearchWidget extends ConsumerWidget {
 
     final String languageCode = Localizations.localeOf(context).languageCode;
 
-    final bool isSaved =
-        ref.watch(SearchNR.savedPlaces.notifier).isSavedPlace(place);
+    final bool isSaved = ref
+        .watch(SearchNR.savedPlaces.notifier)
+        .isSavedPlace(place);
 
     final bool isCurrent = curPlace == place;
 

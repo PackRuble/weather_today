@@ -24,8 +24,9 @@ class ChartForecastWidget extends ConsumerWidget {
     final bool isPortrait =
         MediaQuery.orientationOf(context) == Orientation.portrait;
 
-    final ChartModel chart =
-        ref.watch(HourlyPageByRublePresenter.chartMainForecast);
+    final ChartModel chart = ref.watch(
+      HourlyPageByRublePresenter.chartMainForecast,
+    );
 
     final Widget titleWidget = HeadChartWidget(
       t.mainPageDRuble.hourlyPage.forecast.title,
@@ -38,8 +39,10 @@ class ChartForecastWidget extends ConsumerWidget {
         generateData: const [],
         generateLabelsData: const FlTitlesData(),
         titleWidget: titleWidget,
-        ifEmptyDataWidget:
-            Text(t.weather.noDataProvided, style: styles.bodyMedium),
+        ifEmptyDataWidget: Text(
+          t.weather.noDataProvided,
+          style: styles.bodyMedium,
+        ),
       );
     }
 
@@ -147,9 +150,7 @@ class ChartForecastWidget extends ConsumerWidget {
         return Center(
           child: Text(
             weather.uvi?.round().toString() ?? '-',
-            style: styles.bodySmall?.copyWith(
-              color: ChartTheme.fColorUvi,
-            ),
+            style: styles.bodySmall?.copyWith(color: ChartTheme.fColorUvi),
           ),
         );
       }
@@ -237,10 +238,7 @@ class ChartForecastWidget extends ConsumerWidget {
         if (bottomWidgets.length == 1) {
           bottomWidgets.insert(0, const Expanded(child: SizedBox()));
         }
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: bottomWidgets,
-        );
+        return Column(mainAxisSize: MainAxisSize.min, children: bottomWidgets);
       }
 
       return const SizedBox.shrink();
@@ -258,7 +256,7 @@ class ChartForecastWidget extends ConsumerWidget {
       rightTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
-          getTitlesWidget: (_, __) => const SizedBox.shrink(),
+          getTitlesWidget: (_, _) => const SizedBox.shrink(),
           reservedSize: ChartTheme.fPaddingChart.right,
         ),
       ),

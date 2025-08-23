@@ -9,7 +9,7 @@ part 'models.freezed.dart';
 part 'models.g.dart';
 
 @freezed
-class ForecastOpenMeteoResponse with _$ForecastOpenMeteoResponse {
+abstract class ForecastOpenMeteoResponse with _$ForecastOpenMeteoResponse {
   @JsonSerializable(explicitToJson: true)
   const factory ForecastOpenMeteoResponse({
     /// Geographical WGS84 coordinates of the location. Multiple coordinates can
@@ -68,28 +68,28 @@ class ForecastOpenMeteoResponse with _$ForecastOpenMeteoResponse {
   const ForecastOpenMeteoResponse._();
 
   List<HourlyWeatherOpenMeteo> get hourlyWeather => [
-        for (final (index, _)
-            in hourlyWeatherMap?.values.firstOrNull?.indexed ?? [].indexed)
-          HourlyWeatherOpenMeteo.fromJson(
-            hourlyWeatherMap!.map(
-              (key, values) => MapEntry(key, values.elementAt(index)),
-            ),
-          ),
-      ];
+    for (final (index, _)
+        in hourlyWeatherMap?.values.firstOrNull?.indexed ?? [].indexed)
+      HourlyWeatherOpenMeteo.fromJson(
+        hourlyWeatherMap!.map(
+          (key, values) => MapEntry(key, values.elementAt(index)),
+        ),
+      ),
+  ];
 
   List<DailyWeatherOpenMeteo> get dailyWeather => [
-        for (final (index, _)
-            in dailyWeatherMap?.values.firstOrNull?.indexed ?? [].indexed)
-          DailyWeatherOpenMeteo.fromJson(
-            dailyWeatherMap!.map(
-              (key, values) => MapEntry(key, values.elementAt(index)),
-            ),
-          ),
-      ];
+    for (final (index, _)
+        in dailyWeatherMap?.values.firstOrNull?.indexed ?? [].indexed)
+      DailyWeatherOpenMeteo.fromJson(
+        dailyWeatherMap!.map(
+          (key, values) => MapEntry(key, values.elementAt(index)),
+        ),
+      ),
+  ];
 }
 
 @freezed
-class CurrentWeatherOpenMeteo with _$CurrentWeatherOpenMeteo {
+abstract class CurrentWeatherOpenMeteo with _$CurrentWeatherOpenMeteo {
   @JsonSerializable(explicitToJson: true)
   const factory CurrentWeatherOpenMeteo({
     /// iso8601
@@ -213,7 +213,7 @@ abstract class HourlyWeatherOpenMeteo with _$HourlyWeatherOpenMeteo {
 }
 
 @freezed
-class DailyWeatherOpenMeteo with _$DailyWeatherOpenMeteo {
+abstract class DailyWeatherOpenMeteo with _$DailyWeatherOpenMeteo {
   const factory DailyWeatherOpenMeteo({
     /// iso8601
     @JsonKey(name: 'time') @DateTimeISO8601Converter() required DateTime time,
@@ -284,7 +284,7 @@ class DailyWeatherOpenMeteo with _$DailyWeatherOpenMeteo {
 }
 
 @freezed
-class OpenMeteoPlace with _$OpenMeteoPlace {
+abstract class OpenMeteoPlace with _$OpenMeteoPlace {
   const factory OpenMeteoPlace({
     @JsonKey(name: 'id') required int id,
     @JsonKey(name: 'name') required String name,

@@ -93,8 +93,10 @@ class CustomChartWidget extends StatelessWidget {
                               width: chartPaddingReserved.left,
                               child: Align(
                                 alignment: Alignment.topCenter,
-                                child:
-                                    Text(unitsLeft!, style: styles.bodySmall),
+                                child: Text(
+                                  unitsLeft!,
+                                  style: styles.bodySmall,
+                                ),
                               ),
                             )
                           : const SizedBox.shrink(),
@@ -110,7 +112,7 @@ class CustomChartWidget extends StatelessWidget {
                           : const SizedBox.shrink(),
                       BarChart(
                         BarChartData(
-                          barTouchData: BarTouchData(enabled: false),
+                          barTouchData: const BarTouchData(enabled: false),
                           borderData: FlBorderData(show: false),
                           gridData: const FlGridData(show: false),
                           titlesData: generateLabelsData,
@@ -128,10 +130,7 @@ class CustomChartWidget extends StatelessWidget {
 
 /// Легенда, т.е. обозначение данных на графике.
 class LegendWidget extends StatelessWidget {
-  const LegendWidget({
-    required this.color,
-    required this.description,
-  });
+  const LegendWidget({required this.color, required this.description});
 
   final Color color;
   final String description;
@@ -166,10 +165,7 @@ class HeadChartWidget extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Icon(
-          iconData,
-          color: color,
-        ),
+        Icon(iconData, color: color),
         const SizedBox(width: 8.0),
         HeaderRWidget(
           name,

@@ -35,8 +35,9 @@ class ChartWindWidget extends ConsumerWidget {
       final hourly = chart.data;
       // проверяем, доступно ли время
       final DateTime? startDate = hourly.length < 2 ? null : hourly.first.date;
-      final DateTime? endDate =
-          hourly.length < 2 ? null : hourly[hourly.length - 1].date;
+      final DateTime? endDate = hourly.length < 2
+          ? null
+          : hourly[hourly.length - 1].date;
 
       return CustomChartWidget(
         generateData: const [],
@@ -211,10 +212,12 @@ class ChartWindWidget extends ConsumerWidget {
           return const SizedBox.shrink();
         }
 
-        final String time =
-            DateFormat.Hm().format(chart.data[bottomPoint].date!);
-        final String date =
-            DateFormat.MMMd().format(chart.data[bottomPoint].date!);
+        final String time = DateFormat.Hm().format(
+          chart.data[bottomPoint].date!,
+        );
+        final String date = DateFormat.MMMd().format(
+          chart.data[bottomPoint].date!,
+        );
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -240,7 +243,7 @@ class ChartWindWidget extends ConsumerWidget {
       rightTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
-          getTitlesWidget: (_, __) => const SizedBox.shrink(),
+          getTitlesWidget: (_, _) => const SizedBox.shrink(),
           reservedSize: ChartTheme.wPaddingChart.right,
         ),
       ),

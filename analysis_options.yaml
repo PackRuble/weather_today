@@ -5,6 +5,8 @@ analyzer:
     invalid_annotation_target: ignore
     curly_braces_in_flow_control_structures: ignore
     unused_element_parameter: ignore
+    unnecessary_async: ignore
+    avoid_futureor_void: ignore
   plugins:
     - custom_lint
   exclude:

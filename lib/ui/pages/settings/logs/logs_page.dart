@@ -37,12 +37,11 @@ class LogsPage extends ConsumerWidget with UiLoggy {
                   IconButton(
                     padding: const EdgeInsets.all(16.0),
                     onPressed: () {
-                      final result = const JsonEncoder.withIndent('  ')
-                          .convert(logsManager.getErrorLogs().toList());
+                      final result = const JsonEncoder.withIndent(
+                        '  ',
+                      ).convert(logsManager.getErrorLogs().toList());
 
-                      Clipboard.setData(
-                        ClipboardData(text: result),
-                      );
+                      Clipboard.setData(ClipboardData(text: result));
                     },
                     icon: Badge(
                       label: Text(logsManager.getErrorLogs().length.toString()),
@@ -52,12 +51,11 @@ class LogsPage extends ConsumerWidget with UiLoggy {
                   IconButton(
                     padding: const EdgeInsets.all(16.0),
                     onPressed: () {
-                      final result = const JsonEncoder.withIndent('  ')
-                          .convert(logs.toList());
+                      final result = const JsonEncoder.withIndent(
+                        '  ',
+                      ).convert(logs.toList());
 
-                      Clipboard.setData(
-                        ClipboardData(text: result),
-                      );
+                      Clipboard.setData(ClipboardData(text: result));
                     },
                     icon: const Icon(Icons.copy_all_rounded),
                   ),
@@ -86,7 +84,7 @@ class LogsPage extends ConsumerWidget with UiLoggy {
                               ],
                             );
                           },
-                          separatorBuilder: (_, __) => const Divider(),
+                          separatorBuilder: (_, _) => const Divider(),
                         ),
                       ),
                     ),

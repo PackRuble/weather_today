@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -35,10 +36,7 @@ import 'package:weather_today/ui/pages/settings/weather_provider/weather_provide
 /// [_i1.CountryFlagsPage]
 class CountryFlagsRoute extends _i13.PageRouteInfo<void> {
   const CountryFlagsRoute({List<_i13.PageRouteInfo>? children})
-      : super(
-          CountryFlagsRoute.name,
-          initialChildren: children,
-        );
+    : super(CountryFlagsRoute.name, initialChildren: children);
 
   static const String name = 'CountryFlagsRoute';
 
@@ -54,10 +52,7 @@ class CountryFlagsRoute extends _i13.PageRouteInfo<void> {
 /// [_i2.GratitudePage]
 class GratitudeRoute extends _i13.PageRouteInfo<void> {
   const GratitudeRoute({List<_i13.PageRouteInfo>? children})
-      : super(
-          GratitudeRoute.name,
-          initialChildren: children,
-        );
+    : super(GratitudeRoute.name, initialChildren: children);
 
   static const String name = 'GratitudeRoute';
 
@@ -73,10 +68,7 @@ class GratitudeRoute extends _i13.PageRouteInfo<void> {
 /// [_i3.HomePage]
 class HomeRoute extends _i13.PageRouteInfo<void> {
   const HomeRoute({List<_i13.PageRouteInfo>? children})
-      : super(
-          HomeRoute.name,
-          initialChildren: children,
-        );
+    : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
@@ -92,10 +84,7 @@ class HomeRoute extends _i13.PageRouteInfo<void> {
 /// [_i4.LogsPage]
 class LogsRoute extends _i13.PageRouteInfo<void> {
   const LogsRoute({List<_i13.PageRouteInfo>? children})
-      : super(
-          LogsRoute.name,
-          initialChildren: children,
-        );
+    : super(LogsRoute.name, initialChildren: children);
 
   static const String name = 'LogsRoute';
 
@@ -111,10 +100,7 @@ class LogsRoute extends _i13.PageRouteInfo<void> {
 /// [_i5.SavedPlacesPage]
 class SavedPlacesRoute extends _i13.PageRouteInfo<void> {
   const SavedPlacesRoute({List<_i13.PageRouteInfo>? children})
-      : super(
-          SavedPlacesRoute.name,
-          initialChildren: children,
-        );
+    : super(SavedPlacesRoute.name, initialChildren: children);
 
   static const String name = 'SavedPlacesRoute';
 
@@ -130,10 +116,7 @@ class SavedPlacesRoute extends _i13.PageRouteInfo<void> {
 /// [_i6.SystemSettingsPage]
 class SystemSettingsRoute extends _i13.PageRouteInfo<void> {
   const SystemSettingsRoute({List<_i13.PageRouteInfo>? children})
-      : super(
-          SystemSettingsRoute.name,
-          initialChildren: children,
-        );
+    : super(SystemSettingsRoute.name, initialChildren: children);
 
   static const String name = 'SystemSettingsRoute';
 
@@ -149,10 +132,7 @@ class SystemSettingsRoute extends _i13.PageRouteInfo<void> {
 /// [_i7.TermsAppPage]
 class TermsAppRoute extends _i13.PageRouteInfo<void> {
   const TermsAppRoute({List<_i13.PageRouteInfo>? children})
-      : super(
-          TermsAppRoute.name,
-          initialChildren: children,
-        );
+    : super(TermsAppRoute.name, initialChildren: children);
 
   static const String name = 'TermsAppRoute';
 
@@ -168,10 +148,7 @@ class TermsAppRoute extends _i13.PageRouteInfo<void> {
 /// [_i8.ThemePage]
 class ThemeRoute extends _i13.PageRouteInfo<void> {
   const ThemeRoute({List<_i13.PageRouteInfo>? children})
-      : super(
-          ThemeRoute.name,
-          initialChildren: children,
-        );
+    : super(ThemeRoute.name, initialChildren: children);
 
   static const String name = 'ThemeRoute';
 
@@ -187,10 +164,7 @@ class ThemeRoute extends _i13.PageRouteInfo<void> {
 /// [_i9.UserApiPage]
 class UserApiRoute extends _i13.PageRouteInfo<void> {
   const UserApiRoute({List<_i13.PageRouteInfo>? children})
-      : super(
-          UserApiRoute.name,
-          initialChildren: children,
-        );
+    : super(UserApiRoute.name, initialChildren: children);
 
   static const String name = 'UserApiRoute';
 
@@ -206,10 +180,7 @@ class UserApiRoute extends _i13.PageRouteInfo<void> {
 /// [_i10.VisualDesignPage]
 class VisualDesignRoute extends _i13.PageRouteInfo<void> {
   const VisualDesignRoute({List<_i13.PageRouteInfo>? children})
-      : super(
-          VisualDesignRoute.name,
-          initialChildren: children,
-        );
+    : super(VisualDesignRoute.name, initialChildren: children);
 
   static const String name = 'VisualDesignRoute';
 
@@ -225,10 +196,7 @@ class VisualDesignRoute extends _i13.PageRouteInfo<void> {
 /// [_i11.WeatherLanguagePage]
 class WeatherLanguageRoute extends _i13.PageRouteInfo<void> {
   const WeatherLanguageRoute({List<_i13.PageRouteInfo>? children})
-      : super(
-          WeatherLanguageRoute.name,
-          initialChildren: children,
-        );
+    : super(WeatherLanguageRoute.name, initialChildren: children);
 
   static const String name = 'WeatherLanguageRoute';
 
@@ -244,10 +212,7 @@ class WeatherLanguageRoute extends _i13.PageRouteInfo<void> {
 /// [_i12.WeatherProviderPage]
 class WeatherProviderRoute extends _i13.PageRouteInfo<void> {
   const WeatherProviderRoute({List<_i13.PageRouteInfo>? children})
-      : super(
-          WeatherProviderRoute.name,
-          initialChildren: children,
-        );
+    : super(WeatherProviderRoute.name, initialChildren: children);
 
   static const String name = 'WeatherProviderRoute';
 

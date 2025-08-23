@@ -148,11 +148,7 @@ class ChartPopWidget extends ConsumerWidget {
 
     return [
       for (final (i, item) in chart.data.indexed)
-        _generateGroup(
-          i,
-          item.rain ?? 0.0,
-          item.snow ?? 0.0,
-        ),
+        _generateGroup(i, item.rain ?? 0.0, item.snow ?? 0.0),
     ];
   }
 
@@ -195,11 +191,13 @@ class ChartPopWidget extends ConsumerWidget {
         if (secondPreviousPrecip == null ||
             previousPrecip == null ||
             nextPrecip == null ||
-            secondNextPrecip == null) return false;
+            secondNextPrecip == null)
+          return false;
         if (!secondPreviousPrecip &&
             !previousPrecip &&
             !nextPrecip &&
-            !secondNextPrecip) return true;
+            !secondNextPrecip)
+          return true;
         return false;
       }
 
@@ -281,7 +279,7 @@ class ChartPopWidget extends ConsumerWidget {
       rightTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
-          getTitlesWidget: (_, __) => const SizedBox.shrink(),
+          getTitlesWidget: (_, _) => const SizedBox.shrink(),
           reservedSize: ChartTheme.pPaddingChart.right,
         ),
       ),

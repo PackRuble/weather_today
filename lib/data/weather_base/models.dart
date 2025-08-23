@@ -41,7 +41,7 @@ abstract class WeatherUnits with _$WeatherUnits {
 }
 
 @freezed
-class CurrentWeatherBase with _$CurrentWeatherBase {
+abstract class CurrentWeatherBase with _$CurrentWeatherBase {
   @JsonSerializable(explicitToJson: true)
   const factory CurrentWeatherBase({
     /// Units of measurement for the parameters of this weather object.
@@ -95,9 +95,8 @@ class CurrentWeatherBase with _$CurrentWeatherBase {
 
   /// A brief description of the weather.
   String? get weatherBrief => switch (provider) {
-        // todo(02.08.2024):
-        WeatherProvider.openWeatherMap => null,
-        WeatherProvider.openMeteo =>
-          OpenMeteoWeatherCode.byCode(weatherCode).desc,
-      };
+    // todo(02.08.2024):
+    WeatherProvider.openWeatherMap => null,
+    WeatherProvider.openMeteo => OpenMeteoWeatherCode.byCode(weatherCode).desc,
+  };
 }

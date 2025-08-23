@@ -6,15 +6,16 @@ part of 'models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$WeatherUnitsImpl _$$WeatherUnitsImplFromJson(Map<String, dynamic> json) =>
-    _$WeatherUnitsImpl(
+_WeatherUnits _$WeatherUnitsFromJson(Map<String, dynamic> json) =>
+    _WeatherUnits(
       temp: $enumDecodeNullable(_$TempEnumMap, json['temp']) ?? Temp.celsius,
       speed: $enumDecodeNullable(_$SpeedEnumMap, json['speed']) ?? Speed.ms,
-      pressure: $enumDecodeNullable(_$PressureEnumMap, json['pressure']) ??
+      pressure:
+          $enumDecodeNullable(_$PressureEnumMap, json['pressure']) ??
           Pressure.mmHg,
     );
 
-Map<String, dynamic> _$$WeatherUnitsImplToJson(_$WeatherUnitsImpl instance) =>
+Map<String, dynamic> _$WeatherUnitsToJson(_WeatherUnits instance) =>
     <String, dynamic>{
       'temp': _$TempEnumMap[instance.temp]!,
       'speed': _$SpeedEnumMap[instance.speed]!,
@@ -27,11 +28,7 @@ const _$TempEnumMap = {
   Temp.fahrenheit: 'fahrenheit',
 };
 
-const _$SpeedEnumMap = {
-  Speed.ms: 'ms',
-  Speed.mph: 'mph',
-  Speed.kph: 'kph',
-};
+const _$SpeedEnumMap = {Speed.ms: 'ms', Speed.mph: 'mph', Speed.kph: 'kph'};
 
 const _$PressureEnumMap = {
   Pressure.hectoPa: 'hectoPa',
@@ -42,15 +39,15 @@ const _$PressureEnumMap = {
   Pressure.inHg: 'inHg',
 };
 
-_$CurrentWeatherBaseImpl _$$CurrentWeatherBaseImplFromJson(
-        Map<String, dynamic> json) =>
-    _$CurrentWeatherBaseImpl(
+_CurrentWeatherBase _$CurrentWeatherBaseFromJson(Map<String, dynamic> json) =>
+    _CurrentWeatherBase(
       units: json['units'] == null
           ? const WeatherUnits()
           : WeatherUnits.fromJson(json['units'] as Map<String, dynamic>),
       provider: $enumDecode(_$WeatherProviderEnumMap, json['provider']),
-      datetime:
-          const DateTimeISO8601Converter().fromJson(json['time'] as String),
+      datetime: const DateTimeISO8601Converter().fromJson(
+        json['time'] as String,
+      ),
       temp: (json['temp'] as num).toDouble(),
       tempFeelsLike: (json['temp_feels_like'] as num).toDouble(),
       relativeHumidity: (json['relative_humidity'] as num).toInt(),
@@ -63,8 +60,7 @@ _$CurrentWeatherBaseImpl _$$CurrentWeatherBaseImplFromJson(
       weatherCode: (json['weather_code'] as num).toInt(),
     );
 
-Map<String, dynamic> _$$CurrentWeatherBaseImplToJson(
-        _$CurrentWeatherBaseImpl instance) =>
+Map<String, dynamic> _$CurrentWeatherBaseToJson(_CurrentWeatherBase instance) =>
     <String, dynamic>{
       'units': instance.units.toJson(),
       'provider': _$WeatherProviderEnumMap[instance.provider]!,

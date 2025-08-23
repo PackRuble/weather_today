@@ -21,8 +21,9 @@ class ChartOtherWidget extends ConsumerWidget {
 
     final t = ref.watch(HourlyPagePresenter.tr);
 
-    final ChartModel chart =
-        ref.watch(HourlyPageByRublePresenter.chartCloudsParam);
+    final ChartModel chart = ref.watch(
+      HourlyPageByRublePresenter.chartCloudsParam,
+    );
 
     final Widget titleWidget = HeadChartWidget(
       t.mainPageDRuble.hourlyPage.more.title,
@@ -115,11 +116,7 @@ class ChartOtherWidget extends ConsumerWidget {
 
     return [
       for (final (i, item) in chart.data.indexed)
-        _generateGroup(
-          i,
-          item.cloudiness ?? 0.0,
-          item.humidity ?? 0.0,
-        ),
+        _generateGroup(i, item.cloudiness ?? 0.0, item.humidity ?? 0.0),
     ];
   }
 
@@ -137,9 +134,7 @@ class ChartOtherWidget extends ConsumerWidget {
           child: Text(
             Pressure.mmHg.valueToString(weather.pressure!, 0),
             textAlign: TextAlign.center,
-            style: styles.bodySmall?.copyWith(
-              color: ChartTheme.oColorPressure,
-            ),
+            style: styles.bodySmall?.copyWith(color: ChartTheme.oColorPressure),
           ),
         );
       }
@@ -201,7 +196,7 @@ class ChartOtherWidget extends ConsumerWidget {
       rightTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
-          getTitlesWidget: (_, __) => const SizedBox.shrink(),
+          getTitlesWidget: (_, _) => const SizedBox.shrink(),
           reservedSize: ChartTheme.oPaddingChart.right,
         ),
       ),
