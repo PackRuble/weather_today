@@ -18,12 +18,10 @@ class CurrentWeatherPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return RefreshWrapper<WeatherCurrent>(
       asyncValue: ref.watch(CurrentPagePresenter.current),
-      onRefresh: () async =>
-          ref.read(CurrentPagePresenter.instance).updateWeather(),
-      child: (BuildContext context, WeatherCurrent weatherCur) =>
-          switch (design) {
+      onRefresh: () async => ref.read(CurrentPagePresenter.instance).updateWeather(),
+      child: (BuildContext context, WeatherCurrent weatherCur) => switch (design) {
         AppVisualDesign.byRuble => CurrentWeatherPageByRuble(weatherCur),
-        AppVisualDesign.byTolskaya => CurrentWeatherPageByTolskaya(weatherCur)
+        AppVisualDesign.byTolskaya => CurrentWeatherPageByTolskaya(weatherCur),
       },
     );
   }

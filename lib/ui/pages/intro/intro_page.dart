@@ -30,10 +30,7 @@ class IntroPage extends HookConsumerWidget {
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(
           physics: const ClampingScrollPhysics(),
-          dragDevices: {
-            PointerDeviceKind.touch,
-            PointerDeviceKind.mouse,
-          },
+          dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
         ),
         child: Stack(
           children: [
@@ -41,11 +38,7 @@ class IntroPage extends HookConsumerWidget {
               controller: pageController,
               children: [for (final tile in introTiles) _IntroTileWidget(tile)],
             ),
-            Positioned(
-              top: viewPadding.top + 4.0,
-              right: 4.0,
-              child: const ChangerThemeButton(),
-            ),
+            Positioned(top: viewPadding.top + 4.0, right: 4.0, child: const ChangerThemeButton()),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
@@ -54,10 +47,7 @@ class IntroPage extends HookConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Expanded(
-                      flex: 1,
-                      child: _LeftButtonWidget(controller: pageController),
-                    ),
+                    Expanded(flex: 1, child: _LeftButtonWidget(controller: pageController)),
                     Flexible(
                       flex: 2,
                       child: Column(
@@ -77,10 +67,7 @@ class IntroPage extends HookConsumerWidget {
                         ],
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: _RightButtonWidget(controller: pageController),
-                    ),
+                    Expanded(flex: 1, child: _RightButtonWidget(controller: pageController)),
                   ],
                 ),
               ),
@@ -93,10 +80,7 @@ class IntroPage extends HookConsumerWidget {
 }
 
 class _IntroTileWidget extends ConsumerWidget {
-  const _IntroTileWidget(
-    this.tile, {
-    super.key,
-  });
+  const _IntroTileWidget(this.tile, {super.key});
 
   final IntroTile tile;
 
@@ -119,22 +103,14 @@ class _IntroTileWidget extends ConsumerWidget {
                 textAlign: TextAlign.center,
                 style: theme.textTheme.headlineMedium?.copyWith(
                   shadows: [
-                    Shadow(
-                      color: theme.primaryColor,
-                      offset: const Offset(4, 4),
-                      blurRadius: 24,
-                    ),
+                    Shadow(color: theme.primaryColor, offset: const Offset(4, 4), blurRadius: 24),
                   ],
                   letterSpacing: 4,
                   fontStyle: FontStyle.italic,
                 ),
               ),
               const Spacer(flex: 2),
-              Text(
-                tile.subtitle,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.titleLarge,
-              ),
+              Text(tile.subtitle, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
               const Spacer(flex: 4),
             ],
           ),
@@ -145,10 +121,7 @@ class _IntroTileWidget extends ConsumerWidget {
 }
 
 class _LeftButtonWidget extends ConsumerWidget {
-  const _LeftButtonWidget({
-    super.key,
-    required this.controller,
-  });
+  const _LeftButtonWidget({super.key, required this.controller});
 
   final PageController controller;
 
@@ -162,23 +135,15 @@ class _LeftButtonWidget extends ConsumerWidget {
         final index = controller.page ?? 0;
 
         if (0.0 <= index && index <= 0.5) {
-          return Opacity(
-            opacity: 1 - index * 2,
-            child: const LocaleButtonWidget(),
-          );
+          return Opacity(opacity: 1 - index * 2, child: const LocaleButtonWidget());
         } else if (0.5 < index && index <= 1.0) {
-          return Opacity(
-            opacity: index * 2 - 1,
-            child: child,
-          );
+          return Opacity(opacity: index * 2 - 1, child: child);
         } else {
           return child!;
         }
       },
       child: ElevatedButton(
-        style: const ButtonStyle(
-          padding: WidgetStatePropertyAll(EdgeInsets.all(8)),
-        ),
+        style: const ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.all(8))),
         onPressed: () async => controller.previousPage(
           duration: const Duration(milliseconds: _durationMill),
           curve: Curves.ease,
@@ -190,10 +155,7 @@ class _LeftButtonWidget extends ConsumerWidget {
 }
 
 class _RightButtonWidget extends ConsumerWidget {
-  const _RightButtonWidget({
-    super.key,
-    required this.controller,
-  });
+  const _RightButtonWidget({super.key, required this.controller});
 
   final PageController controller;
 
@@ -212,8 +174,7 @@ class _RightButtonWidget extends ConsumerWidget {
 
     late final doneButton = _StepButton(
       text: tr.introPage.doneButton,
-      onPressed: () async =>
-          ref.read(AppGeneralSettings.instance).setIsIntro(false),
+      onPressed: () async => ref.read(AppGeneralSettings.instance).setIsIntro(false),
     );
 
     return AnimatedBuilder(
@@ -222,15 +183,9 @@ class _RightButtonWidget extends ConsumerWidget {
         final index = controller.page ?? 1;
 
         if (_lastIndex - 1 <= index && index <= _lastIndex - 0.5) {
-          return Opacity(
-            opacity: 1 - ((index - (_lastIndex - 1)) * 2),
-            child: nextButton,
-          );
+          return Opacity(opacity: 1 - ((index - (_lastIndex - 1)) * 2), child: nextButton);
         } else if (_lastIndex - 0.5 < index && index <= _lastIndex) {
-          return Opacity(
-            opacity: ((index - (_lastIndex - 1)) * 2) - 1,
-            child: doneButton,
-          );
+          return Opacity(opacity: ((index - (_lastIndex - 1)) * 2) - 1, child: doneButton);
         } else {
           return nextButton;
         }
@@ -248,11 +203,7 @@ class _StepButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: const ButtonStyle(
-        padding: WidgetStatePropertyAll(
-          EdgeInsets.all(8),
-        ),
-      ),
+      style: const ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.all(8))),
       onPressed: onPressed,
       child: Text(text, textAlign: TextAlign.center),
     );
@@ -282,15 +233,13 @@ class LocaleButtonWidget extends HookConsumerWidget {
         for (final locale in AppLocale.values)
           DropdownMenuItem<AppLocale>(
             value: locale,
-            onTap: () async =>
-                ref.read(AppLocalization.instance).setLocale(locale),
+            onTap: () async => ref.read(AppLocalization.instance).setLocale(locale),
             child: Text(
               locale.nameTr,
               textAlign: TextAlign.center,
               // changed after _bug fixed
               style: theme.textTheme.titleMedium?.copyWith(
-                color:
-                    locale == currentLocale ? theme.colorScheme.primary : null,
+                color: locale == currentLocale ? theme.colorScheme.primary : null,
               ),
             ),
           ),
@@ -303,9 +252,7 @@ class LocaleButtonWidget extends HookConsumerWidget {
               fit: BoxFit.scaleDown,
               child: Text(
                 currentLocale.nameTr,
-                style: theme.textTheme.titleSmall?.copyWith(
-                  color: theme.colorScheme.primary,
-                ),
+                style: theme.textTheme.titleSmall?.copyWith(color: theme.colorScheme.primary),
               ),
             ),
         ];

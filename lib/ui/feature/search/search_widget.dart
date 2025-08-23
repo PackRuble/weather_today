@@ -48,9 +48,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       controller: searchNR.controllerBar,
       title: const _TitleSearch(),
       hint: ref.tr.searchBar.hintTextField,
-      borderRadius: const BorderRadius.all(
-        Radius.circular(AppInsets.cornerRadiusCard),
-      ),
+      borderRadius: const BorderRadius.all(Radius.circular(AppInsets.cornerRadiusCard)),
       border: BorderSide(color: colors.borderColorSearchbar),
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
       transitionDuration: const Duration(milliseconds: 800),
@@ -58,9 +56,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       axisAlignment: 0.0,
       openAxisAlignment: 0.0,
       margins: EdgeInsets.only(
-        top:
-            MediaQuery.viewPaddingOf(context).top +
-            AppInsets.aroundPaddingSearchBar,
+        top: MediaQuery.viewPaddingOf(context).top + AppInsets.aroundPaddingSearchBar,
       ),
       height: AppInsets.heightSearchBar,
       width: widthScreen - AppInsets.aroundPaddingSearchBar * 2,
@@ -104,16 +100,14 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
           showIfClosed: true,
           showIfOpened: false,
           icon: GestureDetector(
-            onLongPress: () async =>
-                await context.router.push(const ThemeRoute()),
+            onLongPress: () async => await context.router.push(const ThemeRoute()),
             child: Icon(
               isLight ? Icons.light_mode_rounded : Icons.nightlight_round,
               color: colors.scheme.primary,
             ),
           ),
-          onTap: () async => ref
-              .read(AppTheme.instance)
-              .setThemeMode(isLight ? ThemeMode.dark : ThemeMode.light),
+          onTap: () async =>
+              ref.read(AppTheme.instance).setThemeMode(isLight ? ThemeMode.dark : ThemeMode.light),
         ),
       ],
       builder: (_, _) => const _SearchBody(),
@@ -130,8 +124,7 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
 /// Где-то в недрах пакета [material_floating_search_bar] есть проверка *is FloatingSearchBarAction*,
 /// тогда обычный ConsumerWidget не подошёл бы.
 class _SavedBookmarkAction extends FloatingSearchBarAction {
-  const _SavedBookmarkAction({super.key})
-    : super(child: const SizedBox.shrink());
+  const _SavedBookmarkAction({super.key}) : super(child: const SizedBox.shrink());
 
   @override
   Widget build(BuildContext context) {
@@ -150,9 +143,7 @@ class _SavedBookmarkAction extends FloatingSearchBarAction {
           showIfClosed: true,
           child: CircularButton(
             icon: Icon(
-              isCurrentPlaceSaved
-                  ? AppIcons.savedPlaceBookmark
-                  : AppIcons.notSavedPlaceBookmark,
+              isCurrentPlaceSaved ? AppIcons.savedPlaceBookmark : AppIcons.notSavedPlaceBookmark,
             ),
             onPressed: () async => ref
                 .read(SearchNR.instance.notifier)
@@ -212,8 +203,7 @@ class _TitleSearch extends ConsumerWidget {
     final String languageCode = Localizations.localeOf(context).languageCode;
 
     final String title =
-        MetricsHelper.getCountryCodeAndNameOrName(place, languageCode) ??
-        'Ghost-town';
+        MetricsHelper.getCountryCodeAndNameOrName(place, languageCode) ?? 'Ghost-town';
 
     return Text(title);
   }
@@ -256,12 +246,7 @@ class _SearchBody extends ConsumerWidget {
 }
 
 class _BodyCard extends ConsumerWidget {
-  const _BodyCard({
-    super.key,
-    required this.places,
-    required this.tip,
-    required this.tipResult,
-  });
+  const _BodyCard({super.key, required this.places, required this.tip, required this.tipResult});
 
   final List<Place> places;
   final String tip;
@@ -283,10 +268,7 @@ class _BodyCard extends ConsumerWidget {
       children: [
         _TipWidget('$_baseTooltip \n$tipResult'),
         const Divider(height: 1.0),
-        for (final place in places) ...[
-          _TileSearchWidget(place),
-          const Divider(height: 1.0),
-        ],
+        for (final place in places) ...[_TileSearchWidget(place), const Divider(height: 1.0)],
       ],
     );
   }
@@ -314,33 +296,25 @@ class _TileSearchWidget extends ConsumerWidget {
 
     final String languageCode = Localizations.localeOf(context).languageCode;
 
-    final bool isSaved = ref
-        .watch(SearchNR.savedPlaces.notifier)
-        .isSavedPlace(place);
+    final bool isSaved = ref.watch(SearchNR.savedPlaces.notifier).isSavedPlace(place);
 
     final bool isCurrent = curPlace == place;
 
     String title = '';
-    final String name =
-        MetricsHelper.getLocalNameOrName(place, languageCode) ?? '';
+    final String name = MetricsHelper.getLocalNameOrName(place, languageCode) ?? '';
 
     title += MetricsHelper.getCountryCodeAndStateOrName(place) ?? '';
     title += name.isNotEmpty ? ', $name' : '';
 
     return ListTile(
-      onTap: () async =>
-          ref.read(SearchNR.instance.notifier).selectCurrentPlace(place),
-      onLongPress: () async => ref
-          .read(SearchNR.instance.notifier)
-          .changePlaceToSavedPlaces(isSaved, place),
+      onTap: () async => ref.read(SearchNR.instance.notifier).selectCurrentPlace(place),
+      onLongPress: () async =>
+          ref.read(SearchNR.instance.notifier).changePlaceToSavedPlaces(isSaved, place),
       title: Text(title),
       horizontalTitleGap: 0.0,
       tileColor: isCurrent ? AppColors.of(context).cardSelectedColor : null,
       trailing: isSaved
-          ? Icon(
-              AppIcons.savedPlaceBookmark,
-              color: IconTheme.of(context).color,
-            )
+          ? Icon(AppIcons.savedPlaceBookmark, color: IconTheme.of(context).color)
           : null,
     );
   }

@@ -9,11 +9,7 @@ enum ActionButton { themeMode, reset, slot1, slot2, slot3 }
 
 /// Custom AppBar for all application screens.
 class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarCustom(
-    this.title, {
-    this.actions,
-    super.key,
-  });
+  const AppBarCustom(this.title, {this.actions, super.key});
 
   final String title;
 
@@ -29,28 +25,20 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final actions = this.actions ??
-        LinkedHashMap.of({ActionButton.themeMode: const ChangerThemeButton()});
+    final actions =
+        this.actions ?? LinkedHashMap.of({ActionButton.themeMode: const ChangerThemeButton()});
 
-    final actionsWidget = <Widget>[
-      for (final MapEntry(value: widget) in actions.entries) widget,
-    ];
+    final actionsWidget = <Widget>[for (final MapEntry(value: widget) in actions.entries) widget];
 
     return AppBar(
       titleSpacing: 0.0,
       leadingWidth: 48.0,
-      title: Text(
-        title,
-        overflow: TextOverflow.fade,
-      ),
+      title: Text(title, overflow: TextOverflow.fade),
       titleTextStyle: theme.textTheme.headlineSmall?.copyWith(
         fontSize: 18,
         color: theme.appBarTheme.foregroundColor,
       ),
-      leading: IconButton(
-        onPressed: context.router.maybePop,
-        icon: const BackButtonIcon(),
-      ),
+      leading: IconButton(onPressed: context.router.maybePop, icon: const BackButtonIcon()),
       actions: actionsWidget,
     );
   }

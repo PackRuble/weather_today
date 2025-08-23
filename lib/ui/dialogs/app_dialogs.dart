@@ -21,29 +21,26 @@ class AppDialogs {
     BuildContext context,
     WidgetRef ref,
     GeocodingProvider geocodingProvider,
-  ) async =>
-      await showChoosingDialog<GeocodingProvider>(
-        context,
-        icon: const Icon(AppIcons.geocodingProvider),
-        title: ref.tr.ui.geocodingProvider,
-        subTitle: ref.tr.messages.selectedParamWillBeApplied,
-        listDialogOption: [
-          for (final provider in GeocodingProvider.values)
-            DialogOption<GeocodingProvider>(
-              groupValue: geocodingProvider,
-              title: provider.website,
-              value: provider,
-            ),
-        ],
-      );
+  ) async => await showChoosingDialog<GeocodingProvider>(
+    context,
+    icon: const Icon(AppIcons.geocodingProvider),
+    title: ref.tr.ui.geocodingProvider,
+    subTitle: ref.tr.messages.selectedParamWillBeApplied,
+    listDialogOption: [
+      for (final provider in GeocodingProvider.values)
+        DialogOption<GeocodingProvider>(
+          groupValue: geocodingProvider,
+          title: provider.website,
+          value: provider,
+        ),
+    ],
+  );
 
   /// Вызов диалога, подтверждающего удаление [Place] из базы данных.
   ///
   /// --> true: удалить
   /// --> false: отменить удаление
-  static Future<bool> confirmDeletionPlace(
-    BuildContext context,
-  ) async =>
+  static Future<bool> confirmDeletionPlace(BuildContext context) async =>
       await infoDialogCustom<bool>(
         context,
         icon: const Icon(Icons.delete),
@@ -64,11 +61,7 @@ class AppDialogs {
       false;
 
   /// Информационный диалог, показывающий флаг в крупном виде и полное название страны.
-  static Future<void> seeFlag(
-    BuildContext context,
-    String countryCode,
-    Widget image,
-  ) async {
+  static Future<void> seeFlag(BuildContext context, String countryCode, Widget image) async {
     final String? countryName = countriesCode[countryCode.toUpperCase()];
 
     await infoDialogCustom<void>(
@@ -87,10 +80,7 @@ class AppDialogs {
         ],
       ),
       listActions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text(tr.dialogs.buttons.ok),
-        ),
+        TextButton(onPressed: () => Navigator.pop(context), child: Text(tr.dialogs.buttons.ok)),
       ],
     );
   }
@@ -147,9 +137,7 @@ class AppDialogs {
   ///
   /// --> true: удалить
   /// --> false: отменить удаление
-  static Future<bool> confirmDeletionUserApiKeyWeather(
-    BuildContext context,
-  ) async =>
+  static Future<bool> confirmDeletionUserApiKeyWeather(BuildContext context) async =>
       await infoDialogCustom<bool>(
         context,
         icon: const Icon(Icons.delete),
@@ -169,9 +157,7 @@ class AppDialogs {
       false;
 
   /// An information dialog showing information about this application.
-  static Future<void> aboutApp(
-    BuildContext context,
-  ) async {
+  static Future<void> aboutApp(BuildContext context) async {
     final theme = Theme.of(context);
     final primaryColor = Theme.of(context).primaryColor;
 
@@ -212,10 +198,7 @@ class AppDialogs {
           ),
         ),
         InkWell(
-          onTap: () => showDialog(
-            context: context,
-            builder: (context) => const ChangelogPage(),
-          ),
+          onTap: () => showDialog(context: context, builder: (context) => const ChangelogPage()),
           child: Text(
             'Changelog',
             style: theme.textTheme.titleMedium?.copyWith(
@@ -236,9 +219,7 @@ class AppDialogs {
   /// --> true: сохранить изменения
   /// --> false: не сохранять
   /// --> null: без действия
-  static Future<bool> confirmSaveChanges(
-    BuildContext context,
-  ) async =>
+  static Future<bool> confirmSaveChanges(BuildContext context) async =>
       await infoDialogCustom<bool>(
         context,
         icon: const Icon(Icons.done),
@@ -258,9 +239,7 @@ class AppDialogs {
       false;
 
   /// Информационный диалог об возможностях поиска мест.
-  static Future<void> placeSearchInfo(
-    BuildContext context,
-  ) async {
+  static Future<void> placeSearchInfo(BuildContext context) async {
     final TextTheme styles = Theme.of(context).textTheme;
 
     await infoDialogCustom<void>(
@@ -295,10 +274,7 @@ class AppDialogs {
         ),
       ),
       listActions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text(tr.dialogs.buttons.okay),
-        ),
+        TextButton(onPressed: () => Navigator.pop(context), child: Text(tr.dialogs.buttons.okay)),
       ],
     );
   }
@@ -309,10 +285,7 @@ class AppDialogs {
 
     return await infoDialogCustom<bool>(
           context,
-          icon: Icon(
-            Icons.settings_backup_restore_rounded,
-            color: theme.iconTheme.color,
-          ),
+          icon: Icon(Icons.settings_backup_restore_rounded, color: theme.iconTheme.color),
           title: tr.dialogs.titles.warning,
           subTitle: tr.dialogs.confirmResetSettings.subtitle,
           content: Text(tr.dialogs.confirmResetSettings.content),

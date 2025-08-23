@@ -64,8 +64,7 @@ class _DateWidget extends ConsumerWidget {
                 if (actualData != null)
                   TextSpan(
                     text: ' ${DateFormat.MMMd().add_Hm().format(actualData!)}',
-                    style: styles.bodyMedium
-                        ?.copyWith(fontStyle: FontStyle.italic),
+                    style: styles.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
                   ),
               ],
             ),

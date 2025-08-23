@@ -58,8 +58,7 @@ class MetricsHelper {
   /// Получить корректное название места следующего вида:
   /// --> '[localName]' || '[name]' || null
   static String? getLocalNameOrName(Place place, String languageCode) =>
-      getLocalName(place, languageCode) ??
-      ((place.name?.isNotEmpty ?? false) ? place.name : null);
+      getLocalName(place, languageCode) ?? ((place.name?.isNotEmpty ?? false) ? place.name : null);
 
   /// Получить корректное название места следующего вида:
   /// --> '[name], [localName]' || null
@@ -115,11 +114,7 @@ class MetricsHelper {
   }
 
   /// Вернуть процентное число от максимального значения.
-  static double? getPercentage(
-    double? value,
-    double maxValue, [
-    double minValue = 0.0,
-  ]) {
+  static double? getPercentage(double? value, double maxValue, [double minValue = 0.0]) {
     if (value == null) return null;
 
     return (value.clamp(minValue, maxValue) / (maxValue - minValue)) * 100.0;
@@ -200,16 +195,15 @@ class MetricsHelper {
     bool withUnits = true,
     String filler = '–',
     int? precision,
-  }) =>
-      getTempOrNull(
-        value,
-        units,
-        withSign: withSign,
-        withUnits: withUnits,
-        withFiller: true,
-        filler: filler,
-        precision: precision,
-      )!;
+  }) => getTempOrNull(
+    value,
+    units,
+    withSign: withSign,
+    withUnits: withUnits,
+    withFiller: true,
+    filler: filler,
+    precision: precision,
+  )!;
 
   /// Получить единицы температуры вида `°C`.
   static String getTempUnits(Temp units) => units.abbr;
@@ -362,10 +356,9 @@ class MetricsHelper {
     required WeatherProvider provider,
   }) {
     return switch (provider) {
-      WeatherProvider.openWeatherMap => tr.weather.owmConditionsBriefByName[
-          OWMWeatherCode.byCode(weatherCode).brief.toLowerCase()],
-      WeatherProvider.openMeteo =>
-        tr.weather.omConditionsBrief['code$weatherCode'],
+      WeatherProvider.openWeatherMap =>
+        tr.weather.owmConditionsBriefByName[OWMWeatherCode.byCode(weatherCode).brief.toLowerCase()],
+      WeatherProvider.openMeteo => tr.weather.omConditionsBrief['code$weatherCode'],
     };
   }
 
@@ -376,8 +369,7 @@ class MetricsHelper {
   }) {
     return switch (provider) {
       WeatherProvider.openWeatherMap => null,
-      WeatherProvider.openMeteo =>
-        tr.weather.omConditionsDesc['code$weatherCode'],
+      WeatherProvider.openMeteo => tr.weather.omConditionsDesc['code$weatherCode'],
     };
   }
 }

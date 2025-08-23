@@ -52,12 +52,7 @@ Future<void> main() async {
       // асинхронная инициализация всех сервисов
       await ServiceInit(container).init();
 
-      runApp(
-        UncontrolledProviderScope(
-          container: container,
-          child: WeatherMain(),
-        ),
-      );
+      runApp(UncontrolledProviderScope(container: container, child: WeatherMain()));
 
       // Remove splash screen when bootstrap is complete
       widgetsBinding.allowFirstFrame();
@@ -77,8 +72,7 @@ class WeatherMain extends ConsumerWidget with UiLoggy {
     loggy.info('build');
 
     final AppLocalization appLocalization = ref.watch(AppLocalization.instance);
-    final Locale locale =
-        ref.watch(AppLocalization.currentLocale).flutterLocale;
+    final Locale locale = ref.watch(AppLocalization.currentLocale).flutterLocale;
 
     return MaterialApp.router(
       theme: ref.watch(AppTheme.lightTheme).toTheme,

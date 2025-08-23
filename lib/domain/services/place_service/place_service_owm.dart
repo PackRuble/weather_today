@@ -21,11 +21,9 @@ class PlaceServiceOWM with CallWrapper implements PlaceService {
     required double latitude,
     required double longitude,
   }) async {
-    final List<PlaceGeocode> placesDirect = (await callSafely(
-          () => _service.getLocationByCoordinates(
-            latitude: latitude,
-            longitude: longitude,
-          ),
+    final List<PlaceGeocode> placesDirect =
+        (await callSafely(
+          () => _service.getLocationByCoordinates(latitude: latitude, longitude: longitude),
         )) ??
         [];
 
@@ -36,10 +34,8 @@ class PlaceServiceOWM with CallWrapper implements PlaceService {
 
   @override
   Future<List<Place>> getPlacesByName(String queryCity) async {
-    final List<PlaceGeocode> placesDirect = (await callSafely(
-          () => _service.getLocationByCityName(queryCity),
-        )) ??
-        [];
+    final List<PlaceGeocode> placesDirect =
+        (await callSafely(() => _service.getLocationByCityName(queryCity))) ?? [];
 
     final List<Place> places = placesDirect.map(_convertGeocodePlaces).toList();
 

@@ -46,10 +46,7 @@ class CurrentWeatherPageByTolskaya extends ConsumerWidget {
           _OtherInfoWidget(currently),
           if (currently.sunrise != null || currently.sunset != null) ...[
             const Divider(),
-            _SunriseInfoWidget(
-              sunrise: currently.sunrise,
-              sunset: currently.sunset,
-            ),
+            _SunriseInfoWidget(sunrise: currently.sunrise, sunset: currently.sunset),
           ],
           const AttributionWeatherWidget(alignment: Alignment.center),
         ],
@@ -59,9 +56,7 @@ class CurrentWeatherPageByTolskaya extends ConsumerWidget {
 }
 
 class _DateWidget extends ConsumerWidget {
-  const _DateWidget(
-    this.date,
-  );
+  const _DateWidget(this.date);
   final DateTime? date;
 
   @override
@@ -73,8 +68,7 @@ class _DateWidget extends ConsumerWidget {
 
     final languageCode = Localizations.localeOf(context).languageCode;
 
-    final countryName =
-        MetricsHelper.getLocalNameOrName(place, languageCode) ?? 'Ghost-town';
+    final countryName = MetricsHelper.getLocalNameOrName(place, languageCode) ?? 'Ghost-town';
 
     final date = this.date ?? DateTime.now();
 
@@ -82,27 +76,16 @@ class _DateWidget extends ConsumerWidget {
       children: [
         Row(
           children: [
-            Expanded(
-              child: Text(
-                DateFormat.Hm().format(date),
-                style: styles.bodyMedium,
-              ),
-            ),
+            Expanded(child: Text(DateFormat.Hm().format(date), style: styles.bodyMedium)),
             Expanded(
               child: Center(
-                child: Text(
-                  t.global.time.today.toLowerCase(),
-                  style: styles.titleMedium,
-                ),
+                child: Text(t.global.time.today.toLowerCase(), style: styles.titleMedium),
               ),
             ),
             Expanded(
               child: Align(
                 alignment: Alignment.centerRight,
-                child: Text(
-                  DateFormat.yMd().format(date),
-                  style: styles.bodyMedium,
-                ),
+                child: Text(DateFormat.yMd().format(date), style: styles.bodyMedium),
               ),
             ),
           ],
@@ -138,7 +121,8 @@ class _MainInfoWidget extends ConsumerWidget {
 
     final t = ref.watch(CurrentPagePresenter.tr);
 
-    final _brief = MetricsHelper.weatherBriefTrByCode(
+    final _brief =
+        MetricsHelper.weatherBriefTrByCode(
           weatherCode: weatherCode,
           provider: ref.watch(WeatherProviderNR.i),
           tr: tr,
@@ -146,7 +130,8 @@ class _MainInfoWidget extends ConsumerWidget {
         weatherBrief ??
         '';
 
-    final _weatherDesc = MetricsHelper.weatherDescTrByCode(
+    final _weatherDesc =
+        MetricsHelper.weatherDescTrByCode(
           weatherCode: weatherCode,
           provider: ref.watch(WeatherProviderNR.i),
           tr: tr,
@@ -154,12 +139,7 @@ class _MainInfoWidget extends ConsumerWidget {
         weatherDesc?.toCapitalized();
 
     final tempUnits = ref.watch(CurrentPagePresenter.tempUnits);
-    final _temp = MetricsHelper.getTemp(
-      temp,
-      tempUnits,
-      withUnits: false,
-      withSign: true,
-    );
+    final _temp = MetricsHelper.getTemp(temp, tempUnits, withUnits: false, withSign: true);
     final _tempUnits = MetricsHelper.getTempUnits(tempUnits);
     final _tempFeelsLike = MetricsHelper.getTemp(
       tempFeelsLike,
@@ -174,11 +154,7 @@ class _MainInfoWidget extends ConsumerWidget {
           children: [
             Expanded(
               child: Center(
-                child: Text(
-                  _brief,
-                  style: styles.bodyMedium,
-                  textAlign: TextAlign.center,
-                ),
+                child: Text(_brief, style: styles.bodyMedium, textAlign: TextAlign.center),
               ),
             ),
             Expanded(
@@ -236,11 +212,7 @@ class _MainInfoWidget extends ConsumerWidget {
 }
 
 class _WindWidget extends ConsumerWidget {
-  const _WindWidget({
-    required this.windSpeed,
-    required this.windGust,
-    required this.windDegree,
-  });
+  const _WindWidget({required this.windSpeed, required this.windGust, required this.windDegree});
   final double? windSpeed;
   final double? windGust;
   final double? windDegree;
@@ -257,15 +229,12 @@ class _WindWidget extends ConsumerWidget {
     String? _windSpeed = MetricsHelper.getSpeed(windSpeed, speedUnits);
     _windSpeed = '${t.weather.wind} $_windSpeed';
 
-    final String? _windSide =
-        MetricsHelper.getSideOfTheWorldAdjective(windDegree);
+    final String? _windSide = MetricsHelper.getSideOfTheWorldAdjective(windDegree);
     if (_windSide != null) {
       _windSpeed += ', $_windSide';
     }
 
-    final String? _windGust = (windGust != null &&
-            windSpeed != null &&
-            windGust! > windSpeed!)
+    final String? _windGust = (windGust != null && windSpeed != null && windGust! > windSpeed!)
         ? '${t.weather.gustUp} ${MetricsHelper.getSpeed(windGust, speedUnits)}'
         : null;
 
@@ -326,47 +295,27 @@ class _OtherInfoWidget extends ConsumerWidget {
       withFiller: true,
     )!;
 
-    final String _humidity =
-        MetricsHelper.withPrecision(currently.humidity, withFiller: true)!;
+    final String _humidity = MetricsHelper.withPrecision(currently.humidity, withFiller: true)!;
 
     final String _visibility = MetricsHelper.withPrecision(
       MetricsHelper.getPercentage(currently.visibility, 10000.0),
       withFiller: true,
     )!;
 
-    final String _cloudiness =
-        MetricsHelper.withPrecision(100.0, withFiller: true)!;
+    final String _cloudiness = MetricsHelper.withPrecision(100.0, withFiller: true)!;
 
     return Column(
       children: [
         Row(
           children: [
-            Expanded(
-              child: buildTile(
-                Icons.cloud_rounded,
-                '$_cloudiness%',
-                t.weather.cloudiness,
-              ),
-            ),
+            Expanded(child: buildTile(Icons.cloud_rounded, '$_cloudiness%', t.weather.cloudiness)),
             Expanded(child: buildTile(AppIcons.pressure, _pressure, '')),
           ],
         ),
         Row(
           children: [
-            Expanded(
-              child: buildTile(
-                Icons.water_drop,
-                '$_humidity%',
-                t.weather.humidity,
-              ),
-            ),
-            Expanded(
-              child: buildTile(
-                Icons.water,
-                '$_visibility%',
-                t.weather.visibility,
-              ),
-            ),
+            Expanded(child: buildTile(Icons.water_drop, '$_humidity%', t.weather.humidity)),
+            Expanded(child: buildTile(Icons.water, '$_visibility%', t.weather.visibility)),
           ],
         ),
         const SizedBox(height: _indent),
@@ -376,10 +325,7 @@ class _OtherInfoWidget extends ConsumerWidget {
 }
 
 class _SunriseInfoWidget extends ConsumerWidget {
-  const _SunriseInfoWidget({
-    required this.sunrise,
-    required this.sunset,
-  });
+  const _SunriseInfoWidget({required this.sunrise, required this.sunset});
 
   final DateTime? sunrise;
   final DateTime? sunset;
@@ -399,9 +345,7 @@ class _SunriseInfoWidget extends ConsumerWidget {
       final diff = sunset!.difference(sunrise!);
 
       if (diff.inHours == 0) {
-        _dayLength = t.global.time.m(
-          minute: diff.inMinutes - (diff.inHours * 60),
-        );
+        _dayLength = t.global.time.m(minute: diff.inMinutes - (diff.inHours * 60));
       } else {
         _dayLength = t.global.time.hm(
           hour: diff.inHours,
@@ -423,11 +367,7 @@ class _SunriseInfoWidget extends ConsumerWidget {
               children: <Widget>[
                 Text(t.weather.rise),
                 Text(_sunrise),
-                const Icon(
-                  Icons.wb_twilight_rounded,
-                  color: Colors.yellow,
-                  size: 50.0,
-                ),
+                const Icon(Icons.wb_twilight_rounded, color: Colors.yellow, size: 50.0),
               ],
             ),
           ),
@@ -436,10 +376,7 @@ class _SunriseInfoWidget extends ConsumerWidget {
           child: Center(
             child: Column(
               children: <Widget>[
-                Text(
-                  t.weather.daylightHoursNl,
-                  textAlign: TextAlign.center,
-                ),
+                Text(t.weather.daylightHoursNl, textAlign: TextAlign.center),
                 Text(_dayLength),
               ],
             ),
@@ -452,11 +389,7 @@ class _SunriseInfoWidget extends ConsumerWidget {
               children: <Widget>[
                 Text(t.weather.set),
                 Text(_sunset),
-                const Icon(
-                  Icons.wb_twilight_rounded,
-                  color: Colors.orange,
-                  size: 50.0,
-                ),
+                const Icon(Icons.wb_twilight_rounded, color: Colors.orange, size: 50.0),
               ],
             ),
           ),

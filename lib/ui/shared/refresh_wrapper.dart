@@ -53,10 +53,7 @@ class RefreshWrapper<T extends Object> extends ConsumerWidget {
 
           return CustomListView(
             scrollPhysics: scrollPhysics,
-            children: [
-              childIsNull ??
-                  Center(child: Text(r'¯\_(ツ)_/¯', style: textStyle)),
-            ],
+            children: [childIsNull ?? Center(child: Text(r'¯\_(ツ)_/¯', style: textStyle))],
           );
         },
         error: (Object e, _) {
@@ -74,19 +71,14 @@ class RefreshWrapper<T extends Object> extends ConsumerWidget {
             ],
           );
         },
-        loading: () =>
-            childIsLoading ?? const Center(child: CircularProgressIndicator()),
+        loading: () => childIsLoading ?? const Center(child: CircularProgressIndicator()),
       ),
     );
   }
 }
 
 class CustomListView extends StatelessWidget {
-  const CustomListView({
-    super.key,
-    required this.scrollPhysics,
-    required this.children,
-  });
+  const CustomListView({super.key, required this.scrollPhysics, required this.children});
 
   final ScrollPhysics? scrollPhysics;
   final List<Widget> children;
@@ -96,8 +88,7 @@ class CustomListView extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.only(top: 50.0),
       physics:
-          scrollPhysics ??
-          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          scrollPhysics ?? const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       children: children,
     );
   }

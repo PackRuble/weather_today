@@ -77,8 +77,7 @@ class _TileTempUnitsWidget extends ConsumerWidget {
       leading: AppIcons.tempUnitsTile,
       title: ref.tr.settingsPage.tempTile.tileTitle,
       subtitle: ref.tr.settingsPage.tempTile.tileSub(units: units),
-      onTap: () async =>
-          ref.read(SettingPagePresenter.instance).dialogSetTempUnits(context),
+      onTap: () async => ref.read(SettingPagePresenter.instance).dialogSetTempUnits(context),
     );
   }
 }
@@ -94,8 +93,7 @@ class _TileSpeedUnitsWidget extends ConsumerWidget {
       leading: AppIcons.speedUnitsTile,
       title: ref.tr.settingsPage.speedTile.tileTitle,
       subtitle: ref.tr.settingsPage.pressureTile.tileSub(units: units),
-      onTap: () async =>
-          ref.read(SettingPagePresenter.instance).dialogSetSpeedUnits(context),
+      onTap: () async => ref.read(SettingPagePresenter.instance).dialogSetSpeedUnits(context),
     );
   }
 }
@@ -111,9 +109,7 @@ class _TilePressureUnitsWidget extends ConsumerWidget {
       leading: AppIcons.pressureUnitsTile,
       title: ref.tr.settingsPage.pressureTile.tileTitle,
       subtitle: ref.tr.settingsPage.pressureTile.tileSub(units: units),
-      onTap: () async => ref
-          .read(SettingPagePresenter.instance)
-          .dialogSetPressureUnits(context),
+      onTap: () async => ref.read(SettingPagePresenter.instance).dialogSetPressureUnits(context),
     );
   }
 }
@@ -149,11 +145,7 @@ class _GeocodingProviderTile extends ConsumerWidget {
       title: ref.tr.ui.geocodingProvider,
       subtitle: geocodingProvider.website,
       onTap: () async {
-        final selected = await AppDialogs.selectGeocodingProvider(
-          context,
-          ref,
-          geocodingProvider,
-        );
+        final selected = await AppDialogs.selectGeocodingProvider(context, ref, geocodingProvider);
 
         if (selected != null) await geocodingProviderNR.change(selected);
       },
@@ -218,8 +210,7 @@ class _TileHomepageIndexWidget extends ConsumerWidget {
       leading: AppIcons.homepageTile,
       title: ref.tr.settingsPage.homepageTile.tileTitle,
       subtitle: ref.tr.settingsPage.homepageTile.tileSub(homepage: pageName),
-      onTap: () async =>
-          ref.read(SettingPagePresenter.instance).dialogSetHomepage(context),
+      onTap: () async => ref.read(SettingPagePresenter.instance).dialogSetHomepage(context),
     );
   }
 }
@@ -235,8 +226,7 @@ class _TileLocaleAppWidget extends ConsumerWidget {
       leading: AppIcons.localeTile,
       title: ref.tr.settingsPage.localeTile.tileTitle,
       subtitle: ref.tr.settingsPage.localeTile.tileSub(locale: locale),
-      onTap: () async =>
-          ref.read(SettingPagePresenter.instance).dialogSetLocale(context),
+      onTap: () async => ref.read(SettingPagePresenter.instance).dialogSetLocale(context),
     );
   }
 }
@@ -276,10 +266,8 @@ class _TileAboutAppWidget extends ConsumerWidget {
     return TileSetting(
       leading: AppIcons.aboutAppTile,
       title: ref.tr.settingsPage.aboutAppTile.tileTitle,
-      onTap: () async =>
-          ref.read(SettingPagePresenter.instance).dialogAboutApp(context),
-      onLongPress: () =>
-          ref.read(SettingPagePresenter.instance).dialogAppDebug(context),
+      onTap: () async => ref.read(SettingPagePresenter.instance).dialogAboutApp(context),
+      onLongPress: () => ref.read(SettingPagePresenter.instance).dialogAppDebug(context),
     );
   }
 }

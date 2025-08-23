@@ -37,16 +37,12 @@ class AppLogsManager extends AsyncNotifier<void> with NotifierLogger {
     Loggy.initLoggy(
       logPrinter: enableLogging || kDebugMode
           ? SmartPrinter(
-              consolePrinter:
-                  kDebugMode ? const ConsolePrinter(showColors: true) : null,
+              consolePrinter: kDebugMode ? const ConsolePrinter(showColors: true) : null,
               userPrinter: UserPrinter(onNewLog: addLogRecord),
               errorPrinter: ErrorPrinter(onErrorLog: addErrorLogRecord),
             )
           : ErrorPrinter(onErrorLog: addErrorLogRecord),
-      logOptions: const LogOptions(
-        LogLevel.all,
-        stackTraceLevel: LogLevel.off,
-      ),
+      logOptions: const LogOptions(LogLevel.all, stackTraceLevel: LogLevel.off),
       filters: kDebugMode
           ? [
               BlacklistFilter([DbLogger]),
@@ -106,8 +102,7 @@ class AppLogsManager extends AsyncNotifier<void> with NotifierLogger {
     unawaited(
       _storage.set<List<String>>(
         SettingsCards.errorLogs,
-        oldErrorRecords.take(_maxCountErrorRecords - 1).toList()
-          ..insert(0, '$record'),
+        oldErrorRecords.take(_maxCountErrorRecords - 1).toList()..insert(0, '$record'),
       ),
     );
   }

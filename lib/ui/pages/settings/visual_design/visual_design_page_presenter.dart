@@ -12,12 +12,7 @@ import 'package:weather_today/ui/dialogs/app_dialogs.dart';
 
 /// Enumerations are needed to add to the list of modified data for the
 /// subsequent saving of them.
-enum _SavedChanges {
-  textScaleFactor,
-  fontFamily,
-  typography,
-  scrollPhysics,
-}
+enum _SavedChanges { textScaleFactor, fontFamily, typography, scrollPhysics }
 
 const double minTextScaleFactor = 0.5;
 const double maxTextScaleFactor = 2.0;
@@ -35,8 +30,7 @@ class VisualDesignPresenter {
   );
 
   /// Provider returns translation.
-  static StateProvider<TranslationsRu> get tr =>
-      AppLocalization.currentTranslation;
+  static StateProvider<TranslationsRu> get tr => AppLocalization.currentTranslation;
 
   /// Погода берется из заранее сохраненного json, который всегда доступен. (уже нет)
   static final weatherMock = FutureProvider.autoDispose<WeatherOneCall?>(
@@ -47,8 +41,7 @@ class VisualDesignPresenter {
   );
 
   /// Apply the values when you finish editing the options.
-  static final changesProvider =
-      StateProvider.autoDispose((_) => <_SavedChanges>{});
+  static final changesProvider = StateProvider.autoDispose((_) => <_SavedChanges>{});
 
   // ---------------------------------------------------------------------------
   // TextScaleFactor
@@ -67,9 +60,8 @@ class VisualDesignPresenter {
   }
 
   /// Сохранить параметр увеличения шрифта.
-  Future<void> _saveTextScaleFactor() async => _ref
-      .read(AppTheme.instance)
-      .setTextScaleFactor(_ref.read(textScaleFactorProvider));
+  Future<void> _saveTextScaleFactor() async =>
+      _ref.read(AppTheme.instance).setTextScaleFactor(_ref.read(textScaleFactorProvider));
 
   // ---------------------------------------------------------------------------
   // VisualDesign
@@ -78,11 +70,9 @@ class VisualDesignPresenter {
   /// List of visual designs.
   ///
   static final weatherDesignPages = Provider.autoDispose<List<DesignPage>>(
-    (ref) => ref.watch(SettingsStorage.instance).attach(
-          SettingsCards.designPages,
-          (value) => ref.state = value,
-          detacher: ref.onDispose,
-        ),
+    (ref) => ref
+        .watch(SettingsStorage.instance)
+        .attach(SettingsCards.designPages, (value) => ref.state = value, detacher: ref.onDispose),
   );
 
   Future<void> onReorderWeatherPage(int oldIndex, int newIndex) async {
@@ -99,28 +89,22 @@ class VisualDesignPresenter {
   }
 
   bool isSelectedDesign(AppVisualDesign design) => switch (design) {
-        AppVisualDesign.byRuble => true,
-        AppVisualDesign.byTolskaya => false,
-      };
+    AppVisualDesign.byRuble => true,
+    AppVisualDesign.byTolskaya => false,
+  };
 
-  Future<void> onChangeDesignPage(
-    AppVisualDesign styleDesign,
-    int designPageIndex,
-  ) async {
+  Future<void> onChangeDesignPage(AppVisualDesign styleDesign, int designPageIndex) async {
     final pages = [..._ref.read(weatherDesignPages)];
 
     final designPage = pages[designPageIndex];
-    pages[designPageIndex] = designPage.copyWith(
-      design: styleDesign,
-    );
+    pages[designPageIndex] = designPage.copyWith(design: styleDesign);
 
     await _saveWeatherDesignPages(pages);
   }
 
   /// Set the new value to [SettingsCards.designPages].
-  Future<void> _saveWeatherDesignPages(List<DesignPage> pages) async => _ref
-      .read(SettingsStorage.instance)
-      .set<List<DesignPage>>(SettingsCards.designPages, pages);
+  Future<void> _saveWeatherDesignPages(List<DesignPage> pages) async =>
+      _ref.read(SettingsStorage.instance).set<List<DesignPage>>(SettingsCards.designPages, pages);
 
   // ---------------------------------------------------------------------------
   // FontFamily
@@ -152,8 +136,7 @@ class VisualDesignPresenter {
   List<AppScrollPhysics> get scrollPhysics => AppScrollPhysics.values;
 
   /// Выбранный скролл.
-  static final selectedScrollPhysic =
-      StateProvider.autoDispose<AppScrollPhysics>(
+  static final selectedScrollPhysic = StateProvider.autoDispose<AppScrollPhysics>(
     (ref) => ref.watch(AppTheme.scrollPhysics),
   );
 
@@ -164,9 +147,8 @@ class VisualDesignPresenter {
   }
 
   /// Сохранить скролл.
-  Future<void> _saveScrollPhysics() async => _ref
-      .read(AppTheme.instance)
-      .setScrollPhysics(_ref.read(selectedScrollPhysic));
+  Future<void> _saveScrollPhysics() async =>
+      _ref.read(AppTheme.instance).setScrollPhysics(_ref.read(selectedScrollPhysic));
 
   // ---------------------------------------------------------------------------
   // Typography
@@ -194,8 +176,7 @@ class VisualDesignPresenter {
   // Main
   // ---------------------------------------------------------------------------
 
-  StateController<Set<_SavedChanges>> get changesCR =>
-      _ref.read(changesProvider.notifier);
+  StateController<Set<_SavedChanges>> get changesCR => _ref.read(changesProvider.notifier);
 
   /// Кнопка "Назад".
   Future<bool> onWillPop(BuildContext context) async {
@@ -228,8 +209,7 @@ class VisualDesignPresenter {
         _SavedChanges.fontFamily => _saveFontFamily,
         _SavedChanges.typography => _saveTypography,
         _SavedChanges.scrollPhysics => _saveScrollPhysics,
-      }
-          .call();
+      }.call();
     }
 
     _ref.invalidate(changesProvider);

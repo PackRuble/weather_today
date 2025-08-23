@@ -12,20 +12,23 @@ typedef TranslationsRu = Translations; // ignore: unused_element
 class Translations implements BaseTranslations<AppLocale, Translations> {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  Translations(
-      {Map<String, Node>? overrides,
-      PluralResolver? cardinalResolver,
-      PluralResolver? ordinalResolver,
-      TranslationMetadata<AppLocale, Translations>? meta})
-      : assert(overrides == null,
-            'Set "translation_overrides: true" in order to enable this feature.'),
-        $meta = meta ??
-            TranslationMetadata(
-              locale: AppLocale.ru,
-              overrides: overrides ?? {},
-              cardinalResolver: cardinalResolver,
-              ordinalResolver: ordinalResolver,
-            );
+  Translations({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(
+         overrides == null,
+         'Set "translation_overrides: true" in order to enable this feature.',
+       ),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.ru,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           );
 
   /// Metadata for the translations of <ru>.
   @override
@@ -33,46 +36,43 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
   late final Translations _root = this; // ignore: unused_field
 
-  Translations $copyWith(
-          {TranslationMetadata<AppLocale, Translations>? meta}) =>
+  Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) =>
       Translations(meta: meta ?? this.$meta);
 
   // Translations
-  late final TranslationsMainPageDRubleRu mainPageDRuble =
-      TranslationsMainPageDRubleRu.internal(_root);
-  late final TranslationsSettingsPageRu settingsPage =
-      TranslationsSettingsPageRu.internal(_root);
+  late final TranslationsMainPageDRubleRu mainPageDRuble = TranslationsMainPageDRubleRu.internal(
+    _root,
+  );
+  late final TranslationsSettingsPageRu settingsPage = TranslationsSettingsPageRu.internal(_root);
   late final TranslationsVisualDesignPageRu visualDesignPage =
       TranslationsVisualDesignPageRu.internal(_root);
-  late final TranslationsThemesPageRu themesPage =
-      TranslationsThemesPageRu.internal(_root);
-  late final TranslationsSavedPlacesPageRu savedPlacesPage =
-      TranslationsSavedPlacesPageRu.internal(_root);
-  late final TranslationsSearchBarRu searchBar =
-      TranslationsSearchBarRu.internal(_root);
-  late final TranslationsFlagsPageRu flagsPage =
-      TranslationsFlagsPageRu.internal(_root);
+  late final TranslationsThemesPageRu themesPage = TranslationsThemesPageRu.internal(_root);
+  late final TranslationsSavedPlacesPageRu savedPlacesPage = TranslationsSavedPlacesPageRu.internal(
+    _root,
+  );
+  late final TranslationsSearchBarRu searchBar = TranslationsSearchBarRu.internal(_root);
+  late final TranslationsFlagsPageRu flagsPage = TranslationsFlagsPageRu.internal(_root);
   late final TranslationsSystemSettingsPageRu systemSettingsPage =
       TranslationsSystemSettingsPageRu.internal(_root);
-  late final TranslationsGratitudePageRu gratitudePage =
-      TranslationsGratitudePageRu.internal(_root);
-  late final TranslationsWeatherLangPageRu weatherLangPage =
-      TranslationsWeatherLangPageRu.internal(_root);
-  late final TranslationsApiWeatherPageRu apiWeatherPage =
-      TranslationsApiWeatherPageRu.internal(_root);
-  late final TranslationsIntroPageRu introPage =
-      TranslationsIntroPageRu.internal(_root);
-  late final TranslationsTermsConditionsRu termsConditions =
-      TranslationsTermsConditionsRu.internal(_root);
-  late final TranslationsWeatherRu weather =
-      TranslationsWeatherRu.internal(_root);
+  late final TranslationsGratitudePageRu gratitudePage = TranslationsGratitudePageRu.internal(
+    _root,
+  );
+  late final TranslationsWeatherLangPageRu weatherLangPage = TranslationsWeatherLangPageRu.internal(
+    _root,
+  );
+  late final TranslationsApiWeatherPageRu apiWeatherPage = TranslationsApiWeatherPageRu.internal(
+    _root,
+  );
+  late final TranslationsIntroPageRu introPage = TranslationsIntroPageRu.internal(_root);
+  late final TranslationsTermsConditionsRu termsConditions = TranslationsTermsConditionsRu.internal(
+    _root,
+  );
+  late final TranslationsWeatherRu weather = TranslationsWeatherRu.internal(_root);
   late final TranslationsGlobalRu global = TranslationsGlobalRu.internal(_root);
-  late final TranslationsDialogsRu dialogs =
-      TranslationsDialogsRu.internal(_root);
+  late final TranslationsDialogsRu dialogs = TranslationsDialogsRu.internal(_root);
   late final TranslationsEnumsRu enums = TranslationsEnumsRu.internal(_root);
   late final TranslationsUnitsRu units = TranslationsUnitsRu.internal(_root);
-  late final TranslationsMessagesRu messages =
-      TranslationsMessagesRu.internal(_root);
+  late final TranslationsMessagesRu messages = TranslationsMessagesRu.internal(_root);
   late final TranslationsUiRu ui = TranslationsUiRu.internal(_root);
   late final TranslationsOtherRu other = TranslationsOtherRu.internal(_root);
 }
@@ -99,8 +99,9 @@ class TranslationsSettingsPageRu {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  late final TranslationsSettingsPageHeadersRu headers =
-      TranslationsSettingsPageHeadersRu.internal(_root);
+  late final TranslationsSettingsPageHeadersRu headers = TranslationsSettingsPageHeadersRu.internal(
+    _root,
+  );
   late final TranslationsSettingsPageSavedPlacesTileRu savedPlacesTile =
       TranslationsSettingsPageSavedPlacesTileRu.internal(_root);
   late final TranslationsSettingsPageTempTileRu tempTile =
@@ -142,8 +143,9 @@ class TranslationsVisualDesignPageRu {
   /// ru: 'Визуальное оформление'
   String get appbarTitle => 'Визуальное оформление';
 
-  late final TranslationsVisualDesignPageTipsRu tips =
-      TranslationsVisualDesignPageTipsRu.internal(_root);
+  late final TranslationsVisualDesignPageTipsRu tips = TranslationsVisualDesignPageTipsRu.internal(
+    _root,
+  );
   late final TranslationsVisualDesignPageHeadersRu headers =
       TranslationsVisualDesignPageHeadersRu.internal(_root);
 }
@@ -194,8 +196,9 @@ class TranslationsSavedPlacesPageRu {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  late final TranslationsSavedPlacesPageTipsRu tips =
-      TranslationsSavedPlacesPageTipsRu.internal(_root);
+  late final TranslationsSavedPlacesPageTipsRu tips = TranslationsSavedPlacesPageTipsRu.internal(
+    _root,
+  );
 
   /// ru: 'Сохраненных местоположений не найдено.'
   String get placesNotFound => 'Сохраненных местоположений не найдено.';
@@ -221,8 +224,7 @@ class TranslationsSearchBarRu {
   /// ru: 'Введите название места'
   String get hintTextField => 'Введите название места';
 
-  late final TranslationsSearchBarTipsRu tips =
-      TranslationsSearchBarTipsRu.internal(_root);
+  late final TranslationsSearchBarTipsRu tips = TranslationsSearchBarTipsRu.internal(_root);
 }
 
 // Path: flagsPage
@@ -264,48 +266,50 @@ class TranslationsGratitudePageRu {
   String get appbarTitle => 'Хочу сказать спасибо...';
 
   /// ru: ' Годом ранее я увлекся новым языком программирования Dart, попутно изучив Flutter. Для оттачивания своих навыков в субстанции нового я понял, что хочу создать простенькое (казалось мне тогда, хохо) приложение — агрегатор погоды. И вот, минуя полгода, на свет появилось приложение под названием "Weather Today — погода на каждый день". За время разработки со мной были рядом люди (и их решения), оказывающие большую помощь и поддержку. Я бесконечно благодарен своей девушке за её терпение, понимание и принятие того, что редкие вечерние часы я тратил на работу над приложением, вместо того, чтобы провести их с семьёй. Также я хотел бы отдать должное коллегам-разработчикам, кто выкладывает интересные и, немаловажно, полезные разработки. В особенности я хочу отметить команду {Dart(dart)} и {Flutter(flutter)} за прекрасную платформу для построения хороших приложений; {RemiRousselet(Remi Rousselet)} за восхитительные пакеты {Riverpod(riverpod)} и {Freezed(freezed)}; {TienDoNam(Tien Do Nam)} за прекрасный {Slang(slang)}; {RydMike(Ryd Mike)} за очаровательный пакет {FlexColorScheme(flexColorScheme)}. Я всегда открыт для общения и буду благодарен, если вы напишите пару строк о сим творении, а также поделитесь мнением о возможных функциях, которые стоит сделать. Со мной можно связаться: - email: {myEmail(pack.ruble@gmail.com)} - telegram: {tgGroup(группа Telegram)}'
-  TextSpan text(
-          {required InlineSpanBuilder dart,
-          required InlineSpanBuilder flutter,
-          required InlineSpanBuilder remiRousselet,
-          required InlineSpanBuilder riverpod,
-          required InlineSpanBuilder freezed,
-          required InlineSpanBuilder tienDoNam,
-          required InlineSpanBuilder slang,
-          required InlineSpanBuilder rydMike,
-          required InlineSpanBuilder flexColorScheme,
-          required InlineSpanBuilder myEmail,
-          required InlineSpanBuilder tgGroup}) =>
-      TextSpan(children: [
-        const TextSpan(
-            text:
-                '  Годом ранее я увлекся новым языком программирования Dart, попутно изучив Flutter. Для оттачивания своих навыков в субстанции нового я понял, что хочу создать простенькое (казалось мне тогда, хохо) приложение — агрегатор погоды. И вот, минуя полгода, на свет появилось приложение под названием "Weather Today — погода на каждый день".\n  За время разработки со мной были рядом люди (и их решения), оказывающие большую помощь и поддержку.\n  Я бесконечно благодарен своей девушке за её терпение, понимание и принятие того, что редкие вечерние часы я тратил на работу над приложением, вместо того, чтобы провести их с семьёй.\n  Также я хотел бы отдать должное коллегам-разработчикам, кто выкладывает интересные и, немаловажно, полезные разработки. В особенности я хочу отметить команду '),
-        dart('dart'),
-        const TextSpan(text: ' и '),
-        flutter('flutter'),
-        const TextSpan(
-            text:
-                ' за прекрасную платформу для построения хороших приложений; '),
-        remiRousselet('Remi Rousselet'),
-        const TextSpan(text: ' за восхитительные пакеты '),
-        riverpod('riverpod'),
-        const TextSpan(text: ' и '),
-        freezed('freezed'),
-        const TextSpan(text: '; '),
-        tienDoNam('Tien Do Nam'),
-        const TextSpan(text: ' за прекрасный '),
-        slang('slang'),
-        const TextSpan(text: '; '),
-        rydMike('Ryd Mike'),
-        const TextSpan(text: ' за очаровательный пакет '),
-        flexColorScheme('flexColorScheme'),
-        const TextSpan(
-            text:
-                '.\n  Я всегда открыт для общения и буду благодарен, если вы напишите пару строк о сим творении, а также поделитесь мнением о возможных функциях, которые стоит сделать.\n  Со мной можно связаться:\n    - email: '),
-        myEmail('pack.ruble@gmail.com'),
-        const TextSpan(text: '\n    - telegram: '),
-        tgGroup('группа Telegram'),
-      ]);
+  TextSpan text({
+    required InlineSpanBuilder dart,
+    required InlineSpanBuilder flutter,
+    required InlineSpanBuilder remiRousselet,
+    required InlineSpanBuilder riverpod,
+    required InlineSpanBuilder freezed,
+    required InlineSpanBuilder tienDoNam,
+    required InlineSpanBuilder slang,
+    required InlineSpanBuilder rydMike,
+    required InlineSpanBuilder flexColorScheme,
+    required InlineSpanBuilder myEmail,
+    required InlineSpanBuilder tgGroup,
+  }) => TextSpan(
+    children: [
+      const TextSpan(
+        text:
+            '  Годом ранее я увлекся новым языком программирования Dart, попутно изучив Flutter. Для оттачивания своих навыков в субстанции нового я понял, что хочу создать простенькое (казалось мне тогда, хохо) приложение — агрегатор погоды. И вот, минуя полгода, на свет появилось приложение под названием "Weather Today — погода на каждый день".\n  За время разработки со мной были рядом люди (и их решения), оказывающие большую помощь и поддержку.\n  Я бесконечно благодарен своей девушке за её терпение, понимание и принятие того, что редкие вечерние часы я тратил на работу над приложением, вместо того, чтобы провести их с семьёй.\n  Также я хотел бы отдать должное коллегам-разработчикам, кто выкладывает интересные и, немаловажно, полезные разработки. В особенности я хочу отметить команду ',
+      ),
+      dart('dart'),
+      const TextSpan(text: ' и '),
+      flutter('flutter'),
+      const TextSpan(text: ' за прекрасную платформу для построения хороших приложений; '),
+      remiRousselet('Remi Rousselet'),
+      const TextSpan(text: ' за восхитительные пакеты '),
+      riverpod('riverpod'),
+      const TextSpan(text: ' и '),
+      freezed('freezed'),
+      const TextSpan(text: '; '),
+      tienDoNam('Tien Do Nam'),
+      const TextSpan(text: ' за прекрасный '),
+      slang('slang'),
+      const TextSpan(text: '; '),
+      rydMike('Ryd Mike'),
+      const TextSpan(text: ' за очаровательный пакет '),
+      flexColorScheme('flexColorScheme'),
+      const TextSpan(
+        text:
+            '.\n  Я всегда открыт для общения и буду благодарен, если вы напишите пару строк о сим творении, а также поделитесь мнением о возможных функциях, которые стоит сделать.\n  Со мной можно связаться:\n    - email: ',
+      ),
+      myEmail('pack.ruble@gmail.com'),
+      const TextSpan(text: '\n    - telegram: '),
+      tgGroup('группа Telegram'),
+    ],
+  );
 }
 
 // Path: weatherLangPage
@@ -319,8 +323,9 @@ class TranslationsWeatherLangPageRu {
   /// ru: 'Язык погодных условий'
   String get appbarTitle => 'Язык погодных условий';
 
-  late final TranslationsWeatherLangPageTipsRu tips =
-      TranslationsWeatherLangPageTipsRu.internal(_root);
+  late final TranslationsWeatherLangPageTipsRu tips = TranslationsWeatherLangPageTipsRu.internal(
+    _root,
+  );
 }
 
 // Path: apiWeatherPage
@@ -343,8 +348,9 @@ class TranslationsApiWeatherPageRu {
   /// ru: 'Сбросить'
   String get buttonReset => 'Сбросить';
 
-  late final TranslationsApiWeatherPageTipsRu tips =
-      TranslationsApiWeatherPageTipsRu.internal(_root);
+  late final TranslationsApiWeatherPageTipsRu tips = TranslationsApiWeatherPageTipsRu.internal(
+    _root,
+  );
   late final TranslationsApiWeatherPageDefaultApiRu defaultApi =
       TranslationsApiWeatherPageDefaultApiRu.internal(_root);
   late final TranslationsApiWeatherPageUserApiRu userApi =
@@ -439,82 +445,82 @@ class TranslationsWeatherRu {
 
   // Translations
   Map<String, String> get owmConditionsBriefByName => {
-        'thunderstorm': 'Гроза',
-        'drizzle': 'Морось',
-        'rain': 'Дождь',
-        'snow': 'Снег',
-        'mist': 'Туман',
-        'smoke': 'Дым',
-        'haze': 'Дымка',
-        'dust': 'Пыльно',
-        'fog': 'Мгла',
-        'sand': 'Песок',
-        'ash': 'Пепел',
-        'squall': 'Шквал',
-        'tornado': 'Торнадо',
-        'clear': 'Ясно',
-        'clouds': 'Пасмурно',
-      };
+    'thunderstorm': 'Гроза',
+    'drizzle': 'Морось',
+    'rain': 'Дождь',
+    'snow': 'Снег',
+    'mist': 'Туман',
+    'smoke': 'Дым',
+    'haze': 'Дымка',
+    'dust': 'Пыльно',
+    'fog': 'Мгла',
+    'sand': 'Песок',
+    'ash': 'Пепел',
+    'squall': 'Шквал',
+    'tornado': 'Торнадо',
+    'clear': 'Ясно',
+    'clouds': 'Пасмурно',
+  };
   Map<String, String> get omConditionsBrief => {
-        'code0': 'Ясно',
-        'code1': 'Ясно',
-        'code2': 'Облачно',
-        'code3': 'Пасмурно',
-        'code45': 'Туман',
-        'code48': 'Туман',
-        'code51': 'Морось',
-        'code53': 'Морось',
-        'code55': 'Морось',
-        'code56': 'Ледяная морось',
-        'code57': 'Ледяная морось',
-        'code61': 'Дождь',
-        'code63': 'Дождь',
-        'code65': 'Ливень',
-        'code66': 'Ледяной дождь',
-        'code67': 'Ледяной дождь',
-        'code71': 'Снегопад',
-        'code73': 'Снегопад',
-        'code75': 'Снегопад',
-        'code77': 'Крупинки снега',
-        'code80': 'Ливень',
-        'code81': 'Ливень',
-        'code82': 'Ливень',
-        'code85': 'Ливень со снегом',
-        'code86': 'Ливень со снегом',
-        'code95': 'Гроза',
-        'code96': 'Гроза с градом',
-        'code99': 'Гроза с градом',
-      };
+    'code0': 'Ясно',
+    'code1': 'Ясно',
+    'code2': 'Облачно',
+    'code3': 'Пасмурно',
+    'code45': 'Туман',
+    'code48': 'Туман',
+    'code51': 'Морось',
+    'code53': 'Морось',
+    'code55': 'Морось',
+    'code56': 'Ледяная морось',
+    'code57': 'Ледяная морось',
+    'code61': 'Дождь',
+    'code63': 'Дождь',
+    'code65': 'Ливень',
+    'code66': 'Ледяной дождь',
+    'code67': 'Ледяной дождь',
+    'code71': 'Снегопад',
+    'code73': 'Снегопад',
+    'code75': 'Снегопад',
+    'code77': 'Крупинки снега',
+    'code80': 'Ливень',
+    'code81': 'Ливень',
+    'code82': 'Ливень',
+    'code85': 'Ливень со снегом',
+    'code86': 'Ливень со снегом',
+    'code95': 'Гроза',
+    'code96': 'Гроза с градом',
+    'code99': 'Гроза с градом',
+  };
   Map<String, String> get omConditionsDesc => {
-        'code0': 'Чистое небо',
-        'code1': 'В основном ясно',
-        'code2': 'Переменная облачность',
-        'code3': 'Пасмурно',
-        'code45': 'Туман',
-        'code48': 'Откладывание инейного тумана',
-        'code51': 'Легкая морось',
-        'code53': 'Умеренная морось',
-        'code55': 'Сильная морось',
-        'code56': 'Лёгкая ледяная морось',
-        'code57': 'Плотная ледяная морось',
-        'code61': 'Небольшой дождь',
-        'code63': 'Умеренный дождь',
-        'code65': 'Ливень',
-        'code66': 'Легкий ледяной дождь',
-        'code67': 'Сильный ледяной дождь',
-        'code71': 'Небольшой снегопад',
-        'code73': 'Умеренный снегопад',
-        'code75': 'Сильный снегопад',
-        'code77': 'Крупинки снега',
-        'code80': 'Небольшой ливень',
-        'code81': 'Умеренные ливневые дожди',
-        'code82': 'Сильные ливневые дожди',
-        'code85': 'Небольшой ливень со снегом',
-        'code86': 'Сильные ливни со снегом',
-        'code95': 'Гроза',
-        'code96': 'Гроза с небольшим градом',
-        'code99': 'Гроза с сильным градом',
-      };
+    'code0': 'Чистое небо',
+    'code1': 'В основном ясно',
+    'code2': 'Переменная облачность',
+    'code3': 'Пасмурно',
+    'code45': 'Туман',
+    'code48': 'Откладывание инейного тумана',
+    'code51': 'Легкая морось',
+    'code53': 'Умеренная морось',
+    'code55': 'Сильная морось',
+    'code56': 'Лёгкая ледяная морось',
+    'code57': 'Плотная ледяная морось',
+    'code61': 'Небольшой дождь',
+    'code63': 'Умеренный дождь',
+    'code65': 'Ливень',
+    'code66': 'Легкий ледяной дождь',
+    'code67': 'Сильный ледяной дождь',
+    'code71': 'Небольшой снегопад',
+    'code73': 'Умеренный снегопад',
+    'code75': 'Сильный снегопад',
+    'code77': 'Крупинки снега',
+    'code80': 'Небольшой ливень',
+    'code81': 'Умеренные ливневые дожди',
+    'code82': 'Сильные ливневые дожди',
+    'code85': 'Небольшой ливень со снегом',
+    'code86': 'Сильные ливни со снегом',
+    'code95': 'Гроза',
+    'code96': 'Гроза с небольшим градом',
+    'code99': 'Гроза с сильным градом',
+  };
 
   /// ru: 'На горизонте спокойно'
   String get quietlyOnTheHorizon => 'На горизонте спокойно';
@@ -704,8 +710,7 @@ class TranslationsGlobalRu {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  late final TranslationsGlobalTimeRu time =
-      TranslationsGlobalTimeRu.internal(_root);
+  late final TranslationsGlobalTimeRu time = TranslationsGlobalTimeRu.internal(_root);
 }
 
 // Path: dialogs
@@ -715,26 +720,21 @@ class TranslationsDialogsRu {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  late final TranslationsDialogsMessagesRu messages =
-      TranslationsDialogsMessagesRu.internal(_root);
-  late final TranslationsDialogsTitlesRu titles =
-      TranslationsDialogsTitlesRu.internal(_root);
-  late final TranslationsDialogsButtonsRu buttons =
-      TranslationsDialogsButtonsRu.internal(_root);
+  late final TranslationsDialogsMessagesRu messages = TranslationsDialogsMessagesRu.internal(_root);
+  late final TranslationsDialogsTitlesRu titles = TranslationsDialogsTitlesRu.internal(_root);
+  late final TranslationsDialogsButtonsRu buttons = TranslationsDialogsButtonsRu.internal(_root);
   late final TranslationsDialogsPlaceSearchInfoRu placeSearchInfo =
       TranslationsDialogsPlaceSearchInfoRu.internal(_root);
   late final TranslationsDialogsConfirmDelPlaceRu confirmDelPlace =
       TranslationsDialogsConfirmDelPlaceRu.internal(_root);
-  late final TranslationsDialogsSeeFlagRu seeFlag =
-      TranslationsDialogsSeeFlagRu.internal(_root);
+  late final TranslationsDialogsSeeFlagRu seeFlag = TranslationsDialogsSeeFlagRu.internal(_root);
   late final TranslationsDialogsConfirmDelUserApikeyRu confirmDelUserApikey =
       TranslationsDialogsConfirmDelUserApikeyRu.internal(_root);
   late final TranslationsDialogsConfirmSaveChangesRu confirmSaveChanges =
       TranslationsDialogsConfirmSaveChangesRu.internal(_root);
   late final TranslationsDialogsConfirmResetSettingsRu confirmResetSettings =
       TranslationsDialogsConfirmResetSettingsRu.internal(_root);
-  late final TranslationsDialogsMakeNoteRu makeNote =
-      TranslationsDialogsMakeNoteRu.internal(_root);
+  late final TranslationsDialogsMakeNoteRu makeNote = TranslationsDialogsMakeNoteRu.internal(_root);
 }
 
 // Path: enums
@@ -744,8 +744,7 @@ class TranslationsEnumsRu {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  late final TranslationsEnumsHomepageRu homepage =
-      TranslationsEnumsHomepageRu.internal(_root);
+  late final TranslationsEnumsHomepageRu homepage = TranslationsEnumsHomepageRu.internal(_root);
 }
 
 // Path: units
@@ -755,12 +754,9 @@ class TranslationsUnitsRu {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  late final TranslationsUnitsTempRu temp =
-      TranslationsUnitsTempRu.internal(_root);
-  late final TranslationsUnitsSpeedRu speed =
-      TranslationsUnitsSpeedRu.internal(_root);
-  late final TranslationsUnitsPressureRu pressure =
-      TranslationsUnitsPressureRu.internal(_root);
+  late final TranslationsUnitsTempRu temp = TranslationsUnitsTempRu.internal(_root);
+  late final TranslationsUnitsSpeedRu speed = TranslationsUnitsSpeedRu.internal(_root);
+  late final TranslationsUnitsPressureRu pressure = TranslationsUnitsPressureRu.internal(_root);
   late final TranslationsUnitsSideOfTheWorldRu sideOfTheWorld =
       TranslationsUnitsSideOfTheWorldRu.internal(_root);
 }
@@ -780,8 +776,7 @@ class TranslationsMessagesRu {
   String get weatherDataIsActual => 'Погодные данные актуальны';
 
   /// ru: 'Выбранный параметр будет сразу применён'
-  String get selectedParamWillBeApplied =>
-      'Выбранный параметр будет сразу применён';
+  String get selectedParamWillBeApplied => 'Выбранный параметр будет сразу применён';
 }
 
 // Path: ui
@@ -802,8 +797,7 @@ class TranslationsUiRu {
   String get selectWeatherProvider => 'Выбрать погодного провайдера';
 
   /// ru: 'Выберите погодный дизайн для страницы'
-  String get chooseWeatherDesignForPage =>
-      'Выберите погодный дизайн для страницы';
+  String get chooseWeatherDesignForPage => 'Выберите погодный дизайн для страницы';
 
   /// ru: 'Провайдер геокодирования'
   String get geocodingProvider => 'Провайдер геокодирования';
@@ -933,8 +927,7 @@ class TranslationsSettingsPageTempTileRu {
   String get dialogTitle => 'Единицы измерения температуры';
 
   /// ru: 'Выбранный параметр будет применен во всех измерениях.'
-  String get dialogSub =>
-      'Выбранный параметр будет применен во всех измерениях.';
+  String get dialogSub => 'Выбранный параметр будет применен во всех измерениях.';
 }
 
 // Path: settingsPage.pressureTile
@@ -955,8 +948,7 @@ class TranslationsSettingsPagePressureTileRu {
   String get dialogTitle => 'Единицы измерения давления';
 
   /// ru: 'Выбранный параметр будет применен во всех измерениях.'
-  String get dialogSub =>
-      'Выбранный параметр будет применен во всех измерениях.';
+  String get dialogSub => 'Выбранный параметр будет применен во всех измерениях.';
 }
 
 // Path: settingsPage.speedTile
@@ -977,8 +969,7 @@ class TranslationsSettingsPageSpeedTileRu {
   String get dialogTitle => 'Единицы измерения скорости';
 
   /// ru: 'Выбранный параметр будет применен во всех измерениях.'
-  String get dialogSub =>
-      'Выбранный параметр будет применен во всех измерениях.';
+  String get dialogSub => 'Выбранный параметр будет применен во всех измерениях.';
 }
 
 // Path: settingsPage.weatherLangTile
@@ -1059,8 +1050,7 @@ class TranslationsSettingsPageHomepageTileRu {
   String get dialogTitle => 'Стартовая страница';
 
   /// ru: 'Нужная страница откроется сразу при запуске приложения.'
-  String get dialogSub =>
-      'Нужная страница откроется сразу при запуске приложения.';
+  String get dialogSub => 'Нужная страница откроется сразу при запуске приложения.';
 }
 
 // Path: settingsPage.localeTile
@@ -1229,8 +1219,7 @@ class TranslationsWeatherLangPageTipsRu {
   // Translations
 
   /// ru: 'Некоторые погодные условия будут предоставляться на выбранном языке.'
-  String get info =>
-      'Некоторые погодные условия будут предоставляться на выбранном языке.';
+  String get info => 'Некоторые погодные условия будут предоставляться на выбранном языке.';
 }
 
 // Path: apiWeatherPage.tips
@@ -1260,15 +1249,13 @@ class TranslationsApiWeatherPageDefaultApiRu {
   String get usingApi => 'Используется ключ разработчика';
 
   /// ru: 'Количество вызовов ограничено тарифом разработчика'
-  String get numbOfCalls =>
-      'Количество вызовов ограничено тарифом разработчика';
+  String get numbOfCalls => 'Количество вызовов ограничено тарифом разработчика';
 
   /// ru: 'Введите Api...'
   String get fieldTip => 'Введите Api...';
 
   /// ru: 'Количество запросов: Сегодня – раз в {currentInSeconds} секунд Почасовая, 7 дней – раз в {onecallInHours} часа'
-  String countCalls(
-          {required Object currentInSeconds, required Object onecallInHours}) =>
+  String countCalls({required Object currentInSeconds, required Object onecallInHours}) =>
       'Количество запросов:\n${_root.enums.homepage.today} – раз в ${currentInSeconds} секунд\n${_root.enums.homepage.hourly}, ${_root.enums.homepage.daily} – раз в ${onecallInHours} часа';
 }
 
@@ -1284,8 +1271,7 @@ class TranslationsApiWeatherPageUserApiRu {
   String get usingApi => 'Используется Ваш ключ';
 
   /// ru: 'Количество вызовов ограничено Вашим тарифом WeatherOpenApi'
-  String get numbOfCalls =>
-      'Количество вызовов ограничено Вашим тарифом WeatherOpenApi';
+  String get numbOfCalls => 'Количество вызовов ограничено Вашим тарифом WeatherOpenApi';
 
   /// ru: 'Используется...'
   String get fieldTip => 'Используется...';
@@ -1342,33 +1328,31 @@ class TranslationsGlobalTimeRu {
   String get dayAfterTomorrow => 'Послезавтра';
 
   /// ru: '{hour} ч {minute} мин'
-  String hm({required Object hour, required Object minute}) =>
-      '${hour} ч ${minute} мин';
+  String hm({required Object hour, required Object minute}) => '${hour} ч ${minute} мин';
 
   /// ru: '{minute} мин'
   String m({required Object minute}) => '${minute} мин';
 
   /// ru: '{date} с {time_start} по {time_end}'
-  String dateFromToWithNbsp(
-          {required Object date,
-          required Object timeStart,
-          required Object timeEnd}) =>
-      '${date} с ${timeStart} по ${timeEnd}';
+  String dateFromToWithNbsp({
+    required Object date,
+    required Object timeStart,
+    required Object timeEnd,
+  }) => '${date} с ${timeStart} по ${timeEnd}';
 
   /// ru: '{date} с {time_start} по {time_end}'
-  String dateFromToWithNbspNewline(
-          {required Object date,
-          required Object timeStart,
-          required Object timeEnd}) =>
-      '${date} \nс ${timeStart} по ${timeEnd}';
+  String dateFromToWithNbspNewline({
+    required Object date,
+    required Object timeStart,
+    required Object timeEnd,
+  }) => '${date} \nс ${timeStart} по ${timeEnd}';
 
   /// ru: 'с {time_start} по {time_end}'
   String fromToWithNbsp({required Object timeStart, required Object timeEnd}) =>
       'с ${timeStart} по ${timeEnd}';
 
   /// ru: 'с {time_start} по {time_end}'
-  String fromToWithNbspNewline(
-          {required Object timeStart, required Object timeEnd}) =>
+  String fromToWithNbspNewline({required Object timeStart, required Object timeEnd}) =>
       'с ${timeStart} \nпо ${timeEnd}';
 }
 
@@ -1381,8 +1365,7 @@ class TranslationsDialogsMessagesRu {
   // Translations
 
   /// ru: 'Отсутствует подключение к интернету или сервис погоды не доступен'
-  String get socketException =>
-      'Отсутствует подключение к интернету или сервис погоды не доступен';
+  String get socketException => 'Отсутствует подключение к интернету или сервис погоды не доступен';
 
   /// ru: 'Api ключ погоды установлен!'
   String get apiKeyWeatherSetTrue => 'Api ключ погоды установлен!';
@@ -1493,8 +1476,7 @@ class TranslationsDialogsSeeFlagRu {
   // Translations
 
   /// ru: 'Вы можете увидеть полное наименование страны и её флаг'
-  String get subtitle =>
-      'Вы можете увидеть полное наименование страны и её флаг';
+  String get subtitle => 'Вы можете увидеть полное наименование страны и её флаг';
 }
 
 // Path: dialogs.confirmDelUserApikey
@@ -1579,8 +1561,9 @@ class TranslationsUnitsTempRu {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  late final TranslationsUnitsTempFullNameRu fullName =
-      TranslationsUnitsTempFullNameRu.internal(_root);
+  late final TranslationsUnitsTempFullNameRu fullName = TranslationsUnitsTempFullNameRu.internal(
+    _root,
+  );
 }
 
 // Path: units.speed
@@ -1590,8 +1573,7 @@ class TranslationsUnitsSpeedRu {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  late final TranslationsUnitsSpeedAbbrRu abbr =
-      TranslationsUnitsSpeedAbbrRu.internal(_root);
+  late final TranslationsUnitsSpeedAbbrRu abbr = TranslationsUnitsSpeedAbbrRu.internal(_root);
 }
 
 // Path: units.pressure
@@ -1601,10 +1583,8 @@ class TranslationsUnitsPressureRu {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  late final TranslationsUnitsPressureAbbrRu abbr =
-      TranslationsUnitsPressureAbbrRu.internal(_root);
-  late final TranslationsUnitsPressureNameRu name =
-      TranslationsUnitsPressureNameRu.internal(_root);
+  late final TranslationsUnitsPressureAbbrRu abbr = TranslationsUnitsPressureAbbrRu.internal(_root);
+  late final TranslationsUnitsPressureNameRu name = TranslationsUnitsPressureNameRu.internal(_root);
 }
 
 // Path: units.sideOfTheWorld

@@ -12,8 +12,7 @@ abstract class DesignPage with _$DesignPage {
     required final AppVisualDesign design,
   }) = _DesignPage;
 
-  factory DesignPage.fromJson(Map<String, dynamic> json) =>
-      _$DesignPageFromJson(json);
+  factory DesignPage.fromJson(Map<String, dynamic> json) => _$DesignPageFromJson(json);
 }
 
 @JsonEnum()

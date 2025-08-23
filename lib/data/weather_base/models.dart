@@ -36,8 +36,7 @@ abstract class WeatherUnits with _$WeatherUnits {
     @JsonKey(name: 'pressure') @Default(Pressure.mmHg) Pressure pressure,
   }) = _WeatherUnits;
 
-  factory WeatherUnits.fromJson(Map<String, dynamic> json) =>
-      _$WeatherUnitsFromJson(json);
+  factory WeatherUnits.fromJson(Map<String, dynamic> json) => _$WeatherUnitsFromJson(json);
 }
 
 @freezed
@@ -55,9 +54,7 @@ abstract class CurrentWeatherBase with _$CurrentWeatherBase {
     // @JsonKey(name: 'weather_extra') required WeatherExtra extra,
 
     ///
-    @JsonKey(name: 'time')
-    @DateTimeISO8601Converter()
-    required DateTime datetime,
+    @JsonKey(name: 'time') @DateTimeISO8601Converter() required DateTime datetime,
 
     /// Temperature now.
     @JsonKey(name: 'temp') required double temp,

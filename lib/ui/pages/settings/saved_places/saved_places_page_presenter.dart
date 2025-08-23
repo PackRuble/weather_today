@@ -22,15 +22,14 @@ class SavedPlacesPagePresenter {
   );
 
   /// Provider returns translation.
-  static StateProvider<TranslationsRu> get tr =>
-      AppLocalization.currentTranslation;
+  static StateProvider<TranslationsRu> get tr => AppLocalization.currentTranslation;
 
   // ---------------------------------------------------------------------------
   // working with saved places
 
   /// saved places
-  static AutoDisposeStateNotifierProvider<SavedPlacesNotifier, List<Place>>
-      get savedPlaces => savedPlacesController;
+  static AutoDisposeStateNotifierProvider<SavedPlacesNotifier, List<Place>> get savedPlaces =>
+      savedPlacesController;
 
   /// Remove a location from your saved list.
   Future<void> _deletePlace(Place deletedPlace) async =>
@@ -48,10 +47,7 @@ class SavedPlacesPagePresenter {
   // dialogues
 
   /// Cancel deletion dialog.
-  Future<void> dialogAfterDeletingPlace(
-    BuildContext context,
-    Place place,
-  ) async {
+  Future<void> dialogAfterDeletingPlace(BuildContext context, Place place) async {
     final isDelPlace = await AppDialogs.confirmDeletionPlace(context);
     if (isDelPlace) {
       await _deletePlace(place);
@@ -59,26 +55,17 @@ class SavedPlacesPagePresenter {
   }
 
   /// View the flag and full name of the country.
-  Future<void> dialogSeeFlag(
-    BuildContext context,
-    Place place,
-  ) async {
+  Future<void> dialogSeeFlag(BuildContext context, Place place) async {
     if (place.countryCode == null) return;
     await AppDialogs.seeFlag(
       context,
       place.countryCode!,
-      FittedBox(
-        fit: BoxFit.contain,
-        child: ImageHelper.getFlagIcon(place.countryCode),
-      ),
+      FittedBox(fit: BoxFit.contain, child: ImageHelper.getFlagIcon(place.countryCode)),
     );
   }
 
   /// Show the note creation window.
-  Future<void> dialogMakeNote(
-    BuildContext context,
-    Place place,
-  ) async {
+  Future<void> dialogMakeNote(BuildContext context, Place place) async {
     final String? oldNote = place.note;
 
     final String? newNote = await AppDialogs.makeNote(context, place.note);

@@ -7,8 +7,8 @@ extension StringCasingExtension on String {
 
   String get toCapitalize => isNotEmpty
       ? length == 1
-          ? toUpperCase()
-          : '${this[0].toUpperCase()}${substring(1)}'
+            ? toUpperCase()
+            : '${this[0].toUpperCase()}${substring(1)}'
       : '';
 
   /// Change the first letter to a lowercase letter.

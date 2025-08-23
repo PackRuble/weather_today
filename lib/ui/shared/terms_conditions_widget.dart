@@ -8,8 +8,7 @@ import 'markdown_future_builder.dart';
 enum _TermsAsset {
   privacyPolicy(r'assets/doc/privacy_policy.md'),
   termsConditions(r'assets/doc/terms&conditions.md'),
-  termsUseApp(r'assets/doc/terms_of_use_of_the_app.md'),
-  ;
+  termsUseApp(r'assets/doc/terms_of_use_of_the_app.md');
 
   const _TermsAsset(this.filePath);
 
@@ -17,10 +16,7 @@ enum _TermsAsset {
 }
 
 class TermsDocWidget extends StatelessWidget {
-  const TermsDocWidget({
-    required this.termsAsset,
-    super.key,
-  });
+  const TermsDocWidget({required this.termsAsset, super.key});
 
   final _TermsAsset termsAsset;
 
@@ -39,9 +35,7 @@ class PrivacyPolicyMarkdown extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const TermsDocWidget(
-      termsAsset: _TermsAsset.privacyPolicy,
-    );
+    return const TermsDocWidget(termsAsset: _TermsAsset.privacyPolicy);
   }
 }
 
@@ -50,9 +44,7 @@ class TermsAndConditionsMarkdown extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const TermsDocWidget(
-      termsAsset: _TermsAsset.termsConditions,
-    );
+    return const TermsDocWidget(termsAsset: _TermsAsset.termsConditions);
   }
 }
 
@@ -61,8 +53,6 @@ class TermsUseAppMarkdown extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const TermsDocWidget(
-      termsAsset: _TermsAsset.termsUseApp,
-    );
+    return const TermsDocWidget(termsAsset: _TermsAsset.termsUseApp);
   }
 }

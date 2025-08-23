@@ -36,50 +36,30 @@ class CurrentWeatherPageByRuble extends ConsumerWidget {
         const _MainInfoWidget(),
         const _WeatherDescriptionTile(),
         const AttributionWeatherWidget(
-          padding: EdgeInsets.only(
-            left: 8.0,
-            right: 8.0,
-            top: 0.0,
-            bottom: 4.0,
-          ),
+          padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 0.0, bottom: 4.0),
           withIcon: false,
         ),
         divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.wind),
-        const Padding(
-          padding: EdgeInsets.all(_inset),
-          child: _WindWidget(),
-        ),
+        const Padding(padding: EdgeInsets.all(_inset), child: _WindWidget()),
         divider,
         if (sunrise != null || sunset != null) ...[
           _TitleWidget(t.mainPageDRuble.currentPage.headers.sun),
-          const Padding(
-            padding: EdgeInsets.all(_inset),
-            child: _SunriseInfoWidget(),
-          ),
+          const Padding(padding: EdgeInsets.all(_inset), child: _SunriseInfoWidget()),
           divider,
         ],
         _TitleWidget(t.mainPageDRuble.currentPage.headers.clouds),
-        const Padding(
-          padding: EdgeInsets.all(_inset),
-          child: CloudinessWidget(),
-        ),
+        const Padding(padding: EdgeInsets.all(_inset), child: CloudinessWidget()),
         divider,
         _TitleWidget(t.mainPageDRuble.currentPage.headers.more),
-        const Padding(
-          padding: EdgeInsets.all(_inset),
-          child: _ExtendedInfoWidget(),
-        ),
+        const Padding(padding: EdgeInsets.all(_inset), child: _ExtendedInfoWidget()),
       ],
     );
   }
 }
 
 class _TitleWidget extends ConsumerWidget {
-  const _TitleWidget(
-    this.title, {
-    super.key,
-  });
+  const _TitleWidget(this.title, {super.key});
 
   final String title;
 
@@ -131,17 +111,10 @@ class _MainInfoWidget extends ConsumerWidget {
     final t = ref.watch(CurrentPagePresenter.tr);
 
     final weather = ref.watch(CurrentPagePresenter.current).requireValue!;
-    final WeatherCurrent(
-      weatherMain: brief,
-      weatherConditionCode: weatherCode,
-    ) = weather;
+    final WeatherCurrent(weatherMain: brief, weatherConditionCode: weatherCode) = weather;
 
     final Temp tempUnits = ref.watch(CurrentPagePresenter.tempUnits);
-    final _temp = MetricsHelper.getTemp(
-      weather.temp,
-      tempUnits,
-      withUnits: false,
-    );
+    final _temp = MetricsHelper.getTemp(weather.temp, tempUnits, withUnits: false);
     final _tempUnits = MetricsHelper.getTempUnits(tempUnits);
     final _tempFeelsLike = MetricsHelper.getTemp(
       weather.tempFeelsLike,
@@ -149,7 +122,8 @@ class _MainInfoWidget extends ConsumerWidget {
       withUnits: false,
     );
 
-    final _brief = MetricsHelper.weatherBriefTrByCode(
+    final _brief =
+        MetricsHelper.weatherBriefTrByCode(
           weatherCode: weatherCode!,
           provider: ref.watch(WeatherProviderNR.i),
           tr: t,
@@ -162,10 +136,7 @@ class _MainInfoWidget extends ConsumerWidget {
         style: styles.bodyMedium?.copyWith(fontSize: 72.0),
         children: <TextSpan>[
           TextSpan(text: _temp),
-          TextSpan(
-            text: _tempUnits,
-            style: styles.bodyMedium?.copyWith(fontSize: 60.0),
-          ),
+          TextSpan(text: _tempUnits, style: styles.bodyMedium?.copyWith(fontSize: 60.0)),
         ],
       ),
     );
@@ -176,10 +147,7 @@ class _MainInfoWidget extends ConsumerWidget {
         style: styles.bodyMedium,
         children: [
           TextSpan(text: t.weather.feelsLikeAs),
-          TextSpan(
-            text: ' $_tempFeelsLike$_tempUnits',
-            style: styles.titleMedium,
-          ),
+          TextSpan(text: ' $_tempFeelsLike$_tempUnits', style: styles.titleMedium),
         ],
       ),
     );
@@ -196,10 +164,7 @@ class _MainInfoWidget extends ConsumerWidget {
             children: [
               SizedBox.square(
                 dimension: _height1block,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: tempWidget,
-                ),
+                child: FittedBox(fit: BoxFit.scaleDown, child: tempWidget),
               ),
               tempFeelLikesWidget,
             ],
@@ -212,15 +177,9 @@ class _MainInfoWidget extends ConsumerWidget {
             children: [
               SizedBox.square(
                 dimension: _height1block,
-                child: FittedBox(
-                  child: WeatherImageIcon(weatherIcon: weather.weatherIcon),
-                ),
+                child: FittedBox(child: WeatherImageIcon(weatherIcon: weather.weatherIcon)),
               ),
-              Text(
-                _brief,
-                style: styles.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
+              Text(_brief, style: styles.bodyMedium, textAlign: TextAlign.center),
             ],
           ),
         ),
@@ -242,16 +201,20 @@ class _WeatherDescriptionTile extends ConsumerWidget {
       weatherDescription: desc,
       weatherMain: brief,
       weatherConditionCode: weatherCode,
-    ) = ref.watch(CurrentPagePresenter.current).requireValue!;
+    ) = ref
+        .watch(CurrentPagePresenter.current)
+        .requireValue!;
 
-    final _brief = MetricsHelper.weatherBriefTrByCode(
+    final _brief =
+        MetricsHelper.weatherBriefTrByCode(
           weatherCode: weatherCode!,
           provider: ref.watch(WeatherProviderNR.i),
           tr: tr,
         ) ??
         brief;
 
-    final _desc = MetricsHelper.weatherDescTrByCode(
+    final _desc =
+        MetricsHelper.weatherDescTrByCode(
           weatherCode: weatherCode,
           provider: ref.watch(WeatherProviderNR.i),
           tr: tr,
@@ -265,11 +228,7 @@ class _WeatherDescriptionTile extends ConsumerWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
-        child: Text(
-          _desc.toCapitalized(),
-          textAlign: TextAlign.center,
-          style: styles.bodyMedium,
-        ),
+        child: Text(_desc.toCapitalized(), textAlign: TextAlign.center, style: styles.bodyMedium),
       ),
     );
   }
@@ -290,16 +249,13 @@ class _SunriseInfoWidget extends ConsumerWidget {
     String sunrise = '${t.mainPageDRuble.currentPage.sunrise} – ';
     String sunset = '${t.mainPageDRuble.currentPage.sunset} – ';
     String dayLength = '${t.mainPageDRuble.currentPage.dayLength} – ';
-    String timeBeforeSunset =
-        '${t.mainPageDRuble.currentPage.timeBeforeSunset} – ';
+    String timeBeforeSunset = '${t.mainPageDRuble.currentPage.timeBeforeSunset} – ';
 
     if (sunriseD != null && sunsetD != null) {
       final diff = sunsetD.difference(sunriseD);
 
       if (diff.inHours == 0) {
-        dayLength += t.global.time.m(
-          minute: diff.inMinutes - (diff.inHours * 60),
-        );
+        dayLength += t.global.time.m(minute: diff.inMinutes - (diff.inHours * 60));
       } else {
         dayLength += t.global.time.hm(
           hour: diff.inHours,
@@ -355,8 +311,7 @@ class _WindWidget extends ConsumerWidget {
 
     final weather = ref.watch(CurrentPagePresenter.current).value!;
 
-    final windDegreeAngle =
-        MetricsHelper.fromRadiansToDegrees(weather.windDegree ?? 0);
+    final windDegreeAngle = MetricsHelper.fromRadiansToDegrees(weather.windDegree ?? 0);
 
     final speedUnits = ref.watch(CurrentPagePresenter.speedUnits);
     final _windSpeed = MetricsHelper.getSpeed(
@@ -367,10 +322,10 @@ class _WindWidget extends ConsumerWidget {
     )!;
     final _speedUnits = MetricsHelper.getSpeedUnits(speedUnits);
 
-    final _windSide =
-        MetricsHelper.getSideOfTheWorldAdjective(weather.windDegree);
+    final _windSide = MetricsHelper.getSideOfTheWorldAdjective(weather.windDegree);
 
-    final _windGust = (weather.windGust != null &&
+    final _windGust =
+        (weather.windGust != null &&
             weather.windSpeed != null &&
             weather.windGust! > weather.windSpeed!)
         ? MetricsHelper.getSpeed(weather.windGust, speedUnits, withUnits: false)
@@ -433,8 +388,7 @@ class CloudinessWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final double? cloudiness =
-        ref.watch(CurrentPagePresenter.current).value!.cloudiness;
+    final double? cloudiness = ref.watch(CurrentPagePresenter.current).value!.cloudiness;
 
     if (cloudiness == null) return const SizedBox.shrink();
 
@@ -449,10 +403,7 @@ class CloudinessWidget extends ConsumerWidget {
               fit: BoxFit.scaleDown,
               child: cloudiness >= index * 10
                   ? const Icon(Icons.cloud, color: Colors.lightBlueAccent)
-                  : const Icon(
-                      Icons.cloud_outlined,
-                      color: Colors.lightBlueAccent,
-                    ),
+                  : const Icon(Icons.cloud_outlined, color: Colors.lightBlueAccent),
             ),
           ),
         );
@@ -483,10 +434,8 @@ class _ExtendedInfoWidget extends ConsumerWidget {
 
     return Column(
       children: [
-        if (_humidity != null)
-          RowItem(AppIcons.humidity, t.weather.humidity, '$_humidity %'),
-        if (_pressure != null)
-          RowItem(AppIcons.pressure, t.weather.pressure, _pressure),
+        if (_humidity != null) RowItem(AppIcons.humidity, t.weather.humidity, '$_humidity %'),
+        if (_pressure != null) RowItem(AppIcons.pressure, t.weather.pressure, _pressure),
         if (_visibility != null)
           RowItem(AppIcons.visibility, t.weather.visibility, '$_visibility %'),
       ],

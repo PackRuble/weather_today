@@ -20,6 +20,6 @@ class GeocodingProviderNR extends Notifier<GeocodingProvider> {
     );
   }
 
-  Future<void> change(GeocodingProvider value) async => _weatherStorage
-      .set<GeocodingProvider>(WeatherCards.geocodingProvider, value);
+  Future<void> change(GeocodingProvider value) async =>
+      _weatherStorage.set<GeocodingProvider>(WeatherCards.geocodingProvider, value);
 }

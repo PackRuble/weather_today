@@ -4,14 +4,7 @@ import 'package:weather_today/data/weather_base/models.dart';
 import 'package:weather_today/ui/utils/image_helper.dart';
 
 /// All available information from package [package_info_plus]. Learn more here [PackageInfo].
-enum AppInfoData {
-  appName,
-  packageName,
-  appVersion,
-  buildNumber,
-  buildSignature,
-  installerStore
-}
+enum AppInfoData { appName, packageName, appVersion, buildNumber, buildSignature, installerStore }
 
 /// Publicly available information about the application.
 class AppInfo {
@@ -34,13 +27,14 @@ class AppInfo {
     return version.contains('pre') || version.contains('dev');
   }
 
-  static Future<int> get buildNumber async =>
-      int.parse(await get(AppInfoData.buildNumber));
+  static Future<int> get buildNumber async => int.parse(await get(AppInfoData.buildNumber));
 
   /// Get all available information from package [package_info_plus].
   static Future<String> get(AppInfoData infoData) async {
-    final packageInfo = await PackageInfo.fromPlatform()
-        .onError<MissingPluginException>((error, stackTrace) {
+    final packageInfo = await PackageInfo.fromPlatform().onError<MissingPluginException>((
+      error,
+      stackTrace,
+    ) {
       return PackageInfo(
         appName: AppInfo.appName,
         packageName: '',
@@ -69,28 +63,27 @@ class AppInfo {
 
 extension WeatherProviderX on WeatherProvider {
   String logoAsset([bool forDark = false]) => switch (this) {
-        WeatherProvider.openWeatherMap =>
-          'assets/images/attribution/owm/openweather_${forDark ? 'negative' : 'master'}_logo.png',
-        WeatherProvider.openMeteo =>
-          'assets/images/attribution/open-meteo/openmeteo_logo.png',
-      };
+    WeatherProvider.openWeatherMap =>
+      'assets/images/attribution/owm/openweather_${forDark ? 'negative' : 'master'}_logo.png',
+    WeatherProvider.openMeteo => 'assets/images/attribution/open-meteo/openmeteo_logo.png',
+  };
 
   String get nameService => switch (this) {
-        WeatherProvider.openWeatherMap => 'OpenWeather',
-        WeatherProvider.openMeteo => 'Open-Meteo',
-      };
+    WeatherProvider.openWeatherMap => 'OpenWeather',
+    WeatherProvider.openMeteo => 'Open-Meteo',
+  };
 
   String get website => switch (this) {
-        WeatherProvider.openWeatherMap => 'openweathermap.org',
-        WeatherProvider.openMeteo => 'open-meteo.com',
-      };
+    WeatherProvider.openWeatherMap => 'openweathermap.org',
+    WeatherProvider.openMeteo => 'open-meteo.com',
+  };
 
   Uri get websiteUrl => Uri.parse('https://$website/');
 }
 
 extension GeocodingProviderX on GeocodingProvider {
   String get website => switch (this) {
-        GeocodingProvider.openWeatherMap => 'openweathermap.org',
-        GeocodingProvider.openMeteo => 'open-meteo.com',
-      };
+    GeocodingProvider.openWeatherMap => 'openweathermap.org',
+    GeocodingProvider.openMeteo => 'open-meteo.com',
+  };
 }

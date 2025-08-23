@@ -17,12 +17,10 @@ class DailyWeatherPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return RefreshWrapper<List<WeatherDaily>>(
       asyncValue: ref.watch(DailyPagePresenter.daily),
-      onRefresh: () async =>
-          ref.read(DailyPagePresenter.instance).updateWeather(),
-      child: (BuildContext context, List<WeatherDaily> daily) =>
-          switch (design) {
+      onRefresh: () async => ref.read(DailyPagePresenter.instance).updateWeather(),
+      child: (BuildContext context, List<WeatherDaily> daily) => switch (design) {
         AppVisualDesign.byRuble => DailyWeatherPageByRuble(daily),
-        _ => DailyWeatherPageByRuble(daily)
+        _ => DailyWeatherPageByRuble(daily),
       },
     );
   }

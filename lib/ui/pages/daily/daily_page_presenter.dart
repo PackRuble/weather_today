@@ -12,14 +12,13 @@ class DailyPagePresenter {
   final Ref _ref;
 
   /// Instance of current class.
-  static final instance = Provider.autoDispose(
-    DailyPagePresenter.new,
-    name: '$DailyPagePresenter',
-  );
+  static final instance = Provider.autoDispose(DailyPagePresenter.new, name: '$DailyPagePresenter');
 
   /// The ONE_CALL-weather for future days [WeatherDaily].
   static final daily = Provider<AsyncValue<List<WeatherDaily>?>>(
-    (ref) => ref.watch(WeatherOnecallDelegacyNR.i).when(
+    (ref) => ref
+        .watch(WeatherOnecallDelegacyNR.i)
+        .when(
           skipLoadingOnReload: true,
           data: (weather) => AsyncValue.data(weather?.daily),
           error: (e, st) => AsyncValue.error(e, st),
@@ -30,7 +29,9 @@ class DailyPagePresenter {
 
   /// Weather alerts from ONE_CALL-weather [WeatherAlert].
   static final alerts = Provider<AsyncValue<List<WeatherAlert>?>>((ref) {
-    return ref.watch(WeatherOnecallDelegacyNR.i).when(
+    return ref
+        .watch(WeatherOnecallDelegacyNR.i)
+        .when(
           skipLoadingOnReload: true,
           data: (weather) => AsyncValue.data(weather?.alerts),
           error: (e, st) => AsyncValue.error(e, st),
@@ -39,8 +40,7 @@ class DailyPagePresenter {
   });
 
   /// Provider returns translation.
-  static StateProvider<TranslationsRu> get tr =>
-      AppLocalization.currentTranslation;
+  static StateProvider<TranslationsRu> get tr => AppLocalization.currentTranslation;
 
   /// Units of velocity measurement.
   static StateProvider<Speed> get speedUnits => WeatherServices.speedUnits;

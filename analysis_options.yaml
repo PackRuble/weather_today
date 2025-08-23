@@ -13,6 +13,10 @@ analyzer:
     - '**/*.g.dart'
     - '**/*.freezed.dart'
 
+formatter:
+  page_width: 100
+  trailing_commas: preserve
+
 custom_lint:
   rules:
     - avoid_public_notifier_properties: false

@@ -35,8 +35,7 @@ class HourlyPageByTolskaya extends ConsumerWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   DateFormat.MMMMEEEEd().format(
-                    hourly[index].date?.add(const Duration(days: 1)) ??
-                        DateTime.now(),
+                    hourly[index].date?.add(const Duration(days: 1)) ?? DateTime.now(),
                   ),
                   style: styles.titleSmall,
                 ),
@@ -85,8 +84,7 @@ class _DateWidget extends ConsumerWidget {
                 if (actualData != null)
                   TextSpan(
                     text: ' ${DateFormat.MMMd().add_Hm().format(actualData!)}',
-                    style: styles.bodyMedium
-                        ?.copyWith(fontStyle: FontStyle.italic),
+                    style: styles.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
                   ),
               ],
             ),
@@ -110,9 +108,7 @@ class _GroupExpansionWidget extends ConsumerWidget {
       elevation: 4.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),
-        side: BorderSide(
-          color: theme.primaryColor,
-        ),
+        side: BorderSide(color: theme.primaryColor),
       ),
       child: ExpPanel(
         hasIcon: true,
@@ -134,19 +130,16 @@ class TileHourlyWidget extends ConsumerWidget {
 
     final tempUnits = ref.watch(HourlyPagePresenter.tempUnits);
 
-    final _temp =
-        MetricsHelper.getTemp(weather.temp, tempUnits, withUnits: false);
+    final _temp = MetricsHelper.getTemp(weather.temp, tempUnits, withUnits: false);
 
     final _pop = MetricsHelper.withPrecision(
-      MetricsHelper.getPercentage(
-        weather.pop == 0.0 ? null : weather.pop,
-        1.0,
-      ),
+      MetricsHelper.getPercentage(weather.pop == 0.0 ? null : weather.pop, 1.0),
     );
 
     // final uvi = weather.uvi?.toStringAsFixed(0);
 
-    final _brief = MetricsHelper.weatherBriefTrByCode(
+    final _brief =
+        MetricsHelper.weatherBriefTrByCode(
           weatherCode: weather.weatherConditionCode!,
           provider: ref.watch(WeatherProviderNR.i),
           tr: tr,
@@ -159,9 +152,7 @@ class TileHourlyWidget extends ConsumerWidget {
       horizontalTitleGap: 16.0,
       contentPadding: const EdgeInsets.only(right: 0.0, left: 8.0),
       leading: Text(
-        weather.date == null
-            ? '––:––'
-            : DateFormat('HH:mm').format(weather.date!),
+        weather.date == null ? '––:––' : DateFormat('HH:mm').format(weather.date!),
         style: styles.labelLarge,
       ),
       title: Row(
@@ -169,9 +160,7 @@ class TileHourlyWidget extends ConsumerWidget {
         children: [
           SizedBox.square(
             dimension: 50.0,
-            child: FittedBox(
-              child: WeatherImageIcon(weatherIcon: weather.weatherIcon),
-            ),
+            child: FittedBox(child: WeatherImageIcon(weatherIcon: weather.weatherIcon)),
           ),
           const SizedBox(width: 6.0),
           SizedBox(
@@ -191,10 +180,7 @@ class TileHourlyWidget extends ConsumerWidget {
             child: Text.rich(
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              TextSpan(
-                text: _brief,
-                style: styles.bodyMedium,
-              ),
+              TextSpan(text: _brief, style: styles.bodyMedium),
             ),
           ),
           const SizedBox(width: 6.0),
@@ -242,17 +228,15 @@ class _ExpandedWidget extends ConsumerWidget {
       :windSpeed,
     ) = weather;
 
-    final _weatherDesc = MetricsHelper.weatherDescTrByCode(
+    final _weatherDesc =
+        MetricsHelper.weatherDescTrByCode(
           weatherCode: weatherCode!,
           provider: ref.watch(WeatherProviderNR.i),
           tr: tr,
         ) ??
         weatherDesc?.toCapitalize;
 
-    final _pressure = MetricsHelper.getPressure(
-      pressure,
-      ref.watch(WeatherServices.pressureUnits),
-    );
+    final _pressure = MetricsHelper.getPressure(pressure, ref.watch(WeatherServices.pressureUnits));
 
     final _humidity = MetricsHelper.withPrecision(humidity);
 
@@ -282,27 +266,15 @@ class _ExpandedWidget extends ConsumerWidget {
             ),
             const Divider(),
           ],
-          if (_windSpeed != null)
-            RowItem(AppIcons.wind, t.weather.wind, _windSpeed),
+          if (_windSpeed != null) RowItem(AppIcons.wind, t.weather.wind, _windSpeed),
           if (_uvi != null) RowItem(AppIcons.uvi, t.weather.uvi, _uvi),
           if (_cloudiness != null)
-            RowItem(
-              AppIcons.cloudiness,
-              t.weather.cloudiness,
-              '$_cloudiness %',
-            ),
-          if (_humidity != null)
-            RowItem(AppIcons.humidity, t.weather.humidity, '$_humidity %'),
+            RowItem(AppIcons.cloudiness, t.weather.cloudiness, '$_cloudiness %'),
+          if (_humidity != null) RowItem(AppIcons.humidity, t.weather.humidity, '$_humidity %'),
           if (_visibility != null)
-            RowItem(
-              AppIcons.visibility,
-              t.weather.visibility,
-              '$_visibility %',
-            ),
-          if (_pressure != null)
-            RowItem(AppIcons.pressure, t.weather.pressure, _pressure),
-          if (_dewPoint != null)
-            RowItem(AppIcons.dewPoint, t.weather.dewPoint, _dewPoint),
+            RowItem(AppIcons.visibility, t.weather.visibility, '$_visibility %'),
+          if (_pressure != null) RowItem(AppIcons.pressure, t.weather.pressure, _pressure),
+          if (_dewPoint != null) RowItem(AppIcons.dewPoint, t.weather.dewPoint, _dewPoint),
         ],
       ),
     );

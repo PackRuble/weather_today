@@ -19,23 +19,21 @@ class UserApiPagePresenter {
   );
 
   /// Is the apikeyWeather key currently being installed.
-  static final isTestingApiKey =
-      StateProvider.autoDispose<bool>((ref) => false);
+  static final isTestingApiKey = StateProvider.autoDispose<bool>((ref) => false);
 
   /// Do you have a custom api installed?
   static Provider<bool> get isUserApiKeyWeather => OWMController.isUserApiKey;
 
   /// Provider returns translation.
-  static StateProvider<TranslationsRu> get tr =>
-      AppLocalization.currentTranslation;
+  static StateProvider<TranslationsRu> get tr => AppLocalization.currentTranslation;
 
   /// Install custom api.
   Future<void> setUserApi(String text) async {
     _ref.read(isTestingApiKey.notifier).update((_) => true);
 
     // todo: сделать нормальную валидацию при пустом поле
-    final bool isCorrectApi = text.isNotEmpty &&
-        await _ref.read(OWMController.instance).setUserApiKey(text);
+    final bool isCorrectApi =
+        text.isNotEmpty && await _ref.read(OWMController.instance).setUserApiKey(text);
 
     final messageController = _ref.read(MessageController.instance);
     if (isCorrectApi) {
@@ -63,8 +61,7 @@ class UserApiPagePresenter {
 
   /// Remove custom weather apiKey.
   Future<void> deleteUserApi(BuildContext context) async {
-    final bool isDelete =
-        await AppDialogs.confirmDeletionUserApiKeyWeather(context);
+    final bool isDelete = await AppDialogs.confirmDeletionUserApiKeyWeather(context);
 
     if (isDelete) {
       await _ref.read(OWMController.instance).resetUserApiKey();

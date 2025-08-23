@@ -19,17 +19,13 @@ class ChangelogPage extends StatelessWidget {
             child: Row(
               children: [
                 const CloseButton(),
-                Text(
-                  'Changelog',
-                  style: theme.textTheme.headlineMedium,
-                ),
+                Text('Changelog', style: theme.textTheme.headlineMedium),
               ],
             ),
           ),
           Expanded(
             child: MarkdownFutureBuilder(
-              loadAsset: () async =>
-                  (await http.get(AppLinks.changelogUrl)).body,
+              loadAsset: () async => (await http.get(AppLinks.changelogUrl)).body,
             ),
           ),
         ],

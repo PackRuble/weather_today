@@ -29,18 +29,14 @@ class WrapperPage extends ConsumerWidget {
             .applyTo(scrollTheme.getScrollPhysics(context)),
         dragDevices: {
           ...scrollTheme.dragDevices,
-          if (defaultTargetPlatform == TargetPlatform.windows) ...{
-            PointerDeviceKind.mouse,
-          },
+          if (defaultTargetPlatform == TargetPlatform.windows) ...{PointerDeviceKind.mouse},
         },
       ),
       child: child,
     );
 
     return MediaQuery(
-      data: MediaQuery.of(context).copyWith(
-        textScaler: TextScaler.linear(textScaleFactor),
-      ),
+      data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(textScaleFactor)),
       child: FocusScope(
         child: GestureDetector(
           onTap: FocusScope.of(context, createDependency: false).unfocus,

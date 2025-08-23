@@ -21,12 +21,9 @@ class ChartForecastWidget extends ConsumerWidget {
 
     final t = ref.watch(HourlyPagePresenter.tr);
 
-    final bool isPortrait =
-        MediaQuery.orientationOf(context) == Orientation.portrait;
+    final bool isPortrait = MediaQuery.orientationOf(context) == Orientation.portrait;
 
-    final ChartModel chart = ref.watch(
-      HourlyPageByRublePresenter.chartMainForecast,
-    );
+    final ChartModel chart = ref.watch(HourlyPageByRublePresenter.chartMainForecast);
 
     final Widget titleWidget = HeadChartWidget(
       t.mainPageDRuble.hourlyPage.forecast.title,
@@ -39,10 +36,7 @@ class ChartForecastWidget extends ConsumerWidget {
         generateData: const [],
         generateLabelsData: const FlTitlesData(),
         titleWidget: titleWidget,
-        ifEmptyDataWidget: Text(
-          t.weather.noDataProvided,
-          style: styles.bodyMedium,
-        ),
+        ifEmptyDataWidget: Text(t.weather.noDataProvided, style: styles.bodyMedium),
       );
     }
 
@@ -77,20 +71,13 @@ class ChartForecastWidget extends ConsumerWidget {
       legendWidgets: legends,
       unitsLeft: ChartModel.tempUnits.abbr,
       unitsRight: unitsRight,
-      aspectRatio: isPortrait
-          ? ChartTheme.fAspectRatio
-          : ChartTheme.fAspectRatioLandscape,
+      aspectRatio: isPortrait ? ChartTheme.fAspectRatio : ChartTheme.fAspectRatioLandscape,
     );
   }
 
   List<BarChartGroupData> _generateData(ChartModel chart) {
     // температура в цельсиях.
-    BarChartGroupData _generateGroup(
-      int x,
-      double temp,
-      double tempFeelsLike,
-      double? dewPoint,
-    ) {
+    BarChartGroupData _generateGroup(int x, double temp, double tempFeelsLike, double? dewPoint) {
       // накладывается ли температура tempFeels на temp
       final bool isOverlap = temp * tempFeelsLike > 0;
 
@@ -107,12 +94,7 @@ class ChartForecastWidget extends ConsumerWidget {
         x: x,
         groupVertically: true,
         barRods: [
-          BarChartRodData(
-            fromY: 0,
-            toY: temp,
-            color: ChartTheme.fColorTemp,
-            width: 3,
-          ),
+          BarChartRodData(fromY: 0, toY: temp, color: ChartTheme.fColorTemp, width: 3),
           if (dewPoint != null)
             BarChartRodData(
               fromY: dewPoint - chart.constantPrecisionPointLeft,
@@ -130,9 +112,7 @@ class ChartForecastWidget extends ConsumerWidget {
           i,
           ChartModel.tempUnits.value(item.temp ?? 0.0),
           ChartModel.tempUnits.value(item.tempFeelsLike ?? 0.0),
-          item.dewPoint != null
-              ? ChartModel.tempUnits.value(item.dewPoint!)
-              : null,
+          item.dewPoint != null ? ChartModel.tempUnits.value(item.dewPoint!) : null,
         ),
     ];
   }
@@ -159,17 +139,9 @@ class ChartForecastWidget extends ConsumerWidget {
 
     // метки температуры по оси y
     Widget _leftTitles(double value, TitleMeta meta) {
-      if (ChartUtils.isSuitYLabel(
-        value,
-        meta.min,
-        meta.max,
-        chart.scaleDivisionLeft,
-      )) {
+      if (ChartUtils.isSuitYLabel(value, meta.min, meta.max, chart.scaleDivisionLeft)) {
         return Center(
-          child: Text(
-            value.toStringAsFixed(chart.precisionLeft),
-            style: styles.bodySmall,
-          ),
+          child: Text(value.toStringAsFixed(chart.precisionLeft), style: styles.bodySmall),
         );
       }
 

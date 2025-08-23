@@ -10,12 +10,7 @@ class ChartUtils {
   ///
   /// Необходимо для того, чтобы лэйблы очень близкие друг к другу,
   /// игнорировались и не отрисовывались.
-  static bool isSuitYLabel(
-    double value,
-    double min,
-    double max,
-    double interval,
-  ) {
+  static bool isSuitYLabel(double value, double min, double max, double interval) {
     final double tolerance = interval / 2;
 
     if (value == 0.0 || value == min || value == max) return true;
@@ -25,8 +20,7 @@ class ChartUtils {
       // проверка на близлежание к нулю
       if (-interval < value && value < interval) return false;
 
-      return (0.0 < value && value <= max - tolerance) ||
-          (0.0 > value && value >= min + tolerance);
+      return (0.0 < value && value <= max - tolerance) || (0.0 > value && value >= min + tolerance);
     } else if (min == 0.0) {
       // значит max > 0
       return interval <= value && value <= max - tolerance;
@@ -37,8 +31,7 @@ class ChartUtils {
       return min + tolerance <= value && value <= max - tolerance;
     } else {
       // max < 0
-      return max.abs() + tolerance <= value.abs() &&
-          value.abs() <= min.abs() - tolerance;
+      return max.abs() + tolerance <= value.abs() && value.abs() <= min.abs() - tolerance;
     }
   }
 
@@ -48,11 +41,7 @@ class ChartUtils {
   /// * [count] - количество меток (label);
   /// * [upperValue] - максимальное значение метки;
   /// * [lowerValue] - минимальное значение метки;
-  static double getYIntervalBetweenLabel(
-    double lowerValue,
-    double upperValue,
-    int count,
-  ) {
+  static double getYIntervalBetweenLabel(double lowerValue, double upperValue, int count) {
     assert(upperValue > lowerValue);
     assert(count > 1);
 
@@ -88,11 +77,7 @@ class ChartUtils {
   /// [edgePoints] - обязательно использовать краевые точки.
   /// Чтобы разделить оптимально, нужно проверить по формуле:
   /// (длина списка - кол-во точек) / (кол-во точек - 1) = целое число.
-  static List<int> getXInterval(
-    int count,
-    int length, [
-    bool edgePoints = false,
-  ]) {
+  static List<int> getXInterval(int count, int length, [bool edgePoints = false]) {
     assert(length >= count && count >= 2);
 
     final int lastPoints = length - 1;
@@ -105,8 +90,7 @@ class ChartUtils {
       // находим целочисленный интервал. Интервалов на 1 меньше, чем точек.
       final int lengthInterval = lastPoints ~/ (count - 1);
 
-      return List.generate(count - 1, (int index) => index * lengthInterval)
-        ..add(lastPoints);
+      return List.generate(count - 1, (int index) => index * lengthInterval)..add(lastPoints);
     }
 
     // остаток от деления, который необходимо распределить по краям.
@@ -116,9 +100,6 @@ class ChartUtils {
     // находим целочисленный интервал. Интервалов на 1 меньше, чем точек
     final int lengthInterval = (length - 1) ~/ (count - 1);
 
-    return List.generate(
-      count,
-      (int index) => startPlus + (index * lengthInterval),
-    );
+    return List.generate(count, (int index) => startPlus + (index * lengthInterval));
   }
 }

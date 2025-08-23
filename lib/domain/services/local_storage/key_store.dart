@@ -72,8 +72,7 @@ class DbStore {
   static const String swapColorsTheme = 'swapColorsTheme';
   static const bool swapColorsThemeDefault = false;
 
-  static const String swapDarkMainAndContainerColors =
-      'swapDarkMainAndContainerColors';
+  static const String swapDarkMainAndContainerColors = 'swapDarkMainAndContainerColors';
   static const bool swapDarkMainAndContainerColorsDefault = false;
 
   static const String useMaterial3 = 'useMaterial3';

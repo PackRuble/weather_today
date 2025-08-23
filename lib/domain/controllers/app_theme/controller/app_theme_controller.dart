@@ -67,11 +67,7 @@ class AppTheme with Updater {
       DbStore.swapDarkMainAndContainerColors,
       DbStore.swapDarkMainAndContainerColorsDefault,
     );
-    await loadAndUpdate<int, int>(
-      darkLevel,
-      DbStore.darkLevelTheme,
-      DbStore.darkLevelThemeDefault,
-    );
+    await loadAndUpdate<int, int>(darkLevel, DbStore.darkLevelTheme, DbStore.darkLevelThemeDefault);
     await loadAndUpdate<bool, bool>(
       darkIsTrueBlack,
       DbStore.darkIsTrueBlack,
@@ -109,8 +105,7 @@ class AppTheme with Updater {
     name: '$AppTheme/scrollPhysics',
   );
 
-  static AppScrollPhysics _conversionScrollPhysics(int value) =>
-      AppScrollPhysics.values[value];
+  static AppScrollPhysics _conversionScrollPhysics(int value) => AppScrollPhysics.values[value];
 
   /// Set a new scroll type [scrollPhysics].
   Future<void> setScrollPhysics(AppScrollPhysics scroll) async {
@@ -130,8 +125,7 @@ class AppTheme with Updater {
     name: '$AppTheme/typography',
   );
 
-  static AppTypography _conversionTypography(int value) =>
-      AppTypography.values[value];
+  static AppTypography _conversionTypography(int value) => AppTypography.values[value];
 
   /// Установить новую Типографику [typography].
   Future<void> setTypography(AppTypography typo) async {
@@ -152,8 +146,7 @@ class AppTheme with Updater {
     name: '$AppTheme/fontFamily',
   );
 
-  static AppFontFamily _conversionFontFamily(String value) =>
-      AppFontFamily.getFontFamily(value);
+  static AppFontFamily _conversionFontFamily(String value) => AppFontFamily.getFontFamily(value);
 
   /// Установить новое семейство шрифтов [fontFamily].
   Future<void> setFontFamily(AppFontFamily font) async {
@@ -169,8 +162,7 @@ class AppTheme with Updater {
     name: '$AppTheme/currentThemeScheme',
   );
 
-  static FlexSchemeData _conversionThemeScheme(int index) =>
-      AppThemeScheme.schemes[index];
+  static FlexSchemeData _conversionThemeScheme(int index) => AppThemeScheme.schemes[index];
 
   /// Установить новую цветовую схему приложения.
   Future<void> setThemeScheme(int index) async {
@@ -218,10 +210,10 @@ class AppTheme with Updater {
   );
 
   Future<void> toggleDarkSwapColors(bool swap) async => saveAndUpdate<bool>(
-        swapDarkMainAndContainerColors,
-        DbStore.swapDarkMainAndContainerColors,
-        swap,
-      );
+    swapDarkMainAndContainerColors,
+    DbStore.swapDarkMainAndContainerColors,
+    swap,
+  );
 
   // Оттенки черного.
   // ---------------------------------------------------------------------------
@@ -266,8 +258,7 @@ class AppTheme with Updater {
   /// Текущая используемая тема исходя из ThemeMode.
   ///
   /// isDark получаем исходя из Brightness.dark == Theme.of(context).brightness.
-  static final usingThemeNow =
-      Provider.autoDispose.family<FlexColorScheme, bool>(
+  static final usingThemeNow = Provider.autoDispose.family<FlexColorScheme, bool>(
     (ref, bool isDark) => isDark ? ref.watch(darkTheme) : ref.watch(lightTheme),
     name: '$AppTheme/usingThemeNow',
   );
@@ -303,8 +294,10 @@ class AppTheme with Updater {
   /// Отдельная тема для определения darkLevel.
   ///
   /// Используется как обходной путь для установки darkLevel.
-  static final darkThemeTestedDarkLevel =
-      Provider.autoDispose.family<FlexColorScheme, int>((ref, darkLevel) {
+  static final darkThemeTestedDarkLevel = Provider.autoDispose.family<FlexColorScheme, int>((
+    ref,
+    darkLevel,
+  ) {
     return AppThemeScheme.dark(
       usedTheme: ref.watch(currentThemeScheme),
       swapColors: ref.watch(swapColors),

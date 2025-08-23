@@ -13,19 +13,14 @@ class HomePageController {
   final Ref _ref;
 
   /// Instance of current class.
-  static final instance = Provider(
-    HomePageController.new,
-    name: '$HomePageController',
-  );
+  static final instance = Provider(HomePageController.new, name: '$HomePageController');
 
   /// List of visual designs.
   ///
   static final designPages = Provider.autoDispose<List<DesignPage>>(
-    (ref) => ref.watch(SettingsStorage.instance).attach(
-          SettingsCards.designPages,
-          (value) => ref.state = value,
-          detacher: ref.onDispose,
-        ),
+    (ref) => ref
+        .watch(SettingsStorage.instance)
+        .attach(SettingsCards.designPages, (value) => ref.state = value, detacher: ref.onDispose),
   );
 
   // ---------------------------------------
@@ -49,34 +44,23 @@ class HomePageController {
   /// * 1 - страница почасовой погоды;
   /// * 2 - страница текущей погоды;
   /// * 3 - страница прогнозов погоды на ближайшие дни (на 7 дней);
-  static final currentIndex = Provider<int>(
-    (ref) {
-      final index = ref.watch(
-        pageController.select(
-          (controller) => controller.page?.round() ?? controller.initialPage,
-        ),
-      );
+  static final currentIndex = Provider<int>((ref) {
+    final index = ref.watch(
+      pageController.select((controller) => controller.page?.round() ?? controller.initialPage),
+    );
 
-      // ignore: deprecated_member_use
-      ref.listenSelf(
-        (previous, next) => _notifyObservers(previous ?? index, next),
-      );
+    // ignore: deprecated_member_use
+    ref.listenSelf((previous, next) => _notifyObservers(previous ?? index, next));
 
-      return index;
-    },
-    name: '$HomePageController/currentIndex',
-  );
+    return index;
+  }, name: '$HomePageController/currentIndex');
 
   /// Установить новую страницу, когда мы щелкаем по bottom bar.
   void setIndexPageWhenClick(int index) {
     final controller = _ref.read(pageController);
     if ((_ref.read(currentIndex) - index).abs() == 1) {
       // ignore: discarded_futures
-      controller.animateToPage(
-        index,
-        duration: _durationSlide,
-        curve: Curves.ease,
-      );
+      controller.animateToPage(index, duration: _durationSlide, curve: Curves.ease);
     } else {
       controller.jumpToPage(index);
     }
@@ -94,24 +78,19 @@ class HomePageController {
           stringMatch: '',
           key: const ValueKey(''),
           config: AutoRoute(
-            page: EmptyShellRoute(
-              switch (index) {
-                0 => 'SettingsTab',
-                1 => 'HourlyTab',
-                2 => 'CurrentlyTab',
-                3 => 'DailyTab',
-                _ => throw "Wrong page index. Try again."
-              },
-            ),
+            page: EmptyShellRoute(switch (index) {
+              0 => 'SettingsTab',
+              1 => 'HourlyTab',
+              2 => 'CurrentlyTab',
+              3 => 'DailyTab',
+              _ => throw "Wrong page index. Try again.",
+            }),
           ),
         ),
         index: index,
       );
     }
 
-    NavigationObserver().didChangeTabRoute(
-      getRoute(previousIndex),
-      getRoute(nextIndex),
-    );
+    NavigationObserver().didChangeTabRoute(getRoute(previousIndex), getRoute(nextIndex));
   }
 }

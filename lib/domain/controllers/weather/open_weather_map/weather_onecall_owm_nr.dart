@@ -41,19 +41,17 @@ class WeatherOnecallOwmNR extends BaseWeatherOwmNR<WeatherOneCall> {
 
   @override
   Future<WeatherOneCall?> getStoredWeather() async {
-    final json =
-        await db.load(DbStore.weatherOneCall, DbStore.weatherOneCallDefault);
+    final json = await db.load(DbStore.weatherOneCall, DbStore.weatherOneCallDefault);
 
     if (json.isEmpty) return null;
     return WeatherOneCall.fromJson(jsonDecode(json) as Map<String, dynamic>);
   }
 
   @override
-  Future<WeatherOneCall> fetchWeather(Place place) async =>
-      weatherService.oneCallWeatherByLocation(
-        latitude: place.latitude!,
-        longitude: place.longitude!,
-      );
+  Future<WeatherOneCall> fetchWeather(Place place) async => weatherService.oneCallWeatherByLocation(
+    latitude: place.latitude!,
+    longitude: place.longitude!,
+  );
 
   @override
   Future<void> saveWeatherInDb(WeatherOneCall weather) async =>
@@ -75,14 +73,11 @@ class WeatherOnecallOwmNR extends BaseWeatherOwmNR<WeatherOneCall> {
 
   @override
   Future<bool> isAbilityRequestOnDiffPlacesImpl() async =>
-      weatherStorage.get<bool>(
-        WeatherCards.isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces,
-      );
+      weatherStorage.get<bool>(WeatherCards.isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces);
 
   @override
-  Future<void> resetAbilityRequestOnDiffPlaces() async =>
-      weatherStorage.set<bool>(
-        WeatherCards.isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces,
-        false,
-      );
+  Future<void> resetAbilityRequestOnDiffPlaces() async => weatherStorage.set<bool>(
+    WeatherCards.isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces,
+    false,
+  );
 }

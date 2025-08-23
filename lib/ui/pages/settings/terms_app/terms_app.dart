@@ -9,17 +9,14 @@ import '../../../shared/appbar_widget.dart';
 
 @RoutePage()
 class TermsAppPage extends ConsumerWidget {
-  const TermsAppPage({
-    super.key,
-  });
+  const TermsAppPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(AppLocalization.currentTranslation);
 
     // хотя это и не требуется, т.к. в обязательном порядке принимается при старте приложения.
-    final bool isAcceptedTerms =
-        ref.watch(AppGeneralSettings.isAcceptedTermsConditions);
+    final bool isAcceptedTerms = ref.watch(AppGeneralSettings.isAcceptedTermsConditions);
 
     return Scaffold(
       appBar: AppBarCustom(t.termsConditions.termsAndConditions),

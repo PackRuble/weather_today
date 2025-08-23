@@ -24,9 +24,7 @@ class WeatherProviderPage extends ConsumerWidget {
     final weatherProvider = ref.watch(weatherProviderPR);
 
     return Scaffold(
-      appBar: AppBarCustom(
-        ref.tr.ui.weatherProvider,
-      ),
+      appBar: AppBarCustom(ref.tr.ui.weatherProvider),
       body: ListView(
         children: [
           const _SelectWeatherProviderTile(),

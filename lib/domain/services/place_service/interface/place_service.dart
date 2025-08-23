@@ -8,8 +8,5 @@ abstract class PlaceService {
   Future<List<Place>> getPlacesByName(String queryCity);
 
   /// Получить местоположения по координатам.
-  Future<List<Place>> getPlacesByCoordinates({
-    required double latitude,
-    required double longitude,
-  });
+  Future<List<Place>> getPlacesByCoordinates({required double latitude, required double longitude});
 }

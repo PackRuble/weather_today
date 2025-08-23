@@ -51,9 +51,7 @@ class LogsPage extends ConsumerWidget with UiLoggy {
                   IconButton(
                     padding: const EdgeInsets.all(16.0),
                     onPressed: () {
-                      final result = const JsonEncoder.withIndent(
-                        '  ',
-                      ).convert(logs.toList());
+                      final result = const JsonEncoder.withIndent('  ').convert(logs.toList());
 
                       Clipboard.setData(ClipboardData(text: result));
                     },
@@ -75,10 +73,7 @@ class LogsPage extends ConsumerWidget with UiLoggy {
                           itemBuilder: (BuildContext _, int index) {
                             return Row(
                               children: [
-                                Text(
-                                  '$index',
-                                  style: theme.textTheme.titleMedium,
-                                ),
+                                Text('$index', style: theme.textTheme.titleMedium),
                                 const SizedBox(width: 10),
                                 Flexible(child: Text(logs.elementAt(index))),
                               ],

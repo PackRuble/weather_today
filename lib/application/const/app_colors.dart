@@ -16,13 +16,11 @@ class AppColors {
 
   Color get cardBorderColor => scheme.primaryContainer;
 
-  Color get cardSelectedBorder =>
-      isLight ? theme.primaryColorDark : scheme.primaryContainer;
+  Color get cardSelectedBorder => isLight ? theme.primaryColorDark : scheme.primaryContainer;
 
   Color get cardColor => theme.cardColor;
 
-  Color get cardSelectedColor =>
-      isLight ? theme.primaryColorLight : theme.primaryColorDark;
+  Color get cardSelectedColor => isLight ? theme.primaryColorLight : theme.primaryColorDark;
 
   // ===========================================================================
   // chip colors
@@ -55,6 +53,5 @@ class AppColors {
   /// Цвет тени.
   Color get shadowColorSearchbar => scheme.shadow;
 
-  Color get borderColorSearchbar =>
-      scheme.primaryContainer.withValues(alpha: 0.75);
+  Color get borderColorSearchbar => scheme.primaryContainer.withValues(alpha: 0.75);
 }

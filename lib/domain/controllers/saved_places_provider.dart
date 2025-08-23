@@ -10,8 +10,7 @@ import 'package:weather_today/domain/services/place_service/models/place_model.d
 import '../../application/const/first_run_saved_places.dart';
 
 /// Контроллер сервиса Сохраненных мест.
-final savedPlacesController =
-    StateNotifierProvider.autoDispose<SavedPlacesNotifier, List<Place>>(
+final savedPlacesController = StateNotifierProvider.autoDispose<SavedPlacesNotifier, List<Place>>(
   SavedPlacesNotifier.new,
   name: 'savedPlacesController->$SavedPlacesNotifier',
 );
@@ -28,9 +27,7 @@ class SavedPlacesNotifier extends StateNotifier<List<Place>> {
   /// Запустить при создании класса.
   Future<void> _init() async {
     state = _conversionSavedPlacesDb(
-      await _ref
-          .read(dbService)
-          .load(DbStore.savedPlaces, DbStore.savedPlacesDefault),
+      await _ref.read(dbService).load(DbStore.savedPlaces, DbStore.savedPlacesDefault),
     );
   }
 
@@ -51,8 +48,7 @@ class SavedPlacesNotifier extends StateNotifier<List<Place>> {
   bool isSavedPlace(Place place) => state.any((pl) => place.isSamePlace(pl));
 
   /// Является ли место текущим.
-  bool isCurrentPlace(Place place) =>
-      place.isSamePlace(_ref.read(WeatherServices.currentPlace));
+  bool isCurrentPlace(Place place) => place.isSamePlace(_ref.read(WeatherServices.currentPlace));
 
   /// Добавить местоположение в список сохраненных.
   ///
@@ -86,8 +82,7 @@ class SavedPlacesNotifier extends StateNotifier<List<Place>> {
 
   /// Обновить состояние и удалить местоположение из бд.
   Future<void> deletePlace(Place deletedPlace) async {
-    state =
-        _ofState.where((place) => !deletedPlace.isSamePlace(place)).toList();
+    state = _ofState.where((place) => !deletedPlace.isSamePlace(place)).toList();
     await _saveInDatabase(state);
   }
 
@@ -105,9 +100,7 @@ class SavedPlacesNotifier extends StateNotifier<List<Place>> {
   }
 
   /// Сохранить любимый список мест в бд.
-  Future<void> _saveInDatabase(List<Place> places) async =>
-      _ref.read(dbService).save(
-            DbStore.savedPlaces,
-            places.map((e) => jsonEncode(e.toJson())).toList(),
-          );
+  Future<void> _saveInDatabase(List<Place> places) async => _ref
+      .read(dbService)
+      .save(DbStore.savedPlaces, places.map((e) => jsonEncode(e.toJson())).toList());
 }

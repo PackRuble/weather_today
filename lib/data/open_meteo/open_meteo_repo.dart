@@ -10,9 +10,7 @@ import 'models/models.dart';
 class OpenMeteoApiException implements Exception {
   const OpenMeteoApiException(this.code, this.message);
 
-  const OpenMeteoApiException.error(Object error)
-      : message = '$error',
-        code = 0;
+  const OpenMeteoApiException.error(Object error) : message = '$error', code = 0;
 
   /// Message about error.
   final String message;
@@ -36,26 +34,21 @@ class OpenMeteoRepo {
     ForecastOpenMeteoResponse result;
 
     try {
-      final uri = Uri.https(
-        'api.open-meteo.com',
-        '/v1/forecast',
-        {
-          'latitude': '${place.latitude}',
-          'longitude': '${place.longitude}',
-          'temperature_unit': 'celsius', // celsius | fahrenheit
-          'wind_speed_unit': 'ms', // kmh | ms | mph | kn
-          'precipitation_unit': 'mm', // mm | inch
-          // todo(03.08.2024):
-          'timezone': 'auto', // GMT | auto
-          'current': currentParams.map((e) => e.name).join(','),
-          if (hourlyParams != null)
-            'hourly': hourlyParams.map((e) => e.name).join(','),
-          if (dailyParams != null) ...{
-            'past_days': '0', // for daily
-            'daily': dailyParams.map((e) => e.name).join(','),
-          },
+      final uri = Uri.https('api.open-meteo.com', '/v1/forecast', {
+        'latitude': '${place.latitude}',
+        'longitude': '${place.longitude}',
+        'temperature_unit': 'celsius', // celsius | fahrenheit
+        'wind_speed_unit': 'ms', // kmh | ms | mph | kn
+        'precipitation_unit': 'mm', // mm | inch
+        // todo(03.08.2024):
+        'timezone': 'auto', // GMT | auto
+        'current': currentParams.map((e) => e.name).join(','),
+        if (hourlyParams != null) 'hourly': hourlyParams.map((e) => e.name).join(','),
+        if (dailyParams != null) ...{
+          'past_days': '0', // for daily
+          'daily': dailyParams.map((e) => e.name).join(','),
         },
-      );
+      });
       logInfo(uri);
 
       final http.Response response = await http.get(uri);
@@ -66,10 +59,7 @@ class OpenMeteoRepo {
         case 200:
           break;
         default:
-          throw OpenMeteoApiException(
-            response.statusCode,
-            json["reason"]?.toString() ?? '$json',
-          );
+          throw OpenMeteoApiException(response.statusCode, json["reason"]?.toString() ?? '$json');
       }
 
       result = ForecastOpenMeteoResponse.fromJson(json);
@@ -97,17 +87,13 @@ final class OpenMeteoGeocodingRepo {
     String lang = 'en',
   }) async {
     final List<OpenMeteoPlace> result;
-    final uri = Uri.https(
-      'geocoding-api.open-meteo.com',
-      '/v1/search',
-      <String, String>{
-        'name': text,
-        'count': '$count', // Up to 100
-        'format': 'json', // json | protobuf
-        'language': lang,
-        // 'apikey': '',
-      },
-    );
+    final uri = Uri.https('geocoding-api.open-meteo.com', '/v1/search', <String, String>{
+      'name': text,
+      'count': '$count', // Up to 100
+      'format': 'json', // json | protobuf
+      'language': lang,
+      // 'apikey': '',
+    });
 
     logInfo(uri);
 
@@ -118,16 +104,11 @@ final class OpenMeteoGeocodingRepo {
 
       if (json case {'results': final List places}) {
         result = [
-          for (final place in places)
-            OpenMeteoPlace.fromJson(place as Map<String, Object?>),
+          for (final place in places) OpenMeteoPlace.fromJson(place as Map<String, Object?>),
         ];
       } else if (response.statusCode case 200) {
         result = [];
-      } else if (json
-          case {
-            'error': true,
-            'reason': final String reason,
-          }) {
+      } else if (json case {'error': true, 'reason': final String reason}) {
         throw OpenMeteoApiException(response.statusCode, reason);
       } else {
         throw OpenMeteoApiException(response.statusCode, json.toString());

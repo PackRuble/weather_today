@@ -49,8 +49,7 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
               uvi: null,
               weatherMain: null,
               weatherDescription: null,
-              weatherIcon: convertOwmWeatherCode(currentOM.weatherCode)
-                  .iconPath(currentOM.isDay),
+              weatherIcon: convertOwmWeatherCode(currentOM.weatherCode).iconPath(currentOM.isDay),
               weatherConditionCode: currentOM.weatherCode.code,
             )
           : null,
@@ -77,8 +76,7 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                   snow: hourly.snowfall,
                   weatherDescription: null,
                   weatherMain: null,
-                  weatherIcon: convertOwmWeatherCode(hourly.weatherCode)
-                      .iconPath(hourly.isDay),
+                  weatherIcon: convertOwmWeatherCode(hourly.weatherCode).iconPath(hourly.isDay),
                   weatherConditionCode: hourly.weatherCode.code,
                 ),
             ]
@@ -119,8 +117,7 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                   weatherDescription: null,
                   weatherMain: null,
                   // fixme(06.08.2024): optimize convertOwmWeatherCode
-                  weatherIcon:
-                      convertOwmWeatherCode(daily.weatherCode).iconPath(true),
+                  weatherIcon: convertOwmWeatherCode(daily.weatherCode).iconPath(true),
                   weatherConditionCode: daily.weatherCode.code,
                 ),
             ]
@@ -223,7 +220,7 @@ enum OWMWeatherCode {
   code801(801, 'Few clouds'), // 11-25%
   code802(802, 'Scattered clouds'), // 25-50%
   code803(803, 'Broken clouds'), // 51-84%
-  code804(804, 'Overcast clouds'), // 85-100%
+  code804(804, 'Overcast clouds') // 85-100%
   ;
 
   const OWMWeatherCode(this.code, this.desc);
@@ -245,8 +242,7 @@ enum OWMWeatherCode {
         code221 ||
         code230 ||
         code231 ||
-        code232 =>
-          '11',
+        code232 => '11',
         code300 ||
         code301 ||
         code302 ||
@@ -255,8 +251,7 @@ enum OWMWeatherCode {
         code312 ||
         code313 ||
         code314 ||
-        code321 =>
-          '09',
+        code321 => '09',
         code500 || code501 || code502 || code503 || code504 => '10',
         code511 => '13',
         code520 || code521 || code522 || code531 => '09',
@@ -270,8 +265,7 @@ enum OWMWeatherCode {
         code616 ||
         code620 ||
         code621 ||
-        code622 =>
-          '13',
+        code622 => '13',
         code701 ||
         code711 ||
         code721 ||
@@ -281,8 +275,7 @@ enum OWMWeatherCode {
         code751 ||
         code762 ||
         code771 ||
-        code781 =>
-          '50',
+        code781 => '50',
         code800 => '01',
         code801 => '02',
         code802 => '03',
@@ -292,63 +285,58 @@ enum OWMWeatherCode {
 
   /// Short description.
   String get brief => switch (this) {
-        code200 ||
-        code201 ||
-        code202 ||
-        code210 ||
-        code211 ||
-        code212 ||
-        code221 ||
-        code230 ||
-        code231 ||
-        code232 =>
-          'Thunderstorm',
-        code300 ||
-        code301 ||
-        code302 ||
-        code310 ||
-        code311 ||
-        code312 ||
-        code313 ||
-        code314 ||
-        code321 =>
-          'Drizzle',
-        code500 ||
-        code501 ||
-        code502 ||
-        code503 ||
-        code504 ||
-        code511 ||
-        code520 ||
-        code521 ||
-        code522 ||
-        code531 =>
-          'Rain',
-        code600 ||
-        code601 ||
-        code602 ||
-        code611 ||
-        code612 ||
-        code613 ||
-        code615 ||
-        code616 ||
-        code620 ||
-        code621 ||
-        code622 =>
-          'Snow',
-        code701 => 'Mist',
-        code711 => 'Smoke',
-        code721 => 'Haze',
-        code731 || code761 => 'Dust',
-        code741 => 'Fog',
-        code751 => 'Sand',
-        code762 => 'Ash',
-        code771 => 'Squall',
-        code781 => 'Tornado',
-        code800 => 'Clear',
-        code801 || code802 || code803 || code804 => 'Clouds',
-      };
+    code200 ||
+    code201 ||
+    code202 ||
+    code210 ||
+    code211 ||
+    code212 ||
+    code221 ||
+    code230 ||
+    code231 ||
+    code232 => 'Thunderstorm',
+    code300 ||
+    code301 ||
+    code302 ||
+    code310 ||
+    code311 ||
+    code312 ||
+    code313 ||
+    code314 ||
+    code321 => 'Drizzle',
+    code500 ||
+    code501 ||
+    code502 ||
+    code503 ||
+    code504 ||
+    code511 ||
+    code520 ||
+    code521 ||
+    code522 ||
+    code531 => 'Rain',
+    code600 ||
+    code601 ||
+    code602 ||
+    code611 ||
+    code612 ||
+    code613 ||
+    code615 ||
+    code616 ||
+    code620 ||
+    code621 ||
+    code622 => 'Snow',
+    code701 => 'Mist',
+    code711 => 'Smoke',
+    code721 => 'Haze',
+    code731 || code761 => 'Dust',
+    code741 => 'Fog',
+    code751 => 'Sand',
+    code762 => 'Ash',
+    code771 => 'Squall',
+    code781 => 'Tornado',
+    code800 => 'Clear',
+    code801 || code802 || code803 || code804 => 'Clouds',
+  };
 
-  static OWMWeatherCode byCode(int code) =>
-      values.firstWhere((e) => e.code == code);
+  static OWMWeatherCode byCode(int code) => values.firstWhere((e) => e.code == code);
 }

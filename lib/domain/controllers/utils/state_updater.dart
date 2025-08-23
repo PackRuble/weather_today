@@ -17,13 +17,11 @@ mixin Updater {
 
   /// Метод обновления провайдеров с состоянием.
   @protected
-  void update<S>(StateProvider<S> pr, S value) =>
-      ref.read(pr.notifier).update((_) => value);
+  void update<S>(StateProvider<S> pr, S value) => ref.read(pr.notifier).update((_) => value);
 
   /// Метод асинхронной загрузки данных из бд.
   @protected
-  Future<V> loadDb<V>(String key, V defaultValue) async =>
-      db.load(key, defaultValue);
+  Future<V> loadDb<V>(String key, V defaultValue) async => db.load(key, defaultValue);
 
   /// Метод асинхронного сохранения данных в бд.
   @protected
@@ -34,11 +32,7 @@ mixin Updater {
   /// Для простых случаев, когда состояние провайдера совпадает со значением,
   /// допустимым для сохранения в бд.
   @protected
-  Future<void> saveAndUpdate<S>(
-    StateProvider<S> pr,
-    String key,
-    S value,
-  ) async {
+  Future<void> saveAndUpdate<S>(StateProvider<S> pr, String key, S value) async {
     update<S>(pr, value);
     await saveDb<S>(key, value);
   }

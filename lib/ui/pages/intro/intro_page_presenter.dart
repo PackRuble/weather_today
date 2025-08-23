@@ -19,14 +19,10 @@ class IntroPagePresenter {
   final Ref _ref;
 
   /// Instance of class [IntroPagePresenter].
-  static final instance = Provider.autoDispose(
-    IntroPagePresenter.new,
-    name: '$IntroPagePresenter',
-  );
+  static final instance = Provider.autoDispose(IntroPagePresenter.new, name: '$IntroPagePresenter');
 
   /// Provider returns translation.
-  static StateProvider<TranslationsRu> get tr =>
-      AppLocalization.currentTranslation;
+  static StateProvider<TranslationsRu> get tr => AppLocalization.currentTranslation;
 
   /// Instance of class [TranslationsRu].
   static final introTiles = Provider.autoDispose<List<IntroTile>>(
@@ -36,26 +32,10 @@ class IntroPagePresenter {
 
   static List<IntroTile> _getIntroTiles(TranslationsRu t) {
     return [
-      IntroTile(
-        t.introPage.tile1title,
-        t.introPage.tile1subtitle,
-        WeatherScene.sunset,
-      ),
-      IntroTile(
-        t.introPage.tile2title,
-        t.introPage.tile2subtitle,
-        WeatherScene.snowfall,
-      ),
-      IntroTile(
-        t.introPage.tile3title,
-        t.introPage.tile3subtitle,
-        WeatherScene.frosty,
-      ),
-      IntroTile(
-        t.introPage.tile4title,
-        t.introPage.tile4subtitle,
-        WeatherScene.stormy,
-      ),
+      IntroTile(t.introPage.tile1title, t.introPage.tile1subtitle, WeatherScene.sunset),
+      IntroTile(t.introPage.tile2title, t.introPage.tile2subtitle, WeatherScene.snowfall),
+      IntroTile(t.introPage.tile3title, t.introPage.tile3subtitle, WeatherScene.frosty),
+      IntroTile(t.introPage.tile4title, t.introPage.tile4subtitle, WeatherScene.stormy),
     ];
   }
 }

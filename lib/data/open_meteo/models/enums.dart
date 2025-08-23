@@ -90,7 +90,7 @@ enum OpenMeteoWeatherCode {
   code86(86, 'Heavy snow showers'),
   code95(95, 'Thunderstorm'), // (*)
   code96(96, 'Thunderstorm with slight hail'), // (*)
-  code99(99, 'Thunderstorm with heavy hail'), // (*)
+  code99(99, 'Thunderstorm with heavy hail') // (*)
   ;
 
   const OpenMeteoWeatherCode(this.code, this.desc);
@@ -101,6 +101,5 @@ enum OpenMeteoWeatherCode {
   /// Short description.
   final String desc;
 
-  static OpenMeteoWeatherCode byCode(int code) =>
-      values.firstWhere((e) => e.code == code);
+  static OpenMeteoWeatherCode byCode(int code) => values.firstWhere((e) => e.code == code);
 }

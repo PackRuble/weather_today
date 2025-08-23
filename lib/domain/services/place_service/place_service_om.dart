@@ -14,12 +14,9 @@ import 'package:weather_today/domain/services/place_service/models/place_model.d
 import '../../../application/const/countries_code.dart';
 import 'interface/place_service.dart';
 
-final geocodingOMPR =
-    Provider.autoDispose((_) => const OpenMeteoGeocodingRepo());
+final geocodingOMPR = Provider.autoDispose((_) => const OpenMeteoGeocodingRepo());
 
-class PlaceOMService extends AutoDisposeNotifier<void>
-    with CallWrapper
-    implements PlaceService {
+class PlaceOMService extends AutoDisposeNotifier<void> with CallWrapper implements PlaceService {
   static final i = AutoDisposeNotifierProvider<PlaceOMService, void>(
     PlaceOMService.new,
     name: '$PlaceOMService',
@@ -39,19 +36,14 @@ class PlaceOMService extends AutoDisposeNotifier<void>
     required double latitude,
     required double longitude,
   }) async {
-    throw UnimplementedError(
-      'It is not possible to use coordinates for this geo-service',
-    );
+    throw UnimplementedError('It is not possible to use coordinates for this geo-service');
   }
 
   @override
   Future<List<Place>> getPlacesByName(String queryCity) async {
-    final List<OpenMeteoPlace> placesDirect = (await callSafely(
-          () => _geocodingOMPR.geocode(
-            text: queryCity,
-            count: 5,
-            lang: _locale.languageCode,
-          ),
+    final List<OpenMeteoPlace> placesDirect =
+        (await callSafely(
+          () => _geocodingOMPR.geocode(text: queryCity, count: 5, lang: _locale.languageCode),
         )) ??
         [];
 

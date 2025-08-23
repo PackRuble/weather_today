@@ -6,10 +6,7 @@ import 'package:weather_today/application/const/app_colors.dart';
 
 /// Виджет-подсказка.
 class TipRWidget extends ConsumerWidget {
-  const TipRWidget({
-    required this.text,
-    this.padding = const EdgeInsets.all(8.0),
-  });
+  const TipRWidget({required this.text, this.padding = const EdgeInsets.all(8.0)});
 
   final Text text;
   final EdgeInsets padding;
@@ -31,10 +28,7 @@ class TipRWidget extends ConsumerWidget {
                 side: BorderSide(color: AppColors.of(context).tipBorderColor),
               ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: text,
-            ),
+            child: Padding(padding: const EdgeInsets.all(8.0), child: text),
           ),
         ),
       ),
@@ -43,11 +37,7 @@ class TipRWidget extends ConsumerWidget {
 }
 
 class TipWidget extends StatelessWidget {
-  const TipWidget({
-    super.key,
-    required this.child,
-    required this.color,
-  });
+  const TipWidget({super.key, required this.child, required this.color});
 
   final Widget child;
   final Color? color;

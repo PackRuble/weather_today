@@ -27,9 +27,7 @@ class DataBasePrefs with DbLogger implements DataBase {
 
       // значения ещё нет в бд
       if (value == null) {
-        loggy.info(
-          'For <$key> value is null, loaded the `defaultValue`: <$defaultValue>',
-        );
+        loggy.info('For <$key> value is null, loaded the `defaultValue`: <$defaultValue>');
         return defaultValue;
       }
 
@@ -91,11 +89,7 @@ class DataBasePrefs with DbLogger implements DataBase {
         if (kReleaseMode) {
           loggy.error('NOT Saved: [ key: <$key> | type: <$T> ]', e, s);
         } else {
-          loggy.error(
-            'NOT Saved: [ key: <$key> | value: <$value> | type: <$T> ]',
-            e,
-            s,
-          );
+          loggy.error('NOT Saved: [ key: <$key> | value: <$value> | type: <$T> ]', e, s);
         }
         return false;
       }
@@ -113,23 +107,17 @@ class DataBasePrefs with DbLogger implements DataBase {
   @override
   Future<bool> contains(String key) async {
     final result = _prefs.containsKey(key);
-    loggy.info(
-      'Storage${result ? '' : " doesn't"} contains a key-value for key: [ key: <$key> ]',
-    );
+    loggy.info('Storage${result ? '' : " doesn't"} contains a key-value for key: [ key: <$key> ]');
     return result;
   }
 
   @override
   Future<bool> clearAll() async {
     if (await _prefs.clear()) {
-      loggy.info(
-        'The user storage has been cleared: [ AllKeys: ${_prefs.getKeys()} ]',
-      );
+      loggy.info('The user storage has been cleared: [ AllKeys: ${_prefs.getKeys()} ]');
       return true;
     } else {
-      loggy.error(
-        'An error occurred while clearing the user storage: [ prefs: $_prefs ]',
-      );
+      loggy.error('An error occurred while clearing the user storage: [ prefs: $_prefs ]');
       return false;
     }
   }

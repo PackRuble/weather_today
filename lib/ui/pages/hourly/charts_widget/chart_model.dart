@@ -26,12 +26,10 @@ class ChartModel {
     precisionLeft = 0;
 
     // находим интервальные точки сверху от графика
-    labelIntervalsTop =
-        ChartUtils.getXInterval(countLabel.top, data.length, false);
+    labelIntervalsTop = ChartUtils.getXInterval(countLabel.top, data.length, false);
 
     // находим интервальные точки снизу от графика (время)
-    labelIntervalsBottomTime =
-        ChartUtils.getXInterval(countLabel.bottom, data.length, true);
+    labelIntervalsBottomTime = ChartUtils.getXInterval(countLabel.bottom, data.length, true);
 
     // определяем константу точность точки
     constantPrecisionPointLeft = pow(0.1, precisionLeft + 1).toDouble();
@@ -64,19 +62,16 @@ class ChartModel {
     }
 
     // интервал между метками слева от графика
-    scaleDivisionLeft =
-        ChartUtils.getYIntervalBetweenLabel(0.0, _popMax, countLabel.left);
+    scaleDivisionLeft = ChartUtils.getYIntervalBetweenLabel(0.0, _popMax, countLabel.left);
 
     // точность меток слева от графика
     precisionLeft = ChartUtils.getYPrecision(scaleDivisionLeft);
 
     // находим интервальные точки сверху от графика
-    labelIntervalsTop =
-        ChartUtils.getXInterval(data.length ~/ 3, data.length, false);
+    labelIntervalsTop = ChartUtils.getXInterval(data.length ~/ 3, data.length, false);
 
     // находим интервальные точки снизу от графика (время)
-    labelIntervalsBottomTime =
-        ChartUtils.getXInterval(countLabel.bottom, data.length, true);
+    labelIntervalsBottomTime = ChartUtils.getXInterval(countLabel.bottom, data.length, true);
 
     isDataCorrect = true;
   }
@@ -109,19 +104,16 @@ class ChartModel {
     valueMaxY = _windMax;
 
     // интервал между метками слева от графика
-    scaleDivisionLeft =
-        ChartUtils.getYIntervalBetweenLabel(0.0, _windMax, countLabel.left);
+    scaleDivisionLeft = ChartUtils.getYIntervalBetweenLabel(0.0, _windMax, countLabel.left);
 
     // точность меток слева от графика
     precisionLeft = ChartUtils.getYPrecision(scaleDivisionLeft);
 
     // находим интервальные точки сверху от графика
-    labelIntervalsTop =
-        ChartUtils.getXInterval(countLabel.top, data.length, false);
+    labelIntervalsTop = ChartUtils.getXInterval(countLabel.top, data.length, false);
 
     // находим интервальные точки снизу от графика
-    labelIntervalsBottomTime =
-        ChartUtils.getXInterval(countLabel.bottom, data.length, true);
+    labelIntervalsBottomTime = ChartUtils.getXInterval(countLabel.bottom, data.length, true);
 
     isDataCorrect = true;
   }
@@ -179,26 +171,19 @@ class ChartModel {
     valueMaxY = Temp.celsius.value(_maxValueY);
 
     // интервал между метками слева от графика
-    scaleDivisionLeft = ChartUtils.getYIntervalBetweenLabel(
-      valueMinY,
-      valueMaxY!,
-      countLabel.left,
-    );
+    scaleDivisionLeft = ChartUtils.getYIntervalBetweenLabel(valueMinY, valueMaxY!, countLabel.left);
 
     // точность меток слева от графика
     precisionLeft = ChartUtils.getYPrecision(scaleDivisionLeft);
 
     // находим интервальные точки сверху от графика
-    labelIntervalsTop =
-        ChartUtils.getXInterval(countLabel.top, data.length, false);
+    labelIntervalsTop = ChartUtils.getXInterval(countLabel.top, data.length, false);
 
     // находим интервальные точки снизу от графика **ДЛЯ ПОГОДЫ**
-    labelIntervalsBottomIcon =
-        ChartUtils.getXInterval(countLabel.bottom, data.length, false);
+    labelIntervalsBottomIcon = ChartUtils.getXInterval(countLabel.bottom, data.length, false);
 
     // находим интервальные точки снизу от графика **ДЛЯ ВРЕМЕНИ**
-    labelIntervalsBottomTime =
-        ChartUtils.getXInterval(countLabel.bottomLow!, data.length, true);
+    labelIntervalsBottomTime = ChartUtils.getXInterval(countLabel.bottomLow!, data.length, true);
 
     // определяем константу точность точки
     constantPrecisionPointLeft = pow(0.1, precisionLeft + 1).toDouble();

@@ -8,15 +8,13 @@ import 'package:weather_today/domain/services/place_service/place_service_om.dar
 import 'package:weather_today/domain/services/place_service/place_service_owm.dart';
 
 /// Сервис по предоставлению места.
-final geocodingNR = Provider.autoDispose<PlaceService>(
-  (ref) {
-    final geocodingProvider = ref.watch(GeocodingProviderNR.i);
+final geocodingNR = Provider.autoDispose<PlaceService>((ref) {
+  final geocodingProvider = ref.watch(GeocodingProviderNR.i);
 
-    return switch (geocodingProvider) {
-      GeocodingProvider.openWeatherMap =>
-        PlaceServiceOWM(GeocodingService(ref.watch(OWMController.apiKey))),
-      GeocodingProvider.openMeteo => ref.watch(PlaceOMService.i.notifier),
-    };
-  },
-  name: 'placeServiceOWMPr->$PlaceServiceOWM',
-);
+  return switch (geocodingProvider) {
+    GeocodingProvider.openWeatherMap => PlaceServiceOWM(
+      GeocodingService(ref.watch(OWMController.apiKey)),
+    ),
+    GeocodingProvider.openMeteo => ref.watch(PlaceOMService.i.notifier),
+  };
+}, name: 'placeServiceOWMPr->$PlaceServiceOWM');

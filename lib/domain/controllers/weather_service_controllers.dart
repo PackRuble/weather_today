@@ -77,22 +77,13 @@ class WeatherServices with Updater {
   //============================================================================
 
   /// Current location.
-  static final currentPlace = StateProvider<Place>(
-    (ref) {
-      // ignore: deprecated_member_use
-      ref.listenSelf(
-        (previous, next) {
-          _autoUpdatePreviousPlace(
-            previous,
-            next,
-            ref.read(WeatherStorage.instance),
-          );
-        },
-      );
-      return Place.fromJson({});
-    },
-    name: '$WeatherServices/currentPlace',
-  );
+  static final currentPlace = StateProvider<Place>((ref) {
+    // ignore: deprecated_member_use
+    ref.listenSelf((previous, next) {
+      _autoUpdatePreviousPlace(previous, next, ref.read(WeatherStorage.instance));
+    });
+    return Place.fromJson({});
+  }, name: '$WeatherServices/currentPlace');
 
   static Future<void> _autoUpdatePreviousPlace(
     Place? previous,
@@ -104,21 +95,13 @@ class WeatherServices with Updater {
     await storage.set<Place>(WeatherCards.previousPlace, previous);
 
     if (!next.isSamePlace(previous)) {
-      await storage.set<bool>(
-        WeatherCards.isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces,
-        true,
-      );
-      await storage.set<bool>(
-        WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces,
-        true,
-      );
+      await storage.set<bool>(WeatherCards.isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces, true);
+      await storage.set<bool>(WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces, true);
     }
   }
 
   static Place _conversionCurrentPlace(String raw) {
-    return raw != ''
-        ? Place.fromJson(json.decode(raw) as Map<String, dynamic>)
-        : initialPlace;
+    return raw != '' ? Place.fromJson(json.decode(raw) as Map<String, dynamic>) : initialPlace;
   }
 
   /// Установить новое местоположение для определения по нему погоды.
@@ -188,8 +171,7 @@ class WeatherServices with Updater {
   );
 
   static WeatherLanguage _conversionCurrentLanguage(String code) =>
-      codeAndLangMatching[code] ??
-      codeAndLangMatching[DbStore.userWeatherLanguageDefault]!;
+      codeAndLangMatching[code] ?? codeAndLangMatching[DbStore.userWeatherLanguageDefault]!;
 
   /// Установить язык погодных условий.
   Future<void> setCurrentLanguage(WeatherLanguage newValue) async {
@@ -207,10 +189,6 @@ class WeatherServices with Updater {
 
     final oneCallApi = ref.watch(OnecallEndpointNR.i);
 
-    return WeatherService(
-      apiKey,
-      language: currentLanguage,
-      oneCallApi: oneCallApi,
-    );
+    return WeatherService(apiKey, language: currentLanguage, oneCallApi: oneCallApi);
   });
 }

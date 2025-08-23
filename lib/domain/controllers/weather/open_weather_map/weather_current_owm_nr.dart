@@ -33,8 +33,7 @@ class WeatherCurrentOwmNR extends BaseWeatherOwmNR<WeatherCurrent> {
 
   /// Allowed frequency of request to CURRENT weather retrieval service with
   /// default API key (developer key).
-  static const Duration allowedRequestRateCurrentWithDefaultApi =
-      Duration(seconds: 30);
+  static const Duration allowedRequestRateCurrentWithDefaultApi = Duration(seconds: 30);
 
   /// Allowed frequency of request to CURRENT weather retrieval service with
   /// by the API user key.
@@ -42,23 +41,17 @@ class WeatherCurrentOwmNR extends BaseWeatherOwmNR<WeatherCurrent> {
 
   @override
   Future<WeatherCurrent?> getStoredWeather() async {
-    final String jsonStr =
-        await db.load(DbStore.weatherCurrent, DbStore.weatherCurrentDefault);
+    final String jsonStr = await db.load(DbStore.weatherCurrent, DbStore.weatherCurrentDefault);
 
     if (jsonStr.isNotEmpty) {
-      return WeatherCurrent.fromJson(
-        jsonDecode(jsonStr) as Map<String, dynamic>,
-      );
+      return WeatherCurrent.fromJson(jsonDecode(jsonStr) as Map<String, dynamic>);
     }
     return null;
   }
 
   @override
-  Future<WeatherCurrent> fetchWeather(Place place) async =>
-      super.weatherService.currentWeatherByLocation(
-            latitude: place.latitude!,
-            longitude: place.longitude!,
-          );
+  Future<WeatherCurrent> fetchWeather(Place place) async => super.weatherService
+      .currentWeatherByLocation(latitude: place.latitude!, longitude: place.longitude!);
 
   @override
   Future<void> saveWeatherInDb(WeatherCurrent weather) async =>
@@ -80,15 +73,12 @@ class WeatherCurrentOwmNR extends BaseWeatherOwmNR<WeatherCurrent> {
 
   @override
   Future<bool> isAbilityRequestOnDiffPlacesImpl() async {
-    return weatherStorage.get<bool>(
-      WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces,
-    );
+    return weatherStorage.get<bool>(WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces);
   }
 
   @override
-  Future<void> resetAbilityRequestOnDiffPlaces() async =>
-      weatherStorage.set<bool>(
-        WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces,
-        false,
-      );
+  Future<void> resetAbilityRequestOnDiffPlaces() async => weatherStorage.set<bool>(
+    WeatherCards.isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces,
+    false,
+  );
 }

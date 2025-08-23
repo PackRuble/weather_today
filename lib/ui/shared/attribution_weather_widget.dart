@@ -19,8 +19,7 @@ class AttributionWeatherWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final textStyle =
-        Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10);
+    final textStyle = Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10);
 
     final isLight = AppColors.of(context).isLight;
 
@@ -44,10 +43,7 @@ class AttributionWeatherWidget extends ConsumerWidget {
               onTap: () async {
                 final url = weatherProvider.websiteUrl;
 
-                await launchUrl(
-                  url,
-                  mode: LaunchMode.externalApplication,
-                );
+                await launchUrl(url, mode: LaunchMode.externalApplication);
               },
               child: Text(
                 weatherProvider.nameService,
@@ -60,10 +56,7 @@ class AttributionWeatherWidget extends ConsumerWidget {
             ),
             if (withIcon) ...[
               const SizedBox(width: 4),
-              Image.asset(
-                weatherProvider.logoAsset(!isLight),
-                height: 16,
-              ),
+              Image.asset(weatherProvider.logoAsset(!isLight), height: 16),
             ],
           ],
         ),

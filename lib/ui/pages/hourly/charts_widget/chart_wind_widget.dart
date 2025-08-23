@@ -35,19 +35,14 @@ class ChartWindWidget extends ConsumerWidget {
       final hourly = chart.data;
       // проверяем, доступно ли время
       final DateTime? startDate = hourly.length < 2 ? null : hourly.first.date;
-      final DateTime? endDate = hourly.length < 2
-          ? null
-          : hourly[hourly.length - 1].date;
+      final DateTime? endDate = hourly.length < 2 ? null : hourly[hourly.length - 1].date;
 
       return CustomChartWidget(
         generateData: const [],
         generateLabelsData: const FlTitlesData(),
         titleWidget: titleWidget,
         ifEmptyDataWidget: (startDate == null || endDate == null)
-            ? Text(
-                t.mainPageDRuble.hourlyPage.wind.noWindExpected,
-                style: styles.bodyMedium,
-              )
+            ? Text(t.mainPageDRuble.hourlyPage.wind.noWindExpected, style: styles.bodyMedium)
             : Text(
                 t.mainPageDRuble.hourlyPage.wind.windExpected(
                   startDate: DateFormat.Hm().format(startDate),
@@ -77,10 +72,7 @@ class ChartWindWidget extends ConsumerWidget {
               text: chart.valueMaxY!.toStringAsFixed(chart.precisionLeft),
               style: styles.labelLarge,
             ),
-            TextSpan(
-              text: ' ${MetricsHelper.getSpeedUnits(Speed.ms)}',
-              style: styles.bodySmall,
-            ),
+            TextSpan(text: ' ${MetricsHelper.getSpeedUnits(Speed.ms)}', style: styles.bodySmall),
           ],
         ),
       );
@@ -102,8 +94,7 @@ class ChartWindWidget extends ConsumerWidget {
       ),
     ];
 
-    final bool isPortrait =
-        MediaQuery.orientationOf(context) == Orientation.portrait;
+    final bool isPortrait = MediaQuery.orientationOf(context) == Orientation.portrait;
 
     return CustomChartWidget(
       generateData: generateData,
@@ -113,9 +104,7 @@ class ChartWindWidget extends ConsumerWidget {
       subtitleWidget: subtitle,
       legendWidgets: legends,
       unitsLeft: t.mainPageDRuble.hourlyPage.wind.units,
-      aspectRatio: isPortrait
-          ? ChartTheme.wAspectRatio
-          : ChartTheme.wAspectRatioLandscape,
+      aspectRatio: isPortrait ? ChartTheme.wAspectRatio : ChartTheme.wAspectRatioLandscape,
     );
   }
 
@@ -126,18 +115,8 @@ class ChartWindWidget extends ConsumerWidget {
         x: x,
         groupVertically: true,
         barRods: [
-          BarChartRodData(
-            fromY: 0,
-            toY: yGust,
-            color: ChartTheme.wColorWindGust,
-            width: 3,
-          ),
-          BarChartRodData(
-            fromY: 0,
-            toY: yWind,
-            color: ChartTheme.wColorWind,
-            width: 3,
-          ),
+          BarChartRodData(fromY: 0, toY: yGust, color: ChartTheme.wColorWindGust, width: 3),
+          BarChartRodData(fromY: 0, toY: yWind, color: ChartTheme.wColorWind, width: 3),
         ],
       );
     }
@@ -146,11 +125,7 @@ class ChartWindWidget extends ConsumerWidget {
 
     for (int i = 0; i < chart.data.length; i++) {
       dataList.addAll([
-        _generateGroup(
-          i,
-          chart.data[i].windSpeed ?? 0.0,
-          chart.data[i].windGust ?? 0.0,
-        ),
+        _generateGroup(i, chart.data[i].windSpeed ?? 0.0, chart.data[i].windGust ?? 0.0),
       ]);
     }
 
@@ -170,13 +145,8 @@ class ChartWindWidget extends ConsumerWidget {
           child: Transform.scale(
             scale: 0.7,
             child: Transform.rotate(
-              angle: MetricsHelper.fromRadiansToDegrees(
-                chart.data[topPoint].windDegree ?? 0,
-              ),
-              child: Icon(
-                AppIcons.directWind,
-                color: Theme.of(context).iconTheme.color,
-              ),
+              angle: MetricsHelper.fromRadiansToDegrees(chart.data[topPoint].windDegree ?? 0),
+              child: Icon(AppIcons.directWind, color: Theme.of(context).iconTheme.color),
             ),
           ),
         );
@@ -186,17 +156,9 @@ class ChartWindWidget extends ConsumerWidget {
 
     // метки температуры по оси y
     Widget _leftTitles(double value, TitleMeta meta) {
-      if (ChartUtils.isSuitYLabel(
-        value,
-        meta.min,
-        meta.max,
-        chart.scaleDivisionLeft,
-      )) {
+      if (ChartUtils.isSuitYLabel(value, meta.min, meta.max, chart.scaleDivisionLeft)) {
         return Center(
-          child: Text(
-            value.toStringAsFixed(chart.precisionLeft),
-            style: styles.bodySmall,
-          ),
+          child: Text(value.toStringAsFixed(chart.precisionLeft), style: styles.bodySmall),
         );
       }
 
@@ -212,12 +174,8 @@ class ChartWindWidget extends ConsumerWidget {
           return const SizedBox.shrink();
         }
 
-        final String time = DateFormat.Hm().format(
-          chart.data[bottomPoint].date!,
-        );
-        final String date = DateFormat.MMMd().format(
-          chart.data[bottomPoint].date!,
-        );
+        final String time = DateFormat.Hm().format(chart.data[bottomPoint].date!);
+        final String date = DateFormat.MMMd().format(chart.data[bottomPoint].date!);
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -33,11 +33,8 @@ class WeatherLanguagePage extends ConsumerWidget with UiLoggy {
                 children: [
                   if (index == 0)
                     TipRWidget(
-                      padding:
-                          const EdgeInsets.only(bottom: AppInsets.allPadding),
-                      text: Text(
-                        '${AppSmiles.set} ${t.weatherLangPage.tips.info}',
-                      ),
+                      padding: const EdgeInsets.only(bottom: AppInsets.allPadding),
+                      text: Text('${AppSmiles.set} ${t.weatherLangPage.tips.info}'),
                     ),
                   _TileWidget(WeatherLanguage.values[index]),
                 ],
@@ -58,8 +55,7 @@ class _TileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final WeatherLanguage current =
-        ref.watch(WeatherLanguagePresenter.currentLanguage);
+    final WeatherLanguage current = ref.watch(WeatherLanguagePresenter.currentLanguage);
 
     final bool isCurrent = current == lang;
 
@@ -69,8 +65,7 @@ class _TileWidget extends ConsumerWidget {
         width: double.infinity,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            foregroundColor:
-                AppColors.of(context).theme.textTheme.bodyMedium?.color,
+            foregroundColor: AppColors.of(context).theme.textTheme.bodyMedium?.color,
             backgroundColor: isCurrent
                 ? AppColors.of(context).cardSelectedColor
                 : AppColors.of(context).cardColor,
@@ -80,9 +75,8 @@ class _TileWidget extends ConsumerWidget {
                   : AppColors.of(context).cardBorderColor,
             ),
           ),
-          onPressed: () async => ref
-              .read(WeatherLanguagePresenter.instance)
-              .setWeatherLanguage(lang),
+          onPressed: () async =>
+              ref.read(WeatherLanguagePresenter.instance).setWeatherLanguage(lang),
           child: Text(lang.name),
         ),
       ),

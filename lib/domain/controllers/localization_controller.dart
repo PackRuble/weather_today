@@ -42,10 +42,7 @@ class AppLocalization {
 
   DataBase get _dbService => _ref.read(dbService);
 
-  static final instance = Provider<AppLocalization>(
-    AppLocalization.new,
-    name: '$AppLocalization',
-  );
+  static final instance = Provider<AppLocalization>(AppLocalization.new, name: '$AppLocalization');
 
   /// Текущая локаль приложения.
   static final currentLocale = StateProvider((_) => AppLocale.ru);
@@ -59,26 +56,22 @@ class AppLocalization {
   }
 
   /// перевести сырые строки.
-  AppLocale _parseRawLocale(String rawLocale) =>
-      AppLocaleUtils.parse(rawLocale);
+  AppLocale _parseRawLocale(String rawLocale) => AppLocaleUtils.parse(rawLocale);
 
   /// Получить сырую локаль из бд.
   Future<String> _getUserStoredLocale() async =>
       _dbService.load(DbStore.appLocale, DbStore.appLocaleDefault);
 
   /// Текущий translation.
-  static final currentTranslation = StateProvider<TranslationsRu>(
-    (ref) {
-      final AppLocale locale = ref.watch(currentLocale);
+  static final currentTranslation = StateProvider<TranslationsRu>((ref) {
+    final AppLocale locale = ref.watch(currentLocale);
 
-      Future(() async {
-        _tr = await locale.build();
-        ref.controller.state = _tr;
-      });
-      return tr;
-    },
-    name: '$AppLocalization/currentTranslation',
-  );
+    Future(() async {
+      _tr = await locale.build();
+      ref.controller.state = _tr;
+    });
+    return tr;
+  }, name: '$AppLocalization/currentTranslation');
 
   /// Текущая локаль девайса.
   AppLocale get deviceLocale => AppLocaleUtils.findDeviceLocale();
@@ -87,8 +80,7 @@ class AppLocalization {
   List<Locale> get supportedLocales =>
       AppLocale.values.map((locale) => locale.flutterLocale).toList();
 
-  List<LocalizationsDelegate> get localizationsDelegates =>
-      GlobalMaterialLocalizations.delegates;
+  List<LocalizationsDelegate> get localizationsDelegates => GlobalMaterialLocalizations.delegates;
 
   /// Установить новую локаль. (с сохранением в бд)
   Future<AppLocale> setLocale(AppLocale locale) async {

@@ -49,17 +49,13 @@ abstract class ForecastOpenMeteoResponse with _$ForecastOpenMeteoResponse {
 
     /// A list of weather variables which should be returned. Values can be comma
     /// separated, or multiple &hourly= parameter in the URL can be used.
-    @protected
-    @JsonKey(name: 'hourly')
-    Map<String, Iterable<Object>>? hourlyWeatherMap,
+    @protected @JsonKey(name: 'hourly') Map<String, Iterable<Object>>? hourlyWeatherMap,
 
     /// A list of daily weather variable aggregations which should be returned.
     /// Values can be comma separated, or multiple &daily= parameter in the URL
     /// can be used. If daily weather variables are specified, parameter timezone
     /// is required.
-    @protected
-    @JsonKey(name: 'daily')
-    Map<String, Iterable<Object>>? dailyWeatherMap,
+    @protected @JsonKey(name: 'daily') Map<String, Iterable<Object>>? dailyWeatherMap,
   }) = _ForecastOpenMeteoResponse;
 
   factory ForecastOpenMeteoResponse.fromJson(Map<String, Object?> json) =>
@@ -68,22 +64,16 @@ abstract class ForecastOpenMeteoResponse with _$ForecastOpenMeteoResponse {
   const ForecastOpenMeteoResponse._();
 
   List<HourlyWeatherOpenMeteo> get hourlyWeather => [
-    for (final (index, _)
-        in hourlyWeatherMap?.values.firstOrNull?.indexed ?? [].indexed)
+    for (final (index, _) in hourlyWeatherMap?.values.firstOrNull?.indexed ?? [].indexed)
       HourlyWeatherOpenMeteo.fromJson(
-        hourlyWeatherMap!.map(
-          (key, values) => MapEntry(key, values.elementAt(index)),
-        ),
+        hourlyWeatherMap!.map((key, values) => MapEntry(key, values.elementAt(index))),
       ),
   ];
 
   List<DailyWeatherOpenMeteo> get dailyWeather => [
-    for (final (index, _)
-        in dailyWeatherMap?.values.firstOrNull?.indexed ?? [].indexed)
+    for (final (index, _) in dailyWeatherMap?.values.firstOrNull?.indexed ?? [].indexed)
       DailyWeatherOpenMeteo.fromJson(
-        dailyWeatherMap!.map(
-          (key, values) => MapEntry(key, values.elementAt(index)),
-        ),
+        dailyWeatherMap!.map((key, values) => MapEntry(key, values.elementAt(index))),
       ),
   ];
 }
@@ -231,19 +221,13 @@ abstract class DailyWeatherOpenMeteo with _$DailyWeatherOpenMeteo {
     @JsonKey(name: 'apparent_temperature_min') required double apparentTempMin,
 
     /// Sunset time, iso8601
-    @JsonKey(name: 'sunrise')
-    @DateTimeISO8601Converter()
-    required DateTime sunrise,
+    @JsonKey(name: 'sunrise') @DateTimeISO8601Converter() required DateTime sunrise,
 
     /// Sunset time, iso8601
-    @JsonKey(name: 'sunset')
-    @DateTimeISO8601Converter()
-    required DateTime sunset,
+    @JsonKey(name: 'sunset') @DateTimeISO8601Converter() required DateTime sunset,
 
     /// Number of seconds of daylight per day, seconds
-    @JsonKey(name: 'daylight_duration')
-    @DurationSecConverter()
-    required Duration daylightDur,
+    @JsonKey(name: 'daylight_duration') @DurationSecConverter() required Duration daylightDur,
 
     ///	Daily maximum in UV Index starting from 0.
     @JsonKey(name: 'uv_index_max') required double uviMax,
@@ -270,8 +254,7 @@ abstract class DailyWeatherOpenMeteo with _$DailyWeatherOpenMeteo {
     @JsonKey(name: 'wind_gusts_10m_max') required double windGusts10mMax,
 
     /// Dominant wind direction, 0-360°
-    @JsonKey(name: 'wind_direction_10m_dominant')
-    required int windDirection10mDominant,
+    @JsonKey(name: 'wind_direction_10m_dominant') required int windDirection10mDominant,
 
     /// WMO Weather interpretation codes, 0-99
     @JsonKey(name: 'weather_code')
@@ -308,6 +291,5 @@ abstract class OpenMeteoPlace with _$OpenMeteoPlace {
     @JsonKey(name: 'admin4') String? admin4,
   }) = _OpenMeteoPlace;
 
-  factory OpenMeteoPlace.fromJson(Map<String, Object?> json) =>
-      _$OpenMeteoPlaceFromJson(json);
+  factory OpenMeteoPlace.fromJson(Map<String, Object?> json) => _$OpenMeteoPlaceFromJson(json);
 }

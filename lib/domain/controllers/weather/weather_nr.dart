@@ -57,8 +57,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
     T? weather;
 
     // if you are allowed to update now
-    if (await _isAllowedMakeRequest() ||
-        await _isAbilityRequestOnDiffPlaces()) {
+    if (await _isAllowedMakeRequest() || await _isAbilityRequestOnDiffPlaces()) {
       l.info('$T: Permission granted. Trying to get the weather.');
 
       weather = await _getWeather(_currentPlace);
@@ -208,6 +207,5 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
   Future<void> saveLastRequestTimeInDb(DateTime dateTime);
 
   /// Is the location correct for getting weather from it?
-  bool _isLatLonCorrect(Place place) =>
-      place.latitude != null && place.longitude != null;
+  bool _isLatLonCorrect(Place place) => place.latitude != null && place.longitude != null;
 }

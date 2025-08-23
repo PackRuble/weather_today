@@ -74,10 +74,7 @@ class _AboutApiWidget extends ConsumerWidget {
           uri: Uri.parse('https://home.openweathermap.org/api_keys'),
           builder: (context, Future<void> Function()? followLink) => TextButton(
             onPressed: followLink,
-            child: Text(
-              t.apiWeatherPage.goToSite,
-              style: const TextStyle(color: Colors.blue),
-            ),
+            child: Text(t.apiWeatherPage.goToSite, style: const TextStyle(color: Colors.blue)),
           ),
         ),
         const SizedBox(height: 8.0),
@@ -101,11 +98,7 @@ class _EndpointOnecall extends ConsumerWidget {
       title: '${ref.tr.other.version} One Call API',
       subtitle: onecallEndpoint.version,
       onTap: () async {
-        final result = await showChoosingDesign(
-          context,
-          ref,
-          selected: onecallEndpoint,
-        );
+        final result = await showChoosingDesign(context, ref, selected: onecallEndpoint);
 
         if (result != null) await onecallEndpointNR.change(result);
       },
@@ -117,19 +110,14 @@ Future<OneCallApi?> showChoosingDesign(
   BuildContext context,
   WidgetRef ref, {
   required OneCallApi selected,
-}) async =>
-    await showChoosingDialog<OneCallApi>(
-      context,
-      title: '${ref.tr.other.selectVersion} One Call API',
-      listDialogOption: [
-        for (final d in OneCallApi.values)
-          DialogOption(
-            groupValue: selected,
-            title: '${ref.tr.other.version} ${d.version}',
-            value: d,
-          ),
-      ],
-    );
+}) async => await showChoosingDialog<OneCallApi>(
+  context,
+  title: '${ref.tr.other.selectVersion} One Call API',
+  listDialogOption: [
+    for (final d in OneCallApi.values)
+      DialogOption(groupValue: selected, title: '${ref.tr.other.version} ${d.version}', value: d),
+  ],
+);
 
 class _StatusTileWidget extends ConsumerWidget {
   const _StatusTileWidget();
@@ -161,10 +149,7 @@ class _StatusTileWidget extends ConsumerWidget {
               shape: BoxShape.circle,
               border: Border.all(color: theme.colorScheme.primary),
             ),
-            child: Icon(
-              Icons.circle_rounded,
-              color: color,
-            ),
+            child: Icon(Icons.circle_rounded, color: color),
           ),
           const SizedBox(width: 8.0),
           Flexible(child: Text(title)),
@@ -184,12 +169,8 @@ class _StatusTileWidget extends ConsumerWidget {
                 child: Tooltip(
                   message: t.apiWeatherPage.tooltips.checkApiKey,
                   child: TextButton(
-                    child: Text(
-                      t.apiWeatherPage.buttonCheckRelevance,
-                      textAlign: TextAlign.center,
-                    ),
-                    onPressed: () async =>
-                        ref.read(UserApiPagePresenter.instance).checkApi(),
+                    child: Text(t.apiWeatherPage.buttonCheckRelevance, textAlign: TextAlign.center),
+                    onPressed: () async => ref.read(UserApiPagePresenter.instance).checkApi(),
                   ),
                 ),
               ),
@@ -197,13 +178,9 @@ class _StatusTileWidget extends ConsumerWidget {
                 Tooltip(
                   message: t.apiWeatherPage.tooltips.delApiKey,
                   child: TextButton(
-                    child: Text(
-                      t.apiWeatherPage.buttonReset,
-                      textAlign: TextAlign.center,
-                    ),
-                    onPressed: () async => ref
-                        .read(UserApiPagePresenter.instance)
-                        .deleteUserApi(context),
+                    child: Text(t.apiWeatherPage.buttonReset, textAlign: TextAlign.center),
+                    onPressed: () async =>
+                        ref.read(UserApiPagePresenter.instance).deleteUserApi(context),
                   ),
                 ),
             ],
@@ -222,8 +199,7 @@ class _TextFieldApiWidget extends HookConsumerWidget {
     final textController = useTextEditingController();
 
     final t = ref.watch(UserApiPagePresenter.tr);
-    final bool isSetUserApi =
-        ref.watch(UserApiPagePresenter.isUserApiKeyWeather);
+    final bool isSetUserApi = ref.watch(UserApiPagePresenter.isUserApiKeyWeather);
     final bool isLoading = ref.watch(UserApiPagePresenter.isTestingApiKey);
 
     final String hint = isSetUserApi
@@ -247,25 +223,21 @@ class _TextFieldApiWidget extends HookConsumerWidget {
                     if (res != null) {
                       textController
                         ..text = res
-                        ..selection = TextSelection.collapsed(
-                          offset: res.length,
-                        );
+                        ..selection = TextSelection.collapsed(offset: res.length);
                     }
                   }
                 : null,
           ),
           suffixIcon: _DoneAndLoadingWidget(
-            onDone: () async => ref
-                .read(UserApiPagePresenter.instance)
-                .setUserApi(textController.text),
+            onDone: () async =>
+                ref.read(UserApiPagePresenter.instance).setUserApi(textController.text),
           ),
           enabled: !isSetUserApi && !isLoading,
           hintText: hint,
           border: const OutlineInputBorder(),
         ),
         keyboardType: TextInputType.text,
-        onSubmitted: (text) async =>
-            ref.read(UserApiPagePresenter.instance).setUserApi(text),
+        onSubmitted: (text) async => ref.read(UserApiPagePresenter.instance).setUserApi(text),
       ),
     );
   }
@@ -287,9 +259,8 @@ class _DoneAndLoadingWidget extends ConsumerWidget {
         ? IconButton(
             tooltip: t.apiWeatherPage.tooltips.awaiting,
             icon: const CircularProgressIndicator(strokeWidth: 2.0),
-            onPressed: () => ref
-                .read(UserApiPagePresenter.isTestingApiKey.notifier)
-                .update((_) => true),
+            onPressed: () =>
+                ref.read(UserApiPagePresenter.isTestingApiKey.notifier).update((_) => true),
           )
         : IconButton(
             tooltip: t.apiWeatherPage.tooltips.set,
@@ -313,10 +284,7 @@ class _AboutTariff extends ConsumerWidget {
 
     return Column(
       children: [
-        InfoTile(
-          iconColor: _userApiColor,
-          text: t.apiWeatherPage.userApi.countCalls,
-        ),
+        InfoTile(iconColor: _userApiColor, text: t.apiWeatherPage.userApi.countCalls),
         InfoTile(
           iconColor: _devApiColor,
           text: t.apiWeatherPage.defaultApi.countCalls(
@@ -341,14 +309,10 @@ class InfoTile extends StatelessWidget {
 
     return ListTile(
       minVerticalPadding: 0,
-      leading: Icon(
-        Icons.circle_rounded,
-        color: iconColor,
-      ),
+      leading: Icon(Icons.circle_rounded, color: iconColor),
       title: Text(text),
       titleTextStyle: theme.textTheme.labelMedium,
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
     );
   }
 }

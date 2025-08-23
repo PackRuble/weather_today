@@ -34,9 +34,7 @@ class TileSetting extends StatelessWidget {
       subtitle: subtitle != null ? Text(subtitle!) : null,
       trailing: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(trailing ?? Icons.chevron_right, color: iconColor),
-        ],
+        children: [Icon(trailing ?? Icons.chevron_right, color: iconColor)],
       ),
       onTap: onTap,
       onLongPress: onLongPress,

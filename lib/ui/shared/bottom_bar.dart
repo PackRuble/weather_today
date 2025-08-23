@@ -25,10 +25,10 @@ class BottomBarWidget extends ConsumerWidget {
     final bottomBarTr = ref.tr.mainPageDRuble.mainPage.bottomBar;
 
     String getLabel(WeatherPage page) => switch (page) {
-          WeatherPage.hourly => bottomBarTr.hourly,
-          WeatherPage.currently => bottomBarTr.today,
-          WeatherPage.daily => bottomBarTr.daily,
-        };
+      WeatherPage.hourly => bottomBarTr.hourly,
+      WeatherPage.currently => bottomBarTr.today,
+      WeatherPage.daily => bottomBarTr.daily,
+    };
 
     final designs = ref.watch(HomePageController.designPages);
     final homePageCR = ref.watch(HomePageController.instance);
@@ -54,10 +54,7 @@ class BottomBarWidget extends ConsumerWidget {
                     if (result != null) {
                       await ref
                           .read(VisualDesignPresenter.instance)
-                          .onChangeDesignPage(
-                            result,
-                            index,
-                          );
+                          .onChangeDesignPage(result, index);
                     }
                   }
                 : null,
@@ -74,9 +71,7 @@ class BottomBarWidget extends ConsumerWidget {
         children: [
           BottomIcon(
             index: 0,
-            onTap: mockTap == null
-                ? () => homePageCR.setIndexPageWhenClick(0)
-                : null,
+            onTap: mockTap == null ? () => homePageCR.setIndexPageWhenClick(0) : null,
             onLongPress: null,
           ),
           ...buttons,
@@ -87,13 +82,7 @@ class BottomBarWidget extends ConsumerWidget {
 }
 
 class BottomIcon extends ConsumerWidget {
-  const BottomIcon({
-    super.key,
-    this.label,
-    required this.index,
-    this.onTap,
-    this.onLongPress,
-  });
+  const BottomIcon({super.key, this.label, required this.index, this.onTap, this.onLongPress});
 
   final String? label;
   final int index;
@@ -126,13 +115,11 @@ class BottomIcon extends ConsumerWidget {
           final unselectedColor = themeNavBar.unselectedItemColor;
 
           final selectedStyle = textTheme.labelLarge?.copyWith(
-            fontSize: (themeNavBar.selectedLabelStyle?.fontSize ?? 14) *
-                textScaleFactor,
+            fontSize: (themeNavBar.selectedLabelStyle?.fontSize ?? 14) * textScaleFactor,
             color: selectedColor,
           );
           final unselectedStyle = textTheme.labelMedium?.copyWith(
-            fontSize: (themeNavBar.unselectedLabelStyle?.fontSize ?? 12) *
-                textScaleFactor,
+            fontSize: (themeNavBar.unselectedLabelStyle?.fontSize ?? 12) * textScaleFactor,
             color: unselectedColor,
           );
 
@@ -142,15 +129,13 @@ class BottomIcon extends ConsumerWidget {
                   child: Icon(
                     AppIcons.settingsIcon,
                     size: index == currentIndex ? 27.0 : 24.0,
-                    color:
-                        index == currentIndex ? selectedColor : unselectedColor,
+                    color: index == currentIndex ? selectedColor : unselectedColor,
                   ),
                 )
               : Text(
                   label!,
                   overflow: TextOverflow.ellipsis,
-                  style:
-                      index == currentIndex ? selectedStyle : unselectedStyle,
+                  style: index == currentIndex ? selectedStyle : unselectedStyle,
                 );
         },
       ),
@@ -163,17 +148,12 @@ Future<AppVisualDesign?> showChoosingDesign(
   WidgetRef ref,
   String label, {
   required DesignPage designPage,
-}) async =>
-    await showChoosingDialog<AppVisualDesign>(
-      context,
-      title: '${ref.tr.ui.chooseWeatherDesignForPage}\n$label',
-      subTitle: ref.tr.messages.selectedParamWillBeApplied,
-      listDialogOption: [
-        for (final d in AppVisualDesign.values)
-          DialogOption(
-            groupValue: designPage.design,
-            title: d.toWords(),
-            value: d,
-          ),
-      ],
-    );
+}) async => await showChoosingDialog<AppVisualDesign>(
+  context,
+  title: '${ref.tr.ui.chooseWeatherDesignForPage}\n$label',
+  subTitle: ref.tr.messages.selectedParamWillBeApplied,
+  listDialogOption: [
+    for (final d in AppVisualDesign.values)
+      DialogOption(groupValue: designPage.design, title: d.toWords(), value: d),
+  ],
+);

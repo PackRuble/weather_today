@@ -12,17 +12,15 @@ class HourlyPagePresenter {
   final Ref _ref;
 
   /// Instance of current class.
-  static final instance = Provider(
-    HourlyPagePresenter.new,
-    name: '$HourlyPagePresenter',
-  );
+  static final instance = Provider(HourlyPagePresenter.new, name: '$HourlyPagePresenter');
 
   /// Provider returns translation.
-  static StateProvider<TranslationsRu> get tr =>
-      AppLocalization.currentTranslation;
+  static StateProvider<TranslationsRu> get tr => AppLocalization.currentTranslation;
 
   static final hourly = Provider<AsyncValue<List<WeatherHourly>?>>(
-    (ref) => ref.watch(WeatherOnecallDelegacyNR.i).when(
+    (ref) => ref
+        .watch(WeatherOnecallDelegacyNR.i)
+        .when(
           skipLoadingOnReload: true,
           data: (weather) => AsyncValue.data(weather?.hourly),
           error: (e, st) => AsyncValue.error(e, st),

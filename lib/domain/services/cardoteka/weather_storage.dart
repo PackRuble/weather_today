@@ -18,8 +18,7 @@ enum WeatherCards<T extends Object?> implements Card<T> {
   geocodingProvider(DataType.string, GeocodingProvider.openMeteo),
   oneCallApiVersion(DataType.string, OneCallApi.api_2_5),
   isAllowONECALLUpdateDueToDiffPrevAndCurrentPlaces(DataType.bool, false),
-  isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces(DataType.bool, false),
-  ;
+  isAllowCURRENTUpdateDueToDiffPrevAndCurrentPlaces(DataType.bool, false);
 
   const WeatherCards(this.type, this.defaultValue);
 

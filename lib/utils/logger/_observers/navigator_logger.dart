@@ -4,8 +4,7 @@ import 'package:loggy/loggy.dart';
 
 class NavigationObserver extends AutoRouterObserver implements LoggyType {
   @override
-  Loggy<NavigationObserver> get loggy =>
-      Loggy<NavigationObserver>('[Navigator]');
+  Loggy<NavigationObserver> get loggy => Loggy<NavigationObserver>('[Navigator]');
 
   @override
   void didPush(Route route, Route? previousRoute) {
@@ -26,15 +25,11 @@ class NavigationObserver extends AutoRouterObserver implements LoggyType {
       return;
     }
 
-    loggy.info(
-      'Route pop: <${previousRoute?.settings.name}>, prev <${route.settings.name}>',
-    );
+    loggy.info('Route pop: <${previousRoute?.settings.name}>, prev <${route.settings.name}>');
   }
 
   @override
   void didChangeTabRoute(TabPageRoute route, TabPageRoute? previousRoute) {
-    loggy.info(
-      'Tab route re-visited:  ${route.name}, prev <${previousRoute?.name}>',
-    );
+    loggy.info('Tab route re-visited:  ${route.name}, prev <${previousRoute?.name}>');
   }
 }

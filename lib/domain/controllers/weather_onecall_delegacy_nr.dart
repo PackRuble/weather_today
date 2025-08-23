@@ -9,17 +9,15 @@ import 'weather/weather_nr.dart';
 import 'weather_provider_nr.dart';
 
 class WeatherOnecallDelegacyNR extends AsyncNotifier<WeatherOneCall?> {
-  static final i =
-      AsyncNotifierProvider<WeatherOnecallDelegacyNR, WeatherOneCall?>(
+  static final i = AsyncNotifierProvider<WeatherOnecallDelegacyNR, WeatherOneCall?>(
     WeatherOnecallDelegacyNR.new,
     name: '$WeatherOnecallDelegacyNR',
   );
 
   WeatherNR get _weatherNR => switch (_weatherProvider) {
-        WeatherProvider.openMeteo => ref.read(WeatherOpenMeteoNR.i.notifier),
-        WeatherProvider.openWeatherMap =>
-          ref.read(WeatherOnecallOwmNR.i.notifier),
-      };
+    WeatherProvider.openMeteo => ref.read(WeatherOpenMeteoNR.i.notifier),
+    WeatherProvider.openWeatherMap => ref.read(WeatherOnecallOwmNR.i.notifier),
+  };
 
   late WeatherProvider _weatherProvider;
 
@@ -28,8 +26,9 @@ class WeatherOnecallDelegacyNR extends AsyncNotifier<WeatherOneCall?> {
     _weatherProvider = ref.watch(WeatherProviderNR.i);
 
     final WeatherOneCall? oneCall = await switch (_weatherProvider) {
-      WeatherProvider.openMeteo =>
-        (await ref.watch(WeatherOpenMeteoNR.i.future))?.convertToOneCall(),
+      WeatherProvider.openMeteo => (await ref.watch(
+        WeatherOpenMeteoNR.i.future,
+      ))?.convertToOneCall(),
       WeatherProvider.openWeatherMap => ref.watch(WeatherOnecallOwmNR.i.future),
     };
 

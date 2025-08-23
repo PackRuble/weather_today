@@ -10,14 +10,10 @@ class ThemePagePresenter {
   final Ref _ref;
 
   /// Instance of current class.
-  static final instance = Provider.autoDispose(
-    ThemePagePresenter.new,
-    name: '$ThemePagePresenter',
-  );
+  static final instance = Provider.autoDispose(ThemePagePresenter.new, name: '$ThemePagePresenter');
 
   /// Provider returns translation.
-  static StateProvider<TranslationsRu> get tr =>
-      AppLocalization.currentTranslation;
+  static StateProvider<TranslationsRu> get tr => AppLocalization.currentTranslation;
 
   static StateProvider<int> get darkLevel => AppTheme.darkLevel;
 

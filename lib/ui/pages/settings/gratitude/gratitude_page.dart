@@ -23,10 +23,7 @@ class GratitudePage extends ConsumerWidget {
       return WidgetSpan(
         alignment: PlaceholderAlignment.middle,
         child: InkWell(
-          onTap: () async => launchUrl(
-            Uri.parse(link),
-            mode: mode ?? LaunchMode.platformDefault,
-          ),
+          onTap: () async => launchUrl(Uri.parse(link), mode: mode ?? LaunchMode.platformDefault),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: Text(
@@ -51,34 +48,22 @@ class GratitudePage extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(3, (_) {
-              return const Icon(
-                Icons.heart_broken_rounded,
-                color: Colors.red,
-                size: 56.0,
-              );
+              return const Icon(Icons.heart_broken_rounded, color: Colors.red, size: 56.0);
             }),
           ),
           Text.rich(
             t.gratitudePage.text(
               dart: (text) => getLinkText(text, 'https://dart.dev/'),
               flutter: (text) => getLinkText(text, 'https://flutter.dev//'),
-              remiRousselet: (text) =>
-                  getLinkText(text, 'https://github.com/rrousselGit'),
+              remiRousselet: (text) => getLinkText(text, 'https://github.com/rrousselGit'),
               riverpod: (text) => getLinkText(text, 'https://riverpod.dev/'),
-              freezed: (text) =>
-                  getLinkText(text, 'https://pub.dev/packages/freezed'),
+              freezed: (text) => getLinkText(text, 'https://pub.dev/packages/freezed'),
               tienDoNam: (text) => getLinkText(text, 'https://tienisto.com/'),
-              slang: (text) =>
-                  getLinkText(text, 'https://pub.dev/packages/slang'),
+              slang: (text) => getLinkText(text, 'https://pub.dev/packages/slang'),
               rydMike: (text) => getLinkText(text, 'http://rydmike.com/'),
-              flexColorScheme: (text) => getLinkText(
-                text,
-                'https://pub.dev/packages/flex_color_scheme',
-              ),
-              myEmail: (_) => getLinkText(
-                AppInfo.mailAuthor,
-                'mailto:${AppInfo.mailAuthor}',
-              ),
+              flexColorScheme: (text) =>
+                  getLinkText(text, 'https://pub.dev/packages/flex_color_scheme'),
+              myEmail: (_) => getLinkText(AppInfo.mailAuthor, 'mailto:${AppInfo.mailAuthor}'),
               tgGroup: (text) => getLinkText(
                 text,
                 AppInfo.telegramGroup,

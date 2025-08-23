@@ -30,8 +30,7 @@ class SettingPagePresenter {
   // current weather language
 
   /// {@macro weather_settings.weather_language}
-  static StateProvider<WeatherLanguage> get currentLanguage =>
-      WeatherServices.currentLanguage;
+  static StateProvider<WeatherLanguage> get currentLanguage => WeatherServices.currentLanguage;
 
   //============================================================================
   // Temperature units
@@ -49,11 +48,7 @@ class SettingPagePresenter {
       subTitle: _ref.tr.settingsPage.tempTile.dialogSub,
       listDialogOption: List.generate(Temp.values.length, (int index) {
         final Temp item = Temp.values[index];
-        return DialogOption<Temp>(
-          groupValue: units,
-          title: item.fullNameTr,
-          value: item,
-        );
+        return DialogOption<Temp>(groupValue: units, title: item.fullNameTr, value: item);
       }),
     );
 
@@ -65,8 +60,7 @@ class SettingPagePresenter {
   //============================================================================
   // Pressure units
 
-  static StateProvider<Pressure> get pressureUnits =>
-      WeatherServices.pressureUnits;
+  static StateProvider<Pressure> get pressureUnits => WeatherServices.pressureUnits;
 
   /// Диалог - Выбрать единицы измерения давления.
   Future<void> dialogSetPressureUnits(BuildContext context) async {
@@ -78,11 +72,7 @@ class SettingPagePresenter {
       subTitle: _ref.tr.settingsPage.pressureTile.dialogSub,
       listDialogOption: List.generate(Pressure.values.length, (int index) {
         final Pressure item = Pressure.values[index];
-        return DialogOption<Pressure>(
-          groupValue: units,
-          title: item.nameTr,
-          value: item,
-        );
+        return DialogOption<Pressure>(groupValue: units, title: item.nameTr, value: item);
       }),
     );
 
@@ -108,11 +98,7 @@ class SettingPagePresenter {
       subTitle: _ref.tr.settingsPage.speedTile.dialogSub,
       listDialogOption: List.generate(Speed.values.length, (int index) {
         final Speed item = Speed.values[index];
-        return DialogOption<Speed>(
-          groupValue: units,
-          title: item.abbrTr,
-          value: item,
-        );
+        return DialogOption<Speed>(groupValue: units, title: item.abbrTr, value: item);
       }),
     );
 
@@ -125,8 +111,7 @@ class SettingPagePresenter {
   // locale
 
   /// Current locale.
-  static StateProvider<AppLocale> get currentLocale =>
-      AppLocalization.currentLocale;
+  static StateProvider<AppLocale> get currentLocale => AppLocalization.currentLocale;
 
   /// Диалог - Установить новую locale.
   Future<void> dialogSetLocale(BuildContext context) async {
@@ -139,11 +124,7 @@ class SettingPagePresenter {
       subTitle: _ref.tr.settingsPage.localeTile.dialogSub,
       listDialogOption: List.generate(AppLocale.values.length, (int index) {
         final AppLocale item = AppLocale.values[index];
-        return DialogOption<AppLocale>(
-          groupValue: locale,
-          title: item.nameTr,
-          value: item,
-        );
+        return DialogOption<AppLocale>(groupValue: locale, title: item.nameTr, value: item);
       }),
     );
 
@@ -155,8 +136,7 @@ class SettingPagePresenter {
   //============================================================================
   // Homepage index
 
-  static StateProvider<HomepageIndex> get startPageIndex =>
-      AppGeneralSettings.startPageIndex;
+  static StateProvider<HomepageIndex> get startPageIndex => AppGeneralSettings.startPageIndex;
 
   /// Диалог - Выбрать стартовую страницу.
   Future<void> dialogSetHomepage(BuildContext context) async {
@@ -169,11 +149,7 @@ class SettingPagePresenter {
       subTitle: _ref.tr.settingsPage.homepageTile.dialogSub,
       listDialogOption: List.generate(HomepageIndex.values.length, (int index) {
         final HomepageIndex item = HomepageIndex.values[index];
-        return DialogOption<HomepageIndex>(
-          groupValue: page,
-          title: item.nameTr,
-          value: item,
-        );
+        return DialogOption<HomepageIndex>(groupValue: page, title: item.nameTr, value: item);
       }),
     );
 
@@ -183,8 +159,7 @@ class SettingPagePresenter {
   }
 
   /// Диалог - О приложении.
-  Future<void> dialogAboutApp(BuildContext context) async =>
-      AppDialogs.aboutApp(context);
+  Future<void> dialogAboutApp(BuildContext context) async => AppDialogs.aboutApp(context);
 
   Future<void> dialogAppDebug(BuildContext context) async {
     await showSwitchedDialog(

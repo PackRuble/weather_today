@@ -45,17 +45,14 @@ class ServiceInit {
     ).migrate();
   }
 
-  Future<void> _initAppTheme() async =>
-      _container.read(AppTheme.instance).init();
+  Future<void> _initAppTheme() async => _container.read(AppTheme.instance).init();
 
   Future<void> _initAppGeneralSettings() async =>
       _container.read(AppGeneralSettings.instance).init();
 
-  Future<void> _initWeatherServices() async =>
-      _container.read(WeatherServices.instance).init();
+  Future<void> _initWeatherServices() async => _container.read(WeatherServices.instance).init();
 
-  Future<void> _initApiOWMService() async =>
-      _container.read(OWMController.instance).init();
+  Future<void> _initApiOWMService() async => _container.read(OWMController.instance).init();
 
   Future<void> _initLogger() async {
     await _container.read(AppLogsManager.i.future);

@@ -21,9 +21,7 @@ class ChartOtherWidget extends ConsumerWidget {
 
     final t = ref.watch(HourlyPagePresenter.tr);
 
-    final ChartModel chart = ref.watch(
-      HourlyPageByRublePresenter.chartCloudsParam,
-    );
+    final ChartModel chart = ref.watch(HourlyPageByRublePresenter.chartCloudsParam);
 
     final Widget titleWidget = HeadChartWidget(
       t.mainPageDRuble.hourlyPage.more.title,
@@ -36,10 +34,7 @@ class ChartOtherWidget extends ConsumerWidget {
         generateData: const [],
         generateLabelsData: const FlTitlesData(),
         titleWidget: titleWidget,
-        ifEmptyDataWidget: Text(
-          t.mainPageDRuble.hourlyPage.more.noData,
-          style: styles.bodyMedium,
-        ),
+        ifEmptyDataWidget: Text(t.mainPageDRuble.hourlyPage.more.noData, style: styles.bodyMedium),
       );
     }
 
@@ -75,8 +70,7 @@ class ChartOtherWidget extends ConsumerWidget {
       ),
     );
 
-    final bool isPortrait =
-        MediaQuery.orientationOf(context) == Orientation.portrait;
+    final bool isPortrait = MediaQuery.orientationOf(context) == Orientation.portrait;
 
     return CustomChartWidget(
       generateData: generateData,
@@ -86,9 +80,7 @@ class ChartOtherWidget extends ConsumerWidget {
       legendWidgets: legends,
       unitsLeft: '%',
       unitsRight: unitsRight,
-      aspectRatio: isPortrait
-          ? ChartTheme.oAspectRatio
-          : ChartTheme.oAspectRatioLandscape,
+      aspectRatio: isPortrait ? ChartTheme.oAspectRatio : ChartTheme.oAspectRatioLandscape,
     );
   }
 
@@ -98,12 +90,7 @@ class ChartOtherWidget extends ConsumerWidget {
         x: x,
         groupVertically: true,
         barRods: [
-          BarChartRodData(
-            fromY: 0.0,
-            toY: yClouds,
-            color: ChartTheme.oColorClouds,
-            width: 3.0,
-          ),
+          BarChartRodData(fromY: 0.0, toY: yClouds, color: ChartTheme.oColorClouds, width: 3.0),
           BarChartRodData(
             fromY: yHumidity - chart.constantPrecisionPointLeft,
             toY: yHumidity + chart.constantPrecisionPointLeft,
@@ -128,8 +115,7 @@ class ChartOtherWidget extends ConsumerWidget {
       final int topPoint = value.toInt();
       final WeatherHourly weather = chart.data[topPoint];
 
-      if (chart.labelIntervalsTop.contains(topPoint) &&
-          weather.pressure != null) {
+      if (chart.labelIntervalsTop.contains(topPoint) && weather.pressure != null) {
         return Center(
           child: Text(
             Pressure.mmHg.valueToString(weather.pressure!, 0),
@@ -143,17 +129,9 @@ class ChartOtherWidget extends ConsumerWidget {
 
     // метки температуры по оси y
     Widget _leftTitles(double value, TitleMeta meta) {
-      if (ChartUtils.isSuitYLabel(
-        value,
-        meta.min,
-        meta.max,
-        chart.scaleDivisionLeft,
-      )) {
+      if (ChartUtils.isSuitYLabel(value, meta.min, meta.max, chart.scaleDivisionLeft)) {
         return Center(
-          child: Text(
-            value.toStringAsFixed(chart.precisionLeft),
-            style: styles.bodySmall,
-          ),
+          child: Text(value.toStringAsFixed(chart.precisionLeft), style: styles.bodySmall),
         );
       }
 

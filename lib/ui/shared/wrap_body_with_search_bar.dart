@@ -18,7 +18,8 @@ class WrapperBodyWithFSBar extends ConsumerWidget {
     final theme = Theme.of(context);
     final double statusBarHeight = MediaQuery.viewPaddingOf(context).top;
 
-    final double paddingTop = statusBarHeight +
+    final double paddingTop =
+        statusBarHeight +
         AppInsets.aroundPaddingSearchBar +
         AppInsets.heightSearchBar +
         AppInsets.aroundPaddingSearchBar;
@@ -29,17 +30,12 @@ class WrapperBodyWithFSBar extends ConsumerWidget {
         Padding(
           // coldfix не получилось реализовать blurred из-за padding
           padding: EdgeInsets.only(top: paddingTop),
-          child: MediaQuery.removePadding(
-            context: context,
-            removeTop: true,
-            child: body,
-          ),
+          child: MediaQuery.removePadding(context: context, removeTop: true, child: body),
         ),
         Align(
           alignment: Alignment.topCenter,
           child: ColoredBox(
-            color: theme.appBarTheme.backgroundColor ??
-                theme.colorScheme.primaryContainer,
+            color: theme.appBarTheme.backgroundColor ?? theme.colorScheme.primaryContainer,
             child: SizedBox(
               height: paddingTop,
               width: double.infinity,

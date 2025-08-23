@@ -27,10 +27,7 @@ class OWMController with Updater {
   DataBase get db => ref.read(dbService);
 
   /// экземпляр класса для доступа к методам данного класса.
-  static final instance = Provider.autoDispose(
-    OWMController.new,
-    name: '$OWMController',
-  );
+  static final instance = Provider.autoDispose(OWMController.new, name: '$OWMController');
 
   /// Apikey сервиса OWM.
   static final apiKey = StateProvider<String>((ref) => _apiWeather);
@@ -43,14 +40,12 @@ class OWMController with Updater {
 
   /// Запустить перед созданием класса с ожиданием завершения.
   Future<void> init() async {
-    final String apikeyOfDb =
-        await loadDb(DbStore.userApiKeyOWM, DbStore.userApiKeyOWMDefault);
+    final String apikeyOfDb = await loadDb(DbStore.userApiKeyOWM, DbStore.userApiKeyOWMDefault);
     if (apikeyOfDb != '') update(apiKey, apikeyOfDb);
   }
 
   /// Проверить корректность ключа установленного ключа.
-  Future<bool> isCorrectInstalledApiKey() async =>
-      _isCorrectApiKey(ref.read(apiKey));
+  Future<bool> isCorrectInstalledApiKey() async => _isCorrectApiKey(ref.read(apiKey));
 
   /// Проверить корректность ключа для запросов.
   Future<bool> _isCorrectApiKey(String apiString) async {
@@ -69,9 +64,7 @@ class OWMController with Updater {
             .read(MessageController.instance)
             .showSnack('Onecall v${onecallEndpoint.version} not available');
 
-        ok = await testService
-            .isValidApikey()
-            .timeout(const Duration(seconds: 10));
+        ok = await testService.isValidApikey().timeout(const Duration(seconds: 10));
       }
     } catch (e, s) {
       logError(e, s);

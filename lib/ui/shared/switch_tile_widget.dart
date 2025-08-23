@@ -32,9 +32,7 @@ class _SwitchTileWidgetState extends State<SwitchTileWidget> {
           ? null
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(widget.leading, color: IconTheme.of(context).color),
-              ],
+              children: [Icon(widget.leading, color: IconTheme.of(context).color)],
             ),
       onChanged: (bool value) {
         setState(() {

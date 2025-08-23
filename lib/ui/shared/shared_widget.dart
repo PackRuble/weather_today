@@ -32,9 +32,7 @@ class HeaderRWidget extends StatelessWidget {
         head,
         style: _textStyle?.copyWith(
           fontStyle: fontStyle,
-          color: isDark
-              ? Theme.of(context).primaryColor
-              : Theme.of(context).primaryColorDark,
+          color: isDark ? Theme.of(context).primaryColor : Theme.of(context).primaryColorDark,
         ),
       ),
     );
@@ -50,9 +48,6 @@ class ColorRWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int index = Random().nextInt(Colors.primaries.length);
-    return ColoredBox(
-      color: Colors.primaries[index],
-      child: child,
-    );
+    return ColoredBox(color: Colors.primaries[index], child: child);
   }
 }

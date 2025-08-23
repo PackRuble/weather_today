@@ -4,11 +4,9 @@ import 'package:weather_today/application/const/app_colors.dart';
 import 'wrapper_page.dart';
 
 ShapeBorder getDialogShape(BuildContext context) => RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16.0),
-      side: BorderSide(
-        color: AppColors.of(context).cardBorderColor,
-      ),
-    );
+  borderRadius: BorderRadius.circular(16.0),
+  side: BorderSide(color: AppColors.of(context).cardBorderColor),
+);
 
 class DialogOption<T> extends StatelessWidget {
   const DialogOption({
@@ -93,12 +91,7 @@ class _DialogSwitchState extends State<DialogSwitch> {
 }
 
 class DialogTile extends StatelessWidget {
-  const DialogTile({
-    super.key,
-    required this.title,
-    this.subtitle,
-    required this.onTap,
-  });
+  const DialogTile({super.key, required this.title, this.subtitle, required this.onTap});
 
   final String title;
   final String? subtitle;
@@ -141,11 +134,7 @@ Future<T?> infoDialogCustom<T>(
               Text(title, textAlign: TextAlign.center),
               if (subTitle != null) ...[
                 const SizedBox(height: 5.0),
-                Text(
-                  subTitle,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 14.0),
-                ),
+                Text(subTitle, textAlign: TextAlign.center, style: const TextStyle(fontSize: 14.0)),
               ],
             ],
           ),
@@ -170,11 +159,9 @@ Future<T?> showAboutAppDialog<T>(
     context: context,
     builder: (BuildContext context) {
       return Theme(
-        data: Theme.of(context).copyWith(
-          dialogTheme: DialogThemeData(
-            shape: getDialogShape(context),
-          ),
-        ),
+        data: Theme.of(
+          context,
+        ).copyWith(dialogTheme: DialogThemeData(shape: getDialogShape(context))),
         child: WrapperPage(
           child: AboutDialog(
             applicationName: applicationName,
@@ -211,19 +198,11 @@ Future<T?> showChoosingDialog<T>(
           children: [
             if (subTitle != null)
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8.0,
-                  horizontal: 24.0,
-                ),
+                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
                 child: Text(subTitle),
               ),
             ...listDialogOption.map((DialogOption option) {
-              return Column(
-                children: [
-                  const Divider(height: 0.0),
-                  option,
-                ],
-              );
+              return Column(children: [const Divider(height: 0.0), option]);
             }),
           ],
         ),
@@ -253,17 +232,11 @@ Future<void> showSwitchedDialog(
           ),
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
               child: subTitle != null ? Text(subTitle) : null,
             ),
             ...listDialogOption.map((Widget option) {
-              return Column(
-                children: [
-                  const Divider(height: 0.0),
-                  option,
-                ],
-              );
+              return Column(children: [const Divider(height: 0.0), option]);
             }),
           ],
         ),

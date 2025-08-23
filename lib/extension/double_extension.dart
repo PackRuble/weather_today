@@ -1,6 +1,5 @@
 extension DoubleExt on double {
-  double doubleToPrecision([int precision = 5]) =>
-      double.parse(toStringAsFixed(precision));
+  double doubleToPrecision([int precision = 5]) => double.parse(toStringAsFixed(precision));
 }
 
 extension ExtDoubleNull on double? {

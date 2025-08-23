@@ -1,5 +1,4 @@
-export 'package:loggy/loggy.dart'
-    hide UiLoggy, logDebug, logError, logInfo, logWarning;
+export 'package:loggy/loggy.dart' hide UiLoggy, logDebug, logError, logInfo, logWarning;
 
 export '_observers/db_logger.dart';
 export '_observers/global_logger.dart';

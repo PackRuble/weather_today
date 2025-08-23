@@ -23,10 +23,7 @@ class DataLoaderNR extends FamilyAsyncNotifier<String, Uri> {
 }
 
 class TermsConditionsWidget extends HookConsumerWidget {
-  const TermsConditionsWidget({
-    super.key,
-    this.isAccepted = false,
-  });
+  const TermsConditionsWidget({super.key, this.isAccepted = false});
 
   final bool isAccepted;
 
@@ -56,24 +53,20 @@ class TermsConditionsWidget extends HookConsumerWidget {
                 expandsCR.value = now.toList();
               },
               header: ListTile(
-                title: Text(
-                  switch (index) {
-                    0 => t.termsConditions.termsUseApp,
-                    1 => t.termsConditions.termsAndConditions,
-                    2 || _ => t.termsConditions.privacyPolicy,
-                  },
-                ),
+                title: Text(switch (index) {
+                  0 => t.termsConditions.termsUseApp,
+                  1 => t.termsConditions.termsAndConditions,
+                  2 || _ => t.termsConditions.privacyPolicy,
+                }),
               ),
               expanded: HookConsumer(
                 builder: (context, ref, child) {
                   final dataAsync = ref.watch(
-                    DataLoaderNR.i(
-                      switch (index) {
-                        0 => AppLinks.termsOfUseAppUrl,
-                        1 => AppLinks.termsAndConditionsUrl,
-                        2 || _ => AppLinks.privacyPolicyUrl,
-                      },
-                    ),
+                    DataLoaderNR.i(switch (index) {
+                      0 => AppLinks.termsOfUseAppUrl,
+                      1 => AppLinks.termsAndConditionsUrl,
+                      2 || _ => AppLinks.privacyPolicyUrl,
+                    }),
                   );
 
                   final hExpanded = useRef(0.0);
@@ -86,27 +79,20 @@ class TermsConditionsWidget extends HookConsumerWidget {
                         }
 
                         return ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxHeight: hExpanded.value,
-                          ),
+                          constraints: BoxConstraints(maxHeight: hExpanded.value),
                           child: SelectionArea(
                             child: Markdown(
                               selectable: false,
                               data: data,
                               onTapLink: (text, href, title) async {
-                                await launchUrl(
-                                  Uri.parse(text),
-                                  mode: LaunchMode.inAppBrowserView,
-                                );
+                                await launchUrl(Uri.parse(text), mode: LaunchMode.inAppBrowserView);
                               },
                             ),
                           ),
                         );
                       },
                     ),
-                    error: (e, s) => const Center(
-                      child: Text('Try again later'),
-                    ),
+                    error: (e, s) => const Center(child: Text('Try again later')),
                     loading: () => const LinearProgressIndicator(),
                   );
                 },
@@ -129,9 +115,7 @@ class TermsConditionsWidget extends HookConsumerWidget {
 }
 
 class _ButtonBarWidget extends ConsumerWidget {
-  const _ButtonBarWidget({
-    super.key,
-  });
+  const _ButtonBarWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -139,14 +123,10 @@ class _ButtonBarWidget extends ConsumerWidget {
 
     return OverflowBar(
       children: [
+        TextButton(onPressed: () => exit(1), child: Text(t.termsConditions.buttonCancel)),
         TextButton(
-          onPressed: () => exit(1),
-          child: Text(t.termsConditions.buttonCancel),
-        ),
-        TextButton(
-          onPressed: () async => ref
-              .read(AppGeneralSettings.instance)
-              .setAcceptedTermsConditions(true),
+          onPressed: () async =>
+              ref.read(AppGeneralSettings.instance).setAcceptedTermsConditions(true),
           child: Text(t.termsConditions.buttonAccept),
         ),
       ],

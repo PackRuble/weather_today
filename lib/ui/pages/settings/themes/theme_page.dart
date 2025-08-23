@@ -29,24 +29,17 @@ class ThemePage extends ConsumerWidget {
     final ThemeData currentTheme = Theme.of(context);
 
     final ThemeData testedDarkLevelTheme = ref
-        .watch(
-          AppTheme.darkThemeTestedDarkLevel(
-            ref.watch(ThemePagePresenter.darkLevel),
-          ),
-        )
+        .watch(AppTheme.darkThemeTestedDarkLevel(ref.watch(ThemePagePresenter.darkLevel)))
         .toTheme;
 
     return Theme(
-      data: currentTheme.brightness == Brightness.light
-          ? currentTheme
-          : testedDarkLevelTheme,
+      data: currentTheme.brightness == Brightness.light ? currentTheme : testedDarkLevelTheme,
       child: Scaffold(
         appBar: AppBarCustom(
           t.themesPage.appbarTitle,
           actions: LinkedHashMap.of({
             ActionButton.reset: ResetButton(
-              onConfirm:
-                  ref.read(ThemePagePresenter.instance).resetToDefaultSettings,
+              onConfirm: ref.read(ThemePagePresenter.instance).resetToDefaultSettings,
             ),
             ActionButton.themeMode: const ChangerThemeButton(),
           }),
@@ -83,8 +76,7 @@ class _SwapColorsThemeWidget extends ConsumerWidget {
     return SwitchListTile(
       value: isSwapColors,
       title: Text(t.themesPage.swapColorsLight),
-      onChanged: (bool value) =>
-          ref.read(AppTheme.instance).toggleSwapColors(value),
+      onChanged: (bool value) => ref.read(AppTheme.instance).toggleSwapColors(value),
     );
   }
 }
@@ -102,8 +94,7 @@ class _UseMaterial3Widget extends ConsumerWidget {
       value: useMaterial3,
       title: Text(t.themesPage.useMaterial3),
       subtitle: Text(t.themesPage.useMaterial3Sub),
-      onChanged: (bool value) =>
-          ref.read(AppTheme.instance).toggleUseMaterial3(value),
+      onChanged: (bool value) => ref.read(AppTheme.instance).toggleUseMaterial3(value),
     );
   }
 }
@@ -123,8 +114,7 @@ class _SwapComputeDarkWidget extends ConsumerWidget {
         : SwitchListTile(
             value: swapDark,
             title: Text(t.themesPage.swapColorsDark),
-            onChanged: (bool value) =>
-                ref.read(AppTheme.instance).toggleDarkSwapColors(value),
+            onChanged: (bool value) => ref.read(AppTheme.instance).toggleDarkSwapColors(value),
           );
   }
 }
@@ -150,9 +140,8 @@ class _DarkLevelWidget extends ConsumerWidget {
               max: 100,
               onChangeEnd: (double value) =>
                   ref.read(AppTheme.instance).setDarkLevel(value.toInt()),
-              onChanged: (double value) => ref
-                  .read(ThemePagePresenter.darkLevel.notifier)
-                  .update((_) => value.toInt()),
+              onChanged: (double value) =>
+                  ref.read(ThemePagePresenter.darkLevel.notifier).update((_) => value.toInt()),
             ),
             trailing: SizedBox(
               width: 50.0,
@@ -182,8 +171,7 @@ class _SwapTrueBlackWidget extends ConsumerWidget {
             value: darkIsTrueBlack,
             title: Text(t.themesPage.darkIsTrueBlack),
             subtitle: Text(t.themesPage.darkIsTrueBlackSub),
-            onChanged: (bool value) =>
-                ref.read(AppTheme.instance).toggleDarkIsTrueBlack(value),
+            onChanged: (bool value) => ref.read(AppTheme.instance).toggleDarkIsTrueBlack(value),
           );
   }
 }
@@ -235,11 +223,7 @@ class ShowThemeColors extends StatelessWidget {
                 color: colorScheme.secondaryContainer,
                 textColor: colorScheme.onSecondaryContainer,
               ),
-              ThemeCard(
-                label: 'Error',
-                color: colorScheme.error,
-                textColor: colorScheme.onError,
-              ),
+              ThemeCard(label: 'Error', color: colorScheme.error, textColor: colorScheme.onError),
               ThemeCard(
                 label: 'Error Container',
                 color: colorScheme.errorContainer,
@@ -254,11 +238,7 @@ class ShowThemeColors extends StatelessWidget {
 }
 
 class ThemeCard extends StatelessWidget {
-  const ThemeCard({
-    required this.label,
-    required this.color,
-    required this.textColor,
-  });
+  const ThemeCard({required this.label, required this.color, required this.textColor});
 
   final String label;
   final Color color;
@@ -278,9 +258,7 @@ class ThemeCard extends StatelessWidget {
             margin: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4),
-              side: BorderSide(
-                color: theme.colorScheme.onPrimaryContainer,
-              ),
+              side: BorderSide(color: theme.colorScheme.onPrimaryContainer),
             ),
             elevation: 0,
             color: color,
@@ -293,9 +271,7 @@ class ThemeCard extends StatelessWidget {
                   Center(
                     child: Text(
                       label,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: textColor,
-                      ),
+                      style: theme.textTheme.bodySmall?.copyWith(color: textColor),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -339,8 +315,7 @@ class _DarkModeTileWidget extends ConsumerWidget {
     return ListTile(
       trailing: ThemeModeSwitch(
         themeMode: themeMode,
-        onChanged: (ThemeMode value) =>
-            ref.read(AppTheme.instance).setThemeMode(value),
+        onChanged: (ThemeMode value) => ref.read(AppTheme.instance).setThemeMode(value),
       ),
       title: Text(t.themesPage.darkMode),
       subtitle: Text('${t.themesPage.darkModeSub} ${themeMode.name}'),
@@ -349,10 +324,7 @@ class _DarkModeTileWidget extends ConsumerWidget {
 }
 
 class ThemeModeSwitch extends StatelessWidget {
-  const ThemeModeSwitch({
-    required this.themeMode,
-    required this.onChanged,
-  });
+  const ThemeModeSwitch({required this.themeMode, required this.onChanged});
 
   final ThemeMode themeMode;
   final ValueChanged<ThemeMode> onChanged;

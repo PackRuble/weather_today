@@ -16,8 +16,7 @@ import 'package:weather_today/domain/controllers/app_theme/models/models.dart';
 import 'package:weather_today/domain/controllers/localization_controller.dart';
 import 'package:weather_today/extension/enum_extension.dart';
 import 'package:weather_today/ui/pages/current/current_page_main.dart';
-import 'package:weather_today/ui/pages/daily/daily_page_by_ruble/daily_page.dart'
-    as ruble_daily;
+import 'package:weather_today/ui/pages/daily/daily_page_by_ruble/daily_page.dart' as ruble_daily;
 import 'package:weather_today/ui/pages/daily/daily_page_main.dart';
 import 'package:weather_today/ui/pages/hourly/hourly_page_main.dart';
 import 'package:weather_today/ui/shared/bottom_bar.dart';
@@ -39,13 +38,11 @@ class VisualDesignPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(VisualDesignPresenter.tr);
 
-    final scrollPhysics =
-        ref.watch(VisualDesignPresenter.selectedScrollPhysic).scrollPhysics;
+    final scrollPhysics = ref.watch(VisualDesignPresenter.selectedScrollPhysic).scrollPhysics;
 
     // ignore: deprecated_member_use
     return WillPopScope(
-      onWillPop: () async =>
-          ref.read(VisualDesignPresenter.instance).onWillPop(context),
+      onWillPop: () async => ref.read(VisualDesignPresenter.instance).onWillPop(context),
       // fixdep(04.08.2024): [On dialog pop + page pop after unawaited async method called ('!_debugLocked': is not true.) · Issue #2017 · Milad-Akarie/auto_route_library](https://github.com/Milad-Akarie/auto_route_library/issues/2017)
       // PopScope(
       // onPopInvoked: (_) async =>
@@ -56,9 +53,7 @@ class VisualDesignPage extends ConsumerWidget {
           actions: LinkedHashMap.of({
             ActionButton.slot1: const _SaveButtonWidget(),
             ActionButton.reset: ResetButton(
-              onConfirm: ref
-                  .read(VisualDesignPresenter.instance)
-                  .resetToDefaultSettings,
+              onConfirm: ref.read(VisualDesignPresenter.instance).resetToDefaultSettings,
             ),
             ActionButton.themeMode: const ChangerThemeButton(),
           }),
@@ -69,10 +64,7 @@ class VisualDesignPage extends ConsumerWidget {
           // padding: const EdgeInsets.symmetric(horizontal: 4.0),
           slivers: [
             _HeaderSliverText(ref.tr.visualDesignPage.headers.design),
-            SliverToBoxAdapter(
-              key: ValueKey('$_DesignPagesNew'),
-              child: const _DesignPagesNew(),
-            ),
+            SliverToBoxAdapter(key: ValueKey('$_DesignPagesNew'), child: const _DesignPagesNew()),
             SliverPinnedHeader(
               key: ValueKey('$_ExampleTileDesign'),
               child: ColoredBox(
@@ -120,10 +112,7 @@ class _HeaderSliverText extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       key: ValueKey(text),
-      child: HeaderRWidget(
-        text,
-        padding: const EdgeInsets.only(left: 16, top: 16, bottom: 8),
-      ),
+      child: HeaderRWidget(text, padding: const EdgeInsets.only(left: 16, top: 16, bottom: 8)),
     );
   }
 }
@@ -135,8 +124,7 @@ class _ExampleTileDesign extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final WeatherOneCall? weatherMock =
-        ref.watch(VisualDesignPresenter.weatherMock).valueOrNull;
+    final WeatherOneCall? weatherMock = ref.watch(VisualDesignPresenter.weatherMock).valueOrNull;
 
     Widget? testedWidget;
 
@@ -145,34 +133,25 @@ class _ExampleTileDesign extends ConsumerWidget {
 
       const Widget _divider = Divider(height: 12.0, thickness: 12.0);
 
-      testedWidget = Column(
-        children: [_divider, testedWidget, _divider],
-      );
+      testedWidget = Column(children: [_divider, testedWidget, _divider]);
     }
 
-    final double textScaleFactor =
-        ref.watch(VisualDesignPresenter.textScaleFactorProvider);
+    final double textScaleFactor = ref.watch(VisualDesignPresenter.textScaleFactorProvider);
 
-    final Typography typography =
-        ref.watch(VisualDesignPresenter.selectedTypography).typography;
+    final Typography typography = ref.watch(VisualDesignPresenter.selectedTypography).typography;
 
-    final String fontFamily =
-        ref.watch(VisualDesignPresenter.selectedFontFamily).fontFamily;
+    final String fontFamily = ref.watch(VisualDesignPresenter.selectedFontFamily).fontFamily;
 
     final bool isDark = Brightness.dark == theme.brightness;
 
-    final FlexColorScheme nowFlexTheme =
-        ref.watch(AppTheme.usingThemeNow(isDark)).copyWith(
-              typography: typography,
-              fontFamily: fontFamily,
-            );
+    final FlexColorScheme nowFlexTheme = ref
+        .watch(AppTheme.usingThemeNow(isDark))
+        .copyWith(typography: typography, fontFamily: fontFamily);
 
     return Theme(
       data: nowFlexTheme.toTheme,
       child: MediaQuery(
-        data: MediaQuery.of(context).copyWith(
-          textScaler: TextScaler.linear(textScaleFactor),
-        ),
+        data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(textScaleFactor)),
         child: testedWidget ?? const SizedBox.shrink(),
       ),
     );
@@ -184,8 +163,7 @@ class _SaveButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bool isNeedSave =
-        ref.watch(VisualDesignPresenter.changesProvider).isNotEmpty;
+    final bool isNeedSave = ref.watch(VisualDesignPresenter.changesProvider).isNotEmpty;
 
     return isNeedSave
         ? IconButton(
@@ -213,11 +191,7 @@ class _DesignPagesNew extends HookConsumerWidget {
           onReorder: notifier.onReorderWeatherPage,
           children: [
             for (final (index, designPage) in designPages.indexed)
-              _DesignTileNew(
-                key: ValueKey(index),
-                designPage: designPage,
-                index: index,
-              ),
+              _DesignTileNew(key: ValueKey(index), designPage: designPage, index: index),
           ],
         ),
         TipRWidget(
@@ -232,9 +206,7 @@ class _DesignPagesNew extends HookConsumerWidget {
 }
 
 class _BottomBarTip extends StatelessWidget {
-  const _BottomBarTip({
-    super.key,
-  });
+  const _BottomBarTip({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -272,10 +244,8 @@ class _BottomBarTip extends StatelessWidget {
                     child: WrapperPage(
                       child: IgnorePointer(
                         child: switch (page) {
-                          WeatherPage.hourly =>
-                            HourlyWeatherPage(design: design),
-                          WeatherPage.currently =>
-                            CurrentWeatherPage(design: design),
+                          WeatherPage.hourly => HourlyWeatherPage(design: design),
+                          WeatherPage.currently => CurrentWeatherPage(design: design),
                           WeatherPage.daily => DailyWeatherPage(design: design),
                         },
                       ),
@@ -294,11 +264,7 @@ class _BottomBarTip extends StatelessWidget {
 }
 
 class _DesignTileNew extends HookConsumerWidget {
-  const _DesignTileNew({
-    super.key,
-    required this.designPage,
-    required this.index,
-  });
+  const _DesignTileNew({super.key, required this.designPage, required this.index});
 
   final DesignPage designPage;
   final int index;
@@ -315,7 +281,7 @@ class _DesignTileNew extends HookConsumerWidget {
     final title = switch (page) {
       WeatherPage.currently => titleTr.today,
       WeatherPage.hourly => titleTr.hourly,
-      WeatherPage.daily => titleTr.daily
+      WeatherPage.daily => titleTr.daily,
     };
 
     // todo(02.08.2024): https://github.com/PackRuble/weather_today/issues/39
@@ -342,11 +308,8 @@ class _DesignTileNew extends HookConsumerWidget {
         onSelectionChanged:
             // activatedTile &&
             page != WeatherPage.daily
-                ? (value) async => notifier.onChangeDesignPage(
-                      value.first,
-                      index,
-                    )
-                : (_) {},
+            ? (value) async => notifier.onChangeDesignPage(value.first, index)
+            : (_) {},
       ),
       // secondary: ReorderableDragStartListener(
       leading: ReorderableDragStartListener(
@@ -362,8 +325,7 @@ class _ChangerTextScaleWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final double textScaleFactor =
-        ref.watch(VisualDesignPresenter.textScaleFactorProvider);
+    final double textScaleFactor = ref.watch(VisualDesignPresenter.textScaleFactorProvider);
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -378,13 +340,10 @@ class _ChangerTextScaleWidget extends ConsumerWidget {
                 width: width / 1.4,
                 child: Slider(
                   value: textScaleFactor,
-                  divisions:
-                      ((maxTextScaleFactor - minTextScaleFactor) * 100).toInt(),
+                  divisions: ((maxTextScaleFactor - minTextScaleFactor) * 100).toInt(),
                   min: minTextScaleFactor,
                   max: maxTextScaleFactor,
-                  onChanged: ref
-                      .read(VisualDesignPresenter.instance)
-                      .setTextScaleFactor,
+                  onChanged: ref.read(VisualDesignPresenter.instance).setTextScaleFactor,
                 ),
               ),
               Flexible(
@@ -412,8 +371,7 @@ class _FamilyFontsWidget extends ConsumerWidget {
     final presenter = ref.watch(VisualDesignPresenter.instance);
     final List<AppFontFamily> items = presenter.fontsFamily;
 
-    final AppFontFamily selected =
-        ref.watch(VisualDesignPresenter.selectedFontFamily);
+    final AppFontFamily selected = ref.watch(VisualDesignPresenter.selectedFontFamily);
 
     return ChipsCloud(
       items: List<ChipInCloud>.generate(items.length, (int index) {
@@ -435,17 +393,14 @@ class _TypographyWidget extends ConsumerWidget {
     final presenter = ref.watch(VisualDesignPresenter.instance);
     final List<AppTypography> items = presenter.typographyList;
 
-    final AppTypography selected =
-        ref.watch(VisualDesignPresenter.selectedTypography);
+    final AppTypography selected = ref.watch(VisualDesignPresenter.selectedTypography);
 
     return ChipsCloud(
       items: List<ChipInCloud>.generate(items.length, (int index) {
         return ChipInCloud(
           selected: selected == items[index],
           label: Text(items[index].toCamelCaseToWords()),
-          onSelected: (_) => ref
-              .read(VisualDesignPresenter.instance)
-              .setTypography(items[index]),
+          onSelected: (_) => ref.read(VisualDesignPresenter.instance).setTypography(items[index]),
         );
       }),
     );
@@ -457,23 +412,16 @@ class _ScrollPhysicsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<AppScrollPhysics> items =
-        ref.watch(VisualDesignPresenter.instance).scrollPhysics;
+    final List<AppScrollPhysics> items = ref.watch(VisualDesignPresenter.instance).scrollPhysics;
 
-    final AppScrollPhysics selected =
-        ref.watch(VisualDesignPresenter.selectedScrollPhysic);
+    final AppScrollPhysics selected = ref.watch(VisualDesignPresenter.selectedScrollPhysic);
 
     return ChipsCloud(
       items: List<ChipInCloud>.generate(items.length, (int index) {
         return ChipInCloud(
           selected: selected == items[index],
-          label: Text(
-            items[index]
-                .toWords(startWithSmall: false, stringCase: StringCase.lower),
-          ),
-          onSelected: (_) => ref
-              .read(VisualDesignPresenter.instance)
-              .setScrollPhysic(items[index]),
+          label: Text(items[index].toWords(startWithSmall: false, stringCase: StringCase.lower)),
+          onSelected: (_) => ref.read(VisualDesignPresenter.instance).setScrollPhysic(items[index]),
         );
       }),
     );
@@ -481,9 +429,7 @@ class _ScrollPhysicsWidget extends ConsumerWidget {
 }
 
 class ChipsCloud extends ConsumerWidget {
-  const ChipsCloud({
-    required this.items,
-  });
+  const ChipsCloud({required this.items});
 
   final List<ChipInCloud> items;
 
@@ -503,11 +449,7 @@ class ChipsCloud extends ConsumerWidget {
 }
 
 class ChipInCloud extends StatelessWidget {
-  const ChipInCloud({
-    required this.selected,
-    required this.label,
-    required this.onSelected,
-  });
+  const ChipInCloud({required this.selected, required this.label, required this.onSelected});
 
   final bool selected;
   final Widget label;

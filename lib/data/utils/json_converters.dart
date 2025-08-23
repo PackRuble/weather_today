@@ -23,8 +23,7 @@ class DurationSecConverter extends JsonConverter<Duration, int> {
   int toJson(Duration object) => object.inSeconds;
 }
 
-class OpenMeteoWeatherCodeConverter
-    extends JsonConverter<OpenMeteoWeatherCode, int> {
+class OpenMeteoWeatherCodeConverter extends JsonConverter<OpenMeteoWeatherCode, int> {
   const OpenMeteoWeatherCodeConverter();
 
   @override

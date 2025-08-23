@@ -6,16 +6,14 @@ class RiverpodObserver extends ProviderObserver implements LoggyType {
   Loggy<RiverpodObserver> get loggy => Loggy<RiverpodObserver>('[Riverpod]');
 
   @override
-  void didAddProvider(
-    ProviderBase provider,
-    Object? value,
-    ProviderContainer container,
-  ) {
+  void didAddProvider(ProviderBase provider, Object? value, ProviderContainer container) {
     if (provider.name != null) {
-      return loggy.info('INIT: ${provider.name}'
-          '\n╔══'
-          '\n║ value: $value'
-          '\n╚══');
+      return loggy.info(
+        'INIT: ${provider.name}'
+        '\n╔══'
+        '\n║ value: $value'
+        '\n╚══',
+      );
     }
   }
 
@@ -27,20 +25,19 @@ class RiverpodObserver extends ProviderObserver implements LoggyType {
     ProviderContainer container,
   ) {
     if (provider.name != null) {
-      return loggy.info('UPD: ${provider.name}'
-          '\n╔══'
-          '\n║ previousValue: $previousValue'
-          '\n║ newValue: $newValue'
-          '\n╚══');
+      return loggy.info(
+        'UPD: ${provider.name}'
+        '\n╔══'
+        '\n║ previousValue: $previousValue'
+        '\n║ newValue: $newValue'
+        '\n╚══',
+      );
     }
   }
 
   /// A provider was disposed.
   @override
-  void didDisposeProvider(
-    ProviderBase provider,
-    ProviderContainer container,
-  ) {
+  void didDisposeProvider(ProviderBase provider, ProviderContainer container) {
     if (provider.name != null) {
       return loggy.info('Dispose: ${provider.name}');
     }

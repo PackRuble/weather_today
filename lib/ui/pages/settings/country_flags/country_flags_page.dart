@@ -19,8 +19,9 @@ class CountryFlagsPage extends ConsumerWidget with UiLoggy {
     loggy.info('build');
 
     // [[countryCode, countryName], ...]
-    final List<List<String>> countries =
-        ref.watch(CountryFlagsPagePresenter.instance).getCountries();
+    final List<List<String>> countries = ref
+        .watch(CountryFlagsPagePresenter.instance)
+        .getCountries();
 
     final t = ref.watch(CountryFlagsPagePresenter.tr);
 
@@ -34,12 +35,9 @@ class CountryFlagsPage extends ConsumerWidget with UiLoggy {
           crossAxisSpacing: _inset,
           mainAxisSpacing: _inset,
         ),
-        childrenDelegate: SliverChildBuilderDelegate(
-          (_, int index) {
-            return _TileCountryWidget(countries[index][0], countries[index][1]);
-          },
-          childCount: countries.length,
-        ),
+        childrenDelegate: SliverChildBuilderDelegate((_, int index) {
+          return _TileCountryWidget(countries[index][0], countries[index][1]);
+        }, childCount: countries.length),
       ),
     );
   }
@@ -64,20 +62,12 @@ class _TileCountryWidget extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 50.0,
-              child: Center(
-                child: ImageHelper.getFlagIcon(countryCode),
-              ),
-            ),
+            SizedBox(height: 50.0, child: Center(child: ImageHelper.getFlagIcon(countryCode))),
             const SizedBox(height: 5.0),
             Column(
               children: [
                 Text(countryCode),
-                Text(
-                  countryName,
-                  textAlign: TextAlign.center,
-                ),
+                Text(countryName, textAlign: TextAlign.center),
                 const SizedBox(height: 5.0),
               ],
             ),

@@ -3,12 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Строка с отображением параметров погоды.
 class RowItem extends ConsumerWidget {
-  const RowItem(
-    this.icon,
-    this.title,
-    this.value, {
-    super.key,
-  });
+  const RowItem(this.icon, this.title, this.value, {super.key});
 
   final IconData icon;
   final String title;
@@ -30,11 +25,7 @@ class RowItem extends ConsumerWidget {
             flex: 11,
             child: Align(
               alignment: Alignment.centerRight,
-              child: Text(
-                value,
-                style: textTheme.bodyMedium,
-                textAlign: TextAlign.end,
-              ),
+              child: Text(value, style: textTheme.bodyMedium, textAlign: TextAlign.end),
             ),
           ),
         ],

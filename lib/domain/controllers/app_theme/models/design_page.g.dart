@@ -11,11 +11,10 @@ _DesignPage _$DesignPageFromJson(Map<String, dynamic> json) => _DesignPage(
   design: $enumDecode(_$AppVisualDesignEnumMap, json['design']),
 );
 
-Map<String, dynamic> _$DesignPageToJson(_DesignPage instance) =>
-    <String, dynamic>{
-      'page': _$WeatherPageEnumMap[instance.page]!,
-      'design': _$AppVisualDesignEnumMap[instance.design]!,
-    };
+Map<String, dynamic> _$DesignPageToJson(_DesignPage instance) => <String, dynamic>{
+  'page': _$WeatherPageEnumMap[instance.page]!,
+  'design': _$AppVisualDesignEnumMap[instance.design]!,
+};
 
 const _$WeatherPageEnumMap = {
   WeatherPage.hourly: 'hourly',

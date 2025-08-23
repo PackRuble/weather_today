@@ -31,11 +31,11 @@ enum AppTypography {
   material2021;
 
   Typography get typography => switch (index) {
-        0 => Typography.material2014(),
-        1 => Typography.material2018(),
-        2 => Typography.material2021(),
-        _ => Typography.material2021()
-      };
+    0 => Typography.material2014(),
+    1 => Typography.material2018(),
+    2 => Typography.material2021(),
+    _ => Typography.material2021(),
+  };
 
   String toCamelCaseToWords() =>
       '${name.substring(0, 1).toUpperCase()}${name.substring(1, 8)} ${name.substring(8)}';
@@ -47,12 +47,8 @@ enum AppTypography {
 /// 0 - BouncingScrollPhysics. Аналогичный эффект используется на iOS.
 /// 1 - ClampingScrollPhysics. По умолчанию используется на Android.
 enum AppScrollPhysics {
-  bouncingScrollPhysics(
-    BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-  ),
-  clampingScrollPhysics(
-    ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-  );
+  bouncingScrollPhysics(BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics())),
+  clampingScrollPhysics(ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()));
 
   const AppScrollPhysics(this.scrollPhysics);
 

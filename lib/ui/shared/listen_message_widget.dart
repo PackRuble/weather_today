@@ -28,8 +28,7 @@ class ListenMessageWrapper extends ConsumerWidget {
 
     // слушаем наш контроллер по тостам
     if (isListenToast) {
-      ref.listen<ToastController>(MessageController.toasts,
-          (_, ToastController controller) async {
+      ref.listen<ToastController>(MessageController.toasts, (_, ToastController controller) async {
         final MessageToast? toast = controller.toast;
         if (toast != null) {
           if (Platform.isAndroid || Platform.isIOS || kIsWeb) {
@@ -43,10 +42,7 @@ class ListenMessageWrapper extends ConsumerWidget {
             );
           } else {
             scaffold.showSnackBar(
-              CustomSnack(
-                context,
-                snack: MessageSnack(message: toast.message),
-              ),
+              CustomSnack(context, snack: MessageSnack(message: toast.message)),
             );
           }
         }
@@ -55,19 +51,13 @@ class ListenMessageWrapper extends ConsumerWidget {
 
     // слушаем наш контроллер по снэкам
     if (isListenSnack) {
-      ref.listen<SnackController>(
-        MessageController.snacks,
-        (_, SnackController controller) async {
-          if (controller.snack == null) return;
+      ref.listen<SnackController>(MessageController.snacks, (_, SnackController controller) async {
+        if (controller.snack == null) return;
 
-          final snack = CustomSnack(
-            context,
-            snack: controller.snack!,
-          );
+        final snack = CustomSnack(context, snack: controller.snack!);
 
-          scaffold.showSnackBar(snack);
-        },
-      );
+        scaffold.showSnackBar(snack);
+      });
     }
 
     return child;
@@ -87,15 +77,9 @@ class ErrorInfoDialog extends ConsumerWidget {
       backgroundColor: theme.scaffoldBackgroundColor,
       child: Column(
         children: [
-          AppBar(
-            leading: const CloseButton(),
-            title: const Text('Oops... screen'),
-          ),
+          AppBar(leading: const CloseButton(), title: const Text('Oops... screen')),
           Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(message),
-            ),
+            child: SingleChildScrollView(padding: const EdgeInsets.all(8.0), child: Text(message)),
           ),
         ],
       ),

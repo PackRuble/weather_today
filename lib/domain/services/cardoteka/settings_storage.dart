@@ -18,8 +18,7 @@ enum SettingsCards<T extends Object> implements Card<T> {
   ]),
   userLogs(DataType.stringList, <String>[]),
   enableUserLogs(DataType.bool, false),
-  errorLogs(DataType.stringList, <String>[]),
-  ;
+  errorLogs(DataType.stringList, <String>[]);
 
   const SettingsCards(this.type, this.defaultValue);
 
@@ -35,9 +34,7 @@ enum SettingsCards<T extends Object> implements Card<T> {
   static const _config = CardotekaConfig(
     name: 'SettingsCards',
     cards: values,
-    converters: {
-      designPages: _DesignPagesConverter(),
-    },
+    converters: {designPages: _DesignPagesConverter()},
   );
 }
 

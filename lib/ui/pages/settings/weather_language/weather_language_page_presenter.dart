@@ -17,11 +17,9 @@ class WeatherLanguagePresenter {
   );
 
   /// Provider returns translation.
-  static StateProvider<TranslationsRu> get tr =>
-      AppLocalization.currentTranslation;
+  static StateProvider<TranslationsRu> get tr => AppLocalization.currentTranslation;
 
-  static StateProvider<WeatherLanguage> get currentLanguage =>
-      WeatherServices.currentLanguage;
+  static StateProvider<WeatherLanguage> get currentLanguage => WeatherServices.currentLanguage;
 
   /// Установка языка погоды.
   Future<void> setWeatherLanguage(WeatherLanguage lang) async =>

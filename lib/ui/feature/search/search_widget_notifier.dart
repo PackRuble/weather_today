@@ -50,15 +50,11 @@ class SearchNR extends AutoDisposeNotifier<SearchState> with NotifierLogger {
 
     // if there is no request, automatically empty _foundedPlaces.
     if (_query.isEmpty) {
-      state = SearchState.saved(
-        _savedPlaces.take(_countDisplayedPlaces).toList(),
-      );
+      state = SearchState.saved(_savedPlaces.take(_countDisplayedPlaces).toList());
 
       // запрос есть
     } else {
-      state = SearchState.found(
-        _foundedPlaces.take(_countDisplayedPlaces).toList(),
-      );
+      state = SearchState.found(_foundedPlaces.take(_countDisplayedPlaces).toList());
     }
 
     return state;
@@ -84,14 +80,13 @@ class SearchNR extends AutoDisposeNotifier<SearchState> with NotifierLogger {
 
   // ignore: avoid_public_notifier_properties
   /// The provider returns translate.
-  static StateProvider<TranslationsRu> get tr =>
-      AppLocalization.currentTranslation;
+  static StateProvider<TranslationsRu> get tr => AppLocalization.currentTranslation;
 
   /// Current selected location.
   static StateProvider<Place> get currentPlace => WeatherServices.currentPlace;
 
-  static AutoDisposeStateNotifierProvider<SavedPlacesNotifier, List<Place>>
-      get savedPlaces => savedPlacesController;
+  static AutoDisposeStateNotifierProvider<SavedPlacesNotifier, List<Place>> get savedPlaces =>
+      savedPlacesController;
 
   // Working with a request
   // ===========================================================================
@@ -108,8 +103,7 @@ class SearchNR extends AutoDisposeNotifier<SearchState> with NotifierLogger {
 
     // если запрос пуст - возвращаем список сохранённых мест
     if (newQuery.isEmpty) {
-      final List<Place> saved =
-          _savedPlaces.take(_countDisplayedPlaces).toList();
+      final List<Place> saved = _savedPlaces.take(_countDisplayedPlaces).toList();
       state = SearchState.saved(saved);
     }
     // иначе, обрабатываем запрос
@@ -146,18 +140,13 @@ class SearchNR extends AutoDisposeNotifier<SearchState> with NotifierLogger {
         final double? longitude = double.tryParse(splitter[1]);
 
         if (latitude != null && longitude != null) {
-          return _getPlacesByCoordinates(
-            latitude: latitude,
-            longitude: longitude,
-          );
+          return _getPlacesByCoordinates(latitude: latitude, longitude: longitude);
         }
       }
     }
     // иначе поиск по местоположению
     else {
-      return _getPlacesByName(
-        rawQuery[0].toUpperCase() + rawQuery.substring(1),
-      );
+      return _getPlacesByName(rawQuery[0].toUpperCase() + rawQuery.substring(1));
     }
 
     return [];
@@ -177,9 +166,7 @@ class SearchNR extends AutoDisposeNotifier<SearchState> with NotifierLogger {
       return [];
     }
 
-    return ref
-        .read(geocodingNR)
-        .getPlacesByCoordinates(latitude: latitude, longitude: longitude);
+    return ref.read(geocodingNR).getPlacesByCoordinates(latitude: latitude, longitude: longitude);
   }
 
   // Methods of working with places.

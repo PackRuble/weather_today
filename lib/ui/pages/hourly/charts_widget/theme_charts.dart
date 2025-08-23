@@ -23,12 +23,10 @@ class ChartTheme {
   static const double fAspectRatioLandscape = 6 / 2;
 
   /// Зарезервированный отступ по краям графика для лэйблов.
-  static const EdgeInsets fPaddingChart =
-      EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 90.0);
+  static const EdgeInsets fPaddingChart = EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 90.0);
 
   /// Количество лэйблов по сторонам графика.
-  static const CountLabel fLabelsChart =
-      CountLabel.fromLTRB(6, 12, 0, 10, bottomLow: 4);
+  static const CountLabel fLabelsChart = CountLabel.fromLTRB(6, 12, 0, 10, bottomLow: 4);
 
   // ---------------------------------------------------------------------------
   // Constants chart Wind
@@ -43,8 +41,7 @@ class ChartTheme {
   static const double wAspectRatioLandscape = 8 / 2;
 
   /// Зарезервированный отступ по краям графика для лэйблов.
-  static const EdgeInsets wPaddingChart =
-      EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 50.0);
+  static const EdgeInsets wPaddingChart = EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 50.0);
 
   /// Количество лэйблов по сторонам графика.
   static const CountLabel wLabelsChart = CountLabel.fromLTRB(5, 10, 0, 4);
@@ -62,8 +59,7 @@ class ChartTheme {
   static const double pAspectRatioLandscape = 8 / 2;
 
   /// Зарезервированный отступ по краям графика для лэйблов.
-  static const EdgeInsets pPaddingChart =
-      EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 50.0);
+  static const EdgeInsets pPaddingChart = EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 50.0);
 
   /// Количество лэйблов по сторонам графика.
   ///
@@ -85,8 +81,7 @@ class ChartTheme {
   static const double oAspectRatioLandscape = 8 / 2;
 
   /// Зарезервированный отступ по краям графика для лэйблов.
-  static const EdgeInsets oPaddingChart =
-      EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 50.0);
+  static const EdgeInsets oPaddingChart = EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 50.0);
 
   /// Количество лэйблов по сторонам графика.
   static const CountLabel oLabelsChart = CountLabel.fromLTRB(5, 8, 0, 5);

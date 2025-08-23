@@ -27,11 +27,7 @@ class AppGeneralSettings with Updater {
       _conversionStartPageIndex,
     );
 
-    await loadAndUpdate<bool, bool>(
-      showIntro,
-      DbStore.showIntro,
-      DbStore.showIntroDefault,
-    );
+    await loadAndUpdate<bool, bool>(showIntro, DbStore.showIntro, DbStore.showIntroDefault);
 
     await loadAndUpdate<bool, bool>(
       isAcceptedTermsConditions,
@@ -41,10 +37,7 @@ class AppGeneralSettings with Updater {
   }
 
   /// Access to an instance of a class.
-  static final instance = Provider(
-    AppGeneralSettings.new,
-    name: '$AppGeneralSettings',
-  );
+  static final instance = Provider(AppGeneralSettings.new, name: '$AppGeneralSettings');
 
   // Стартовая страница при запуске приложения.
   // ===========================================================================
@@ -55,8 +48,7 @@ class AppGeneralSettings with Updater {
     name: '$AppGeneralSettings/startPageIndex',
   );
 
-  static HomepageIndex _conversionStartPageIndex(int value) =>
-      HomepageIndex.values[value];
+  static HomepageIndex _conversionStartPageIndex(int value) => HomepageIndex.values[value];
 
   /// Установить новую стартовую страницу при загрузке [startPageIndex].
   Future<void> setStartPageIndex(HomepageIndex value) async {
@@ -86,10 +78,6 @@ class AppGeneralSettings with Updater {
   );
 
   Future<void> setAcceptedTermsConditions(bool value) async {
-    await saveAndUpdate<bool>(
-      isAcceptedTermsConditions,
-      DbStore.isAcceptedTermsConditions,
-      value,
-    );
+    await saveAndUpdate<bool>(isAcceptedTermsConditions, DbStore.isAcceptedTermsConditions, value);
   }
 }

@@ -39,10 +39,7 @@ class ChartPopWidget extends ConsumerWidget {
         generateLabelsData: const FlTitlesData(),
         titleWidget: titleWidget,
         ifEmptyDataWidget: (startDate == null || endDate == null)
-            ? Text(
-                t.mainPageDRuble.hourlyPage.pop.noPopExpected,
-                style: styles.bodyMedium,
-              )
+            ? Text(t.mainPageDRuble.hourlyPage.pop.noPopExpected, style: styles.bodyMedium)
             : Text(
                 t.mainPageDRuble.hourlyPage.pop.popExpected(
                   startDate: DateFormat.MMMMd().format(startDate),
@@ -69,14 +66,8 @@ class ChartPopWidget extends ConsumerWidget {
           children: <TextSpan>[
             TextSpan(text: t.mainPageDRuble.hourlyPage.pop.subtitle),
             const TextSpan(text: ' - '),
-            TextSpan(
-              text: rainfall.toStringAsFixed(chart.precisionLeft),
-              style: styles.labelLarge,
-            ),
-            TextSpan(
-              text: ' ${t.mainPageDRuble.hourlyPage.pop.units}',
-              style: styles.bodySmall,
-            ),
+            TextSpan(text: rainfall.toStringAsFixed(chart.precisionLeft), style: styles.labelLarge),
+            TextSpan(text: ' ${t.mainPageDRuble.hourlyPage.pop.units}', style: styles.bodySmall),
           ],
         ),
       );
@@ -100,14 +91,10 @@ class ChartPopWidget extends ConsumerWidget {
 
     final Widget unitsRight = Align(
       alignment: Alignment.center,
-      child: Text(
-        '%',
-        style: styles.bodySmall?.copyWith(color: ChartTheme.pColorIcon),
-      ),
+      child: Text('%', style: styles.bodySmall?.copyWith(color: ChartTheme.pColorIcon)),
     );
 
-    final bool isPortrait =
-        MediaQuery.orientationOf(context) == Orientation.portrait;
+    final bool isPortrait = MediaQuery.orientationOf(context) == Orientation.portrait;
 
     return CustomChartWidget(
       generateData: generateData,
@@ -118,9 +105,7 @@ class ChartPopWidget extends ConsumerWidget {
       legendWidgets: legends,
       unitsLeft: t.mainPageDRuble.hourlyPage.pop.units,
       unitsRight: unitsRight,
-      aspectRatio: isPortrait
-          ? ChartTheme.pAspectRatio
-          : ChartTheme.pAspectRatioLandscape,
+      aspectRatio: isPortrait ? ChartTheme.pAspectRatio : ChartTheme.pAspectRatioLandscape,
     );
   }
 
@@ -130,18 +115,8 @@ class ChartPopWidget extends ConsumerWidget {
         x: x,
         groupVertically: true,
         barRods: [
-          BarChartRodData(
-            fromY: 0.0,
-            toY: ySnow,
-            color: ChartTheme.pColorSnow,
-            width: 3.0,
-          ),
-          BarChartRodData(
-            fromY: 0.0,
-            toY: yRain,
-            color: ChartTheme.pColorRain,
-            width: 3.0,
-          ),
+          BarChartRodData(fromY: 0.0, toY: ySnow, color: ChartTheme.pColorSnow, width: 3.0),
+          BarChartRodData(fromY: 0.0, toY: yRain, color: ChartTheme.pColorRain, width: 3.0),
         ],
       );
     }
@@ -162,8 +137,7 @@ class ChartPopWidget extends ConsumerWidget {
 
       // есть ли осадки?
       bool isPrecip(WeatherHourly w) =>
-          (w.pop ?? 0.0) > 0.0 &&
-          ((w.rain ?? 0.0) != 0.0 || (w.snow ?? 0.0) != 0.0);
+          (w.pop ?? 0.0) > 0.0 && ((w.rain ?? 0.0) != 0.0 || (w.snow ?? 0.0) != 0.0);
 
       if (!isPrecip(weather)) return const SizedBox();
 
@@ -193,10 +167,7 @@ class ChartPopWidget extends ConsumerWidget {
             nextPrecip == null ||
             secondNextPrecip == null)
           return false;
-        if (!secondPreviousPrecip &&
-            !previousPrecip &&
-            !nextPrecip &&
-            !secondNextPrecip)
+        if (!secondPreviousPrecip && !previousPrecip && !nextPrecip && !secondNextPrecip)
           return true;
         return false;
       }
@@ -212,9 +183,7 @@ class ChartPopWidget extends ConsumerWidget {
             label,
             textAlign: TextAlign.center,
             style: styles.bodySmall?.copyWith(
-              color: (weather.rain ?? 0.0) > 0.0
-                  ? ChartTheme.pColorRain
-                  : ChartTheme.pColorSnow,
+              color: (weather.rain ?? 0.0) > 0.0 ? ChartTheme.pColorRain : ChartTheme.pColorSnow,
             ),
           ),
         );
@@ -224,17 +193,9 @@ class ChartPopWidget extends ConsumerWidget {
 
     // метки температуры по оси y
     Widget _leftTitles(double value, TitleMeta meta) {
-      if (ChartUtils.isSuitYLabel(
-        value,
-        meta.min,
-        meta.max,
-        chart.scaleDivisionLeft,
-      )) {
+      if (ChartUtils.isSuitYLabel(value, meta.min, meta.max, chart.scaleDivisionLeft)) {
         return Center(
-          child: Text(
-            value.toStringAsFixed(chart.precisionLeft),
-            style: styles.bodySmall,
-          ),
+          child: Text(value.toStringAsFixed(chart.precisionLeft), style: styles.bodySmall),
         );
       }
 

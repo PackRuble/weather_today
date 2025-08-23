@@ -5,10 +5,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MarkdownFutureBuilder extends HookWidget {
-  const MarkdownFutureBuilder({
-    required this.loadAsset,
-    super.key,
-  });
+  const MarkdownFutureBuilder({required this.loadAsset, super.key});
 
   final AsyncValueGetter<String> loadAsset;
 
@@ -24,10 +21,7 @@ class MarkdownFutureBuilder extends HookWidget {
           return SelectionArea(
             child: Markdown(
               onTapLink: (String text, String? href, String title) async {
-                await launchUrl(
-                  Uri.parse(href ?? text),
-                  mode: LaunchMode.externalApplication,
-                );
+                await launchUrl(Uri.parse(href ?? text), mode: LaunchMode.externalApplication);
               },
               selectable: false,
               data: snapshot.data!,

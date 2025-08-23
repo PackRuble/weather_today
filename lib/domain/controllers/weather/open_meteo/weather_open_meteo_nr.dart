@@ -14,11 +14,10 @@ import '../weather_nr.dart';
 /// Notifier of the [ForecastOpenMeteoResponse] weather service for https://open-meteo.com/.
 class WeatherOpenMeteoNR extends WeatherNR<ForecastOpenMeteoResponse> {
   /// Instance of current class.
-  static final i =
-      AsyncNotifierProvider<WeatherOpenMeteoNR, ForecastOpenMeteoResponse?>(
-        WeatherOpenMeteoNR.new,
-        name: '$WeatherOpenMeteoNR',
-      );
+  static final i = AsyncNotifierProvider<WeatherOpenMeteoNR, ForecastOpenMeteoResponse?>(
+    WeatherOpenMeteoNR.new,
+    name: '$WeatherOpenMeteoNR',
+  );
 
   late OpenMeteoStorage _openMeteoStorage;
   OpenMeteoRepo get _openMeteoRepo => ref.read(OpenMeteoRepoPR.i);
@@ -51,11 +50,7 @@ class WeatherOpenMeteoNR extends WeatherNR<ForecastOpenMeteoResponse> {
         last.day == now.day) {
       // hourly and daily are updated once a day for open-meteo, so it doesn't
       // make sense to make more requests
-      final res = await _openMeteoRepo.fetchForecast(
-        place,
-        hourlyParams: null,
-        dailyParams: null,
-      );
+      final res = await _openMeteoRepo.fetchForecast(place, hourlyParams: null, dailyParams: null);
 
       return storedWeather.copyWith(currentWeather: res.currentWeather);
     } else {

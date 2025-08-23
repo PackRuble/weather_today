@@ -14,10 +14,7 @@ class _Migrate {
 }
 
 class MigrationTool {
-  const MigrationTool({
-    required this.localStorageOld,
-    required this.settingsStorageNew,
-  });
+  const MigrationTool({required this.localStorageOld, required this.settingsStorageNew});
 
   final DataBase localStorageOld;
   final SettingsStorage settingsStorageNew;
@@ -49,10 +46,7 @@ class MigrationTool {
       DesignPage(page: WeatherPage.daily, design: design),
     ];
 
-    await settingsStorageNew.set<List<DesignPage>>(
-      SettingsCards.designPages,
-      pagesNew,
-    );
+    await settingsStorageNew.set<List<DesignPage>>(SettingsCards.designPages, pagesNew);
 
     await localStorageOld.clearKey(oldKey);
   }

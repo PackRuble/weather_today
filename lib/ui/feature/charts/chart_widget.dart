@@ -61,19 +61,10 @@ class CustomChartWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (titleWidget != null) ...[
-                  titleWidget!,
-                  const SizedBox(height: 8.0),
-                ],
-                if (subtitleWidget != null) ...[
-                  subtitleWidget!,
-                  const SizedBox(height: 8.0),
-                ],
+                if (titleWidget != null) ...[titleWidget!, const SizedBox(height: 8.0)],
+                if (subtitleWidget != null) ...[subtitleWidget!, const SizedBox(height: 8.0)],
                 if (legendWidgets != null && generateData.isNotEmpty) ...[
-                  Wrap(
-                    spacing: 8.0,
-                    children: [for (final l in legendWidgets!) l],
-                  ),
+                  Wrap(spacing: 8.0, children: [for (final l in legendWidgets!) l]),
                   const SizedBox(height: 8.0),
                 ],
               ],
@@ -93,10 +84,7 @@ class CustomChartWidget extends StatelessWidget {
                               width: chartPaddingReserved.left,
                               child: Align(
                                 alignment: Alignment.topCenter,
-                                child: Text(
-                                  unitsLeft!,
-                                  style: styles.bodySmall,
-                                ),
+                                child: Text(unitsLeft!, style: styles.bodySmall),
                               ),
                             )
                           : const SizedBox.shrink(),

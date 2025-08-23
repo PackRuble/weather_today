@@ -19,21 +19,13 @@ class SystemSettingsPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBarCustom(t.systemSettingsPage.appbarTitle),
-      body: ListView(
-        children: const [
-          EnableLogsSwitch(),
-          Divider(height: 0.0, thickness: 1.0),
-        ],
-      ),
+      body: ListView(children: const [EnableLogsSwitch(), Divider(height: 0.0, thickness: 1.0)]),
     );
   }
 }
 
 class EnableLogsSwitch extends ConsumerWidget {
-  const EnableLogsSwitch({
-    super.key,
-    this.onChange,
-  });
+  const EnableLogsSwitch({super.key, this.onChange});
 
   final VoidCallback? onChange;
 
@@ -54,9 +46,7 @@ class EnableLogsSwitch extends ConsumerWidget {
               child: SwitchTileWidget(
                 onChanged: (bool value) async {
                   await Future.value(
-                    value
-                        ? appLogsNR.enableLogging()
-                        : appLogsNR.disableLogging(),
+                    value ? appLogsNR.enableLogging() : appLogsNR.disableLogging(),
                   );
 
                   onChange?.call();

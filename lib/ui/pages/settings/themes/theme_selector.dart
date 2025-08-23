@@ -7,9 +7,7 @@ import 'package:weather_today/domain/controllers/app_theme/controller/app_theme_
 
 /// Переключатель тем, с выпадающим списком.
 class ThemeSelector extends ConsumerWidget {
-  const ThemeSelector({
-    super.key,
-  });
+  const ThemeSelector({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,21 +17,18 @@ class ThemeSelector extends ConsumerWidget {
     return PopupMenuButton<int>(
       tooltip: '',
       padding: EdgeInsets.zero,
-      onSelected: (int newTheme) async =>
-          ref.read(AppTheme.instance).setThemeScheme(newTheme),
+      onSelected: (int newTheme) async => ref.read(AppTheme.instance).setThemeScheme(newTheme),
       itemBuilder: (BuildContext context) => <PopupMenuItem<int>>[
         for (final (index, item) in AppThemeScheme.schemes.indexed)
           PopupMenuItem<int>(
             value: index,
             child: Consumer(
               builder: (context, ref, _) {
-                final FlexSchemeData selected =
-                    ref.watch(AppTheme.currentThemeScheme);
+                final FlexSchemeData selected = ref.watch(AppTheme.currentThemeScheme);
 
                 return ListTile(
                   selected: item.name == selected.name,
-                  selectedColor:
-                      isLight ? selected.light.primary : selected.dark.primary,
+                  selectedColor: isLight ? selected.light.primary : selected.dark.primary,
                   contentPadding: EdgeInsets.zero,
                   title: Text(item.name),
                   leading: ColorBox(item),
@@ -44,15 +39,12 @@ class ThemeSelector extends ConsumerWidget {
       ],
       child: Consumer(
         builder: (context, ref, _) {
-          final FlexSchemeData selected =
-              ref.watch(AppTheme.currentThemeScheme);
+          final FlexSchemeData selected = ref.watch(AppTheme.currentThemeScheme);
 
           return ListTile(
             title: Text('${selected.name} theme'),
             subtitle: Text(selected.description),
-            trailing: IgnorePointer(
-              child: ColorBox(selected),
-            ),
+            trailing: IgnorePointer(child: ColorBox(selected)),
           );
         },
       ),

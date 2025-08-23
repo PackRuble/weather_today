@@ -10,9 +10,9 @@ class ResetButton extends StatelessWidget {
     this.onCancel,
     this.customDialog,
   }) : assert(
-          !(!withAlert && customDialog != null),
-          'You specified a $customDialog, but it will not be shown',
-        );
+         !(!withAlert && customDialog != null),
+         'You specified a $customDialog, but it will not be shown',
+       );
 
   final bool withAlert;
   final Future<bool> Function(BuildContext context)? customDialog;
@@ -21,17 +21,17 @@ class ResetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IconButton(
-        onPressed: () async {
-          if (withAlert) {
-            final bool isConfirm = await (customDialog != null
-                ? customDialog!.call(context)
-                : AppDialogs.confirmResetSettings(context));
+    onPressed: () async {
+      if (withAlert) {
+        final bool isConfirm = await (customDialog != null
+            ? customDialog!.call(context)
+            : AppDialogs.confirmResetSettings(context));
 
-            isConfirm == true ? onConfirm.call() : onCancel?.call();
-          } else {
-            onConfirm.call();
-          }
-        },
-        icon: const Icon(Icons.settings_backup_restore_rounded),
-      );
+        isConfirm == true ? onConfirm.call() : onCancel?.call();
+      } else {
+        onConfirm.call();
+      }
+    },
+    icon: const Icon(Icons.settings_backup_restore_rounded),
+  );
 }

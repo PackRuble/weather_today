@@ -91,24 +91,21 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 
 /// Provides utility functions without any side effects.
 class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, Translations> {
-  AppLocaleUtils._()
-      : super(
-          baseLocale: AppLocale.ru,
-          locales: AppLocale.values,
-        );
+  AppLocaleUtils._() : super(baseLocale: AppLocale.ru, locales: AppLocale.values);
 
   static final instance = AppLocaleUtils._();
 
   // static aliases (checkout base methods for documentation)
   static AppLocale parse(String rawLocale) => instance.parse(rawLocale);
-  static AppLocale parseLocaleParts(
-          {required String languageCode,
-          String? scriptCode,
-          String? countryCode}) =>
-      instance.parseLocaleParts(
-          languageCode: languageCode,
-          scriptCode: scriptCode,
-          countryCode: countryCode);
+  static AppLocale parseLocaleParts({
+    required String languageCode,
+    String? scriptCode,
+    String? countryCode,
+  }) => instance.parseLocaleParts(
+    languageCode: languageCode,
+    scriptCode: scriptCode,
+    countryCode: countryCode,
+  );
   static AppLocale findDeviceLocale() => instance.findDeviceLocale();
   static List<Locale> get supportedLocales => instance.supportedLocales;
   static List<String> get supportedLocalesRaw => instance.supportedLocalesRaw;

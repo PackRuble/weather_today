@@ -12,8 +12,8 @@ class CurrentPagePresenter {
   final Ref _ref;
 
   /// Actual [WeatherCurrent] CURRENT-weather.
-  static AsyncNotifierProvider<WeatherCurrentDelegacyNR, WeatherCurrent?>
-      get current => WeatherCurrentDelegacyNR.i;
+  static AsyncNotifierProvider<WeatherCurrentDelegacyNR, WeatherCurrent?> get current =>
+      WeatherCurrentDelegacyNR.i;
 
   /// Instance of current class.
   static final instance = Provider.autoDispose(
@@ -22,8 +22,7 @@ class CurrentPagePresenter {
   );
 
   /// Provider returns translation.
-  static StateProvider<TranslationsRu> get tr =>
-      AppLocalization.currentTranslation;
+  static StateProvider<TranslationsRu> get tr => AppLocalization.currentTranslation;
 
   /// Units of velocity measurement.
   static StateProvider<Speed> get speedUnits => WeatherServices.speedUnits;

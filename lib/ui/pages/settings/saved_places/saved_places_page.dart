@@ -33,8 +33,7 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
 
     final t = ref.watch(SavedPlacesPagePresenter.tr);
 
-    final List<Place> listPlaces =
-        ref.watch(SavedPlacesPagePresenter.savedPlaces);
+    final List<Place> listPlaces = ref.watch(SavedPlacesPagePresenter.savedPlaces);
 
     return Scaffold(
       body: Stack(
@@ -44,9 +43,7 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
                 ? Center(child: Text(t.savedPlacesPage.placesNotFound))
                 : ListView.separated(
                     separatorBuilder: (BuildContext context, int index) {
-                      return const Divider(
-                        height: 5.0,
-                      );
+                      return const Divider(height: 5.0);
                     },
                     itemBuilder: (BuildContext context, int index) {
                       return Column(
@@ -54,12 +51,12 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
                           if (index == 0)
                             TipRWidget(
                               text: Text(
-                                  '${AppSmiles.info} ${t.savedPlacesPage.tips.clickToMore}\n'
-                                  '${AppSmiles.pinned} ${t.savedPlacesPage.tips.holdToSet}'),
+                                '${AppSmiles.info} ${t.savedPlacesPage.tips.clickToMore}\n'
+                                '${AppSmiles.pinned} ${t.savedPlacesPage.tips.holdToSet}',
+                              ),
                             ),
                           _TileFoundedWidget(listPlaces[index]),
-                          if (index == listPlaces.length - 1)
-                            const SizedBox(height: 50.0),
+                          if (index == listPlaces.length - 1) const SizedBox(height: 50.0),
                         ],
                       );
                     },
@@ -69,10 +66,7 @@ class SavedPlacesPage extends ConsumerWidget with UiLoggy {
           if (defaultTargetPlatform == TargetPlatform.windows ||
               defaultTargetPlatform == TargetPlatform.linux ||
               defaultTargetPlatform == TargetPlatform.macOS)
-            const Align(
-              alignment: Alignment.bottomLeft,
-              child: BackButton(),
-            ),
+            const Align(alignment: Alignment.bottomLeft, child: BackButton()),
         ],
       ),
     );
@@ -96,18 +90,12 @@ class _TileFoundedWidget extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.all(AppInsets.allPadding),
       child: GestureDetector(
-        onLongPress: () async =>
-            ref.read(SavedPlacesPagePresenter.instance).selectPlace(place),
+        onLongPress: () async => ref.read(SavedPlacesPagePresenter.instance).selectPlace(place),
         child: Card(
-          color: isSelected
-              ? colors.secondary.blend(colors.surface, 40)
-              : theme.cardColor,
+          color: isSelected ? colors.secondary.blend(colors.surface, 40) : theme.cardColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppInsets.cornerRadiusCard),
-            side: BorderSide(
-              color: colors.primaryContainer,
-              width: isSelected ? 1.8 : 1.0,
-            ),
+            side: BorderSide(color: colors.primaryContainer, width: isSelected ? 1.8 : 1.0),
           ),
           margin: EdgeInsets.zero,
           child: ExpPanel(
@@ -128,22 +116,19 @@ class _HeaderWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String title =
-        MetricsHelper.getCountryCodeAndStateOrName(place) ?? '';
+    final String title = MetricsHelper.getCountryCodeAndStateOrName(place) ?? '';
 
     final String languageCode = Localizations.localeOf(context).languageCode;
 
-    final String subtitle =
-        MetricsHelper.getLocalNameOrName(place, languageCode) ?? '';
+    final String subtitle = MetricsHelper.getLocalNameOrName(place, languageCode) ?? '';
 
     return ListTile(
       title: Text(title),
       subtitle: Text(subtitle),
       trailing: IconButton(
         icon: const Icon(Icons.delete),
-        onPressed: () async => ref
-            .read(SavedPlacesPagePresenter.instance)
-            .dialogAfterDeletingPlace(context, place),
+        onPressed: () async =>
+            ref.read(SavedPlacesPagePresenter.instance).dialogAfterDeletingPlace(context, place),
       ),
     );
   }
@@ -187,9 +172,7 @@ class _ExpandedWidget extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Text(place.note ?? t.savedPlacesPage.emptyNote),
-                  ),
+                  Expanded(child: Text(place.note ?? t.savedPlacesPage.emptyNote)),
                   Center(
                     child: IconButton(
                       icon: const Icon(Icons.edit),

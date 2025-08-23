@@ -46,18 +46,14 @@ class MyDismissiblePage extends DismissiblePage {
 
   @override
   Widget build(BuildContext context) {
-    final contentPadding =
-        isFullScreen ? EdgeInsets.zero : MediaQuery.paddingOf(context);
+    final contentPadding = isFullScreen ? EdgeInsets.zero : MediaQuery.paddingOf(context);
 
     if (disabled) {
       return DecoratedBox(
         decoration: BoxDecoration(color: backgroundColor),
         child: Padding(
           padding: contentPadding,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(minRadius),
-            child: child,
-          ),
+          child: ClipRRect(borderRadius: BorderRadius.circular(minRadius), child: child),
         ),
       );
     }

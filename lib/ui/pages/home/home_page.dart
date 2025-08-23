@@ -24,17 +24,14 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bool showIntro = ref.watch(AppGeneralSettings.showIntro);
-    final bool isAcceptedTerms =
-        ref.watch(AppGeneralSettings.isAcceptedTermsConditions);
+    final bool isAcceptedTerms = ref.watch(AppGeneralSettings.isAcceptedTermsConditions);
 
     if (showIntro) {
       return const IntroPage();
     }
 
     if (!isAcceptedTerms) {
-      return const Scaffold(
-        body: SafeArea(child: TermsConditionsWidget()),
-      );
+      return const Scaffold(body: SafeArea(child: TermsConditionsWidget()));
     }
 
     return Scaffold(
@@ -44,9 +41,7 @@ class HomePage extends ConsumerWidget {
       // этим занимается сама панель-поиск
       extendBodyBehindAppBar: false,
       extendBody: false,
-      body: const WrapperBodyWithFSBar(
-        body: ListenMessageWrapper(child: _BodyWidget()),
-      ),
+      body: const WrapperBodyWithFSBar(body: ListenMessageWrapper(child: _BodyWidget())),
     );
   }
 }

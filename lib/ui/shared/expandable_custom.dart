@@ -53,10 +53,7 @@ class ExpPanel extends HookWidget {
     child = AnimatedSwitcher(
       duration: animationDuration,
       transitionBuilder: sizeTransitionBuilder,
-      child: SizedBox(
-        key: ValueKey<bool>(isExpanded),
-        child: child,
-      ),
+      child: SizedBox(key: ValueKey<bool>(isExpanded), child: child),
     );
 
     return ScrollOnExpand(
@@ -75,32 +72,20 @@ class ExpPanel extends HookWidget {
                       padding: iconPadding,
                       child: RotatedIcon(
                         isExpanded: isExpanded,
-                        icon: hasIcon
-                            ? const Icon(Icons.expand_more)
-                            : const SizedBox.shrink(),
+                        icon: hasIcon ? const Icon(Icons.expand_more) : const SizedBox.shrink(),
                       ),
                     ),
               ],
             ),
           ),
-          Flexible(
-            child: child,
-          ),
+          Flexible(child: child),
         ],
       ),
     );
   }
 
-  static Widget sizeTransitionBuilder(
-    Widget child,
-    Animation<double> animation,
-  ) =>
-      SizeTransition(
-        axis: Axis.vertical,
-        sizeFactor: animation,
-        axisAlignment: -1,
-        child: child,
-      );
+  static Widget sizeTransitionBuilder(Widget child, Animation<double> animation) =>
+      SizeTransition(axis: Axis.vertical, sizeFactor: animation, axisAlignment: -1, child: child);
 }
 
 class RotatedIcon extends HookWidget {
@@ -130,13 +115,10 @@ class RotatedIcon extends HookWidget {
       reverseDuration: Durations.medium2,
     );
 
-    useEffect(
-      () {
-        isExpanded ? animCR.forward() : animCR.reverse();
-        return null;
-      },
-      [isExpanded],
-    );
+    useEffect(() {
+      isExpanded ? animCR.forward() : animCR.reverse();
+      return null;
+    }, [isExpanded]);
 
     return AnimatedBuilder(
       animation: animCR,
@@ -176,27 +158,21 @@ class ScrollOnExpand extends HookWidget {
   Widget build(BuildContext context) {
     final scroll = useRef<bool>(false);
 
-    useEffect(
-      () {
-        if (scroll.value) {
-          Future.delayed(
-            duration,
-            () {
-              if (!context.mounted) return;
+    useEffect(() {
+      if (scroll.value) {
+        Future.delayed(duration, () {
+          if (!context.mounted) return;
 
-              if (scrollOnExpand || scrollOnCollapse) {
-                context.findRenderObject()?.showOnScreen(duration: duration);
-              }
-            },
-          );
-        }
+          if (scrollOnExpand || scrollOnCollapse) {
+            context.findRenderObject()?.showOnScreen(duration: duration);
+          }
+        });
+      }
 
-        scroll.value = true;
+      scroll.value = true;
 
-        return null;
-      },
-      [isExpanded],
-    );
+      return null;
+    }, [isExpanded]);
 
     return child;
   }

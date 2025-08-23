@@ -30,14 +30,13 @@ class HourlyPageByRublePresenter {
   );
 
   /// Wind chart.
-  static final chartWind =
-      Provider<ChartModel>((ref) => ChartModel.wind(ref.watch(hourly) ?? []));
+  static final chartWind = Provider<ChartModel>((ref) => ChartModel.wind(ref.watch(hourly) ?? []));
 
   /// Precipitation chart.
-  static final chartPop =
-      Provider<ChartModel>((ref) => ChartModel.pop(ref.watch(hourly) ?? []));
+  static final chartPop = Provider<ChartModel>((ref) => ChartModel.pop(ref.watch(hourly) ?? []));
 
   /// Graph of other parameters.
-  static final chartCloudsParam =
-      Provider<ChartModel>((ref) => ChartModel.clouds(ref.watch(hourly) ?? []));
+  static final chartCloudsParam = Provider<ChartModel>(
+    (ref) => ChartModel.clouds(ref.watch(hourly) ?? []),
+  );
 }

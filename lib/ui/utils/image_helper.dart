@@ -12,19 +12,18 @@ class ImageHelper {
   /// Получить изображение флага из пакета.
   ///
   /// [onError] - если произошла ошибка загрузки.
-  static Widget getFlagIcon(String? flag, [String onError = '🗾']) =>
-      Image.asset(
-        'icons/flags/png1000px/${flag?.toLowerCase()}.png',
-        package: 'country_icons',
-        filterQuality: FilterQuality.medium,
-        errorBuilder: (_, e, s) {
-          logWarning('*$flag* not found assets flag');
-          return Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Transform.scale(scale: 2.0, child: Text(onError)),
-          );
-        },
+  static Widget getFlagIcon(String? flag, [String onError = '🗾']) => Image.asset(
+    'icons/flags/png1000px/${flag?.toLowerCase()}.png',
+    package: 'country_icons',
+    filterQuality: FilterQuality.medium,
+    errorBuilder: (_, e, s) {
+      logWarning('*$flag* not found assets flag');
+      return Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: Transform.scale(scale: 2.0, child: Text(onError)),
       );
+    },
+  );
 }
 
 class ImagePaths {
@@ -39,10 +38,7 @@ class ImagePaths {
 
 /// Получить иконку погоды по её коду.
 class WeatherImageIcon extends StatelessWidget {
-  const WeatherImageIcon({
-    super.key,
-    required this.weatherIcon,
-  });
+  const WeatherImageIcon({super.key, required this.weatherIcon});
 
   final String? weatherIcon;
 
@@ -51,26 +47,23 @@ class WeatherImageIcon extends StatelessWidget {
     final theme = Theme.of(context);
 
     Widget getImage(bool isBackground) => Image.asset(
-          'assets/weather_icons/$weatherIcon.png',
-          // ImagePathWeather.getPathWeatherIcon('weatherIcon' ?? ''),
-          // package: ImagePathWeather.packageName,
-          color: isBackground ? theme.primaryColorDark : null,
-          filterQuality: FilterQuality.high,
-          errorBuilder: (_, e, s) {
-            // bug: await fix https://github.com/flutter/flutter/issues/107416
-            logWarning('$e: *$weatherIcon* not found assets weatherIcon');
+      'assets/weather_icons/$weatherIcon.png',
+      // ImagePathWeather.getPathWeatherIcon('weatherIcon' ?? ''),
+      // package: ImagePathWeather.packageName,
+      color: isBackground ? theme.primaryColorDark : null,
+      filterQuality: FilterQuality.high,
+      errorBuilder: (_, e, s) {
+        // bug: await fix https://github.com/flutter/flutter/issues/107416
+        logWarning('$e: *$weatherIcon* not found assets weatherIcon');
 
-            // coldfix: осталась полоска сверху на главной странице
-            return Transform.scale(
-              filterQuality: FilterQuality.low,
-              scale: 0.5,
-              child: Image.asset(
-                filterQuality: FilterQuality.high,
-                'assets/images/rainbow.png',
-              ),
-            );
-          },
+        // coldfix: осталась полоска сверху на главной странице
+        return Transform.scale(
+          filterQuality: FilterQuality.low,
+          scale: 0.5,
+          child: Image.asset(filterQuality: FilterQuality.high, 'assets/images/rainbow.png'),
         );
+      },
+    );
 
     return Stack(
       children: [
