@@ -44,8 +44,7 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
 
     if (!_isLatLonCorrect(_currentPlace)) {
       const error = 'The location is not correct. Choose a different location.';
-      state = AsyncValue.error(error, StackTrace.current);
-      return null;
+      throw error;
     }
 
     if (_kDebugMode) {
@@ -54,20 +53,27 @@ abstract class WeatherNR<T> extends AsyncNotifier<T?> with NotifierLogger {
       if (stored != null) return stored;
     }
 
-    T? weather;
+    // ignore: unawaited_futures
+    Future(
+      () async {
+        state = AsyncLoading<T?>();
 
-    // if you are allowed to update now
-    if (await _isAllowedMakeRequest() || await _isAbilityRequestOnDiffPlaces()) {
-      l.info('$T: Permission granted. Trying to get the weather.');
+        T? weather;
 
-      weather = await _getWeather(_currentPlace);
-    } else {
-      l.info('$T: Permission NOT granted. Trying to get the weather in db.');
-    }
+        // if you are allowed to update now
+        if (await _isAllowedMakeRequest() || await _isAbilityRequestOnDiffPlaces()) {
+          l.info('$T: Permission granted. Trying to get the weather.');
 
-    weather ??= await getStoredWeather();
+          weather = await _getWeather(_currentPlace);
+        } else {
+          l.info('$T: Permission NOT granted. Trying to get the weather in db.');
+        }
 
-    return weather;
+        state = AsyncData(weather ?? state.valueOrNull);
+      },
+    );
+
+    return await getStoredWeather();
   }
 
   /// The time of the last request to weather service.

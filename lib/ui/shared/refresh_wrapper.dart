@@ -49,7 +49,14 @@ class RefreshWrapper<T extends Object> extends ConsumerWidget {
         // when [Ref.invalidate]/[Ref.refresh]
         skipLoadingOnRefresh: false,
         data: (T? value) {
-          if (value != null) return child(context, value);
+          if (value != null) {
+            return Column(
+              children: [
+                if (asyncValue.isLoading) const LinearProgressIndicator(),
+                Flexible(child: child(context, value)),
+              ],
+            );
+          }
 
           return CustomListView(
             scrollPhysics: scrollPhysics,

@@ -23,7 +23,7 @@ class WeatherOpenMeteoNR extends WeatherNR<ForecastOpenMeteoResponse> {
   OpenMeteoRepo get _openMeteoRepo => ref.read(OpenMeteoRepoPR.i);
 
   @override
-  Duration get allowedRequestRate => const Duration(seconds: 1);
+  Duration get allowedRequestRate => Duration.zero;
 
   @override
   FutureOr<ForecastOpenMeteoResponse?> build() async {
