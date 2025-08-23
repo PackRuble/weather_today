@@ -16,15 +16,15 @@ class WeatherOpenMeteoNR extends WeatherNR<ForecastOpenMeteoResponse> {
   /// Instance of current class.
   static final i =
       AsyncNotifierProvider<WeatherOpenMeteoNR, ForecastOpenMeteoResponse?>(
-    WeatherOpenMeteoNR.new,
-    name: '$WeatherOpenMeteoNR',
-  );
+        WeatherOpenMeteoNR.new,
+        name: '$WeatherOpenMeteoNR',
+      );
 
   late OpenMeteoStorage _openMeteoStorage;
   OpenMeteoRepo get _openMeteoRepo => ref.read(OpenMeteoRepoPR.i);
 
   @override
-  Duration get allowedRequestRate => const Duration(minutes: 15);
+  Duration get allowedRequestRate => const Duration(seconds: 1);
 
   @override
   FutureOr<ForecastOpenMeteoResponse?> build() async {
@@ -84,11 +84,13 @@ class WeatherOpenMeteoNR extends WeatherNR<ForecastOpenMeteoResponse> {
       _openMeteoStorage.get<bool>(OpenMeteoCards.isAllowUpdateDueToDiffPlaces);
 
   @override
-  Future<void> resetAbilityRequestOnDiffPlaces() async =>
-      _openMeteoStorage.set<bool>(
-        OpenMeteoCards.isAllowUpdateDueToDiffPlaces,
-        false,
-      );
+  Future<void> resetAbilityRequestOnDiffPlaces() async {
+    await _openMeteoStorage.set<bool>(
+      OpenMeteoCards.isAllowUpdateDueToDiffPlaces,
+      // allow us to make a request anytime for current service
+      true,
+    );
+  }
 
   @override
   void whenUpdateNotAllowed() {
