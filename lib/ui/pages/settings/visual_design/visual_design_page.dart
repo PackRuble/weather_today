@@ -369,18 +369,19 @@ class _FamilyFontsWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final presenter = ref.watch(VisualDesignPresenter.instance);
-    final List<AppFontFamily> items = presenter.fontsFamily;
+    final List<AppFontFamily> fonts = presenter.fontsFamily;
 
     final AppFontFamily selected = ref.watch(VisualDesignPresenter.selectedFontFamily);
 
     return ChipsCloud(
-      items: List<ChipInCloud>.generate(items.length, (int index) {
-        return ChipInCloud(
-          selected: selected == items[index],
-          label: Text(items[index].fontFamily),
-          onSelected: (_) => presenter.setFontFamily(items[index]),
-        );
-      }),
+      items: [
+        for (final font in fonts)
+          ChipInCloud(
+            selected: selected == font,
+            label: Text(font.fontFamily),
+            onSelected: (_) => presenter.setFontFamily(font),
+          ),
+      ],
     );
   }
 }
@@ -391,18 +392,19 @@ class _TypographyWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final presenter = ref.watch(VisualDesignPresenter.instance);
-    final List<AppTypography> items = presenter.typographyList;
+    final List<AppTypography> typos = presenter.typographyList;
 
     final AppTypography selected = ref.watch(VisualDesignPresenter.selectedTypography);
 
     return ChipsCloud(
-      items: List<ChipInCloud>.generate(items.length, (int index) {
-        return ChipInCloud(
-          selected: selected == items[index],
-          label: Text(items[index].toCamelCaseToWords()),
-          onSelected: (_) => ref.read(VisualDesignPresenter.instance).setTypography(items[index]),
-        );
-      }),
+      items: [
+        for (final typo in typos)
+          ChipInCloud(
+            selected: selected == typo,
+            label: Text(typo.toCamelCaseToWords()),
+            onSelected: (_) => ref.read(VisualDesignPresenter.instance).setTypography(typo),
+          ),
+      ],
     );
   }
 }
@@ -412,18 +414,21 @@ class _ScrollPhysicsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<AppScrollPhysics> items = ref.watch(VisualDesignPresenter.instance).scrollPhysics;
+    final List<AppScrollPhysics> scrollPhysics = ref
+        .watch(VisualDesignPresenter.instance)
+        .scrollPhysics;
 
     final AppScrollPhysics selected = ref.watch(VisualDesignPresenter.selectedScrollPhysic);
 
     return ChipsCloud(
-      items: List<ChipInCloud>.generate(items.length, (int index) {
-        return ChipInCloud(
-          selected: selected == items[index],
-          label: Text(items[index].toWords(startWithSmall: false, stringCase: StringCase.lower)),
-          onSelected: (_) => ref.read(VisualDesignPresenter.instance).setScrollPhysic(items[index]),
-        );
-      }),
+      items: [
+        for (final sp in scrollPhysics)
+          ChipInCloud(
+            selected: selected == sp,
+            label: Text(sp.toWords(startWithSmall: false, stringCase: StringCase.lower)),
+            onSelected: (_) => ref.read(VisualDesignPresenter.instance).setScrollPhysic(sp),
+          ),
+      ],
     );
   }
 }
@@ -465,6 +470,12 @@ class ChipInCloud extends StatelessWidget {
       side: BorderSide(color: AppColors.of(context).chipBorderColor),
       backgroundColor: AppColors.of(context).chipColor,
       selectedColor: AppColors.of(context).chipSelectedColor,
+      labelStyle:
+          AppColors.of(
+            context,
+          ).theme.chipTheme.labelStyle?.copyWith(
+            color: selected ? null : AppColors.of(context).chipSelectedColor,
+          ),
       onSelected: onSelected,
     );
   }
