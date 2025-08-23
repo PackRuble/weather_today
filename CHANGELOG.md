@@ -1,6 +1,12 @@
 
 [weather_today/CHANGELOG.md at master · PackRuble/weather_today](https://github.com/PackRuble/weather_today/blob/master/CHANGELOG.md)
 
+## [3.6.0] - 23-08-2025
+- first condition of the weather is the state of previously saved data
+- if weather data is loading, you will see Loader widget
+- remove limits on obtaining weather from Open Meteo service
+- fix colors for chips in "Visual Design" section
+
 ## [3.5.0] - 04-01-2025
 - new geocoding provider - https://open-meteo.com/en/docs/geocoding-api - and ability to select a provider in settings
 - clicking on the button next to the search bar will bring up a dialog for selecting a geocoding provider

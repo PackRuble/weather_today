@@ -1,6 +1,13 @@
 ☝️ This changelog talks about significant events for developers.
 For the user version, see [CHANGELOG.md](CHANGELOG.md).
 
+## [3.6.0] - 23-08-2025
+- first condition of the weather is the state of previously saved data #50
+- remove the limits on obtaining weather from the Open Meteo service
+- format dart code with: page_width=100, trailing_commas=preserve
+- updated dependencies to latest versions
+- building with Flutter 3.35.1 (Dart 3.9.0)
+
 ## [3.5.0] - 04-01-2025
 - added the choice of a new geocoding provider (Open Meteo Geocoding API), #46
 - use lint `require_trailing_commas`
