@@ -26,7 +26,7 @@ class ChartTheme {
   static const EdgeInsets fPaddingChart = EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 90.0);
 
   /// Количество лэйблов по сторонам графика.
-  static const CountLabel fLabelsChart = CountLabel.fromLTRB(6, 12, 0, 10, bottomLow: 4);
+  static const CountLabel fLabelsChart = CountLabel.fromLTRB(6, 12, 0, 10, bottomLow: 5);
 
   // ---------------------------------------------------------------------------
   // Constants chart Wind
@@ -44,7 +44,7 @@ class ChartTheme {
   static const EdgeInsets wPaddingChart = EdgeInsets.fromLTRB(40.0, 30.0, 40.0, 50.0);
 
   /// Количество лэйблов по сторонам графика.
-  static const CountLabel wLabelsChart = CountLabel.fromLTRB(5, 10, 0, 4);
+  static const CountLabel wLabelsChart = CountLabel.fromLTRB(5, 10, 0, 5);
 
   // ---------------------------------------------------------------------------
   // Constants chart Precipitation - pop
