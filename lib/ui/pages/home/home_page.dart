@@ -16,7 +16,7 @@ import '../intro/intro_page.dart';
 import '../settings/settings_page.dart';
 import 'home_page_presenter.dart';
 
-/// Главная страница приложения. Содержит 4 вкладки.
+/// The main page of the application. Contains 4 tabs.
 @RoutePage()
 class HomePage extends ConsumerWidget {
   const HomePage();
@@ -38,7 +38,7 @@ class HomePage extends ConsumerWidget {
       key: materialKeyProvider,
       bottomNavigationBar: const BottomBarWidget(),
       resizeToAvoidBottomInset: false,
-      // этим занимается сама панель-поиск
+      // This is done by the Search Panel
       extendBodyBehindAppBar: false,
       extendBody: false,
       body: const WrapperBodyWithFSBar(body: ListenMessageWrapper(child: _BodyWidget())),
@@ -51,20 +51,17 @@ class _BodyWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final designPages = ref
-        .watch(HomePageController.designPages)
-        .map(
-          (e) => switch (e.page) {
-            WeatherPage.hourly => HourlyWeatherPage(design: e.design),
-            WeatherPage.currently => CurrentWeatherPage(design: e.design),
-            WeatherPage.daily => DailyWeatherPage(design: e.design),
-          },
-        )
-        .toList();
-
     return PageView(
       controller: ref.watch(HomePageController.pageController),
-      children: [const SettingsPage(), ...designPages],
+      children: [
+        const SettingsPage(),
+        for (final p in ref.watch(HomePageController.designPages))
+          switch (p.page) {
+            WeatherPage.hourly => HourlyWeatherPage(design: p.design),
+            WeatherPage.currently => CurrentWeatherPage(design: p.design),
+            WeatherPage.daily => DailyWeatherPage(design: p.design),
+          },
+      ],
     );
   }
 }
