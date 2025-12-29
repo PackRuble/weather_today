@@ -70,11 +70,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  json_serializable: ^6.10.0
-  auto_route_generator: ^10.2.4
-  build_runner: ^2.7.0
-  icons_launcher: ^3.0.1
-  freezed: ^3.2.0 # weather_animation
+  json_serializable: ^6.11.2
+  auto_route_generator: ^10.4.0
+  build_runner: ^2.10.4
+  icons_launcher: ^3.0.3
+  freezed: ^3.2.3 # weather_animation
 
   # linters
 #  custom_lint: ^0.7.6 // todo(29.12.2025, @packdev): riverpod3
