@@ -21,7 +21,7 @@ dependencies:
   # todo: use default
   material_floating_search_bar_2:
     git: https://github.com/Aditsyal/material_floating_search_bar
-  smooth_page_indicator: ^1.2.1
+  smooth_page_indicator: ^2.0.1
   country_icons: ^3.0.0
   # coldfix: refuse in favor of Snack
   fluttertoast: ^8.2.12
