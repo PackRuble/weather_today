@@ -15,7 +15,8 @@ class GeocodingProviderNR extends Notifier<GeocodingProvider> {
     _weatherStorage = ref.watch(WeatherStorage.instance);
     return _weatherStorage.attach<GeocodingProvider>(
       WeatherCards.geocodingProvider,
-      (value) => state = value,
+      onChange: (value) => state = value,
+      onRemove: () => state = GeocodingProvider.openMeteo,
       detacher: ref.onDispose,
     );
   }

@@ -13,14 +13,20 @@ class HomePageController {
   final Ref _ref;
 
   /// Instance of current class.
-  static final instance = Provider(HomePageController.new, name: '$HomePageController');
+  static final instance = Provider(HomePageController.new);
 
   /// List of visual designs.
   ///
   static final designPages = Provider.autoDispose<List<DesignPage>>(
     (ref) => ref
         .watch(SettingsStorage.instance)
-        .attach(SettingsCards.designPages, (value) => ref.state = value, detacher: ref.onDispose),
+        .attach(
+          SettingsCards.designPages,
+          onChange: (value) => ref.state = value,
+          onRemove: () {},
+          detacher: ref.onDispose,
+        ),
+    name: '$HomePageController/designPages',
   );
 
   // ---------------------------------------

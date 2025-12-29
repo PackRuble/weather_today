@@ -4,7 +4,7 @@ import 'package:cardoteka/cardoteka.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:weather_today/domain/controllers/app_theme/models/design_page.dart';
 
-class SettingsStorage extends Cardoteka with WatcherImpl {
+final class SettingsStorage extends Cardoteka with WatcherImpl {
   SettingsStorage._() : super(config: SettingsCards._config);
 
   static final instance = Provider((_) => SettingsStorage._());

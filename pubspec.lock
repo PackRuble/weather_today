@@ -141,10 +141,10 @@ packages:
     dependency: "direct main"
     description:
       name: cardoteka
-      sha256: f26b176b18fb3bda58843573bdad25bece257d9fb114165d0f7a6c825e62d72a
+      sha256: "21476a355a7fceb5f8eba170da9bff03316e6d667249bbdd6bf07748a6a14627"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "2.0.0"
   characters:
     dependency: transitive
     description:
@@ -727,13 +727,13 @@ packages:
     source: hosted
     version: "2.6.1"
   shared_preferences:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: shared_preferences
-      sha256: a752ce92ea7540fc35a0d19722816e04d0e72828a4200e83a98cf1a1eb524c9a
+      sha256: "688ee90fbfb6989c980254a56cb26ebe9bb30a3a2dff439a78894211f73de67a"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.5"
+    version: "2.5.1"
   shared_preferences_android:
     dependency: transitive
     description:
@@ -775,13 +775,13 @@ packages:
     source: hosted
     version: "2.4.1"
   shared_preferences_windows:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: shared_preferences_windows
-      sha256: "398084b47b7f92110683cac45c6dc4aae853db47e470e5ddcd52cab7f7196ab2"
+      sha256: "94ef0f72b2d71bc3e700e025db3710911bd51a71cefb65cc609dd0d9a982e3c1"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.0"
+    version: "2.4.1"
   shelf:
     dependency: transitive
     description:

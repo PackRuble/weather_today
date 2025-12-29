@@ -1,18 +1,23 @@
+import 'package:cardoteka/access_to_sp.dart';
 import 'package:flutter/foundation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 import 'package:weather_today/utils/same_types.dart';
 
 import 'interface/data_base.dart';
 
-/// The class allows access to [SharedPreferences].
+/// The class allows access to [SharedPreferencesAsync].
 class DataBasePrefs with DbLogger implements DataBase {
   DataBasePrefs();
 
-  late final SharedPreferences _prefs;
+  late final SharedPreferencesWithCache _prefs;
 
   @override
-  Future<void> init() async => _prefs = await SharedPreferences.getInstance();
+  Future<void> init() async {
+    _prefs = await SharedPreferencesWithCache.create(
+      cacheOptions: const SharedPreferencesWithCacheOptions(),
+      sharedPreferencesOptions: const SharedPreferencesOptions(),
+    );
+  }
 
   /// Load values from [SharedPreferences] using the key from [DbStore].
   @override
@@ -113,25 +118,29 @@ class DataBasePrefs with DbLogger implements DataBase {
 
   @override
   Future<bool> clearAll() async {
-    if (await _prefs.clear()) {
-      loggy.info('The user storage has been cleared: [ AllKeys: ${_prefs.getKeys()} ]');
+    try {
+      await _prefs.clear();
+      loggy.info('The user storage has been cleared: [ AllKeys: ${_prefs.keys} ]');
       return true;
-    } else {
-      loggy.error('An error occurred while clearing the user storage: [ prefs: $_prefs ]');
+    } catch (e, s) {
+      loggy.error('An error occurred while clearing the user storage: [ prefs: $_prefs ]', e, s);
       return false;
     }
   }
 
   @override
   Future<bool> clearKey(String key) async {
-    if (await _prefs.remove(key)) {
+    try {
+      await _prefs.remove(key);
       loggy.info(
-        'The record has been deleted from the storage: [ key: <$key> | value: <${_prefs.get(key)}> ]',
+        'The record has been deleted from the storage: [ key: <$key> ]',
       );
       return true;
-    } else {
+    } catch (e, s) {
       loggy.error(
-        'Failed to delete a record from the storage: [ key: <$key> | value: <${_prefs.get(key)}> ]',
+        'Failed to delete a record from the storage: [ key: <$key> ]',
+        e,
+        s,
       );
       return false;
     }

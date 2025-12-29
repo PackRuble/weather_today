@@ -15,7 +15,8 @@ class OnecallEndpointNR extends Notifier<OneCallApi> {
     _weatherStorage = ref.watch(WeatherStorage.instance);
     return _weatherStorage.attach<OneCallApi>(
       WeatherCards.oneCallApiVersion,
-      (value) => state = value,
+      onChange: (value) => state = value,
+      onRemove: () => OneCallApi.api_3_0,
       detacher: ref.onDispose,
     );
   }

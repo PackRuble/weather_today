@@ -9,6 +9,7 @@ environment:
 
 dependency_overrides:
   freezed_annotation: ^3.1.0 # weather_animation
+  shared_preferences_windows: ^2.4.1 # ошибки пакета при кастировании списка
 
 dependencies:
   flutter:
@@ -42,8 +43,7 @@ dependencies:
   dismissible_page: ^1.0.2
 
   # Database
-  shared_preferences: ^2.3.4
-  cardoteka: ^1.1.0
+  cardoteka: 2.0.0
 
   # State manager
   hooks_riverpod: ^2.6.1

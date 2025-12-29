@@ -6,7 +6,7 @@ import 'package:weather_today/domain/services/place_service/models/place_model.d
 
 import 'converters.dart';
 
-class WeatherStorage extends Cardoteka with WatcherImpl {
+final class WeatherStorage extends Cardoteka with WatcherImpl {
   WeatherStorage._() : super(config: WeatherCards._config);
 
   static final instance = Provider((ref) => WeatherStorage._());

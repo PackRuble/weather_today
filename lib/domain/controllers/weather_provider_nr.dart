@@ -15,7 +15,8 @@ class WeatherProviderNR extends Notifier<WeatherProvider> {
     _weatherStorage = ref.watch(WeatherStorage.instance);
     return _weatherStorage.attach<WeatherProvider>(
       WeatherCards.weatherProvider,
-      (value) => state = value,
+      onChange: (value) => state = value,
+      onRemove: () => state = WeatherProvider.openMeteo,
       detacher: ref.onDispose,
     );
   }

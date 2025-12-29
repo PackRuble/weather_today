@@ -4,7 +4,7 @@ import 'package:weather_today/data/open_meteo/models/models.dart';
 
 import 'converters.dart';
 
-class OpenMeteoStorage extends Cardoteka {
+final class OpenMeteoStorage extends Cardoteka {
   OpenMeteoStorage._() : super(config: OpenMeteoCards._config);
 
   static final i = Provider((_) => OpenMeteoStorage._());

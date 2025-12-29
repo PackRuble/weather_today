@@ -72,7 +72,12 @@ class VisualDesignPresenter {
   static final weatherDesignPages = Provider.autoDispose<List<DesignPage>>(
     (ref) => ref
         .watch(SettingsStorage.instance)
-        .attach(SettingsCards.designPages, (value) => ref.state = value, detacher: ref.onDispose),
+        .attach(
+          SettingsCards.designPages,
+          onChange: (value) => ref.state = value,
+          onRemove: () {},
+          detacher: ref.onDispose,
+        ),
   );
 
   Future<void> onReorderWeatherPage(int oldIndex, int newIndex) async {

@@ -36,7 +36,10 @@ class ServiceInit {
 
   Future<void> _initDBService() async => _container.read(dbService).init();
 
-  Future<void> _initCardoteka() async => Cardoteka.init();
+  Future<void> _initCardoteka() async {
+    await CardotekaMigrator.migrate();
+    await Cardoteka.init();
+  }
 
   Future<void> _initMigrationTool() async {
     await MigrationTool(

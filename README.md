@@ -58,6 +58,7 @@ Some interesting features:
   * [Possible problems/errors](#possible-problemserrors)
     * [Errors in the generated files](#errors-in-the-generated-files)
     * [Change in the app's launcher icon](#change-in-the-apps-launcher-icon)
+    * [Data storage path](#data-storage-path)
   * [Articles and materials for study](#articles-and-materials-for-study)
   * [How do you support the project and the author?](#how-do-you-support-the-project-and-the-author)
   * [License](#license)
@@ -106,7 +107,15 @@ The  [icons_launcher](https://pub.dev/packages/icons_launcher) package is used f
 Or try use this command:
 
 ```shell
-`dart run icons_launcher:create
+dart run icons_launcher:create
+```
+
+### Data storage path
+
+This means Shared Preferences. For Windows this is:
+
+```
+%appdata%\com.Ruble.Pack\weather_today
 ```
 
 
