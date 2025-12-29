@@ -38,7 +38,7 @@ dependencies:
   freezed_annotation: ^3.1.0
 
   # Routing
-  auto_route: ^10.1.2
+  auto_route: ^11.1.0
   dismissible_page: ^1.0.2
 
   # Database
@@ -77,8 +77,8 @@ dev_dependencies:
   freezed: ^3.2.0 # weather_animation
 
   # linters
-  custom_lint: ^0.7.6
-  riverpod_lint: ^2.6.5
+#  custom_lint: ^0.7.6 // todo(29.12.2025, @packdev): riverpod3
+#  riverpod_lint: ^3.1.0 // todo(29.12.2025, @packdev): riverpod3
   lint: ^2.8.0
 
 flutter:
