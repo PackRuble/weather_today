@@ -24,17 +24,14 @@ dependencies:
   smooth_page_indicator: ^2.0.1
   country_icons: ^3.0.0
   # coldfix: refuse in favor of Snack
-  fluttertoast: ^8.2.12
-  # coldfix: this error was fixed in version 0.64
-  # https://github.com/imaNNeo/fl_chart/issues/1388
-  # causing my hourly temperature graphs to stop showing negative temps correctly
-  fl_chart: ^1.0.0
+  fluttertoast: ^9.0.0
+  fl_chart: ^1.1.1
   weather_animation: ^1.1.2
   sliver_tools: ^0.2.12
 
   # Theme
-  flex_color_scheme: ^8.3.0
-  flex_color_picker: ^3.7.1
+  flex_color_scheme: ^8.4.0
+  flex_color_picker: ^3.8.0
 
   # Models and annotation
   json_annotation: ^4.9.0
