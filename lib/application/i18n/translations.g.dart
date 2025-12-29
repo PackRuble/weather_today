@@ -6,7 +6,7 @@
 /// Locales: 2
 /// Strings: 754 (377 per locale)
 ///
-/// Built on 2025-08-23 at 08:40 UTC
+/// Built on 2025-12-29 at 15:39 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -91,7 +91,11 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 
 /// Provides utility functions without any side effects.
 class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, Translations> {
-  AppLocaleUtils._() : super(baseLocale: AppLocale.ru, locales: AppLocale.values);
+  AppLocaleUtils._()
+    : super(
+        baseLocale: AppLocale.ru,
+        locales: AppLocale.values,
+      );
 
   static final instance = AppLocaleUtils._();
 

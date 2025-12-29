@@ -51,8 +51,8 @@ dependencies:
 
   # Localization
   intl: any
-  slang: ^4.8.1
-  slang_flutter: ^4.8.0
+  slang: ^4.11.1
+  slang_flutter: ^4.11.0
   flutter_localizations:
     sdk: flutter
 

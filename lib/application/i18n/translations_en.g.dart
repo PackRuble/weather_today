@@ -10,7 +10,8 @@ import 'package:slang/generated.dart';
 import 'translations.g.dart';
 
 // Path: <root>
-class TranslationsEn extends Translations {
+class TranslationsEn extends Translations
+    with BaseTranslations<AppLocale, Translations> {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
   TranslationsEn({
@@ -30,7 +31,10 @@ class TranslationsEn extends Translations {
              cardinalResolver: cardinalResolver,
              ordinalResolver: ordinalResolver,
            ),
-       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+       super(
+         cardinalResolver: cardinalResolver,
+         ordinalResolver: ordinalResolver,
+       );
 
   /// Metadata for the translations of <en>.
   @override
@@ -39,39 +43,54 @@ class TranslationsEn extends Translations {
   late final TranslationsEn _root = this; // ignore: unused_field
 
   @override
-  TranslationsEn $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) =>
-      TranslationsEn(meta: meta ?? this.$meta);
+  TranslationsEn $copyWith({
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) => TranslationsEn(meta: meta ?? this.$meta);
 
   // Translations
   @override
-  late final TranslationsMainPageDRubleEn mainPageDRuble = TranslationsMainPageDRubleEn._(_root);
+  late final TranslationsMainPageDRubleEn mainPageDRuble =
+      TranslationsMainPageDRubleEn._(_root);
   @override
-  late final TranslationsSettingsPageEn settingsPage = TranslationsSettingsPageEn._(_root);
+  late final TranslationsSettingsPageEn settingsPage =
+      TranslationsSettingsPageEn._(_root);
   @override
-  late final TranslationsVisualDesignPageEn visualDesignPage = TranslationsVisualDesignPageEn._(
+  late final TranslationsVisualDesignPageEn visualDesignPage =
+      TranslationsVisualDesignPageEn._(_root);
+  @override
+  late final TranslationsThemesPageEn themesPage = TranslationsThemesPageEn._(
     _root,
   );
   @override
-  late final TranslationsThemesPageEn themesPage = TranslationsThemesPageEn._(_root);
+  late final TranslationsSavedPlacesPageEn savedPlacesPage =
+      TranslationsSavedPlacesPageEn._(_root);
   @override
-  late final TranslationsSavedPlacesPageEn savedPlacesPage = TranslationsSavedPlacesPageEn._(_root);
+  late final TranslationsSearchBarEn searchBar = TranslationsSearchBarEn._(
+    _root,
+  );
   @override
-  late final TranslationsSearchBarEn searchBar = TranslationsSearchBarEn._(_root);
-  @override
-  late final TranslationsFlagsPageEn flagsPage = TranslationsFlagsPageEn._(_root);
+  late final TranslationsFlagsPageEn flagsPage = TranslationsFlagsPageEn._(
+    _root,
+  );
   @override
   late final TranslationsSystemSettingsPageEn systemSettingsPage =
       TranslationsSystemSettingsPageEn._(_root);
   @override
-  late final TranslationsGratitudePageEn gratitudePage = TranslationsGratitudePageEn._(_root);
+  late final TranslationsGratitudePageEn gratitudePage =
+      TranslationsGratitudePageEn._(_root);
   @override
-  late final TranslationsWeatherLangPageEn weatherLangPage = TranslationsWeatherLangPageEn._(_root);
+  late final TranslationsWeatherLangPageEn weatherLangPage =
+      TranslationsWeatherLangPageEn._(_root);
   @override
-  late final TranslationsApiWeatherPageEn apiWeatherPage = TranslationsApiWeatherPageEn._(_root);
+  late final TranslationsApiWeatherPageEn apiWeatherPage =
+      TranslationsApiWeatherPageEn._(_root);
   @override
-  late final TranslationsIntroPageEn introPage = TranslationsIntroPageEn._(_root);
+  late final TranslationsIntroPageEn introPage = TranslationsIntroPageEn._(
+    _root,
+  );
   @override
-  late final TranslationsTermsConditionsEn termsConditions = TranslationsTermsConditionsEn._(_root);
+  late final TranslationsTermsConditionsEn termsConditions =
+      TranslationsTermsConditionsEn._(_root);
   @override
   late final TranslationsWeatherEn weather = TranslationsWeatherEn._(_root);
   @override
@@ -92,15 +111,16 @@ class TranslationsEn extends Translations {
 
 // Path: mainPageDRuble
 class TranslationsMainPageDRubleEn extends TranslationsMainPageDRubleRu {
-  TranslationsMainPageDRubleEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsMainPageDRubleEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
   // Translations
   @override
-  late final TranslationsMainPageDRubleMainPageEn mainPage = TranslationsMainPageDRubleMainPageEn._(
-    _root,
-  );
+  late final TranslationsMainPageDRubleMainPageEn mainPage =
+      TranslationsMainPageDRubleMainPageEn._(_root);
   @override
   late final TranslationsMainPageDRubleHourlyPageEn hourlyPage =
       TranslationsMainPageDRubleHourlyPageEn._(_root);
@@ -111,27 +131,28 @@ class TranslationsMainPageDRubleEn extends TranslationsMainPageDRubleRu {
 
 // Path: settingsPage
 class TranslationsSettingsPageEn extends TranslationsSettingsPageRu {
-  TranslationsSettingsPageEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsSettingsPageEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
   // Translations
   @override
-  late final TranslationsSettingsPageHeadersEn headers = TranslationsSettingsPageHeadersEn._(_root);
+  late final TranslationsSettingsPageHeadersEn headers =
+      TranslationsSettingsPageHeadersEn._(_root);
   @override
   late final TranslationsSettingsPageSavedPlacesTileEn savedPlacesTile =
       TranslationsSettingsPageSavedPlacesTileEn._(_root);
   @override
-  late final TranslationsSettingsPageTempTileEn tempTile = TranslationsSettingsPageTempTileEn._(
-    _root,
-  );
+  late final TranslationsSettingsPageTempTileEn tempTile =
+      TranslationsSettingsPageTempTileEn._(_root);
   @override
   late final TranslationsSettingsPagePressureTileEn pressureTile =
       TranslationsSettingsPagePressureTileEn._(_root);
   @override
-  late final TranslationsSettingsPageSpeedTileEn speedTile = TranslationsSettingsPageSpeedTileEn._(
-    _root,
-  );
+  late final TranslationsSettingsPageSpeedTileEn speedTile =
+      TranslationsSettingsPageSpeedTileEn._(_root);
   @override
   late final TranslationsSettingsPageWeatherLangTileEn weatherLangTile =
       TranslationsSettingsPageWeatherLangTileEn._(_root);
@@ -142,9 +163,8 @@ class TranslationsSettingsPageEn extends TranslationsSettingsPageRu {
   late final TranslationsSettingsPageVisualDesignTileEn visualDesignTile =
       TranslationsSettingsPageVisualDesignTileEn._(_root);
   @override
-  late final TranslationsSettingsPageThemeTileEn themeTile = TranslationsSettingsPageThemeTileEn._(
-    _root,
-  );
+  late final TranslationsSettingsPageThemeTileEn themeTile =
+      TranslationsSettingsPageThemeTileEn._(_root);
   @override
   late final TranslationsSettingsPageCountryFlagsTileEn countryFlagsTile =
       TranslationsSettingsPageCountryFlagsTileEn._(_root);
@@ -167,7 +187,9 @@ class TranslationsSettingsPageEn extends TranslationsSettingsPageRu {
 
 // Path: visualDesignPage
 class TranslationsVisualDesignPageEn extends TranslationsVisualDesignPageRu {
-  TranslationsVisualDesignPageEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsVisualDesignPageEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -175,7 +197,8 @@ class TranslationsVisualDesignPageEn extends TranslationsVisualDesignPageRu {
   @override
   String get appbarTitle => 'Visual design';
   @override
-  late final TranslationsVisualDesignPageTipsEn tips = TranslationsVisualDesignPageTipsEn._(_root);
+  late final TranslationsVisualDesignPageTipsEn tips =
+      TranslationsVisualDesignPageTipsEn._(_root);
   @override
   late final TranslationsVisualDesignPageHeadersEn headers =
       TranslationsVisualDesignPageHeadersEn._(_root);
@@ -183,7 +206,9 @@ class TranslationsVisualDesignPageEn extends TranslationsVisualDesignPageRu {
 
 // Path: themesPage
 class TranslationsThemesPageEn extends TranslationsThemesPageRu {
-  TranslationsThemesPageEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsThemesPageEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -212,13 +237,16 @@ class TranslationsThemesPageEn extends TranslationsThemesPageRu {
 
 // Path: savedPlacesPage
 class TranslationsSavedPlacesPageEn extends TranslationsSavedPlacesPageRu {
-  TranslationsSavedPlacesPageEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsSavedPlacesPageEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
   // Translations
   @override
-  late final TranslationsSavedPlacesPageTipsEn tips = TranslationsSavedPlacesPageTipsEn._(_root);
+  late final TranslationsSavedPlacesPageTipsEn tips =
+      TranslationsSavedPlacesPageTipsEn._(_root);
   @override
   String get placesNotFound => 'No saved places found.';
   @override
@@ -231,7 +259,9 @@ class TranslationsSavedPlacesPageEn extends TranslationsSavedPlacesPageRu {
 
 // Path: searchBar
 class TranslationsSearchBarEn extends TranslationsSearchBarRu {
-  TranslationsSearchBarEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsSearchBarEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -239,12 +269,16 @@ class TranslationsSearchBarEn extends TranslationsSearchBarRu {
   @override
   String get hintTextField => 'Enter place name';
   @override
-  late final TranslationsSearchBarTipsEn tips = TranslationsSearchBarTipsEn._(_root);
+  late final TranslationsSearchBarTipsEn tips = TranslationsSearchBarTipsEn._(
+    _root,
+  );
 }
 
 // Path: flagsPage
 class TranslationsFlagsPageEn extends TranslationsFlagsPageRu {
-  TranslationsFlagsPageEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsFlagsPageEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -254,8 +288,11 @@ class TranslationsFlagsPageEn extends TranslationsFlagsPageRu {
 }
 
 // Path: systemSettingsPage
-class TranslationsSystemSettingsPageEn extends TranslationsSystemSettingsPageRu {
-  TranslationsSystemSettingsPageEn._(TranslationsEn root) : this._root = root, super.internal(root);
+class TranslationsSystemSettingsPageEn
+    extends TranslationsSystemSettingsPageRu {
+  TranslationsSystemSettingsPageEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -269,7 +306,9 @@ class TranslationsSystemSettingsPageEn extends TranslationsSystemSettingsPageRu 
 
 // Path: gratitudePage
 class TranslationsGratitudePageEn extends TranslationsGratitudePageRu {
-  TranslationsGratitudePageEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsGratitudePageEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -298,7 +337,9 @@ class TranslationsGratitudePageEn extends TranslationsGratitudePageRu {
       dart('dart'),
       const TextSpan(text: ' and '),
       flutter('flutter'),
-      const TextSpan(text: ' team for a great platform to build truly cool applications; '),
+      const TextSpan(
+        text: ' team for a great platform to build truly cool applications; ',
+      ),
       remiRousselet('Remi Rousselet'),
       const TextSpan(text: ' for the delightful '),
       riverpod('riverpod'),
@@ -325,7 +366,9 @@ class TranslationsGratitudePageEn extends TranslationsGratitudePageRu {
 
 // Path: weatherLangPage
 class TranslationsWeatherLangPageEn extends TranslationsWeatherLangPageRu {
-  TranslationsWeatherLangPageEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsWeatherLangPageEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -333,12 +376,15 @@ class TranslationsWeatherLangPageEn extends TranslationsWeatherLangPageRu {
   @override
   String get appbarTitle => 'Language of weather conditions';
   @override
-  late final TranslationsWeatherLangPageTipsEn tips = TranslationsWeatherLangPageTipsEn._(_root);
+  late final TranslationsWeatherLangPageTipsEn tips =
+      TranslationsWeatherLangPageTipsEn._(_root);
 }
 
 // Path: apiWeatherPage
 class TranslationsApiWeatherPageEn extends TranslationsApiWeatherPageRu {
-  TranslationsApiWeatherPageEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsApiWeatherPageEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -352,23 +398,24 @@ class TranslationsApiWeatherPageEn extends TranslationsApiWeatherPageRu {
   @override
   String get buttonReset => 'Reset';
   @override
-  late final TranslationsApiWeatherPageTipsEn tips = TranslationsApiWeatherPageTipsEn._(_root);
+  late final TranslationsApiWeatherPageTipsEn tips =
+      TranslationsApiWeatherPageTipsEn._(_root);
   @override
   late final TranslationsApiWeatherPageDefaultApiEn defaultApi =
       TranslationsApiWeatherPageDefaultApiEn._(_root);
   @override
-  late final TranslationsApiWeatherPageUserApiEn userApi = TranslationsApiWeatherPageUserApiEn._(
-    _root,
-  );
+  late final TranslationsApiWeatherPageUserApiEn userApi =
+      TranslationsApiWeatherPageUserApiEn._(_root);
   @override
-  late final TranslationsApiWeatherPageTooltipsEn tooltips = TranslationsApiWeatherPageTooltipsEn._(
-    _root,
-  );
+  late final TranslationsApiWeatherPageTooltipsEn tooltips =
+      TranslationsApiWeatherPageTooltipsEn._(_root);
 }
 
 // Path: introPage
 class TranslationsIntroPageEn extends TranslationsIntroPageRu {
-  TranslationsIntroPageEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsIntroPageEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -381,7 +428,8 @@ class TranslationsIntroPageEn extends TranslationsIntroPageRu {
   @override
   String get tile2title => 'MEASURE';
   @override
-  String get tile2subtitle => 'Use your preferred units of temperature, speed, and pressure';
+  String get tile2subtitle =>
+      'Use your preferred units of temperature, speed, and pressure';
   @override
   String get tile3title => 'SAVE';
   @override
@@ -402,7 +450,9 @@ class TranslationsIntroPageEn extends TranslationsIntroPageRu {
 
 // Path: termsConditions
 class TranslationsTermsConditionsEn extends TranslationsTermsConditionsRu {
-  TranslationsTermsConditionsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsTermsConditionsEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -427,7 +477,9 @@ class TranslationsTermsConditionsEn extends TranslationsTermsConditionsRu {
 
 // Path: weather
 class TranslationsWeatherEn extends TranslationsWeatherRu {
-  TranslationsWeatherEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsWeatherEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -636,7 +688,9 @@ class TranslationsWeatherEn extends TranslationsWeatherRu {
 
 // Path: global
 class TranslationsGlobalEn extends TranslationsGlobalRu {
-  TranslationsGlobalEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsGlobalEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -647,17 +701,23 @@ class TranslationsGlobalEn extends TranslationsGlobalRu {
 
 // Path: dialogs
 class TranslationsDialogsEn extends TranslationsDialogsRu {
-  TranslationsDialogsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsDialogsEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
   // Translations
   @override
-  late final TranslationsDialogsMessagesEn messages = TranslationsDialogsMessagesEn._(_root);
+  late final TranslationsDialogsMessagesEn messages =
+      TranslationsDialogsMessagesEn._(_root);
   @override
-  late final TranslationsDialogsTitlesEn titles = TranslationsDialogsTitlesEn._(_root);
+  late final TranslationsDialogsTitlesEn titles = TranslationsDialogsTitlesEn._(
+    _root,
+  );
   @override
-  late final TranslationsDialogsButtonsEn buttons = TranslationsDialogsButtonsEn._(_root);
+  late final TranslationsDialogsButtonsEn buttons =
+      TranslationsDialogsButtonsEn._(_root);
   @override
   late final TranslationsDialogsPlaceSearchInfoEn placeSearchInfo =
       TranslationsDialogsPlaceSearchInfoEn._(_root);
@@ -665,7 +725,8 @@ class TranslationsDialogsEn extends TranslationsDialogsRu {
   late final TranslationsDialogsConfirmDelPlaceEn confirmDelPlace =
       TranslationsDialogsConfirmDelPlaceEn._(_root);
   @override
-  late final TranslationsDialogsSeeFlagEn seeFlag = TranslationsDialogsSeeFlagEn._(_root);
+  late final TranslationsDialogsSeeFlagEn seeFlag =
+      TranslationsDialogsSeeFlagEn._(_root);
   @override
   late final TranslationsDialogsConfirmDelUserApikeyEn confirmDelUserApikey =
       TranslationsDialogsConfirmDelUserApikeyEn._(_root);
@@ -676,23 +737,29 @@ class TranslationsDialogsEn extends TranslationsDialogsRu {
   late final TranslationsDialogsConfirmResetSettingsEn confirmResetSettings =
       TranslationsDialogsConfirmResetSettingsEn._(_root);
   @override
-  late final TranslationsDialogsMakeNoteEn makeNote = TranslationsDialogsMakeNoteEn._(_root);
+  late final TranslationsDialogsMakeNoteEn makeNote =
+      TranslationsDialogsMakeNoteEn._(_root);
 }
 
 // Path: enums
 class TranslationsEnumsEn extends TranslationsEnumsRu {
-  TranslationsEnumsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsEnumsEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
   // Translations
   @override
-  late final TranslationsEnumsHomepageEn homepage = TranslationsEnumsHomepageEn._(_root);
+  late final TranslationsEnumsHomepageEn homepage =
+      TranslationsEnumsHomepageEn._(_root);
 }
 
 // Path: units
 class TranslationsUnitsEn extends TranslationsUnitsRu {
-  TranslationsUnitsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsUnitsEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -702,16 +769,18 @@ class TranslationsUnitsEn extends TranslationsUnitsRu {
   @override
   late final TranslationsUnitsSpeedEn speed = TranslationsUnitsSpeedEn._(_root);
   @override
-  late final TranslationsUnitsPressureEn pressure = TranslationsUnitsPressureEn._(_root);
+  late final TranslationsUnitsPressureEn pressure =
+      TranslationsUnitsPressureEn._(_root);
   @override
-  late final TranslationsUnitsSideOfTheWorldEn sideOfTheWorld = TranslationsUnitsSideOfTheWorldEn._(
-    _root,
-  );
+  late final TranslationsUnitsSideOfTheWorldEn sideOfTheWorld =
+      TranslationsUnitsSideOfTheWorldEn._(_root);
 }
 
 // Path: messages
 class TranslationsMessagesEn extends TranslationsMessagesRu {
-  TranslationsMessagesEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsMessagesEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -721,12 +790,15 @@ class TranslationsMessagesEn extends TranslationsMessagesRu {
   @override
   String get weatherDataIsActual => 'Weather data is up to date';
   @override
-  String get selectedParamWillBeApplied => 'The selected parameter will be applied immediately';
+  String get selectedParamWillBeApplied =>
+      'The selected parameter will be applied immediately';
 }
 
 // Path: ui
 class TranslationsUiEn extends TranslationsUiRu {
-  TranslationsUiEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsUiEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -747,7 +819,9 @@ class TranslationsUiEn extends TranslationsUiRu {
 
 // Path: other
 class TranslationsOtherEn extends TranslationsOtherRu {
-  TranslationsOtherEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsOtherEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -759,7 +833,8 @@ class TranslationsOtherEn extends TranslationsOtherRu {
 }
 
 // Path: mainPageDRuble.mainPage
-class TranslationsMainPageDRubleMainPageEn extends TranslationsMainPageDRubleMainPageRu {
+class TranslationsMainPageDRubleMainPageEn
+    extends TranslationsMainPageDRubleMainPageRu {
   TranslationsMainPageDRubleMainPageEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -773,7 +848,8 @@ class TranslationsMainPageDRubleMainPageEn extends TranslationsMainPageDRubleMai
 }
 
 // Path: mainPageDRuble.hourlyPage
-class TranslationsMainPageDRubleHourlyPageEn extends TranslationsMainPageDRubleHourlyPageRu {
+class TranslationsMainPageDRubleHourlyPageEn
+    extends TranslationsMainPageDRubleHourlyPageRu {
   TranslationsMainPageDRubleHourlyPageEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -796,7 +872,8 @@ class TranslationsMainPageDRubleHourlyPageEn extends TranslationsMainPageDRubleH
 }
 
 // Path: mainPageDRuble.currentPage
-class TranslationsMainPageDRubleCurrentPageEn extends TranslationsMainPageDRubleCurrentPageRu {
+class TranslationsMainPageDRubleCurrentPageEn
+    extends TranslationsMainPageDRubleCurrentPageRu {
   TranslationsMainPageDRubleCurrentPageEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -822,7 +899,8 @@ class TranslationsMainPageDRubleCurrentPageEn extends TranslationsMainPageDRuble
 }
 
 // Path: settingsPage.headers
-class TranslationsSettingsPageHeadersEn extends TranslationsSettingsPageHeadersRu {
+class TranslationsSettingsPageHeadersEn
+    extends TranslationsSettingsPageHeadersRu {
   TranslationsSettingsPageHeadersEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -839,7 +917,8 @@ class TranslationsSettingsPageHeadersEn extends TranslationsSettingsPageHeadersR
 }
 
 // Path: settingsPage.savedPlacesTile
-class TranslationsSettingsPageSavedPlacesTileEn extends TranslationsSettingsPageSavedPlacesTileRu {
+class TranslationsSettingsPageSavedPlacesTileEn
+    extends TranslationsSettingsPageSavedPlacesTileRu {
   TranslationsSettingsPageSavedPlacesTileEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -852,7 +931,8 @@ class TranslationsSettingsPageSavedPlacesTileEn extends TranslationsSettingsPage
 }
 
 // Path: settingsPage.tempTile
-class TranslationsSettingsPageTempTileEn extends TranslationsSettingsPageTempTileRu {
+class TranslationsSettingsPageTempTileEn
+    extends TranslationsSettingsPageTempTileRu {
   TranslationsSettingsPageTempTileEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -867,11 +947,13 @@ class TranslationsSettingsPageTempTileEn extends TranslationsSettingsPageTempTil
   @override
   String get dialogTitle => 'Temperature units';
   @override
-  String get dialogSub => 'The selected parameter will be applied in all measurements.';
+  String get dialogSub =>
+      'The selected parameter will be applied in all measurements.';
 }
 
 // Path: settingsPage.pressureTile
-class TranslationsSettingsPagePressureTileEn extends TranslationsSettingsPagePressureTileRu {
+class TranslationsSettingsPagePressureTileEn
+    extends TranslationsSettingsPagePressureTileRu {
   TranslationsSettingsPagePressureTileEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -886,11 +968,13 @@ class TranslationsSettingsPagePressureTileEn extends TranslationsSettingsPagePre
   @override
   String get dialogTitle => 'Pressure units';
   @override
-  String get dialogSub => 'The selected parameter will be applied in all measurements.';
+  String get dialogSub =>
+      'The selected parameter will be applied in all measurements.';
 }
 
 // Path: settingsPage.speedTile
-class TranslationsSettingsPageSpeedTileEn extends TranslationsSettingsPageSpeedTileRu {
+class TranslationsSettingsPageSpeedTileEn
+    extends TranslationsSettingsPageSpeedTileRu {
   TranslationsSettingsPageSpeedTileEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -905,11 +989,13 @@ class TranslationsSettingsPageSpeedTileEn extends TranslationsSettingsPageSpeedT
   @override
   String get dialogTitle => 'Speed units';
   @override
-  String get dialogSub => 'The selected parameter will be applied in all measurements.';
+  String get dialogSub =>
+      'The selected parameter will be applied in all measurements.';
 }
 
 // Path: settingsPage.weatherLangTile
-class TranslationsSettingsPageWeatherLangTileEn extends TranslationsSettingsPageWeatherLangTileRu {
+class TranslationsSettingsPageWeatherLangTileEn
+    extends TranslationsSettingsPageWeatherLangTileRu {
   TranslationsSettingsPageWeatherLangTileEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -922,7 +1008,8 @@ class TranslationsSettingsPageWeatherLangTileEn extends TranslationsSettingsPage
 }
 
 // Path: settingsPage.userApiTile
-class TranslationsSettingsPageUserApiTileEn extends TranslationsSettingsPageUserApiTileRu {
+class TranslationsSettingsPageUserApiTileEn
+    extends TranslationsSettingsPageUserApiTileRu {
   TranslationsSettingsPageUserApiTileEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -949,7 +1036,8 @@ class TranslationsSettingsPageVisualDesignTileEn
 }
 
 // Path: settingsPage.themeTile
-class TranslationsSettingsPageThemeTileEn extends TranslationsSettingsPageThemeTileRu {
+class TranslationsSettingsPageThemeTileEn
+    extends TranslationsSettingsPageThemeTileRu {
   TranslationsSettingsPageThemeTileEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -976,7 +1064,8 @@ class TranslationsSettingsPageCountryFlagsTileEn
 }
 
 // Path: settingsPage.homepageTile
-class TranslationsSettingsPageHomepageTileEn extends TranslationsSettingsPageHomepageTileRu {
+class TranslationsSettingsPageHomepageTileEn
+    extends TranslationsSettingsPageHomepageTileRu {
   TranslationsSettingsPageHomepageTileEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -991,11 +1080,13 @@ class TranslationsSettingsPageHomepageTileEn extends TranslationsSettingsPageHom
   @override
   String get dialogTitle => 'Start Page';
   @override
-  String get dialogSub => 'The desired page will open immediately when you launch the application.';
+  String get dialogSub =>
+      'The desired page will open immediately when you launch the application.';
 }
 
 // Path: settingsPage.localeTile
-class TranslationsSettingsPageLocaleTileEn extends TranslationsSettingsPageLocaleTileRu {
+class TranslationsSettingsPageLocaleTileEn
+    extends TranslationsSettingsPageLocaleTileRu {
   TranslationsSettingsPageLocaleTileEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1010,11 +1101,13 @@ class TranslationsSettingsPageLocaleTileEn extends TranslationsSettingsPageLocal
   @override
   String get dialogTitle => 'Application language';
   @override
-  String get dialogSub => 'The selected language will be applied to the entire application.';
+  String get dialogSub =>
+      'The selected language will be applied to the entire application.';
 }
 
 // Path: settingsPage.gratitudeTile
-class TranslationsSettingsPageGratitudeTileEn extends TranslationsSettingsPageGratitudeTileRu {
+class TranslationsSettingsPageGratitudeTileEn
+    extends TranslationsSettingsPageGratitudeTileRu {
   TranslationsSettingsPageGratitudeTileEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1041,7 +1134,8 @@ class TranslationsSettingsPageSystemSettingsTileEn
 }
 
 // Path: settingsPage.aboutAppTile
-class TranslationsSettingsPageAboutAppTileEn extends TranslationsSettingsPageAboutAppTileRu {
+class TranslationsSettingsPageAboutAppTileEn
+    extends TranslationsSettingsPageAboutAppTileRu {
   TranslationsSettingsPageAboutAppTileEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1054,7 +1148,8 @@ class TranslationsSettingsPageAboutAppTileEn extends TranslationsSettingsPageAbo
 }
 
 // Path: visualDesignPage.tips
-class TranslationsVisualDesignPageTipsEn extends TranslationsVisualDesignPageTipsRu {
+class TranslationsVisualDesignPageTipsEn
+    extends TranslationsVisualDesignPageTipsRu {
   TranslationsVisualDesignPageTipsEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1067,7 +1162,8 @@ class TranslationsVisualDesignPageTipsEn extends TranslationsVisualDesignPageTip
 }
 
 // Path: visualDesignPage.headers
-class TranslationsVisualDesignPageHeadersEn extends TranslationsVisualDesignPageHeadersRu {
+class TranslationsVisualDesignPageHeadersEn
+    extends TranslationsVisualDesignPageHeadersRu {
   TranslationsVisualDesignPageHeadersEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1088,7 +1184,8 @@ class TranslationsVisualDesignPageHeadersEn extends TranslationsVisualDesignPage
 }
 
 // Path: savedPlacesPage.tips
-class TranslationsSavedPlacesPageTipsEn extends TranslationsSavedPlacesPageTipsRu {
+class TranslationsSavedPlacesPageTipsEn
+    extends TranslationsSavedPlacesPageTipsRu {
   TranslationsSavedPlacesPageTipsEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1104,7 +1201,9 @@ class TranslationsSavedPlacesPageTipsEn extends TranslationsSavedPlacesPageTipsR
 
 // Path: searchBar.tips
 class TranslationsSearchBarTipsEn extends TranslationsSearchBarTipsRu {
-  TranslationsSearchBarTipsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsSearchBarTipsEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -1145,7 +1244,8 @@ class TranslationsSystemSettingsPageEnableLogsTileEn
 }
 
 // Path: weatherLangPage.tips
-class TranslationsWeatherLangPageTipsEn extends TranslationsWeatherLangPageTipsRu {
+class TranslationsWeatherLangPageTipsEn
+    extends TranslationsWeatherLangPageTipsRu {
   TranslationsWeatherLangPageTipsEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1154,24 +1254,30 @@ class TranslationsWeatherLangPageTipsEn extends TranslationsWeatherLangPageTipsR
 
   // Translations
   @override
-  String get info => 'Some weather conditions will be provided in the selected language.';
+  String get info =>
+      'Some weather conditions will be provided in the selected language.';
 }
 
 // Path: apiWeatherPage.tips
-class TranslationsApiWeatherPageTipsEn extends TranslationsApiWeatherPageTipsRu {
-  TranslationsApiWeatherPageTipsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+class TranslationsApiWeatherPageTipsEn
+    extends TranslationsApiWeatherPageTipsRu {
+  TranslationsApiWeatherPageTipsEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
   // Translations
   @override
-  String get info => 'To make requests more often, you need to have your Api key.';
+  String get info =>
+      'To make requests more often, you need to have your Api key.';
   @override
   String get free => 'It\'s free, you can get it from the link below.';
 }
 
 // Path: apiWeatherPage.defaultApi
-class TranslationsApiWeatherPageDefaultApiEn extends TranslationsApiWeatherPageDefaultApiRu {
+class TranslationsApiWeatherPageDefaultApiEn
+    extends TranslationsApiWeatherPageDefaultApiRu {
   TranslationsApiWeatherPageDefaultApiEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1182,16 +1288,21 @@ class TranslationsApiWeatherPageDefaultApiEn extends TranslationsApiWeatherPageD
   @override
   String get usingApi => 'Developer key is used';
   @override
-  String get numbOfCalls => 'The number of calls is limited by the developer\'s tariff';
+  String get numbOfCalls =>
+      'The number of calls is limited by the developer\'s tariff';
   @override
   String get fieldTip => 'Enter Api...';
   @override
-  String countCalls({required Object currentInSeconds, required Object onecallInHours}) =>
+  String countCalls({
+    required Object currentInSeconds,
+    required Object onecallInHours,
+  }) =>
       'Number of requests:\n${_root.enums.homepage.today} – once every ${currentInSeconds} seconds\n${_root.enums.homepage.hourly}, ${_root.enums.homepage.daily} – once every ${onecallInHours} hours';
 }
 
 // Path: apiWeatherPage.userApi
-class TranslationsApiWeatherPageUserApiEn extends TranslationsApiWeatherPageUserApiRu {
+class TranslationsApiWeatherPageUserApiEn
+    extends TranslationsApiWeatherPageUserApiRu {
   TranslationsApiWeatherPageUserApiEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1202,7 +1313,8 @@ class TranslationsApiWeatherPageUserApiEn extends TranslationsApiWeatherPageUser
   @override
   String get usingApi => 'Your key is used';
   @override
-  String get numbOfCalls => 'The number of calls is limited to your WeatherOpenApi rate.';
+  String get numbOfCalls =>
+      'The number of calls is limited to your WeatherOpenApi rate.';
   @override
   String get fieldTip => 'Used...';
   @override
@@ -1210,7 +1322,8 @@ class TranslationsApiWeatherPageUserApiEn extends TranslationsApiWeatherPageUser
 }
 
 // Path: apiWeatherPage.tooltips
-class TranslationsApiWeatherPageTooltipsEn extends TranslationsApiWeatherPageTooltipsRu {
+class TranslationsApiWeatherPageTooltipsEn
+    extends TranslationsApiWeatherPageTooltipsRu {
   TranslationsApiWeatherPageTooltipsEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1232,7 +1345,9 @@ class TranslationsApiWeatherPageTooltipsEn extends TranslationsApiWeatherPageToo
 
 // Path: global.time
 class TranslationsGlobalTimeEn extends TranslationsGlobalTimeRu {
-  TranslationsGlobalTimeEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsGlobalTimeEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -1248,7 +1363,8 @@ class TranslationsGlobalTimeEn extends TranslationsGlobalTimeRu {
   @override
   String get dayAfterTomorrow => 'The day after tomorrow';
   @override
-  String hm({required Object hour, required Object minute}) => '${hour} h ${minute} min';
+  String hm({required Object hour, required Object minute}) =>
+      '${hour} h ${minute} min';
   @override
   String m({required Object minute}) => '${minute} min';
   @override
@@ -1267,19 +1383,24 @@ class TranslationsGlobalTimeEn extends TranslationsGlobalTimeRu {
   String fromToWithNbsp({required Object timeStart, required Object timeEnd}) =>
       'from ${timeStart} to ${timeEnd}';
   @override
-  String fromToWithNbspNewline({required Object timeStart, required Object timeEnd}) =>
-      'from ${timeStart} \nto ${timeEnd}';
+  String fromToWithNbspNewline({
+    required Object timeStart,
+    required Object timeEnd,
+  }) => 'from ${timeStart} \nto ${timeEnd}';
 }
 
 // Path: dialogs.messages
 class TranslationsDialogsMessagesEn extends TranslationsDialogsMessagesRu {
-  TranslationsDialogsMessagesEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsDialogsMessagesEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
   // Translations
   @override
-  String get socketException => 'No internet connection or weather service not available';
+  String get socketException =>
+      'No internet connection or weather service not available';
   @override
   String get apiKeyWeatherSetTrue => 'Api weather key installed!';
   @override
@@ -1294,7 +1415,9 @@ class TranslationsDialogsMessagesEn extends TranslationsDialogsMessagesRu {
 
 // Path: dialogs.titles
 class TranslationsDialogsTitlesEn extends TranslationsDialogsTitlesRu {
-  TranslationsDialogsTitlesEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsDialogsTitlesEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -1307,7 +1430,9 @@ class TranslationsDialogsTitlesEn extends TranslationsDialogsTitlesRu {
 
 // Path: dialogs.buttons
 class TranslationsDialogsButtonsEn extends TranslationsDialogsButtonsRu {
-  TranslationsDialogsButtonsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsDialogsButtonsEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -1327,7 +1452,8 @@ class TranslationsDialogsButtonsEn extends TranslationsDialogsButtonsRu {
 }
 
 // Path: dialogs.placeSearchInfo
-class TranslationsDialogsPlaceSearchInfoEn extends TranslationsDialogsPlaceSearchInfoRu {
+class TranslationsDialogsPlaceSearchInfoEn
+    extends TranslationsDialogsPlaceSearchInfoRu {
   TranslationsDialogsPlaceSearchInfoEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1350,7 +1476,8 @@ class TranslationsDialogsPlaceSearchInfoEn extends TranslationsDialogsPlaceSearc
 }
 
 // Path: dialogs.confirmDelPlace
-class TranslationsDialogsConfirmDelPlaceEn extends TranslationsDialogsConfirmDelPlaceRu {
+class TranslationsDialogsConfirmDelPlaceEn
+    extends TranslationsDialogsConfirmDelPlaceRu {
   TranslationsDialogsConfirmDelPlaceEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1361,22 +1488,27 @@ class TranslationsDialogsConfirmDelPlaceEn extends TranslationsDialogsConfirmDel
   @override
   String get subtitle => 'Delete place?';
   @override
-  String get content => 'The place will be removed from the list of saved places';
+  String get content =>
+      'The place will be removed from the list of saved places';
 }
 
 // Path: dialogs.seeFlag
 class TranslationsDialogsSeeFlagEn extends TranslationsDialogsSeeFlagRu {
-  TranslationsDialogsSeeFlagEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsDialogsSeeFlagEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
   // Translations
   @override
-  String get subtitle => 'You can see the full name of the country and its flag';
+  String get subtitle =>
+      'You can see the full name of the country and its flag';
 }
 
 // Path: dialogs.confirmDelUserApikey
-class TranslationsDialogsConfirmDelUserApikeyEn extends TranslationsDialogsConfirmDelUserApikeyRu {
+class TranslationsDialogsConfirmDelUserApikeyEn
+    extends TranslationsDialogsConfirmDelUserApikeyRu {
   TranslationsDialogsConfirmDelUserApikeyEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1389,7 +1521,8 @@ class TranslationsDialogsConfirmDelUserApikeyEn extends TranslationsDialogsConfi
 }
 
 // Path: dialogs.confirmSaveChanges
-class TranslationsDialogsConfirmSaveChangesEn extends TranslationsDialogsConfirmSaveChangesRu {
+class TranslationsDialogsConfirmSaveChangesEn
+    extends TranslationsDialogsConfirmSaveChangesRu {
   TranslationsDialogsConfirmSaveChangesEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1402,7 +1535,8 @@ class TranslationsDialogsConfirmSaveChangesEn extends TranslationsDialogsConfirm
 }
 
 // Path: dialogs.confirmResetSettings
-class TranslationsDialogsConfirmResetSettingsEn extends TranslationsDialogsConfirmResetSettingsRu {
+class TranslationsDialogsConfirmResetSettingsEn
+    extends TranslationsDialogsConfirmResetSettingsRu {
   TranslationsDialogsConfirmResetSettingsEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1418,7 +1552,9 @@ class TranslationsDialogsConfirmResetSettingsEn extends TranslationsDialogsConfi
 
 // Path: dialogs.makeNote
 class TranslationsDialogsMakeNoteEn extends TranslationsDialogsMakeNoteRu {
-  TranslationsDialogsMakeNoteEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsDialogsMakeNoteEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -1431,7 +1567,9 @@ class TranslationsDialogsMakeNoteEn extends TranslationsDialogsMakeNoteRu {
 
 // Path: enums.homepage
 class TranslationsEnumsHomepageEn extends TranslationsEnumsHomepageRu {
-  TranslationsEnumsHomepageEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsEnumsHomepageEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -1448,41 +1586,53 @@ class TranslationsEnumsHomepageEn extends TranslationsEnumsHomepageRu {
 
 // Path: units.temp
 class TranslationsUnitsTempEn extends TranslationsUnitsTempRu {
-  TranslationsUnitsTempEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsUnitsTempEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
   // Translations
   @override
-  late final TranslationsUnitsTempFullNameEn fullName = TranslationsUnitsTempFullNameEn._(_root);
+  late final TranslationsUnitsTempFullNameEn fullName =
+      TranslationsUnitsTempFullNameEn._(_root);
 }
 
 // Path: units.speed
 class TranslationsUnitsSpeedEn extends TranslationsUnitsSpeedRu {
-  TranslationsUnitsSpeedEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsUnitsSpeedEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
   // Translations
   @override
-  late final TranslationsUnitsSpeedAbbrEn abbr = TranslationsUnitsSpeedAbbrEn._(_root);
+  late final TranslationsUnitsSpeedAbbrEn abbr = TranslationsUnitsSpeedAbbrEn._(
+    _root,
+  );
 }
 
 // Path: units.pressure
 class TranslationsUnitsPressureEn extends TranslationsUnitsPressureRu {
-  TranslationsUnitsPressureEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsUnitsPressureEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
   // Translations
   @override
-  late final TranslationsUnitsPressureAbbrEn abbr = TranslationsUnitsPressureAbbrEn._(_root);
+  late final TranslationsUnitsPressureAbbrEn abbr =
+      TranslationsUnitsPressureAbbrEn._(_root);
   @override
-  late final TranslationsUnitsPressureNameEn name = TranslationsUnitsPressureNameEn._(_root);
+  late final TranslationsUnitsPressureNameEn name =
+      TranslationsUnitsPressureNameEn._(_root);
 }
 
 // Path: units.sideOfTheWorld
-class TranslationsUnitsSideOfTheWorldEn extends TranslationsUnitsSideOfTheWorldRu {
+class TranslationsUnitsSideOfTheWorldEn
+    extends TranslationsUnitsSideOfTheWorldRu {
   TranslationsUnitsSideOfTheWorldEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1491,16 +1641,14 @@ class TranslationsUnitsSideOfTheWorldEn extends TranslationsUnitsSideOfTheWorldR
 
   // Translations
   @override
-  late final TranslationsUnitsSideOfTheWorldAbbrEn abbr = TranslationsUnitsSideOfTheWorldAbbrEn._(
-    _root,
-  );
+  late final TranslationsUnitsSideOfTheWorldAbbrEn abbr =
+      TranslationsUnitsSideOfTheWorldAbbrEn._(_root);
   @override
   late final TranslationsUnitsSideOfTheWorldNameAdjEn nameAdj =
       TranslationsUnitsSideOfTheWorldNameAdjEn._(_root);
   @override
-  late final TranslationsUnitsSideOfTheWorldNameEn name = TranslationsUnitsSideOfTheWorldNameEn._(
-    _root,
-  );
+  late final TranslationsUnitsSideOfTheWorldNameEn name =
+      TranslationsUnitsSideOfTheWorldNameEn._(_root);
 }
 
 // Path: mainPageDRuble.mainPage.bottomBar
@@ -1543,7 +1691,8 @@ class TranslationsMainPageDRubleHourlyPageForecastEn
 }
 
 // Path: mainPageDRuble.hourlyPage.pop
-class TranslationsMainPageDRubleHourlyPagePopEn extends TranslationsMainPageDRubleHourlyPagePopRu {
+class TranslationsMainPageDRubleHourlyPagePopEn
+    extends TranslationsMainPageDRubleHourlyPagePopRu {
   TranslationsMainPageDRubleHourlyPagePopEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1638,7 +1787,9 @@ class TranslationsMainPageDRubleCurrentPageHeadersEn
 
 // Path: units.temp.fullName
 class TranslationsUnitsTempFullNameEn extends TranslationsUnitsTempFullNameRu {
-  TranslationsUnitsTempFullNameEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsUnitsTempFullNameEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -1653,7 +1804,9 @@ class TranslationsUnitsTempFullNameEn extends TranslationsUnitsTempFullNameRu {
 
 // Path: units.speed.abbr
 class TranslationsUnitsSpeedAbbrEn extends TranslationsUnitsSpeedAbbrRu {
-  TranslationsUnitsSpeedAbbrEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsUnitsSpeedAbbrEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -1668,7 +1821,9 @@ class TranslationsUnitsSpeedAbbrEn extends TranslationsUnitsSpeedAbbrRu {
 
 // Path: units.pressure.abbr
 class TranslationsUnitsPressureAbbrEn extends TranslationsUnitsPressureAbbrRu {
-  TranslationsUnitsPressureAbbrEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsUnitsPressureAbbrEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -1689,7 +1844,9 @@ class TranslationsUnitsPressureAbbrEn extends TranslationsUnitsPressureAbbrRu {
 
 // Path: units.pressure.name
 class TranslationsUnitsPressureNameEn extends TranslationsUnitsPressureNameRu {
-  TranslationsUnitsPressureNameEn._(TranslationsEn root) : this._root = root, super.internal(root);
+  TranslationsUnitsPressureNameEn._(TranslationsEn root)
+    : this._root = root,
+      super.internal(root);
 
   final TranslationsEn _root; // ignore: unused_field
 
@@ -1709,7 +1866,8 @@ class TranslationsUnitsPressureNameEn extends TranslationsUnitsPressureNameRu {
 }
 
 // Path: units.sideOfTheWorld.abbr
-class TranslationsUnitsSideOfTheWorldAbbrEn extends TranslationsUnitsSideOfTheWorldAbbrRu {
+class TranslationsUnitsSideOfTheWorldAbbrEn
+    extends TranslationsUnitsSideOfTheWorldAbbrRu {
   TranslationsUnitsSideOfTheWorldAbbrEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1736,7 +1894,8 @@ class TranslationsUnitsSideOfTheWorldAbbrEn extends TranslationsUnitsSideOfTheWo
 }
 
 // Path: units.sideOfTheWorld.nameAdj
-class TranslationsUnitsSideOfTheWorldNameAdjEn extends TranslationsUnitsSideOfTheWorldNameAdjRu {
+class TranslationsUnitsSideOfTheWorldNameAdjEn
+    extends TranslationsUnitsSideOfTheWorldNameAdjRu {
   TranslationsUnitsSideOfTheWorldNameAdjEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
@@ -1763,7 +1922,8 @@ class TranslationsUnitsSideOfTheWorldNameAdjEn extends TranslationsUnitsSideOfTh
 }
 
 // Path: units.sideOfTheWorld.name
-class TranslationsUnitsSideOfTheWorldNameEn extends TranslationsUnitsSideOfTheWorldNameRu {
+class TranslationsUnitsSideOfTheWorldNameEn
+    extends TranslationsUnitsSideOfTheWorldNameRu {
   TranslationsUnitsSideOfTheWorldNameEn._(TranslationsEn root)
     : this._root = root,
       super.internal(root);
