@@ -57,12 +57,12 @@ dependencies:
     sdk: flutter
 
   # Network
-  http: ^1.5.0
+  http: ^1.6.0
 
   # Utility
   loggy: ^2.0.3
   url_launcher: ^6.3.2
-  package_info_plus: ^8.3.1
+  package_info_plus: ^9.0.0
 
   flutter_markdown: ^0.7.7+1
 
