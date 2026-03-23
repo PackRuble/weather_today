@@ -45,12 +45,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# environment variables
-.env
+# private
 /tool/build_with_secret.md
-
-# fvm
-.fvm/flutter_sdk
 
 # helpful generated files for translation
 /assets/i18n/_missing_translations.json

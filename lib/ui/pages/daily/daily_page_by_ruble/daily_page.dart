@@ -66,11 +66,11 @@ class _AlertsListWidget extends ConsumerWidget {
               return const SizedBox.shrink();
             }
 
-            alerts = MetricsHelper.getCorrectAlert(alerts!);
+            final fixedAlerts = MetricsHelper.getCorrectAlert(alerts!);
 
             return Column(
               children: [
-                for (final alert in alerts) ...[_AlertTileWidget(alert), _divider],
+                for (final alert in fixedAlerts) ...[_AlertTileWidget(alert), _divider],
               ],
             );
           },

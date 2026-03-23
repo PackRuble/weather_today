@@ -7,16 +7,14 @@ version: 3.6.0+26
 environment:
   sdk: ^3.9.0
 
-dependency_overrides:
-  freezed_annotation: ^3.1.0 # weather_animation
-  shared_preferences_windows: ^2.4.1 # ошибки пакета при кастировании списка
-
 dependencies:
   flutter:
     sdk: flutter
 
+  collection: ^1.19.1
+
   # service weather
-  weather_pack: ^1.2.0
+  weather_pack: 1.2.0
 
   # Widgets
   # todo: use default
@@ -26,8 +24,8 @@ dependencies:
   country_icons: ^3.0.0
   # coldfix: refuse in favor of Snack
   fluttertoast: ^9.0.0
-  fl_chart: ^1.1.1
-  weather_animation: ^1.1.2
+  fl_chart: ^1.2.0
+  weather_animation: ^1.2.0
   sliver_tools: ^0.2.12
 
   # Theme
@@ -35,7 +33,7 @@ dependencies:
   flex_color_picker: ^3.8.0
 
   # Models and annotation
-  json_annotation: ^4.9.0
+  json_annotation: ^4.11.0
   freezed_annotation: ^3.1.0
 
   # Routing
@@ -51,8 +49,8 @@ dependencies:
 
   # Localization
   intl: any
-  slang: ^4.11.1
-  slang_flutter: ^4.11.0
+  slang: ^4.14.0
+  slang_flutter: ^4.14.0
   flutter_localizations:
     sdk: flutter
 
@@ -70,15 +68,16 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  json_serializable: ^6.11.2
-  auto_route_generator: ^10.4.0
-  build_runner: ^2.10.4
-  icons_launcher: ^3.0.3
-  freezed: ^3.2.3 # weather_animation
+  json_serializable: ^6.13.1
+  auto_route_generator: ^10.5.0
+  build_runner: ^2.13.1
+  icons_launcher: ^3.1.0
+  freezed: ^3.2.5 # weather_animation
 
   # linters
 #  custom_lint: ^0.7.6 // todo(29.12.2025, @packdev): riverpod3
 #  riverpod_lint: ^3.1.0 // todo(29.12.2025, @packdev): riverpod3
+  # todo(23.03.2026, @PackRuble): use custom linter
   lint: ^2.8.0
 
 flutter:

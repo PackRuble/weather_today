@@ -24,7 +24,8 @@ mixin _$ForecastOpenMeteoResponse {
 /// To return data for multiple locations the JSON output changes to a list
 /// of structures.
 @JsonKey(name: 'longitude') double get longitude;/// Data generation time, ms
-@JsonKey(name: 'generationtime_ms') double get genTimeMs;@JsonKey(name: 'utc_offset_seconds') int get utcOffsetSeconds;/// If timezone is set, all timestamps are returned as local-time and data
+@JsonKey(name: 'generationtime_ms') double get genTimeMs;/// Applied timezone offset from the &timezone= parameter, seconds
+@JsonKey(name: 'utc_offset_seconds') int get utcOffsetSeconds;/// If timezone is set, all timestamps are returned as local-time and data
 /// is returned starting at 00:00 local-time. Any time zone name from the
 /// time zone database is supported. If auto is set as a time zone, the
 /// coordinates will be automatically resolved to the local time zone.
@@ -269,6 +270,7 @@ class _ForecastOpenMeteoResponse extends ForecastOpenMeteoResponse {
 @override@JsonKey(name: 'longitude') final  double longitude;
 /// Data generation time, ms
 @override@JsonKey(name: 'generationtime_ms') final  double genTimeMs;
+/// Applied timezone offset from the &timezone= parameter, seconds
 @override@JsonKey(name: 'utc_offset_seconds') final  int utcOffsetSeconds;
 /// If timezone is set, all timestamps are returned as local-time and data
 /// is returned starting at 00:00 local-time. Any time zone name from the

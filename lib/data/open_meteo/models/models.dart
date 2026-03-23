@@ -26,6 +26,8 @@ abstract class ForecastOpenMeteoResponse with _$ForecastOpenMeteoResponse {
 
     /// Data generation time, ms
     @JsonKey(name: 'generationtime_ms') required double genTimeMs,
+
+    /// Applied timezone offset from the &timezone= parameter, seconds
     @JsonKey(name: 'utc_offset_seconds') required int utcOffsetSeconds,
 
     /// If timezone is set, all timestamps are returned as local-time and data

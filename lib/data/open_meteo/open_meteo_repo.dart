@@ -40,7 +40,6 @@ class OpenMeteoRepo {
         'temperature_unit': 'celsius', // celsius | fahrenheit
         'wind_speed_unit': 'ms', // kmh | ms | mph | kn
         'precipitation_unit': 'mm', // mm | inch
-        // todo(03.08.2024):
         'timezone': 'auto', // GMT | auto
         'current': currentParams.map((e) => e.name).join(','),
         if (hourlyParams != null) 'hourly': hourlyParams.map((e) => e.name).join(','),

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_today/domain/services/cardoteka/settings_storage.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 import 'package:weather_today/utils/logger/loggy_printer.dart';
