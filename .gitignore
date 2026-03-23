@@ -5,34 +5,33 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
+migrate_working_dir/
 
 # IntelliJ related
 *.iml
 *.ipr
 *.iws
 .idea/
-.vscode/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
 
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
-.flutter-plugins
 .flutter-plugins-dependencies
-.packages
 .pub-cache/
 .pub/
 /build/
-
-# Web related
-lib/generated_plugin_registrant.dart
-
-# generated_plugins
-**/GeneratedPluginRegistrant.swift
-**/generated_plugin**.**
+/coverage/
 
 # Symbolication related
 app.*.symbols
@@ -47,8 +46,7 @@ app.*.map.json
 
 # private
 /tool/build_with_secret.md
-
-# helpful generated files for translation
 /assets/i18n/_missing_translations.json
 /assets/i18n/_unused_translations.json
 /archives/
+*enerated*lugin*

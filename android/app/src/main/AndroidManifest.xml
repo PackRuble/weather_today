@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:label="@string/app_name"
+        android:label="weather_today"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -44,20 +44,9 @@
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
-        <!-- If your app opens https URLs -->
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="https" />
         </intent>
-        <!-- If your app makes calls -->
-        <!--        <intent>-->
-        <!--            <action android:name="android.intent.action.DIAL" />-->
-        <!--            <data android:scheme="tel" />-->
-        <!--        </intent>-->
-        <!-- If your app emails -->
-        <!--        <intent>-->
-        <!--            <action android:name="android.intent.action.SEND" />-->
-        <!--            <data android:mimeType="*/*" />-->
-        <!--        </intent>-->
     </queries>
 </manifest>
