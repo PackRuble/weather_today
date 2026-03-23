@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:weather_pack/weather_pack.dart';
 import 'package:weather_today/data/open_meteo/models/enums.dart';
 import 'package:weather_today/data/open_meteo/models/models.dart';
@@ -23,19 +24,25 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
       dailyWeather: dailyOM,
     ) = this;
 
+    final currentDayFromDaily = dailyWeather.firstWhereOrNull(
+      (d) =>
+          d.time.day == currentOM.time.day &&
+          d.time.month == currentOM.time.month &&
+          d.time.year == currentOM.time.year,
+    );
+
     final oneCall = WeatherOneCall(
       {}, // корректно, поскольку мы только преобразуем в WeatherOneCall, но не сохраняем
       latitude: latitude,
       longitude: longitude,
       timezone: timezone,
-      // fixdep(03.08.2024): [Fix `WeatherOneCall.timezoneOffset` should has type `Duration` · Issue #19 · PackRuble/weather_pack](https://github.com/PackRuble/weather_pack/issues/19)
-      timezoneOffset: null,
+      timezoneOffset: Duration(seconds: utcOffsetSeconds),
       current: current
           ? WeatherCurrent(
               {}, // корректно, упоминание выше
               date: currentOM.time,
-              sunrise: null,
-              sunset: null,
+              sunrise: currentDayFromDaily?.sunrise,
+              sunset: currentDayFromDaily?.sunset,
               temp: tempCtoK(currentOM.temp2m),
               tempFeelsLike: tempCtoK(currentOM.apparentTemp),
               visibility: null,
@@ -46,11 +53,17 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
               windDegree: currentOM.windDirection10m.toDouble(),
               windGust: currentOM.windGusts10m,
               cloudiness: currentOM.cloudCover.toDouble(),
-              uvi: null,
+              uvi: currentDayFromDaily?.uviMax,
               weatherMain: null,
               weatherDescription: null,
               weatherIcon: convertOwmWeatherCode(currentOM.weatherCode).iconPath(currentOM.isDay),
               weatherConditionCode: currentOM.weatherCode.code,
+              timezoneOffset: Duration(seconds: utcOffsetSeconds),
+              tempMin: currentDayFromDaily?.temp2mMin,
+              tempMax: currentDayFromDaily?.temp2mMax,
+              pressureSurface: null,
+              rain: currentOM.rain != 0.0 ? currentOM.rain : currentOM.showers,
+              snow: currentOM.snowfall,
             )
           : null,
       minutely: null, // не используем в интерфейсе
@@ -95,12 +108,12 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
                   tempEvening: null,
                   tempFeelsLikeEvening: null,
                   tempFeelsLikeMorning: null,
+                  tempFeelsLikeDay: null,
                   tempFeelsLikeNight: null,
                   tempMorning: null,
                   tempNight: null,
                   tempMin: tempCtoK(daily.temp2mMin),
                   tempMax: tempCtoK(daily.temp2mMax),
-                  tempFeelsLikeDay: null,
                   pressure: null,
                   humidity: null,
                   dewPoint: null,
