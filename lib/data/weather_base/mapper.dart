@@ -47,6 +47,7 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
               tempFeelsLike: tempCtoK(currentOM.apparentTemp),
               visibility: null,
               pressure: currentOM.pressureMsl,
+              pressureSurface: null,
               humidity: currentOM.relativeHumidity2m.toDouble(),
               dewPoint: null,
               windSpeed: currentOM.windSpeed10m,
@@ -59,9 +60,12 @@ extension ForecastOpenMeteoResponseX on ForecastOpenMeteoResponse {
               weatherIcon: convertOwmWeatherCode(currentOM.weatherCode).iconPath(currentOM.isDay),
               weatherConditionCode: currentOM.weatherCode.code,
               timezoneOffset: Duration(seconds: utcOffsetSeconds),
-              tempMin: currentDayFromDaily?.temp2mMin,
-              tempMax: currentDayFromDaily?.temp2mMax,
-              pressureSurface: null,
+              tempMin: currentDayFromDaily?.temp2mMin != null
+                  ? tempCtoK(currentDayFromDaily!.temp2mMin)
+                  : null,
+              tempMax: currentDayFromDaily?.temp2mMax != null
+                  ? tempCtoK(currentDayFromDaily!.temp2mMax)
+                  : null,
               rain: currentOM.rain != 0.0 ? currentOM.rain : currentOM.showers,
               snow: currentOM.snowfall,
             )

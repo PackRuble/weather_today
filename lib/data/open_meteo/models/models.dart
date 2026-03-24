@@ -102,6 +102,8 @@ abstract class CurrentWeatherOpenMeteo with _$CurrentWeatherOpenMeteo {
     @JsonKey(name: 'showers') required double showers,
     @JsonKey(name: 'snowfall') required double snowfall,
     @JsonKey(name: 'cloud_cover') required int cloudCover,
+
+    /// Atmospheric air pressure reduced to mean sea level (msl), hPa
     @JsonKey(name: 'pressure_msl') required double pressureMsl,
     @JsonKey(name: 'wind_speed_10m') required double windSpeed10m,
     @JsonKey(name: 'wind_direction_10m') required int windDirection10m,
@@ -166,10 +168,7 @@ abstract class HourlyWeatherOpenMeteo with _$HourlyWeatherOpenMeteo {
     /// Cloudiness, 0-100 %
     @JsonKey(name: 'cloud_cover') required int cloudCover,
 
-    /// Atmospheric air pressure reduced to mean sea level (msl) or pressure
-    /// at surface, hPa
-    ///
-    /// Typically pressure on mean sea level is used in meteorology.
+    /// Atmospheric air pressure reduced to mean sea level (msl), hPa
     @JsonKey(name: 'pressure_msl') required double pressureMsl,
 
     /// Viewing distance in meters (m). Influenced by low clouds, humidity and aerosols.
