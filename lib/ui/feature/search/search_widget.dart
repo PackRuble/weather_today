@@ -40,7 +40,6 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
     final isLight = colors.isLight;
 
     return FloatingSearchBar(
-      implicitDuration: Duration.zero,
       accentColor: colors.accentColorSearchbar,
       backgroundColor: colors.backgroundColorSearchbar,
       shadowColor: colors.shadowColorSearchbar,
@@ -51,7 +50,8 @@ class SearchWidget extends ConsumerWidget with UiLoggy {
       borderRadius: const BorderRadius.all(Radius.circular(AppInsets.cornerRadiusCard)),
       border: BorderSide(color: colors.borderColorSearchbar),
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-      transitionDuration: const Duration(milliseconds: 800),
+      transitionDuration: Durations.medium2,
+      implicitDuration: Durations.medium2,
       transitionCurve: Curves.easeInOut,
       axisAlignment: 0.0,
       openAxisAlignment: 0.0,
