@@ -13,9 +13,14 @@ import 'package:weather_today/ui/pages/settings/visual_design/visual_design_page
 import 'dialogs_widget.dart';
 
 class BottomBarWidget extends ConsumerWidget {
-  const BottomBarWidget({super.key, this.mockTap});
+  const BottomBarWidget({
+    super.key,
+    this.mockTap,
+    this.enableLongPress = true,
+  });
 
   final void Function(DesignPage page)? mockTap;
+  final bool enableLongPress;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -42,7 +47,7 @@ class BottomBarWidget extends ConsumerWidget {
             onTap: () => mockTap != null
                 ? mockTap!.call(designPage)
                 : homePageCR.setIndexPageWhenClick(index + 1),
-            onLongPress: designPage.page != WeatherPage.daily
+            onLongPress: enableLongPress && designPage.page != WeatherPage.daily
                 ? () async {
                     final result = await showChoosingDesign(
                       context,

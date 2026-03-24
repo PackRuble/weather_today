@@ -223,6 +223,7 @@ class _BottomBarTip extends StatelessWidget {
         ),
       ),
       child: BottomBarWidget(
+        enableLongPress: false,
         mockTap: (designPage) {
           final DesignPage(:page, :design) = designPage;
 
