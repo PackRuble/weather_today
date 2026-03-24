@@ -1,5 +1,3 @@
-import 'dart:ui' show ImageFilter;
-
 import 'package:flutter/material.dart';
 import 'package:weather_today/utils/logger/all_observers.dart';
 
@@ -44,9 +42,38 @@ class WeatherImageIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        ImageFiltered(
+          imageFilter: .blur(sigmaX: 6.0, sigmaY: 6.0),
+          child: Transform.scale(
+            filterQuality: FilterQuality.low,
+            origin: const Offset(-48, -48),
+            scale: 1.05,
+            child: ImageIcon(isBackground: true, weatherIcon: weatherIcon),
+          ),
+        ),
+        ImageIcon(isBackground: false, weatherIcon: weatherIcon),
+      ],
+    );
+  }
+}
+
+class ImageIcon extends StatelessWidget {
+  const ImageIcon({
+    super.key,
+    required this.isBackground,
+    required this.weatherIcon,
+  });
+
+  final bool isBackground;
+  final String? weatherIcon;
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    Widget getImage(bool isBackground) => Image.asset(
+    return Image.asset(
       'assets/weather_icons/$weatherIcon.png',
       // ImagePathWeather.getPathWeatherIcon('weatherIcon' ?? ''),
       // package: ImagePathWeather.packageName,
@@ -56,33 +83,12 @@ class WeatherImageIcon extends StatelessWidget {
         // bug: await fix https://github.com/flutter/flutter/issues/107416
         logWarning('$e: *$weatherIcon* not found assets weatherIcon');
 
-        // coldfix: осталась полоска сверху на главной странице
         return Transform.scale(
           filterQuality: FilterQuality.low,
           scale: 0.5,
           child: Image.asset(filterQuality: FilterQuality.high, 'assets/images/rainbow.png'),
         );
       },
-    );
-
-    return Stack(
-      children: [
-        Opacity(
-          opacity: 0.6,
-          child: Transform.scale(
-            filterQuality: FilterQuality.low,
-            origin: const Offset(-48, -48),
-            scale: 1.1,
-            child: getImage(true),
-          ),
-        ),
-        ClipRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
-            child: getImage(false),
-          ),
-        ),
-      ],
     );
   }
 }
