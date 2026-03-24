@@ -5,6 +5,7 @@ import 'dart:collection';
 import 'package:auto_route/annotations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:weather_pack/weather_pack.dart';
@@ -205,7 +206,7 @@ class _DesignPagesNew extends HookConsumerWidget {
   }
 }
 
-class _BottomBarTip extends StatelessWidget {
+class _BottomBarTip extends HookWidget {
   const _BottomBarTip({super.key});
 
   @override
@@ -213,52 +214,61 @@ class _BottomBarTip extends StatelessWidget {
     final overlay = Overlay.of(context);
     final theme = Theme.of(context);
 
-    return DecoratedBox(
-      decoration: ShapeDecoration(
-        color: AppColors.of(context).tipBackgroundColor,
-        shape: LinearBorder(
-          top: const LinearBorderEdge(),
-          bottom: const LinearBorderEdge(),
-          side: BorderSide(color: AppColors.of(context).tipBorderColor),
+    OverlayEntry? weatherOverlayEntry = useRef(null).value;
+
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        weatherOverlayEntry?.remove();
+        weatherOverlayEntry = null;
+      },
+      child: DecoratedBox(
+        decoration: ShapeDecoration(
+          color: AppColors.of(context).tipBackgroundColor,
+          shape: LinearBorder(
+            top: const LinearBorderEdge(),
+            bottom: const LinearBorderEdge(),
+            side: BorderSide(color: AppColors.of(context).tipBorderColor),
+          ),
         ),
-      ),
-      child: BottomBarWidget(
-        enableLongPress: false,
-        mockTap: (designPage) {
-          final DesignPage(:page, :design) = designPage;
+        child: BottomBarWidget(
+          enableLongPress: false,
+          mockTap: (designPage) {
+            final DesignPage(:page, :design) = designPage;
 
-          late OverlayEntry weatherOverlayEntry;
-
-          weatherOverlayEntry = OverlayEntry(
-            builder: (context) => GestureDetector(
-              onTap: weatherOverlayEntry.remove,
-              child: SafeArea(
-                child: ColoredBox(
-                  color: Colors.black54,
-                  child: Card(
-                    elevation: 8.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16.0),
-                      side: BorderSide(color: theme.primaryColor),
-                    ),
-                    margin: const EdgeInsets.all(16.0),
-                    child: WrapperPage(
-                      child: IgnorePointer(
-                        child: switch (page) {
-                          WeatherPage.hourly => HourlyWeatherPage(design: design),
-                          WeatherPage.currently => CurrentWeatherPage(design: design),
-                          WeatherPage.daily => DailyWeatherPage(design: design),
-                        },
+            weatherOverlayEntry = OverlayEntry(
+              builder: (context) => GestureDetector(
+                onTap: () {
+                  weatherOverlayEntry?.remove();
+                  weatherOverlayEntry = null;
+                },
+                child: SafeArea(
+                  child: ColoredBox(
+                    color: Colors.black54,
+                    child: Card(
+                      elevation: 8.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        side: BorderSide(color: theme.primaryColor),
+                      ),
+                      margin: const EdgeInsets.all(16.0),
+                      child: WrapperPage(
+                        child: IgnorePointer(
+                          child: switch (page) {
+                            WeatherPage.hourly => HourlyWeatherPage(design: design),
+                            WeatherPage.currently => CurrentWeatherPage(design: design),
+                            WeatherPage.daily => DailyWeatherPage(design: design),
+                          },
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          );
+            );
 
-          overlay.insert(weatherOverlayEntry);
-        },
+            overlay.insert(weatherOverlayEntry!);
+          },
+        ),
       ),
     );
   }
