@@ -54,7 +54,7 @@ class RefreshWrapper<T extends Object> extends ConsumerWidget {
             if (asyncValue.isLoading) const LinearProgressIndicator(),
             if (value != null)
               Flexible(child: child(context, value))
-            else
+            else if (!asyncValue.isLoading)
               Flexible(
                 child: CustomListView(
                   scrollPhysics: scrollPhysics,
