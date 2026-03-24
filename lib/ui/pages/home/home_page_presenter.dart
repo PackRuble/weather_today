@@ -36,11 +36,15 @@ class HomePageController {
   static const Duration _durationSlide = Duration(milliseconds: 350);
 
   /// Controller [PageView].
-  static final pageController = ChangeNotifierProvider<PageController>((ref) {
+  static final pageController = Provider<PageController>((ref) {
     // Считываем при запуске, в отслеживании нет нужды.
     final int index = ref.read(AppGeneralSettings.startPageIndex).index;
 
-    return PageController(initialPage: index);
+    final controller = PageController(initialPage: index);
+
+    ref.onDispose(controller.dispose);
+
+    return controller;
   });
 
   /// Текущая открытая страница.
@@ -51,12 +55,18 @@ class HomePageController {
   /// * 2 - страница текущей погоды;
   /// * 3 - страница прогнозов погоды на ближайшие дни (на 7 дней);
   static final currentIndex = Provider<int>((ref) {
-    final index = ref.watch(
-      pageController.select((controller) => controller.page?.round() ?? controller.initialPage),
-    );
+    final controller = ref.watch(pageController);
+
+    int getIndex() =>
+        controller.hasClients ? (controller.page?.round() ?? controller.initialPage) : 0;
+    final index = getIndex();
 
     // ignore: deprecated_member_use
     ref.listenSelf((previous, next) => _notifyObservers(previous ?? index, next));
+
+    void listener() => ref.state = getIndex();
+    controller.addListener(listener);
+    ref.onDispose(listener);
 
     return index;
   }, name: '$HomePageController/currentIndex');
@@ -77,6 +87,8 @@ class HomePageController {
   /// Внутри [getRoute] создается [TabPageRoute] с нужными данными, для удовлетворения нужд
   /// логгера.
   static void _notifyObservers(int previousIndex, int nextIndex) {
+    if (previousIndex == nextIndex) return;
+
     TabPageRoute getRoute(int index) {
       return TabPageRoute(
         routeInfo: RouteMatch(

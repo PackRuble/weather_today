@@ -38,6 +38,7 @@ class RefreshWrapper<T extends Object> extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // These lines add 3 rebuilds to this widget (first app run)
     final TextTheme textTheme = Theme.of(context).textTheme;
     final TextStyle? textStyle = textTheme.headlineMedium;
 
@@ -48,36 +49,38 @@ class RefreshWrapper<T extends Object> extends ConsumerWidget {
         skipLoadingOnReload: true,
         // when [Ref.invalidate]/[Ref.refresh]
         skipLoadingOnRefresh: false,
-        data: (T? value) {
-          if (value != null) {
-            return Column(
-              children: [
-                if (asyncValue.isLoading) const LinearProgressIndicator(),
-                Flexible(child: child(context, value)),
-              ],
-            );
-          }
-
-          return CustomListView(
-            scrollPhysics: scrollPhysics,
-            children: [childIsNull ?? Center(child: Text(r'¯\_(ツ)_/¯', style: textStyle))],
-          );
-        },
-        error: (Object e, _) {
-          return CustomListView(
-            scrollPhysics: scrollPhysics,
-            children: [
-              childIsError ??
-                  Center(
-                    child: Text(
-                      '(っ °Д °;)っ \n\n\n $e',
-                      style: textStyle,
-                      textAlign: TextAlign.center,
-                    ),
+        data: (T? value) => Column(
+          children: [
+            if (asyncValue.isLoading) const LinearProgressIndicator(),
+            if (value != null)
+              Flexible(child: child(context, value))
+            else
+              Flexible(
+                child: CustomListView(
+                  scrollPhysics: scrollPhysics,
+                  children: [
+                    childIsNull ??
+                        Center(
+                          child: Text(r'¯\_(ツ)_/¯', style: textStyle),
+                        ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+        error: (Object e, _) => CustomListView(
+          scrollPhysics: scrollPhysics,
+          children: [
+            childIsError ??
+                Center(
+                  child: Text(
+                    '(っ °Д °;)っ \n\n\n $e',
+                    style: textStyle,
+                    textAlign: TextAlign.center,
                   ),
-            ],
-          );
-        },
+                ),
+          ],
+        ),
         loading: () => childIsLoading ?? const Center(child: CircularProgressIndicator()),
       ),
     );
