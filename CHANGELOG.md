@@ -1,5 +1,11 @@
 
-[weather_today/CHANGELOG.md at master · PackRuble/weather_today](https://github.com/PackRuble/weather_today/blob/master/CHANGELOG.md)
+[weather_today/CHANGELOG.md · PackRuble/weather_today](https://github.com/PackRuble/weather_today/blob/master/CHANGELOG.md)
+
+## [3.7.0] - 25-03-2026
+- optimize tab switching on the home screen
+- optimize rendering of weather icons
+- speed up the opening of the search box
+- for OM weather provider add "Sunrise and Sunset" section to "Today" tab
 
 ## [3.6.0] - 23-08-2025
 - first condition of the weather is the state of previously saved data

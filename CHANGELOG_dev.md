@@ -1,6 +1,13 @@
 ☝️ This changelog talks about significant events for developers.
 For the user version, see [CHANGELOG.md](CHANGELOG.md).
 
+## [3.7.0] - 25-03-2026
+- migrate to Cardoteka v2
+- regenerate project with Flutter 3.41.5 (Dart 3.11.3)
+  - migrate to Kotlin DSL
+- updated dependencies to latest versions
+- build with Flutter 3.41.5 (Dart 3.11.3)
+
 ## [3.6.0] - 23-08-2025
 - first condition of the weather is the state of previously saved data #50
 - remove the limits on obtaining weather from the Open Meteo service
